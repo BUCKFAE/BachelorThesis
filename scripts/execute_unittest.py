@@ -8,8 +8,8 @@ def main():
 
     print(f"Executing file \"{file}\"")
 
-    os.system("docker compose build")
-    os.system(f"docker compose run --rm showdown {file}")
+    os.system("docker-compose build")
+    os.system(f"docker-compose run --rm showdown {file}")
 
 if __name__ == "__main__":
     main()
