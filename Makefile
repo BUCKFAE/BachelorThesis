@@ -1,3 +1,3 @@
 test:
-	docker build -t test-image . 
-	docker container run --rm --name test-container test-image
+	docker compose build
+	docker compose run --rm showdown
