@@ -14,4 +14,3 @@ RUN apt-get install -y nodejs
 # Showdown setup
 RUN git clone https://github.com/smogon/pokemon-showdown.git
 RUN cp pokemon-showdown/config/config-example.js pokemon-showdown/config/config.js
-WORKDIR /usr/src/pokemon-showdown
