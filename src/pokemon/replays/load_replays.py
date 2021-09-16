@@ -9,9 +9,9 @@ from progress.bar import IncrementalBar
 import itertools
 
 # TODO: Improve path import
-REPLAY_PATH = "data/"
+REPLAY_PATH = "../Showdown-Replays/"
 
-REPLAY_LOAD_COUNT = 20_000
+REPLAY_LOAD_COUNT = 2_000
 
 
 def main():
@@ -37,6 +37,7 @@ def main():
 
     bar.finish()
 
+    # get_player_ratings(data)
     get_pokemon_usage(data)
 
 def get_pokemon_usage(data, plot_count=5):
@@ -64,6 +65,7 @@ def get_player_ratings(data):
         p1 = input_log[2]
         p2 = input_log[3]
 
+        # TODO: This does not work at the moment
         player_regex = re.compile('>player p(1|2) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\[[0-9]*,[0-9]*,[0-9]*,[0-9]*\]}')
 
         assert player_regex.match(p1)
