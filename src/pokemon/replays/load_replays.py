@@ -9,46 +9,91 @@ from progress.bar import IncrementalBar
 import itertools
 
 # TODO: Improve path import
-REPLAY_PATH = "../Showdown-Replays/"
+REPLAY_PATH = "../Showdown-Replays/anonymized-randbats"
 
 REPLAY_LOAD_COUNT = 2_000
 
 
-def main():
-    data = []
+def load_replays(batch_size = 64):
 
-    replays_loaded = 0
+    batch = []
+    total = 0
 
-    bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
-
-    # TODO: Make this an iterator so this doesn't have to be loaded to ram
     for path, _, files in os.walk(REPLAY_PATH):
         for name in files:
             file_path = os.path.join(path, name)
             assert file_path.endswith(".log.json")
 
             with open(file_path) as replay_file:
-                data.append(json.load(replay_file))
-        
-            bar.next()
+                batch.append(json.load(replay_file))
 
-            replays_loaded += 1
-            if replays_loaded == REPLAY_LOAD_COUNT: break
+            total += 1
+
+            if len(batch) == batch_size or total == REPLAY_LOAD_COUNT:
+                yield batch
+                batch.clear()
+                if total == REPLAY_LOAD_COUNT: break
+
+def main():
+
+    pokemon_usage_count, player_ratings = extract_stats_from_replays(load_replays())
+
+    plot_pokemon_usage(pokemon_usage_count)
+    plot_player_ratings(player_ratings)
+
+def extract_stats_from_replays(data, plot_count=5):
+
+    # Storing how often what pokemon was used
+    pokemon_usage_count = {}
+
+    # Storing rating of all players
+    player_ratings = []
+
+    bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
+
+    for batch in data:
+
+        for replay in batch:
+
+            # Getting team information
+            for team in [replay["p1team"], replay["p2team"]]:
+                for pokemon in team:
+                    name = pokemon["species"]
+                    pokemon_usage_count[name] = pokemon_usage_count.get(name, 0) + 1
+
+            # Getting player information
+            input_log = replay["inputLog"]
+            p1 = input_log[2]
+            p2 = input_log[3]
+
+            # Fixing replay with version-origin
+            if not p1.startswith('>player p1'): 
+                l = [l for l in input_log if l.startswith('>player p1')]
+                assert len(l) == 1
+                p1 = l[0]
+            if not p2.startswith('>player p2'): 
+                l = [l for l in input_log if l.startswith('>player p2')]
+                assert len(l) == 1
+                p2 = l[0]
+
+            player_regex = re.compile('>player p(1|2) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\[[0-9]*,[0-9]*,[0-9]*,[0-9]*\]}')
+
+            assert player_regex.match(p1)
+            assert player_regex.match(p2)
+
+            p1_rating = int(player_regex.search(p1).group(2))
+            p2_rating = int(player_regex.search(p2).group(2))
+
+            player_ratings.append((p1_rating, p2_rating))
+
+            bar.next()
 
     bar.finish()
 
-    # get_player_ratings(data)
-    get_pokemon_usage(data)
+    return pokemon_usage_count, player_ratings
 
-def get_pokemon_usage(data, plot_count=5):
 
-    pokemon_usage_count = {}
-
-    for team in itertools.chain(*[[d["p1team"], d["p2team"]] for d in data]):
-        for pokemon in team:
-            name = pokemon["species"]
-            pokemon_usage_count[name] = pokemon_usage_count.get(name, 0) + 1
-
+def plot_pokemon_usage(pokemon_usage_count, plot_count=5):
     pokemon_usage = [(k, pokemon_usage_count[k]) for k in pokemon_usage_count.keys()]
     pokemon_usage.sort(key=lambda t: t[1], reverse=True)
 
@@ -58,23 +103,7 @@ def get_pokemon_usage(data, plot_count=5):
     plt.title(f"Top {plot_count} used pokemon:\nAverage: {int(average_usage)}")
     plt.show()
 
-def get_player_ratings(data):
-    # Getting the rating of all players
-    player_ratings = []
-    for input_log in [d["inputLog"] for d in data]:
-        p1 = input_log[2]
-        p2 = input_log[3]
-
-        # TODO: This does not work at the moment
-        player_regex = re.compile('>player p(1|2) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\[[0-9]*,[0-9]*,[0-9]*,[0-9]*\]}')
-
-        assert player_regex.match(p1)
-        assert player_regex.match(p2)
-
-        p1_rating = int(player_regex.search(p1).group(2))
-        p2_rating = int(player_regex.search(p2).group(2))
-
-        player_ratings.append((p1_rating, p2_rating))
+def plot_player_ratings(player_ratings):
 
     p1 = Counter([t[0] for t in player_ratings])
     p1_sum = [(k, p1[k]) for k in p1.keys()]
