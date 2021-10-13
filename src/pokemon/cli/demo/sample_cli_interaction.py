@@ -1,38 +1,48 @@
 """Demonstrates how to interact with a CLI Tool"""
 
 import subprocess
-import time
-import os
+
 
 def main():
-
     print("Running test communication program!")
 
     lower = 3
     upper = 10
 
-    command = "python .\\src\\pokemon\\cli\\demo\\sample_cli_tool.py"
+    command = "python ./src/pokemon/cli/demo/sample_cli_tool.py"
 
     print(f"Executing command: \"{command}\"")
 
-    res = subprocess.Popen(command, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
+    cli = subprocess.Popen(command, stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
 
-    cli_output = res.stdout.readline().decode()
-    print(f"{cli_output=}")
+    o1 = get_cli_output(cli, str(lower))
+    print(o1)
 
-    res.stdin.write(f"{lower}\n".encode())
-    res.stdin.write(f"{upper}\n".encode())
-    res.stdin.flush()
-
-    cli_output = "".join([i.decode() for i in res.stdout.readlines()])
-
-    print(cli_output)
+    o2 = get_cli_output(cli, str(upper))
+    print(o2)
 
     print("Done!")
 
 
+def get_cli_output(cli: subprocess.Popen, data: str):
+    print(f"Sending data to cli tool: {data}")
 
+    # Sending Data to tool
+    cli.stdin.write(f"{data}\n".encode())
+    cli.stdin.flush()
 
+    output = []
+
+    # Getting all data until user input is required
+    while cli.poll() is None:
+        res = cli.stdout.readline().decode().strip()
+        print(f"Received message from showdown: \"{res}\"")
+        if not res:
+            print(f"Exiting loop because res is empty")
+            break
+        output.append(res)
+
+    return output
 
 
 if __name__ == "__main__":
