@@ -47,9 +47,10 @@ def main():
 
     # Hitting random
     for _ in range(20):
-        _send_to_showdown(cli, f">p1 move {random.randint(1, 4)}", 0)
+        o1 = _send_to_showdown(cli, f">p1 move {random.randint(1, 4)}", 0)
         battle_result = _send_to_showdown(cli, f">p2 move {random.randint(1, 4)}", 3)
 
+        print(f"{o1=}")
 
         # Printing info starting at the first move
         battle_result_formatted = "\n\t".join(battle_result[10:])
@@ -59,9 +60,13 @@ def main():
         _print_pokemon_info(battle_result[2])
         _print_pokemon_info(battle_result[6])
 
+        # Checking if a pokemon died
+        if any(["|faint|" in a for a in battle_result]):
+            print("A pokemon fainted!")
+
+
         p1 = 1  # Stores ID of active pokemon
         p2 = 1
-
 
 def _send_to_showdown(cli: subprocess.Popen, data: str, expected_sections = 1) -> List[str]:
     # TODO: Write Docstring
@@ -80,15 +85,32 @@ def _send_to_showdown(cli: subprocess.Popen, data: str, expected_sections = 1) -
     # Keeps track how many blank lines we have encountered
     blank_counter = 0
 
+    start_time = time.time()
+
     output = []
     while cli.poll() is None:
+        print(output)
         res = cli.stdout.readline().decode().strip()
         #print(f"Reccieved message from showdown: \"{res}\"")
         if not res:
             blank_counter += 1
             if blank_counter == expected_sections:
+                print(output)
                 break
+
+        print(time.time() - start_time)
+
+        # Stopping if we got no response from showdown after 5 seconds
+        if time.time() - start_time >= 5:
+            print("No response from showdown!")
+            print("Entire Showdown log:")
+            print("\n\t".join(output))
+
+            raise Exception("No response from showdown!")
+
         output.append(res)
+
+    print(output)
 
     return output
 
