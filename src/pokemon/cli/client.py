@@ -1,5 +1,5 @@
 """Interacts with the pokemon showdown cli tool"""
-
+import re
 import subprocess
 import os
 import json
@@ -40,10 +40,8 @@ def main():
 
         output = _send_to_showdown(cli, current_command, blank_line_count)
 
-        print("\t{}".format('\n\t'.join([f"Line: {i} -> {output[i]}" for i in range(len(output))])))
+        print("\t{}".format('\n\t'.join([f"{i} -> {output[i]}" for i in range(len(output))])))
         print("Flushed command!")
-
-    print("\n\nSuccessfully initialized battle, now, fight!\n\n")
 
     # Stores the id of the active pokemon, pokemon indices start at 1
     active_pokemon_p1 = 1
@@ -51,24 +49,30 @@ def main():
 
     # Keeps track what pokemon are still alive
     # TODO: Track other stats (HP / PP / STATUS)
-    alive_pokemon_p1 = _extract_viable_moves(output[2])
-    alive_pokemon_p2 = _extract_viable_moves(output[6])
+    alive_pokemon_p1 = [True] * 6
+    alive_pokemon_p2 = [True] * 6
 
     # Keeps track what moves are still available
     # TODO: Store PP
-    disabled_moves_p1 = [False] * 4
-    disabled_moves_p2 = [False] * 4
+    moves_pp_count_p1 = _extract_viable_moves(output[2])
+    moves_pp_count_p2 = _extract_viable_moves(output[6])
+
+    print("\n\nSuccessfully initialized battle, now, fight!\n\n")
+
+    print(f"PP left P1: {moves_pp_count_p1}")
+    print(f"PP left P2: {moves_pp_count_p2}")
 
     # Hitting random
     while True:
 
-        _extract_viable_moves(battle_result[2])
-        _extract_viable_moves(battle_result[6])
+        # Selecting a random valid move for each player
+        move_p1 = random.choice([i + 1 for i in range(4) if moves_pp_count_p1[i]])
+        move_p2 = random.choice([i + 1 for i in range(4) if moves_pp_count_p2[i]])
 
-        o1 = _send_to_showdown(cli, f">p1 move {random.randint(1, 4)}", 0)
-        battle_result = _send_to_showdown(cli, f">p2 move {random.randint(1, 4)}", 3)
+        o1 = _send_to_showdown(cli, f">p1 move {move_p1}", 0)
+        battle_result = _send_to_showdown(cli, f">p2 move {move_p2}", 3)
 
-        sys.exit(0)
+        print("BattleResult:\n" + "\n\t".join(battle_result))
 
         if o1[0]:
             print(f"{o1=}")
@@ -85,31 +89,56 @@ def main():
             _print_pokemon_info(battle_result[2])
             _print_pokemon_info(battle_result[6])
 
+            p1_switch = False
+            p2_switch = False
+
             # Checking if a pokemon died
             if any(["|faint|" in a for a in battle_result]):
                 print("A pokemon fainted!")
 
                 faint_strings = [a for a in battle_result if "|faint|" in a]
-                p1_fainted = any(["p1" in p for p in faint_strings])
-                p2_fainted = any(["p2" in p for p in faint_strings])
+                p1_switch = any(["p1" in p for p in faint_strings])
+                p2_switch = any(["p2" in p for p in faint_strings])
 
-                if p1_fainted:
-                    print("The pokemon of Player 1 fainted!")
+                if p1_switch:
                     alive_pokemon_p1[active_pokemon_p1 - 1] = False
-                    active_pokemon_p1 = alive_pokemon_p1.index(True) + 1
-                    print(f"New active Pokemon P1: {active_pokemon_p1}")
-                    switch_output = _send_to_showdown(cli, f">p1 switch {active_pokemon_p1}", 3)
-                    print("Output from switching:")
-                    print("\n\t".join(switch_output))
 
-                if p2_fainted:
-                    print("The pokemon of Player 2 fainted!")
+                if p2_switch:
                     alive_pokemon_p2[active_pokemon_p2 - 1] = False
-                    active_pokemon_p2 = alive_pokemon_p2.index(True) + 1
-                    print(f"New active Pokemon P2: {active_pokemon_p2}")
-                    switch_output = _send_to_showdown(cli, f">p2 switch {active_pokemon_p2}", 3)
-                    print("Output from switching:")
-                    print("\n\t".join(switch_output))
+
+            # If a player waits, the other player has to switch his pokemon
+            if any(["forceSwitch\":[true]" in a for a in battle_result]):
+                wait_strings = [a for a in battle_result if "forceSwitch\":[true]" in a]
+                p1_switch = any(["p1" in p for p in wait_strings]) or p1_switch
+                p2_switch = any(["p2" in p for p in wait_strings]) or p2_switch
+
+            if not all(alive_pokemon_p1) or not all(alive_pokemon_p2):
+                print(battle_result)
+
+            # TODO: Program breaks if both players have to switch
+
+            if p1_switch:
+                print("The pokemon of Player 1 fainted!")
+                active_pokemon_p1 = alive_pokemon_p1.index(True) + 1
+                print(f"New active Pokemon P1: {active_pokemon_p1}")
+                switch_output = _send_to_showdown(cli, f">p1 switch {active_pokemon_p1}", 3 if not p2_switch else 0)
+                print("Output from switching:")
+                print("\n\t".join(switch_output))
+
+            if p2_switch:
+                print("The pokemon of Player 2 fainted!")
+                active_pokemon_p2 = alive_pokemon_p2.index(True) + 1
+                print(f"New active Pokemon P2: {active_pokemon_p2}")
+                switch_output = _send_to_showdown(cli, f">p2 switch {active_pokemon_p2}", 3)
+                print("Output from switching:")
+                print("\n\t".join(switch_output))
+
+            if not p1_switch and not p2_switch:
+                moves_pp_count_p1 = _extract_viable_moves(battle_result[2])
+                moves_pp_count_p2 = _extract_viable_moves(battle_result[6])
+
+                print(f"PP left P1: {moves_pp_count_p1}")
+                print(f"PP left P2: {moves_pp_count_p2}")
 
         else:
             # An error occurred
@@ -119,20 +148,32 @@ def main():
             print("\n\nERROR\n\n")
             sys.exit(1)
 
-        p1 = 1  # Stores ID of active pokemon
-        p2 = 1
-
-
 def _extract_viable_moves(info: str) -> List[int]:
-    moves = info.removeprefix("|request|{\"active\":[").split("],\"side\"")[0]
-    print(f"Moves:\n{moves}")
-    moves_loaded = json.loads(moves)
-    print(json.dumps(moves_loaded, indent=4))
+    moves = re.sub("\\|request\\|{\"active\":\\[", "", info)
+
+    print("Formatted")
+    print(moves)
+
+    moves = moves.split("],\"side\"")[0]
+    # print(f"Moves:\n{moves}")
+    try:
+        moves_loaded = json.loads(moves)
+    except Exception:
+        print("Unable to extract moves!")
+        print(info)
+        sys.exit(1)
+    # print(json.dumps(moves_loaded, indent=4))
+
+    if moves_loaded["moves"][0]["move"] == "Struggle":
+        return [1] * 4
+
+    # TODO: Not detecting trapped properly yet
+    if "trapped:" in info:
+        print("Pokemon is trapped!")
+        return [1] + [0] * 3
 
     available = [move["pp"] if not move["disabled"] else 0 for move in moves_loaded["moves"]]
-    print(available)
     return available
-
 
 
 def _send_to_showdown(cli: subprocess.Popen, data: str, expected_sections=1) -> List[str]:
@@ -146,7 +187,8 @@ def _send_to_showdown(cli: subprocess.Popen, data: str, expected_sections=1) -> 
         cli.stdin.flush()
 
     # No answer from showdown expected
-    if expected_sections == 0: return [""]
+    if expected_sections == 0:
+        return [""]
 
     # Keeps track how many blank lines we have encountered
     blank_counter = 0
@@ -160,9 +202,7 @@ def _send_to_showdown(cli: subprocess.Popen, data: str, expected_sections=1) -> 
         # print(f"Received message from showdown: \"{res}\"")
         if not res:
             blank_counter += 1
-
             if blank_counter == expected_sections:
-                print(output)
                 break
 
         output.append(res)
