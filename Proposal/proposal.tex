@@ -90,22 +90,66 @@ of pokemon showdown provided me with over 8 Million replays of games played
 by humans.
 
 \section{Battling}
-The focus of this thesis will be on batteling. Each player has a team of six 
-pokemon. The pokemon are chosen randomly from the available
-pokemon in the game. Currently, there are 898 different Pokemon, some of them 
-even have different forms. Each pokemon knows 4 different, also randomly assigned,
-moves. However, not every Pokemon can learn every move. \\
-A move can either damage the opposing pokemon, heal the own pokemon, increase offence
-or defence, or add status effects like paralysis or sleep. \\
-The game works based on a rock-paper-scissors-like system. Each pokemon has one
-or two types, each move has a type as well. Fire-Type moves are strong against
-Grass types, Grass types are strong agains Water pokemon and water pokemon
-are strong against fire pokemon. In total, there are 18 different types. \\
-There are other aspects like weather, speed, base stats and level which
-heavily influence the outcome of a battle, they won't be discussed in 
-this proposal, however they will have to be taken into account in the thesis.
+There are multiple popular battle formats in pokemon as well as in pokemon
+showdown. This research will focus exclusively on the most popular category
+on showdown: Random battles with pokemon from all differnet games. \\
+\textit{Note:} In the mainline games items also play a huge role in battle,
+as they for example allow the revival of a fainted pokemon. In competive
+play items are banned, only held items allowed. A held item can for example
+allow a pokemon to more often be able to attack first or trade in defensive
+stats for offensive ones.
 
-\begin{figure}
+\subsection{Fundamentals}
+At the start of the game, each player gets 6 different random pokemon. A player
+knows all 6 pokemon he has with all their available moves, yet, he only knows
+the active pokemon of his opponent. Additionally, the player does not know what
+moves the opposing pokemon is able to use. Each pokemon knows 4 different moves,
+a move can either \textit{attack}, \textit{strengthen} himself or the own team,
+or \textit{weaken} the enemy pokemon or team by for example poisoning the enemy
+pokemon. \\ 
+Pokemon battles are turn based, each turn, both players either choose a move
+for their active pokemon, or switch to another pokemon of the team. 
+
+\subsection{Type advantages}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=.9\linewidth]{images/Types.png}
+  \captionof{figure}{Type chart \\
+    Image source: \href{https://pokemondb.net/type}{pokemondb.net}}
+  \label{fig:type-chart}
+\end{figure}
+The game works implements rock-paper-scissors-like system. Each pokemon has one
+or two types, each move has a type as well. A pokemon has a \textit{type advantage}
+against an other pokemon, if his moves deal extra damage againt the opposing pokemon.
+Figure \ref{fig:type-chart} shows how every type interacts with every other type.
+For example, a \textbf{Fire} deals normal damage against \textbf{Electric}, twice
+as much damage against \textbf{Bug} and only the half amount of damage against
+\textbf{Rock}. \\
+\textit{Note:} These damage modifiers are multiplied with each other, so if a 
+fire move were to hit a pokemon with type electric and bug, the move would
+deal the usual amount of damage.
+
+\subsection{Showdown battle interface}
+Figure \ref{fig:showdown-battle} is taken from an ongoing battle on pokemon
+showdown. The red marking shows the remaining hit points (hp) player ones
+active pokemon. As the bar is completely full, the pokemon still has 
+not taken any damage. Once a pokemon has no health remaining, it faints,
+and the player has to switch to another pokemon. 
+The enemy pokemon
+only has 33\% of its health remaining. As highlighted by the green 
+marking, the enemy pokemon is called "Kommo-o", is male and has
+level 80. In the blue marked are the status affects displayed. For
+example, the attack-stat of "Kommo-o" is raised by 50\%. Framed
+yellow is the team oft the opposing player. Both grayed out
+pokemon are fainted and therfore can't be send into battle,
+the fully colored pokemon are still alive and the ball in
+the bottom right corner indicates one unknown pokemon the 
+player hasn't sent out yet. \\
+Below that, the four moves the mewto can pick from are displayed.
+In this case, these moves are \textbf{Fire Blast}, \textbf{Recover},
+\textbf{Psystrike} and \textbf{Nasty Plot}.
+
+\begin{figure}[ht]
   \centering
   \includegraphics[width=.9\linewidth]{images/Showdown.png}
   \captionof{figure}{Screenshot of me batteling a random opponent}
@@ -118,17 +162,17 @@ always picks the move that deals the most amount of damage. However, picking
 an optimal move is a lot more complex than this. Pokemon battles are not just
 strict one on one battles where the player with the most damage dealing pokemon
 always wins. In competetive play, a wide variety of non- or low-damaing moves
-is used. Dragon Dance does not deal any damage to the opponent, but increases
-the damage the pokemon deals in the next moves. \\
+is used. Dragon Dance for example, does not deal any damage to the opponent, 
+but increases the damage the pokemon deals in the next moves. \\
 Additionally, each pokemon can play one or more different roles where the 
 playstyles, again, counter each other in a rock paper scissors like fashion. 
 Identifying in a random team what playstyle to pick for which pokemon is
 essential to winning battles. This decision is also based on the playstyles
 the opponent chooses. \\
 Lastly, predicting enemy decisions is a key component of competive play. For 
-example, if the pokemon of player 1 is strong against the pokemon of player 2,
-the opposing player will likely switch to another pokemon. As an anticipation
-of this move, the first player could pick a move that will deal less damage
+example, if the pokemon of player one has a type advantage against the pokemon 
+of player two, the opposing player may switch to another pokemon. As a possible
+counterplay, the first player could pick a move that will deal less damage
 against the current opposing pokemon but is also good against the pokemon
 he assumes the enemy to switch to. \\
 These elements turn competetive Pokemon in a game where traditional stratagy
@@ -136,15 +180,13 @@ and probability management are combined with information management.
 
 \section{Execution}
 This thesis will investigate multiple possible approaches to optimize battling.
-The first approach will be a rule based. Different complexity levels will be
-tested against each other. \\
-Secondly, backpropagation will be used to train a neural network to play
-like a human player. The traning data was provided to me by the pokemon
-showdown team, it contains over 8 million replays of random pokemon battles. \\
-Lastly, a reinforcement algorithm will be tested. The possibility to pretrain
+The first approach will be rule based. Different complexity levels will be
+tested against each other, knowledge extracted from replays will be used to design the rules. \\
+In addition, a reinforcement algorithm will be tested. The possibility to pretrain
 the network using either rules or replay data will be investigated as well.
 
 \section{Evaluation}
+
 The poke-env libary provides not only a random player, but also a max damage player
 that always chooses the move with the highest base damage. A simple reinforcement
 approach is given as well. These three agents will be used as baseline. \\
@@ -177,8 +219,13 @@ damage it can deal to the opposing pokemon.
 This approach was evaluated against a random player and a player that always chooses
 the move with the hightest base damage. In 500 games, this approach won 484 out of 500
 games against the random player and 419 / 500 games against the player that always chooses
-the move with the highest base damage.
-
+the move with the highest base damage. \\
+After training the example DQN-Agent proposedin the
+\href{https://poke-env.readthedocs.io/en/latest/rl_with_open_ai_gym_wrapper.html}{poke-env documentation}
+for 1 Million steps, this rulebased approach was able to win 666 out of 1.000 games. In ranked matches
+against actual players, this rulebased approach was only able to win about one in three games, resulting
+in the player getting stuck in the lowest elo group\footnote{In pokemon showdown, you can't have less
+than 1.000 Elo}.
 \section{Time Management}
 Following table shows the general timeline for this thesis. 
 \begin{table}[ht]
