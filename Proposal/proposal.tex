@@ -5,11 +5,25 @@
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref} 
 \usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{fancyhdr}
 
 % Related to math
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
-\title{Proposal \\ Pokemon}
+\title{Proposal - Playing pokemon battles optimally}
 \author{Julian Schubert}
+
+% Kopf- / Fußzeile
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\runtitle}
+\lhead{\runauthor}
+\cfoot{\thepage}
 
 \begin{document}
 \maketitle
@@ -17,16 +31,63 @@
 \section{Introduction}
 Pokemon is a video game series created by the Pokemon Company.
 The goal of the game is to not only catch pokemon, but also to train them and use
-them to battle other trainers. The task of battling optimally is quite interesting
-as there is an enourmous amount of possible combinations. 
+them to battle other trainers. In the mainline games, the focus lies on the story
+as well as exploring the world. The pokemon genere has evolved quite a bit since
+it's early days, Figures \ref{fig:red0} and \ref{fig:red1} contain screenshots 
+of the first pokemon games, pokemon red and pokemon green.
+\begin{figure}[ht]
+    \centering
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{images/Red-0.jpg}
+      \captionof{figure}{Exoploring the map in pokemon red}
+      \label{fig:red0}
+    \end{minipage}%
+    \begin{minipage}{.5\textwidth}
+      \centering
+      \includegraphics[width=.9\linewidth]{images/Red-1.jpg}
+      \captionof{figure}{Fighting another trainer in pokemon red}
+      \label{fig:red1}
+    \end{minipage}
+    \caption*{Image source: \href{https://www.nintendo.de/Spiele/Game-Boy/Pokemon-Rote-Edition-266109.html}{nintendo.de}}
+\end{figure}
+Figures \ref{fig:sword0} and \ref{fig:sword1} contain ingame footage of the latest games in
+the series, pokemon sword and shield.
+\begin{figure}
+  \centering
+  \begin{minipage}{.48\textwidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{images/Sword-0.jpg}
+    \captionof{figure}{Exoploring the map in pokemon sword. \\ 
+      Image source: \href{https://swordshield.pokemon.com/de-de/gameplay/pokemon-battle-stadium/}{pokemon.com}}
+    \label{fig:sword0}
+  \end{minipage}%
+  \begin{minipage}{.48\textwidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{images/Sword-1.jpg}
+    \captionof{figure}{Fighting another trainer in pokemon sword \\
+      Image source: Image source: \href{https://www.nintendo.de/Spiele/Nintendo-Switch/Pokemon-Schwert-1522111.html}{nintendo.de}}
+    \label{fig:sword1}
+  \end{minipage}
+\end{figure}
+This thesis will exclusivly focus exclusivly on battling as there detailed lists
+of the locations of everything there is to explore within the games.
 
 \section{Prerequisites}
-Nintendo does not provide an API for the game, however, Pokemon Showdown is a
-free online tool that can be used to simulate battles. The tool is available at
-https://play.pokemonshowdown.com/. On top of that, the library poke-env is used
-on top of that. The library is written in python and provides an easy to use
-interface to Showdown. Additionally, the functionality to play games on a 
-local server as well as the official Showdown servers is provided.
+Nintendo does not provide an API for the game, however, the fan project
+\href{https://play.pokemonshowdown.com/}{Pokemon Showdown} is a
+free online tool that can be used to battle online trainers. On top of that,
+it provides the functionality to use their simulator offline in an CLI. The
+entire source code for pokemon showdown can be found at 
+\href{https://github.com/smogon/pokemon-showdown}{Github}.
+Additionally, the python library \href{https://poke-env.readthedocs.io/en/latest/}{poke-env}
+is used as it provides a convenient interface to showdown. \\
+The combination of both tools allows to easily perform deep reinforcement learning
+on a local running instance of showdown, as well as evaluating models against 
+human players on the official pokemon showdown server. Figure \ref{fig:showdown-battle}
+shows a battle between two human players on pokemon showdown. Lastly, the creators
+of pokemon showdown provided me with over 8 Million replays of games played
+by humans.
 
 \section{Battling}
 The focus of this thesis will be on batteling. Each player has a team of six 
@@ -43,6 +104,13 @@ are strong against fire pokemon. In total, there are 18 different types. \\
 There are other aspects like weather, speed, base stats and level which
 heavily influence the outcome of a battle, they won't be discussed in 
 this proposal, however they will have to be taken into account in the thesis.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.9\linewidth]{images/Showdown.png}
+  \captionof{figure}{Screenshot of me batteling a random opponent}
+  \label{fig:showdown-battle}
+\end{figure}
 
 \subsection{Advanced battling strategies}
 In section \ref{sec:rulebased} a simpe rulebased approach is introduced that 
