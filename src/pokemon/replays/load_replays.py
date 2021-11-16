@@ -1,6 +1,8 @@
 import os
 import re
 import json
+import sys
+import time
 
 import matplotlib.pyplot as plt
 
@@ -8,14 +10,12 @@ from collections import Counter
 from progress.bar import IncrementalBar
 import itertools
 
-# TODO: Improve path import
-REPLAY_PATH = "../Showdown-Replays/anonymized-randbats"
+REPLAY_PATH = "../anonymized-randbats"
 
 REPLAY_LOAD_COUNT = 2_000
 
 
-def load_replays(batch_size = 64):
-
+def load_replays(batch_size=64):
     batch = []
     total = 0
 
@@ -34,20 +34,23 @@ def load_replays(batch_size = 64):
                 batch.clear()
                 if total == REPLAY_LOAD_COUNT: break
 
-def main():
 
+def main():
     pokemon_usage_count, player_ratings = extract_stats_from_replays(load_replays())
 
     plot_pokemon_usage(pokemon_usage_count)
     plot_player_ratings(player_ratings)
 
-def extract_stats_from_replays(data, plot_count=5):
 
+def extract_stats_from_replays(data, plot_count=5):
     # Storing how often what pokemon was used
     pokemon_usage_count = {}
 
     # Storing rating of all players
     player_ratings = []
+
+    # Stores all builds of all pokemon
+    pokemon_builds = {}
 
     bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
 
@@ -61,22 +64,38 @@ def extract_stats_from_replays(data, plot_count=5):
                     name = pokemon["species"]
                     pokemon_usage_count[name] = pokemon_usage_count.get(name, 0) + 1
 
+                    # Store all unique move sets for a pokemon as well as their appearance count
+                    # TODO
+                    evs = pokemon["evs"]
+                    # print(evs)
+                    # print(type(evs))
+
+                    if name not in pokemon_builds:
+                        pokemon_builds[name] = {}
+
+                    for key, value in evs.items():
+                        dict_key = f"{key}: {value}"
+                        pokemon_builds[name][dict_key] = pokemon_builds[name].get(dict_key, 0) + 1
+
+                    # print(pokemon_builds)
+
             # Getting player information
             input_log = replay["inputLog"]
             p1 = input_log[2]
             p2 = input_log[3]
 
             # Fixing replay with version-origin
-            if not p1.startswith('>player p1'): 
+            if not p1.startswith('>player p1'):
                 l = [l for l in input_log if l.startswith('>player p1')]
                 assert len(l) == 1
                 p1 = l[0]
-            if not p2.startswith('>player p2'): 
+            if not p2.startswith('>player p2'):
                 l = [l for l in input_log if l.startswith('>player p2')]
                 assert len(l) == 1
                 p2 = l[0]
 
-            player_regex = re.compile('>player p(1|2) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\[[0-9]*,[0-9]*,[0-9]*,[0-9]*\]}')
+            player_regex = re.compile(
+                '>player p(1|2) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\[[0-9]*,[0-9]*,[0-9]*,[0-9]*\]}')
 
             assert player_regex.match(p1)
             assert player_regex.match(p2)
@@ -89,6 +108,11 @@ def extract_stats_from_replays(data, plot_count=5):
             bar.next()
 
     bar.finish()
+
+    for key, value in pokemon_builds.items():
+        if len(value.values()) != 6:
+            print(f"{key}: {pokemon_builds[key]}")
+
 
     return pokemon_usage_count, player_ratings
 
@@ -103,8 +127,8 @@ def plot_pokemon_usage(pokemon_usage_count, plot_count=5):
     plt.title(f"Top {plot_count} used pokemon:\nAverage: {int(average_usage)}")
     plt.show()
 
-def plot_player_ratings(player_ratings):
 
+def plot_player_ratings(player_ratings):
     p1 = Counter([t[0] for t in player_ratings])
     p1_sum = [(k, p1[k]) for k in p1.keys()]
     p1_sum.sort(key=lambda t: t[0])
@@ -112,7 +136,6 @@ def plot_player_ratings(player_ratings):
     p2 = Counter([t[1] for t in player_ratings])
     p2_sum = [(k, p2[k]) for k in p2.keys()]
     p2_sum.sort(key=lambda t: t[0])
-
 
     plt.plot(*zip(*p1_sum), label="Elo Player 1")
     plt.plot(*zip(*p2_sum), label="Elo Player 2")
