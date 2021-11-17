@@ -1,16 +1,14 @@
 import os
 import re
 import json
-import sys
-import time
+import glob
 
 import matplotlib.pyplot as plt
 
 from collections import Counter
 from progress.bar import IncrementalBar
-import itertools
 
-REPLAY_PATH = "../anonymized-randbats"
+REPLAY_PATH = "../anonymized-randbats-batch"
 
 REPLAY_LOAD_COUNT = 2_000
 
@@ -32,24 +30,25 @@ def load_replays(batch_size=64):
             if len(batch) == batch_size or total == REPLAY_LOAD_COUNT:
                 yield batch
                 batch.clear()
-                if total == REPLAY_LOAD_COUNT: break
+                if total == REPLAY_LOAD_COUNT:
+                    break
 
 
 def main():
-    pokemon_usage_count, player_ratings = extract_stats_from_replays(load_replays())
+    player_ratings, builds = extract_stats_from_replays(load_replays())
 
-    plot_pokemon_usage(pokemon_usage_count)
+    plot_pokemon_usage(builds)
     plot_player_ratings(player_ratings)
 
+    safe_builds_to_files(builds)
 
-def extract_stats_from_replays(data, plot_count=5):
-    # Storing how often what pokemon was used
-    pokemon_usage_count = {}
 
+def extract_stats_from_replays(data):
     # Storing rating of all players
     player_ratings = []
 
     # Stores all builds of all pokemon
+    # key: pokemon, value: {build: count}
     pokemon_builds = {}
 
     bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
@@ -58,26 +57,20 @@ def extract_stats_from_replays(data, plot_count=5):
 
         for replay in batch:
 
-            # Getting team information
+            # Storing the builds for all pokemon
             for team in [replay["p1team"], replay["p2team"]]:
                 for pokemon in team:
-                    name = pokemon["species"]
-                    pokemon_usage_count[name] = pokemon_usage_count.get(name, 0) + 1
 
-                    # Store all unique move sets for a pokemon as well as their appearance count
-                    # TODO
-                    evs = pokemon["evs"]
-                    # print(evs)
-                    # print(type(evs))
+                    name = pokemon["species"]
+
+                    # Sorting moves as they often are in different orders
+                    pokemon["moves"] = sorted(pokemon["moves"])
 
                     if name not in pokemon_builds:
                         pokemon_builds[name] = {}
 
-                    for key, value in evs.items():
-                        dict_key = f"{key}: {value}"
-                        pokemon_builds[name][dict_key] = pokemon_builds[name].get(dict_key, 0) + 1
-
-                    # print(pokemon_builds)
+                    build = json.dumps(pokemon)
+                    pokemon_builds[name][build] = pokemon_builds[name].get(build, 0) + 1
 
             # Getting player information
             input_log = replay["inputLog"]
@@ -86,16 +79,17 @@ def extract_stats_from_replays(data, plot_count=5):
 
             # Fixing replay with version-origin
             if not p1.startswith('>player p1'):
-                l = [l for l in input_log if l.startswith('>player p1')]
-                assert len(l) == 1
-                p1 = l[0]
+                a = [a for a in input_log if a.startswith('>player p1')]
+                assert len(a) == 1
+                p1 = a[0]
             if not p2.startswith('>player p2'):
-                l = [l for l in input_log if l.startswith('>player p2')]
-                assert len(l) == 1
-                p2 = l[0]
+                a = [a for a in input_log if a.startswith('>player p2')]
+                assert len(a) == 1
+                p2 = a[0]
 
             player_regex = re.compile(
-                '>player p(1|2) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\[[0-9]*,[0-9]*,[0-9]*,[0-9]*\]}')
+                '>player p([12]) {\\"\\"name\\":\\"[1-9][0-9]*\\",\\"rating\\":([0-9]*),\\"seed\\":\\[[0-9]*,[0-9]*,'
+                '[0-9]*,[0-9]*]}')
 
             assert player_regex.match(p1)
             assert player_regex.match(p2)
@@ -109,17 +103,40 @@ def extract_stats_from_replays(data, plot_count=5):
 
     bar.finish()
 
-    for key, value in pokemon_builds.items():
-        if len(value.values()) != 6:
-            print(f"{key}: {pokemon_builds[key]}")
+    return player_ratings, pokemon_builds
 
 
-    return pokemon_usage_count, player_ratings
+def safe_builds_to_files(builds):
+    """Creates a file for each pokemon listing all it's possible builds"""
+
+    # Assert that data dir exists
+    assert os.path.exists("src/pokemon/replays/data")
+
+    # Clearing old files in the data directory
+    for f in glob.glob("src/pokemon/replays/data/*"):
+        os.remove(f)
+
+    for pokemon_name, pokemon_builds in builds.items():
+
+        with open(f"src/pokemon/replays/data/{pokemon_name}.txt", "w") as pokemon_file:
+
+            for pokemon_build, build_usage_count in pokemon_builds.items():
+                pokemon_file.write(f"Usages: {build_usage_count}\n")
+                pokemon_file.write(pokemon_build)
+                pokemon_file.write("\n\n")
 
 
-def plot_pokemon_usage(pokemon_usage_count, plot_count=5):
-    pokemon_usage = [(k, pokemon_usage_count[k]) for k in pokemon_usage_count.keys()]
-    pokemon_usage.sort(key=lambda t: t[1], reverse=True)
+def plot_pokemon_usage(builds, plot_count=5):
+    # Stores how often what pokemon is used
+    pokemon_usage = []
+
+    for key, value in builds.items():
+        curr = [key, 0]
+        for build_count in value.values():
+            curr[1] += build_count
+        pokemon_usage += [curr]
+
+    pokemon_usage.sort(key=lambda x: x[1], reverse=True)
 
     average_usage = sum([u[1] for u in pokemon_usage]) / len(pokemon_usage)
 
