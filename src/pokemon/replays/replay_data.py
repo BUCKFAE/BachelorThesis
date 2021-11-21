@@ -10,4 +10,7 @@ class ReplayData:
     anti_hazards = {}
     boots = 0
 
-    
+    hazard_vs_clear = 0
+    hazard_vs_no_clear = 0
+    no_hazard_vs_clear = 0
+    no_hazard_vs_no_clear = 0

@@ -3,6 +3,7 @@ import re
 import json
 import glob
 import sys
+from typing import Tuple
 
 import matplotlib.pyplot as plt
 
@@ -11,9 +12,9 @@ from progress.bar import IncrementalBar
 
 from src.pokemon.replays.replay_data import ReplayData
 
-REPLAY_PATH = "../anonymized-randbats-batch"
+REPLAY_PATH = "../anonymized-randbats"
 
-REPLAY_LOAD_COUNT = 2_000
+REPLAY_LOAD_COUNT = 50_000
 
 
 def load_replays(batch_size=64):
@@ -45,37 +46,46 @@ def main():
 
     safe_builds_to_files(replay_data.pokemon_builds)
 
-    print(replay_data.hazards)
-    print(replay_data.anti_hazards)
-    print(replay_data.boots)
+    plot_hazard_sets(replay_data)
 
 
-def extract_stats_from_replays(data):
+def extract_stats_from_replays(d):
 
-    replay_data = ReplayData()
+    data = ReplayData()
 
     bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
 
-    for batch in data:
+    for batch in d:
 
         for replay in batch:
+
+            # ID of the current team
+            tid = -1
+
+            # For both teams: # Pokemon that can set / clear hazards
+            hazard_control = [[[False] * 6, [False] * 6], [[False] * 6, [False] * 6]]
 
             # Storing the builds for all pokemon
             for team in [replay["p1team"], replay["p2team"]]:
 
+                tid += 1
+                pid = -1
+
                 # Extracting builds from team
                 for pokemon in team:
+
+                    pid += 1
 
                     name = pokemon["species"]
 
                     # Sorting moves as they often are in different orders
                     pokemon["moves"] = sorted(pokemon["moves"])
 
-                    if name not in replay_data.pokemon_builds:
-                        replay_data.pokemon_builds[name] = {}
+                    if name not in data.pokemon_builds:
+                        data.pokemon_builds[name] = {}
 
                     build = json.dumps(pokemon)
-                    replay_data.pokemon_builds[name][build] = replay_data.pokemon_builds[name].get(build, 0) + 1
+                    data.pokemon_builds[name][build] = data.pokemon_builds[name].get(build, 0) + 1
 
                     # Todo: G-Max Steelsurge is not handled
                     hazards = ["spikes", "stealthrock", "stickyweb", "toxicspikes"]
@@ -83,14 +93,30 @@ def extract_stats_from_replays(data):
 
                     for hazard in hazards:
                         if hazard in pokemon["moves"]:
-                            replay_data.hazards[hazard] = replay_data.hazards.get(hazard, 0) + 1
+                            data.hazards[hazard] = data.hazards.get(hazard, 0) + 1
+                            hazard_control[tid][0][pid] = True
 
                     for anti_hazard in anti_hazards:
                         if anti_hazard in pokemon["moves"]:
-                            replay_data.anti_hazards[anti_hazard] = replay_data.anti_hazards.get(anti_hazard, 0) + 1
+                            data.anti_hazards[anti_hazard] = data.anti_hazards.get(anti_hazard, 0) + 1
+                            hazard_control[tid][1][pid] = True
 
                     if "Heavy-Duty Boots" in pokemon["item"]:
-                        replay_data.boots += 1
+                        data.boots += 1
+                        hazard_control[tid][1][pid] = True
+
+            # Evaluating Hazards
+            data.hazard_vs_clear += 1 if any(hazard_control[0][0]) and any(hazard_control[1][1]) else 0
+            data.hazard_vs_clear += 1 if any(hazard_control[1][0]) and any(hazard_control[0][1]) else 0
+
+            data.hazard_vs_no_clear += 1 if any(hazard_control[0][0]) and not any(hazard_control[1][1]) else 0
+            data.hazard_vs_no_clear += 1 if any(hazard_control[1][0]) and not any(hazard_control[0][1]) else 0
+
+            data.no_hazard_vs_clear += 1 if not any(hazard_control[0][0]) and any(hazard_control[1][1]) else 0
+            data.no_hazard_vs_clear += 1 if not any(hazard_control[1][0]) and any(hazard_control[0][1]) else 0
+
+            data.no_hazard_vs_no_clear += 1 if not any(hazard_control[0][0]) and not any(hazard_control[1][1]) else 0
+            data.no_hazard_vs_no_clear += 1 if not any(hazard_control[1][0]) and not any(hazard_control[0][1]) else 0
 
             # Getting player information
             input_log = replay["inputLog"]
@@ -117,13 +143,13 @@ def extract_stats_from_replays(data):
             p1_rating = int(player_regex.search(p1).group(2))
             p2_rating = int(player_regex.search(p2).group(2))
 
-            replay_data.player_ratings.append((p1_rating, p2_rating))
+            data.player_ratings.append((p1_rating, p2_rating))
 
             bar.next()
 
     bar.finish()
 
-    return replay_data
+    return data
 
 
 def safe_builds_to_files(builds):
@@ -144,6 +170,25 @@ def safe_builds_to_files(builds):
                 pokemon_file.write(f"Usages: {build_usage_count}\n")
                 pokemon_file.write(pokemon_build)
                 pokemon_file.write("\n\n")
+
+
+def plot_hazard_sets(replay_data):
+    graph_label = ["Hazard\nvs\nClear",
+                   "Hazard\nvs\nNo Clear",
+                   "No Hazard\nvs\nClear",
+                   "No Hazard\nvs\nno Clear"]
+    graph_data = [replay_data.hazard_vs_clear,
+                  replay_data.hazard_vs_no_clear,
+                  replay_data.no_hazard_vs_clear,
+                  replay_data.no_hazard_vs_no_clear]
+
+    # Two players in each game
+    assert sum(graph_data) == 2 * REPLAY_LOAD_COUNT
+
+    plt.bar(graph_label, graph_data)
+    plt.subplots_adjust(bottom=0.15)
+    plt.title(f"Hazard / Control Distribution\nGames: {REPLAY_LOAD_COUNT}")
+    plt.show()
 
 
 def plot_pokemon_usage(builds, plot_count=5):
