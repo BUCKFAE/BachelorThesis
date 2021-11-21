@@ -2,11 +2,14 @@ import os
 import re
 import json
 import glob
+import sys
 
 import matplotlib.pyplot as plt
 
 from collections import Counter
 from progress.bar import IncrementalBar
+
+from src.pokemon.replays.replay_data import ReplayData
 
 REPLAY_PATH = "../anonymized-randbats-batch"
 
@@ -35,21 +38,21 @@ def load_replays(batch_size=64):
 
 
 def main():
-    player_ratings, builds = extract_stats_from_replays(load_replays())
+    replay_data = extract_stats_from_replays(load_replays())
 
-    plot_pokemon_usage(builds)
-    plot_player_ratings(player_ratings)
+    plot_pokemon_usage(replay_data.pokemon_builds)
+    plot_player_ratings(replay_data.player_ratings)
 
-    safe_builds_to_files(builds)
+    safe_builds_to_files(replay_data.pokemon_builds)
+
+    print(replay_data.hazards)
+    print(replay_data.anti_hazards)
+    print(replay_data.boots)
 
 
 def extract_stats_from_replays(data):
-    # Storing rating of all players
-    player_ratings = []
 
-    # Stores all builds of all pokemon
-    # key: pokemon, value: {build: count}
-    pokemon_builds = {}
+    replay_data = ReplayData()
 
     bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
 
@@ -59,6 +62,8 @@ def extract_stats_from_replays(data):
 
             # Storing the builds for all pokemon
             for team in [replay["p1team"], replay["p2team"]]:
+
+                # Extracting builds from team
                 for pokemon in team:
 
                     name = pokemon["species"]
@@ -66,11 +71,26 @@ def extract_stats_from_replays(data):
                     # Sorting moves as they often are in different orders
                     pokemon["moves"] = sorted(pokemon["moves"])
 
-                    if name not in pokemon_builds:
-                        pokemon_builds[name] = {}
+                    if name not in replay_data.pokemon_builds:
+                        replay_data.pokemon_builds[name] = {}
 
                     build = json.dumps(pokemon)
-                    pokemon_builds[name][build] = pokemon_builds[name].get(build, 0) + 1
+                    replay_data.pokemon_builds[name][build] = replay_data.pokemon_builds[name].get(build, 0) + 1
+
+                    # Todo: G-Max Steelsurge is not handled
+                    hazards = ["spikes", "stealthrock", "stickyweb", "toxicspikes"]
+                    anti_hazards = ["rapidspin", "defog"]
+
+                    for hazard in hazards:
+                        if hazard in pokemon["moves"]:
+                            replay_data.hazards[hazard] = replay_data.hazards.get(hazard, 0) + 1
+
+                    for anti_hazard in anti_hazards:
+                        if anti_hazard in pokemon["moves"]:
+                            replay_data.anti_hazards[anti_hazard] = replay_data.anti_hazards.get(anti_hazard, 0) + 1
+
+                    if "Heavy-Duty Boots" in pokemon["item"]:
+                        replay_data.boots += 1
 
             # Getting player information
             input_log = replay["inputLog"]
@@ -97,13 +117,13 @@ def extract_stats_from_replays(data):
             p1_rating = int(player_regex.search(p1).group(2))
             p2_rating = int(player_regex.search(p2).group(2))
 
-            player_ratings.append((p1_rating, p2_rating))
+            replay_data.player_ratings.append((p1_rating, p2_rating))
 
             bar.next()
 
     bar.finish()
 
-    return player_ratings, pokemon_builds
+    return replay_data
 
 
 def safe_builds_to_files(builds):
