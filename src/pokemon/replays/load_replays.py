@@ -12,7 +12,7 @@ from progress.bar import IncrementalBar
 
 from src.pokemon.replays.replay_data import ReplayData
 
-REPLAY_PATH = "../anonymized-randbats"
+REPLAY_PATH = "../anonymized-randbats-batch"
 
 REPLAY_LOAD_COUNT = 50_000
 
