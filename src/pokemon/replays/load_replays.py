@@ -12,10 +12,10 @@ from progress.bar import IncrementalBar
 
 from src.pokemon.replays.replay_data import ReplayData
 
-REPLAY_PATH = "../anonymized-randbats"
+REPLAY_PATH = "../anonymized-randbats-batch"
 
-# Total: 8_521_546
-REPLAY_LOAD_COUNT = 8_521_546
+# Total: 8521536
+REPLAY_LOAD_COUNT = 50_000
 
 
 def load_replays(batch_size=64):
@@ -51,7 +51,6 @@ def main():
 
 
 def extract_stats_from_replays(d):
-
     data = ReplayData()
 
     bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
