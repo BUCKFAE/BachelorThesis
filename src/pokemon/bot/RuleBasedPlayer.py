@@ -1,3 +1,4 @@
+import asyncio
 from typing import Tuple
 
 from poke_env.environment.abstract_battle import AbstractBattle
@@ -10,6 +11,11 @@ from poke_env.environment.weather import Weather
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
 import sys
+
+from poke_env.player.random_player import RandomPlayer
+
+from src.pokemon.bot.RandomInformationPlayer import RandomInformationPlayer
+from src.pokemon.bot.pokemon_build import PokemonBuild
 
 
 def calculate_damage(battle: AbstractBattle, move: Move) -> float:
@@ -93,8 +99,20 @@ def get_pokemon_vs_pokemon_type_mod(p1: Pokemon, p2: Pokemon) -> float:
 
 
 class RuleBasedPlayer(Player):
+    # Storing all information we have of the enemy pokemon
+    enemy_pokemon = {}
+
+    timer = 0
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
+
+        self.update_enemy_information(battle)
+
+        self.timer += 1
+        if self.timer == 10:
+            print(battle.opponent_team)
+
+
         # print("Available Moves: {}".format(battle.available_moves))
 
         # Calculating expected damages
@@ -135,3 +153,21 @@ class RuleBasedPlayer(Player):
             return self.choose_random_move(battle)
 
         return self.create_order(best_move)
+
+    def update_enemy_information(self, battle: AbstractBattle):
+
+        for pokemon in battle.opponent_team:
+            if pokemon not in self.enemy_pokemon.keys():
+                self.enemy_pokemon[pokemon] = PokemonBuild(pokemon.split()[1], battle.opponent_team[pokemon].level)
+
+async def main():
+    p1 = RuleBasedPlayer(battle_format="gen8randombattle")
+    p2 = RandomInformationPlayer(battle_format="gen8randombattle")
+
+    await p1.battle_against(p2, n_battles=1)
+
+    print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Random")
+
+
+if __name__ == "__main__":
+    asyncio.get_event_loop().run_until_complete(main())

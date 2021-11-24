@@ -12,9 +12,10 @@ from progress.bar import IncrementalBar
 
 from src.pokemon.replays.replay_data import ReplayData
 
-REPLAY_PATH = "../anonymized-randbats-batch"
+REPLAY_PATH = "../anonymized-randbats"
 
-REPLAY_LOAD_COUNT = 50_000
+# Total: 8_521_546
+REPLAY_LOAD_COUNT = 8_521_546
 
 
 def load_replays(batch_size=64):
@@ -167,7 +168,7 @@ def safe_builds_to_files(builds):
         with open(f"src/pokemon/replays/data/{pokemon_name}.txt", "w") as pokemon_file:
 
             for pokemon_build, build_usage_count in pokemon_builds.items():
-                pokemon_file.write(f"Usages: {build_usage_count}\n")
+                pokemon_file.write(f"Usages {build_usage_count} - ")
                 pokemon_file.write(pokemon_build)
                 pokemon_file.write("\n\n")
 
