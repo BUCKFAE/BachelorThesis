@@ -76,7 +76,7 @@ def extract_stats_from_replays(d):
 
                     pid += 1
 
-                    name = pokemon["species"]
+                    name = pokemon["species"].replace(" ", "")
 
                     if "alga" in name:
                         print(name)

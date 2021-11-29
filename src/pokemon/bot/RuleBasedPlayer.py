@@ -41,8 +41,6 @@ def calculate_damage(battle: AbstractBattle, move: Move) -> float:
     return p2 * targets * weather * badge * critical * random * stab * type_mod * burn * other
 
 
-
-
 def get_best_switch(battle: AbstractBattle) -> Tuple[Pokemon, int]:
     best_switch = (None, 0)
 
@@ -72,7 +70,6 @@ class RuleBasedPlayer(Player):
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
         self.update_enemy_information(battle)
-
 
         self.timer += 1
         if self.timer == 10:
@@ -123,10 +120,13 @@ class RuleBasedPlayer(Player):
 
         for pokemon in battle.opponent_team:
             if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
-                self.enemy_pokemon[battle.opponent_team[pokemon].species] = PokemonBuild(pokemon.split()[1], battle.opponent_team[pokemon].level)
+                self.enemy_pokemon[battle.opponent_team[pokemon].species] = PokemonBuild(pokemon.split()[1],
+                                                                                         battle.opponent_team[
+                                                                                             pokemon].level)
 
         self.enemy_pokemon[battle.opponent_active_pokemon.species] \
             .update_pokemon(battle.opponent_active_pokemon)
+
 
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle")

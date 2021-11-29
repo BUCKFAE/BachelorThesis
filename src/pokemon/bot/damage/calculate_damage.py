@@ -11,11 +11,14 @@ def calculate_damage(
         attacker: Pokemon,
         defender: Pokemon,
         level: int,
-        ad: float,
         targets: int,
         weather: Weather,
         burned: bool,
         badge: int = 1.0):
+
+    # TODO: Calculate stats
+    ad = 1
+
     p1 = ((2 * level) / 5) + 2
     p2 = ((p1 * move.base_power * ad) / 50) + 2
 

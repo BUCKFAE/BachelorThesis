@@ -18,9 +18,11 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     for enemy in enemy_pokemon:
         for member in own_pokemon:
 
+            # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
+
             print(f"Getting matchup: {member.species} vs. {enemy.species}")
 
-            enemy_possible_moves = enemy_builds[enemy.species].possible_moves.keys()
+            enemy_possible_moves = enemy_builds[enemy.species].assumed_moves
             print(f"Enemy possible moves: {enemy_possible_moves}")
 
             enemy_actions = itertools.product(enemy_possible_moves, repeat=2)
@@ -35,8 +37,13 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                     own_hp = member.current_hp
                     enemy_hp = enemy.current_hp
 
+                    print(enemy_builds[enemy.species].get_assumed_stat("spe") + enemy.base_stats["spe"])
+                    # TODO: Does this take boosting into account?
+                    enemy_is_faster = member.stats["spe"] < \
+                                      enemy_builds[enemy.species].get_assumed_stat("spe") + enemy.base_stats["spe"]
 
+                    print("Enemy is faster: {}".format(enemy_is_faster))
 
-            sys.exit(0)
+                    sys.exit(0)
 
     pass
