@@ -12,9 +12,10 @@ from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
 import sys
 
-from poke_env.player.random_player import RandomPlayer
-
 from src.pokemon.bot.RandomInformationPlayer import RandomInformationPlayer
+from src.pokemon.bot.damage.calculate_damage import calculate_weather_multiplier, calculate_type_multiplier, \
+    calculate_stab_multiplier, calculate_stat_multiplier, calculate_burn_modifier
+from src.pokemon.bot.matchup.determine_matchups import determine_matchups
 from src.pokemon.bot.pokemon_build import PokemonBuild
 
 
@@ -26,7 +27,7 @@ def calculate_damage(battle: AbstractBattle, move: Move) -> float:
     power = move.base_power
     ad = calculate_stat_multiplier(move)  # TODO
     targets = 1  # This bot can only play single battles
-    weather = calculate_weather_multiplier(battle, move)
+    weather = calculate_weather_multiplier(battle.weather, move)
     badge = 1.0  # Generation 2 only
     critical = 1.0  # TODO
     random = 1.0  # TODO
@@ -40,42 +41,6 @@ def calculate_damage(battle: AbstractBattle, move: Move) -> float:
     return p2 * targets * weather * badge * critical * random * stab * type_mod * burn * other
 
 
-def calculate_burn_modifier(attacker: Pokemon, move: Move) -> float:
-    if attacker.status == Status.BRN:
-        if move.category == MoveCategory.PHYSICAL:
-            if attacker.ability == "Guts":
-                return 1
-            return 0.5
-    return 1
-
-
-def calculate_type_multiplier(defender: Pokemon, pkm_type: PokemonType) -> float:
-    return pkm_type.damage_multiplier(defender.type_1, defender.type_2)
-
-
-def calculate_stab_multiplier(attacker: Pokemon, move: Move) -> float:
-    return 1.5 if attacker.type_1 == move.type or attacker.type_2 == move.type else 1
-
-
-def calculate_weather_multiplier(battle: AbstractBattle, move: Move) -> float:
-    is_rainy = any([w == Weather.RAINDANCE for w in battle.weather.keys()])
-    is_sunny = any([w == Weather.SUNNYDAY for w in battle.weather.keys()])
-
-    if move.type == PokemonType.WATER and is_rainy:
-        return 1.5
-    if move.type == PokemonType.FIRE and is_sunny:
-        return 1.5
-    if move.type == PokemonType.FIRE and is_rainy:
-        return 0.5
-    if move.type == PokemonType.WATER and is_sunny:
-        return 0.5
-
-    return 1.0
-
-
-def calculate_stat_multiplier(move: Move) -> float:
-    # TODO: Include stats in calculation!
-    return 1.0
 
 
 def get_best_switch(battle: AbstractBattle) -> Tuple[Pokemon, int]:
@@ -108,10 +73,10 @@ class RuleBasedPlayer(Player):
 
         self.update_enemy_information(battle)
 
+
         self.timer += 1
         if self.timer == 10:
-            print(battle.opponent_team)
-
+            determine_matchups(battle, self.enemy_pokemon)
 
         # print("Available Moves: {}".format(battle.available_moves))
 
@@ -157,8 +122,11 @@ class RuleBasedPlayer(Player):
     def update_enemy_information(self, battle: AbstractBattle):
 
         for pokemon in battle.opponent_team:
-            if pokemon not in self.enemy_pokemon.keys():
-                self.enemy_pokemon[pokemon] = PokemonBuild(pokemon.split()[1], battle.opponent_team[pokemon].level)
+            if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
+                self.enemy_pokemon[battle.opponent_team[pokemon].species] = PokemonBuild(pokemon.split()[1], battle.opponent_team[pokemon].level)
+
+        self.enemy_pokemon[battle.opponent_active_pokemon.species] \
+            .update_pokemon(battle.opponent_active_pokemon)
 
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle")

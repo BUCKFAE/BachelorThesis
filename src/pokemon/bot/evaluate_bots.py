@@ -14,13 +14,13 @@ EVAL_EPISODES = 50
 
 async def main():
 
-    concurrent = 10
+    concurrent = 1
 
     player_list = [
-        RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=concurrent),
-        SimpleRuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=concurrent),
-        MaxDamagePlayer(battle_format="gen8randombattle", max_concurrent_battles=concurrent),
-        RandomPlayer(battle_format="gen8randombattle", max_concurrent_battles=concurrent),
+        RuleBasedPlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
+        #SimpleRuleBasedPlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
+        #MaxDamagePlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
+        RandomPlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
     ]
 
     print("Evaluating Players!")

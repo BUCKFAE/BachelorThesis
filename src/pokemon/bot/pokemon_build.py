@@ -3,6 +3,7 @@ import json
 from typing import List, Dict, Optional, Tuple
 
 from poke_env.environment.abstract_battle import AbstractBattle
+from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
 
 
@@ -48,19 +49,36 @@ class PokemonBuild:
 
     def __init__(self, species, level):
 
+        # TODO: This breaks for Mr. Mine
+
         # Loading all possible builds
         file_content = open(f"src/pokemon/replays/data/{species}.txt", "r").readlines()
         self.possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
-        self.possible_builds = [(json.loads(t[0]), t[1]) for t in self.possible_builds]
+        self.possible_builds = [(json.loads(t[0]), int(t[1])) for t in self.possible_builds]
 
-        print(f"Possible Builds for {species}:")
-        print("\n\t".join([f"{t[0]} {t[1]}" for t in self.possible_builds]))
+        # print("Possible Builds for {}:\n\t{}".format(species, "\n\t".join([f"{t[0]} {t[1]}" for t in self.possible_builds])))
 
         self.species = species
         self.level = level
 
+        # Updating possible moves for the pokemon
+        for possible_build in self.possible_builds:
+            for move in possible_build[0]["moves"]:
+                self.possible_moves[move] = self.possible_moves.get(move, 0) + possible_build[1]
+
+        # print(f"Possible moves for {self.species}: {self.possible_moves}")
+
     def update_pokemon(self, pokemon: Pokemon):
-        print("Updating")
+        # print(f"Updating: {self.species}")
+        # print(f"\tKnown moves: {pokemon.moves}")
+
+        self.confirmed_moves = [move for move in self.possible_moves if move in pokemon.moves.keys()]
+
+        # print(f"Confirmed moves: {self.confirmed_moves}")
+
+        # TODO: Update possible moves based on build
+
+
 
 if __name__ == "__main__":
-    b1 = PokemonBuild("Flapple", 82)
+    b1 = PokemonBuild("Abra", 88)

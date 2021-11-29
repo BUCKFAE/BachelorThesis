@@ -50,7 +50,9 @@ class SimpleRuleBasedPlayer(Player):
         return self.create_order(best_switch)
 
     def calculate_damage(self, move, own_pokemon, enemy_pokemon):
-        mul1 = move.type.damage_multiplier(enemy_pokemon.type_1, enemy_pokemon.type_2)
+
+        mul1 = move.type.damage_multiplier(enemy_pokemon.type_1, enemy_pokemon.type_2) if move.type != 0 else 1
+
         mul2 = 1.5 if own_pokemon.type_1 == move.type or own_pokemon.type_2 == move.type else 1
         acc = move.accuracy
         dmg = move.base_power * mul1 * mul2 * acc

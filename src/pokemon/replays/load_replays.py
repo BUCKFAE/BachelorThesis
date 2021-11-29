@@ -12,10 +12,10 @@ from progress.bar import IncrementalBar
 
 from src.pokemon.replays.replay_data import ReplayData
 
-REPLAY_PATH = "../anonymized-randbats-batch"
+REPLAY_PATH = "../gen1anon"
 
 # Total: 8521536
-REPLAY_LOAD_COUNT = 50_000
+REPLAY_LOAD_COUNT = 98670
 
 
 def load_replays(batch_size=64):
@@ -78,6 +78,9 @@ def extract_stats_from_replays(d):
 
                     name = pokemon["species"]
 
+                    if "alga" in name:
+                        print(name)
+
                     # Sorting moves as they often are in different orders
                     pokemon["moves"] = sorted(pokemon["moves"])
 
@@ -120,9 +123,11 @@ def extract_stats_from_replays(d):
 
             # Getting player information
             input_log = replay["inputLog"]
-            p1 = input_log[2]
-            p2 = input_log[3]
-
+            try:
+                p1 = input_log[2]
+                p2 = input_log[3]
+            except:
+                continue
             # Fixing replay with version-origin
             if not p1.startswith('>player p1'):
                 a = [a for a in input_log if a.startswith('>player p1')]
@@ -167,7 +172,7 @@ def safe_builds_to_files(builds):
         with open(f"src/pokemon/replays/data/{pokemon_name}.txt", "w") as pokemon_file:
 
             for pokemon_build, build_usage_count in pokemon_builds.items():
-                pokemon_file.write(f"Usages {build_usage_count} - ")
+                pokemon_file.write(f"{build_usage_count} - ")
                 pokemon_file.write(pokemon_build)
                 pokemon_file.write("\n\n")
 
