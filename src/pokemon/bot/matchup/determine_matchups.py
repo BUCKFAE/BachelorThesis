@@ -37,10 +37,15 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                     own_hp = member.current_hp
                     enemy_hp = enemy.current_hp
 
-                    print(enemy_builds[enemy.species].get_assumed_stat("spe") + enemy.base_stats["spe"])
+                    test_own_build = PokemonBuild(member.species[0].upper() + member.species[1:], member.level)
+                    ass = test_own_build.get_assumed_stat("spd")
+                    print("Assumed: {}\nActual: {}".format(ass, member.stats["spd"]))
+
+
+                    # print(enemy_builds[enemy.species].get_assumed_stat("spe") + enemy.base_stats["spe"])
                     # TODO: Does this take boosting into account?
-                    enemy_is_faster = member.stats["spe"] < \
-                                      enemy_builds[enemy.species].get_assumed_stat("spe") + enemy.base_stats["spe"]
+                    enemy_is_faster = member.stats["spd"] < \
+                                      enemy_builds[enemy.species].get_assumed_stat("spd") + enemy.base_stats["spd"]
 
                     print("Enemy is faster: {}".format(enemy_is_faster))
 

@@ -1,5 +1,6 @@
 """Stores all Information gathered about a Pokemon"""
 import json
+from math import sqrt
 from typing import List, Dict, Optional, Tuple
 
 from poke_env.environment.abstract_battle import AbstractBattle
@@ -112,6 +113,11 @@ class PokemonBuild:
 
         if stat != "hp":
             base = self.reference_pokemon.base_stats[stat]
+            dv = self.confirmed_ivs[stat]
+            ev = self.confirmed_evs[stat]
+            level = self.level
+
+            return int(((((base + dv) * 2) + int(50 / 4)) * level) / 100) + 5
 
 
 
