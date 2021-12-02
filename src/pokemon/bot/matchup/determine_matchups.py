@@ -12,13 +12,13 @@ from src.pokemon.replays.util import convert_species_to_file_name
 
 
 def load_matchups_from_replays():
-
     bar = IncrementalBar('Loading Replays:', max=replay_load_count)
+
+    damage_per_turn = {}
 
     for batch in load_replays():
         for replay in batch:
             log = replay["log"]
-            print(log[:5])
 
             c = 0
 
@@ -26,19 +26,31 @@ def load_matchups_from_replays():
             # This is done as showdown only tells us how much hp is remaining
             # after a pokemon took damage, not how much damage was dealt.
             pokemon_p1_hp = 0
+            pokemon_p1_name = ""
             pokemon_p2_hp = 0
+            pokemon_p2_name = ""
+
+            # Damage dealt this round
+            # TODO: USE HP BEFORE THIS TURN
+            total_damage_p1 = 0
+            total_damage_p2 = 0
 
             for index, message in enumerate(log, start=1):
 
-                print(f"{index:02d} -> {message}")
+                print(f"\n\n{index:02d} -> {message}")
 
                 # Switched to another pokemon
                 if "|switch|" in message:
                     # Storing the hp of the active pokemon
                     if "p1a" in message:
                         pokemon_p1_hp = int(message.split("|")[-1].split("/")[0])
+                        pokemon_p1_name = message.split("|")[2]
+                        print(f"Switched to {pokemon_p1_name}: {pokemon_p1_hp}")
                     if "p2a" in message:
                         pokemon_p2_hp = int(message.split("|")[-1].split("/")[0])
+                        pokemon_p2_name = message.split("|")[2]
+                        print(f"Switched to {pokemon_p2_name}: {pokemon_p2_hp}")
+
 
                 # TODO: track hp difference between rounds
 
@@ -46,8 +58,21 @@ def load_matchups_from_replays():
                 if "|heal|" in message:
                     if "p1a" in message:
                         pokemon_p1_hp = int(message.split("|")[3].split("/"[0]))
+                        print(f"Pokemon 1 is now at {pokemon_p1_hp} HP")
                     if "p2a" in message:
                         pokemon_p2_hp = int(message.split("|")[3].split("/"[0]))
+                        print(f"Pokemon 2 is now at {pokemon_p2_hp} HP")
+
+                # A turn ended, storing results
+                if "|turn|" in message:
+                    name1 = convert_species_to_file_name(pokemon_p1_name)
+                    name2 = convert_species_to_file_name(pokemon_p2_name)
+
+                    damage_per_turn[f"{name1}_vs_{name2}"] =  \
+                        damage_per_turn.get(f"{name1}_vs_{name2}", 0) + total_damage_p2
+                    damage_per_turn[f"{name2}_vs_{name1}"] =  \
+                        damage_per_turn.get(f"{name2}_vs_{name1}", 0) + total_damage_p1
+
 
                 # Continue if no move
                 if "|move|" not in message:
@@ -56,23 +81,32 @@ def load_matchups_from_replays():
                 # Getting attacker, move and target
                 _, _, attacker, move, target = message.split("|")
 
-
                 print(f"\t{attacker}: {move} -> {target}")
 
-                total_damage_p1 = 0
-                total_damage_p2 = 0
+                print(f"\tHP: {pokemon_p1_hp} vs {pokemon_p2_hp}")
 
-                effect_counter = index + 1
-                while log[effect_counter] != "|upkeep" and "|move|" not in log[effect_counter]:
 
-                    if "-damage" in log[effect_counter]:
-                        new_hp = int(log[effect_counter].split("|")[3].split("/")[0])
+
+                effect = index
+                while log[effect] != "|upkeep" and "|move|" not in log[effect]:
+
+                    if "-damage" in log[effect]:
+
+                        new_hp = int(log[effect].split("|")[3].split("/")[0]) if "|0" not in log[effect] else 0
+
+                        print(f"New HP: {new_hp}")
                         # TODO: Add self damage
-                        total_damage += (pokemon_p1_hp if "p1a" in log[effect_counter] else pokemon_p2_hp) - new_hp
-                    effect_counter += 1
+                        if "p1a" in log[effect]:
+                            total_damage_p1 += pokemon_p1_hp - new_hp
+                            pokemon_p1_hp = new_hp
 
+                        if "p2a" in log[effect]:
+                            total_damage_p2 += pokemon_p2_hp - new_hp
+                            pokemon_p2_hp = new_hp
 
-                print(f"\tDamage to {target}: {total_damage}")
+                    effect += 1
+
+                print(f"\tDamage: {total_damage_p1} / {total_damage_p2}")
 
                 # TODO: Fix pokemon names!
 
@@ -80,6 +114,8 @@ def load_matchups_from_replays():
                 c += 1
                 if c > 10:
                     break
+
+            print(damage_per_turn)
 
             sys.exit(0)
 
