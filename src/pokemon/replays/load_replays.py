@@ -11,36 +11,13 @@ from collections import Counter
 from progress.bar import IncrementalBar
 
 from src.pokemon.replays.replay_data import ReplayData
+from src.pokemon.replays.replay_loader import load_replays, replay_load_count
 
 REPLAY_PATH = "../gen1anon"
 
-# Total: 8521536
-REPLAY_LOAD_COUNT = 98670
-
-
-def load_replays(batch_size=64):
-    batch = []
-    total = 0
-
-    for path, _, files in os.walk(REPLAY_PATH):
-        for name in files:
-            file_path = os.path.join(path, name)
-            assert file_path.endswith(".log.json")
-
-            with open(file_path) as replay_file:
-                batch.append(json.load(replay_file))
-
-            total += 1
-
-            if len(batch) == batch_size or total == REPLAY_LOAD_COUNT:
-                yield batch
-                batch.clear()
-                if total == REPLAY_LOAD_COUNT:
-                    break
-
 
 def main():
-    replay_data = extract_stats_from_replays(load_replays())
+    replay_data = extract_stats_from_replays(load_replays(re))
 
     plot_pokemon_usage(replay_data.pokemon_builds)
     plot_player_ratings(replay_data.player_ratings)
@@ -53,7 +30,7 @@ def main():
 def extract_stats_from_replays(d):
     data = ReplayData()
 
-    bar = IncrementalBar('Loading Files:', max=REPLAY_LOAD_COUNT)
+    bar = IncrementalBar('Loading Files:', max=replay_load_count)
 
     for batch in d:
 
@@ -188,11 +165,11 @@ def plot_hazard_sets(replay_data):
                   replay_data.no_hazard_vs_no_clear]
 
     # Two players in each game
-    assert sum(graph_data) == 2 * REPLAY_LOAD_COUNT
+    assert sum(graph_data) == 2 * replay_load_count
 
     plt.bar(graph_label, graph_data)
     plt.subplots_adjust(bottom=0.15)
-    plt.title(f"Hazard / Control Distribution\nGames: {REPLAY_LOAD_COUNT}")
+    plt.title(f"Hazard / Control Distribution\nGames: {replay_load_count}")
     plt.show()
 
 
