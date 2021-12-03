@@ -3,7 +3,7 @@ import os
 
 REPLAY_PATH = "../../Data/anonymized-randbats-batch"
 
-replay_load_count = 1
+replay_load_count = 5_000
 
 def load_replays(batch_size=64):
     batch = []
@@ -13,8 +13,6 @@ def load_replays(batch_size=64):
         for name in files:
             file_path = os.path.join(path, name)
             assert file_path.endswith(".log.json")
-
-            print(file_path)
 
             with open(file_path) as replay_file:
                 batch.append(json.load(replay_file))

@@ -13,18 +13,16 @@ from progress.bar import IncrementalBar
 from src.pokemon.replays.replay_data import ReplayData
 from src.pokemon.replays.replay_loader import load_replays, replay_load_count
 
-REPLAY_PATH = "../gen1anon"
-
 
 def main():
     replay_data = extract_stats_from_replays(load_replays(re))
 
-    plot_pokemon_usage(replay_data.pokemon_builds)
-    plot_player_ratings(replay_data.player_ratings)
+    # plot_pokemon_usage(replay_data.pokemon_builds)
+    # plot_player_ratings(replay_data.player_ratings)
 
     safe_builds_to_files(replay_data.pokemon_builds)
 
-    plot_hazard_sets(replay_data)
+    # plot_hazard_sets(replay_data)
 
 
 def extract_stats_from_replays(d):
