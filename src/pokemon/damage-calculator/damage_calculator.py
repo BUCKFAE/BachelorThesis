@@ -1,3 +1,4 @@
+import datetime
 import os
 import subprocess
 import re
@@ -60,18 +61,19 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
         move.id
     ]
 
-    os.chdir("src/pokemon/damage-calculator")
 
     p = subprocess.Popen(["npm", "run", "start"] + [str(i) for i in calculator_args], stdout=subprocess.PIPE)
     out, err = p.communicate()
 
     out = out.decode("utf-8")
-    #out = out.split("---START---", maxsplit=1)[1].rsplit("---END---", maxsplit=1)[0]
+    out = out.split("---START---", maxsplit=1)[1].rsplit("---END---", maxsplit=1)[0]
 
     print(out)
 
 
 if __name__ == "__main__":
+
+
 
     build1 = PokemonBuild("Charizard", 90)
     build1.confirmed_moves = ["airslash", "earthquake", "fireblast", "workup"]
@@ -87,4 +89,12 @@ if __name__ == "__main__":
     build2.confirmed_evs = {"atk": 85, "def": 85, "hp": 81, "spa": 85, "spd": 85, "spe": 85}
     build2.confirmed_ivs = {"atk": 31, "def": 31, "hp": 31, "spa": 31, "spd": 31, "spe": 31}
 
-    calculate_damage(build1, build2, Move("airslash"), None)
+    start = datetime.datetime.now()
+
+    os.chdir("src/pokemon/damage-calculator")
+
+    for _ in range(1):
+        calculate_damage(build1, build2, Move("airslash"), None)
+
+    end = datetime.datetime.now()
+    print(f"Duration: {(end - start)} ms")

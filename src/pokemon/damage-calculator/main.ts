@@ -1,41 +1,6 @@
 import {calculate, Generations, Pokemon, Move} from '@smogon/calc';
-import * as I from '@smogon/calc/src/data/interface';
 
 const gen = Generations.get(8);
-const result = calculate(
-    gen,
-    new Pokemon(gen, 'gengar', {
-        item: 'Choice Specs',
-        nature: 'Timid',
-        evs: {spa: 252},
-        boosts: {spa: 1},
-    }),
-    new Pokemon(gen, 'Chansey', {
-        item: 'Eviolite',
-        nature: 'Calm',
-        evs: {hp: 252, spd: 252},
-    }),
-    new Move(gen, 'Focus Blast')
-);
-
-/*
- * Parameters in order
- * 00. species: "charma"
- * 01. form: "gengar-g-max"
- * 02. gender: "male"
- * 03. level: 62
- * 04. base: [60, 65, 60, 130, 75, 110]
- * 05. iv: [31, 31, 31, 31, 31]
- * 06. ev: [84, 84, 84, 84, 84]
- * 07. stages: [0, +1, -3, 0, 0]
- * 08: nature: "hardy"
- * 09: ability: cursed body
- * 10: item: "Heavy-Duty-Boots"
- * 11: status: "paralized"
- * 12: hp: 13
- * 13: move "earthquake"
- * 14: dynamax: true
- */
 
 console.log("---START---")
 let args = process.argv.slice(2);
