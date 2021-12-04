@@ -1,8 +1,10 @@
 import datetime
 import os
+import random
 import subprocess
 import re
 import logging
+import time
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
@@ -11,6 +13,7 @@ from poke_env.environment.pokemon import Pokemon
 from src.pokemon.bot.pokemon_build import PokemonBuild
 
 logging.basicConfig(level=logging.DEBUG)
+
 
 def get_calc_result(
         p1_species: str,
@@ -22,7 +25,6 @@ def get_calc_result(
 
 
 def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move, battle: AbstractBattle):
-
     # TODO: Include battle info
     if battle is None:
         logging.warning("Battle is not specified!")
@@ -61,26 +63,60 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
         move.id
     ]
 
+    p = subprocess.Popen(["npm run start"],
+                         stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
 
-    p = subprocess.Popen(["npm", "run", "start"] + [str(i) for i in calculator_args], stdout=subprocess.PIPE)
-    out, err = p.communicate()
 
-    out = out.decode("utf-8")
-    out = out.split("---START---", maxsplit=1)[1].rsplit("---END---", maxsplit=1)[0]
+    time.sleep(5)
 
-    print(out)
+    for request_count in [1, 2, 3, 4, 5, 7, 10, 20, 50, 100, 500, 1000, 5000, 10_000, 25_000, 50_000]:
+
+        start = datetime.datetime.now()
+
+        for _ in range(request_count):
+
+            # Modifying calc input
+            calculator_args[2] = random.choice(["Male", "Female"])  # Gender
+            calculator_args[3] = random.randint(5, 90)  # Level
+            calculator_args[12] = random.randint(20, 200)  # HP
+            calculator_args[16] = random.choice(["Male", "Female"])  # Gender
+            calculator_args[17] = random.randint(5, 90)  # Level
+            calculator_args[26] = random.randint(20, 200)  # HP
+
+            calc_input = (";;".join([str(i) for i in calculator_args]) + "\n").encode()
+
+            p.stdin.write(calc_input)
+            p.stdin.flush()
+
+            output = []
+            while True:
+                res = p.stdout.readline().decode().strip()
+                if res == "DONE!":
+                    break
+
+                output.append(res)
+
+        end = datetime.datetime.now()
+        print(f"Requests: {request_count:05d}: {(end - start)} ms")
+
+    p.kill()
+
+
+    # print("Output:\n\t{}".format("\n\t".join(output)))
+
+    # out = out.decode("utf-8")
+    # out = out.split("---START---", maxsplit=1)[1].rsplit("---END---", maxsplit=1)[0]
+
+    # print(out)
 
 
 if __name__ == "__main__":
-
-
 
     build1 = PokemonBuild("Charizard", 90)
     build1.confirmed_moves = ["airslash", "earthquake", "fireblast", "workup"]
     build1.confirmed_item = "Heavy-Duty Boots"
     build1.confirmed_ivs = {"atk": 3, "def": 31, "hp": 20, "spa": 6, "spd": 3, "spe": 7}
     build1.confirmed_evs = {"atk": 54, "def": 87, "hp": 23, "spa": 2, "spd": 252, "spe": 252}
-
 
     # TODO: Use other pokemon
     build2 = PokemonBuild("Dragapult", 78)
@@ -89,12 +125,8 @@ if __name__ == "__main__":
     build2.confirmed_evs = {"atk": 85, "def": 85, "hp": 81, "spa": 85, "spd": 85, "spe": 85}
     build2.confirmed_ivs = {"atk": 31, "def": 31, "hp": 31, "spa": 31, "spd": 31, "spe": 31}
 
-    start = datetime.datetime.now()
 
     os.chdir("src/pokemon/damage-calculator")
 
-    for _ in range(1):
-        calculate_damage(build1, build2, Move("airslash"), None)
+    calculate_damage(build1, build2, Move("airslash"), None)
 
-    end = datetime.datetime.now()
-    print(f"Duration: {(end - start)} ms")
