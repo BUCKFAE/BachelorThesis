@@ -17,12 +17,12 @@ from progress.bar import IncrementalBar
 from src.pokemon.replays.util import convert_species_to_file_name
 
 PATH = "src/pokemon/replays/generated-data"
-NUM_BATTLES = 1000
+NUM_BATTLES = 300_000
 
 class DumpingPlayer(Player):
 
     def __init__(self, battle_format, num_battles):
-        super().__init__(battle_format=battle_format)
+        super().__init__(battle_format=battle_format, max_concurrent_battles=1)
 
         # {Pikachu: {<build1>: 20, <build2>: 30}}
         self.builds = {}
@@ -34,37 +34,40 @@ class DumpingPlayer(Player):
 
         for pokemon in battle.team:
 
-            # Extracting data from replay
-            name = convert_species_to_file_name(pokemon)
-            ability = battle.team[pokemon].ability
-            stats = battle.team[pokemon].stats
-            gender = battle.team[pokemon].gender
-            item = battle.team[pokemon].item
-            level = battle.team[pokemon].level
-            moves = battle.team[pokemon].moves
+            if battle.turn == 1:
 
-            # Creating dict that represents the build
-            build = {"ability": ability,
-                     "stats": stats,
-                     "gender": "male" if gender == PokemonGender.MALE else ("female" if PokemonGender.FEMALE
-                                                                            else "neutral"),
-                     "item": item,
-                     "level": level,
-                     "moves": "[{}]".format("|".join(sorted(moves)))}
+                # Extracting data from replay
+                name = convert_species_to_file_name(pokemon)
+                ability = battle.team[pokemon].ability
+                stats = battle.team[pokemon].stats
+                gender = battle.team[pokemon].gender
+                item = battle.team[pokemon].item
+                level = battle.team[pokemon].level
+                moves = battle.team[pokemon].moves
 
-            # Saving the build
-            build_string = json.dumps(build)
+                # Creating dict that represents the build
+                build = {"ability": ability,
+                         "stats": stats,
+                         "gender": "male" if gender == PokemonGender.MALE else ("female" if PokemonGender.FEMALE
+                                                                                else "neutral"),
+                         "item": item,
+                         "level": level,
+                         "moves": "[{}]".format("|".join(sorted(moves)))}
 
-            # Inserting name if not yet present
-            if name not in self.builds:
-                self.builds[name] = {}
+                # Saving the build
+                build_string = json.dumps(build)
 
-            # Counting how many times the build appeared
-            self.builds[name][build_string] = self.builds[name].get(build_string, 0) + 1
+                # Inserting name if not yet present
+                if name not in self.builds:
+                    self.builds[name] = {}
 
-        self.bar.next()
+                # Counting how many times the build appeared
+                self.builds[name][build_string] = self.builds[name].get(build_string, 0) + 1
 
-        return ForfeitBattleOrder()
+                self.bar.next()
+
+        return self.choose_random_move(battle)
+
 
     def write_builds_to_files(self):
         print("Writing Pokemon builds to file!")

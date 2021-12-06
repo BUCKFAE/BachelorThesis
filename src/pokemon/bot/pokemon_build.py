@@ -9,11 +9,12 @@ from poke_env.environment.pokemon import Pokemon
 
 
 # TODO: This only works for GEN1
+from src.pokemon.replays.util import convert_species_to_file_name
+
+
 class PokemonBuild:
 
     def __init__(self, species, level):
-
-        self.base_stats = {}
 
         # List of moves the pokemon used previously
         self.confirmed_moves: List[str] = []
@@ -36,23 +37,14 @@ class PokemonBuild:
         # TODO
         self.possible_items: Dict[str, int] = {}
 
-        # EVs of the pokemon
+        # Confirmed stats of the pokemon (including ev and iv)
         # TODO
-        self.confirmed_evs: Optional[Dict[str, int]] = None
+        self.confirmed_stats: Optional[Dict[str, int]] = None
 
-        # All possible IV combinations
+        # Possible stats of the pokemon (including ev and iv)
         # Tuple: (evs, chance)
         # TODO
-        self.possible_evs: List[Tuple[Dict[str, int], int]] = []
-
-        # IVs of the pokemon
-        # TODO
-        self.confirmed_ivs: Optional[Dict[str, int]] = {}
-
-        # All possible IV combinations#
-        # Tuple: (ivs, chance)
-        # TODO
-        self.possible_ivs: List[Tuple[Dict[str, int], int]] = []
+        self.possible_stats: List[Tuple[Dict[str, int], int]] = []
 
         # Stores all possible builds
         # Tuple: (build, int)
@@ -61,12 +53,15 @@ class PokemonBuild:
 
         # TODO: Store all actions by this pokemon
 
+        self.species = convert_species_to_file_name(species)
+
+
         # Loading all possible builds
-        file_content = open(f"src/pokemon/replays/data/{species.replace(' ', '')}.txt", "r").readlines()
+        file_content = open(f"src/pokemon/replays/data/generated/{self.species}.txt", "r").readlines()
         self.possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
         self.possible_builds = [(json.loads(t[0]), int(t[1])) for t in self.possible_builds]
 
-        self.species = species
+
         self.level = level
 
         # Updating possible moves for the pokemon
@@ -77,8 +72,7 @@ class PokemonBuild:
         # print(f"Possible moves for {self.species}: {self.possible_moves}")
 
         self.reference_pokemon = Pokemon(species=self.species)
-
-        self._update_ev_iv()
+        self.base_stats = self.reference_pokemon.base_stats
 
     def update_pokemon(self, pokemon: Pokemon):
         # print(f"Updating: {self.species}")
@@ -92,9 +86,8 @@ class PokemonBuild:
 
         self._update_moves()
 
-        self._update_ev_iv()
 
-    def _update_moves(self, is_gen_one=True):
+    def _update_moves(self):
         # print("Possible moves before new evaluation:\n\t{}".format("\n\t".join(self.possible_moves)))
 
         # Removing confirmed moves from the dict containing all possible moves
@@ -105,32 +98,10 @@ class PokemonBuild:
 
         # print("Assumed moves:\n\t{}".format("\n\t".join(self.assumed_moves)))
 
-    def get_assumed_stat(self, stat: str) -> int:
-        """Formula: https://bulbapedia.bulbagarden.net/wiki/Stat"""
 
-        # TODO: Calculate effective stats
-        assert stat != "hp"
-
-        if stat != "hp":
-            base = self.reference_pokemon.base_stats[stat]
-            dv = self.confirmed_ivs[stat]
-            ev = self.confirmed_evs[stat]
-            level = self.level
-
-            return int(((((base + dv) * 2) + int(50 / 4)) * level) / 100) + 5
-
-
-
-
-    def _update_ev_iv(self, is_gen_one=True):
-
-        # TODO: This only works for gen1 so far
-        assert is_gen_one
-
-        # The only possible difference of two gen 1 pokemon is their move set
-        if is_gen_one:
-            self.confirmed_evs = self.possible_builds[0][0]["evs"]
-            self.confirmed_ivs = self.possible_builds[0][0]["ivs"]
+    def _update_stats(self):
+        # TODO
+        pass
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ import subprocess
 import re
 import logging
 import time
+from typing import Tuple, Dict
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
@@ -66,7 +67,6 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
     p = subprocess.Popen(["npm run start"],
                          stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
 
-
     time.sleep(5)
 
     for request_count in [1, 2, 3, 4, 5, 7, 10, 20, 50, 100, 500, 1000, 5000, 10_000, 25_000, 50_000]:
@@ -101,7 +101,6 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
 
     p.kill()
 
-
     # print("Output:\n\t{}".format("\n\t".join(output)))
 
     # out = out.decode("utf-8")
@@ -110,23 +109,60 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
     # print(out)
 
 
-if __name__ == "__main__":
+def _stats_to_input(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
 
-    build1 = PokemonBuild("Charizard", 90)
+    assumed_ivs = {"hp": 31, "atk": 31, "def": 31, "spa": 31, "spd": 31, "spe": 31}
+    assumed_evs = {"hp": 85, "atk": 85, "def": 85, "spa": 85, "spd": 85, "spe": 85}
+
+    # Getting assumed ivs and evs
+    for key, value in pokemon.confirmed_stats.items():
+        if _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key) \
+                != pokemon.confirmed_stats[key]:
+            assumed_ivs[key] = 0
+            assumed_evs[key] = 0
+
+            print(f"{key}:")
+            print(f"{_get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key)}")
+            print(f"{pokemon.confirmed_stats[key]}\n\n")
+
+            assert _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key) \
+                   == pokemon.confirmed_stats[key]
+
+    return assumed_evs, assumed_ivs
+
+def _get_evs(base: Dict[str, int], stats: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
+    temp1 = int(((stats[stat] - 5) * 100) / (level)) - (2 * base[stat])
+    return int(temp1 - (ivs[stat] / 4))
+
+
+def _get_ivs(base: Dict[str, int], stats: Dict[str, int], evs: Dict[str, int], level: int, stat: str) -> int:
+    temp1 = int(((stats[stat] - 5) * 100) / (level)) - (2 * base[stat])
+    return (temp1 - evs[stat]) * 4
+
+def _get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
+
+    # Different formula for HP stat
+    if stat == "hp":
+        temp1 = (2 * base[stat] + ivs[stat] + int(evs[stat] / 4)) * level
+        return int(temp1 / 100) + level + 10
+
+    temp1 = (2 * base[stat] + ivs[stat] + int(evs[stat] / 4)) * level
+    return int((temp1 / 100)) + 5
+
+
+def validate_all_build_stats():
+    # TODO: Ensure that we can get the stats for all known pokemon
+    pass
+
+if __name__ == "__main__":
+    build1 = PokemonBuild("Charizard", 82)
     build1.confirmed_moves = ["airslash", "earthquake", "fireblast", "workup"]
     build1.confirmed_item = "Heavy-Duty Boots"
-    build1.confirmed_ivs = {"atk": 3, "def": 31, "hp": 20, "spa": 6, "spd": 3, "spe": 7}
-    build1.confirmed_evs = {"atk": 54, "def": 87, "hp": 23, "spa": 2, "spd": 252, "spe": 252}
+    build1.confirmed_stats = {"atk": 185, "def": 175, "spa": 226, "spd": 187, "spe": 211}
 
-    # TODO: Use other pokemon
-    build2 = PokemonBuild("Dragapult", 78)
-    build2.confirmed_moves = ["dracometeor", "fireblast", "shadowball", "thunderbolt"]
-    build2.confirmed_item = "Choice Specs"
-    build2.confirmed_evs = {"atk": 85, "def": 85, "hp": 81, "spa": 85, "spd": 85, "spe": 85}
-    build2.confirmed_ivs = {"atk": 31, "def": 31, "hp": 31, "spa": 31, "spd": 31, "spe": 31}
-
+    ev, iv = _stats_to_input(build1)
+    print(f"{ev=}\n{iv=}")
 
     os.chdir("src/pokemon/damage-calculator")
 
-    calculate_damage(build1, build2, Move("airslash"), None)
-
+    # calculate_damage(build1, build2, Move("airslash"), None)
