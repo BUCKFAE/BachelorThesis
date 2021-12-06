@@ -136,15 +136,15 @@ def safe_builds_to_files(builds):
     """Creates a file for each pokemon listing all it's possible builds"""
 
     # Assert that data dir exists
-    assert os.path.exists("src/pokemon/replays/data")
+    assert os.path.exists("src/pokemon/replays/data/replays")
 
     # Clearing old files in the data directory
-    for f in glob.glob("src/pokemon/replays/data/*"):
+    for f in glob.glob("src/pokemon/replays/data/replays/*"):
         os.remove(f)
 
     for pokemon_name, pokemon_builds in builds.items():
 
-        with open(f"src/pokemon/replays/data/{pokemon_name}.txt", "w") as pokemon_file:
+        with open(f"src/pokemon/replays/data/replays/{pokemon_name}.txt", "w") as pokemon_file:
 
             for pokemon_build, build_usage_count in pokemon_builds.items():
                 pokemon_file.write(f"{build_usage_count} - ")

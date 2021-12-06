@@ -5,6 +5,7 @@ REPLAY_PATH = "../../Data/anonymized-randbats-batch"
 
 replay_load_count = 5_000
 
+
 def load_replays(batch_size=64):
     batch = []
     total = 0
