@@ -1,4 +1,5 @@
 import datetime
+import json
 import os
 import random
 import subprocess
@@ -109,26 +110,43 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
     # print(out)
 
 
-def _stats_to_input(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
-
+def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
     assumed_ivs = {"hp": 31, "atk": 31, "def": 31, "spa": 31, "spd": 31, "spe": 31}
     assumed_evs = {"hp": 85, "atk": 85, "def": 85, "spa": 85, "spd": 85, "spe": 85}
 
+    # On some Pokémon these stats occur along a 31 iv stat
+    possible_evs = [0, 48, 80, 84]
+
     # Getting assumed ivs and evs
     for key, value in pokemon.confirmed_stats.items():
+
+        # If the stat is not (31 / 85) it's (0, 0)
         if _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key) \
                 != pokemon.confirmed_stats[key]:
             assumed_ivs[key] = 0
             assumed_evs[key] = 0
 
-            print(f"{key}:")
-            print(f"{_get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key)}")
-            print(f"{pokemon.confirmed_stats[key]}\n\n")
+            # Nether (31 / 85) nor (0 / 0)
+            if _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key) \
+                    != pokemon.confirmed_stats[key]:
 
-            assert _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key) \
-                   == pokemon.confirmed_stats[key]
+                for possible_ev in possible_evs:
+                    assumed_ivs[key] = 31
+                    assumed_evs[key] = possible_ev
+
+                    res = _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key)
+                    if res == pokemon.confirmed_stats[key]:
+                        print(f"Found")
+                        break
+
+            estimate = _get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key)
+
+            if estimate != pokemon.confirmed_stats[key]:
+                raise ValueError(f"Stat \"{key}\" was not matching for \"{pokemon.species}\""
+                      f"\n\texpected: {pokemon.confirmed_stats[key]} actual: {estimate} ")
 
     return assumed_evs, assumed_ivs
+
 
 def _get_evs(base: Dict[str, int], stats: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     temp1 = int(((stats[stat] - 5) * 100) / (level)) - (2 * base[stat])
@@ -139,20 +157,44 @@ def _get_ivs(base: Dict[str, int], stats: Dict[str, int], evs: Dict[str, int], l
     temp1 = int(((stats[stat] - 5) * 100) / (level)) - (2 * base[stat])
     return (temp1 - evs[stat]) * 4
 
-def _get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
 
+def _get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     # Different formula for HP stat
     if stat == "hp":
         temp1 = (2 * base[stat] + ivs[stat] + int(evs[stat] / 4)) * level
         return int(temp1 / 100) + level + 10
 
     temp1 = (2 * base[stat] + ivs[stat] + int(evs[stat] / 4)) * level
-    return int((temp1 / 100)) + 5
+    return int(temp1 / 100) + 5
 
 
 def validate_all_build_stats():
-    # TODO: Ensure that we can get the stats for all known pokemon
-    pass
+    print("Validating all builds")
+
+    for path, _, files in os.walk("src/pokemon/replays/data/generated"):
+        for name in files:
+            assert name.endswith(".txt")
+
+            species = name.removesuffix(".txt")
+
+            print(f"Pokemon: {species}")
+
+            with open(os.path.join(path, species) + ".txt") as replay_file:
+
+                # Base stats are always the same regardless of level
+
+                for build_string in [b.strip() for b in replay_file.readlines() if b.strip()]:
+                    print(f"{build_string}")
+                    build = json.loads(build_string.split(" - ")[1])
+
+                    pokemon_build = PokemonBuild(species, build["level"])
+                    pokemon_build.confirmed_stats = build["stats"]
+
+                    evs, ivs = extract_evs_ivs_from_build(pokemon_build)
+                    for stat in build["stats"]:
+                        calculated_stat = _get_total_stat(pokemon_build.base_stats, evs, ivs, build["level"], stat)
+                        assert calculated_stat == build["stats"][stat]
+
 
 if __name__ == "__main__":
     build1 = PokemonBuild("Charizard", 82)
@@ -160,9 +202,9 @@ if __name__ == "__main__":
     build1.confirmed_item = "Heavy-Duty Boots"
     build1.confirmed_stats = {"atk": 185, "def": 175, "spa": 226, "spd": 187, "spe": 211}
 
-    ev, iv = _stats_to_input(build1)
-    print(f"{ev=}\n{iv=}")
+    # ev, iv = _stats_to_input(build1)
+    # print(f"{ev=}\n{iv=}")
 
-    os.chdir("src/pokemon/damage-calculator")
+    validate_all_build_stats()
 
     # calculate_damage(build1, build2, Move("airslash"), None)

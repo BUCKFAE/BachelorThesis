@@ -5,7 +5,6 @@ import asyncio
 import json
 import os
 import shutil
-import sys
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.pokemon_gender import PokemonGender
@@ -17,7 +16,8 @@ from progress.bar import IncrementalBar
 from src.pokemon.replays.util import convert_species_to_file_name
 
 PATH = "src/pokemon/replays/generated-data"
-NUM_BATTLES = 300_000
+NUM_BATTLES = 500
+
 
 class DumpingPlayer(Player):
 
@@ -32,12 +32,17 @@ class DumpingPlayer(Player):
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
-        for pokemon in battle.team:
+        if battle.turn == 1:
 
-            if battle.turn == 1:
+            for pokemon in battle.team:
 
-                # Extracting data from replay
-                name = convert_species_to_file_name(pokemon)
+
+                # Extract data from replay
+                name = convert_species_to_file_name(battle.team[pokemon].species)
+
+                if "porygon" in name:
+                    print(name)
+
                 ability = battle.team[pokemon].ability
                 stats = battle.team[pokemon].stats
                 gender = battle.team[pokemon].gender
@@ -64,10 +69,12 @@ class DumpingPlayer(Player):
                 # Counting how many times the build appeared
                 self.builds[name][build_string] = self.builds[name].get(build_string, 0) + 1
 
-                self.bar.next()
+            self.bar.next()
+
+        if battle.turn == 3:
+            return ForfeitBattleOrder()
 
         return self.choose_random_move(battle)
-
 
     def write_builds_to_files(self):
         print("Writing Pokemon builds to file!")
@@ -101,6 +108,7 @@ async def main():
 
     # print(p1.builds["charizard"])
     p1.write_builds_to_files()
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

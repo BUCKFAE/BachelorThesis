@@ -66,7 +66,7 @@ class PokemonBuild:
 
         # Updating possible moves for the pokemon
         for possible_build in self.possible_builds:
-            for move in possible_build[0]["moves"]:
+            for move in possible_build[0]["moves"].split("|"):
                 self.possible_moves[move] = self.possible_moves.get(move, 0) + possible_build[1]
 
         # print(f"Possible moves for {self.species}: {self.possible_moves}")
