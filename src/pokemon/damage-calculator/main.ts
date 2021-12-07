@@ -4,8 +4,8 @@ const gen = Generations.get(8);
 
 console.log("Started damage calculator!")
 
-var readline = require('readline');
-var rl = readline.createInterface({
+const readline = require('readline');
+const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     terminal: false
@@ -17,7 +17,7 @@ rl.on('line', function (line: string) {
 
     let args = line.split(";;");
 
-// Stats for first pokemon
+    // Stats for first pokemon
     let p1_species = args[0];
     let p1_form = args[1];
     let p1_gender = args[2];
@@ -33,7 +33,7 @@ rl.on('line', function (line: string) {
     let p1_hp = args[12];
     let p1_dynamax = args[13];
 
-// Stats for second pokemon
+    // Stats for second pokemon
     let p2_species = args[14];
     let p2_form = args[15];
     let p2_gender = args[16];
@@ -52,11 +52,10 @@ rl.on('line', function (line: string) {
     let move = args[28];
 
 
-// {'hp': 3, 'atk': 3, 'def': 3 'spa': 3, 'spd': 5, 'spe': 2}
     const battleResult = calculate(
         gen,
         new Pokemon(gen, p1_species, {
-            gender: 'M',
+            gender: (p1_gender == "M") ? 'M' : (p1_gender == "F") ? 'F' : 'N',
             level: parseInt(p1_level),
             evs: JSON.parse(p1_ev.replaceAll("\'", "\"")),
             ivs: JSON.parse(p1_iv.replaceAll("\'", "\"")),
@@ -70,7 +69,7 @@ rl.on('line', function (line: string) {
             isDynamaxed: false
         }),
         new Pokemon(gen, p2_species, {
-            gender: 'M',
+            gender: (p2_gender == "M") ? 'M' : (p2_gender == "F") ? 'F' : 'N',
             level: parseInt(p2_level),
             evs: JSON.parse(p2_ev.replaceAll("\'", "\"")),
             ivs: JSON.parse(p2_iv.replaceAll("\'", "\"")),

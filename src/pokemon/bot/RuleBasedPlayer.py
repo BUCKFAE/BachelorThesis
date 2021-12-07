@@ -120,16 +120,26 @@ class RuleBasedPlayer(Player):
 
         for pokemon in battle.opponent_team:
             if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
-                self.enemy_pokemon[battle.opponent_team[pokemon].species] = PokemonBuild(pokemon.split()[1],
-                                                                                         battle.opponent_team[
-                                                                                             pokemon].level)
+                try:
+                    print(f" Known Ability: {self.enemy_pokemon[battle.opponent_team[pokemon].ability]}")
+                except Exception:
+                    pass
 
-        self.enemy_pokemon[battle.opponent_active_pokemon.species] \
-            .update_pokemon(battle.opponent_active_pokemon)
+                g = battle.opponent_team[pokemon].gender.name
+                self.enemy_pokemon[battle.opponent_team[pokemon].species] = \
+                    PokemonBuild(pokemon.split()[1],
+                                 battle.opponent_team[pokemon].level,
+                                 battle.opponent_team[pokemon].gender.name,
+                                 battle.opponent_team[pokemon].item,
+                                 battle.opponent_team[pokemon].ability)
+
+        # TODO: Include this again
+        # self.enemy_pokemon[battle.opponent_active_pokemon.species] \
+            # .update_pokemon(battle.opponent_active_pokemon)
 
 
 async def main():
-    p1 = RuleBasedPlayer(battle_format="gen8randombattle")
+    p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=1)
     p2 = RandomInformationPlayer(battle_format="gen8randombattle")
 
     await p1.battle_against(p2, n_battles=1)

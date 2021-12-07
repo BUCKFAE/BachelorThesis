@@ -26,41 +26,56 @@ def get_calc_result(
     out, err = p.communicate()
 
 
-def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move, battle: AbstractBattle):
+def calculate_damage(
+        attacker: PokemonBuild,
+        defender: PokemonBuild,
+        move: Move,
+        battle: AbstractBattle,
+        boosts_attacker=None,
+        boosts_defender=None
+        ):
+
+    # TODO: Add field / battle
+
     # TODO: Include battle info
+    if boosts_attacker is None:
+        boosts_attacker = {}
     if battle is None:
         logging.warning("Battle is not specified!")
 
     logging.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
 
+    attacker_ivs, attacker_evs = extract_evs_ivs_from_build(attacker)
+    defender_ivs, defender_evs = extract_evs_ivs_from_build(defender)
+
     calculator_args = [
         attacker.species,
         attacker.species,  # TODO: this is the form of the pokemon
-        "Male",  # TODO: Gender
+        "M" if attacker.gender == "male" else ("F" if attacker.gender == "female" else "N"),
         attacker.level,
         attacker.base_stats,
-        attacker.confirmed_ivs,
-        attacker.confirmed_evs,
-        {"atk": -3, "def": 2, "spa": 2, "spd": 0, "spe": 0},  # TODO: Boosts, will later be always zero
+        attacker_ivs,
+        attacker_evs,
+        boosts_attacker,
         "Hardy",  # All Pokémon have neutral nature
-        "Blaze",  # TODO: Ability
+        attacker.ability,
         attacker.confirmed_item,
         "",  # No status
-        262,  # TODO: HP
+        attacker.confirmed_stats["hp"],
         False,  # Not Dynamaxed
         defender.species,
         defender.species,  # TODO: this is the form of the pokemon
-        "Male",  # TODO: Gender
+        "M" if defender.gender == "Male" else ("F" if defender.gender == "Female" else "N"),
         defender.level,
         defender.base_stats,
-        defender.confirmed_ivs,
-        defender.confirmed_evs,
-        {"atk": -3, "def": 2, "spa": 2, "spd": 0, "spe": 0},  # TODO: Boosts, will later be always zero
+        defender_ivs,
+        defender_evs,
+        boosts_defender,
         "Hardy",  # All Pokémon have neutral nature
-        "Clear Body",  # TODO: Ability
+        defender.ability,  # TODO: Ability
         defender.confirmed_item,
         "",  # No status
-        265,  # TODO: HP
+        attacker.confirmed_stats["hp"],
         False,  # Not Dynamaxed
         move.id
     ]
@@ -77,10 +92,10 @@ def calculate_damage(attacker: PokemonBuild, defender: PokemonBuild, move: Move,
         for _ in range(request_count):
 
             # Modifying calc input
-            calculator_args[2] = random.choice(["Male", "Female"])  # Gender
+            calculator_args[2] = random.choice(["male", "female"])  # Gender
             calculator_args[3] = random.randint(5, 90)  # Level
             calculator_args[12] = random.randint(20, 200)  # HP
-            calculator_args[16] = random.choice(["Male", "Female"])  # Gender
+            calculator_args[16] = random.choice(["male", "female"])  # Gender
             calculator_args[17] = random.randint(5, 90)  # Level
             calculator_args[26] = random.randint(20, 200)  # HP
 
@@ -179,6 +194,10 @@ def validate_all_build_stats():
 
             print(f"Pokemon: {species}")
 
+            # TODO: Broken because of form
+            if species == "wishiwashi" or "lycanroc":
+                continue
+
             with open(os.path.join(path, species) + ".txt") as replay_file:
 
                 # Base stats are always the same regardless of level
@@ -187,7 +206,7 @@ def validate_all_build_stats():
                     print(f"{build_string}")
                     build = json.loads(build_string.split(" - ")[1])
 
-                    pokemon_build = PokemonBuild(species, build["level"])
+                    pokemon_build = PokemonBuild(species, build["level"], build["gender"])
                     pokemon_build.confirmed_stats = build["stats"]
 
                     evs, ivs = extract_evs_ivs_from_build(pokemon_build)
@@ -197,13 +216,12 @@ def validate_all_build_stats():
 
 
 if __name__ == "__main__":
-    build1 = PokemonBuild("Charizard", 82)
+    build1 = PokemonBuild("Charizard", 82, "Male")
     build1.confirmed_moves = ["airslash", "earthquake", "fireblast", "workup"]
     build1.confirmed_item = "Heavy-Duty Boots"
     build1.confirmed_stats = {"atk": 185, "def": 175, "spa": 226, "spd": 187, "spe": 211}
 
-    # ev, iv = _stats_to_input(build1)
-    # print(f"{ev=}\n{iv=}")
+
 
     validate_all_build_stats()
 

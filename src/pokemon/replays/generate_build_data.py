@@ -5,6 +5,9 @@ import asyncio
 import json
 import os
 import shutil
+import signal
+import subprocess
+import time
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.pokemon_gender import PokemonGender
@@ -13,16 +16,17 @@ from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
 from progress.bar import IncrementalBar
 
+from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
 from src.pokemon.replays.util import convert_species_to_file_name
 
-PATH = "src/pokemon/replays/generated-data"
-NUM_BATTLES = 500
+PATH = "src/pokemon/replays/data/generated"
+NUM_BATTLES = 60_000
 
 
 class DumpingPlayer(Player):
 
     def __init__(self, battle_format, num_battles):
-        super().__init__(battle_format=battle_format, max_concurrent_battles=1)
+        super().__init__(battle_format=battle_format, max_concurrent_battles=200)
 
         # {Pikachu: {<build1>: 20, <build2>: 30}}
         self.builds = {}
@@ -36,13 +40,8 @@ class DumpingPlayer(Player):
 
             for pokemon in battle.team:
 
-
                 # Extract data from replay
                 name = convert_species_to_file_name(battle.team[pokemon].species)
-
-                if "porygon" in name:
-                    print(name)
-
                 ability = battle.team[pokemon].ability
                 stats = battle.team[pokemon].stats
                 gender = battle.team[pokemon].gender
@@ -53,11 +52,11 @@ class DumpingPlayer(Player):
                 # Creating dict that represents the build
                 build = {"ability": ability,
                          "stats": stats,
-                         "gender": "male" if gender == PokemonGender.MALE else ("female" if PokemonGender.FEMALE
-                                                                                else "neutral"),
+                         "gender": "male" if gender == PokemonGender.MALE
+                         else ("female" if gender == PokemonGender.FEMALE else "neutral"),
                          "item": item,
                          "level": level,
-                         "moves": "[{}]".format("|".join(sorted(moves)))}
+                         "moves": "{}".format("|".join(sorted(moves)))}
 
                 # Saving the build
                 build_string = json.dumps(build)
@@ -71,10 +70,9 @@ class DumpingPlayer(Player):
 
             self.bar.next()
 
-        if battle.turn == 3:
-            return ForfeitBattleOrder()
+        return ForfeitBattleOrder()
 
-        return self.choose_random_move(battle)
+        # return self.choose_random_move(battle)
 
     def write_builds_to_files(self):
         print("Writing Pokemon builds to file!")
@@ -99,10 +97,12 @@ async def main():
     os.mkdir(PATH)
 
     p1 = DumpingPlayer(battle_format="gen8randombattle", num_battles=NUM_BATTLES)
-    p2 = RandomPlayer(battle_format="gen8randombattle")
+    p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
     await p1.battle_against(p2, n_battles=NUM_BATTLES)
     p1.bar.finish()
+
+    os.chdir("../BachelorThesis/")
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Random")
 

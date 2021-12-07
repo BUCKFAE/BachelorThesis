@@ -1,12 +1,8 @@
-"""Stores all Information gathered about a Pokemon"""
+"""Stores all Information gathered about a Pokémon"""
 import json
-from math import sqrt
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Set
 
-from poke_env.environment.abstract_battle import AbstractBattle
-from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
-
 
 # TODO: This only works for GEN1
 from src.pokemon.replays.util import convert_species_to_file_name
@@ -14,95 +10,132 @@ from src.pokemon.replays.util import convert_species_to_file_name
 
 class PokemonBuild:
 
-    def __init__(self, species, level):
+    def __init__(self,
+                 species: str,
+                 level: int,
+                 gender: str,
+                 item: str,
+                 ability: Optional[str]):
+        """
+        If we don't know the item yet, poke-env returns `unknown_item`
+        TODO: Confirm if pokemon always has the same moves / item / ability / stats
+        """
 
-        # List of moves the pokemon used previously
-        self.confirmed_moves: List[str] = []
-
-        # List of moves the pokemon may know
-        # Key: name of the move
-        # Value: Chance that the pokemon knows this move
-        self.possible_moves: Dict[str, int] = {}
-
-        # The moves we assume the pokemon to have based on the information we've gathered
-        self.assumed_moves: List[str] = []
-
-        # Item we know the pokemon has
-        # TODO
-        self.confirmed_item: Optional[str] = None
-
-        # List of items the pokemon may hold
-        # Key: name of the item
-        # Value: Chance that the pokemon holds this item
-        # TODO
-        self.possible_items: Dict[str, int] = {}
-
-        # Confirmed stats of the pokemon (including ev and iv)
-        # TODO
-        self.confirmed_stats: Optional[Dict[str, int]] = None
-
-        # Possible stats of the pokemon (including ev and iv)
-        # Tuple: (evs, chance)
-        # TODO
-        self.possible_stats: List[Tuple[Dict[str, int], int]] = []
-
-        # Stores all possible builds
-        # Tuple: (build, int)
-        # TODO: Remove builds no longer possible
-        self.possible_builds: Tuple[dict, int] = []
-
-        # TODO: Store all actions by this pokemon
-
+        # Species of the Pokémon
         self.species = convert_species_to_file_name(species)
 
+        print(f"Species: {self.species}")
 
         # Loading all possible builds
         file_content = open(f"src/pokemon/replays/data/generated/{self.species}.txt", "r").readlines()
-        self.possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
-        self.possible_builds = [(json.loads(t[0]), int(t[1])) for t in self.possible_builds]
+        self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
+        self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in self._possible_builds]
 
-
+        # Level of the Pokémon
         self.level = level
+        print(f"Level: {level}")
+        self._remove_invalid_builds_level()
 
-        # Updating possible moves for the pokemon
-        for possible_build in self.possible_builds:
+        # Gender of the Pokémon
+        if not (gender == "MALE" or gender == "FEMALE" or gender == "NEUTRAL"):
+            raise ValueError("Invalid gender! Expected \"MALE\", \"FEMALE\" or \"NEUTRAL\"")
+        self.gender = gender.lower()
+        print(self.gender)
+        self._remove_invalid_builds_gender()
+
+        # Getting all possible abilities
+        self._confirmed_ability: Optional[str] = None
+        self._possible_abilities: List[str] = list(set([build[0]["ability"] for build in self._possible_builds]))
+
+        # The Pokémon always has the same ability
+        if len(self._possible_abilities) == 1:
+            self._confirmed_ability = self._possible_abilities[0]
+
+        # Ensuring we know this build
+        if ability is not None and ability not in self._possible_abilities:
+            raise ValueError(f"Received an unknown ability for Pokémon \"{species}\"\n"
+                             f"\tKnown: {list(self._possible_abilities)}\n"
+                             f"\tReceived: {ability}")
+        self._remove_invalid_builds_ability()
+
+        # Item we know the Pokémon has
+        self._confirmed_item: Optional[str] = None if item == "unknown_item" else item
+
+        # List of items the Pokémon may hold
+        # Key: name of the item
+        # Value: How often the Pokémon was holding this item
+        self._possible_items: List[str] = list(set([build[0]["item"] for build in self._possible_builds]))
+        self._remove_invalid_builds_item()
+
+        # List of moves the Pokémon used previously
+        self._confirmed_moves: List[str] = []
+
+        # List of moves the Pokémon may know
+        # Key: name of the move
+        # Value: How often the Pokémon knew this move
+        self._possible_moves: Dict[str, int] = {}
+
+        # Updating possible moves for the Pokémon
+        for possible_build in self._possible_builds:
             for move in possible_build[0]["moves"].split("|"):
-                self.possible_moves[move] = self.possible_moves.get(move, 0) + possible_build[1]
+                self._possible_moves[move] = self._possible_moves.get(move, 0) + possible_build[1]
 
-        # print(f"Possible moves for {self.species}: {self.possible_moves}")
+        print(f"Possible moves for {self.species}:\n\t" + "\n\t".join([move for move in self._possible_moves]))
 
+        # Confirmed total stats of the Pokémon
+        self._confirmed_stats: Dict[str, int] = {}
+
+        # Possible stats of the Pokémon (including ev and iv)
+        # Tuple (stats, count)
+        self._possible_stats: List[Tuple[Dict[str, int], int]] = []
+
+        # TODO: Store all actions by this pokemon
+
+        # Getting base stats for the pokemon
         self.reference_pokemon = Pokemon(species=self.species)
         self.base_stats = self.reference_pokemon.base_stats
 
-    def update_pokemon(self, pokemon: Pokemon):
-        # print(f"Updating: {self.species}")
-        # print(f"\tKnown moves: {pokemon.moves}")
+        # Removing invalid builds
+        self._remove_invalid_builds()
 
-        self.confirmed_moves = [move for move in self.possible_moves if move in pokemon.moves.keys()]
+    def _remove_invalid_builds(self):
+        self._remove_invalid_builds_level()
+        self._remove_invalid_builds_gender()
 
-        # print(f"Confirmed moves: {self.confirmed_moves}")
+    def _remove_invalid_builds_level(self):
+        self._possible_builds = [b for b in self._possible_builds if b[0]["level"] == self.level]
+        print(f"Possible builds after level: {self._possible_builds}")
 
-        # TODO: Update possible moves based on build
+    def _remove_invalid_builds_gender(self):
+        self._possible_builds = [b for b in self._possible_builds if b[0]["gender"] == self.gender]
+        print(f"Possible builds after gender: {self._possible_builds}")
 
-        self._update_moves()
-
-
-    def _update_moves(self):
-        # print("Possible moves before new evaluation:\n\t{}".format("\n\t".join(self.possible_moves)))
-
-        # Removing confirmed moves from the dict containing all possible moves
-        self.possible_moves = {k: v for k, v in self.possible_moves.items() if k not in self.confirmed_moves}
-
-        self.assumed_moves = self.confirmed_moves + \
-            sorted(self.possible_moves.keys(), key=lambda m: self.possible_moves[m])[:4 - len(self.confirmed_moves)]
-
-        # print("Assumed moves:\n\t{}".format("\n\t".join(self.assumed_moves)))
+    def _remove_invalid_builds_ability(self):
+        self._possible_builds = [b for b in self._possible_builds if b[0]["ability"] == self.gender]
+        print(f"Possible builds after ability: {self._possible_builds}")
 
 
-    def _update_stats(self):
-        # TODO
-        pass
+    def _remove_invalid_builds_item(self):
+        if self._confirmed_item is not None:
+            self._possible_builds = [b for b in self._possible_builds if b[0]["item"] == self._confirmed_item]
+
+    def get_most_likely_moves(self):
+        """Returns the most likely moves of the given Pokémon
+        The most likely moves are the moves of the most likely build"""
+        return self.get_most_likely_build()["moves"].split("|")
+
+
+    def get_most_likely_item(self):
+        """Returns the most likely item of the given Pokémon"""
+        return self.get_most_likely_build()["item"]
+
+    def get_most_likely_build(self):
+        """Returns the most likely build"""
+        return max(self._possible_builds, key=lambda x: x[1])[0]
 
 
 if __name__ == "__main__":
-    b1 = PokemonBuild("Abra", 88)
+    b1 = PokemonBuild("Charizard", 82, "MALE", "unknown_item", None)
+    print(f"Most likely build: {b1.get_most_likely_build()}")
+    print(f"Most likely moves: {b1.get_most_likely_moves()}")
+    print(f"Most likely item: {b1.get_most_likely_item()}")
