@@ -5,7 +5,8 @@ from typing import List, Dict, Optional, Tuple, Set
 from poke_env.environment.pokemon import Pokemon
 
 # TODO: This only works for GEN1
-from src.pokemon.replays.util import convert_species_to_file_name
+from src.pokemon.config import GENERATED_DATA_PATH
+from src.pokemon.data_handling.util import convert_species_to_file_name
 
 
 class PokemonBuild:
@@ -18,33 +19,33 @@ class PokemonBuild:
                  ability: Optional[str]):
         """
         If we don't know the item yet, poke-env returns `unknown_item`
-        TODO: Confirm if pokemon always has the same moves / item / ability / stats
         """
 
         # Species of the Pokémon
         self.species = convert_species_to_file_name(species)
 
-        print(f"Species: {self.species}")
+        print(f"Creating build for species: {self.species}")
 
         # Loading all possible builds
-        file_content = open(f"src/pokemon/replays/data/generated/{self.species}.txt", "r").readlines()
+        with open(f"{GENERATED_DATA_PATH}/{self.species}.txt", "r") as f:
+            file_content = f.readlines()
         self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
         self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in self._possible_builds]
 
         # Level of the Pokémon
         self.level = level
-        print(f"Level: {level}")
+        print(f"\tLevel: {level}")
         self._remove_invalid_builds_level()
 
         # Gender of the Pokémon
         if not (gender == "MALE" or gender == "FEMALE" or gender == "NEUTRAL"):
             raise ValueError("Invalid gender! Expected \"MALE\", \"FEMALE\" or \"NEUTRAL\"")
         self.gender = gender.lower()
-        print(self.gender)
+        print(f"\tGender: {self.gender}")
         self._remove_invalid_builds_gender()
 
         # Getting all possible abilities
-        self._confirmed_ability: Optional[str] = None
+        self._confirmed_ability = ability
         self._possible_abilities: List[str] = list(set([build[0]["ability"] for build in self._possible_builds]))
 
         # The Pokémon always has the same ability
@@ -52,10 +53,11 @@ class PokemonBuild:
             self._confirmed_ability = self._possible_abilities[0]
 
         # Ensuring we know this build
-        if ability is not None and ability not in self._possible_abilities:
+        if self._confirmed_ability is not None and self._confirmed_ability not in self._possible_abilities:
             raise ValueError(f"Received an unknown ability for Pokémon \"{species}\"\n"
                              f"\tKnown: {list(self._possible_abilities)}\n"
                              f"\tReceived: {ability}")
+        print(f"\tAbility: {ability}")
         self._remove_invalid_builds_ability()
 
         # Item we know the Pokémon has
@@ -80,40 +82,41 @@ class PokemonBuild:
             for move in possible_build[0]["moves"].split("|"):
                 self._possible_moves[move] = self._possible_moves.get(move, 0) + possible_build[1]
 
-        print(f"Possible moves for {self.species}:\n\t" + "\n\t".join([move for move in self._possible_moves]))
-
         # Confirmed total stats of the Pokémon
         self._confirmed_stats: Dict[str, int] = {}
 
-        # Possible stats of the Pokémon (including ev and iv)
-        # Tuple (stats, count)
-        self._possible_stats: List[Tuple[Dict[str, int], int]] = []
+        # Possible total stats of the Pokémon
+        self._possible_stats: List[Dict[str, int], int] = \
+            list(set([json.dumps(build[0]["stats"], sort_keys=True) for build in self._possible_builds]))
+        self._possible_stats = [json.loads(build) for build in self._possible_stats]
 
-        # TODO: Store all actions by this pokemon
-
-        # Getting base stats for the pokemon
+        # Getting base stats for the Pokémon
         self.reference_pokemon = Pokemon(species=self.species)
         self.base_stats = self.reference_pokemon.base_stats
 
         # Removing invalid builds
         self._remove_invalid_builds()
 
+    def update_pokemon(self, pokemon: Pokemon):
+        pass
+        #print(f"Updating info of {pokemon.species}")
+
     def _remove_invalid_builds(self):
         self._remove_invalid_builds_level()
         self._remove_invalid_builds_gender()
+        self._remove_invalid_builds_ability()
+        self._remove_invalid_builds_item()
 
     def _remove_invalid_builds_level(self):
         self._possible_builds = [b for b in self._possible_builds if b[0]["level"] == self.level]
-        print(f"Possible builds after level: {self._possible_builds}")
 
     def _remove_invalid_builds_gender(self):
         self._possible_builds = [b for b in self._possible_builds if b[0]["gender"] == self.gender]
-        print(f"Possible builds after gender: {self._possible_builds}")
 
     def _remove_invalid_builds_ability(self):
-        self._possible_builds = [b for b in self._possible_builds if b[0]["ability"] == self.gender]
-        print(f"Possible builds after ability: {self._possible_builds}")
-
+        self._possible_builds = [b for b in self._possible_builds
+                                 if b[0]["ability"] == self._confirmed_ability or
+                                 self._confirmed_ability is None]
 
     def _remove_invalid_builds_item(self):
         if self._confirmed_item is not None:
@@ -124,10 +127,16 @@ class PokemonBuild:
         The most likely moves are the moves of the most likely build"""
         return self.get_most_likely_build()["moves"].split("|")
 
-
     def get_most_likely_item(self):
         """Returns the most likely item of the given Pokémon"""
         return self.get_most_likely_build()["item"]
+
+    def get_most_likely_ability(self):
+        return self.get_most_likely_build()["ability"]
+
+    def get_most_likely_stats(self):
+        """Returns the most likely stats of the given Pokémon"""
+        return self.get_most_likely_build()["stats"]
 
     def get_most_likely_build(self):
         """Returns the most likely build"""

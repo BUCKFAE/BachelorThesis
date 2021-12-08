@@ -1,6 +1,4 @@
 """Defines current configuration"""
 
-import os
-
-def get_showdown_port() -> int:
-    return int(os.environ.get("SHOWDOWN_PORT"))
+GENERATED_DATA_PATH = "/home/buckfae/Documents/BachelorThesis/src/data/generated"
+NODE_LIB_PATH = "/home/buckfae/Documents/BachelorThesis/src/pokemon/bot/damage_calculator/lib"

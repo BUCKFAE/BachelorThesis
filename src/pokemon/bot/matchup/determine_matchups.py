@@ -5,7 +5,7 @@ from typing import Dict, List
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.pokemon import Pokemon
 
-from src.pokemon.bot.pokemon_build import PokemonBuild
+from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 
 
 def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]):
@@ -22,7 +22,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             print(f"Getting matchup: {member.species} vs. {enemy.species}")
 
-            enemy_possible_moves = enemy_builds[enemy.species].assumed_moves
+            enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
             print(f"Enemy possible moves: {enemy_possible_moves}")
 
             enemy_actions = itertools.product(enemy_possible_moves, repeat=2)
@@ -37,14 +37,9 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                     own_hp = member.current_hp
                     enemy_hp = enemy.current_hp
 
-                    test_own_build = PokemonBuild(member.species[0].upper() + member.species[1:], member.level)
-                    ass = test_own_build.get_assumed_stat("spd")
-                    print("Assumed: {}\nActual: {}".format(ass, member.stats["spd"]))
+                    enemy_stats = enemy_builds[enemy.species].get_most_likely_stats()
+                    enemy_is_faster = enemy_stats["spd"] > member.stats["spd"]
 
-                    # print(enemy_builds[enemy.species].get_assumed_stat("spe") + enemy.base_stats["spe"])
-                    # TODO: Does this take boosting into account?
-                    enemy_is_faster = member.stats["spd"] < \
-                                      enemy_builds[enemy.species].get_assumed_stat("spd") + enemy.base_stats["spd"]
 
                     print("Enemy is faster: {}".format(enemy_is_faster))
 

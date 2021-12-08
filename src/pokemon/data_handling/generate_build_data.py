@@ -17,10 +17,10 @@ from poke_env.player.random_player import RandomPlayer
 from progress.bar import IncrementalBar
 
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
-from src.pokemon.replays.util import convert_species_to_file_name
+from src.pokemon.data_handling.util import convert_species_to_file_name
 
-PATH = "src/pokemon/replays/data/generated"
-NUM_BATTLES = 60_000
+PATH = "src/data/generated"
+NUM_BATTLES = 30_000
 
 
 class DumpingPlayer(Player):
@@ -51,7 +51,7 @@ class DumpingPlayer(Player):
 
                 # Creating dict that represents the build
                 build = {"ability": ability,
-                         "stats": stats,
+                         "stats": {**stats, **{"hp": battle.team[pokemon].max_hp}},
                          "gender": "male" if gender == PokemonGender.MALE
                          else ("female" if gender == PokemonGender.FEMALE else "neutral"),
                          "item": item,
@@ -78,13 +78,13 @@ class DumpingPlayer(Player):
         print("Writing Pokemon builds to file!")
 
         # Clearing data directory
-        if os.path.exists("src/pokemon/replays/data/generated"):
-            shutil.rmtree("src/pokemon/replays/data/generated")
-        os.mkdir("src/pokemon/replays/data/generated")
+        if os.path.exists(PATH):
+            shutil.rmtree(PATH)
+        os.mkdir(PATH)
 
         # Writing all builds to file
         for pokemon in self.builds:
-            with open(f"src/pokemon/replays/data/generated/{pokemon}.txt", "w") as pokemon_file:
+            with open(f"{PATH}/{pokemon}.txt", "w") as pokemon_file:
                 for build, usage_count in sorted(self.builds[pokemon].items(), key=lambda x: x[1], reverse=True):
                     pokemon_file.write(f"{usage_count} - {build}\n\n")
 

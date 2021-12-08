@@ -2,16 +2,14 @@ import os
 import re
 import json
 import glob
-import sys
-from typing import Tuple
 
 import matplotlib.pyplot as plt
 
 from collections import Counter
 from progress.bar import IncrementalBar
 
-from src.pokemon.replays.replay_data import ReplayData
-from src.pokemon.replays.replay_loader import load_replays, replay_load_count
+from src.pokemon.data_handling.replays.replay_data import ReplayData
+from src.pokemon.data_handling.replays.replay_loader import load_replays, replay_load_count
 
 
 def main():
@@ -136,15 +134,15 @@ def safe_builds_to_files(builds):
     """Creates a file for each pokemon listing all it's possible builds"""
 
     # Assert that data dir exists
-    assert os.path.exists("src/pokemon/replays/data/replays")
+    assert os.path.exists("src/pokemon/data_handling/data/data_handling")
 
     # Clearing old files in the data directory
-    for f in glob.glob("src/pokemon/replays/data/replays/*"):
+    for f in glob.glob("src/pokemon/data_handling/data/data_handling/*"):
         os.remove(f)
 
     for pokemon_name, pokemon_builds in builds.items():
 
-        with open(f"src/pokemon/replays/data/replays/{pokemon_name}.txt", "w") as pokemon_file:
+        with open(f"src/pokemon/data_handling/data/data_handling/{pokemon_name}.txt", "w") as pokemon_file:
 
             for pokemon_build, build_usage_count in pokemon_builds.items():
                 pokemon_file.write(f"{build_usage_count} - ")

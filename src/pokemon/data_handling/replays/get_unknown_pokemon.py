@@ -28,7 +28,7 @@ def main():
     known_pokemon = []
     unknown_allowed = []
 
-    for path, _, files in os.walk("src/pokemon/replays/data"):
+    for path, _, files in os.walk("src/pokemon/data_handling/data"):
         for name in files:
             known_pokemon.append(name.lower().rstrip(".txt"))
 

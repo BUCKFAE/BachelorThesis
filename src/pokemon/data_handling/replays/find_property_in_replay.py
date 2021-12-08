@@ -1,12 +1,12 @@
 import json
 import sys
 
-from src.pokemon.replays.load_replays import load_replays
+from src.pokemon.data_handling.replays.load_replays import load_replays
 
 if __name__ == "__main__":
     target = input("Property: ")
 
-    # Looking through replays until property is found
+    # Looking through data_handling until property is found
     for batch in load_replays():
         for replay in batch:
             for team in [replay["p1team"], replay["p2team"]]:
