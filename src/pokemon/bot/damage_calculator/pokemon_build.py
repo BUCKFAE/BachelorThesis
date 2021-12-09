@@ -24,7 +24,7 @@ class PokemonBuild:
         # Species of the Pokémon
         self.species = convert_species_to_file_name(species)
 
-        print(f"Creating build for species: {self.species}")
+        # print(f"Creating build for species: {self.species}")
 
         # Loading all possible builds
         with open(f"{GENERATED_DATA_PATH}/{self.species}.txt", "r") as f:
@@ -34,14 +34,14 @@ class PokemonBuild:
 
         # Level of the Pokémon
         self.level = level
-        print(f"\tLevel: {level}")
+        # print(f"\tLevel: {level}")
         self._remove_invalid_builds_level()
 
         # Gender of the Pokémon
         if not (gender == "MALE" or gender == "FEMALE" or gender == "NEUTRAL"):
             raise ValueError("Invalid gender! Expected \"MALE\", \"FEMALE\" or \"NEUTRAL\"")
         self.gender = gender.lower()
-        print(f"\tGender: {self.gender}")
+        # print(f"\tGender: {self.gender}")
         self._remove_invalid_builds_gender()
 
         # Getting all possible abilities
@@ -57,7 +57,7 @@ class PokemonBuild:
             raise ValueError(f"Received an unknown ability for Pokémon \"{species}\"\n"
                              f"\tKnown: {list(self._possible_abilities)}\n"
                              f"\tReceived: {ability}")
-        print(f"\tAbility: {ability}")
+        # print(f"\tAbility: {ability}")
         self._remove_invalid_builds_ability()
 
         # Item we know the Pokémon has
@@ -98,8 +98,8 @@ class PokemonBuild:
         self._remove_invalid_builds()
 
     def update_pokemon(self, pokemon: Pokemon):
-        pass
-        #print(f"Updating info of {pokemon.species}")
+
+        print(f"Updating info of {pokemon.species}")
 
     def _remove_invalid_builds(self):
         self._remove_invalid_builds_level()

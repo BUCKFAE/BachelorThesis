@@ -14,7 +14,7 @@ from poke_env.environment.move import Move
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import NODE_LIB_PATH
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.WARNING)
 
 
 class DamageCalculator:
@@ -44,7 +44,7 @@ class DamageCalculator:
         if boosts_defender is None:
             boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
         if battle is None:
-            logging.warning("Battle is not specified!")
+            logging.info("Battle is not specified!")
 
         logging.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
 

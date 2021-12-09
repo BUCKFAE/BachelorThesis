@@ -6,6 +6,7 @@ from poke_env.player.player import Player
 
 from poke_env.player.random_player import RandomPlayer
 
+from src.pokemon.bot.RandomInformationPlayer import RandomInformationPlayer
 from src.pokemon.bot.matchup.determine_matchups import determine_matchups
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 
@@ -18,18 +19,19 @@ class RuleBasedPlayer(Player):
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
+        print(f"Choosing move")
+
         self.update_enemy_information(battle)
 
         self.timer += 1
         if self.timer == 10:
+            print(f"Determining matchups")
             determine_matchups(battle, self.enemy_pokemon)
-
 
         return self.choose_random_move(battle)
 
-
     def update_enemy_information(self, battle: AbstractBattle):
-
+        print(f"Updating enemy information")
         for pokemon in battle.opponent_team:
             if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
                 self.enemy_pokemon[battle.opponent_team[pokemon].species] = \
@@ -45,7 +47,7 @@ class RuleBasedPlayer(Player):
 
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=1)
-    p2 = RandomPlayer(battle_format="gen8randombattle")
+    p2 = RandomInformationPlayer(battle_format="gen8randombattle")
 
     await p1.battle_against(p2, n_battles=1)
 
