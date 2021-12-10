@@ -24,7 +24,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     damage_calculator = DamageCalculator()
     print(f"Finished Starting Damage calculator")
 
-    own_pokemon: List[Pokemon] = battle.available_switches
+    own_pokemon: List[Pokemon] = battle.team
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     print(f"Pokemon p1: {own_pokemon}")
@@ -63,7 +63,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
             own_optimal_moves = get_optimal_moves(
                 member_build,
                 enemy_builds[enemy.species],
-                enemy_possible_moves,
+                member.moves,
                 3,
                 damage_calculator
             )
@@ -77,7 +77,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
             enemy_optimal_moves = get_optimal_moves(
                 enemy_builds[enemy.species],
                 member_build,
-                member.moves,
+                enemy_possible_moves,
                 3,
                 damage_calculator)
             # Calculating enemy expected damage
@@ -100,17 +100,15 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
             #   it's considered to be weaker than the enemy                    #
             ####################################################################
 
-            # TODO: Enemy HP Stat is always 100!
-
             enemy_total_hp = enemy_builds[enemy.species].get_most_likely_stats()["hp"]
 
-            enemy_damage_fraction = enemy_expected_damage / member_build.get_most_likely_stats()["hp"]
-            own_damage_fraction_counter = own_expected_damage / enemy_total_hp
-            own_damage_fraction_check = own_expected_damage_check / enemy_total_hp
+            damage_taken_fraction = enemy_expected_damage / member_build.get_most_likely_stats()["hp"]
+            damage_given_fraction_counter = own_expected_damage / enemy_total_hp
+            damage_given_fraction_check = own_expected_damage_check / enemy_total_hp
 
             # Checking if our Pokémon is a check or a counter to the enemy
-            is_counter = own_damage_fraction_counter < enemy_damage_fraction
-            is_check = own_damage_fraction_check < enemy_damage_fraction
+            is_counter = damage_taken_fraction < damage_given_fraction_counter
+            is_check = damage_taken_fraction < damage_given_fraction_check
 
             # Creating new entry for the given Pokémon if not already present
             if enemy.species not in matchups.keys():
@@ -167,7 +165,7 @@ def get_optimal_moves(
         if current_expected_damage >= best_expected_damage:
             best_moves = current_moves
 
-    print(f"Optimal moves: {best_moves}")
+    print(f"Optimal moves for {attacker.species} vs {defender.species}:\n\t{best_moves}")
 
     assert len(best_moves) == depth
     return best_moves

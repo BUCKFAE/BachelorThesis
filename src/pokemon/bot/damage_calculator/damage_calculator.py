@@ -5,6 +5,7 @@ import random
 import re
 import subprocess
 import logging
+import atexit
 import time
 from typing import Tuple, Dict
 
@@ -23,6 +24,7 @@ class DamageCalculator:
         self.cli_tool = subprocess.Popen(["npm run start"],
                                          cwd=NODE_LIB_PATH,
                                          stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
+        atexit.register(self.cli_tool.kill)
 
     def calculate_damage(
             self,

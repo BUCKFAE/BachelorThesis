@@ -7,7 +7,7 @@ from poke_env.environment.pokemon import Pokemon
 
 # TODO: This only works for GEN1
 from src.pokemon.config import GENERATED_DATA_PATH
-from src.pokemon.data_handling.util import convert_species_to_file_name
+from src.pokemon.data_handling.util.species_names import convert_species_to_file_name
 
 
 class PokemonBuild:

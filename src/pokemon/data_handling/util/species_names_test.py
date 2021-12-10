@@ -1,5 +1,6 @@
 import unittest
-from src.pokemon.data_handling.util import convert_species_to_file_name
+
+from src.pokemon.data_handling.util.species_names import convert_species_to_file_name
 
 
 class TestUtil(unittest.TestCase):

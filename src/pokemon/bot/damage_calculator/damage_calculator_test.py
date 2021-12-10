@@ -16,6 +16,8 @@ class TestDamageCalculator(unittest.TestCase):
     def test_calculate_damage(self):
         """Testing the expected damage a Pokémon will deal to another Pokémon"""
 
+        # TODO: Use gerated Pokemon
+
         # Salamence
         build1 = PokemonBuild("Salamence", 76, "MALE", "heavydutyboots", "moxie")
         build1._possible_builds = [(
