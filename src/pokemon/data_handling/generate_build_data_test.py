@@ -1,10 +1,12 @@
-"""Showdown sometimes changes the pool of pokemon"""
+"""Showdown sometimes changes the pool of Pokémon"""
 import sys
 import os
 import requests
 import json
 import ast
 import re
+
+from src.pokemon.config import GENERATED_DATA_PATH
 
 
 def main():
@@ -20,47 +22,34 @@ def main():
     data = re.sub("([\\t]+)([a-zA-Z0-9]+):", "\t\"\\2\":", data)
     data = re.sub(",[\\n\\t]+}", "}", data)
 
-    # print(data[:200])
-    # print(data[-200:])
-
     data = json.loads(data)
 
     known_pokemon = []
-    unknown_allowed = []
+    all_defined_pokemon = []
 
-    for path, _, files in os.walk("src/pokemon/data_handling/data"):
+    for path, _, files in os.walk(GENERATED_DATA_PATH):
         for name in files:
-            known_pokemon.append(name.lower().rstrip(".txt"))
+            print(name)
+            known_pokemon.append(name.replace(".txt", ""))
 
     print(f"Known Pokemon: {known_pokemon}")
 
+    print(f"Amount of known pokemon: {len(known_pokemon)}")
+
     for key, value in data.items():
-        if "isNonstandard" in value.keys():
+        if "randomBattleMoves" not in value.keys():
             continue
+        all_defined_pokemon.append(key)
 
-        print(f"{key} -> {value}")
+    print(f"Amount of defined pokemon: {len(all_defined_pokemon)}")
 
-        if "tier" not in value.keys():
-            print("Unknown tier!")
-            continue
+    unknown_pokemon = []
 
-        if value["tier"] == "Illegal":
-            continue
+    for current_defined_pokemon in all_defined_pokemon:
+        if current_defined_pokemon not in known_pokemon:
+            unknown_pokemon.append(current_defined_pokemon)
 
-
-        if key not in known_pokemon:
-            print("Unknown!")
-            unknown_allowed.append(key)
-
-    print(f"Unknown Pokemon:")
-    print("\n\t".join(unknown_allowed))
-
-    if "dialga" in unknown_allowed:
-        print("ooh")
-
-    print(len(unknown_allowed))
-
-    print(type(data))
+    print(f"Unknown Pokemon: {unknown_pokemon}")
 
 
 if __name__ == "__main__":

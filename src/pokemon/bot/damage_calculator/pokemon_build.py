@@ -1,5 +1,6 @@
 """Stores all Information gathered about a Pokémon"""
 import json
+import os
 from typing import List, Dict, Optional, Tuple, Set
 
 from poke_env.environment.pokemon import Pokemon
@@ -19,6 +20,9 @@ class PokemonBuild:
                  ability: Optional[str]):
         """
         If we don't know the item yet, poke-env returns `unknown_item`
+
+        # TODO: Currently broken Pokemon:
+        - Mr. Mime
         """
 
         # Species of the Pokémon
@@ -26,12 +30,27 @@ class PokemonBuild:
 
         # print(f"Creating build for species: {self.species}")
 
-        if "tapu" in self.species:
-            print("FUCK TAPU")
-
         # Loading all possible builds
-        with open(f"{GENERATED_DATA_PATH}/{self.species}.txt", "r") as f:
-            file_content = f.readlines()
+        try:
+            with open(f"{GENERATED_DATA_PATH}/{self.species}.txt", "r") as f:
+                file_content = f.readlines()
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Could not find file for pokemon!\n"
+                                    f"\tName: {species}\n"
+                                    f"\tFile Name: {self.species}")
+
+        # Adding alola builds
+        if os.path.exists(f"{GENERATED_DATA_PATH}/{self.species}alola.txt"):
+            with open(f"{GENERATED_DATA_PATH}/{self.species}alola.txt", "r") as f:
+                file_content += f.readlines()
+
+        # Adding kyurem black / white
+        if self.species == "kyurem":
+            with open(f"{GENERATED_DATA_PATH}/{self.species}black.txt", "r") as f:
+                file_content += f.readlines()
+            with open(f"{GENERATED_DATA_PATH}/{self.species}white.txt", "r") as f:
+                file_content += f.readlines()
+
         self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
         self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in self._possible_builds]
 
@@ -143,7 +162,11 @@ class PokemonBuild:
 
     def get_most_likely_build(self):
         """Returns the most likely build"""
-        return max(self._possible_builds, key=lambda x: x[1])[0]
+        try:
+            return max(self._possible_builds, key=lambda x: x[1])[0]
+        except:
+            print("oof")
+            raise Exception
 
 
 if __name__ == "__main__":

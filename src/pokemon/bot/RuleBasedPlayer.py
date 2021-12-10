@@ -15,6 +15,8 @@ class RuleBasedPlayer(Player):
     # Storing all information we have of the enemy pokemon
     enemy_pokemon = {}
 
+
+
     timer = 0
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
@@ -35,6 +37,10 @@ class RuleBasedPlayer(Player):
             if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
 
                 # TODO: Fix galar / special forms
+
+                if "ygard" in battle.opponent_team[pokemon].species:
+                    print(f"\n\nZYGARDE:")
+                    print(battle.opponent_team[pokemon].species)
 
                 self.enemy_pokemon[battle.opponent_team[pokemon].species] = \
                     PokemonBuild(pokemon.split()[1],

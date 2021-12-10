@@ -7,7 +7,8 @@ from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
 from poke_env.environment.pokemon_gender import PokemonGender
 
-from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
+from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator, extract_evs_ivs_from_build, \
+    get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 
 
@@ -35,12 +36,11 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
 
-            print(f"Getting matchup: {member.species} vs. {enemy.species}")
+            print(f"\n\nGetting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
-            print(f"Enemy possible moves: {enemy_possible_moves}")
-
-            enemy_actions = itertools.product(enemy_possible_moves, repeat=3)
+            print(f"{enemy.species} possible moves: {enemy_possible_moves}")
+            print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
 
             # TODO: Create method that creates PokemonBuild from Pokemon
             member_build = PokemonBuild(
@@ -52,7 +52,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                 member.ability)
             member_build._possible_builds = [(
                 {"ability": member.ability,
-                 "stats": {**member.stats, **{"hp": member.max_hp}},
+                 "stats": {**member.stats, **{"hp": member_build.get_most_likely_stats()["hp"]}},
                  "gender": "MALE" if member.gender == PokemonGender.MALE
                  else ("FEMALE" if member.gender == PokemonGender.FEMALE else "NEUTRAL"),
                  "item": member.item,
@@ -100,13 +100,17 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
             #   it's considered to be weaker than the enemy                    #
             ####################################################################
 
-            enemy_damage_fraction = enemy_expected_damage / member.max_hp
-            own_damage_fraction_counter = own_expected_damage / enemy.max_hp
-            own_damage_fraction_check = own_expected_damage_check / enemy.max_hp
+            # TODO: Enemy HP Stat is always 100!
+
+            enemy_total_hp = enemy_builds[enemy.species].get_most_likely_stats()["hp"]
+
+            enemy_damage_fraction = enemy_expected_damage / member_build.get_most_likely_stats()["hp"]
+            own_damage_fraction_counter = own_expected_damage / enemy_total_hp
+            own_damage_fraction_check = own_expected_damage_check / enemy_total_hp
 
             # Checking if our Pokémon is a check or a counter to the enemy
-            is_counter = own_damage_fraction_counter > enemy_damage_fraction * 1.5
-            is_check = own_damage_fraction_check > enemy_damage_fraction * 1.5
+            is_counter = own_damage_fraction_counter < enemy_damage_fraction
+            is_check = own_damage_fraction_check < enemy_damage_fraction
 
             # Creating new entry for the given Pokémon if not already present
             if enemy.species not in matchups.keys():
@@ -114,13 +118,16 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             if is_check:
                 matchups[enemy.species]["checks"].append(member.species)
+            print(f"{member.species} is check against {enemy.species}: {is_check}")
 
             if is_counter:
                 matchups[enemy.species]["counter"].append(member.species)
+            print(f"{member.species} is counter against {enemy.species}: {is_counter}")
 
     print(f"Matchups: {matchups}")
 
     return matchups
+
 
 def get_optimal_moves(
         attacker: PokemonBuild,
@@ -128,7 +135,6 @@ def get_optimal_moves(
         possible_moves: List[str],
         depth: int,
         damage_calculator: DamageCalculator):
-
     # All possible move combinations
     combinations = itertools.product(possible_moves, repeat=depth)
 
@@ -161,7 +167,7 @@ def get_optimal_moves(
         if current_expected_damage >= best_expected_damage:
             best_moves = current_moves
 
-    # print(f"Optimal moves: {best_moves}")
+    print(f"Optimal moves: {best_moves}")
 
     assert len(best_moves) == depth
     return best_moves
