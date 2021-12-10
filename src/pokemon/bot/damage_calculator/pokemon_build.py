@@ -26,6 +26,9 @@ class PokemonBuild:
 
         # print(f"Creating build for species: {self.species}")
 
+        if "tapu" in self.species:
+            print("FUCK TAPU")
+
         # Loading all possible builds
         with open(f"{GENERATED_DATA_PATH}/{self.species}.txt", "r") as f:
             file_content = f.readlines()

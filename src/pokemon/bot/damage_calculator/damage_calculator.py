@@ -22,8 +22,9 @@ class DamageCalculator:
     def __init__(self):
         self.cli_tool = subprocess.Popen(["npm run start"],
                                          cwd=NODE_LIB_PATH,
-                                         stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True,
-                                        )
+                                         stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
+
+
 
     def calculate_damage(
             self,

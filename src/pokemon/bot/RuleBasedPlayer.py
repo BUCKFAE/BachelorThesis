@@ -25,15 +25,17 @@ class RuleBasedPlayer(Player):
 
         self.timer += 1
         if self.timer == 10:
-            print(f"Determining matchups")
             determine_matchups(battle, self.enemy_pokemon)
 
         return self.choose_random_move(battle)
 
     def update_enemy_information(self, battle: AbstractBattle):
-        print(f"Updating enemy information")
+
         for pokemon in battle.opponent_team:
             if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
+
+                # TODO: Fix galar / special forms
+
                 self.enemy_pokemon[battle.opponent_team[pokemon].species] = \
                     PokemonBuild(pokemon.split()[1],
                                  battle.opponent_team[pokemon].level,

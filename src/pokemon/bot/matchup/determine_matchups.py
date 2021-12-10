@@ -12,6 +12,12 @@ from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 
 
 def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]):
+    """Returns the matchups for all enemy Pokémon
+    Dict {Pokémon: ([Checks], [Counter])}
+    """
+
+    matchups = {}
+
     # TODO: This should be a factory
     print(f"Starting Damage calculator")
     damage_calculator = DamageCalculator()
@@ -23,14 +29,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     print(f"Pokemon p1: {own_pokemon}")
     print(f"Pokemon p2: {enemy_pokemon}\n\n")
 
-    # Check:
-    # If the expected maximum damage dealt by the enemy after n turns is smaller than the expected
-    #   maximal damage after (n - 1) turns
-
-    # Counter:
-    # If the expected maximum damage dealt by the enemy after n turns is smaller than the expected
-    #   maximal damage after n turns
-
+    # Determining checks and counter for each known enemy
     for enemy in enemy_pokemon:
         for member in own_pokemon:
 
@@ -60,75 +59,109 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                  "level": member.item,
                  "moves": "|".join(member.moves)}, 1)]
 
-            optimal_enemy_moves = get_optimal_moves(
+            # Determining our optimal moves
+            own_optimal_moves = get_optimal_moves(
                 member_build,
                 enemy_builds[enemy.species],
                 enemy_possible_moves,
-                3
+                3,
+                damage_calculator
             )
 
-            sys.exit(0)
+            # Calculating expected damage for check and counter
+            own_expected_damage = sum(map(lambda x: x[1], own_optimal_moves))
+            own_expected_damage_biggest_removed = sorted(own_optimal_moves, key=lambda x: x[1], reverse=True)[1:]
+            own_expected_damage_check = sum(map(lambda x: x[1], own_expected_damage_biggest_removed))
 
-            enemy_max_damage = -1
-            enemy_best_combination = None
-            member_max_damage = -1
-            member_best_combination = None
+            # Determining enemy optimal moves
+            enemy_optimal_moves = get_optimal_moves(
+                enemy_builds[enemy.species],
+                member_build,
+                member.moves,
+                3,
+                damage_calculator)
+            # Calculating enemy expected damage
+            enemy_expected_damage = sum(map(lambda x: x[1], enemy_optimal_moves))
 
-            # All possible enemy moves
-            for enemy_moves in enemy_actions:
-                # print("Enemy actions:\t{}".format("\t".join(enemy_moves)))
+            ####################################################################
+            # Counter                                                          #
+            ####################################################################
+            # A Pokémon is a *Counter* if it's stronger when switched in after #
+            #   a faint.                                                       #
+            ####################################################################
+            # Check                                                            #
+            ####################################################################
+            # A Pokémon is a *Check* if it's stronger even when having to tank #
+            #   one additional hit                                             #
+            ####################################################################
+            # Determining what Pokémon is *stronger*                           #
+            ####################################################################
+            # If the one Pokémon looses a bigger fraction of it's total health #
+            #   it's considered to be weaker than the enemy                    #
+            ####################################################################
 
-                move_damages = 0
-                for current_move in enemy_moves:
-                    # TODO: Apply effects after move!
+            enemy_damage_fraction = enemy_expected_damage / member.max_hp
+            own_damage_fraction_counter = own_expected_damage / enemy.max_hp
+            own_damage_fraction_check = own_expected_damage_check / enemy.max_hp
 
-                    # Calculating expected damage after these 3 moves
-                    res = damage_calculator.calculate_damage(
-                        enemy_builds[enemy.species],
-                        member_build,
-                        Move(current_move),
-                        None,
-                        None)
-                    print(res)
-                    move_damages += sum(res) / len(res)
+            # Checking if our Pokémon is a check or a counter to the enemy
+            is_counter = own_damage_fraction_counter > enemy_damage_fraction * 1.5
+            is_check = own_damage_fraction_check > enemy_damage_fraction * 1.5
 
-                # If the current move combination is better than the one we found
-                if move_damages > enemy_max_damage:
-                    enemy_max_damage = move_damages
-                    enemy_best_combination = enemy_moves
+            # Creating new entry for the given Pokémon if not already present
+            if enemy.species not in matchups.keys():
+                matchups[enemy.species] = {"checks": [], "counter": []}
 
-            print(f"Enemy best move combination: {enemy_best_combination} ({enemy_max_damage})")
+            if is_check:
+                matchups[enemy.species]["checks"].append(member.species)
 
-            # All possible reactions
-            for own_actions in itertools.product(member.moves, repeat=3):
-                # print("Own actions:\t{}".format("\t".join(own_actions)))
+            if is_counter:
+                matchups[enemy.species]["counter"].append(member.species)
 
-                move_damages = 0
-                for current_move in own_actions:
-                    # TODO: Apply effects after move!
+    print(f"Matchups: {matchups}")
 
-                    # Calculating expected damage after these 3 moves
-                    res = damage_calculator.calculate_damage(
-                        member_build,
-                        enemy_builds[enemy.species],
-                        Move(current_move),
-                        None,
-                        None)
-                    move_damages += sum(res) / len(res)
+    return matchups
 
-                # If the current move combination is better than the one we found
-                if move_damages > member_max_damage:
-                    member_max_damage = move_damages
-                    member_best_combination = own_actions
+def get_optimal_moves(
+        attacker: PokemonBuild,
+        defender: PokemonBuild,
+        possible_moves: List[str],
+        depth: int,
+        damage_calculator: DamageCalculator):
 
-            print(f"Enemy best move combination: {member_best_combination} ({member_max_damage})")
+    # All possible move combinations
+    combinations = itertools.product(possible_moves, repeat=depth)
 
-            sys.exit(0)
+    # print(f"Getting optimal moves for {attacker.species} vs {defender.species}")
 
-
-def get_optimal_moves(attacker: PokemonBuild, defender: PokemonBuild, possible_moves: List[str], depth: int):
-
+    # Storing the best move combination
     best_moves = [(None, -1)]
 
+    for combination in combinations:
+        current_moves = []
+
+        # TODO: This should include field effects and stat changes, don't 3x draco meteor!
+
+        # Making all moves
+        for current_move in combination:
+            # Calculating expected damage after these 3 moves
+            res = damage_calculator.calculate_damage(
+                attacker,
+                defender,
+                Move(current_move),
+                None,
+                None)
+            expected_damage_current_move = sum(res) / len(res)
+            current_moves.append((current_move, expected_damage_current_move))
+
+        # If the current combination is better than the best known combination
+        current_expected_damage = sum(map(lambda x: x[1], current_moves))
+        best_expected_damage = sum(map(lambda x: x[1], best_moves))
+
+        if current_expected_damage >= best_expected_damage:
+            best_moves = current_moves
+
+    # print(f"Optimal moves: {best_moves}")
+
     assert len(best_moves) == depth
-    return 2
+    return best_moves
