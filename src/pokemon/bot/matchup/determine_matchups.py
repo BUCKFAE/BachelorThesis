@@ -1,3 +1,4 @@
+import json
 import sys
 import itertools
 from typing import Dict, List
@@ -122,7 +123,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                 matchups[enemy.species]["counter"].append(member.species)
             print(f"{member.species} is counter against {enemy.species}: {is_counter}")
 
-    print(f"Matchups: {matchups}")
+    print(f"\n\nMatchups: {json.dumps(matchups, indent=4, sort_keys=True)}")
 
     return matchups
 
