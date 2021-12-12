@@ -1,3 +1,5 @@
+"""Used to quickly create Pokémon and PokemonBuilds"""
+
 import json
 from typing import Dict, Any
 
@@ -10,6 +12,9 @@ from src.pokemon.data_handling.util.species_names import convert_species_name
 
 
 def load_pokemon_from_file(species) -> Gen8Pokemon:
+    """
+    Creates the most likely Pokémon with the corresponding name
+    """
     species_name = convert_species_name(species)
 
     # Loading the most likely build for the given species
@@ -22,6 +27,9 @@ def load_pokemon_from_file(species) -> Gen8Pokemon:
 
 
 def load_build_from_file(species) -> PokemonBuild:
+    """
+    Creates the most likely PokemonBuild of a Pokémon with the corresponding name
+    """
     species_name = convert_species_name(species)
 
     # Loading the most likely build for the given species

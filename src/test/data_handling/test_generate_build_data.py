@@ -16,7 +16,7 @@ class TestBuildDataGeneration(unittest.TestCase):
         Ensures we have build data for all currently occurring Pokémon
         """
 
-        logging.info("Requesting information about all Pokémon from Showdown")
+        logging.info("Requesting information about Pokémon from Showdown")
 
         # Link contains information on which Pokémon are currently generated
         response = requests.get("https://raw.githubusercontent.com/Zarel/Pokemon-Showdown/master/data/formats-data.ts")

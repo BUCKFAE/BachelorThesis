@@ -17,7 +17,7 @@ from poke_env.player.random_player import RandomPlayer
 from progress.bar import IncrementalBar
 
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
-from src.pokemon.data_handling.util import convert_species_to_file_name
+from src.pokemon.data_handling.util.species_names import convert_species_name
 
 PATH = "src/data/generated"
 NUM_BATTLES = 30_000
@@ -41,7 +41,7 @@ class DumpingPlayer(Player):
             for pokemon in battle.team:
 
                 # Extract data from replay
-                name = convert_species_to_file_name(battle.team[pokemon].species)
+                name = convert_species_name(battle.team[pokemon].species)
                 ability = battle.team[pokemon].ability
                 stats = battle.team[pokemon].stats
                 gender = battle.team[pokemon].gender
