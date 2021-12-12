@@ -1,4 +1,7 @@
 """Defines current configuration"""
 
+# Path where generated builds will be stored
 GENERATED_DATA_PATH = "/home/buckfae/Documents/BachelorThesis/src/data/generated"
-NODE_LIB_PATH = "/home/buckfae/Documents/BachelorThesis/src/pokemon/bot/damage_calculator/lib"
+
+# Path to the damage calculator node application
+NODE_DAMAGE_CALCULATOR_PATH = "/home/buckfae/Documents/BachelorThesis/src/pokemon/bot/damage_calculator/lib"

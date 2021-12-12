@@ -6,11 +6,11 @@ from poke_env.environment.pokemon_gender import PokemonGender
 
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import GENERATED_DATA_PATH
-from src.pokemon.data_handling.util.species_names import convert_species_to_file_name
+from src.pokemon.data_handling.util.species_names import convert_species_name
 
 
 def load_pokemon_from_file(species) -> Gen8Pokemon:
-    species_name = convert_species_to_file_name(species)
+    species_name = convert_species_name(species)
 
     # Loading the most likely build for the given species
     with open(f"{GENERATED_DATA_PATH}/{species_name}.txt") as f:
@@ -22,7 +22,7 @@ def load_pokemon_from_file(species) -> Gen8Pokemon:
 
 
 def load_build_from_file(species) -> PokemonBuild:
-    species_name = convert_species_to_file_name(species)
+    species_name = convert_species_name(species)
 
     # Loading the most likely build for the given species
     with open(f"{GENERATED_DATA_PATH}/{species_name}.txt") as f:

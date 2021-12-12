@@ -13,7 +13,7 @@ from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
-from src.pokemon.config import NODE_LIB_PATH
+from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -22,7 +22,7 @@ class DamageCalculator:
 
     def __init__(self):
         self.cli_tool = subprocess.Popen(["npm run start"],
-                                         cwd=NODE_LIB_PATH,
+                                         cwd=NODE_DAMAGE_CALCULATOR_PATH,
                                          stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
         atexit.register(self.cli_tool.kill)
 
