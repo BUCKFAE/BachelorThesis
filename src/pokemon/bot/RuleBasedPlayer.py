@@ -35,7 +35,7 @@ class RuleBasedPlayer(Player):
             if battle.opponent_team[pokemon].species not in self.enemy_pokemon.keys():
 
                 self.enemy_pokemon[battle.opponent_team[pokemon].species] = \
-                    PokemonBuild(pokemon.split()[1],
+                    PokemonBuild(battle.opponent_team[pokemon].species,
                                  battle.opponent_team[pokemon].level,
                                  battle.opponent_team[pokemon].gender.name,
                                  battle.opponent_team[pokemon].item,

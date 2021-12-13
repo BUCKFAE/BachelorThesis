@@ -11,5 +11,7 @@ class TestSpeciesNames(unittest.TestCase):
         assert convert_species_name("Dracovish") == "dracovish"
 
 
+        assert convert_species_name("Mimikyubusted") == "mimikyu"
+
 if __name__ == "__main__":
     unittest.main()

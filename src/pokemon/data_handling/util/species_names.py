@@ -13,11 +13,7 @@ def convert_species_name(species: str) -> str:
         s = s[4:]
 
     # TODO: This may need to be improved later
-    #s = re.sub("gmax", "", s)
-    #s = re.sub("galar", "", s)
-    #s = re.sub("wishiwashischool", "wishiwashi", s)
-    #s = re.sub("aegislashblade", "aegislash", s)
-    #s = re.sub("darmanitanzen", "darmanitan", s)
+    s = re.sub("mimikyubusted", "mimikyu", s)
 
     s = re.sub("[^a-z0-9]", "", s)
     return s

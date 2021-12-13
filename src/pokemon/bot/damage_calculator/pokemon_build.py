@@ -39,22 +39,6 @@ class PokemonBuild:
                                     f"\tName: {species}\n"
                                     f"\tFile Name: {self.species}")
 
-        # Adding alola builds
-        if os.path.exists(f"{GENERATED_DATA_PATH}/{self.species}alola.txt"):
-            with open(f"{GENERATED_DATA_PATH}/{self.species}alola.txt", "r") as f:
-                file_content += f.readlines()
-
-        # Adding kyurem black / white
-        if self.species == "kyurem":
-            with open(f"{GENERATED_DATA_PATH}/{self.species}black.txt", "r") as f:
-                file_content += f.readlines()
-            with open(f"{GENERATED_DATA_PATH}/{self.species}white.txt", "r") as f:
-                file_content += f.readlines()
-
-        # Adding Landorus forms
-        with open(f"{GENERATED_DATA_PATH}/landorustherian.txt", "r") as f:
-            file_content += f.readlines()
-
         self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
         self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in self._possible_builds]
 
@@ -170,7 +154,7 @@ class PokemonBuild:
         try:
             return max(self._possible_builds, key=lambda x: x[1])[0]
         except:
-            print("oof")
+            print("No remaining build found for pokemon!")
             raise Exception
 
 
