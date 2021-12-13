@@ -11,6 +11,10 @@ const rl = readline.createInterface({
     terminal: false
 });
 
+/**
+ * For some reason pytest breaks when using string.replaceAll(), even if the ts-version is set correctly.
+ * @param s
+ */
 
 rl.on('line', function (line: string) {
     console.log(line);
@@ -57,9 +61,9 @@ rl.on('line', function (line: string) {
         new Pokemon(gen, p1_species, {
             gender: (p1_gender == "M") ? 'M' : (p1_gender == "F") ? 'F' : 'N',
             level: parseInt(p1_level),
-            evs: JSON.parse(p1_ev.replaceAll("\'", "\"")),
-            ivs: JSON.parse(p1_iv.replaceAll("\'", "\"")),
-            boosts: JSON.parse(p1_stages.replaceAll("\'", "\"")),
+            evs: JSON.parse(p1_ev),
+            ivs: JSON.parse(p1_iv),
+            boosts: JSON.parse(p1_stages),
             nature: p1_nature,
             ability: p1_ability,
             abilityOn: true,
@@ -71,9 +75,9 @@ rl.on('line', function (line: string) {
         new Pokemon(gen, p2_species, {
             gender: (p2_gender == "M") ? 'M' : (p2_gender == "F") ? 'F' : 'N',
             level: parseInt(p2_level),
-            evs: JSON.parse(p2_ev.replaceAll("\'", "\"")),
-            ivs: JSON.parse(p2_iv.replaceAll("\'", "\"")),
-            boosts: JSON.parse(p2_stages.replaceAll("\'", "\"")),
+            evs: JSON.parse(p2_ev),
+            ivs: JSON.parse(p2_iv),
+            boosts: JSON.parse(p2_stages),
             nature: p2_nature,
             ability: p2_ability,
             abilityOn: true,
@@ -84,6 +88,8 @@ rl.on('line', function (line: string) {
         }),
         new Move(gen, move)
     );
+
+    console.log("This is good")
 
     console.log(battleResult)
 

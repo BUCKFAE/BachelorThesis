@@ -3,6 +3,7 @@
 """
 import asyncio
 import json
+import logging
 import os
 import shutil
 import signal
@@ -17,22 +18,22 @@ from poke_env.player.random_player import RandomPlayer
 from progress.bar import IncrementalBar
 
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
+from src.pokemon.bot.damage_calculator.damage_calculator import extract_evs_ivs_from_build
+from src.pokemon.config import GENERATED_DATA_PATH
+from src.pokemon.data_handling.cleanup_build_data import remove_illegal_pokemon_builds
+from src.pokemon.data_handling.util.pokemon_creation import build_from_string
 from src.pokemon.data_handling.util.species_names import convert_species_name
 
-PATH = "src/data/generated"
 NUM_BATTLES = 30_000
 
 
 class DumpingPlayer(Player):
 
-    def __init__(self, battle_format, num_battles):
+    def __init__(self, battle_format):
         super().__init__(battle_format=battle_format, max_concurrent_battles=200)
 
         # {Pikachu: {<build1>: 20, <build2>: 30}}
         self.builds = {}
-
-        # Progress bar
-        self.bar = IncrementalBar('Generating Games:', max=num_battles)
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
@@ -68,8 +69,6 @@ class DumpingPlayer(Player):
                 # Counting how many times the build appeared
                 self.builds[name][build_string] = self.builds[name].get(build_string, 0) + 1
 
-            self.bar.next()
-
         return ForfeitBattleOrder()
 
         # return self.choose_random_move(battle)
@@ -78,31 +77,29 @@ class DumpingPlayer(Player):
         print("Writing Pokemon builds to file!")
 
         # Clearing data directory
-        if os.path.exists(PATH):
-            shutil.rmtree(PATH)
-        os.mkdir(PATH)
+        if os.path.exists(GENERATED_DATA_PATH):
+            shutil.rmtree(GENERATED_DATA_PATH)
+        os.mkdir(GENERATED_DATA_PATH)
 
         # Writing all builds to file
         for pokemon in self.builds:
-            with open(f"{PATH}/{pokemon}.txt", "w") as pokemon_file:
+            with open(f"{GENERATED_DATA_PATH}/{pokemon}.txt", "w") as pokemon_file:
                 for build, usage_count in sorted(self.builds[pokemon].items(), key=lambda x: x[1], reverse=True):
                     pokemon_file.write(f"{usage_count} - {build}\n\n")
 
-        print("Finished writing builds to file!")
+        # Removing invalid builds
+        remove_illegal_pokemon_builds()
 
 
 async def main():
     # Deleting old data dir
-    shutil.rmtree(PATH)
-    os.mkdir(PATH)
+    shutil.rmtree(GENERATED_DATA_PATH)
+    os.mkdir(GENERATED_DATA_PATH)
 
-    p1 = DumpingPlayer(battle_format="gen8randombattle", num_battles=NUM_BATTLES)
+    p1 = DumpingPlayer(battle_format="gen8randombattle")
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
     await p1.battle_against(p2, n_battles=NUM_BATTLES)
-    p1.bar.finish()
-
-    os.chdir("../BachelorThesis/")
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Random")
 

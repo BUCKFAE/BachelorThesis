@@ -5,26 +5,27 @@ from poke_env.player.random_player import RandomPlayer
 
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
 from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
-from src.pokemon.bot.SimpleRuleBasedPlayer import SimpleRuleBasedPlayer
 
 from itertools import combinations
 
-EVAL_EPISODES = 50
+from src.pokemon.bot.SimpleRuleBasedPlayer import SimpleRuleBasedPlayer
+
+EVAL_EPISODES = 2
 
 
 async def main():
+    print("Evaluating Bots!")
 
     concurrent = 1
 
     player_list = [
         RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=concurrent),
-        #SimpleRuleBasedPlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
-        #MaxDamagePlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
+        SimpleRuleBasedPlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
+        MaxDamagePlayer(battle_format="gen1randombattle", max_concurrent_battles=concurrent),
         RandomPlayer(battle_format="gen8randombattle", max_concurrent_battles=concurrent),
     ]
 
-    print("Evaluating Players!")
-
+    # Making the bots play against each other
     for battle in combinations(player_list, 2):
         p1: Player = battle[0]
         p2: Player = battle[1]

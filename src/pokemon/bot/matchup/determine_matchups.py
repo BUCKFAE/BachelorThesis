@@ -1,4 +1,5 @@
 import json
+import logging
 import sys
 import itertools
 from typing import Dict, List
@@ -25,7 +26,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     damage_calculator = DamageCalculator()
     print(f"Finished Starting Damage calculator")
 
-    own_pokemon: List[Pokemon] = battle.team
+    own_pokemon: List[Pokemon] = battle.available_switches
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     print(f"Pokemon p1: {own_pokemon}")
@@ -37,7 +38,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
 
-            print(f"\n\nGetting matchup: {member.species} vs. {enemy.species}")
+            logging.info(f"Getting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
             print(f"{enemy.species} possible moves: {enemy_possible_moves}")

@@ -51,6 +51,10 @@ class PokemonBuild:
             with open(f"{GENERATED_DATA_PATH}/{self.species}white.txt", "r") as f:
                 file_content += f.readlines()
 
+        # Adding Landorus forms
+        with open(f"{GENERATED_DATA_PATH}/landorustherian.txt", "r") as f:
+            file_content += f.readlines()
+
         self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
         self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in self._possible_builds]
 
@@ -75,7 +79,8 @@ class PokemonBuild:
             self._confirmed_ability = self._possible_abilities[0]
 
         # Ensuring we know this build
-        if self._confirmed_ability is not None and self._confirmed_ability not in self._possible_abilities:
+        if self._confirmed_ability is not None \
+                and self._confirmed_ability not in self._possible_abilities:
             raise ValueError(f"Received an unknown ability for Pokémon \"{species}\"\n"
                              f"\tKnown: {list(self._possible_abilities)}\n"
                              f"\tReceived: {ability}")

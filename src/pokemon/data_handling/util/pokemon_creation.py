@@ -41,6 +41,7 @@ def load_build_from_file(species) -> PokemonBuild:
 
 
 def build_from_string(species: str, build: Dict[str, Any]) -> PokemonBuild:
+    """Creates the PokemonBuild described by the given string"""
     pokemon_build = PokemonBuild(species,
                                  build["level"],
                                  build["gender"].upper(),
@@ -56,7 +57,8 @@ def build_from_string(species: str, build: Dict[str, Any]) -> PokemonBuild:
     return pokemon_build
 
 
-def pokemon_from_build(build: PokemonBuild) -> Pokemon:
+def pokemon_from_build(build: PokemonBuild) -> Gen8Pokemon:
+    """Creates a Pokémon described by the given build"""
     pokemon = Gen8Pokemon(species=build.species)
     pokemon._level = build.level
     pokemon.ability = build.get_most_likely_ability()

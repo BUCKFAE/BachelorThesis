@@ -21,6 +21,7 @@ logging.basicConfig(level=logging.WARNING)
 class DamageCalculator:
 
     def __init__(self):
+
         self.cli_tool = subprocess.Popen(["npm run start"],
                                          cwd=NODE_DAMAGE_CALCULATOR_PATH,
                                          stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
@@ -44,13 +45,19 @@ class DamageCalculator:
 
         if boosts_defender is None:
             boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
-        if battle is None:
-            logging.info("Battle is not specified!")
+        # if battle is None:
+        #    logging.info("Battle is not specified!")
 
         logging.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
 
         attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker)
         defender_evs, defender_ivs = extract_evs_ivs_from_build(defender)
+
+        # TypeScript expects double instead of single quotes
+        attacker_evs = re.sub("\'", "\"", str(attacker_evs))
+        attacker_ivs = re.sub("\'", "\"", str(attacker_ivs))
+        defender_evs = re.sub("\'", "\"", str(defender_evs))
+        defender_ivs = re.sub("\'", "\"", str(defender_ivs))
 
         calculator_args = [
             attacker.species,
@@ -60,7 +67,7 @@ class DamageCalculator:
             attacker.base_stats,
             attacker_ivs,
             attacker_evs,
-            boosts_attacker,
+            re.sub("\'", "\"", str(boosts_attacker)),
             "Hardy",  # All Pokémon have neutral nature
             attacker.get_most_likely_ability(),
             attacker.get_most_likely_item(),
@@ -74,7 +81,7 @@ class DamageCalculator:
             defender.base_stats,
             defender_ivs,
             defender_evs,
-            boosts_defender,
+            re.sub("\'", "\"", str(boosts_defender)),
             "Hardy",  # All Pokémon have neutral nature
             defender.get_most_likely_ability(),
             defender.get_most_likely_item(),
@@ -117,7 +124,7 @@ def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], D
     assumed_evs = {"hp": 85, "atk": 85, "def": 85, "spa": 85, "spd": 85, "spe": 85}
 
     # On some Pokémon these stats occur along a 31 iv stat
-    possible_evs = [0, 48, 80, 84]
+    possible_evs = [0, 48, 76, 80, 84]
 
     # Getting assumed ivs and evs
     for key, value in pokemon.get_most_likely_stats().items():
@@ -143,8 +150,8 @@ def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], D
             estimate = get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key)
 
             if estimate != pokemon.get_most_likely_stats()[key]:
-                raise ValueError(f"Stat \"{key}\" was not matching for \"{pokemon.species}\""
-                                 f"\n\texpected: {pokemon.get_most_likely_stats()[key]} actual: {estimate} ")
+                ValueError(f"Stat \"{key}\" was not matching for \"{pokemon.species}\""
+                           f"\n\texpected: {pokemon.get_most_likely_stats()[key]} actual: {estimate} ")
 
     return assumed_evs, assumed_ivs
 
