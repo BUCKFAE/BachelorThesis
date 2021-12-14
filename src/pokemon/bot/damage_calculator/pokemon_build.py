@@ -108,9 +108,32 @@ class PokemonBuild:
         # Removing invalid builds
         self._remove_invalid_builds()
 
-    def update_pokemon(self, pokemon: Pokemon):
+    def update_pokemon(self, pokemon: Pokemon) -> bool:
+        """After every move, this method updates all available information about the given Pokémon
+        :return: True if we gathered new information, False otherwise
+        """
 
-        print(f"Updating info of {pokemon.species}")
+        gathered_new_information = False
+
+        # Updating Ability
+        if pokemon.ability is not None and self._confirmed_ability is None:
+            self._confirmed_ability = pokemon.ability
+            gathered_new_information = True
+
+        # Updating Item
+        if pokemon.item != 'unknown_item' and self._confirmed_item is None:
+            self._confirmed_item = pokemon.item
+            gathered_new_information = True
+
+        # Updating moves
+        for confirmed_move in pokemon.moves.keys():
+            if confirmed_move not in self._confirmed_moves:
+                self._confirmed_moves.append(confirmed_move)
+                gathered_new_information = True
+
+        self._remove_invalid_builds()
+
+        return gathered_new_information
 
     def _remove_invalid_builds(self):
         self._remove_invalid_builds_level()
@@ -157,6 +180,12 @@ class PokemonBuild:
             print("No remaining build found for pokemon!")
             raise Exception
 
+    def get_remaining_hp(self, hp_fraction: float):
+        """
+        Showdown only tells us the fraction of the enemy's remaining HP
+        TODO: Testing, especially rounding!
+        """
+        return int(self.get_most_likely_stats()["hp"] * hp_fraction)
 
 if __name__ == "__main__":
     b1 = PokemonBuild("Charizard", 82, "MALE", "unknown_item", None)

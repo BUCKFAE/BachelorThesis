@@ -22,15 +22,15 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     matchups = {}
 
     # TODO: This should be a factory
-    print(f"Starting Damage calculator")
+    #print(f"Starting Damage calculator")
     damage_calculator = DamageCalculator()
-    print(f"Finished Starting Damage calculator")
+    #print(f"Finished Starting Damage calculator")
 
-    own_pokemon: List[Pokemon] = battle.available_switches
+    own_pokemon: List[Pokemon] = battle.available_switches + [battle.active_pokemon]
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
-    print(f"Pokemon p1: {own_pokemon}")
-    print(f"Pokemon p2: {enemy_pokemon}\n\n")
+    #print(f"Pokemon p1: {own_pokemon}")
+    #print(f"Pokemon p2: {enemy_pokemon}\n\n")
 
     # Determining checks and counter for each known enemy
     for enemy in enemy_pokemon:
@@ -41,8 +41,8 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
             logging.info(f"Getting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
-            print(f"{enemy.species} possible moves: {enemy_possible_moves}")
-            print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
+            #print(f"{enemy.species} possible moves: {enemy_possible_moves}")
+            #print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
 
             # TODO: Create method that creates PokemonBuild from Pokemon
             member_build = PokemonBuild(
@@ -118,13 +118,15 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             if is_check:
                 matchups[enemy.species]["checks"].append(member.species)
-            print(f"{member.species} is check against {enemy.species}: {is_check}")
+            #print(f"{member.species} is check against {enemy.species}: {is_check}")
 
             if is_counter:
                 matchups[enemy.species]["counter"].append(member.species)
-            print(f"{member.species} is counter against {enemy.species}: {is_counter}")
+            #print(f"{member.species} is counter against {enemy.species}: {is_counter}")
 
-    print(f"\n\nMatchups: {json.dumps(matchups, indent=4, sort_keys=True)}")
+    #print(f"\n\nMatchups: {json.dumps(matchups, indent=4, sort_keys=True)}")
+
+    damage_calculator._cli_tool.kill()
 
     return matchups
 
@@ -167,7 +169,7 @@ def get_optimal_moves(
         if current_expected_damage >= best_expected_damage:
             best_moves = current_moves
 
-    print(f"Optimal moves for {attacker.species} vs {defender.species}:\n\t{best_moves}")
+    # print(f"Optimal moves for {attacker.species} vs {defender.species}:\n\t{best_moves}")
 
     assert len(best_moves) == depth
     return best_moves

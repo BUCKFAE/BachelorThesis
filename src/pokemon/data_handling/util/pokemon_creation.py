@@ -57,6 +57,19 @@ def build_from_string(species: str, build: Dict[str, Any]) -> PokemonBuild:
     return pokemon_build
 
 
+def build_from_pokemon(pokemon: Gen8Pokemon) -> PokemonBuild:
+    return build_from_string(pokemon.species,
+                             {
+                                 "level": pokemon.level,
+                                 "gender": "MALE" if pokemon.gender == PokemonGender.MALE
+                                 else ("FEMALE" if pokemon.gender == PokemonGender.FEMALE else "NEUTRAL"),
+                                 "item": pokemon.item,
+                                 "ability": pokemon.ability,
+                                 "stats": {**pokemon.stats, **{"hp": pokemon.max_hp}},
+                                 "moves": "|".join(pokemon.moves)
+                             })
+
+
 def pokemon_from_build(build: PokemonBuild) -> Gen8Pokemon:
     """Creates a Pokémon described by the given build"""
     pokemon = Gen8Pokemon(species=build.species)

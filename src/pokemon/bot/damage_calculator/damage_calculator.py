@@ -9,6 +9,7 @@ import atexit
 import time
 from typing import Tuple, Dict
 
+from singleton_decorator import singleton
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 
@@ -18,14 +19,16 @@ from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
 logging.basicConfig(level=logging.WARNING)
 
 
+@singleton
 class DamageCalculator:
+    _cli_tool = None
 
     def __init__(self):
-
-        self.cli_tool = subprocess.Popen(["npm run start"],
-                                         cwd=NODE_DAMAGE_CALCULATOR_PATH,
-                                         stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
-        atexit.register(self.cli_tool.kill)
+        if self._cli_tool is None:
+            self._cli_tool = subprocess.Popen(["npm run start"],
+                                              cwd=NODE_DAMAGE_CALCULATOR_PATH,
+                                              stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
+            atexit.register(self._cli_tool.kill)
 
     def calculate_damage(
             self,
@@ -95,12 +98,12 @@ class DamageCalculator:
 
         calc_input = (";;".join([str(i) for i in calculator_args]) + "\n").encode()
 
-        self.cli_tool.stdin.write(calc_input)
-        self.cli_tool.stdin.flush()
+        self._cli_tool.stdin.write(calc_input)
+        self._cli_tool.stdin.flush()
 
         output = []
         while True:
-            res = self.cli_tool.stdout.readline().decode().strip()
+            res = self._cli_tool.stdout.readline().decode().strip()
             if res == "DONE!":
                 break
             output.append(res)
@@ -117,6 +120,29 @@ class DamageCalculator:
         ranges = [int(i) for i in ranges_text.split(",") if i]
 
         return ranges
+
+    def get_most_damaging_move(self, attacker: PokemonBuild, defender: PokemonBuild, battle: AbstractBattle):
+        # TODO: Account for disabled moves!!
+
+        best_move = (None, -1)
+
+        for move in attacker.get_most_likely_moves():
+            # TODO: Use expected damage instead (misses)
+            damage_range = self.calculate_damage(
+                attacker,
+                defender,
+                Move(move),
+                battle,
+                None,
+                None
+            )
+            expected_damage = sum(damage_range) / len(damage_range)
+            if expected_damage >= best_move[1]:
+                best_move = (move, expected_damage)
+
+        assert best_move[0] is not None
+        assert best_move[1] >= 0
+        return best_move
 
 
 def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
