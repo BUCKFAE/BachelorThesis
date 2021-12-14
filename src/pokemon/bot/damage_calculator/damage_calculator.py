@@ -9,6 +9,7 @@ import atexit
 import time
 from typing import Tuple, Dict
 
+from poke_env.environment.pokemon import Pokemon
 from singleton_decorator import singleton
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
@@ -94,7 +95,13 @@ class DamageCalculator:
             move.id
         ]
 
-        # TODO: THIS LEAKS MEMORY!!!!
+        # Fixing Gastrodon
+        # Poke-Env uses 'gastrodon' and 'gastrodoneast' for both variants
+        # The damage-calculator uses 'gastrodon' for both variants
+        if attacker.species == 'gastrodoneast':
+            calculator_args[0] = 'gastrodon'
+        if defender.species == 'gastrodoneast':
+            calculator_args[14] = 'gastrodon'
 
         calc_input = (";;".join([str(i) for i in calculator_args]) + "\n").encode()
 
@@ -126,7 +133,13 @@ class DamageCalculator:
 
         best_move = (None, -1)
 
+        print(attacker.get_most_likely_moves())
+
         for move in attacker.get_most_likely_moves():
+
+            if not move.strip():
+                print("HOLY SHIT SORRY")
+
             # TODO: Use expected damage instead (misses)
             damage_range = self.calculate_damage(
                 attacker,
@@ -176,6 +189,14 @@ def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], D
             estimate = get_total_stat(pokemon.base_stats, assumed_evs, assumed_ivs, pokemon.level, key)
 
             if estimate != pokemon.get_most_likely_stats()[key]:
+
+                # Handling wishiwashi
+                if pokemon.species == "wishiwashi":
+                    p = Pokemon(species="wishiwashischool")
+                    if pokemon.base_stats != p.base_stats:
+                        pokemon.base_stats = p.base_stats
+                        return extract_evs_ivs_from_build(pokemon)
+
                 ValueError(f"Stat \"{key}\" was not matching for \"{pokemon.species}\""
                            f"\n\texpected: {pokemon.get_most_likely_stats()[key]} actual: {estimate} ")
 
@@ -195,6 +216,11 @@ def _get_ivs(base: Dict[str, int], stats: Dict[str, int], evs: Dict[str, int], l
 def get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     # Different formula for HP stat
     if stat == "hp":
+
+        # Shedinja
+        if base["hp"] == 1:
+            return 1
+
         temp1 = (2 * base[stat] + ivs[stat] + int(evs[stat] / 4)) * level
         return int(temp1 / 100) + level + 10
 

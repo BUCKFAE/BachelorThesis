@@ -26,7 +26,8 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     damage_calculator = DamageCalculator()
     #print(f"Finished Starting Damage calculator")
 
-    own_pokemon: List[Pokemon] = battle.available_switches + [battle.active_pokemon]
+    own_pokemon: List[Pokemon] = battle.available_switches + \
+                                 ([battle.active_pokemon] if battle.active_pokemon is not None else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     #print(f"Pokemon p1: {own_pokemon}")

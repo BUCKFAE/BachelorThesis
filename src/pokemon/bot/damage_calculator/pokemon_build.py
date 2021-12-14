@@ -1,6 +1,7 @@
 """Stores all Information gathered about a Pokémon"""
 import json
 import os
+import sys
 from typing import List, Dict, Optional, Tuple, Set
 
 from poke_env.environment.pokemon import Pokemon
@@ -72,7 +73,7 @@ class PokemonBuild:
         self._remove_invalid_builds_ability()
 
         # Item we know the Pokémon has
-        self._confirmed_item: Optional[str] = None if item == "unknown_item" else item
+        self._confirmed_item: Optional[str] = None if item == "unknown_item" or item == "None" else item
 
         # List of items the Pokémon may hold
         # Key: name of the item
@@ -120,10 +121,17 @@ class PokemonBuild:
             self._confirmed_ability = pokemon.ability
             gathered_new_information = True
 
+        print(f"Item: \"{pokemon.item}\"")
+
+        if pokemon.item is None or pokemon.item == "None":
+            print("enou")
+
         # Updating Item
         if pokemon.item != 'unknown_item' and self._confirmed_item is None:
-            self._confirmed_item = pokemon.item
-            gathered_new_information = True
+            # TODO: Berries
+            if pokemon.item != "None":
+                self._confirmed_item = pokemon.item
+                gathered_new_information = True
 
         # Updating moves
         for confirmed_move in pokemon.moves.keys():
@@ -163,6 +171,10 @@ class PokemonBuild:
 
     def get_most_likely_item(self):
         """Returns the most likely item of the given Pokémon"""
+
+        # If a berry was used the pokemon doesn't hold an item anymore
+        if self.get_most_likely_build()["item"] is None:
+            raise RuntimeError("Pokemon had no item")
         return self.get_most_likely_build()["item"]
 
     def get_most_likely_ability(self):

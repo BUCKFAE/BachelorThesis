@@ -21,7 +21,8 @@ class TestDetermineMatchup(unittest.TestCase):
         pokemon_p2 = [load_pokemon_from_file(p) for p in names_team_p2]
         builds_p2 = [load_build_from_file(p) for p in names_team_p2]
 
-        battle._team = pokemon_p1
+        battle._available_switches = pokemon_p1
+        battle._active_pokemon = pokemon_p1[0]
 
         battle._opponent_team = {names_team_p2[p]: pokemon_p2[p] for p in range(len(names_team_p2))}
 

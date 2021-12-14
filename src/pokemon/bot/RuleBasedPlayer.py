@@ -37,6 +37,8 @@ class RuleBasedPlayer(Player):
         # Updating information we gathered about the enemy team
         new_information_collected = self.update_enemy_information(battle)
 
+        print(f"Items: {battle.active_pokemon.item} {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
+
         # Determining matchup again if new information was gathered
         if new_information_collected or battle.active_pokemon.first_turn:
             # print(f"Getting matchups!")
@@ -154,10 +156,10 @@ class RuleBasedPlayer(Player):
 
 
 async def main():
-    p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=1)
+    p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=20)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=1)
+    await p1.battle_against(p2, n_battles=20)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

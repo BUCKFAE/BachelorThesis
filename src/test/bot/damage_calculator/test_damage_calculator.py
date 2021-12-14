@@ -11,33 +11,20 @@ from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
     get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import GENERATED_DATA_PATH
+from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file
 
 
 class TestDamageCalculator(unittest.TestCase):
 
-    def test_calculate_damage(self):
+    def test_calculate_damage_basic(self):
         """Testing the expected damage a Pokémon will deal to another Pokémon"""
 
         # TODO: Use gerated Pokemon
+        # TODO: Broken Pokemon
+        # Gastrodon
 
-        # Salamence
-        build1 = PokemonBuild("salamence", 76, "MALE", "heavydutyboots", "moxie")
-        build1._possible_builds = [(
-            {"ability": "moxie",
-             "stats": {"hp": 269, "atk": 249, "def": 166, "spa": 211, "spd": 166, "spe": 196},
-             "gender": "male", "item": "heavydutyboots", "level": 76,
-             "moves": "dragondance|dualwingbeat|earthquake|outrage"}, 1)]
-
-        # Charizard
-        build2 = PokemonBuild("charizard", 82, "MALE", "heavydutyboots", "solarpower")
-        build2._possible_builds = [(
-            {"ability": "solarpower",
-             "stats": {"hp": 262, "atk": 185, "def": 175, "spa": 226, "spd": 187, "spe": 211},
-             "gender": "male",
-             "item": "heavydutyboots",
-             "level": 82,
-             "moves": "airslash|earthquake|fireblast|roost"}, 1)]
-
+        build1 = load_build_from_file("salamence")
+        build2 = load_build_from_file("charizard")
 
         d = DamageCalculator()
 
@@ -54,6 +41,57 @@ class TestDamageCalculator(unittest.TestCase):
         boosts_defender = {"atk": -2, "def": 2, "spa": -4, "spd": 2, "spe": -5}
         outrage_damage = d.calculate_damage(build1, build2, Move("outrage"), None, boosts_attacker, boosts_defender)
         assert outrage_damage == [210, 211, 214, 217, 219, 222, 225, 226, 229, 232, 234, 237, 240, 241, 244, 247]
+
+    def test_calculate_damage_gastrodon(self):
+        """
+        Gastrodon exists in two variants in poke-env:
+            - gastrodon: west (brown)
+            - gastrodoneast: east (green)
+        Passing gastrodoneast to the cli tool will break it as the damage calculator uses
+            gastrodon for both east and west.
+        """
+
+        build1 = load_build_from_file("gastrodon")
+        build2 = load_build_from_file("gastrodoneast")
+
+        d = DamageCalculator()
+
+        # West attacking East
+        earthquake_damage_1 = d.calculate_damage(build1, build2, Move("earthquake"), None, None, None)
+        assert earthquake_damage_1 == [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
+
+        # East attacking West
+        earthquake_damage_2 = d.calculate_damage(build2, build1, Move("earthquake"), None, None, None)
+        assert earthquake_damage_2 == [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
+
+    def test_calculate_damage_zygarde(self):
+        """
+        Zygarde has three forms
+            - Zygarde
+            - Zygarde-10%
+            - Zygarde-Complete
+        """
+
+        build1 = load_build_from_file("zygarde")
+        build2 = load_build_from_file("zygarde10")
+        build3 = load_build_from_file("zygardecomplete")
+
+        d = DamageCalculator()
+
+        # Zygarde vs Zygarde
+        d1 = d.calculate_damage(build1, build1, Move("outrage"), None, None, None)
+        assert d1 == [162, 164, 164, 168, 168, 170, 174, 174, 176, 180, 180, 182, 186, 186, 188, 192]
+
+        # Zygarde vs Zygarde10
+        d2 = d.calculate_damage(build1, build2, Move("outrage"), None, None, None)
+        assert d2 == [204, 206, 210, 212, 216, 216, 218, 222, 224, 228, 228, 230, 234, 236, 240, 242]
+
+        # Zygarde vs ZygardeComplete
+        d3 = d.calculate_damage(build1, build3, Move("outrage"), None, None, None)
+        assert d3 == [162, 164, 164, 168, 168, 170, 174, 174, 176, 180, 180, 182, 186, 186, 188, 192]
+
+    def test_calculate_damage_wishiwashi(self):
+        logging.warning("WISHIWASHI is still brkoken?")
 
 
 if __name__ == "__main__":

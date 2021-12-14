@@ -63,7 +63,7 @@ def build_from_pokemon(pokemon: Gen8Pokemon) -> PokemonBuild:
                                  "level": pokemon.level,
                                  "gender": "MALE" if pokemon.gender == PokemonGender.MALE
                                  else ("FEMALE" if pokemon.gender == PokemonGender.FEMALE else "NEUTRAL"),
-                                 "item": pokemon.item,
+                                 "item": pokemon.item if pokemon.item is not None else '',
                                  "ability": pokemon.ability,
                                  "stats": {**pokemon.stats, **{"hp": pokemon.max_hp}},
                                  "moves": "|".join(pokemon.moves)
