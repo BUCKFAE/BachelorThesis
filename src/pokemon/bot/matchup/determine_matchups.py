@@ -12,6 +12,7 @@ from poke_env.environment.pokemon_gender import PokemonGender
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator, extract_evs_ivs_from_build, \
     get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
 
 def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]):
@@ -22,16 +23,16 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     matchups = {}
 
     # TODO: This should be a factory
-    #print(f"Starting Damage calculator")
+    # print(f"Starting Damage calculator")
     damage_calculator = DamageCalculator()
-    #print(f"Finished Starting Damage calculator")
+    # print(f"Finished Starting Damage calculator")
 
     own_pokemon: List[Pokemon] = battle.available_switches + \
                                  ([battle.active_pokemon] if battle.active_pokemon is not None else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
-    #print(f"Pokemon p1: {own_pokemon}")
-    #print(f"Pokemon p2: {enemy_pokemon}\n\n")
+    # print(f"Pokemon p1: {own_pokemon}")
+    # print(f"Pokemon p2: {enemy_pokemon}\n\n")
 
     # Determining checks and counter for each known enemy
     for enemy in enemy_pokemon:
@@ -42,32 +43,21 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
             logging.info(f"Getting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
-            #print(f"{enemy.species} possible moves: {enemy_possible_moves}")
-            #print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
+            # print(f"{enemy.species} possible moves: {enemy_possible_moves}")
+            # print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
+
+            if member.item is None:
+                logging.warning("THIS USED TO DIE HERE; IT WON'T NOW???")
 
             # TODO: Create method that creates PokemonBuild from Pokemon
-            member_build = PokemonBuild(
-                member.species,
-                member.level,
-                "MALE" if member.gender == PokemonGender.MALE
-                else ("FEMALE" if member.gender == PokemonGender.FEMALE else "NEUTRAL"),
-                member.item,
-                member.ability)
-            member_build._possible_builds = [(
-                {"ability": member.ability,
-                 "stats": {**member.stats, **{"hp": member_build.get_most_likely_stats()["hp"]}},
-                 "gender": "MALE" if member.gender == PokemonGender.MALE
-                 else ("FEMALE" if member.gender == PokemonGender.FEMALE else "NEUTRAL"),
-                 "item": member.item,
-                 "level": member.item,
-                 "moves": "|".join(member.moves)}, 1)]
+            member_build = build_from_pokemon(member)
 
             # Determining our optimal moves
             own_optimal_moves = get_optimal_moves(
                 member_build,
                 enemy_builds[enemy.species],
                 member.moves,
-                3,
+                1,
                 damage_calculator
             )
 
@@ -81,7 +71,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                 enemy_builds[enemy.species],
                 member_build,
                 enemy_possible_moves,
-                3,
+                1,
                 damage_calculator)
             # Calculating enemy expected damage
             enemy_expected_damage = sum(map(lambda x: x[1], enemy_optimal_moves))
@@ -119,15 +109,15 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             if is_check:
                 matchups[enemy.species]["checks"].append(member.species)
-            #print(f"{member.species} is check against {enemy.species}: {is_check}")
+            # print(f"{member.species} is check against {enemy.species}: {is_check}")
 
             if is_counter:
                 matchups[enemy.species]["counter"].append(member.species)
-            #print(f"{member.species} is counter against {enemy.species}: {is_counter}")
+            # print(f"{member.species} is counter against {enemy.species}: {is_counter}")
 
-    #print(f"\n\nMatchups: {json.dumps(matchups, indent=4, sort_keys=True)}")
+    # print(f"\n\nMatchups: {json.dumps(matchups, indent=4, sort_keys=True)}")
 
-    damage_calculator._cli_tool.kill()
+    # damage_calculator._cli_tool.kill()
 
     return matchups
 

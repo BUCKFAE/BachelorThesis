@@ -29,7 +29,7 @@ class DamageCalculator:
             self._cli_tool = subprocess.Popen(["npm run start"],
                                               cwd=NODE_DAMAGE_CALCULATOR_PATH,
                                               stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
-            atexit.register(self._cli_tool.kill)
+            # atexit.register(self._cli_tool.kill)
 
     def calculate_damage(
             self,
@@ -63,18 +63,24 @@ class DamageCalculator:
         defender_evs = re.sub("\'", "\"", str(defender_evs))
         defender_ivs = re.sub("\'", "\"", str(defender_ivs))
 
+        boosts_attacker = re.sub("\'", "\"", str(boosts_attacker))
+        boosts_defender = re.sub("\'", "\"", str(boosts_defender))
+
+        attacker_item = attacker.get_most_likely_item()
+        defender_item = defender.get_most_likely_item()
+
         calculator_args = [
             attacker.species,
             attacker.species,  # TODO: this is the form of the pokemon
             "M" if attacker.gender == "male" else ("F" if attacker.gender == "female" else "N"),
             attacker.level,
-            attacker.base_stats,
+            re.sub("\"", "\'", str(attacker.base_stats)),
             attacker_ivs,
             attacker_evs,
             re.sub("\'", "\"", str(boosts_attacker)),
             "Hardy",  # All Pokémon have neutral nature
             attacker.get_most_likely_ability(),
-            attacker.get_most_likely_item(),
+            attacker_item if attacker_item != 'broken_item' else '',
             "",  # No status
             attacker.get_most_likely_stats()["hp"],
             False,  # Not Dynamaxed
@@ -82,18 +88,24 @@ class DamageCalculator:
             defender.species,  # TODO: this is the form of the pokemon
             "M" if defender.gender == "Male" else ("F" if defender.gender == "Female" else "N"),
             defender.level,
-            defender.base_stats,
+            re.sub("\"", "\'", str(defender.base_stats)),
             defender_ivs,
             defender_evs,
             re.sub("\'", "\"", str(boosts_defender)),
             "Hardy",  # All Pokémon have neutral nature
             defender.get_most_likely_ability(),
-            defender.get_most_likely_item(),
+            defender_item if defender_item != 'broken_item' else '',
             "",  # No status
             defender.get_most_likely_stats()["hp"],
             False,  # Not Dynamaxed
             move.id
         ]
+        if "aegislash" == attacker.species:
+            calculator_args[0] = 'aegislashblade'
+            logging.warning("INACTIVE AEG")
+        if "aegislash" == defender.species:
+            calculator_args[14] = 'aegislashblade'
+            logging.warning("INACTIVE AEDG")
 
         # Fixing Gastrodon
         # Poke-Env uses 'gastrodon' and 'gastrodoneast' for both variants
@@ -103,6 +115,24 @@ class DamageCalculator:
         if defender.species == 'gastrodoneast':
             calculator_args[14] = 'gastrodon'
 
+        if "pikachu" in attacker.species:
+            calculator_args[0] = "pikachu"
+        if "pikachu" in defender.species:
+            calculator_args[14] = "pikachu"
+
+
+
+
+        # TODO: Possible pokemon that break
+        # Electivire
+        # Reshiram
+        # Zygardecomplete
+        # Rotom
+        # Sandslash
+
+        calculator_args[0] = calculator_args[0].capitalize()
+        calculator_args[14] = calculator_args[14].capitalize()
+
         calc_input = (";;".join([str(i) for i in calculator_args]) + "\n").encode()
 
         self._cli_tool.stdin.write(calc_input)
@@ -111,6 +141,9 @@ class DamageCalculator:
         output = []
         while True:
             res = self._cli_tool.stdout.readline().decode().strip()
+            # ERRBUG: My debug
+            if "ERRBUG" in res:
+                print("\n".join(output))
             if res == "DONE!":
                 break
             output.append(res)
@@ -133,12 +166,14 @@ class DamageCalculator:
 
         best_move = (None, -1)
 
+        print(f"Most likely moves for: {attacker.species}")
         print(attacker.get_most_likely_moves())
 
         for move in attacker.get_most_likely_moves():
 
             if not move.strip():
-                print("HOLY SHIT SORRY")
+                logging.warning('The pokemon has no moves left, using struggle!')
+                move = 'struggle'
 
             # TODO: Use expected damage instead (misses)
             damage_range = self.calculate_damage(

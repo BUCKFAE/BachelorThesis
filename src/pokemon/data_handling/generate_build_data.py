@@ -26,7 +26,7 @@ from src.pokemon.data_handling.cleanup_build_data import remove_illegal_pokemon_
 from src.pokemon.data_handling.util.pokemon_creation import build_from_string
 from src.pokemon.data_handling.util.species_names import convert_species_name
 
-NUM_BATTLES = 5_000
+NUM_BATTLES = 20_000
 
 
 class DumpingPlayer(Player):

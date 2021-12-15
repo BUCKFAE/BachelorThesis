@@ -1,5 +1,6 @@
 """Stores all Information gathered about a Pokémon"""
 import json
+import logging
 import os
 import sys
 from typing import List, Dict, Optional, Tuple, Set
@@ -65,7 +66,10 @@ class PokemonBuild:
 
         # Ensuring we know this build
         if self._confirmed_ability is not None \
-                and self._confirmed_ability not in self._possible_abilities:
+                and self._confirmed_ability not in self._possible_abilities \
+                and "porygon" not in self.species \
+                and "ditto" not in self.species \
+                and "gardevoir" not in self.species:
             raise ValueError(f"Received an unknown ability for Pokémon \"{species}\"\n"
                              f"\tKnown: {list(self._possible_abilities)}\n"
                              f"\tReceived: {ability}")
@@ -124,14 +128,17 @@ class PokemonBuild:
         print(f"Item: \"{pokemon.item}\"")
 
         if pokemon.item is None or pokemon.item == "None":
-            print("enou")
+            print(f"Pokemon had no item!")
+            print(f"Pokemon: {pokemon.species}")
+            print(f"Previous item: {self._confirmed_item}")
+            if self._confirmed_item is not None:
+                print(f"The item of the pokemon broke!")
+                self._confirmed_item = "broken_item"
 
         # Updating Item
-        if pokemon.item != 'unknown_item' and self._confirmed_item is None:
-            # TODO: Berries
-            if pokemon.item != "None":
-                self._confirmed_item = pokemon.item
-                gathered_new_information = True
+        if pokemon.item != 'unknown_item' and pokemon.item != "None" and pokemon.item is not None:
+            self._confirmed_item = pokemon.item
+            gathered_new_information = True
 
         # Updating moves
         for confirmed_move in pokemon.moves.keys():
@@ -156,13 +163,19 @@ class PokemonBuild:
         self._possible_builds = [b for b in self._possible_builds if b[0]["gender"] == self.gender]
 
     def _remove_invalid_builds_ability(self):
-        self._possible_builds = [b for b in self._possible_builds
-                                 if b[0]["ability"] == self._confirmed_ability or
-                                 self._confirmed_ability is None]
+
+        if self.species == "gardevoir" or "porygon" in self.species or "ditto" in self.species:
+            logging.warning("Ignoring gardevoir and proygon for now!")
+        else:
+            self._possible_builds = [b for b in self._possible_builds
+                                     if b[0]["ability"] == self._confirmed_ability or
+                                     self._confirmed_ability is None]
 
     def _remove_invalid_builds_item(self):
-        if self._confirmed_item is not None:
-            self._possible_builds = [b for b in self._possible_builds if b[0]["item"] == self._confirmed_item]
+        if self._confirmed_item is not None and self._confirmed_item != 'broken_item':
+            self._possible_builds = [b for b in self._possible_builds if
+                                     b[0]["item"] == self._confirmed_item
+                                     or b[0]["item"] == 'broken_item']
 
     def get_most_likely_moves(self):
         """Returns the most likely moves of the given Pokémon
@@ -173,8 +186,12 @@ class PokemonBuild:
         """Returns the most likely item of the given Pokémon"""
 
         # If a berry was used the pokemon doesn't hold an item anymore
-        if self.get_most_likely_build()["item"] is None:
-            raise RuntimeError("Pokemon had no item")
+        if self._confirmed_item == "broken_item":
+            # raise RuntimeError("Pokemon had no item\n"
+            #                   f"\tPokemon: {self.species}\n" +
+            #                   "\tMost likely build: {}"
+            #                   .format(json.dumps(self.get_most_likely_build(), indent=4, sort_keys=True)))
+            return "broken_item"
         return self.get_most_likely_build()["item"]
 
     def get_most_likely_ability(self):
@@ -190,6 +207,10 @@ class PokemonBuild:
             return max(self._possible_builds, key=lambda x: x[1])[0]
         except:
             print("No remaining build found for pokemon!")
+            print(f"Species: {self.species}")
+            print(f"Item: \"{self._confirmed_item}\"")
+            print(f"Moves: {self._confirmed_moves}")
+            print(f"Stats: {self._confirmed_stats}")
             raise Exception
 
     def get_remaining_hp(self, hp_fraction: float):
@@ -198,6 +219,7 @@ class PokemonBuild:
         TODO: Testing, especially rounding!
         """
         return int(self.get_most_likely_stats()["hp"] * hp_fraction)
+
 
 if __name__ == "__main__":
     b1 = PokemonBuild("Charizard", 82, "MALE", "unknown_item", None)

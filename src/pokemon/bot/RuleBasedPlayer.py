@@ -37,15 +37,16 @@ class RuleBasedPlayer(Player):
         # Updating information we gathered about the enemy team
         new_information_collected = self.update_enemy_information(battle)
 
-        print(f"Items: {battle.active_pokemon.item} {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
+        print(f"\tItems: {battle.active_pokemon.item} {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
 
         # Determining matchup again if new information was gathered
         if new_information_collected or battle.active_pokemon.first_turn:
-            # print(f"Getting matchups!")
+            print(f"\tGetting matchups!")
             # Getting current Matchup
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
-            print(json.dumps(self.matchups, indent=4, sort_keys=True))
+            # print(json.dumps(self.matchups, indent=4, sort_keys=True))
 
+        # TODO: Volt switch!
         # Checking if our current matchup is bad
         current_enemy_matchups = self.matchups[enemy_species]
         current_enemy_checks = current_enemy_matchups["checks"]
@@ -53,20 +54,20 @@ class RuleBasedPlayer(Player):
 
         # Switching if we have to
         if not battle.available_moves:
-            print(f"Forced to switch!")
+            # print(f"Forced to switch!")
             current_enemy_checks = [c for c in current_enemy_checks if c != own_species]
             current_enemy_counter = [c for c in current_enemy_counter if c != own_species]
 
             if len(current_enemy_checks) > 0:
-                print(f"Switching to check: {current_enemy_checks[0]}")
+                print(f"\t\tSwitching to check: {current_enemy_checks[0]}")
                 check = [p for p in battle.available_switches if p.species == current_enemy_checks[0]][0]
                 return self.create_order(check)
             elif len(current_enemy_counter) > 0:
-                print(f"Switching to counter: {current_enemy_counter[0]}")
+                print(f"\t\tSwitching to counter: {current_enemy_counter[0]}")
                 counter = [p for p in battle.available_switches if p.species == current_enemy_counter[0]][0]
                 return self.create_order(counter)
             else:
-                print(f"No good switch found, switching random")
+                print(f"\t\tNo good switch found, switching random")
                 return self.choose_random_move(battle)
 
         # Getting HP
@@ -75,12 +76,12 @@ class RuleBasedPlayer(Player):
             battle.opponent_active_pokemon.current_hp_fraction)
 
         # Testing if we can kill the opponent this turn
-        print(f"HP: {own_hp} - {enemy_hp}")
+        # print(f"HP: {own_hp} - {enemy_hp}")
 
         # Getting Speed
         own_speed = battle.active_pokemon.stats["spe"]
         enemy_speed = self.enemy_pokemon[enemy_species].get_most_likely_stats()["spe"]
-        print(f"Speed: {own_speed} - {enemy_speed}")
+        # print(f"Speed: {own_speed} - {enemy_speed}")
 
         # TODO: Better to account for usable moves here
         own_pokemon_build = build_from_pokemon(battle.active_pokemon)
@@ -100,35 +101,36 @@ class RuleBasedPlayer(Player):
             battle
         )
 
-        print(f"Best own move: {best_own_move}")
-        print(f"best enemy move: {best_enemy_move}")
+        print(f"\tBest own move: {best_own_move}")
+        print(f"\tBest enemy move: {best_enemy_move}")
 
         # If we can kill the enemy this move, we will
         if best_own_move[1] > enemy_hp:
-            print(f"We can kill the enemy this turn!")
+            print(f"\t\tWe can kill the enemy this turn!")
             if best_enemy_move[1] > own_hp:
-                print(f"The enemy can kill us this turn as well!")
+                print(f"\t\tThe enemy can kill us this turn as well!")
+                pass
             else:
-                print(f"Trying to kill the enemy pokemon using {best_own_move}")
+                print(f"\t\tTrying to kill the enemy pokemon using {best_own_move}")
                 return self.create_order(Move(best_own_move[0]))
 
         # Switching out if we have a better option
         if own_species not in current_enemy_checks + current_enemy_counter:
-            print(f"Current matchup is not favorable!")
+            print(f"\t\tCurrent matchup is not favorable!")
             if len(current_enemy_checks) > 0:
-                print(f"Switching to check: {current_enemy_checks[0]}")
+                print(f"\t\t\tSwitching to check: {current_enemy_checks[0]}")
                 check = [p for p in battle.available_switches if p.species == current_enemy_checks[0]][0]
                 return self.create_order(check)
             elif len(current_enemy_counter) > 0:
-                print(f"Switching to counter: {current_enemy_counter[0]}")
+                print(f"\t\t\tSwitching to counter: {current_enemy_counter[0]}")
                 counter = [p for p in battle.available_switches if p.species == current_enemy_counter[0]][0]
                 return self.create_order(counter)
             else:
-                print(f"We don't have a better option. Trying to defeat {enemy_species} with {own_species}")
+                print(f"\t\t\tWe don't have a better option. Trying to defeat {enemy_species} with {own_species}")
+                pass
 
-        print(f"Picking the most damaging move from {own_species} against {enemy_species}")
+        print(f"\tPicking the most damaging move from {own_species} against {enemy_species}")
         return self.create_order(Move(best_own_move[0]))
-
 
 
     def update_enemy_information(self, battle: AbstractBattle):
@@ -149,6 +151,9 @@ class RuleBasedPlayer(Player):
 
                 gathered_new_information = True
 
+        print(f"Updating information about {battle.opponent_active_pokemon.species}")
+        print(f"Item: {battle.opponent_active_pokemon.item}")
+
         res = self.enemy_pokemon[battle.opponent_active_pokemon.species] \
             .update_pokemon(battle.opponent_active_pokemon)
 
@@ -156,7 +161,7 @@ class RuleBasedPlayer(Player):
 
 
 async def main():
-    p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=20)
+    p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=1)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
     await p1.battle_against(p2, n_battles=20)
