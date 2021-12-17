@@ -1,16 +1,12 @@
-import json
-import logging
-import sys
 import itertools
 from typing import Dict, List
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
-from poke_env.environment.pokemon_gender import PokemonGender
 
-from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator, extract_evs_ivs_from_build, \
-    get_total_stat
+from src.pokemon import logger
+from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
@@ -41,14 +37,14 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
 
-            logging.info(f"Getting matchup: {member.species} vs. {enemy.species}")
+            logger.info(f"Getting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
             # print(f"{enemy.species} possible moves: {enemy_possible_moves}")
             # print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
 
             if member.item is None:
-                logging.warning("THIS USED TO DIE HERE; IT WON'T NOW???")
+                logger.warning("THIS USED TO DIE HERE; IT WON'T NOW???")
 
             # TODO: Create method that creates PokemonBuild from Pokemon
             member_build = build_from_pokemon(member)

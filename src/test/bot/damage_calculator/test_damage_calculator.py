@@ -7,6 +7,7 @@ import os
 
 from poke_env.environment.move import Move
 
+from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator, extract_evs_ivs_from_build, \
     get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
@@ -91,7 +92,7 @@ class TestDamageCalculator(unittest.TestCase):
         assert d3 == [162, 164, 164, 168, 168, 170, 174, 174, 176, 180, 180, 182, 186, 186, 188, 192]
 
     def test_calculate_damage_wishiwashi(self):
-        logging.warning("WISHIWASHI is still brkoken?")
+        logger.warning("WISHIWASHI is still brkoken?")
 
 
 if __name__ == "__main__":

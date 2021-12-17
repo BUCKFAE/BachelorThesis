@@ -1,14 +1,10 @@
 import asyncio
+from itertools import combinations
 
 from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
 
-from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
 from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
-
-from itertools import combinations
-
-from src.pokemon.bot.SimpleRuleBasedPlayer import SimpleRuleBasedPlayer
 
 EVAL_EPISODES = 2
 

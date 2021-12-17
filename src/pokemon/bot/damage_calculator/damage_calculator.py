@@ -4,7 +4,6 @@ import os
 import random
 import re
 import subprocess
-import logging
 import atexit
 import time
 from typing import Tuple, Dict
@@ -14,10 +13,9 @@ from singleton_decorator import singleton
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 
+from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
-
-logging.basicConfig(level=logging.WARNING)
 
 
 @singleton
@@ -50,9 +48,9 @@ class DamageCalculator:
         if boosts_defender is None:
             boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
         # if battle is None:
-        #    logging.info("Battle is not specified!")
+        #    bot_logging.info("Battle is not specified!")
 
-        logging.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
+        logger.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
 
         attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker)
         defender_evs, defender_ivs = extract_evs_ivs_from_build(defender)
@@ -102,10 +100,10 @@ class DamageCalculator:
         ]
         if "aegislash" == attacker.species:
             calculator_args[0] = 'aegislashblade'
-            logging.warning("INACTIVE AEG")
+            logger.warning("INACTIVE AEG")
         if "aegislash" == defender.species:
             calculator_args[14] = 'aegislashblade'
-            logging.warning("INACTIVE AEDG")
+            logger.warning("INACTIVE AEDG")
 
         # Fixing Gastrodon
         # Poke-Env uses 'gastrodon' and 'gastrodoneast' for both variants
@@ -156,13 +154,12 @@ class DamageCalculator:
 
         best_move = (None, -1)
 
-        print(f"Most likely moves for: {attacker.species}")
-        print(attacker.get_most_likely_moves())
+        logger.info(f"Most likely moves for: {attacker.species}\n\t{attacker.get_most_likely_moves()}")
 
         for move in attacker.get_most_likely_moves():
 
             if not move.strip():
-                logging.warning('The pokemon has no moves left, using struggle!')
+                logger.warning('The pokemon has no moves left, using struggle!')
                 move = 'struggle'
 
             # TODO: Use expected damage instead (misses)

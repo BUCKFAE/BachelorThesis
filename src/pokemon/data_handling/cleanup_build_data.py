@@ -1,7 +1,7 @@
 import json
-import logging
 import os
 
+from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import extract_evs_ivs_from_build, get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import GENERATED_DATA_PATH
@@ -41,7 +41,7 @@ def remove_illegal_pokemon_builds():
                         if calculated_stat != build["stats"][stat]:
 
                             is_valid = False
-                            logging.warning(f"Invalid build for Pokémon!\n"
+                            logger.warning(f"Invalid build for Pokémon!\n"
                                             f"\tSpecies: {file_name.replace('.txt', '')}\n"
                                             f"\tBuild: {build}")
 

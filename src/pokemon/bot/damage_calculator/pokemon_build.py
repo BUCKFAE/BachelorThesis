@@ -1,6 +1,5 @@
 """Stores all Information gathered about a Pokémon"""
 import json
-import logging
 import os
 import sys
 from typing import List, Dict, Optional, Tuple, Set
@@ -8,6 +7,7 @@ from typing import List, Dict, Optional, Tuple, Set
 from poke_env.environment.pokemon import Pokemon
 
 # TODO: This only works for GEN1
+from src.pokemon import logger
 from src.pokemon.config import GENERATED_DATA_PATH
 from src.pokemon.data_handling.util.species_names import convert_species_name
 
@@ -71,9 +71,9 @@ class PokemonBuild:
                 and "ditto" not in self.species \
                 and "gardevoir" not in self.species \
                 and "calyrexice" not in self.species:
-            logging.critical(f"Received an unknown ability for Pokémon \"{species}\"\n"
-                             f"\tKnown: {list(self._possible_abilities)}\n"
-                             f"\tReceived: {ability}")
+            logger.critical(f"Received an unknown ability for Pokémon \"{species}\"\n"
+                            f"\tKnown: {list(self._possible_abilities)}\n"
+                            f"\tReceived: {ability}")
         # print(f"\tAbility: {ability}")
         self._remove_invalid_builds_ability()
 
@@ -126,8 +126,6 @@ class PokemonBuild:
             self._confirmed_ability = pokemon.ability
             gathered_new_information = True
 
-        print(f"Item: \"{pokemon.item}\"")
-
         if pokemon.item is None or pokemon.item == "None":
             print(f"Pokemon had no item!")
             print(f"Pokemon: {pokemon.species}")
@@ -170,7 +168,7 @@ class PokemonBuild:
                 or "porygon" in self.species \
                 or "ditto" in self.species \
                 or "calyrexice" in self.species:
-            logging.warning("Ignoring gardevoir and proygon for now!")
+            logger.warning(f"Ignoring ability of {self.species} for now!")
         else:
             self._possible_builds = [b for b in self._possible_builds
                                      if b[0]["ability"] == self._confirmed_ability or
@@ -210,13 +208,13 @@ class PokemonBuild:
         except:
             # If no build is remaining for the Pokémon we print a warning, then we load the most
             # likely build from file
-            logging.error(f"There were no possible builds remaining for \"{self.species}\"\n"
-                          f"\tLevel: {self.level}\n"
-                          f"\tGender: {self.gender}\n"
-                          f"\tItem: \"{self._confirmed_item}\"\n"
-                          f"\tAbility: \"{self._confirmed_ability}\"\n"
-                          f"\tStats: \"{self._confirmed_stats}\""
-                          "\tUsing the most likely build from file instead!")
+            logger.error(f"There were no possible builds remaining for \"{self.species}\"\n"
+                         f"\tLevel: {self.level}\n"
+                         f"\tGender: {self.gender}\n"
+                         f"\tItem: \"{self._confirmed_item}\"\n"
+                         f"\tAbility: \"{self._confirmed_ability}\"\n"
+                         f"\tStats: \"{self._confirmed_stats}\""
+                         "\tUsing the most likely build from file instead!")
 
             # Loading the most likely build from file
             with open(f"{GENERATED_DATA_PATH}/{self.species}.txt") as f:

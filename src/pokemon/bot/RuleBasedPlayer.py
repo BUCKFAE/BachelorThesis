@@ -1,6 +1,5 @@
 import asyncio
 import json
-import logging
 import sys
 from typing import Dict
 
@@ -11,9 +10,11 @@ from poke_env.player.player import Player
 
 from poke_env.player.random_player import RandomPlayer
 
+from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
 from src.pokemon.bot.RandomInformationPlayer import RandomInformationPlayer
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
+from src.pokemon.bot.bot_logging.replay_enhancing import enhance_replays
 from src.pokemon.bot.matchup.determine_matchups import determine_matchups
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
@@ -30,7 +31,15 @@ class RuleBasedPlayer(Player):
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
-        print(f"Matchup: {battle.active_pokemon.species} vs {battle.opponent_active_pokemon.species}")
+        if battle.turn == 1:
+            logger.info(f'Battle: {battle.battle_tag}')
+
+        logger.info(f'Turn: {battle.turn}')
+
+        logger.info(f'Remaining team:\n\t' +
+                    ' '.join([p.species for p in battle.team.values() if not p.fainted]))
+
+        logger.info(f"Matchup: {battle.active_pokemon.species} vs {battle.opponent_active_pokemon.species}")
 
         own_species = battle.active_pokemon.species
         enemy_species = battle.opponent_active_pokemon.species
@@ -38,18 +47,20 @@ class RuleBasedPlayer(Player):
         # Updating information we gathered about the enemy team
         new_information_collected = self.update_enemy_information(battle)
 
-        print(f"\tItems: {battle.active_pokemon.item} {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
+        logger.info(f"Items:\n"
+                    f"\tOwn Item: {battle.active_pokemon.item}\n"
+                    f"\tEnemy Item: {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
 
         # Determining matchup again if new information was gathered
         if new_information_collected or battle.active_pokemon.first_turn:
-            print(f"\tGetting matchups!")
+            logger.info(f'Gathered new Information, determining matchups.')
             # Getting current Matchup
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
-            # print(json.dumps(self.matchups, indent=4, sort_keys=True))
+            logger.info(f'Checks / Counter: {self.matchups}')
 
         # Player switched to an unknown Pokémon within the turn, e.g. Voltswitch
         if enemy_species not in self.matchups:
-            logging.info("Enemy pokemon unknown, getting matchups")
+            logger.info("Enemy pokemon unknown, getting matchups")
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
 
         # Checking if our current matchup is bad
@@ -64,15 +75,15 @@ class RuleBasedPlayer(Player):
             current_enemy_counter = [c for c in current_enemy_counter if c != own_species]
 
             if len(current_enemy_checks) > 0:
-                print(f"\t\tSwitching to check: {current_enemy_checks[0]}")
+                logger.info(f"\t\tSwitching to check: {current_enemy_checks[0]}")
                 check = [p for p in battle.available_switches if p.species == current_enemy_checks[0]][0]
                 return self.create_order(check)
             elif len(current_enemy_counter) > 0:
-                print(f"\t\tSwitching to counter: {current_enemy_counter[0]}")
+                logger.info(f"\t\tSwitching to counter: {current_enemy_counter[0]}")
                 counter = [p for p in battle.available_switches if p.species == current_enemy_counter[0]][0]
                 return self.create_order(counter)
             else:
-                print(f"\t\tNo good switch found, switching random")
+                logger.info(f"\t\tNo good switch found, switching random")
                 return self.choose_random_move(battle)
 
         # Getting HP
@@ -86,7 +97,7 @@ class RuleBasedPlayer(Player):
         # Getting Speed
         own_speed = battle.active_pokemon.stats["spe"]
         enemy_speed = self.enemy_pokemon[enemy_species].get_most_likely_stats()["spe"]
-        # print(f"Speed: {own_speed} - {enemy_speed}")
+        logger.info(f"Speed: {own_speed} - {enemy_speed}")
 
         # TODO: Better to account for usable moves here
         own_pokemon_build = build_from_pokemon(battle.active_pokemon)
@@ -106,35 +117,35 @@ class RuleBasedPlayer(Player):
             battle
         )
 
-        print(f"\tBest own move: {best_own_move}")
-        print(f"\tBest enemy move: {best_enemy_move}")
+        logger.info(f"Best own move: {best_own_move}")
+        logger.info(f"Best enemy move: {best_enemy_move}")
 
         # If we can kill the enemy this move, we will
         if best_own_move[1] > enemy_hp:
-            print(f"\t\tWe can kill the enemy this turn!")
+            logger.info(f"\tWe can kill the enemy this turn!")
             if best_enemy_move[1] > own_hp:
-                print(f"\t\tThe enemy can kill us this turn as well!")
+                logger.info(f"\tThe enemy can kill us this turn as well!")
                 pass
             else:
-                print(f"\t\tTrying to kill the enemy pokemon using {best_own_move}")
+                logger.info(f"\tTrying to kill the enemy pokemon using {best_own_move}")
                 return self.create_order(Move(best_own_move[0]))
 
         # Switching out if we have a better option
         if own_species not in current_enemy_checks + current_enemy_counter:
-            print(f"\t\tCurrent matchup is not favorable!")
+            logger.info(f"\tCurrent matchup is not favorable!")
             if len(current_enemy_checks) > 0:
-                print(f"\t\t\tSwitching to check: {current_enemy_checks[0]}")
+                logger.info(f"\t\tSwitching to check: {current_enemy_checks[0]}")
                 check = [p for p in battle.available_switches if p.species == current_enemy_checks[0]][0]
                 return self.create_order(check)
             elif len(current_enemy_counter) > 0:
-                print(f"\t\t\tSwitching to counter: {current_enemy_counter[0]}")
+                logger.info(f"\t\tSwitching to counter: {current_enemy_counter[0]}")
                 counter = [p for p in battle.available_switches if p.species == current_enemy_counter[0]][0]
                 return self.create_order(counter)
             else:
-                print(f"\t\t\tWe don't have a better option. Trying to defeat {enemy_species} with {own_species}")
+                logger.info(f"\t\tWe don't have a better option. Trying to defeat {enemy_species} with {own_species}")
                 pass
 
-        print(f"\tPicking the most damaging move from {own_species} against {enemy_species}")
+        logger.info(f"Picking the most damaging move from {own_species} against {enemy_species}")
         return self.create_order(Move(best_own_move[0]))
 
     def update_enemy_information(self, battle: AbstractBattle):
@@ -155,8 +166,7 @@ class RuleBasedPlayer(Player):
 
                 gathered_new_information = True
 
-        print(f"Updating information about {battle.opponent_active_pokemon.species}")
-        print(f"Item: {battle.opponent_active_pokemon.item}")
+        logger.info(f"Updating information about {battle.opponent_active_pokemon.species}")
 
         res = self.enemy_pokemon[battle.opponent_active_pokemon.species] \
             .update_pokemon(battle.opponent_active_pokemon)
@@ -167,12 +177,15 @@ class RuleBasedPlayer(Player):
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle",
                          max_concurrent_battles=1,
-                         save_replays=True)
+                         save_replays='src/data/replays')
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=100)
+    await p1.battle_against(p2, n_battles=1)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
+
+    print(f"Enhancing Replays")
+    enhance_replays(delete_old_replays=True)
 
 
 if __name__ == "__main__":
