@@ -69,8 +69,9 @@ class PokemonBuild:
                 and self._confirmed_ability not in self._possible_abilities \
                 and "porygon" not in self.species \
                 and "ditto" not in self.species \
-                and "gardevoir" not in self.species:
-            raise ValueError(f"Received an unknown ability for Pokémon \"{species}\"\n"
+                and "gardevoir" not in self.species \
+                and "calyrexice" not in self.species:
+            logging.critical(f"Received an unknown ability for Pokémon \"{species}\"\n"
                              f"\tKnown: {list(self._possible_abilities)}\n"
                              f"\tReceived: {ability}")
         # print(f"\tAbility: {ability}")
@@ -151,10 +152,11 @@ class PokemonBuild:
         return gathered_new_information
 
     def _remove_invalid_builds(self):
-        self._remove_invalid_builds_level()
-        self._remove_invalid_builds_gender()
-        self._remove_invalid_builds_ability()
-        self._remove_invalid_builds_item()
+        if len(self._possible_builds) > 1:
+            self._remove_invalid_builds_level()
+            self._remove_invalid_builds_gender()
+            self._remove_invalid_builds_ability()
+            self._remove_invalid_builds_item()
 
     def _remove_invalid_builds_level(self):
         self._possible_builds = [b for b in self._possible_builds if b[0]["level"] == self.level]
@@ -164,7 +166,10 @@ class PokemonBuild:
 
     def _remove_invalid_builds_ability(self):
 
-        if self.species == "gardevoir" or "porygon" in self.species or "ditto" in self.species:
+        if self.species == "gardevoir" \
+                or "porygon" in self.species \
+                or "ditto" in self.species \
+                or "calyrexice" in self.species:
             logging.warning("Ignoring gardevoir and proygon for now!")
         else:
             self._possible_builds = [b for b in self._possible_builds
@@ -185,12 +190,9 @@ class PokemonBuild:
     def get_most_likely_item(self):
         """Returns the most likely item of the given Pokémon"""
 
-        # If a berry was used the pokemon doesn't hold an item anymore
+        # If an item breaks (like berries or focus stash) poke-env returns None for item, this will break
+        # the damage showdown calculator.
         if self._confirmed_item == "broken_item":
-            # raise RuntimeError("Pokemon had no item\n"
-            #                   f"\tPokemon: {self.species}\n" +
-            #                   "\tMost likely build: {}"
-            #                   .format(json.dumps(self.get_most_likely_build(), indent=4, sort_keys=True)))
             return "broken_item"
         return self.get_most_likely_build()["item"]
 
@@ -206,12 +208,25 @@ class PokemonBuild:
         try:
             return max(self._possible_builds, key=lambda x: x[1])[0]
         except:
-            print("No remaining build found for pokemon!")
-            print(f"Species: {self.species}")
-            print(f"Item: \"{self._confirmed_item}\"")
-            print(f"Moves: {self._confirmed_moves}")
-            print(f"Stats: {self._confirmed_stats}")
-            raise Exception
+            # If no build is remaining for the Pokémon we print a warning, then we load the most
+            # likely build from file
+            logging.error(f"There were no possible builds remaining for \"{self.species}\"\n"
+                          f"\tLevel: {self.level}\n"
+                          f"\tGender: {self.gender}\n"
+                          f"\tItem: \"{self._confirmed_item}\"\n"
+                          f"\tAbility: \"{self._confirmed_ability}\"\n"
+                          f"\tStats: \"{self._confirmed_stats}\""
+                          "\tUsing the most likely build from file instead!")
+
+            # Loading the most likely build from file
+            with open(f"{GENERATED_DATA_PATH}/{self.species}.txt") as f:
+                file_content = f.readlines()
+
+            # Storing the most likely build
+            self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
+            self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in [self._possible_builds[0]]]
+
+            return self._possible_builds[0][0]
 
     def get_remaining_hp(self, hp_fraction: float):
         """

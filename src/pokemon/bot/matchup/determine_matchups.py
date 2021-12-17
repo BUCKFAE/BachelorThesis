@@ -12,6 +12,7 @@ from poke_env.environment.pokemon_gender import PokemonGender
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator, extract_evs_ivs_from_build, \
     get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
 
@@ -57,7 +58,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                 member_build,
                 enemy_builds[enemy.species],
                 member.moves,
-                1,
+                MATCHUP_MOVES_DEPTH,
                 damage_calculator
             )
 
@@ -71,7 +72,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
                 enemy_builds[enemy.species],
                 member_build,
                 enemy_possible_moves,
-                1,
+                MATCHUP_MOVES_DEPTH,
                 damage_calculator)
             # Calculating enemy expected damage
             enemy_expected_damage = sum(map(lambda x: x[1], enemy_optimal_moves))

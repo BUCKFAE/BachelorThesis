@@ -14,6 +14,7 @@ def convert_species_name(species: str) -> str:
 
     # TODO: This may need to be improved later
     s = re.sub("mimikyubusted", "mimikyu", s)
+    s = re.sub("eiscuenoice", "eiscue", s)
 
     s = re.sub("[^a-z0-9]", "", s)
     return s

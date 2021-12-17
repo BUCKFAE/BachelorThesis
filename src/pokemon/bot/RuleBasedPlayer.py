@@ -1,5 +1,6 @@
 import asyncio
 import json
+import logging
 import sys
 from typing import Dict
 
@@ -46,7 +47,11 @@ class RuleBasedPlayer(Player):
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
             # print(json.dumps(self.matchups, indent=4, sort_keys=True))
 
-        # TODO: Volt switch!
+        # Player switched to an unknown Pokémon within the turn, e.g. Voltswitch
+        if enemy_species not in self.matchups:
+            logging.info("Enemy pokemon unknown, getting matchups")
+            self.matchups = determine_matchups(battle, self.enemy_pokemon)
+
         # Checking if our current matchup is bad
         current_enemy_matchups = self.matchups[enemy_species]
         current_enemy_checks = current_enemy_matchups["checks"]
@@ -132,7 +137,6 @@ class RuleBasedPlayer(Player):
         print(f"\tPicking the most damaging move from {own_species} against {enemy_species}")
         return self.create_order(Move(best_own_move[0]))
 
-
     def update_enemy_information(self, battle: AbstractBattle):
         """Updates information gathered about the enemy Pokémon
         :return: True if we gathered new information, False otherwise
@@ -161,10 +165,12 @@ class RuleBasedPlayer(Player):
 
 
 async def main():
-    p1 = RuleBasedPlayer(battle_format="gen8randombattle", max_concurrent_battles=1)
+    p1 = RuleBasedPlayer(battle_format="gen8randombattle",
+                         max_concurrent_battles=1,
+                         save_replays=True)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=20)
+    await p1.battle_against(p2, n_battles=100)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

@@ -115,20 +115,12 @@ class DamageCalculator:
         if defender.species == 'gastrodoneast':
             calculator_args[14] = 'gastrodon'
 
+        # There are multiple pikachu species, they all have the same base stats and are handled
+        # identically by the damage calculator
         if "pikachu" in attacker.species:
             calculator_args[0] = "pikachu"
         if "pikachu" in defender.species:
             calculator_args[14] = "pikachu"
-
-
-
-
-        # TODO: Possible pokemon that break
-        # Electivire
-        # Reshiram
-        # Zygardecomplete
-        # Rotom
-        # Sandslash
 
         calculator_args[0] = calculator_args[0].capitalize()
         calculator_args[14] = calculator_args[14].capitalize()
@@ -138,12 +130,10 @@ class DamageCalculator:
         self._cli_tool.stdin.write(calc_input)
         self._cli_tool.stdin.flush()
 
+        # Getting output
         output = []
         while True:
             res = self._cli_tool.stdout.readline().decode().strip()
-            # ERRBUG: My debug
-            if "ERRBUG" in res:
-                print("\n".join(output))
             if res == "DONE!":
                 break
             output.append(res)
