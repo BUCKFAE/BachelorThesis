@@ -19,13 +19,10 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
     matchups = {}
 
-    # TODO: This should be a factory
-    # print(f"Starting Damage calculator")
     damage_calculator = DamageCalculator()
-    # print(f"Finished Starting Damage calculator")
 
-    own_pokemon: List[Pokemon] = battle.available_switches + \
-                                 ([battle.active_pokemon] if battle.active_pokemon is not None else [])
+    own_pokemon: List[Pokemon] = battle.available_switches + [battle.active_pokemon] \
+        if battle.active_pokemon is not None else []
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     # print(f"Pokemon p1: {own_pokemon}")
@@ -37,11 +34,14 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
 
+            # If the enemy has a type advantage against us, and we don't have an advantage against the enemy
+            # we assume the current Pokémon to be
+            type_advantage = member.type_1.damage_multiplier(enemy.type_1, enemy.type_2)
+            if member.type_2 is not None:
+                type_advantage *= member.type_2.damage_multiplier(enemy.type_1, enemy.type_2)
             logger.info(f"Getting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
-            # print(f"{enemy.species} possible moves: {enemy_possible_moves}")
-            # print(f"{member.species} possible moves: {[str(move) for move in member.moves]}")
 
             if member.item is None:
                 logger.warning("THIS USED TO DIE HERE; IT WON'T NOW???")

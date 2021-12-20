@@ -13,6 +13,7 @@ logger.addHandler(syslog)
 
 # Logging to file
 file_name = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+
 logger.addHandler(logging.FileHandler(f'src/data/logs/{file_name}.txt'))
 
 logger = logging.LoggerAdapter(logger, extra)
