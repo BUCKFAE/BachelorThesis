@@ -177,10 +177,11 @@ class RuleBasedPlayer(Player):
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle",
                          max_concurrent_battles=1,
-                         save_replays='src/data/replays')
+                         save_replays='src/data/replays',
+                         start_timer_on_battle_start=True)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=1)
+    await p1.battle_against(p2, n_battles=5)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

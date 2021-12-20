@@ -7,10 +7,6 @@ import subprocess
 
 def enhance_replays(delete_old_replays=False):
 
-    if delete_old_replays:
-        shutil.rmtree('src/data/enhanced_replays')
-        os.mkdir('src/data/enhanced_replays')
-
     # Stores the content of all log files
     log_files = []
 
@@ -41,6 +37,8 @@ def enhance_replays(delete_old_replays=False):
             if replay_file_content is None:
                 print(f'Unable to find replay for battle {battle_id}')
                 continue
+
+            # TODO: Name replay file with opponent, counter (if multiple times) and team
 
             # Creating enhanced HTML File
             with open(f'src/data/enhanced_replays/{battle_id}.html', 'w') as f:
