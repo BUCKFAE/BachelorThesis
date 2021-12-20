@@ -1,4 +1,5 @@
 import logging
+import os
 from datetime import datetime
 
 # Setting up bot_logging
@@ -13,6 +14,7 @@ logger.addHandler(syslog)
 
 # Logging to file
 file_name = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+os.mknod(f'src/data/logs/{file_name}.txt')
 
 logger.addHandler(logging.FileHandler(f'src/data/logs/{file_name}.txt'))
 
