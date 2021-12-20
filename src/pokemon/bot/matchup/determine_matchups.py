@@ -34,11 +34,6 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
             # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
 
-            # If the enemy has a type advantage against us, and we don't have an advantage against the enemy
-            # we assume the current Pokémon to be
-            type_advantage = member.type_1.damage_multiplier(enemy.type_1, enemy.type_2)
-            if member.type_2 is not None:
-                type_advantage *= member.type_2.damage_multiplier(enemy.type_1, enemy.type_2)
             logger.info(f"Getting matchup: {member.species} vs. {enemy.species}")
 
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
