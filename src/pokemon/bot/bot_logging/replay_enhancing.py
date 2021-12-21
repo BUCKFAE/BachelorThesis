@@ -6,7 +6,6 @@ import subprocess
 
 
 def enhance_replays(delete_old_replays=False):
-
     # Stores the content of all log files
     log_files = []
 
@@ -39,13 +38,47 @@ def enhance_replays(delete_old_replays=False):
                 continue
 
             # TODO: Name replay file with opponent, counter (if multiple times) and team
+            # Getting the names of the players
+            name_lines = [line for line in replay_file_content if line.startswith('|j|☆')]
+            assert len(name_lines) == 2, f'Expected two player names in replay file, got {len(name_lines)} instead!'
+
+            # Player names
+            [name1, name2] = [line.replace('|j|☆', '').strip() for line in name_lines]
+
+            # Team bot
+            bot_team_index = 3
+            assert battle_lines[bot_team_index].startswith('\t'), 'Team info did not start with a tab'
+            bot_team = battle_lines[bot_team_index].strip().split()
+            assert len(bot_team) == 6, 'Team info did not contain 6 Pokémon'
+            bot_team_string = '-'.join(bot_team)
+
+            # Index of the replay
+            existing_replays = os.listdir('src/data/enhanced_replays')
+            next_file_index = 0
+            if len(existing_replays) > 0:
+                existing_replays.sort(key=lambda x: x.split("-")[0], reverse=True)
+                next_file_index = int(existing_replays[0].split("-")[0]) + 1
+
+            # Final file name
+            new_file_name = f'{next_file_index:08d}-{name1}-{name2}-{bot_team_string}.html'
 
             # Creating enhanced HTML File
-            with open(f'src/data/enhanced_replays/{battle_id}.html', 'w') as f:
+            with open(f'src/data/enhanced_replays/{new_file_name}', 'w') as f:
 
                 current_battle_log_line = 2
 
                 for original_line in replay_file_content:
+
+                    # Changing text below replay
+                    if 'Replay created by' in original_line:
+                        break
+
+                    if 'poke-env battle replay' in original_line \
+                            or 'pokemonshowdown.com' in original_line \
+                            or 'target=\"_blank\"' in original_line:
+                        if 'let daily' not in original_line:
+                            continue
+
                     f.write(original_line)
 
                     # Start of a new turn: We add logs of this turn
@@ -62,13 +95,19 @@ def enhance_replays(delete_old_replays=False):
                             current_battle_log_line += 1
                         current_battle_log_line += 1
 
-    if delete_old_replays:
-        shutil.rmtree('src/data/logs')
-        shutil.rmtree('src/data/replays')
-        os.mkdir('src/data/logs')
-        os.mkdir('src/data/replays')
+                # Adding battle information below
+                f.write(f'<h1 style="font-weight:normal;text-align:center">'
+                        f'<strong>{name1}<br>vs<br>{name2}</strong></h1>\n')
+                bot_team_string_info = bot_team_string.replace("-", " ")
+                f.write('<br><br>\n')
+                f.write(f'<h1 style="font-weight: normal; text-align: center">{bot_team_string_info}</h1>\n')
 
+    # Moving files to archive
+    for log in os.listdir('src/data/logs'):
+        shutil.move(f'src/data/logs/{log}', f'src/data/archive/logs/{log}')
 
+    for replay in os.listdir('src/data/replays'):
+        shutil.move(f'src/data/replays/{replay}', f'src/data/archive/replays/{replay}')
 
 
 if __name__ == "__main__":
