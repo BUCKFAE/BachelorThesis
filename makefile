@@ -21,7 +21,7 @@ clean:
 	$(call clear_directory, 'src/data/archive/replays')
 
 test:
-	python -m pytest
+	python3 -m pytest
 
 setup:
 	@echo 'Installing python dependencies'
@@ -43,17 +43,17 @@ generate-builds:
 	@echo 'Removing old build data'
 	$(call clear_directory, 'src/data/generated')
 	@echo 'Generating Pokémon build data...'
-	python -m src.pokemon.data_handling.generate_build_data
+	python3 -m src.pokemon.data_handling.generate_build_data
 
 setup-damage-calculator:
 	@echo 'Setting up damage calculator'
 	cd 'src/pokemon/bot/damage_calculator/lib' && npm install
 
 main-agent-test-runs:
-	python -m src.pokemon.bot.RuleBasedPlayer
+	python3 -m src.pokemon.bot.RuleBasedPlayer
 
 play-ranked:
-	python -m src.pokemon.bot.evaluation.play_ranked
+	python3 -m src.pokemon.bot.evaluation.play_ranked
 
 accept-challenges:
-	python -m src.pokemon.bot.evaluation.accept_challenges
+	python3 -m src.pokemon.bot.evaluation.accept_challenges
