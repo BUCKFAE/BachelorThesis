@@ -131,7 +131,7 @@ class RuleBasedPlayer(Player):
                 return self.create_order(Move(best_own_move[0]))
 
         # Switching out if we have a better option
-        if own_species not in current_enemy_checks + current_enemy_counter:
+        if own_species not in current_enemy_checks + current_enemy_counter and not battle.active_pokemon.is_dynamaxed:
             logger.info(f"\tCurrent matchup is not favorable!")
             if len(current_enemy_checks) > 0:
                 logger.info(f"\t\tSwitching to check: {current_enemy_checks[0]}")
@@ -144,6 +144,9 @@ class RuleBasedPlayer(Player):
             else:
                 logger.info(f"\t\tWe don't have a better option. Trying to defeat {enemy_species} with {own_species}")
                 pass
+        else:
+            if len(battle.opponent_team) > 4 and battle.can_dynamax:
+                return self.create_order(Move(best_own_move[0]), dynamax=True)
 
         logger.info(f"Picking the most damaging move from {own_species} against {enemy_species}")
         return self.create_order(Move(best_own_move[0]))
@@ -186,7 +189,7 @@ async def main():
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 
     print(f"Enhancing Replays")
-    enhance_replays(delete_old_replays=True)
+    enhance_replays()
 
 
 if __name__ == "__main__":
