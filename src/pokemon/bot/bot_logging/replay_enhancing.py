@@ -60,7 +60,7 @@ def enhance_replays(delete_old_replays=False):
                 next_file_index = int(existing_replays[0].split("-")[0]) + 1
 
             # Final file name
-            new_file_name = f'{next_file_index:08d}-{name1}-{name2}-{bot_team_string}.html'
+            new_file_name = re.sub('\\s+', '', f'{next_file_index:08d}-{name1}-{name2}-{bot_team_string}.html')
 
             # Creating enhanced HTML File
             with open(f'src/data/enhanced_replays/{new_file_name}', 'w') as f:
@@ -83,7 +83,6 @@ def enhance_replays(delete_old_replays=False):
 
                     # Start of a new turn: We add logs of this turn
                     if original_line.startswith("|turn|"):
-                        # TODO: This breaks for multiple replays
                         while not battle_lines[current_battle_log_line].startswith("Turn"):
 
                             if len(battle_lines) - 1 == current_battle_log_line:
