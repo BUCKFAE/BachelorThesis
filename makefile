@@ -57,3 +57,6 @@ play-ranked:
 
 accept-challenges:
 	python3 -m src.pokemon.bot.evaluation.accept_challenges
+
+enhance-replays:
+	python3 -m src.pokemon.bot.bot_logging.replay_enhancing

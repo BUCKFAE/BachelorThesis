@@ -1,6 +1,9 @@
 """Connecting to showdown and accepting all challenges!"""
 import asyncio
+import logging
 import os
+import time
+
 from dotenv import load_dotenv
 from poke_env.player_configuration import PlayerConfiguration
 from poke_env.server_configuration import ShowdownServerConfiguration
@@ -15,14 +18,22 @@ async def main():
     showdown_user_name = os.getenv("SHOWDOWN_USER_NAME")
     showdown_user_password = os.getenv("SHOWDOWN_USER_PASSWORD")
 
-    config = PlayerConfiguration(username=showdown_user_name, password=showdown_user_password)
-    player = RuleBasedPlayer(
-        battle_format="gen8randombattle",
-        player_configuration=config,
-        server_configuration=ShowdownServerConfiguration,
-        save_replays='src/data/replays')
+    while True:
+        config = PlayerConfiguration(username=showdown_user_name, password=showdown_user_password)
+        player = RuleBasedPlayer(
+            battle_format="gen8randombattle",
+            player_configuration=config,
+            server_configuration=ShowdownServerConfiguration,
+            save_replays='src/data/replays',
+            )
 
-    await player.accept_challenges(None, 1)
+        try:
+            await player.accept_challenges(None, 1)
+        except Exception:
+            logging.critical("Error :(")
+
+        time.sleep(5)
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

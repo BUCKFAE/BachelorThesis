@@ -6,7 +6,7 @@ import time
 
 from dotenv import load_dotenv
 from poke_env.player_configuration import PlayerConfiguration
-from poke_env.server_configuration import ShowdownServerConfiguration
+from poke_env.server_configuration import ShowdownServerConfiguration, LocalhostServerConfiguration
 
 from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
 from src.pokemon.bot.bot_logging.replay_enhancing import enhance_replays
@@ -18,25 +18,23 @@ async def main():
     showdown_user_name = os.getenv("SHOWDOWN_USER_NAME")
     showdown_user_password = os.getenv("SHOWDOWN_USER_PASSWORD")
 
-    config = PlayerConfiguration(username=showdown_user_name, password=showdown_user_password)
-    player = RuleBasedPlayer(
-        battle_format="gen8randombattle",
-        player_configuration=config,
-        server_configuration=ShowdownServerConfiguration,
-        save_replays='src/data/replays',
-        start_timer_on_battle_start=True)
-
     while True:
+
+        config = PlayerConfiguration(username=showdown_user_name, password=showdown_user_password)
+        player = RuleBasedPlayer(
+            battle_format="gen8randombattle",
+            player_configuration=config,
+            server_configuration=LocalhostServerConfiguration,
+            save_replays='src/data/replays',
+            max_concurrent_battles=1,
+            start_timer_on_battle_start=True)
 
         try:
             await player.ladder(1)
-            enhance_replays(False)
         except Exception:
             logging.critical("Unable to finish game!")
 
-        time.sleep(10)
-
-
+        time.sleep(5)
 
 
 if __name__ == "__main__":

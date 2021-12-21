@@ -1,13 +1,18 @@
 """Provides the ability to add log data from a file to a battle replay"""
+import logging
 import os
 import re
 import shutil
 import subprocess
 
 
-def enhance_replays(delete_old_replays=False):
+def enhance_replays():
     # Stores the content of all log files
     log_files = []
+
+    enhanced = []
+
+    print(f'Enhancing replays!')
 
     for path, _, files in os.walk('src/data/logs'):
         for file_name in files:
@@ -22,6 +27,10 @@ def enhance_replays(delete_old_replays=False):
             battle_lines = battle.split('\n')
             battle_id = battle_lines[0]
 
+            if battle_id not in enhanced:
+                enhanced.append(battle_id)
+            else:
+                continue
             print(f'Enhancing battle \"{battle_id}\"')
 
             replay_file_content = None
@@ -40,7 +49,9 @@ def enhance_replays(delete_old_replays=False):
             # TODO: Name replay file with opponent, counter (if multiple times) and team
             # Getting the names of the players
             name_lines = [line for line in replay_file_content if line.startswith('|j|☆')]
-            assert len(name_lines) == 2, f'Expected two player names in replay file, got {len(name_lines)} instead!'
+            if len(name_lines) != 2:
+                logging.critical("Corrupted battle!")
+                continue
 
             # Player names
             [name1, name2] = [line.replace('|j|☆', '').strip() for line in name_lines]
@@ -83,6 +94,10 @@ def enhance_replays(delete_old_replays=False):
 
                     # Start of a new turn: We add logs of this turn
                     if original_line.startswith("|turn|"):
+
+                        if len(battle_lines) == current_battle_log_line:
+                            break
+
                         while not battle_lines[current_battle_log_line].startswith("Turn"):
 
                             if len(battle_lines) - 1 == current_battle_log_line:
@@ -103,7 +118,7 @@ def enhance_replays(delete_old_replays=False):
 
     # Moving files to archive
     for log in os.listdir('src/data/logs'):
-        shutil.move(f'src/data/logs/{log}', f'src/data/archive/logs/{log}')
+        shutil.copy(f'src/data/logs/{log}', f'src/data/archive/logs/{log}')
 
     for replay in os.listdir('src/data/replays'):
         shutil.move(f'src/data/replays/{replay}', f'src/data/archive/replays/{replay}')
