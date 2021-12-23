@@ -19,6 +19,8 @@ class PokemonMatchup:
         # Optimal moves for both pokemon
         self._optimal_moves_p1 = None
         self._optimal_moves_p2 = None
+        self.pokemon_1 = pokemon_1
+        self.pokemon_2 = pokemon_2
 
         logger.info(f'Created matchup: {build_p1.species} vs {build_p2.species}')
 
