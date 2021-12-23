@@ -7,7 +7,7 @@ from src.pokemon.bot.matchup.field.field_state import FieldState
 
 
 class MoveResult:
-
+    # TODO: Include recoil damage from brave bird or explosion!
     def __init__(self,
                  species_p1: str,
                  species_p2: str,

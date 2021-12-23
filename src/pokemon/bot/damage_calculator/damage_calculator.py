@@ -15,6 +15,7 @@ from poke_env.environment.move import Move
 
 from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.bot.matchup.field.field_state import FieldState
 from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
 
@@ -31,13 +32,12 @@ class DamageCalculator:
 
     def calculate_damage(
             self,
-            attacker: PokemonBuild,
-            defender: PokemonBuild,
+            attacker_build: PokemonBuild,
+            defender_build: PokemonBuild,
             move: Move,
-            battle: Optional[AbstractBattle],
-            boosts_attacker=None,
-            boosts_defender=None
-    ) -> MoveResult:
+            attacker_pokemon: Optional[Pokemon] = None,
+            defender_pokemon: Optional[Pokemon] = None,
+            field: Optional[FieldState] = None) -> MoveResult:
         # TODO: This has to include current states of the Pokemon
 
         if boosts_attacker is None:
@@ -146,7 +146,8 @@ class DamageCalculator:
         ranges_text = re.sub("[^0-9,]", "", res)
         ranges = [int(i) for i in ranges_text.split(",") if i]
 
-        raise NotImplementedError('This has to return a MoveResult')
+        # TODO: Create moveResult based on calc result
+        return MoveResult(None, None, None, None, None)
 
     def get_optimal_moves(
             self,
