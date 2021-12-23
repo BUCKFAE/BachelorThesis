@@ -8,13 +8,14 @@ from poke_env.environment.pokemon import Pokemon
 from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
 
-def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]):
-    """Returns the matchups for all enemy Pokémon
-    Dict {Pokémon: ([Checks], [Counter])}
+def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]) -> PokemonMatchup:
+    """Returns the matchups for all enemy Pokemon
+    # TODO: This has to look farther in the future and include current state of the Pokemon
     """
 
     matchups = {}
@@ -25,21 +26,11 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
         if battle.active_pokemon is not None else []
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
-    # print(f"Pokemon p1: {own_pokemon}")
-    # print(f"Pokemon p2: {enemy_pokemon}\n\n")
-
     # Determining checks and counter for each known enemy
     for enemy in enemy_pokemon:
         for member in own_pokemon:
 
-            # TODO: Simulation can be skipped in many cases, e.g. clear type advantage
-
-            logger.info(f"Getting matchup: {member.species} vs. {enemy.species}")
-
             enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
-
-            if member.item is None:
-                logger.warning("THIS USED TO DIE HERE; IT WON'T NOW???")
 
             # TODO: Create method that creates PokemonBuild from Pokemon
             member_build = build_from_pokemon(member)
@@ -111,8 +102,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
     # damage_calculator._cli_tool.kill()
 
-    return matchups
-
+    raise NotImplementedError('This has to return a PokemonMatchup')
 
 def get_optimal_moves(
         attacker: PokemonBuild,

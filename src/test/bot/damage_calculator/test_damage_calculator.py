@@ -17,6 +17,8 @@ from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file
 
 class TestDamageCalculator(unittest.TestCase):
 
+    # TODO: Include tests for special case like BRN, Lost HP, Zygarde
+
     def test_calculate_damage_basic(self):
         """Testing the expected damage a Pokémon will deal to another Pokémon"""
 

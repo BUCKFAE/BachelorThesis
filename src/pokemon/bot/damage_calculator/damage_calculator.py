@@ -6,7 +6,7 @@ import re
 import subprocess
 import atexit
 import time
-from typing import Tuple, Dict
+from typing import Tuple, Dict, Optional, List
 
 from poke_env.environment.pokemon import Pokemon
 from singleton_decorator import singleton
@@ -15,6 +15,7 @@ from poke_env.environment.move import Move
 
 from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
 
 
@@ -27,28 +28,25 @@ class DamageCalculator:
             self._cli_tool = subprocess.Popen(["npm run start"],
                                               cwd=NODE_DAMAGE_CALCULATOR_PATH,
                                               stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)
-            # atexit.register(self._cli_tool.kill)
 
     def calculate_damage(
             self,
             attacker: PokemonBuild,
             defender: PokemonBuild,
             move: Move,
-            battle: AbstractBattle,
+            battle: Optional[AbstractBattle],
             boosts_attacker=None,
             boosts_defender=None
-    ):
-        # TODO: Status
-        # TODO: Field
-        # TODO: Dynamax
+    ) -> MoveResult:
+        # TODO: This has to include current states of the Pokemon
 
         if boosts_attacker is None:
             boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
 
         if boosts_defender is None:
             boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
-        # if battle is None:
-        #    bot_logging.info("Battle is not specified!")
+        if battle is None:
+            logger.info("Battle is not specified!")
 
         logger.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
 
@@ -67,6 +65,7 @@ class DamageCalculator:
         attacker_item = attacker.get_most_likely_item()
         defender_item = defender.get_most_likely_item()
 
+        # TODO: Include current state of both Pokemon (like BRN, lost HP)
         calculator_args = [
             attacker.species,
             attacker.species,  # TODO: this is the form of the pokemon
@@ -98,12 +97,12 @@ class DamageCalculator:
             False,  # Not Dynamaxed
             move.id
         ]
+
+        # TODO: Fix Aegislash
         if "aegislash" == attacker.species:
             calculator_args[0] = 'aegislashblade'
-            logger.warning("INACTIVE AEG")
         if "aegislash" == defender.species:
             calculator_args[14] = 'aegislashblade'
-            logger.warning("INACTIVE AEDG")
 
         # Fixing Gastrodon
         # Poke-Env uses 'gastrodon' and 'gastrodoneast' for both variants
@@ -147,9 +146,15 @@ class DamageCalculator:
         ranges_text = re.sub("[^0-9,]", "", res)
         ranges = [int(i) for i in ranges_text.split(",") if i]
 
-        return ranges
+        raise NotImplementedError('This has to return a MoveResult')
 
-    def get_most_damaging_move(self, attacker: PokemonBuild, defender: PokemonBuild, battle: AbstractBattle):
+    def get_optimal_moves(
+            self,
+            attacker_build: PokemonBuild,
+            attacker_pokemon: Optional[Pokemon],
+            defender_build: PokemonBuild,
+            defender_pokemon: Optional[Pokemon],
+            battle: AbstractBattle) -> List[MoveResult]:
         # TODO: Account for disabled moves!!
 
         best_move = (None, -1)
@@ -177,7 +182,8 @@ class DamageCalculator:
 
         assert best_move[0] is not None
         assert best_move[1] >= 0
-        return best_move
+
+        raise NotImplementedError('This has to return MoveResults')
 
 
 def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
@@ -226,12 +232,12 @@ def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], D
 
 
 def _get_evs(base: Dict[str, int], stats: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
-    temp1 = int(((stats[stat] - 5) * 100) / (level)) - (2 * base[stat])
+    temp1 = int(((stats[stat] - 5) * 100) / level) - (2 * base[stat])
     return int(temp1 - (ivs[stat] / 4))
 
 
 def _get_ivs(base: Dict[str, int], stats: Dict[str, int], evs: Dict[str, int], level: int, stat: str) -> int:
-    temp1 = int(((stats[stat] - 5) * 100) / (level)) - (2 * base[stat])
+    temp1 = int(((stats[stat] - 5) * 100) / level) - (2 * base[stat])
     return (temp1 - evs[stat]) * 4
 
 
