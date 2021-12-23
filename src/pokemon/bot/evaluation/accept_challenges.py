@@ -18,15 +18,15 @@ async def main():
     showdown_user_name = os.getenv("SHOWDOWN_USER_NAME")
     showdown_user_password = os.getenv("SHOWDOWN_USER_PASSWORD")
 
+    config = PlayerConfiguration(username=showdown_user_name, password=showdown_user_password)
+    player = RuleBasedPlayer(
+        battle_format="gen8randombattle",
+        player_configuration=config,
+        server_configuration=ShowdownServerConfiguration,
+        save_replays='src/data/replays',
+        )
+        
     while True:
-        config = PlayerConfiguration(username=showdown_user_name, password=showdown_user_password)
-        player = RuleBasedPlayer(
-            battle_format="gen8randombattle",
-            player_configuration=config,
-            server_configuration=ShowdownServerConfiguration,
-            save_replays='src/data/replays',
-            )
-
         try:
             await player.accept_challenges(None, 1)
         except Exception:

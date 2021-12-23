@@ -14,7 +14,7 @@ logger.addHandler(syslog)
 
 # Logging to file
 file_name = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
-os.mknod(f'src/data/logs/{file_name}.txt')
+open(f'src/data/logs/{file_name}.txt', 'w').close()
 
 logger.addHandler(logging.FileHandler(f'src/data/logs/{file_name}.txt'))
 
