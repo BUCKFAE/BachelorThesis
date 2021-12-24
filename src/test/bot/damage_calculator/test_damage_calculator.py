@@ -23,7 +23,9 @@ class TestDamageCalculator(unittest.TestCase):
 
     - Simple Attacking with no special effects [DONE]
     - Stat boosts (Swords Dance) [DONE]
-    - Status changes (BRN)
+    - Healing [DONE]
+    - Recoil TODO
+    - Status changes (BRN) [DONE]
     - Field effects (Reflect) TODO
     - Dynamax TODO
     - Abilities TODO
@@ -89,12 +91,14 @@ class TestDamageCalculator(unittest.TestCase):
         # Charizard: Air Slash
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res1.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169, 172]
+        assert res1.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169,
+                                              172]
 
         # Charizard: Earthquake
         res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res2.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169, 172]
+        assert res2.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169,
+                                              172]
 
         # Garchomp: Fire Blast
         res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
@@ -107,21 +111,82 @@ class TestDamageCalculator(unittest.TestCase):
         assert res4.damage_taken_defender == [64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72, 72, 73, 73, 75, 76]
 
     def test_damage_calculator_status_effect(self):
-
-        build1 = load_build_from_file("charizard")
+        build1 = load_build_from_file("weezinggalar")
         build2 = load_build_from_file("garchomp")
         pokemon1 = pokemon_from_build(build1)
         pokemon2 = pokemon_from_build(build2)
 
-        # Garchomp is burned
-        pokemon1.status = status.Status.BRN
+        damage_calculator = DamageCalculator()
+
+        # Physical attack not burned
+        res1: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("firefang"))
+        assert res1.damage_taken_defender == [32, 32, 33, 33, 33, 34, 34, 34, 35, 35, 36, 36, 36, 37, 37, 38]
+
+        # Will-O-Wisp burns
+        res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("willowisp"))
+        assert res2.damage_taken_defender == [0]
+        assert res2.new_status_defender == status.Status.BRN
+
+        # Buring Garchomp
+        pokemon1._status = status.Status.BRN
+
+        # Physical attack burned
+        res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move('firefang'),
+                                                              attacker_pokemon=pokemon2)
+        assert res3.damage_taken_defender == [16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 19]
+
+    def test_damage_calculator_healing_attacker(self):
+        build1 = load_build_from_file("mewtwo")
+        build2 = load_build_from_file("charizard")
+        pokemon1 = pokemon_from_build(build1)
+
+        # Mewtwo took damage
+        pokemon1._current_hp = 136
 
         damage_calculator = DamageCalculator()
 
-        # Burned physical attack
-        res: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
-                                                             attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
-        assert res.damage_taken_defender == [62, 63, 64, 65, 65, 66, 67, 68, 68, 69, 70, 71, 71, 72, 73, 74]
+        # Recover on full HP Pokemon
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("recover"))
+        assert res1.damage_healed_attacker == 136
+
+    def test_damage_calculator_healing_defender(self):
+        """Tests cases where the attacker heals the opponent"""
+
+        build1 = load_build_from_file("lapras")
+        build2 = load_build_from_file("blastoise")
+
+        damage_calculator = DamageCalculator()
+
+        # Lapras with Water absorb takes no damage from water moves, heals for 25% max HP
+        res: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("hydropump"))
+        assert res.damage_taken_defender == [0]
+        assert res.damage_healed_attacker == 182
+
+    def test_damage_calculator_gourgeist_venusaur(self):
+        """This matchup used to return incorrect damage ranges."""
+
+        build1 = load_build_from_file("gourgeistsuper")
+        build2 = load_build_from_file("venusaur")
+
+        damage_calculator = DamageCalculator()
+
+        # Poltergeist
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("poltergeist"))
+        assert res1.damage_taken_attacker \
+               == [117, 118, 120, 120, 121, 123, 124, 126, 127, 129, 130, 132, 133, 135, 136, 138]
+
+        # Power Whip
+        res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("powerwhip"))
+        assert res2.damage_taken_defender == [31, 32, 32, 33, 33, 33, 34, 34, 34, 35, 35, 36, 36, 36, 37, 37]
+
+        # Shadow Sneak
+        res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("shadowsneak"))
+        assert res3.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
+
+        # Will-O-Wisp
+        res4: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("willowisp"))
+        assert res4.damage_taken_defender == [0]
+        assert res4.new_status_defender == status.Status.BRN
 
 
 if __name__ == "__main__":
