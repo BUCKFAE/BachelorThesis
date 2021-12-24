@@ -8,7 +8,7 @@ class SimpleRuleBasedPlayer(Player):
             # Finds the best move among available ones
 
             best_move = max(battle.available_moves, key=lambda move: self.calculate_damage(move, battle.active_pokemon,
-                                                                                      battle.opponent_active_pokemon))
+                                                                                           battle.opponent_active_pokemon))
 
             best_move_damage = self.calculate_damage(best_move, battle.active_pokemon, battle.opponent_active_pokemon)
 
@@ -18,12 +18,13 @@ class SimpleRuleBasedPlayer(Player):
 
                 # print(f"\n\n{best_switch.moves}")
 
-                best_switch_move = max(best_switch.moves, key=lambda move: self.calculate_damage(best_switch.moves[move],
-                                                                                            best_switch,
-                                                                                            battle.opponent_active_pokemon))
+                best_switch_move = max(best_switch.moves,
+                                       key=lambda move: self.calculate_damage(best_switch.moves[move],
+                                                                              best_switch,
+                                                                              battle.opponent_active_pokemon))
 
                 best_switch_damage = self.calculate_damage(best_switch.moves[best_switch_move], best_switch,
-                                                      battle.opponent_active_pokemon)
+                                                           battle.opponent_active_pokemon)
 
                 if best_switch_damage > best_move_damage * 2:
 
@@ -57,7 +58,6 @@ class SimpleRuleBasedPlayer(Player):
         acc = move.accuracy
         dmg = move.base_power * mul1 * mul2 * acc
         return dmg
-
 
     def get_best_pokemon(self, available_pokemon, enemy_pokemon):
         best_switch = (None, 0)

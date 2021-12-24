@@ -1,21 +1,11 @@
-import json
-import logging
-import signal
-import subprocess
 import unittest
-import os
 
 from poke_env.environment import status
-from poke_env.environment.battle import Battle
 from poke_env.environment.move import Move
 
-from src.pokemon import logger
-from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator, extract_evs_ivs_from_build, \
-    get_total_stat
-from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.matchup.move_result import MoveResult
-from src.pokemon.config import GENERATED_DATA_PATH
-from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file, build_from_pokemon, pokemon_from_build
+from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file, pokemon_from_build
 
 
 class TestDamageCalculator(unittest.TestCase):

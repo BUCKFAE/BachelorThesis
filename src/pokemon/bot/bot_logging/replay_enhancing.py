@@ -3,7 +3,6 @@ import logging
 import os
 import re
 import shutil
-import subprocess
 
 
 def enhance_replays():

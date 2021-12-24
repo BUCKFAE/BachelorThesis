@@ -3,27 +3,18 @@
 """
 import asyncio
 import json
-import logging
 import os
-import random
 import shutil
-import signal
-import subprocess
-import time
 
 from poke_env.environment.abstract_battle import AbstractBattle
-from poke_env.environment.move import Move
 from poke_env.environment.pokemon_gender import PokemonGender
 from poke_env.player.battle_order import BattleOrder, ForfeitBattleOrder
 from poke_env.player.player import Player
-from poke_env.player.random_player import RandomPlayer
 from progress.bar import IncrementalBar
 
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
-from src.pokemon.bot.damage_calculator.damage_calculator import extract_evs_ivs_from_build
 from src.pokemon.config import GENERATED_DATA_PATH
 from src.pokemon.data_handling.cleanup_build_data import remove_illegal_pokemon_builds
-from src.pokemon.data_handling.util.pokemon_creation import build_from_string
 from src.pokemon.data_handling.util.species_names import convert_species_name
 
 NUM_BATTLES = 20_000

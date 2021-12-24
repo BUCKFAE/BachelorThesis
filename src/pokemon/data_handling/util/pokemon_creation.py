@@ -3,7 +3,7 @@
 import json
 from typing import Dict, Any
 
-from poke_env.environment.pokemon import Gen8Pokemon, Pokemon
+from poke_env.environment.pokemon import Gen8Pokemon
 from poke_env.environment.pokemon_gender import PokemonGender
 
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild

@@ -1,5 +1,4 @@
 import logging
-import os
 from datetime import datetime
 
 # Setting up bot_logging
@@ -10,7 +9,6 @@ formatter = logging.Formatter('%(asctime)s %(levelname)s %(app_name)s: %(message
 syslog.setFormatter(formatter)
 logger.setLevel(logging.INFO)
 logger.addHandler(syslog)
-
 
 # Logging to file
 file_name = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')

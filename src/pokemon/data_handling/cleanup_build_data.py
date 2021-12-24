@@ -39,11 +39,10 @@ def remove_illegal_pokemon_builds():
                     for stat in build["stats"]:
                         calculated_stat = get_total_stat(pokemon_build.base_stats, evs, ivs, build["level"], stat)
                         if calculated_stat != build["stats"][stat]:
-
                             is_valid = False
                             logger.warning(f"Invalid build for Pokémon!\n"
-                                            f"\tSpecies: {file_name.replace('.txt', '')}\n"
-                                            f"\tBuild: {build}")
+                                           f"\tSpecies: {file_name.replace('.txt', '')}\n"
+                                           f"\tBuild: {build}")
 
                     if is_valid:
                         legal_builds.append(build_string)

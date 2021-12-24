@@ -1,9 +1,9 @@
 """Stores matchup information of two Pokemon"""
+from typing import List, Dict
+
 from poke_env.environment.pokemon import Pokemon
 
 from src.pokemon import logger
-from typing import List, Dict
-
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.field.field_state import FieldState
 
@@ -15,7 +15,6 @@ class PokemonMatchup:
                  pokemon_1: Pokemon,
                  build_p2: PokemonBuild,
                  pokemon_2: Pokemon):
-
         # Optimal moves for both pokemon
         self._optimal_moves_p1 = None
         self._optimal_moves_p2 = None

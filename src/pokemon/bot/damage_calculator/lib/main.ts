@@ -1,4 +1,4 @@
-import {calculate, Generations, Pokemon, Move} from '@smogon/calc';
+import {calculate, Generations, Move, Pokemon} from '@smogon/calc';
 
 const gen = Generations.get(8);
 

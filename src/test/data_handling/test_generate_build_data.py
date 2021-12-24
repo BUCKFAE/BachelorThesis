@@ -1,9 +1,10 @@
+import json
 import logging
 import os
-import requests
-import json
 import re
 import unittest
+
+import requests
 
 from src.pokemon.bot.damage_calculator.damage_calculator import extract_evs_ivs_from_build, get_total_stat
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild

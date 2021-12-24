@@ -1,5 +1,6 @@
 import unittest
 
+
 class TestMoveResult(unittest.TestCase):
 
     def test_get_min_damage(self):

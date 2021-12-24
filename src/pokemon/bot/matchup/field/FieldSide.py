@@ -39,4 +39,3 @@ class FieldSide:
         self.battery = battery
         self.power_spot = power_spot
         self.switching_out = switching_out
-

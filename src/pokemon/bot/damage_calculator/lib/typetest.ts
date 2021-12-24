@@ -1,4 +1,4 @@
-import {calculate, Generations, Pokemon, Move} from './dcalc/calc/src'
+import {calculate, Generations, Move, Pokemon} from './dcalc/calc/src'
 
 console.log("Imported!")
 

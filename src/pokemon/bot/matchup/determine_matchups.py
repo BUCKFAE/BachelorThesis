@@ -5,7 +5,6 @@ from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
 
-from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
@@ -103,6 +102,7 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
     # damage_calculator._cli_tool.kill()
 
     raise NotImplementedError('This has to return a PokemonMatchup')
+
 
 def get_optimal_moves(
         attacker: PokemonBuild,

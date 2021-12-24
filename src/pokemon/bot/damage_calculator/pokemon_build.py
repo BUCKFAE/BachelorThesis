@@ -1,8 +1,6 @@
 """Stores all Information gathered about a Pokémon"""
 import json
-import os
-import sys
-from typing import List, Dict, Optional, Tuple, Set
+from typing import List, Dict, Optional
 
 from poke_env.environment.pokemon import Pokemon
 

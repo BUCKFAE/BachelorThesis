@@ -6,10 +6,9 @@ import time
 
 from dotenv import load_dotenv
 from poke_env.player_configuration import PlayerConfiguration
-from poke_env.server_configuration import ShowdownServerConfiguration, LocalhostServerConfiguration
+from poke_env.server_configuration import ShowdownServerConfiguration
 
 from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
-from src.pokemon.bot.bot_logging.replay_enhancing import enhance_replays
 
 
 async def main():
@@ -25,7 +24,7 @@ async def main():
         save_replays='src/data/replays',
         max_concurrent_battles=1,
         start_timer_on_battle_start=True)
-        
+
     while True:
 
         try:

@@ -1,16 +1,16 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const calc_1 = require("@smogon/calc");
 const gen = calc_1.Generations.get(8);
 const result = (0, calc_1.calculate)(gen, new calc_1.Pokemon(gen, 'gengar', {
     item: 'Choice Specs',
     nature: 'Timid',
-    evs: { spa: 252 },
-    boosts: { spa: 1 },
+    evs: {spa: 252},
+    boosts: {spa: 1},
 }), new calc_1.Pokemon(gen, 'Chansey', {
     item: 'Eviolite',
     nature: 'Calm',
-    evs: { hp: 252, spd: 252 },
+    evs: {hp: 252, spd: 252},
 }), new calc_1.Move(gen, 'Focus Blast'));
 /*
  * Parameters in order
@@ -67,7 +67,7 @@ let move = args[28];
 const battleResult = (0, calc_1.calculate)(gen, new calc_1.Pokemon(gen, p1_species, {
     gender: 'M',
     level: parseInt(p1_level),
-    evs: { hp: 3, atk: 3, def: 3, spa: 3, spd: 5, spe: 2 },
+    evs: {hp: 3, atk: 3, def: 3, spa: 3, spd: 5, spe: 2},
     ivs: JSON.parse(p1_ev),
     boosts: JSON.parse(p1_stages),
     nature: p1_nature,
@@ -79,7 +79,7 @@ const battleResult = (0, calc_1.calculate)(gen, new calc_1.Pokemon(gen, p1_speci
 }), new calc_1.Pokemon(gen, p1_species, {
     gender: 'M',
     level: parseInt(p1_level),
-    evs: { hp: 3, atk: 3, def: 3, spa: 3, spd: 5, spe: 2 },
+    evs: {hp: 3, atk: 3, def: 3, spa: 3, spd: 5, spe: 2},
     ivs: JSON.parse(p1_ev),
     boosts: JSON.parse(p1_stages),
     nature: p1_nature,

@@ -1,6 +1,7 @@
 """Defines current configuration"""
 
 import os
+
 import dotenv
 
 dotenv.load_dotenv()

@@ -1,6 +1,4 @@
 import asyncio
-import json
-import sys
 from typing import Dict
 
 from poke_env.environment.abstract_battle import AbstractBattle
@@ -8,15 +6,12 @@ from poke_env.environment.move import Move
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
 
-from poke_env.player.random_player import RandomPlayer
-
 from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
-from src.pokemon.bot.RandomInformationPlayer import RandomInformationPlayer
-from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.bot_logging.replay_enhancing import enhance_replays
-from src.pokemon.bot.matchup.determine_matchups import determine_matchups
+from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.bot.matchup.determine_matchups import determine_matchups
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
 

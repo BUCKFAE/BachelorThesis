@@ -12,7 +12,6 @@ from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
 
 
 async def main():
-
     load_dotenv()
 
     showdown_user_name = os.getenv("SHOWDOWN_USER_NAME")
@@ -24,8 +23,8 @@ async def main():
         player_configuration=config,
         server_configuration=ShowdownServerConfiguration,
         save_replays='src/data/replays',
-        )
-        
+    )
+
     while True:
         try:
             await player.accept_challenges(None, 1)

@@ -10,7 +10,6 @@ from src.pokemon import logger
 
 class LoggingPlayer(Player):
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
-
         if battle.turn == 1:
             logger.info(f'Battle: {battle.battle_tag}')
 
@@ -27,6 +26,7 @@ async def main():
     p2 = RandomPlayer(battle_format='gen8randombattle')
 
     await p1.battle_against(p2, n_battles=4)
+
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(main())

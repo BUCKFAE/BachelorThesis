@@ -44,5 +44,6 @@ class TestFieldState(unittest.TestCase):
         # TODO
         field = switch_in_to_field_state(None, 1, None)
 
+
 if __name__ == "__main__":
     unittest.main()

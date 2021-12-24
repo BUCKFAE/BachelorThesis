@@ -1,7 +1,7 @@
-import os
 import unittest
 
 from poke_env.environment.battle import Battle
+
 from src.pokemon.bot.matchup.determine_matchups import determine_matchups
 from src.pokemon.data_handling.util.pokemon_creation import load_pokemon_from_file, load_build_from_file
 
@@ -9,7 +9,6 @@ from src.pokemon.data_handling.util.pokemon_creation import load_pokemon_from_fi
 class TestDetermineMatchup(unittest.TestCase):
 
     def test_determine_matchup(self):
-
         battle = Battle('test_battle_tag', 'buckfae', None, False)
 
         # Creating teams
