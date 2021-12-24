@@ -20,6 +20,7 @@ class TestDamageCalculator(unittest.TestCase):
     - Dynamax TODO
     - Abilities TODO
         - Levitate
+        - Water absorb [DONE]
     - Pokemon with different forms TODO
         - Gastrodon
         - Wishiwashi
