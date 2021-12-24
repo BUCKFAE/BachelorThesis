@@ -48,19 +48,19 @@ class TestDamageCalculator(unittest.TestCase):
 
         # Air Slash
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"))
-        assert res1.damage_range == [90, 91, 91, 93, 94, 94, 96, 97, 99, 99, 100, 102, 102, 103, 105, 106]
+        assert res1.damage_taken_defender == [90, 91, 91, 93, 94, 94, 96, 97, 99, 99, 100, 102, 102, 103, 105, 106]
 
         # Earthquake
         res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"))
-        assert res2.damage_range == [0]
+        assert res2.damage_taken_defender == [0]
 
         # Fire Blast
         res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("fireblast"))
-        assert res3.damage_range == [65, 66, 66, 67, 68, 69, 69, 70, 71, 72, 72, 73, 74, 75, 75, 77]
+        assert res3.damage_taken_defender == [65, 66, 66, 67, 68, 69, 69, 70, 71, 72, 72, 73, 74, 75, 75, 77]
 
         # Focus Blast
         res4: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("focusblast"))
-        assert res4.damage_range == [48, 48, 49, 49, 50, 50, 51, 51, 52, 53, 53, 54, 54, 55, 55, 56]
+        assert res4.damage_taken_defender == [48, 48, 49, 49, 50, 50, 51, 51, 52, 53, 53, 54, 54, 55, 55, 56]
 
     def test_damage_calculator_stat_boosts(self):
         """Tests attack with stat boosts"""
@@ -89,22 +89,22 @@ class TestDamageCalculator(unittest.TestCase):
         # Charizard: Air Slash
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res1.damage_range == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169, 172]
+        assert res1.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169, 172]
 
         # Charizard: Earthquake
         res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res2.damage_range == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169, 172]
+        assert res2.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169, 172]
 
         # Garchomp: Fire Blast
         res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
                                                               attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
-        assert res3.damage_range == [8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10]
+        assert res3.damage_taken_defender == [8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10]
 
         # Garchomp: Outrage
         res4: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("outrage"),
                                                               attacker_pokemon=pokemon2, defender_pokemon=pokemon2)
-        assert res4.damage_range == [64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72, 72, 73, 73, 75, 76]
+        assert res4.damage_taken_defender == [64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72, 72, 73, 73, 75, 76]
 
     def test_damage_calculator_status_effect(self):
 
@@ -121,7 +121,7 @@ class TestDamageCalculator(unittest.TestCase):
         # Burned physical attack
         res: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
                                                              attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
-        assert res.damage_range == [62, 63, 64, 65, 65, 66, 67, 68, 68, 69, 70, 71, 71, 72, 73, 74]
+        assert res.damage_taken_defender == [62, 63, 64, 65, 65, 66, 67, 68, 68, 69, 70, 71, 71, 72, 73, 74]
 
 
 if __name__ == "__main__":
