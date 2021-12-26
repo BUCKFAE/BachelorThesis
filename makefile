@@ -25,7 +25,7 @@ test:
 
 setup:
 	@echo 'Installing python dependencies'
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
 	@echo 'Creating required folders'
 	@echo 'Clearing old data folder'
