@@ -16,8 +16,8 @@ class MoveResult:
                  damage_taken_defender: List[int],
                  new_field_state: FieldState,
                  damage_taken_attacker: float = None,
-                 damage_healed_attacker: List[int] = None,
-                 damage_healed_defender: List[int] = None,
+                 damage_healed_attacker: int = None,
+                 damage_healed_defender: int = None,
                  new_status_attacker: status.Status = None,
                  new_status_defender: status.Status = None):
         """
