@@ -175,7 +175,7 @@ class TestDamageCalculator(unittest.TestCase):
         """Ensures that levitate works correctly"""
 
         build1 = load_build_from_file("charizard")
-        build2 = load_build_from_file("bronzog")
+        build2 = load_build_from_file("bronzong")
         pokemon2 = pokemon_from_build(build2)
 
         damage_calculator = DamageCalculator()
