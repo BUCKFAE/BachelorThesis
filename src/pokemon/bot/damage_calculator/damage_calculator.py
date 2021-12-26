@@ -317,7 +317,10 @@ def _side_condition_to_field(side_condition: str, old_field: FieldState, side: O
         else:
             old_field.field_side_p2.spikes_amount += 1
     else:
-        raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
+        pass
+        # TODO: Handle this
+        #logger.critical(f'Field condition {side_condition} is not yet implemented!')
+        #raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
 
 def get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     # Different formula for HP stat

@@ -152,8 +152,8 @@ def get_optimal_moves(
             best_moves = current_moves
             best_move_expected_damage = current_expected_damage
 
-    logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
-                '\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
-                + f'\tTotal: ({best_move_expected_damage})')
+    #logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
+    #            '\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
+    #            + f'\tTotal: ({best_move_expected_damage})')
     assert len(best_moves) == depth
     return best_moves

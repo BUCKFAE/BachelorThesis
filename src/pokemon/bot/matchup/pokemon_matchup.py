@@ -25,7 +25,7 @@ class PokemonMatchup:
         self.pokemon_1 = pokemon_1
         self.pokemon_2 = pokemon_2
 
-        logger.info(f'Created matchup: {build_p1.species} vs {build_p2.species}')
+        #logger.info(f'Created matchup: {build_p1.species} vs {build_p2.species}')
 
     def get_optimal_moves_for_species(self, species: str) -> List[MoveResult]:
         """Optimal moves that result in the most amount of damage dealt.
@@ -66,9 +66,14 @@ class PokemonMatchup:
         hp_p1 = self.pokemon_1.current_hp
         hp_p2 = self.pokemon_2.current_hp
 
+        # TODO: Jank
+        if hp_p1 == 0 or hp_p2 == 0:
+            return False
+
         # Fraction of hp loss for both pokemon
+        # TODO: Broken as well
         damage_taken_p1_frac = self.get_expected_damage_after_turns(species2) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species1) / hp_p2
+        damage_taken_p2_frac = self.get_expected_damage_after_turns(species1, MATCHUP_MOVES_DEPTH - 1) / hp_p2
 
         is_check = damage_taken_p1_frac < damage_taken_p2_frac
 
@@ -88,9 +93,14 @@ class PokemonMatchup:
         hp_p1 = self.pokemon_1.current_hp
         hp_p2 = self.pokemon_2.current_hp
 
+        # TODO: Jank
+        if hp_p1 == 0 or hp_p2 == 0:
+            return False
+
         # Fraction of hp loss for both pokemon
+        # TODO Broken
         damage_taken_p1_frac = self.get_expected_damage_after_turns(species1) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species2, MATCHUP_MOVES_DEPTH - 1) / hp_p2
+        damage_taken_p2_frac = self.get_expected_damage_after_turns(species2) / hp_p2
 
         is_counter = damage_taken_p1_frac < damage_taken_p2_frac
 
