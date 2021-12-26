@@ -16,6 +16,7 @@ from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain
 from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
+from src.pokemon.data_handling.abilities.convert_ability import get_calculator_ability
 
 
 @singleton
@@ -83,16 +84,14 @@ class DamageCalculator:
 
         # Ability
         # TODO: Get ability from Pokemon directly
-        attacker_ability = attacker_build.get_most_likely_ability()
-        defender_ability = defender_build.get_most_likely_ability()
+        attacker_ability = get_calculator_ability(attacker_build.get_most_likely_ability())
+        defender_ability = get_calculator_ability(defender_build.get_most_likely_ability())
 
         # Dynamax
         # noinspection PyProtectedMember
         attacker_is_dynamaxed = str(False if attacker_pokemon is None else attacker_pokemon.is_dynamaxed)
         # noinspection PyProtectedMember
         defender_is_dynamaxed = str(False if defender_pokemon is None else defender_pokemon.is_dynamaxed)
-
-        print(attacker_is_dynamaxed)
 
         # TODO: Include current state of both Pokemon (like BRN, lost HP)
         calculator_args = [
@@ -163,6 +162,8 @@ class DamageCalculator:
             if res == "DONE!":
                 break
             output.append(res)
+
+        print('\n'.join(output))
 
         # Getting the damage ranges
         res = [e for e in output if re.match("damage: [0-9]+,", e)]

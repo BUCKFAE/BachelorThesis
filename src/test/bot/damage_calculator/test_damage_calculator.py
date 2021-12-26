@@ -32,6 +32,9 @@ class TestDamageCalculator(unittest.TestCase):
     - Healing TODO
         - Leftovers TODO
         - Leech seed TODO
+    - Items TODO
+        - Life Orb TODO
+        - Air ballon TODO
     """
 
     def test_damage_calculator_basic(self):
