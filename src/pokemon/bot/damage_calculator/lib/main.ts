@@ -56,6 +56,7 @@ rl.on('line', function (line: string) {
     let move = args[28];
 
 
+
     const battleResult = calculate(
         gen,
         new Pokemon(gen, p1_species, {
@@ -70,7 +71,7 @@ rl.on('line', function (line: string) {
             item: p1_item,
             status: '',
             curHP: parseInt(p1_hp),
-            isDynamaxed: false
+            isDynamaxed: p1_dynamax === "True"
         }),
         new Pokemon(gen, p2_species, {
             gender: (p2_gender == "M") ? 'M' : (p2_gender == "F") ? 'F' : 'N',
@@ -84,9 +85,9 @@ rl.on('line', function (line: string) {
             item: p2_item,
             status: '',
             curHP: parseInt(p2_hp),
-            isDynamaxed: false
+            isDynamaxed: p2_dynamax === "True"
         }),
-        new Move(gen, move)
+        new Move(gen, move, {useMax: p1_dynamax === "True"})
     );
 
     console.log("This is good")

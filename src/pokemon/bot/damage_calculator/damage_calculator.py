@@ -2,6 +2,7 @@ import re
 import subprocess
 from typing import Tuple, Dict, Optional, List
 
+from poke_env.environment import status
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
@@ -9,7 +10,10 @@ from singleton_decorator import singleton
 
 from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
+from src.pokemon.bot.matchup.field.field_side import FieldSide
 from src.pokemon.bot.matchup.field.field_state import FieldState
+from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain
+from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
 
@@ -34,18 +38,19 @@ class DamageCalculator:
             field: Optional[FieldState] = None) -> MoveResult:
         # TODO: This has to include current states of the Pokemon
 
-        if boosts_attacker is None:
-            boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
+        # Boosts for attacker
+        boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
+        if attacker_pokemon is not None:
+            boosts_attacker = attacker_pokemon.boosts
 
-        if boosts_defender is None:
-            boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
-        if battle is None:
-            logger.info("Battle is not specified!")
+        # Boosts for defender
+        boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
+        if defender_pokemon is not None:
+            boosts_defender = defender_pokemon.boosts
 
-        logger.debug(f"Calculating damage for {attacker.species} vs {defender.species} (move: {move.id})")
-
-        attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker)
-        defender_evs, defender_ivs = extract_evs_ivs_from_build(defender)
+        # Getting EVs and IVs for both Pokemon
+        attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker_build)
+        defender_evs, defender_ivs = extract_evs_ivs_from_build(defender_build)
 
         # TypeScript expects double instead of single quotes
         attacker_evs = re.sub("\'", "\"", str(attacker_evs))
@@ -53,64 +58,96 @@ class DamageCalculator:
         defender_evs = re.sub("\'", "\"", str(defender_evs))
         defender_ivs = re.sub("\'", "\"", str(defender_ivs))
 
+        # Boosts
         boosts_attacker = re.sub("\'", "\"", str(boosts_attacker))
         boosts_defender = re.sub("\'", "\"", str(boosts_defender))
 
-        attacker_item = attacker.get_most_likely_item()
-        defender_item = defender.get_most_likely_item()
+        # Base stats
+        attacker_base_stats = re.sub("\"", "\'", str(attacker_build.base_stats))
+        defender_base_stats = re.sub("\"", "\'", str(defender_build.base_stats))
+
+        # Item
+        # TODO: Get item from Pokemon directly
+        attacker_item = attacker_build.get_most_likely_item()
+        defender_item = defender_build.get_most_likely_item()
+
+        # HP
+        attacker_hp = attacker_build.get_most_likely_stats()["hp"] if attacker_pokemon is None \
+            else attacker_pokemon.current_hp
+        defender_hp = defender_build.get_most_likely_stats()["hp"] if defender_pokemon is None \
+            else defender_pokemon.current_hp
+
+        # Status
+        attacker_status = "" if attacker_pokemon is None else _extract_status_from_pokemon(attacker_pokemon)
+        defender_status = "" if defender_pokemon is None else _extract_status_from_pokemon(defender_pokemon)
+
+        # Ability
+        # TODO: Get ability from Pokemon directly
+        attacker_ability = attacker_build.get_most_likely_ability()
+        defender_ability = defender_build.get_most_likely_ability()
+
+        # Dynamax
+        # noinspection PyProtectedMember
+        attacker_is_dynamaxed = str(False if attacker_pokemon is None else attacker_pokemon.is_dynamaxed or
+                                    attacker_pokemon._is_dynamaxed)
+        # noinspection PyProtectedMember
+        defender_is_dynamaxed = str(False if defender_pokemon is None else defender_pokemon.is_dynamaxed or
+                                    defender_pokemon._is_dynamaxed)
+
+        print(attacker_is_dynamaxed)
 
         # TODO: Include current state of both Pokemon (like BRN, lost HP)
         calculator_args = [
-            attacker.species,
-            attacker.species,  # TODO: this is the form of the pokemon
-            "M" if attacker.gender == "male" else ("F" if attacker.gender == "female" else "N"),
-            attacker.level,
-            re.sub("\"", "\'", str(attacker.base_stats)),
+            attacker_build.species,
+            attacker_build.species,
+            "M" if attacker_build.gender == "male" else ("F" if attacker_build.gender == "female" else "N"),
+            attacker_build.level,
+            attacker_base_stats,
             attacker_ivs,
             attacker_evs,
-            re.sub("\'", "\"", str(boosts_attacker)),
+            boosts_attacker,
             "Hardy",  # All Pokémon have neutral nature
-            attacker.get_most_likely_ability(),
+            attacker_ability,
             attacker_item if attacker_item != 'broken_item' else '',
-            "",  # No status
-            attacker.get_most_likely_stats()["hp"],
-            False,  # Not Dynamaxed
-            defender.species,
-            defender.species,  # TODO: this is the form of the pokemon
-            "M" if defender.gender == "Male" else ("F" if defender.gender == "Female" else "N"),
-            defender.level,
-            re.sub("\"", "\'", str(defender.base_stats)),
+            attacker_status,  # No status
+            attacker_hp,
+            attacker_is_dynamaxed,
+            defender_build.species,
+            defender_build.species,
+            "M" if defender_build.gender == "Male" else ("F" if defender_build.gender == "Female" else "N"),
+            defender_build.level,
+            defender_base_stats,
             defender_ivs,
             defender_evs,
-            re.sub("\'", "\"", str(boosts_defender)),
+            boosts_defender,
             "Hardy",  # All Pokémon have neutral nature
-            defender.get_most_likely_ability(),
+            defender_ability,
             defender_item if defender_item != 'broken_item' else '',
-            "",  # No status
-            defender.get_most_likely_stats()["hp"],
-            False,  # Not Dynamaxed
+            defender_status,  # No status
+            defender_hp,
+            defender_is_dynamaxed,
             move.id
         ]
 
         # TODO: Fix Aegislash
-        if "aegislash" == attacker.species:
+        if "aegislash" == attacker_build.species:
             calculator_args[0] = 'aegislashblade'
-        if "aegislash" == defender.species:
+        if "aegislash" == defender_build.species:
             calculator_args[14] = 'aegislashblade'
 
         # Fixing Gastrodon
         # Poke-Env uses 'gastrodon' and 'gastrodoneast' for both variants
         # The damage-calculator uses 'gastrodon' for both variants
-        if attacker.species == 'gastrodoneast':
+        if attacker_build.species == 'gastrodoneast':
             calculator_args[0] = 'gastrodon'
-        if defender.species == 'gastrodoneast':
+        if defender_build.species == 'gastrodoneast':
             calculator_args[14] = 'gastrodon'
 
         # There are multiple pikachu species, they all have the same base stats and are handled
         # identically by the damage calculator
-        if "pikachu" in attacker.species:
+        if "pikachu" in attacker_build.species:
             calculator_args[0] = "pikachu"
-        if "pikachu" in defender.species:
+        if "pikachu" in defender_build.species:
             calculator_args[14] = "pikachu"
 
         calculator_args[0] = calculator_args[0].capitalize()
@@ -140,8 +177,32 @@ class DamageCalculator:
         ranges_text = re.sub("[^0-9,]", "", res)
         ranges = [int(i) for i in ranges_text.split(",") if i]
 
+        # Field side 1
+        field_side_p1 = FieldSide()
+
+        # Field side 2
+        field_side_p2 = FieldSide()
+
+        # Creating field state
+        field_state = FieldState(
+            FieldTerrain.DEFAULT,
+            FieldWeather.DEFAULT,
+            field_side_p1,
+            field_side_p2
+        )
+
+        # Creating MoveResult
+        move_result = MoveResult(
+            species_p1=attacker_build.species,
+            species_p2=defender_build.species,
+            move=move.id,
+            damage_healed_defender=ranges,
+            new_field_state=field_state,
+            damage_taken_defender=ranges
+        )
+
         # TODO: Create moveResult based on calc result
-        return MoveResult(None, None, None, None, None)
+        return move_result
 
     def get_optimal_moves(
             self,
@@ -235,6 +296,26 @@ def _get_ivs(base: Dict[str, int], stats: Dict[str, int], evs: Dict[str, int], l
     temp1 = int(((stats[stat] - 5) * 100) / level) - (2 * base[stat])
     return (temp1 - evs[stat]) * 4
 
+
+def _extract_status_from_pokemon(pokemon: Pokemon) -> str:
+    if pokemon.status is None:
+        return ''
+    if pokemon.status == status.Status.BRN:
+        return 'brn'
+    if pokemon.status == status.Status.FRZ:
+        return 'frz'
+    if pokemon.status == status.Status.SLP:
+        return 'slp'
+    if pokemon.status == status.Status.FNT:
+        return 'fnt'
+    if pokemon.status == status.Status.PAR:
+        return 'par'
+    if pokemon.status == status.Status.PSN:
+        return 'psn'
+    if pokemon.status == status.Status.TOX:
+        return 'tox'
+
+    raise ValueError(f'Unknown status for Pokemon: {pokemon.status}')
 
 def get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     # Different formula for HP stat
