@@ -20,11 +20,11 @@ class TestDamageCalculator(unittest.TestCase):
     - Abilities [DONE]
         - Levitate [DONE]
         - Water absorb [DONE]
-    - Pokemon with different forms TODO
+    - Pokemon with different forms
         - Gastrodon
-        - Wishiwashi
-        - Zygarde
-        - Shedinja
+        - Wishiwashi - Transforming TODO
+        - Zygarde - Transforming TODO
+        - Shedinja - Transforming TODO
     - Changes to the field after the attack [DONE]
         - Reflect [DONE]
     - Damage through Weather TODO
@@ -225,6 +225,20 @@ class TestDamageCalculator(unittest.TestCase):
         res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("fireblast"), pokemon1)
         assert res3.damage_taken_defender == [83, 84, 84, 86, 87, 87, 89, 90, 90, 92, 93, 93, 95, 96, 96, 98]
 
+    def test_damage_calculator_gastrodon(self):
+
+        build1 = load_build_from_file("gastrodon")
+        build2 = load_build_from_file("gastrodoneast")
+
+        damage_calculator = DamageCalculator()
+
+        # Earthquake
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"))
+        res2: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("earthquake"))
+        assert res1.damage_taken_defender == \
+            [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
+        assert res2.damage_taken_defender == \
+            [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
 
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
