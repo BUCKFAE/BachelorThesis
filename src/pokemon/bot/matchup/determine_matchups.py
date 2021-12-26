@@ -1,114 +1,77 @@
 import copy
 import itertools
+import sys
 from typing import Dict, List, Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
-from poke_env.environment.pokemon import Pokemon
+from poke_env.environment.pokemon import Pokemon, Gen8Pokemon
 
-from pokemon.bot.matchup.field.field_side import FieldSide
-from pokemon.bot.matchup.field.field_state import FieldState
-from pokemon.bot.matchup.field.field_terrain import FieldTerrain
-from pokemon.bot.matchup.field.field_weather import FieldWeather
-from pokemon.bot.matchup.move_result import MoveResult
+from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
+from src.pokemon.bot.matchup.field.field_side import FieldSide
+from src.pokemon.bot.matchup.field.field_state import FieldState
+from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain
+from src.pokemon.bot.matchup.field.field_weather import FieldWeather
+from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, pokemon_from_build
 
 
-def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]) -> PokemonMatchup:
-    """Returns the matchups for all enemy Pokemon
-    # TODO: This has to look farther in the future and include current state of the Pokemon
-    """
+def determine_matchups(battle: AbstractBattle,
+                       enemy_builds: Dict[str, PokemonBuild]) -> List[PokemonMatchup]:
+    """Returns the matchups for all enemy Pokemon"""
 
-    matchups = {}
+    # Stores all matchups
+    matchups = []
 
     damage_calculator = DamageCalculator()
 
-    own_pokemon: List[Pokemon] = battle.available_switches + [battle.active_pokemon] \
-        if battle.active_pokemon is not None else []
+    # Getting both teams
+    own_pokemon = battle.available_switches + ([battle.active_pokemon]
+                                               if battle.active_pokemon is not None else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
+
+    logger.info(f'Determining matchups:\n\t{"-".join([s.species for s in own_pokemon])}'
+                f' -- {"-".join([s.species for s in enemy_pokemon])}')
 
     # Determining checks and counter for each known enemy
     for enemy in enemy_pokemon:
         for member in own_pokemon:
 
-            enemy_possible_moves = enemy_builds[enemy.species].get_most_likely_moves()
-
-            # TODO: Create method that creates PokemonBuild from Pokemon
             member_build = build_from_pokemon(member)
 
             # Determining our optimal moves
             own_optimal_moves = get_optimal_moves(
-                member_build,
-                enemy_builds[enemy.species],
-                member.moves,
-                MATCHUP_MOVES_DEPTH,
-                damage_calculator
+                attacker_build=member_build,
+                defender_build=enemy_builds[enemy.species],
+                possible_moves=member_build.get_most_likely_moves(),
+                depth=MATCHUP_MOVES_DEPTH,
+                damage_calculator=damage_calculator
             )
 
-            # Calculating expected damage for check and counter
-            own_expected_damage = sum(map(lambda x: x[1], own_optimal_moves))
-            own_expected_damage_biggest_removed = sorted(own_optimal_moves, key=lambda x: x[1], reverse=True)[1:]
-            own_expected_damage_check = sum(map(lambda x: x[1], own_expected_damage_biggest_removed))
-
-            # Determining enemy optimal moves
             enemy_optimal_moves = get_optimal_moves(
-                enemy_builds[enemy.species],
-                member_build,
-                enemy_possible_moves,
-                MATCHUP_MOVES_DEPTH,
-                damage_calculator)
-            # Calculating enemy expected damage
-            enemy_expected_damage = sum(map(lambda x: x[1], enemy_optimal_moves))
+                attacker_build=enemy_builds[enemy.species],
+                defender_build=member_build,
+                possible_moves=enemy_builds[enemy.species].get_most_likely_moves(),
+                depth=MATCHUP_MOVES_DEPTH,
+                damage_calculator=damage_calculator
+            )
 
-            ####################################################################
-            # Counter                                                          #
-            ####################################################################
-            # A Pokémon is a *Counter* if it's stronger when switched in after #
-            #   a faint.                                                       #
-            ####################################################################
-            # Check                                                            #
-            ####################################################################
-            # A Pokémon is a *Check* if it's stronger even when having to tank #
-            #   one additional hit                                             #
-            ####################################################################
-            # Determining what Pokémon is *stronger*                           #
-            ####################################################################
-            # If the one Pokémon looses a bigger fraction of it's total health #
-            #   it's considered to be weaker than the enemy                    #
-            ####################################################################
+            matchup = PokemonMatchup(
+                build_p1=member_build,
+                pokemon_1=member,
+                build_p2=enemy_builds[enemy.species],
+                pokemon_2=enemy,
+                optimal_moves_p1=own_optimal_moves,
+                optimal_moves_p2=enemy_optimal_moves
+            )
 
-            enemy_total_hp = enemy_builds[enemy.species].get_most_likely_stats()["hp"]
+            matchups.append(matchup)
 
-            damage_taken_fraction = enemy_expected_damage / member_build.get_most_likely_stats()["hp"]
-            damage_given_fraction_counter = own_expected_damage / enemy_total_hp
-            damage_given_fraction_check = own_expected_damage_check / enemy_total_hp
-
-            # Checking if our Pokémon is a check or a counter to the enemy
-            is_counter = damage_taken_fraction < damage_given_fraction_counter
-            is_check = damage_taken_fraction < damage_given_fraction_check
-
-            # Creating new entry for the given Pokémon if not already present
-            if enemy.species not in matchups.keys():
-                matchups[enemy.species] = {"checks": [], "counter": []}
-
-            if is_check:
-                matchups[enemy.species]["checks"].append(member.species)
-            # print(f"{member.species} is check against {enemy.species}: {is_check}")
-
-            if is_counter:
-                matchups[enemy.species]["counter"].append(member.species)
-            # print(f"{member.species} is counter against {enemy.species}: {is_counter}")
-
-    # print(f"\n\nMatchups: {json.dumps(matchups, indent=4, sort_keys=True)}")
-
-    # damage_calculator._cli_tool.kill()
-
-    raise NotImplementedError('This has to return a PokemonMatchup')
-
+    return matchups
 
 def get_optimal_moves(
         attacker_build: PokemonBuild,
@@ -189,8 +152,8 @@ def get_optimal_moves(
             best_moves = current_moves
             best_move_expected_damage = current_expected_damage
 
-    print(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:")
-    print('\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
-          + f'\tTotal: ({best_move_expected_damage})')
+    logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
+                '\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
+                + f'\tTotal: ({best_move_expected_damage})')
     assert len(best_moves) == depth
     return best_moves

@@ -2,7 +2,8 @@ import unittest
 
 from poke_env.environment.battle import Battle
 
-from pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
+from src.pokemon import logger
+from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_optimal_moves
 from src.pokemon.data_handling.util.pokemon_creation import load_pokemon_from_file, load_build_from_file
 
@@ -26,9 +27,16 @@ class TestDetermineMatchup(unittest.TestCase):
 
         battle._opponent_team = {names_team_p2[p]: pokemon_p2[p] for p in range(len(names_team_p2))}
 
-        determine_matchups(battle, {names_team_p2[p]: builds_p2[p] for p in range(len(names_team_p2))})
+        matchups = determine_matchups(battle, {names_team_p2[p]: builds_p2[p] for p in range(len(names_team_p2))})
 
-    def test_get_optimal_moves(self):
+        # Getting Checks and counter
+        for matchup in matchups:
+            p1 = matchup.pokemon_1.species
+            p2 = matchup.pokemon_2.species
+            logger.info(f'{p1} checks {p2}: {matchup.is_check(p1, p2)}')
+            logger.info(f'{p1} counters {p2}: {matchup.is_counter(p1, p2)}')
+
+    def _test_get_optimal_moves(self):
 
         build1 = load_build_from_file("absol")
         build2 = load_build_from_file("latios")

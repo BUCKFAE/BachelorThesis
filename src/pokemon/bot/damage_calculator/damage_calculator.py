@@ -308,9 +308,14 @@ def _side_condition_to_field(side_condition: str, old_field: FieldState, side: O
     if side_condition == 'lightscreen':
         if side == 'allySide':
             old_field.field_side_p1.light_screen = True
-        if side == 2:
+        else:
             old_field.field_side_p2.light_screen = True
         return old_field
+    elif side_condition == 'spikes':
+        if side == 'allySide':
+            old_field.field_side_p1.spikes_amount += 1
+        else:
+            old_field.field_side_p2.spikes_amount += 1
     else:
         raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
 

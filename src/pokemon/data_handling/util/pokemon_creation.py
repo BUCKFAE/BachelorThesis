@@ -3,7 +3,7 @@
 import json
 from typing import Dict, Any
 
-from poke_env.environment.pokemon import Gen8Pokemon
+from poke_env.environment.pokemon import Gen8Pokemon, Pokemon
 from poke_env.environment.pokemon_gender import PokemonGender
 
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
@@ -57,7 +57,7 @@ def build_from_string(species: str, build: Dict[str, Any]) -> PokemonBuild:
     return pokemon_build
 
 
-def build_from_pokemon(pokemon: Gen8Pokemon) -> PokemonBuild:
+def build_from_pokemon(pokemon: Pokemon) -> PokemonBuild:
     return build_from_string(pokemon.species,
                              {
                                  "level": pokemon.level,
@@ -81,4 +81,5 @@ def pokemon_from_build(build: PokemonBuild) -> Gen8Pokemon:
     pokemon.item = build.get_most_likely_item()
     pokemon._last_request["stats"] = build.get_most_likely_stats()
     pokemon._moves = build.get_most_likely_moves()
+    pokemon._current_hp = build.get_most_likely_stats()["hp"]
     return pokemon
