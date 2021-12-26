@@ -154,9 +154,21 @@ class TestDamageCalculator(unittest.TestCase):
         assert res.damage_healed_attacker == 182
 
     def test_damage_calculator_recoil(self):
-        """Ensures recoil damage works correctly"""
+        """Ensures recoil damage works correctly
+        Recoil is always a fraction of the damage dealt. Here, we use the recoil of the expected damage dealt
+        """
 
-        pass
+        build1 = load_build_from_file("hooh")
+        build2 = load_build_from_file("charizard")
+
+        damage_calculator = DamageCalculator()
+
+        # Brave bird
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("bravebird"))
+        assert res1.damage_taken_defender == \
+               [121, 123, 124, 126, 127, 129, 130, 132, 133, 135, 136, 138, 139, 141, 142, 144]
+        assert res1.damage_taken_attacker == 132.5
+
 
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
