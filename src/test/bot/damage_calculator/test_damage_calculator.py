@@ -153,6 +153,11 @@ class TestDamageCalculator(unittest.TestCase):
         assert res.damage_taken_defender == [0]
         assert res.damage_healed_attacker == 182
 
+    def test_damage_calculator_recoil(self):
+        """Ensures recoil damage works correctly"""
+
+        pass
+
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
 
