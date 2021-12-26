@@ -17,6 +17,7 @@ class TestDamageCalculator(unittest.TestCase):
     - Healing [DONE]
     - Recoil [DONE]
     - Status changes (BRN) [DONE]
+        - Status to own Pokemon (Rest) TODO
     - Dynamax [DONE]
     - Abilities [DONE]
         - Levitate [DONE]
