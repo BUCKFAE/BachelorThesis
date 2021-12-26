@@ -128,7 +128,7 @@ class TestDamageCalculator(unittest.TestCase):
         assert res2.new_status_defender == status.Status.BRN
 
         # Buring Garchomp
-        pokemon1._status = status.Status.BRN
+        pokemon2._status = status.Status.BRN
 
         # Physical attack burned
         res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move('firefang'),

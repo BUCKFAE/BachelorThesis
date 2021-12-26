@@ -164,8 +164,6 @@ class DamageCalculator:
                 break
             output.append(res)
 
-        print('\n'.join(output))
-
         # Getting the damage ranges
         res = [e for e in output if re.match("damage: [0-9]+,", e)]
         if res:
@@ -194,6 +192,11 @@ class DamageCalculator:
         # Modifying field state
         field_state = _side_condition_to_field(move.side_condition, field_state, move.deduced_target)
 
+        # Status
+        # TODO: Status doesn't override existing status
+        status_attacker = move.status if move.target == 'allySide' else None
+        status_defender = move.status if move.target == 'normal' else None
+
         # Recoil
         damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
 
@@ -212,7 +215,9 @@ class DamageCalculator:
             damage_taken_defender=ranges,
             damage_taken_attacker=damage_taken_attacker,
             damage_healed_attacker=damage_healed_attacker,
-            damage_healed_defender=damage_healed_defender
+            damage_healed_defender=damage_healed_defender,
+            new_status_attacker=status_attacker,
+            new_status_defender=status_defender
         )
 
         return move_result

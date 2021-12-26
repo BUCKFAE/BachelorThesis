@@ -1,4 +1,5 @@
 import {calculate, Generations, Move, Pokemon} from '@smogon/calc';
+import {StatusName} from "@smogon/calc/dist/data/interface";
 
 const gen = Generations.get(8);
 
@@ -11,10 +12,17 @@ const rl = readline.createInterface({
     terminal: false
 });
 
-/**
- * For some reason pytest breaks when using string.replaceAll(), even if the ts-version is set correctly.
- * @param s
- */
+
+function get_pokemon_status(status: string) {
+
+    if (status === 'brn' || status === 'slp' || status === 'psn' || status === 'brn' || status === 'frz' ||
+        status === 'par' || status === 'tox') {
+        let r: StatusName = status
+        return r
+    }
+
+    return ''
+}
 
 rl.on('line', function (line: string) {
     console.log(line);
@@ -55,8 +63,6 @@ rl.on('line', function (line: string) {
 
     let move = args[28];
 
-
-
     const battleResult = calculate(
         gen,
         new Pokemon(gen, p1_species, {
@@ -69,7 +75,7 @@ rl.on('line', function (line: string) {
             ability: p1_ability,
             abilityOn: true,
             item: p1_item,
-            status: '',
+            status: get_pokemon_status(p1_status),
             curHP: parseInt(p1_hp),
             isDynamaxed: p1_dynamax === "True"
         }),
@@ -83,7 +89,7 @@ rl.on('line', function (line: string) {
             ability: p2_ability,
             abilityOn: true,
             item: p2_item,
-            status: '',
+            status: get_pokemon_status(p2_status),
             curHP: parseInt(p2_hp),
             isDynamaxed: p2_dynamax === "True"
         }),
