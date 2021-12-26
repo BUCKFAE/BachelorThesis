@@ -14,12 +14,12 @@ class TestDamageCalculator(unittest.TestCase):
     - Simple Attacking with no special effects [DONE]
     - Stat boosts (Swords Dance) [DONE]
     - Healing [DONE]
-    - Recoil TODO
+    - Recoil [DONE]
     - Status changes (BRN) [DONE]
     - Field effects (Reflect) TODO
     - Dynamax TODO
-    - Abilities TODO
-        - Levitate
+    - Abilities [DONE]
+        - Levitate [DONE]
         - Water absorb [DONE]
     - Pokemon with different forms TODO
         - Gastrodon
@@ -169,6 +169,23 @@ class TestDamageCalculator(unittest.TestCase):
                [121, 123, 124, 126, 127, 129, 130, 132, 133, 135, 136, 138, 139, 141, 142, 144]
         assert res1.damage_taken_attacker == 132.5
 
+    def test_damage_calculator_levitate(self):
+        """Ensures that levitate works correctly"""
+
+        build1 = load_build_from_file("charizard")
+        build2 = load_build_from_file("bronzog")
+        pokemon2 = pokemon_from_build(build2)
+
+        damage_calculator = DamageCalculator()
+
+        # Earthquake (levitate)
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
+                                                              defender_pokemon=pokemon2)
+        assert res1.damage_taken_defender == [0]
+
+        # Air Slash
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"))
+        assert res1.damage_taken_defender == [31, 32, 32, 33, 33, 33, 33, 34, 34, 35, 35, 36, 36, 36, 36, 37]
 
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
