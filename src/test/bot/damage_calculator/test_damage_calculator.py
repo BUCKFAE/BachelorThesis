@@ -16,6 +16,7 @@ class TestDamageCalculator(unittest.TestCase):
     - Stat boosts (Swords Dance) [DONE]
     - Healing [DONE]
     - Recoil [DONE]
+    - Explosion TODO
     - Status changes (BRN) [DONE]
         - Status to own Pokemon (Rest) TODO
     - Dynamax [DONE]
@@ -175,7 +176,7 @@ class TestDamageCalculator(unittest.TestCase):
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("bravebird"))
         assert res1.damage_taken_defender == \
                [121, 123, 124, 126, 127, 129, 130, 132, 133, 135, 136, 138, 139, 141, 142, 144]
-        assert res1.damage_taken_attacker == 132.5
+        assert res1.damage_taken_attacker == 43.725
 
     def test_damage_calculator_levitate(self):
         """Ensures that levitate works correctly"""

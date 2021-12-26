@@ -193,6 +193,9 @@ class DamageCalculator:
         # Modifying field state
         field_state = _side_condition_to_field(move.side_condition, field_state, move.deduced_target)
 
+        # Recoil
+        damage_taken_attacker = (sum(ranges) / len(ranges)) * move.recoil
+
         # Creating MoveResult
         move_result = MoveResult(
             species_p1=attacker_build.species,
@@ -200,7 +203,8 @@ class DamageCalculator:
             move=move.id,
             damage_healed_defender=ranges,
             new_field_state=field_state,
-            damage_taken_defender=ranges
+            damage_taken_defender=ranges,
+            damage_taken_attacker=damage_taken_attacker
         )
 
         return move_result
