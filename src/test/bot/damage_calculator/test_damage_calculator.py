@@ -194,8 +194,6 @@ class TestDamageCalculator(unittest.TestCase):
 
         damage_calculator = DamageCalculator()
 
-        move = Move("lightscreen")
-
         # Light Screen
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("lightscreen"))
         assert res1.new_field_state.field_side_p1.light_screen
