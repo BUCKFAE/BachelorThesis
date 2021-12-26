@@ -1,6 +1,7 @@
 import unittest
 
 from poke_env.environment import status
+from poke_env.environment.effect import Effect
 from poke_env.environment.move import Move
 
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
@@ -208,7 +209,7 @@ class TestDamageCalculator(unittest.TestCase):
         pokemon1 = pokemon_from_build(build1)
 
         # Dynamaxing Charizard
-        pokemon1._is_dynamaxed = True
+        pokemon1._effects[Effect.DYNAMAX] = True
 
         damage_calculator = DamageCalculator()
 

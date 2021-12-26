@@ -88,11 +88,9 @@ class DamageCalculator:
 
         # Dynamax
         # noinspection PyProtectedMember
-        attacker_is_dynamaxed = str(False if attacker_pokemon is None else attacker_pokemon.is_dynamaxed or
-                                    attacker_pokemon._is_dynamaxed)
+        attacker_is_dynamaxed = str(False if attacker_pokemon is None else attacker_pokemon.is_dynamaxed)
         # noinspection PyProtectedMember
-        defender_is_dynamaxed = str(False if defender_pokemon is None else defender_pokemon.is_dynamaxed or
-                                    defender_pokemon._is_dynamaxed)
+        defender_is_dynamaxed = str(False if defender_pokemon is None else defender_pokemon.is_dynamaxed)
 
         print(attacker_is_dynamaxed)
 
