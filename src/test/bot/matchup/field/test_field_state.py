@@ -1,7 +1,7 @@
 import unittest
 
 from src.pokemon import logger
-from src.pokemon.bot.matchup.field.FieldSide import FieldSide
+from src.pokemon.bot.matchup.field.field_side import FieldSide
 from src.pokemon.bot.matchup.field.field_state import FieldState, battle_to_field, move_to_field_state, \
     switch_in_to_field_state
 from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain

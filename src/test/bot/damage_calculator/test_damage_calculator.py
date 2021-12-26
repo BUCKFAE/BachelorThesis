@@ -16,7 +16,6 @@ class TestDamageCalculator(unittest.TestCase):
     - Healing [DONE]
     - Recoil [DONE]
     - Status changes (BRN) [DONE]
-    - Field effects (Reflect) TODO
     - Dynamax TODO
     - Abilities [DONE]
         - Levitate [DONE]
@@ -26,9 +25,9 @@ class TestDamageCalculator(unittest.TestCase):
         - Wishiwashi
         - Zygarde
         - Shedinja
-    - Changes to the field after the attack TODO
-        - Weather
-        - Reflect
+    - Changes to the field after the attack [DONE]
+        - Reflect [DONE]
+    - Damage through Weather TODO
     """
 
     def test_damage_calculator_basic(self):
@@ -186,6 +185,20 @@ class TestDamageCalculator(unittest.TestCase):
         # Air Slash
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"))
         assert res1.damage_taken_defender == [31, 32, 32, 33, 33, 33, 33, 34, 34, 35, 35, 36, 36, 36, 36, 37]
+
+    def test_damage_calculator_field_changes(self):
+        """Changes to the field after the attack"""
+
+        build1 = load_build_from_file("wigglytuff")
+        build2 = load_build_from_file("charizard")
+
+        damage_calculator = DamageCalculator()
+
+        move = Move("lightscreen")
+
+        # Light Screen
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("lightscreen"))
+        assert res1.new_field_state.field_side_p1.light_screen
 
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
