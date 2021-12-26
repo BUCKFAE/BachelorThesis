@@ -5,6 +5,7 @@ from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
+from poke_env.player.random_player import RandomPlayer
 
 from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
@@ -76,6 +77,9 @@ class RuleBasedPlayer(Player):
 
         # Switching if we have to
         if not battle.available_moves:
+
+            return self.choose_random_move(battle)
+
             # print(f"Forced to switch!")
             current_enemy_checks = [c for c in current_enemy_checks if c != own_species]
             current_enemy_counter = [c for c in current_enemy_counter if c != own_species]
@@ -122,7 +126,8 @@ class RuleBasedPlayer(Player):
         logger.info(f"Best enemy move: {best_enemy_move}")
 
         # If we can kill the enemy this move, we will
-        if best_own_move.get_average_damage() > enemy_hp:
+        if best_own_move.get_average_damage() > enemy_hp \
+                and best_own_move.move in [m.id for m in battle.available_moves]:
             logger.info(f"\tWe can kill the enemy this turn!")
             if best_enemy_move.get_average_damage() > own_hp:
                 logger.info(f"\tThe enemy can kill us this turn as well!")
@@ -192,9 +197,9 @@ async def main():
                          max_concurrent_battles=1,
                          save_replays='src/data/replays',
                          start_timer_on_battle_start=True)
-    p2 = MaxDamagePlayer(battle_format="gen8randombattle")
+    p2 = RandomPlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=1)
+    await p1.battle_against(p2, n_battles=20)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 
