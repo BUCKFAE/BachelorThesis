@@ -88,24 +88,25 @@ class TestDamageCalculator(unittest.TestCase):
         # Charizard: Air Slash
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res1.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169,
-                                              172]
+        assert res1.damage_taken_defender == \
+               [657, 664, 672, 681, 688, 696, 703, 711, 718, 727, 735, 742, 750, 757, 765, 774]
+
 
         # Charizard: Earthquake
         res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res2.damage_taken_defender == [145, 147, 150, 151, 153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 169,
-                                              172]
+        assert res2.damage_taken_defender ==  \
+               [175, 177, 179, 181, 183, 185, 187, 189, 191, 193, 195, 197, 199, 201, 203, 206]
 
         # Garchomp: Fire Blast
         res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
                                                               attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
-        assert res3.damage_taken_defender == [8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10]
+        assert res3.damage_taken_defender == [3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
 
         # Garchomp: Outrage
         res4: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("outrage"),
-                                                              attacker_pokemon=pokemon2, defender_pokemon=pokemon2)
-        assert res4.damage_taken_defender == [64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72, 72, 73, 73, 75, 76]
+                                                              attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
+        assert res4.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
 
     def test_damage_calculator_status_effect(self):
         build1 = load_build_from_file("weezinggalar")
