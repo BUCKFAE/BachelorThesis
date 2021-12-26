@@ -160,7 +160,7 @@ class TestDamageCalculator(unittest.TestCase):
         # Lapras with Water absorb takes no damage from water moves, heals for 25% max HP
         res: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("hydropump"))
         assert res.damage_taken_defender == [0]
-        assert res.damage_healed_attacker == 182
+        assert res.damage_healed_defender == 91
 
     def test_damage_calculator_recoil(self):
         """Ensures recoil damage works correctly
@@ -176,7 +176,7 @@ class TestDamageCalculator(unittest.TestCase):
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("bravebird"))
         assert res1.damage_taken_defender == \
                [121, 123, 124, 126, 127, 129, 130, 132, 133, 135, 136, 138, 139, 141, 142, 144]
-        assert res1.damage_taken_attacker == 43.725
+        assert res1.damage_taken_attacker == 44
 
     def test_damage_calculator_levitate(self):
         """Ensures that levitate works correctly"""

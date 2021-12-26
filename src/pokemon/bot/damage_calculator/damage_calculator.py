@@ -6,6 +6,7 @@ from poke_env.environment import status
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
+from poke_env.environment.pokemon_type import PokemonType
 from singleton_decorator import singleton
 
 from src.pokemon import logger
@@ -194,17 +195,24 @@ class DamageCalculator:
         field_state = _side_condition_to_field(move.side_condition, field_state, move.deduced_target)
 
         # Recoil
-        damage_taken_attacker = (sum(ranges) / len(ranges)) * move.recoil
+        damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
+
+        # Healing attacker
+        damage_healed_attacker = move.heal * attacker_build.get_most_likely_stats()["hp"]
+
+        damage_healed_defender = round(defender_build.get_most_likely_stats()["hp"] * 0.25) if \
+            defender_ability == 'Water Absorb' and move.type == PokemonType.WATER else 0
 
         # Creating MoveResult
         move_result = MoveResult(
             species_p1=attacker_build.species,
             species_p2=defender_build.species,
             move=move.id,
-            damage_healed_defender=ranges,
             new_field_state=field_state,
             damage_taken_defender=ranges,
-            damage_taken_attacker=damage_taken_attacker
+            damage_taken_attacker=damage_taken_attacker,
+            damage_healed_attacker=damage_healed_attacker,
+            damage_healed_defender=damage_healed_defender
         )
 
         return move_result
