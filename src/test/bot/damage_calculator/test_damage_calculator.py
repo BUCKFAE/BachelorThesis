@@ -255,7 +255,7 @@ class TestDamageCalculator(unittest.TestCase):
 
         # Poltergeist
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("poltergeist"))
-        assert res1.damage_taken_attacker \
+        assert res1.damage_taken_defender \
                == [117, 118, 120, 120, 121, 123, 124, 126, 127, 129, 130, 132, 133, 135, 136, 138]
 
         # Power Whip
@@ -265,11 +265,6 @@ class TestDamageCalculator(unittest.TestCase):
         # Shadow Sneak
         res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("shadowsneak"))
         assert res3.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
-
-        # Will-O-Wisp
-        res4: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("willowisp"))
-        assert res4.damage_taken_defender == [0]
-        assert res4.new_status_defender == status.Status.BRN
 
 
 if __name__ == "__main__":
