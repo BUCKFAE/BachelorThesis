@@ -222,43 +222,6 @@ class DamageCalculator:
 
         return move_result
 
-    def get_optimal_moves(
-            self,
-            attacker_build: PokemonBuild,
-            attacker_pokemon: Optional[Pokemon],
-            defender_build: PokemonBuild,
-            defender_pokemon: Optional[Pokemon],
-            battle: AbstractBattle) -> List[MoveResult]:
-        # TODO: Account for disabled moves!!
-
-        best_move = (None, -1)
-
-        logger.info(f"Most likely moves for: {attacker.species}\n\t{attacker.get_most_likely_moves()}")
-
-        for move in attacker.get_most_likely_moves():
-
-            if not move.strip():
-                logger.warning('The pokemon has no moves left, using struggle!')
-                move = 'struggle'
-
-            # TODO: Use expected damage instead (misses)
-            damage_range = self.calculate_damage(
-                attacker,
-                defender,
-                Move(move),
-                battle,
-                None,
-                None
-            )
-            expected_damage = sum(damage_range) / len(damage_range)
-            if expected_damage >= best_move[1]:
-                best_move = (move, expected_damage)
-
-        assert best_move[0] is not None
-        assert best_move[1] >= 0
-
-        raise NotImplementedError('This has to return MoveResults')
-
 
 def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
     assumed_ivs = {"hp": 31, "atk": 31, "def": 31, "spa": 31, "spd": 31, "spe": 31}

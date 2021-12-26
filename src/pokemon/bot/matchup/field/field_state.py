@@ -30,8 +30,6 @@ class FieldState:
         self.is_wonder_room = is_wonder_room
         self.is_gravity = is_gravity
 
-        logger.info(f'Created field state: {terrain=} {weather=}')
-
 
 def battle_to_field(battle: AbstractBattle) -> FieldState:
     """Converts the field of an ongoing battle to a FieldState"""

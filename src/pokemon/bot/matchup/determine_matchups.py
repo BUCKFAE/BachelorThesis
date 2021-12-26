@@ -1,15 +1,21 @@
+import copy
 import itertools
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
 
+from pokemon.bot.matchup.field.field_side import FieldSide
+from pokemon.bot.matchup.field.field_state import FieldState
+from pokemon.bot.matchup.field.field_terrain import FieldTerrain
+from pokemon.bot.matchup.field.field_weather import FieldWeather
+from pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
-from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
+from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, pokemon_from_build
 
 
 def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]) -> PokemonMatchup:
@@ -105,44 +111,86 @@ def determine_matchups(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBu
 
 
 def get_optimal_moves(
-        attacker: PokemonBuild,
-        defender: PokemonBuild,
+        attacker_build: PokemonBuild,
+        defender_build: PokemonBuild,
         possible_moves: List[str],
         depth: int,
-        damage_calculator: DamageCalculator):
+        damage_calculator: DamageCalculator,
+        field_state: Optional[FieldState] = None,
+        attacker_pokemon: Optional[Pokemon] = None,
+        defender_pokemon: Optional[Pokemon] = None):
     # All possible move combinations
     combinations = itertools.product(possible_moves, repeat=depth)
 
     # print(f"Getting optimal moves for {attacker.species} vs {defender.species}")
 
+    if attacker_pokemon is None:
+        attacker_pokemon = pokemon_from_build(attacker_build)
+
+    if defender_pokemon is None:
+        defender_pokemon = pokemon_from_build(defender_build)
+
     # Storing the best move combination
-    best_moves = [(None, -1)]
+    best_moves = List[MoveResult]
+    best_move_expected_damage = -1
 
     for combination in combinations:
         current_moves = []
 
-        # TODO: This should include field effects and stat changes, don't 3x draco meteor!
+        # Creating field at the start if needed
+        if field_state is None:
+            field_side_p1 = FieldSide()
+            field_side_p2 = FieldSide()
+            field_state = FieldState(
+                FieldTerrain.DEFAULT,
+                FieldWeather.DEFAULT,
+                field_side_p1,
+                field_side_p2
+            )
+
+        attacker_copy = copy.deepcopy(attacker_pokemon)
+        defender_copy = copy.deepcopy(defender_pokemon)
 
         # Making all moves
         for current_move in combination:
+
+            current_move = Move(current_move)
+
             # Calculating expected damage after these 3 moves
             res = damage_calculator.calculate_damage(
-                attacker,
-                defender,
-                Move(current_move),
-                None,
-                None)
-            expected_damage_current_move = sum(res) / len(res)
-            current_moves.append((current_move, expected_damage_current_move))
+                attacker_build,
+                defender_build,
+                current_move,
+                attacker_pokemon=attacker_copy,
+                defender_pokemon=defender_copy,
+                field=field_state)
+
+            # Status changes
+            attacker_copy.status = res.new_status_attacker
+            defender_copy.status = res.new_status_defender
+
+            # TODO: Include Moves that increase / decrease the stats of the enemy
+
+            # Stat changes
+            if current_move.boosts is not None:
+                if current_move.target == 'allySide' or current_move.target == 'self':
+                    for boost in current_move.boosts.keys():
+                        attacker_copy.boosts[boost] += current_move.boosts[boost]
+
+            if current_move.self_boost is not None:
+                for boost in current_move.self_boost.keys():
+                    attacker_copy.boosts[boost] += current_move.self_boost[boost]
+            current_moves.append(res)
 
         # If the current combination is better than the best known combination
-        current_expected_damage = sum(map(lambda x: x[1], current_moves))
-        best_expected_damage = sum(map(lambda x: x[1], best_moves))
+        current_expected_damage = sum([x.get_average_damage() for x in current_moves])
 
-        if current_expected_damage >= best_expected_damage:
+        if current_expected_damage >= best_move_expected_damage:
             best_moves = current_moves
+            best_move_expected_damage = current_expected_damage
 
-    # print(f"Optimal moves for {attacker.species} vs {defender.species}:\n\t{best_moves}")
-
+    print(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:")
+    print('\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
+          + f'\tTotal: ({best_move_expected_damage})')
     assert len(best_moves) == depth
     return best_moves

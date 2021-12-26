@@ -44,8 +44,6 @@ class MoveResult:
         self.new_status_defender = new_status_defender
         self.new_field_state = new_field_state
 
-        logger.info(f'MoveResult: {species_p1} vs {species_p2}: {move}')
-
     def get_min_damage(self) -> int:
         """The smallest possible amount of damage that the move deals to the Pokemon of player 2"""
         return min(self.damage_taken_defender)
