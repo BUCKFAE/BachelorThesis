@@ -16,7 +16,7 @@ class TestDamageCalculator(unittest.TestCase):
     - Healing [DONE]
     - Recoil [DONE]
     - Status changes (BRN) [DONE]
-    - Dynamax TODO
+    - Dynamax [DONE]
     - Abilities [DONE]
         - Levitate [DONE]
         - Water absorb [DONE]
@@ -28,6 +28,9 @@ class TestDamageCalculator(unittest.TestCase):
     - Changes to the field after the attack [DONE]
         - Reflect [DONE]
     - Damage through Weather TODO
+    - Healing TODO
+        - Leftovers TODO
+        - Leech seed TODO
     """
 
     def test_damage_calculator_basic(self):
@@ -197,6 +200,31 @@ class TestDamageCalculator(unittest.TestCase):
         # Light Screen
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("lightscreen"))
         assert res1.new_field_state.field_side_p1.light_screen
+
+    def test_damage_calculator_dynamax(self):
+
+        build1 = load_build_from_file("charizard")
+        build2 = load_build_from_file("salamence")
+        pokemon1 = pokemon_from_build(build1)
+
+        # Dynamaxing Charizard
+        pokemon1._is_dynamaxed = True
+
+        damage_calculator = DamageCalculator()
+
+        # Air Slash
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"), pokemon1)
+        assert res1.damage_taken_defender == \
+               [154, 156, 159, 160, 162, 163, 166, 168, 169, 171, 172, 175, 177, 178, 180, 183]
+
+        # Earthquake
+        res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"), pokemon1)
+        assert res2.damage_taken_defender == [0]
+
+        # Fireblast
+        res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("fireblast"), pokemon1)
+        assert res3.damage_taken_defender == [83, 84, 84, 86, 87, 87, 89, 90, 90, 92, 93, 93, 95, 96, 96, 98]
+
 
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
