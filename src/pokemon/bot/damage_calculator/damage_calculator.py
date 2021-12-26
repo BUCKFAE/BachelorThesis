@@ -190,6 +190,9 @@ class DamageCalculator:
             field_side_p2
         )
 
+        # Modifying field state
+        field_state = _side_condition_to_field(move.side_condition, field_state, move.deduced_target)
+
         # Creating MoveResult
         move_result = MoveResult(
             species_p1=attacker_build.species,
@@ -200,7 +203,6 @@ class DamageCalculator:
             damage_taken_defender=ranges
         )
 
-        # TODO: Create moveResult based on calc result
         return move_result
 
     def get_optimal_moves(
@@ -315,6 +317,22 @@ def _extract_status_from_pokemon(pokemon: Pokemon) -> str:
         return 'tox'
 
     raise ValueError(f'Unknown status for Pokemon: {pokemon.status}')
+
+
+def _side_condition_to_field(side_condition: str, old_field: FieldState, side: Optional[str]) -> FieldState:
+    # No changes
+    if not side_condition:
+        return old_field
+
+    # Light screen
+    if side_condition == 'lightscreen':
+        if side == 'allySide':
+            old_field.field_side_p1.light_screen = True
+        if side == 2:
+            old_field.field_side_p2.light_screen = True
+        return old_field
+    else:
+        raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
 
 def get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     # Different formula for HP stat

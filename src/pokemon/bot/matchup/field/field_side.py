@@ -8,7 +8,7 @@ class FieldSide:
                  cannonade: bool = False,
                  volcalith: bool = False,
                  spikes_amount: int = 0,
-                 reflect: int = 0,
+                 reflect: bool = False,
                  light_screen: bool = False,
                  protect: bool = False,
                  leech_seed: bool = False,
