@@ -155,8 +155,9 @@ class RuleBasedPlayer(Player):
             if len(battle.opponent_team) > 4 and battle.can_dynamax:
                 return self.create_order(Move(best_own_move.move), dynamax=True)
 
+        # TODO: fix this
         if best_own_move.move not in [m.id for m in battle.available_moves]:
-            logger.critical('AHSHSDHKFLSDHFLSHDFLSHDF')
+            logger.critical('Best move is not available')
             return self.choose_random_move(battle)
 
         logger.info(f"Picking the most damaging move from {own_species} against {enemy_species}")
