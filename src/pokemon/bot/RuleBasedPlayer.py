@@ -64,7 +64,6 @@ class RuleBasedPlayer(Player):
         if len(enemy_matchups) == 0:
             logger.info("Enemy pokemon unknown, getting matchups")
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
-            enemy_matchups = self._find_matchups_pokemon(enemy_species)
 
         # Checking if our current matchup is bad
         current_enemy_checks = []
