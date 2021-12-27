@@ -202,7 +202,7 @@ class RuleBasedPlayer(Player):
 
         return res or gathered_new_information
 
-    def _find_matchups_pokemon(self, species: str) -> list[PokemonMatchup]:
+    def _find_matchups_pokemon(self, species: str) -> List[PokemonMatchup]:
         """Returns the Matchup for the given Pokemon"""
         return [m for m in self.matchups if m.pokemon_1.species == species or m.pokemon_2.species == species]
 
