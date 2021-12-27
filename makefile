@@ -59,7 +59,7 @@ accept-challenges:
 	python3 -m src.pokemon.bot.evaluation.accept_challenges
 
 send-challenges:
-    python3 -m src.pokemon.bot.evaluation.challenge_player
+	python3 -m src.pokemon.bot.evaluation.challenge_player
 
 enhance-replays:
 	python3 -m src.pokemon.bot.bot_logging.replay_enhancing
