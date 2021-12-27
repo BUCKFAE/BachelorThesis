@@ -17,7 +17,7 @@ from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
-from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, pokemon_from_build
+from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, pokemon_from_build, clone_pokemon
 
 
 def determine_matchups(battle: AbstractBattle,
@@ -49,7 +49,9 @@ def determine_matchups(battle: AbstractBattle,
                 defender_build=enemy_builds[enemy.species],
                 possible_moves=member_build.get_most_likely_moves(),
                 depth=MATCHUP_MOVES_DEPTH,
-                damage_calculator=damage_calculator
+                damage_calculator=damage_calculator,
+                attacker_pokemon=member,
+                defender_pokemon=enemy
             )
 
             enemy_optimal_moves = get_optimal_moves(
@@ -57,7 +59,9 @@ def determine_matchups(battle: AbstractBattle,
                 defender_build=member_build,
                 possible_moves=enemy_builds[enemy.species].get_most_likely_moves(),
                 depth=MATCHUP_MOVES_DEPTH,
-                damage_calculator=damage_calculator
+                damage_calculator=damage_calculator,
+                attacker_pokemon=enemy,
+                defender_pokemon=member
             )
 
             matchup = PokemonMatchup(
@@ -111,8 +115,12 @@ def get_optimal_moves(
                 field_side_p2
             )
 
-        attacker_copy = copy.deepcopy(attacker_pokemon)
-        defender_copy = copy.deepcopy(defender_pokemon)
+        attacker_copy = clone_pokemon(attacker_pokemon)
+        defender_copy = clone_pokemon(defender_pokemon)
+
+        assert attacker_pokemon.base_stats == attacker_copy.base_stats
+        assert attacker_pokemon.current_hp == attacker_copy.current_hp
+        assert attacker_pokemon.boosts == attacker_copy.boosts
 
         # Making all moves
         for current_move in combination:
@@ -139,10 +147,18 @@ def get_optimal_moves(
                 if current_move.target == 'allySide' or current_move.target == 'self':
                     for boost in current_move.boosts.keys():
                         attacker_copy.boosts[boost] += current_move.boosts[boost]
+                        if attacker_copy.boosts[boost] > 6:
+                            attacker_copy.boosts[boost] = 6
+                        if attacker_copy.boosts[boost] < -6:
+                            attacker_copy.boosts[boost] = -6
 
             if current_move.self_boost is not None:
                 for boost in current_move.self_boost.keys():
                     attacker_copy.boosts[boost] += current_move.self_boost[boost]
+                    if attacker_copy.boosts[boost] > 6:
+                        attacker_copy.boosts[boost] = 6
+                    if attacker_copy.boosts[boost] < -6:
+                        attacker_copy.boosts[boost] = -6
             current_moves.append(res)
 
         # If the current combination is better than the best known combination

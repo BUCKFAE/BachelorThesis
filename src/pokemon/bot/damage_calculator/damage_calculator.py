@@ -43,12 +43,22 @@ class DamageCalculator:
         # Boosts for attacker
         boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
         if attacker_pokemon is not None:
-            boosts_attacker = attacker_pokemon.boosts
+            boosts_attacker = {**attacker_pokemon.boosts, **{"hp": 0}}
+            try:
+                boosts_attacker.pop("accuracy")
+                boosts_attacker.pop("evasion")
+            except:
+                pass
 
         # Boosts for defender
         boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
         if defender_pokemon is not None:
-            boosts_defender = defender_pokemon.boosts
+            boosts_defender = {**defender_pokemon.boosts, **{"hp": 0}}
+            try:
+                boosts_attacker.pop("accuracy")
+                boosts_attacker.pop("evasion")
+            except:
+                pass
 
         # Getting EVs and IVs for both Pokemon
         attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker_build)
@@ -65,8 +75,8 @@ class DamageCalculator:
         boosts_defender = re.sub("\'", "\"", str(boosts_defender))
 
         # Base stats
-        attacker_base_stats = re.sub("\"", "\'", str(attacker_build.base_stats))
-        defender_base_stats = re.sub("\"", "\'", str(defender_build.base_stats))
+        attacker_base_stats = re.sub("\'", "\"", str(attacker_build.base_stats))
+        defender_base_stats = re.sub("\'", "\"", str(defender_build.base_stats))
 
         # Item
         # TODO: Get item from Pokemon directly
@@ -75,9 +85,9 @@ class DamageCalculator:
 
         # HP
         attacker_hp = attacker_build.get_most_likely_stats()["hp"] if attacker_pokemon is None \
-            else attacker_pokemon.current_hp
+            else attacker_build.get_most_likely_stats()["hp"] * attacker_pokemon.current_hp_fraction
         defender_hp = defender_build.get_most_likely_stats()["hp"] if defender_pokemon is None \
-            else defender_pokemon.current_hp
+            else defender_build.get_most_likely_stats()["hp"] * defender_pokemon.current_hp_fraction
 
         # Status
         attacker_status = "" if attacker_pokemon is None else _extract_status_from_pokemon(attacker_pokemon)

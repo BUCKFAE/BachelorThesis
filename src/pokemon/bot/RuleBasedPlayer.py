@@ -1,6 +1,4 @@
-import sys
 import asyncio
-import time
 from typing import Dict, List
 
 from poke_env.environment.abstract_battle import AbstractBattle
@@ -15,7 +13,7 @@ from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
 from src.pokemon.bot.bot_logging.replay_enhancing import enhance_replays
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
-from src.pokemon.bot.matchup.determine_matchups import determine_matchups
+from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_optimal_moves
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
@@ -27,17 +25,18 @@ class RuleBasedPlayer(Player):
     # Storing Matchup information
     matchups: List[PokemonMatchup] = []
 
+    # Stores Information on how we wanna beat the enemy
+    current_game_plan = ([], '', '')
+
     damage_calculator = DamageCalculator()
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
         if battle.turn == 1:
+            print(f'\n\n\n\n{self.n_won_battles} / {self.n_lost_battles}\n\n\n\n')
             logger.info(f'Battle: {battle.battle_tag}')
 
-        logger.info(f'Turn: {battle.turn}')
-
-        logger.info(f'Remaining team:\n\t' +
-                    ' '.join([p.species for p in battle.team.values() if not p.fainted]))
+        logger.info(f'\n\n\n\nTurn: {battle.turn}')
 
         logger.info(f"Matchup: {battle.active_pokemon.species} vs {battle.opponent_active_pokemon.species}")
 
@@ -46,6 +45,7 @@ class RuleBasedPlayer(Player):
 
         # Updating information we gathered about the enemy team
         new_information_collected = self.update_enemy_information(battle)
+        new_information_collected = True
 
         # logger.info(f"Items:\n"
         #            f"\tOwn Item: {battle.active_pokemon.item}\n"
@@ -86,14 +86,19 @@ class RuleBasedPlayer(Player):
         logger.info(f'Allowed switches check: {allowed_switches_check}')
 
         # Switching if we have to
-        if not battle.available_moves:
+        if len(battle.available_moves) == 0:
             logger.info('We have to switch pokemon!')
             if len(allowed_switches_check) > 0:
                 switch = self._pokemon_from_species(allowed_switches_check[0], battle)
             elif len(allowed_switches_counter) > 0:
                 switch = self._pokemon_from_species(allowed_switches_counter[0], battle)
             else:
-                switch = battle.available_switches[0]
+                # Random switch
+                if len(battle.available_switches) > 0:
+                    switch = battle.available_switches[0]
+                else:
+                    logger.critical(f'Reached invalid state. Could neither move nor switch')
+                    return self.choose_random_move(battle)
             logger.info(f'Switching to {switch.species}')
             return self.create_order(switch)
 
@@ -117,26 +122,36 @@ class RuleBasedPlayer(Player):
                       [m.id for m in battle.available_moves]])
 
         # Getting the most damaging moves
-        # TODO: This is really janky as well
-        best_own_move = [m.get_optimal_moves_for_species(own_species) for m
-                         in self._find_matchups_pokemon(enemy_species) if m.pokemon_1.species == own_species][0][0]
+        if not self.current_game_plan[0] or not self.current_game_plan[1] \
+                or self.current_game_plan[1] != enemy_species or \
+                len(self.current_game_plan[0]) == 0 or \
+                self.current_game_plan[2] != own_species:
+            optimal_moves = get_optimal_moves(
+                own_pokemon_build,
+                self.enemy_pokemon[enemy_species],
+                [m.id for m in battle.available_moves],
+                4,
+                damage_calculator=DamageCalculator()
+            )
+            self.current_game_plan = (optimal_moves, enemy_species, own_species)
+
+        logger.info(f'Optimal moves: {[m.move for m in self.current_game_plan[0]]}')
+
+        next_own_move = self.current_game_plan[0][0]
+        self.current_game_plan = (self.current_game_plan[0][1:], self.current_game_plan[1], own_species)
 
         best_enemy_move = [m.get_optimal_moves_for_species(enemy_species) for m
                            in self._find_matchups_pokemon(enemy_species) if m.pokemon_1.species == own_species][0][0]
 
-        logger.info(f"Best own move: {best_own_move}")
-        logger.info(f"Best enemy move: {best_enemy_move}")
-
         # If we can kill the enemy this move, we will
-        if best_own_move.get_average_damage() > enemy_hp \
-                and best_own_move.move in [m.id for m in battle.available_moves]:
+        if next_own_move.get_average_damage() > enemy_hp \
+                and next_own_move.move in [m.id for m in battle.available_moves]:
             logger.info(f"\tWe can kill the enemy this turn!")
             if best_enemy_move.get_average_damage() > own_hp:
                 logger.info(f"\tThe enemy can kill us this turn as well!")
-                pass
             else:
-                logger.info(f"\tTrying to kill the enemy pokemon using {best_own_move}")
-                return self.create_order(Move(best_own_move.move))
+                logger.info(f"\tTrying to kill the enemy pokemon using {next_own_move.move}")
+                return self.create_order(Move(next_own_move.move))
 
         # Switching out if we have a better option
         if own_species not in current_enemy_checks + current_enemy_counter and not battle.active_pokemon.is_dynamaxed:
@@ -152,15 +167,15 @@ class RuleBasedPlayer(Player):
                 return self.create_order(switch)
         else:
             if len(battle.opponent_team) > 4 and battle.can_dynamax:
-                return self.create_order(Move(best_own_move.move), dynamax=True)
+                return self.create_order(Move(next_own_move.move), dynamax=True)
 
         # TODO: fix this
-        if best_own_move.move not in [m.id for m in battle.available_moves]:
+        if next_own_move.move not in [m.id for m in battle.available_moves]:
             logger.critical('Best move is not available')
             return self.choose_random_move(battle)
 
         logger.info(f"Picking the most damaging move from {own_species} against {enemy_species}")
-        return self.create_order(Move(best_own_move.move))
+        return self.create_order(Move(next_own_move.move))
 
     def update_enemy_information(self, battle: AbstractBattle):
         """Updates information gathered about the enemy Pokémon
@@ -202,7 +217,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = RandomPlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=50)
+    await p1.battle_against(p2, n_battles=20)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

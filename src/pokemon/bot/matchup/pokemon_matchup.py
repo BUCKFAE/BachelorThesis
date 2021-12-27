@@ -68,8 +68,11 @@ class PokemonMatchup:
         pokemon_1 = self._get_pokemon_from_species(species1)
         pokemon_2 = self._get_pokemon_from_species(species2)
 
-        hp_p1 = pokemon_1.current_hp
-        hp_p2 = round(pokemon_2.current_hp * self._build_p2.get_most_likely_stats()["hp"] / 100)
+        hp_p1 = round(pokemon_1.current_hp_fraction * self._build_p1.get_most_likely_stats()["hp"])
+        hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
+
+        if pokemon_1.fainted or pokemon_2.fainted:
+            return False
 
         if hp_p1 == 0 or hp_p2 == 0:
             logger.warning(f'The HP stat of one pokemon was zero!\n' +
@@ -92,8 +95,8 @@ class PokemonMatchup:
         pokemon_1 = self._get_pokemon_from_species(species1)
         pokemon_2 = self._get_pokemon_from_species(species2)
 
-        hp_p1 = pokemon_1.current_hp
-        hp_p2 = round(pokemon_2.current_hp * self._build_p2.get_most_likely_stats()["hp"] / 100)
+        hp_p1 = round(pokemon_1.current_hp_fraction * self._build_p1.get_most_likely_stats()["hp"])
+        hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
 
         if hp_p1 == 0 or hp_p2 == 0:
             logger.warning(f'The HP stat of one pokemon was zero!\n' +
