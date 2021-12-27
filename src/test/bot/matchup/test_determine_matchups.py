@@ -34,7 +34,9 @@ class TestDetermineMatchup(unittest.TestCase):
             p1 = matchup.pokemon_1.species
             p2 = matchup.pokemon_2.species
             logger.info(f'{p1} checks {p2}: {matchup.is_check(p1, p2)}')
+            logger.info(f'{p2} checks {p1}: {matchup.is_check(p2, p1)}')
             logger.info(f'{p1} counters {p2}: {matchup.is_counter(p1, p2)}')
+            logger.info(f'{p2} counters {p1}: {matchup.is_counter(p2, p1)}')
 
     def _test_get_optimal_moves(self):
 

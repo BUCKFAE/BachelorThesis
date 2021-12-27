@@ -1,8 +1,11 @@
+import sys
 import asyncio
+import time
 from typing import Dict, List
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
+from poke_env.environment.pokemon import Pokemon
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
@@ -44,7 +47,7 @@ class RuleBasedPlayer(Player):
         # Updating information we gathered about the enemy team
         new_information_collected = self.update_enemy_information(battle)
 
-        #logger.info(f"Items:\n"
+        # logger.info(f"Items:\n"
         #            f"\tOwn Item: {battle.active_pokemon.item}\n"
         #            f"\tEnemy Item: {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
 
@@ -53,7 +56,7 @@ class RuleBasedPlayer(Player):
             logger.info(f'Gathered new Information, determining matchups.')
             # Getting current Matchup
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
-            #logger.info(f'Checks / Counter: {self.matchups}')
+            # logger.info(f'Checks / Counter: {self.matchups}')
 
         enemy_matchups = self._find_matchups_pokemon(enemy_species)
 
@@ -64,36 +67,36 @@ class RuleBasedPlayer(Player):
             enemy_matchups = self._find_matchups_pokemon(enemy_species)
 
         # Checking if our current matchup is bad
-        # TODO: This is really janky, but i wrote it deep in the night because i wanted to finish the new bot
-        current_enemy_checks = [matchup for matchup in enemy_matchups if
-                                matchup.pokemon_1 in (battle.available_switches + [battle.active_pokemon])
-                                and matchup.is_check(matchup.pokemon_1.species, enemy_species)]
-        current_enemy_counter = [matchup for matchup in enemy_matchups if
-                                 matchup.pokemon_1 in (battle.available_switches + [battle.active_pokemon])
-                                 and matchup.is_counter(matchup.pokemon_1.species, enemy_species)]
+        current_enemy_checks = []
+        current_enemy_counter = []
 
-        logger.info(f'Checks : {" ".join([c.pokemon_1.species for c in current_enemy_checks])}')
-        logger.info(f'Counter: {" ".join([c.pokemon_1.species for c in current_enemy_counter])}')
+        for matchup in self.matchups:
+            # Own pokemon
+            if enemy_species in [matchup.pokemon_1.species, matchup.pokemon_2.species]:
+                if matchup.is_counter(matchup.pokemon_1.species, enemy_species):
+                    current_enemy_counter.append(matchup.pokemon_1.species)
+                if matchup.is_check(matchup.pokemon_1.species, enemy_species):
+                    current_enemy_checks.append(matchup.pokemon_1.species)
+
+        allowed_switches_counter = [p for p in current_enemy_checks if [s.species for s in battle.available_switches]
+                                    and battle.active_pokemon.species != p]
+        allowed_switches_check = [p for p in current_enemy_checks if [s.species for s in battle.available_switches]
+                                  and battle.active_pokemon.species != p]
+
+        logger.info(f'Allowed switches counter: {allowed_switches_counter}')
+        logger.info(f'Allowed switches check: {allowed_switches_check}')
 
         # Switching if we have to
         if not battle.available_moves:
-
-            return self.choose_random_move(battle)
-
-            # print(f"Forced to switch!")
-            current_enemy_checks = [c for c in current_enemy_checks if c != own_species]
-            current_enemy_counter = [c for c in current_enemy_counter if c != own_species]
-
-            if len(current_enemy_checks) > 0:
-                logger.info(f"\t\tSwitching to check: {current_enemy_checks[0].pokemon_1.species}")
-                check = current_enemy_checks[0].pokemon_1
-                return self.create_order(check)
-            elif len(current_enemy_counter) > 0:
-                logger.info(f"\t\tSwitching to counter: {current_enemy_counter[0]}")
-                counter = current_enemy_counter[0].pokemon_1
-                return self.create_order(counter)
+            logger.info('We have to switch pokemon!')
+            if len(allowed_switches_check) > 0:
+                switch = self._pokemon_from_species(allowed_switches_check[0], battle)
+            elif len(allowed_switches_counter) > 0:
+                switch = self._pokemon_from_species(allowed_switches_counter[0], battle)
             else:
-                return self.choose_random_move(battle)
+                switch = battle.available_switches[0]
+            logger.info(f'Switching to {switch.species}')
+            return self.create_order(switch)
 
         # Getting HP
         own_hp = battle.active_pokemon.current_hp
@@ -137,20 +140,17 @@ class RuleBasedPlayer(Player):
                 return self.create_order(Move(best_own_move.move))
 
         # Switching out if we have a better option
-        if False:
-        #if own_species not in current_enemy_checks + current_enemy_counter and not battle.active_pokemon.is_dynamaxed:
-            logger.info(f"\tCurrent matchup is not favorable!")
-            if len(current_enemy_checks) > 0:
-                logger.info(f"\t\tSwitching to check: {current_enemy_checks[0].pokemon_1.species}")
-                check = current_enemy_checks[0].pokemon_1
-                return self.create_order(check)
-            elif len(current_enemy_counter) > 0:
-                logger.info(f"\t\tSwitching to counter: {current_enemy_counter[0]}")
-                counter = current_enemy_counter[0].pokemon_1
-                return self.create_order(counter)
-            else:
-                logger.info(f"\t\tWe don't have a better option. Trying to defeat {enemy_species} with {own_species}")
-                pass
+        if own_species not in current_enemy_checks + current_enemy_counter and not battle.active_pokemon.is_dynamaxed:
+            logger.info(f'Current Matchup is not favorable!')
+            switch = None
+            if len(allowed_switches_check) > 0:
+                switch = self._pokemon_from_species(allowed_switches_check[0], battle)
+            elif len(allowed_switches_counter) > 0:
+                switch = self._pokemon_from_species(allowed_switches_counter[0], battle)
+
+            if switch is not None:
+                logger.info(f'Switching to {switch.species}')
+                return self.create_order(switch)
         else:
             if len(battle.opponent_team) > 4 and battle.can_dynamax:
                 return self.create_order(Move(best_own_move.move), dynamax=True)
@@ -192,6 +192,9 @@ class RuleBasedPlayer(Player):
         """Returns the Matchup for the given Pokemon"""
         return [m for m in self.matchups if m.pokemon_1.species == species or m.pokemon_2.species == species]
 
+    def _pokemon_from_species(self, species: str, battle: AbstractBattle) -> Pokemon:
+        return [p for p in battle.team.values() if p.species == species][0]
+
 
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle",
@@ -200,12 +203,12 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = RandomPlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=20)
+    await p1.battle_against(p2, n_battles=50)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 
-    #print(f"Enhancing Replays")
-    #enhance_replays()
+    # print(f"Enhancing Replays")
+    # enhance_replays()
 
 
 if __name__ == "__main__":
