@@ -17,6 +17,10 @@ from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
 
+def _pokemon_from_species(species: str, battle: AbstractBattle) -> Pokemon:
+    return [p for p in battle.team.values() if p.species == species][0]
+
+
 class RuleBasedPlayer(Player):
     # Storing all information we have of the enemy Pokémon
     enemy_pokemon: Dict[str, PokemonBuild] = {}
@@ -35,11 +39,11 @@ class RuleBasedPlayer(Player):
             print(f'\n\n\n\n{self.n_won_battles} / {self.n_lost_battles}\n\n\n\n')
             logger.info(f'Battle: {battle.battle_tag}')
 
+        # Logging info, these two are required as enhance_battles use them to determine when a new move started
         logger.info(f'Turn: {battle.turn}')
+        logger.info(f'Remaining team:\n\t' + ' '.join([p.species for p in battle.team.values() if not p.fainted]))
 
-        logger.info(f'Remaining team:\n\t' +
-                    ' '.join([p.species for p in battle.team.values() if not p.fainted]))
-
+        # Prints the current matchup
         logger.info(f"Matchup: {battle.active_pokemon.species} vs {battle.opponent_active_pokemon.species}")
 
         own_species = battle.active_pokemon.species
@@ -47,38 +51,36 @@ class RuleBasedPlayer(Player):
 
         # Updating information we gathered about the enemy team
         new_information_collected = self.update_enemy_information(battle)
+        # TODO: Reconsider when to update matchups
         new_information_collected = True
-
-        # logger.info(f"Items:\n"
-        #            f"\tOwn Item: {battle.active_pokemon.item}\n"
-        #            f"\tEnemy Item: {self.enemy_pokemon[enemy_species].get_most_likely_item()}")
 
         # Determining matchup again if new information was gathered
         if new_information_collected or battle.active_pokemon.first_turn:
             logger.info(f'Gathered new Information, determining matchups.')
-            # Getting current Matchup
             self.matchups = determine_matchups(battle, self.enemy_pokemon)
-            # logger.info(f'Checks / Counter: {self.matchups}')
 
+        # Getting matchups against the current enemy
         enemy_matchups = self._find_matchups_pokemon(enemy_species)
-
-        # Player switched to an unknown Pokémon within the turn, e.g. Voltswitch
-        if len(enemy_matchups) == 0:
-            logger.info("Enemy pokemon unknown, getting matchups")
-            self.matchups = determine_matchups(battle, self.enemy_pokemon)
 
         # Checking if our current matchup is bad
         current_enemy_checks = []
         current_enemy_counter = []
 
-        for matchup in self.matchups:
-            # Own pokemon
-            if enemy_species in [matchup.pokemon_1.species, matchup.pokemon_2.species]:
-                if matchup.is_counter(matchup.pokemon_1.species, enemy_species):
-                    current_enemy_counter.append(matchup.pokemon_1.species)
-                if matchup.is_check(matchup.pokemon_1.species, enemy_species):
-                    current_enemy_checks.append(matchup.pokemon_1.species)
+        # Determining check and counter
+        for matchup in enemy_matchups:
+            own_species = matchup.pokemon_1.species
 
+            # Pokemon_1 is always our Pokemon
+            assert own_species in [p.species for p in battle.team.values()]
+            # Pokemon_2 is always the enemy Pokémon
+            assert enemy_species == matchup.pokemon_2.species
+
+            if matchup.is_check(own_species, enemy_species):
+                current_enemy_checks.append(own_species)
+            if matchup.is_counter(own_species, enemy_species):
+                current_enemy_counter.append(own_species)
+
+        # Can not always switch to every Pokemon
         allowed_switches_counter = [p for p in current_enemy_checks if [s.species for s in battle.available_switches]
                                     and battle.active_pokemon.species != p]
         allowed_switches_check = [p for p in current_enemy_checks if [s.species for s in battle.available_switches]
@@ -91,9 +93,9 @@ class RuleBasedPlayer(Player):
         if len(battle.available_moves) == 0:
             logger.info('We have to switch pokemon!')
             if len(allowed_switches_check) > 0:
-                switch = self._pokemon_from_species(allowed_switches_check[0], battle)
+                switch = _pokemon_from_species(allowed_switches_check[0], battle)
             elif len(allowed_switches_counter) > 0:
-                switch = self._pokemon_from_species(allowed_switches_counter[0], battle)
+                switch = _pokemon_from_species(allowed_switches_counter[0], battle)
             else:
                 # Random switch
                 if len(battle.available_switches) > 0:
@@ -110,12 +112,12 @@ class RuleBasedPlayer(Player):
             battle.opponent_active_pokemon.current_hp_fraction)
 
         # Testing if we can kill the opponent this turn
-        # print(f"HP: {own_hp} - {enemy_hp}")
+        logger.info(f'HP: {own_hp} vs. {enemy_hp}')
 
         # Getting Speed
         own_speed = battle.active_pokemon.stats["spe"]
         enemy_speed = self.enemy_pokemon[enemy_species].get_most_likely_stats()["spe"]
-        logger.info(f"Speed: {own_speed} - {enemy_speed}")
+        logger.info(f"Speed: {own_speed} vs. {enemy_speed}")
 
         # TODO: Better to account for usable moves here
         own_pokemon_build = build_from_pokemon(battle.active_pokemon)
@@ -149,8 +151,12 @@ class RuleBasedPlayer(Player):
         if next_own_move.get_average_damage() > enemy_hp \
                 and next_own_move.move in [m.id for m in battle.available_moves]:
             logger.info(f"\tWe can kill the enemy this turn!")
-            if best_enemy_move.get_average_damage() > own_hp and enemy_speed > own_speed:
+            if best_enemy_move.get_min_damage() > own_hp and enemy_speed > own_speed:
                 logger.info(f"\tThe enemy can kill us this turn as well!")
+                if len(current_enemy_checks) > 1:
+                    switch = _pokemon_from_species(allowed_switches_check[0], battle)
+                    logger.info(f'Switching to check {switch.species} to save {own_species}')
+                    return self.create_order(switch)
             else:
                 logger.info(f"\tTrying to kill the enemy pokemon using {next_own_move.move}")
                 return self.create_order(Move(next_own_move.move))
@@ -160,9 +166,9 @@ class RuleBasedPlayer(Player):
             logger.info(f'Current Matchup is not favorable!')
             switch = None
             if len(allowed_switches_check) > 0:
-                switch = self._pokemon_from_species(allowed_switches_check[0], battle)
+                switch = _pokemon_from_species(allowed_switches_check[0], battle)
             elif len(allowed_switches_counter) > 0:
-                switch = self._pokemon_from_species(allowed_switches_counter[0], battle)
+                switch = _pokemon_from_species(allowed_switches_counter[0], battle)
 
             if switch is not None:
                 logger.info(f'Switching to {switch.species}')
@@ -210,9 +216,6 @@ class RuleBasedPlayer(Player):
         """Returns the Matchup for the given Pokemon"""
         return [m for m in self.matchups if m.pokemon_1.species == species or m.pokemon_2.species == species]
 
-    def _pokemon_from_species(self, species: str, battle: AbstractBattle) -> Pokemon:
-        return [p for p in battle.team.values() if p.species == species][0]
-
 
 async def main():
     p1 = RuleBasedPlayer(battle_format="gen8randombattle",
@@ -221,7 +224,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=5)
+    await p1.battle_against(p2, n_battles=1)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

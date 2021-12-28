@@ -129,4 +129,5 @@ class PokemonMatchup:
 
     def expected_turns_until_faint(self, species: str):
         """Returns the minimum amount of turns the given species will survive this matchup"""
+        # TODO: Use this method for isCheck and isCounter instead
         raise NotImplementedError
