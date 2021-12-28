@@ -11,7 +11,6 @@ from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 class TestFieldState(unittest.TestCase):
 
     def test_field_state(self):
-        logger.info(f'Testing field state')
 
         field1 = FieldState(
             FieldTerrain.GRASSY_TERRAIN,
@@ -34,15 +33,15 @@ class TestFieldState(unittest.TestCase):
 
     def test_battle_to_field(self):
         # TODO
-        field = battle_to_field(None)
+        raise NotImplementedError
 
     def test_move_to_field_state(self):
         # TODO
-        field = move_to_field_state(None, 1, None)
+        raise NotImplementedError
 
     def test_switch_in_to_field_state(self):
         # TODO
-        field = switch_in_to_field_state(None, 1, None)
+        raise NotImplementedError
 
 
 if __name__ == "__main__":
