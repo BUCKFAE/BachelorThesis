@@ -135,6 +135,14 @@ class TestDamageCalculator(unittest.TestCase):
                                                               attacker_pokemon=pokemon2)
         assert res3.damage_taken_defender == [16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 19]
 
+
+        # Only one status can be active at a time
+        pokemon2._status = status.Status.SLP
+
+        res4: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("willowisp"),
+                                                              defender_pokemon=pokemon2)
+        assert res4.new_status_defender == status.Status.SLP
+
     def test_damage_calculator_healing_attacker(self):
         build1 = load_build_from_file("mewtwo")
         build2 = load_build_from_file("charizard")

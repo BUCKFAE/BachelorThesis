@@ -39,41 +39,29 @@ class DamageCalculator:
             defender_pokemon: Optional[Pokemon] = None,
             field: Optional[FieldState] = None) -> MoveResult:
 
-        #print(f'{attacker_build.species=}')
-        #print(f'{defender_build.species=}')
-        #print(f'{move.id=}')
-        #print(f'{attacker_pokemon.species=}')
-        #print(f'{defender_pokemon.species=}')
-
-        # TODO: This has to include current states of the Pokemon
         # Poke-Env returns the actual HP for the own pokemon, but a percentage value
         # for the enemy pokemon. Therefore, the HP stat has to be converted before
         # getting passed into the damage calculator. There is no Pokemon with an
         # HP stat of 100
 
-        # Boosts for attacker
-        boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
+        hp_error_msg = 'A pokemon in the Damage calculator had max_hp == 100. This is probably because ' \
+                       'it was passed directly from battle to the damage calculator. Please clone a Pokemon ' \
+                       'from the battle before passing it to calculate_damage. This is required as poke-env ' \
+                       'only knows the HP percentage of an enemy Pokemon. The clone Method assigns the Pokemon ' \
+                       'the correct (estimate) hp stat.'
+
         if attacker_pokemon is not None:
-            assert attacker_pokemon.max_hp != 100
-            boosts_attacker = {**attacker_pokemon.boosts, **{"hp": 0}}
-            try:
-                boosts_attacker.pop("accuracy")
-                boosts_attacker.pop("evasion")
-            except:
-                pass
-        #print(f'{boosts_attacker=}')
+            assert attacker_pokemon.max_hp != 100, hp_error_msg
+        if defender_pokemon is not None:
+            assert defender_pokemon.max_hp != 100, hp_error_msg
+
+        # Boosts for attacker
+        boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0} if attacker_pokemon is None else \
+            {**attacker_pokemon.boosts, **{"hp": 0}}
 
         # Boosts for defender
-        boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
-        if defender_pokemon is not None:
-            assert defender_pokemon.max_hp != 100
-            boosts_defender = {**defender_pokemon.boosts, **{"hp": 0}}
-            try:
-                boosts_defender.pop("accuracy")
-                boosts_defender.pop("evasion")
-            except:
-                pass
-        #print(f'{boosts_defender=}')
+        boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0} if defender_pokemon is None else \
+            {**defender_pokemon.boosts, **{"hp": 0}}
 
         # Getting EVs and IVs for both Pokemon
         attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker_build)
@@ -109,17 +97,14 @@ class DamageCalculator:
         defender_status = "" if defender_pokemon is None else _extract_status_from_pokemon(defender_pokemon)
 
         # Ability
-        # TODO: Get ability from Pokemon directly
         attacker_ability = get_calculator_ability(attacker_build.get_most_likely_ability())
         defender_ability = get_calculator_ability(defender_build.get_most_likely_ability())
 
         # Dynamax
-        # noinspection PyProtectedMember
         attacker_is_dynamaxed = str(False if attacker_pokemon is None else attacker_pokemon.is_dynamaxed)
-        # noinspection PyProtectedMember
         defender_is_dynamaxed = str(False if defender_pokemon is None else defender_pokemon.is_dynamaxed)
 
-        # TODO: Include current state of both Pokemon (like BRN, lost HP)
+        # Arguments that will be passed to the cli tool
         calculator_args = [
             attacker_build.species,
             attacker_build.species,
@@ -152,7 +137,7 @@ class DamageCalculator:
             move.id
         ]
 
-        # TODO: Fix Aegislash
+        # TODO: Aegislash has a different form in poke-env when not active.
         if "aegislash" == attacker_build.species:
             calculator_args[0] = 'aegislashblade'
         if "aegislash" == defender_build.species:
@@ -217,21 +202,23 @@ class DamageCalculator:
         # Modifying field state
         field_state = _side_condition_to_field(move.side_condition, field_state, move.deduced_target)
 
-        # Status
-        # TODO: Status doesn't override existing status
+        # Status after the attack
         status_attacker = move.status if move.target == 'allySide' else None
         status_defender = move.status if move.target == 'normal' else None
 
+        # Status won't be overridden if the Pokémon already has a status effect
+        status_attacker = attacker_pokemon.status \
+            if (attacker_pokemon is not None and attacker_pokemon.status is not None) else status_attacker
+        status_defender = defender_pokemon.status \
+            if (defender_pokemon is not None and defender_pokemon.status is not None) else status_defender
+
         # Recoil
-        try:
-            damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
-        except:
-            logger.critical('\n'.join(output))
-            raise
+        damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
 
         # Healing attacker
         damage_healed_attacker = move.heal * attacker_build.get_most_likely_stats()["hp"]
 
+        # Healing defender
         damage_healed_defender = round(defender_build.get_most_likely_stats()["hp"] * 0.25) if \
             defender_ability == 'Water Absorb' and move.type == PokemonType.WATER else 0
 
@@ -248,12 +235,8 @@ class DamageCalculator:
             new_status_attacker=status_attacker,
             new_status_defender=status_defender
         )
-        #print(f'{move_result=}')
-        #print()
-        #print()
-        #print()
-        return move_result
 
+        return move_result
 
 def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
     assumed_ivs = {"hp": 31, "atk": 31, "def": 31, "spa": 31, "spd": 31, "spe": 31}

@@ -45,7 +45,6 @@ def enhance_replays():
                 print(f'Unable to find replay for battle {battle_id}')
                 continue
 
-            # TODO: Name replay file with opponent, counter (if multiple times) and team
             # Getting the names of the players
             name_lines = [line for line in replay_file_content if line.startswith('|j|☆')]
             if len(name_lines) != 2:
