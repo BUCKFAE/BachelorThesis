@@ -4,7 +4,6 @@ from typing import List, Dict, Optional
 
 from poke_env.environment.pokemon import Pokemon
 
-# TODO: This only works for GEN1
 from src.pokemon import logger
 from src.pokemon.config import GENERATED_DATA_PATH
 from src.pokemon.data_handling.util.species_names import convert_species_name
@@ -20,15 +19,11 @@ class PokemonBuild:
                  ability: Optional[str]):
         """
         If we don't know the item yet, poke-env returns `unknown_item`
-
-        # TODO: Currently broken Pokemon:
-        - Mr. Mime
+        # TODO: Write docstring
         """
 
         # Species of the Pokémon
         self.species = convert_species_name(species)
-
-        # print(f"Creating build for species: {self.species}")
 
         # Loading all possible builds
         try:
@@ -39,19 +34,18 @@ class PokemonBuild:
                                     f"\tName: {species}\n"
                                     f"\tFile Name: {self.species}")
 
+        # Extracting possible builds for Pokémon
         self._possible_builds = [tuple(line.split(" - ")[::-1]) for line in file_content if line.strip()]
         self._possible_builds = [(json.loads(t[0]), int(t[1])) for t in self._possible_builds]
 
         # Level of the Pokémon
         self.level = level
-        # print(f"\tLevel: {level}")
         self._remove_invalid_builds_level()
 
         # Gender of the Pokémon
         if not (gender == "MALE" or gender == "FEMALE" or gender == "NEUTRAL"):
             raise ValueError("Invalid gender! Expected \"MALE\", \"FEMALE\" or \"NEUTRAL\"")
         self.gender = gender.lower()
-        # print(f"\tGender: {self.gender}")
         self._remove_invalid_builds_gender()
 
         # Getting all possible abilities
@@ -69,10 +63,8 @@ class PokemonBuild:
                 and "ditto" not in self.species \
                 and "gardevoir" not in self.species \
                 and "calyrexice" not in self.species:
-            logger.critical(f"Received an unknown ability for Pokémon \"{species}\"\n"
-                            f"\tKnown: {list(self._possible_abilities)}\n"
-                            f"\tReceived: {ability}")
-        # print(f"\tAbility: {ability}")
+            # TODO: Handle Pokemon that copy abilities
+            pass
         self._remove_invalid_builds_ability()
 
         # Item we know the Pokémon has
@@ -124,12 +116,9 @@ class PokemonBuild:
             self._confirmed_ability = pokemon.ability
             gathered_new_information = True
 
+        # Pokémon used to hold an item, now item is gone -> The item broke
         if pokemon.item is None or pokemon.item == "None":
-            print(f"Pokemon had no item!")
-            print(f"Pokemon: {pokemon.species}")
-            print(f"Previous item: {self._confirmed_item}")
             if self._confirmed_item is not None:
-                print(f"The item of the pokemon broke!")
                 self._confirmed_item = "broken_item"
 
         # Updating Item
@@ -161,12 +150,12 @@ class PokemonBuild:
         self._possible_builds = [b for b in self._possible_builds if b[0]["gender"] == self.gender]
 
     def _remove_invalid_builds_ability(self):
-
         if self.species == "gardevoir" \
                 or "porygon" in self.species \
                 or "ditto" in self.species \
                 or "calyrexice" in self.species:
-            logger.warning(f"Ignoring ability of {self.species} for now!")
+            # TODO: Handle Pokémon that copy abilities
+            pass
         else:
             self._possible_builds = [b for b in self._possible_builds
                                      if b[0]["ability"] == self._confirmed_ability or

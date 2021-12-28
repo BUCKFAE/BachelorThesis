@@ -333,7 +333,7 @@ def _side_condition_to_field(side_condition: str, old_field: FieldState, side: O
             old_field.field_side_p2.spikes_amount += 1
     else:
         pass
-        # TODO: Handle this
+        # TODO: Implement other field conditions
         #logger.critical(f'Field condition {side_condition} is not yet implemented!')
         #raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
 
