@@ -6,7 +6,6 @@ from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
-from poke_env.player.random_player import RandomPlayer
 
 from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
@@ -150,7 +149,7 @@ class RuleBasedPlayer(Player):
         if next_own_move.get_average_damage() > enemy_hp \
                 and next_own_move.move in [m.id for m in battle.available_moves]:
             logger.info(f"\tWe can kill the enemy this turn!")
-            if best_enemy_move.get_average_damage() > own_hp:
+            if best_enemy_move.get_average_damage() > own_hp and enemy_speed > own_speed:
                 logger.info(f"\tThe enemy can kill us this turn as well!")
             else:
                 logger.info(f"\tTrying to kill the enemy pokemon using {next_own_move.move}")
@@ -222,7 +221,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=1)
+    await p1.battle_against(p2, n_battles=5)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

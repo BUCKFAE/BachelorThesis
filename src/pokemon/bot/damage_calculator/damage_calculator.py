@@ -1,5 +1,6 @@
 import re
 import subprocess
+import sys
 from typing import Tuple, Dict, Optional
 
 from poke_env.environment import status
@@ -37,8 +38,14 @@ class DamageCalculator:
             attacker_pokemon: Optional[Pokemon] = None,
             defender_pokemon: Optional[Pokemon] = None,
             field: Optional[FieldState] = None) -> MoveResult:
-        # TODO: This has to include current states of the Pokemon
 
+        #print(f'{attacker_build.species=}')
+        #print(f'{defender_build.species=}')
+        #print(f'{move.id=}')
+        #print(f'{attacker_pokemon.species=}')
+        #print(f'{defender_pokemon.species=}')
+
+        # TODO: This has to include current states of the Pokemon
         # Poke-Env returns the actual HP for the own pokemon, but a percentage value
         # for the enemy pokemon. Therefore, the HP stat has to be converted before
         # getting passed into the damage calculator. There is no Pokemon with an
@@ -54,6 +61,7 @@ class DamageCalculator:
                 boosts_attacker.pop("evasion")
             except:
                 pass
+        #print(f'{boosts_attacker=}')
 
         # Boosts for defender
         boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
@@ -65,6 +73,7 @@ class DamageCalculator:
                 boosts_defender.pop("evasion")
             except:
                 pass
+        #print(f'{boosts_defender=}')
 
         # Getting EVs and IVs for both Pokemon
         attacker_evs, attacker_ivs = extract_evs_ivs_from_build(attacker_build)
@@ -168,7 +177,7 @@ class DamageCalculator:
         calculator_args[14] = calculator_args[14].capitalize()
 
         calc_input = (";;".join([str(i) for i in calculator_args]) + "\n").encode()
-
+        #print(f'{calc_input=}')
         self._cli_tool.stdin.write(calc_input)
         self._cli_tool.stdin.flush()
 
@@ -239,7 +248,10 @@ class DamageCalculator:
             new_status_attacker=status_attacker,
             new_status_defender=status_defender
         )
-
+        #print(f'{move_result=}')
+        #print()
+        #print()
+        #print()
         return move_result
 
 

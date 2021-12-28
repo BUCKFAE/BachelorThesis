@@ -100,6 +100,7 @@ def get_optimal_moves(
     best_move_expected_damage = -1
 
     for combination in combinations:
+        #print(f"{combination=}")
         current_moves = []
 
         # Creating field at the start if needed
@@ -132,7 +133,7 @@ def get_optimal_moves(
 
         # Making all moves
         for current_move in combination:
-
+            #print(f'{current_move=}')
             current_move = Move(current_move)
 
             # Calculating expected damage after these 3 moves
