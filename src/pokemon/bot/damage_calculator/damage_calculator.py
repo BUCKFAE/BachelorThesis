@@ -1,9 +1,8 @@
 import re
 import subprocess
-from typing import Tuple, Dict, Optional, List
+from typing import Tuple, Dict, Optional
 
 from poke_env.environment import status
-from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
 from poke_env.environment.pokemon_type import PokemonType
@@ -40,9 +39,15 @@ class DamageCalculator:
             field: Optional[FieldState] = None) -> MoveResult:
         # TODO: This has to include current states of the Pokemon
 
+        # Poke-Env returns the actual HP for the own pokemon, but a percentage value
+        # for the enemy pokemon. Therefore, the HP stat has to be converted before
+        # getting passed into the damage calculator. There is no Pokemon with an
+        # HP stat of 100
+
         # Boosts for attacker
         boosts_attacker = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
         if attacker_pokemon is not None:
+            assert attacker_pokemon.max_hp != 100
             boosts_attacker = {**attacker_pokemon.boosts, **{"hp": 0}}
             try:
                 boosts_attacker.pop("accuracy")
@@ -53,10 +58,11 @@ class DamageCalculator:
         # Boosts for defender
         boosts_defender = {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "hp": 0}
         if defender_pokemon is not None:
+            assert defender_pokemon.max_hp != 100
             boosts_defender = {**defender_pokemon.boosts, **{"hp": 0}}
             try:
-                boosts_attacker.pop("accuracy")
-                boosts_attacker.pop("evasion")
+                boosts_defender.pop("accuracy")
+                boosts_defender.pop("evasion")
             except:
                 pass
 
@@ -85,9 +91,9 @@ class DamageCalculator:
 
         # HP
         attacker_hp = attacker_build.get_most_likely_stats()["hp"] if attacker_pokemon is None \
-            else attacker_build.get_most_likely_stats()["hp"] * attacker_pokemon.current_hp_fraction
+            else round(attacker_build.get_most_likely_stats()["hp"] * attacker_pokemon.current_hp_fraction)
         defender_hp = defender_build.get_most_likely_stats()["hp"] if defender_pokemon is None \
-            else defender_build.get_most_likely_stats()["hp"] * defender_pokemon.current_hp_fraction
+            else round(defender_build.get_most_likely_stats()["hp"] * defender_pokemon.current_hp_fraction)
 
         # Status
         attacker_status = "" if attacker_pokemon is None else _extract_status_from_pokemon(attacker_pokemon)
@@ -208,7 +214,11 @@ class DamageCalculator:
         status_defender = move.status if move.target == 'normal' else None
 
         # Recoil
-        damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
+        try:
+            damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
+        except:
+            logger.critical('\n'.join(output))
+            raise
 
         # Healing attacker
         damage_healed_attacker = move.heal * attacker_build.get_most_likely_stats()["hp"]

@@ -1,20 +1,18 @@
-import copy
 import itertools
-import sys
 from typing import Dict, List, Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
-from poke_env.environment.pokemon import Pokemon, Gen8Pokemon
+from poke_env.environment.pokemon import Pokemon
 
 from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
+from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.field.field_side import FieldSide
 from src.pokemon.bot.matchup.field.field_state import FieldState
 from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain
 from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
-from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, pokemon_from_build, clone_pokemon
@@ -115,12 +113,22 @@ def get_optimal_moves(
                 field_side_p2
             )
 
-        attacker_copy = clone_pokemon(attacker_pokemon)
-        defender_copy = clone_pokemon(defender_pokemon)
+        # Here the HP percentage is also adjusted
+        attacker_copy = clone_pokemon(attacker_pokemon, attacker_build)
+        defender_copy = clone_pokemon(defender_pokemon, defender_build)
 
-        assert attacker_pokemon.base_stats == attacker_copy.base_stats
-        assert attacker_pokemon.current_hp == attacker_copy.current_hp
+        attacker_copy.item = ''
+        defender_copy.item = ''
+
         assert attacker_pokemon.boosts == attacker_copy.boosts
+        assert defender_pokemon.boosts == defender_copy.boosts
+
+        if attacker_pokemon.base_stats != attacker_copy.base_stats:
+            logger.critical('Attacker had wrong stats')
+
+
+        if defender_pokemon.base_stats != defender_pokemon.base_stats:
+            logger.critical('Defender had wrong stats')
 
         # Making all moves
         for current_move in combination:
@@ -134,7 +142,7 @@ def get_optimal_moves(
                 current_move,
                 attacker_pokemon=attacker_copy,
                 defender_pokemon=defender_copy,
-                field=field_state)
+                field=None)
 
             # Status changes
             attacker_copy.status = res.new_status_attacker
@@ -159,6 +167,7 @@ def get_optimal_moves(
                         attacker_copy.boosts[boost] = 6
                     if attacker_copy.boosts[boost] < -6:
                         attacker_copy.boosts[boost] = -6
+
             current_moves.append(res)
 
         # If the current combination is better than the best known combination

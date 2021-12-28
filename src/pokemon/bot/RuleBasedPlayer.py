@@ -10,11 +10,11 @@ from poke_env.player.random_player import RandomPlayer
 
 from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
-from src.pokemon.bot.bot_logging.replay_enhancing import enhance_replays
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_optimal_moves
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
+from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
 
@@ -36,7 +36,10 @@ class RuleBasedPlayer(Player):
             print(f'\n\n\n\n{self.n_won_battles} / {self.n_lost_battles}\n\n\n\n')
             logger.info(f'Battle: {battle.battle_tag}')
 
-        logger.info(f'\n\n\n\nTurn: {battle.turn}')
+        logger.info(f'Turn: {battle.turn}')
+
+        logger.info(f'Remaining team:\n\t' +
+                    ' '.join([p.species for p in battle.team.values() if not p.fainted]))
 
         logger.info(f"Matchup: {battle.active_pokemon.species} vs {battle.opponent_active_pokemon.species}")
 
@@ -130,12 +133,12 @@ class RuleBasedPlayer(Player):
                 own_pokemon_build,
                 self.enemy_pokemon[enemy_species],
                 [m.id for m in battle.available_moves],
-                4,
+                MATCHUP_MOVES_DEPTH,
                 damage_calculator=DamageCalculator()
             )
             self.current_game_plan = (optimal_moves, enemy_species, own_species)
 
-        logger.info(f'Optimal moves: {[m.move for m in self.current_game_plan[0]]}')
+        logger.info(f'Optimal moves: {[(m.move + " " + str(m.get_average_damage()))for m in self.current_game_plan[0]]}')
 
         next_own_move = self.current_game_plan[0][0]
         self.current_game_plan = (self.current_game_plan[0][1:], self.current_game_plan[1], own_species)
@@ -175,6 +178,8 @@ class RuleBasedPlayer(Player):
             return self.choose_random_move(battle)
 
         logger.info(f"Picking the most damaging move from {own_species} against {enemy_species}")
+        logger.info(f'Own move: {next_own_move.move}: {next_own_move.get_average_damage()}')
+        logger.info(f'Enemy move: {best_enemy_move.move}: {best_enemy_move.get_average_damage()}')
         return self.create_order(Move(next_own_move.move))
 
     def update_enemy_information(self, battle: AbstractBattle):
@@ -215,9 +220,9 @@ async def main():
                          max_concurrent_battles=1,
                          save_replays='src/data/replays',
                          start_timer_on_battle_start=True)
-    p2 = RandomPlayer(battle_format="gen8randombattle")
+    p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=20)
+    await p1.battle_against(p2, n_battles=1)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

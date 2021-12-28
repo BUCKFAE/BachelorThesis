@@ -38,7 +38,7 @@ class TestDetermineMatchup(unittest.TestCase):
             logger.info(f'{p1} counters {p2}: {matchup.is_counter(p1, p2)}')
             logger.info(f'{p2} counters {p1}: {matchup.is_counter(p2, p1)}')
 
-    def _test_get_optimal_moves(self):
+    def test_get_optimal_moves(self):
 
         build1 = load_build_from_file("absol")
         build2 = load_build_from_file("latios")
@@ -51,6 +51,8 @@ class TestDetermineMatchup(unittest.TestCase):
         optimal_moves_absol = get_optimal_moves(build1, build2, build1.get_most_likely_moves(), 4, d)
         optimal_moves_latios = get_optimal_moves(build2, build1, build2.get_most_likely_moves(), 4, d)
 
+        print(f'{optimal_moves_absol=}')
+        print(f'{optimal_moves_latios=}')
 
 
 

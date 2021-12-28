@@ -6,7 +6,7 @@ from poke_env.environment.move import Move
 
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.matchup.move_result import MoveResult
-from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file, pokemon_from_build
+from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file, pokemon_from_build, clone_pokemon
 
 
 class TestDamageCalculator(unittest.TestCase):
@@ -98,7 +98,7 @@ class TestDamageCalculator(unittest.TestCase):
         res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
         assert res2.damage_taken_defender ==  \
-               [175, 177, 179, 181, 183, 185, 187, 189, 191, 193, 195, 197, 199, 201, 203, 206]
+               [135, 136, 138, 139, 141, 143, 144, 146, 147, 149, 151, 152, 154, 155, 157, 159]
 
         # Garchomp: Fire Blast
         res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
@@ -267,6 +267,52 @@ class TestDamageCalculator(unittest.TestCase):
         # Shadow Sneak
         res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("shadowsneak"))
         assert res3.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
+
+    def test_damage_calculator_copy(self):
+
+        build1 = load_build_from_file("charizard")
+        build2 = load_build_from_file("garchomp")
+        pokemon1 = clone_pokemon(pokemon_from_build(build1), build1)
+        pokemon2 = clone_pokemon(pokemon_from_build(build2), build2)
+
+        # Increasing stats of charizard
+        pokemon1.boosts["atk"] = 1
+        pokemon1.boosts["def"] = 2
+        pokemon1.boosts["spa"] = 3
+        pokemon1.boosts["spd"] = 4
+        pokemon1.boosts["spe"] = 5
+
+        # Decreasing stats of garchomp
+        pokemon2.boosts["atk"] = - 1
+        pokemon2.boosts["def"] = - 2
+        pokemon2.boosts["spa"] = - 3
+        pokemon2.boosts["spd"] = - 4
+        pokemon2.boosts["spe"] = - 5
+
+        damage_calculator = DamageCalculator()
+
+        # Charizard: Air Slash
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("airslash"),
+                                                              attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
+        assert res1.damage_taken_defender == \
+               [657, 664, 672, 681, 688, 696, 703, 711, 718, 727, 735, 742, 750, 757, 765, 774]
+
+
+        # Charizard: Earthquake
+        res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
+                                                              attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
+        assert res2.damage_taken_defender ==  \
+               [135, 136, 138, 139, 141, 143, 144, 146, 147, 149, 151, 152, 154, 155, 157, 159]
+
+        # Garchomp: Fire Blast
+        res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("fireblast"),
+                                                              attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
+        assert res3.damage_taken_defender == [3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+
+        # Garchomp: Outrage
+        res4: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("outrage"),
+                                                              attacker_pokemon=pokemon2, defender_pokemon=pokemon1)
+        assert res4.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
 
 
 if __name__ == "__main__":

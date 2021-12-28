@@ -4,7 +4,6 @@ from typing import List
 
 from poke_env.environment import status
 
-from src.pokemon import logger
 from src.pokemon.bot.matchup.field.field_state import FieldState
 
 
@@ -56,3 +55,6 @@ class MoveResult:
         """The expected amount of damage that the move deals to the Pokemon of player 2"""
         assert len(self.damage_taken_defender) > 0
         return sum(self.damage_taken_defender) / len(self.damage_taken_defender)
+
+    def __repr__(self):
+        return f'{self.move}: {self.get_average_damage()} {self.damage_taken_defender}'

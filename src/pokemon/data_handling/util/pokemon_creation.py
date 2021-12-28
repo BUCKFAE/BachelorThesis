@@ -7,6 +7,7 @@ from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Gen8Pokemon, Pokemon
 from poke_env.environment.pokemon_gender import PokemonGender
 
+from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import GENERATED_DATA_PATH
 from src.pokemon.data_handling.util.species_names import convert_species_name
@@ -63,8 +64,7 @@ def build_from_pokemon(pokemon: Pokemon) -> PokemonBuild:
     max_hp = load_build_from_file(pokemon.species).get_most_likely_stats()["hp"] if pokemon.max_hp == 100 \
         else pokemon.max_hp
 
-
-
+    # TODO: Proper way if no moves are known
     return build_from_string(pokemon.species,
                              {
                                  "level": pokemon.level,
@@ -87,21 +87,22 @@ def pokemon_from_build(build: PokemonBuild) -> Gen8Pokemon:
         else (PokemonGender.FEMALE if build.gender == "female" else PokemonGender.NEUTRAL)
     pokemon.item = build.get_most_likely_item()
     pokemon._last_request["stats"] = build.get_most_likely_stats()
-    pokemon._moves = build.get_most_likely_moves()
+    pokemon._moves = {m: Move(m) for m in build.get_most_likely_moves()}
     pokemon._current_hp = build.get_most_likely_stats()["hp"]
     pokemon._max_hp = pokemon._current_hp
     return pokemon
 
-def clone_pokemon(pokemon: Gen8Pokemon) -> Pokemon:
+
+def clone_pokemon(pokemon: Gen8Pokemon, assumed_build: PokemonBuild) -> Pokemon:
     p = Gen8Pokemon(species=pokemon.species)
     p._level = pokemon.level
     p.ability = pokemon.ability
     p._gender = pokemon.gender
     p.item = pokemon.item
-    p._moves = [Move(m) for m in pokemon.moves],
-    pokemon._last_request["stats"] = build_from_pokemon(pokemon).get_most_likely_stats()
-    p._current_hp = pokemon.current_hp_fraction * build_from_pokemon(pokemon).get_most_likely_stats()["hp"]
-    p._max_hp = pokemon.max_hp
+    p._moves = {m: Move(m) for m in assumed_build.get_most_likely_moves()}
+    p._last_request["stats"] = assumed_build.get_most_likely_stats()
+    p._current_hp = int(pokemon.current_hp_fraction * assumed_build.get_most_likely_stats()["hp"])
+    p._max_hp = assumed_build.get_most_likely_stats()["hp"]
     p._boosts = pokemon.boosts
 
-    return pokemon
+    return p

@@ -3,7 +3,6 @@ from dataclasses import dataclass
 
 from poke_env.environment.abstract_battle import AbstractBattle
 
-from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.field.field_side import FieldSide
 from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain

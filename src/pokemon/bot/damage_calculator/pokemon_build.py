@@ -181,7 +181,8 @@ class PokemonBuild:
     def get_most_likely_moves(self):
         """Returns the most likely moves of the given Pokémon
         The most likely moves are the moves of the most likely build"""
-        return self.get_most_likely_build()["moves"].split("|")
+        moves = self.get_most_likely_build()["moves"].split("|")
+        return moves
 
     def get_most_likely_item(self):
         """Returns the most likely item of the given Pokémon"""
