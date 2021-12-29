@@ -7,7 +7,6 @@ from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Gen8Pokemon, Pokemon
 from poke_env.environment.pokemon_gender import PokemonGender
 
-from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.config import GENERATED_DATA_PATH
 from src.pokemon.data_handling.util.species_names import convert_species_name

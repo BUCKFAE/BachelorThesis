@@ -1,4 +1,5 @@
 """Stores matchup information of two Pokemon"""
+from math import ceil
 from typing import List, Dict
 
 from poke_env.environment.pokemon import Pokemon
@@ -27,7 +28,7 @@ class PokemonMatchup:
         self.pokemon_1 = pokemon_1
         self.pokemon_2 = pokemon_2
 
-        #logger.info(f'Created matchup: {build_p1.species} vs {build_p2.species}')
+        ## logger.info(f'Created matchup: {build_p1.species} vs {build_p2.species}')
 
     def get_optimal_moves_for_species(self, species: str) -> List[MoveResult]:
         """Optimal moves that result in the most amount of damage dealt.
@@ -44,8 +45,11 @@ class PokemonMatchup:
 
     def get_expected_damage_after_turns(self, species: str, num_turns: int = MATCHUP_MOVES_DEPTH) -> float:
         """Returns the expected amount of damage received by the specified Pokemon"""
-        move_results = self.get_optimal_moves_for_species(species)[:num_turns]
-        return sum([m.get_average_damage() for m in move_results]) / len(move_results)
+        move_results = self.get_optimal_moves_for_species(self.get_opponent(species))[:num_turns]
+        return sum([m.get_average_damage() for m in move_results])
+
+    def get_average_damage_per_turn(self, species: str) -> float:
+        return self.get_expected_damage_after_turns(species) / MATCHUP_MOVES_DEPTH
 
     def get_min_damage_after_turns(self, species: str, num_turns: int) -> int:
         """Returns the minimal amount of damage received by the specified Pokemon"""
@@ -75,9 +79,9 @@ class PokemonMatchup:
             return False
 
         if hp_p1 == 0 or hp_p2 == 0:
-            logger.warning(f'The HP stat of one pokemon was zero!\n' +
-                f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
-                f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
+            # logger.warning(f'The HP stat of one pokemon was zero!\n' +
+            #    f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
+            #    f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
             return False
 
         # Fraction of hp loss for both pokemon
@@ -99,9 +103,9 @@ class PokemonMatchup:
         hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
 
         if hp_p1 == 0 or hp_p2 == 0:
-            logger.warning(f'The HP stat of one pokemon was zero!\n' +
-                f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
-                f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
+            # logger.warning(f'The HP stat of one pokemon was zero!\n' +
+                #f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
+                #f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
             return False
 
         # Fraction of hp loss for both pokemon
@@ -130,4 +134,24 @@ class PokemonMatchup:
     def expected_turns_until_faint(self, species: str):
         """Returns the minimum amount of turns the given species will survive this matchup"""
         # TODO: Use this method for isCheck and isCounter instead
-        raise NotImplementedError
+        hp = self._get_pokemon_from_species(species).current_hp
+        # logger.info(f'{species} HP: {hp}')
+        dmg_taken = self.get_average_damage_per_turn(species)
+        # logger.info(f'{species} damage taken: {dmg_taken}')
+        return ceil(hp / dmg_taken)
+
+    def is_battle_between(self, species1: str, species2: str) -> bool:
+        """Checks if this matchup is played between the given two pokemon"""
+        if species1 == self.pokemon_1.species and species2 == self.pokemon_2.species:
+            return True
+
+        if species2 == self.pokemon_2.species and species1 == self.pokemon_1.species:
+            raise ValueError(f'Species one and two are swapped in the matchup!\n'
+                             f'Always pass in the own species first!')
+
+        return False
+
+    def get_opponent(self, species: str) -> str:
+        if species == self.pokemon_1.species:
+            return self.pokemon_2.species
+        return self.pokemon_1.species

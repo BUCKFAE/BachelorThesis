@@ -6,7 +6,7 @@ from poke_env.environment.move import Move
 
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.matchup.move_result import MoveResult
-from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file, pokemon_from_build, clone_pokemon
+from src.pokemon.data_handling.util.pokemon_creation import load_build_from_file, pokemon_from_build
 
 
 class TestDamageCalculator(unittest.TestCase):
