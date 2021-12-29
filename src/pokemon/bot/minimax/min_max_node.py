@@ -13,7 +13,8 @@ class MinMaxNode:
                  remaining_hp_team_1: Dict[str, int],
                  remaining_hp_team_2: Dict[str, int],
                  matchups: List[PokemonMatchup],
-                 current_depth: int = 0):
+                 current_depth: int = 0,
+                 is_min_node: bool = True):
 
         self.own_species = own_species
         self.enemy_species = enemy_species
@@ -34,6 +35,10 @@ class MinMaxNode:
         hp_p1 = self.remaining_hp_team_1[self.own_species]
         hp_p2 = self.remaining_hp_team_2[self.enemy_species]
 
+
+        if self.own_species == 'dialga' and self.enemy_species == 'garchomp':
+            logger.info('borken')
+
         # Calculating the remaining HP if both Pokémon battle
         fainted_after_turns_p1 = current_matchup.expected_turns_until_faint(self.own_species, hp_p1)
         fainted_after_turns_p2 = current_matchup.expected_turns_until_faint(self.enemy_species, hp_p2)
@@ -42,9 +47,9 @@ class MinMaxNode:
             speed_1 = current_matchup._build_p1.get_most_likely_stats()["spe"]
             speed_2 = current_matchup._build_p2.get_most_likely_stats()["spe"]
             if speed_1 > speed_2:
-                fainted_after_turns_p2 -= 1
-            else:
                 fainted_after_turns_p1 -= 1
+            else:
+                fainted_after_turns_p2 -= 1
 
         if fainted_after_turns_p1 < fainted_after_turns_p2:
             # logger.info(f'{self.own_species} faints before {self.enemy_species}')

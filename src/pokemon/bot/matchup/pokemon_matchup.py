@@ -1,5 +1,5 @@
 """Stores matchup information of two Pokemon"""
-from math import ceil
+from math import ceil, floor
 from typing import List, Dict, Optional
 
 from poke_env.environment.pokemon import Pokemon
@@ -138,7 +138,7 @@ class PokemonMatchup:
         # logger.info(f'{species} HP: {hp}')
         dmg_taken = self.get_average_damage_per_turn(species)
         # logger.info(f'{species} damage taken: {dmg_taken}')
-        return ceil(hp / dmg_taken)
+        return floor(hp / dmg_taken)
 
     def is_battle_between(self, species1: str, species2: str) -> bool:
         """Checks if this matchup is played between the given two pokemon"""
