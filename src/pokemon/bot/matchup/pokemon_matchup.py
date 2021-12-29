@@ -1,6 +1,6 @@
 """Stores matchup information of two Pokemon"""
 from math import ceil
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from poke_env.environment.pokemon import Pokemon
 
@@ -46,10 +46,10 @@ class PokemonMatchup:
     def get_expected_damage_after_turns(self, species: str, num_turns: int = MATCHUP_MOVES_DEPTH) -> float:
         """Returns the expected amount of damage received by the specified Pokemon"""
         move_results = self.get_optimal_moves_for_species(self.get_opponent(species))[:num_turns]
-        return sum([m.get_average_damage() for m in move_results])
+        return ceil(sum([m.get_average_damage() for m in move_results]))
 
     def get_average_damage_per_turn(self, species: str) -> float:
-        return self.get_expected_damage_after_turns(species) / MATCHUP_MOVES_DEPTH
+        return ceil(self.get_expected_damage_after_turns(species) / MATCHUP_MOVES_DEPTH)
 
     def get_min_damage_after_turns(self, species: str, num_turns: int) -> int:
         """Returns the minimal amount of damage received by the specified Pokemon"""
@@ -131,10 +131,10 @@ class PokemonMatchup:
         """Returns True if species1 can wall against species1"""
         raise NotImplementedError
 
-    def expected_turns_until_faint(self, species: str):
+    def expected_turns_until_faint(self, species: str, current_hp: Optional[int] = None):
         """Returns the minimum amount of turns the given species will survive this matchup"""
         # TODO: Use this method for isCheck and isCounter instead
-        hp = self._get_pokemon_from_species(species).current_hp
+        hp = self._get_pokemon_from_species(species).current_hp if current_hp is None else current_hp
         # logger.info(f'{species} HP: {hp}')
         dmg_taken = self.get_average_damage_per_turn(species)
         # logger.info(f'{species} damage taken: {dmg_taken}')

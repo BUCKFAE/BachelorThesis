@@ -11,7 +11,6 @@ from src.pokemon.bot.minimax.min_max_node import MinMaxNode
 
 
 def create_game_plan(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuild]):
-
     logger.info('Creating matchups for game plan')
     matchups = determine_matchups(battle, enemy_builds)
     logger.info('Finished creating matchups')
@@ -32,3 +31,5 @@ def create_game_plan(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuil
     end_time = datetime.datetime.now()
     logger.info(f"Building tree took: {(end_time - start_time)}")
     logger.info('Finished getting matchups')
+
+    return root

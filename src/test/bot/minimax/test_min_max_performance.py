@@ -5,6 +5,7 @@ from poke_env.environment.battle import Battle
 
 from src.pokemon import logger
 from src.pokemon.bot.minimax.min_max import create_game_plan
+from src.pokemon.bot.minimax.visualize_tree import visualize_tree
 from src.pokemon.data_handling.util.pokemon_creation import load_pokemon_from_file, load_build_from_file, clone_pokemon
 
 
@@ -19,8 +20,8 @@ class TestMinMaxPerformance(unittest.TestCase):
 
         battle = Battle('test_battle_tag', 'buckfae', None, False)
 
-        names_team_p1 = ['charizard', 'salamence', 'kyogre', 'pikachu', 'gastrodon', 'dialga']
-        names_team_p2 = ['roserade', 'luxray', 'garchomp', 'xatu', 'yveltal', 'zekrom']
+        names_team_p1 = ['charizard', 'salamence', 'kyogre', 'dialga']
+        names_team_p2 = ['roserade', 'luxray', 'garchomp', 'kyuremblack']
 
         pokemon_p1 = [clone_pokemon(load_pokemon_from_file(p), load_build_from_file(p)) for p in names_team_p1]
         pokemon_p1[0]._active = True
@@ -38,4 +39,9 @@ class TestMinMaxPerformance(unittest.TestCase):
         # Creating game plan
         plan = create_game_plan(battle, enemy_builds)
 
-        logger.info('Done')
+        logger.info('Finished creating game plan')
+
+        # Testing visualization
+        dot = visualize_tree(plan)
+        logger.info('Finished other')
+        dot.render(view=True, format='pdf')
