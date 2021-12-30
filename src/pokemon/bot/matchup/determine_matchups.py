@@ -19,7 +19,7 @@ from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, 
 
 
 def determine_matchups(battle: AbstractBattle,
-                       enemy_builds: Dict[str, PokemonBuild]) -> List[PokemonMatchup]:
+                       enemy_builds: Dict[str, PokemonBuild], depth: int = MATCHUP_MOVES_DEPTH) -> List[PokemonMatchup]:
     """Returns the matchups for all enemy Pokemon"""
 
     # Stores all matchups
@@ -46,7 +46,7 @@ def determine_matchups(battle: AbstractBattle,
                 attacker_build=member_build,
                 defender_build=enemy_builds[enemy.species],
                 possible_moves=member_build.get_most_likely_moves(),
-                depth=MATCHUP_MOVES_DEPTH,
+                depth=depth,
                 damage_calculator=damage_calculator,
                 attacker_pokemon=member,
                 defender_pokemon=enemy
@@ -56,7 +56,7 @@ def determine_matchups(battle: AbstractBattle,
                 attacker_build=enemy_builds[enemy.species],
                 defender_build=member_build,
                 possible_moves=enemy_builds[enemy.species].get_most_likely_moves(),
-                depth=MATCHUP_MOVES_DEPTH,
+                depth=depth,
                 damage_calculator=damage_calculator,
                 attacker_pokemon=enemy,
                 defender_pokemon=member

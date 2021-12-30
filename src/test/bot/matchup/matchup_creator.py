@@ -13,13 +13,15 @@ from src.pokemon.data_handling.util.pokemon_creation import load_pokemon_from_fi
 class MatchupCreator:
     _matchups = None
 
-    def __init__(self, count: int = 3):
-        if self._matchups is None:
+    def __init__(self, team_length: int = 3, moves_depth: int = 4):
+        if self._matchups is None or len(self._matchups) != team_length \
+                or len(self._matchups[0].get_optimal_moves_for_species(self._matchups[0].pokemon_p1.species)) \
+                != moves_depth:
             battle = Battle('test_battle_tag', 'buckfae', None, False)
 
             # Creating teams
-            names_team_p1 = ["charizard", "salamence", "kyogre"]
-            names_team_p2 = ["roserade", "luxray", "garchomp"]
+            names_team_p1 = ["charizard", "salamence", "latios"][:team_length]
+            names_team_p2 = ["roserade", "absol", "garchomp"][:team_length]
 
             pokemon_p1 = [load_pokemon_from_file(p) for p in names_team_p1]
 
@@ -32,7 +34,8 @@ class MatchupCreator:
             battle._opponent_team = {names_team_p2[p]: pokemon_p2[p] for p in range(len(names_team_p2))}
 
             self._matchups = determine_matchups(battle,
-                                                {names_team_p2[p]: builds_p2[p] for p in range(len(names_team_p2))})
+                                                {names_team_p2[p]: builds_p2[p] for p in range(len(names_team_p2))},
+                                                depth=moves_depth)
 
     def get_test_matchups(self) -> List[PokemonMatchup]:
         assert self._matchups is not None

@@ -57,4 +57,4 @@ class MoveResult:
         return sum(self.damage_taken_defender) / len(self.damage_taken_defender)
 
     def __repr__(self):
-        return f'{self.move}: {self.get_average_damage()} {self.damage_taken_defender}'
+        return f'{self.move}: {self.get_average_damage()} [{self.get_min_damage()}, {self.get_max_damage()}]'

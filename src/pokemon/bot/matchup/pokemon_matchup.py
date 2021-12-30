@@ -8,7 +8,6 @@ from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.field.field_state import FieldState
 from src.pokemon.bot.matchup.move_result import MoveResult
-from src.pokemon.config import MATCHUP_MOVES_DEPTH
 
 
 class PokemonMatchup:
@@ -28,6 +27,8 @@ class PokemonMatchup:
         self.pokemon_1 = pokemon_1
         self.pokemon_2 = pokemon_2
 
+        self.len_moves = len(self.get_optimal_moves_for_species(self.pokemon_1.species))
+
         ## logger.info(f'Created matchup: {build_p1.species} vs {build_p2.species}')
 
     def get_optimal_moves_for_species(self, species: str) -> List[MoveResult]:
@@ -43,13 +44,36 @@ class PokemonMatchup:
                              f'Known: {self.pokemon_1.species} and {self.pokemon_2.species}\n'
                              f'Received: {species}')
 
-    def get_expected_damage_after_turns(self, species: str, num_turns: int = MATCHUP_MOVES_DEPTH) -> float:
-        """Returns the expected amount of damage received by the specified Pokemon"""
-        move_results = self.get_optimal_moves_for_species(self.get_opponent(species))[:num_turns]
-        return ceil(sum([m.get_average_damage() for m in move_results]))
+    def get_expected_damage_after_turns(self, species: str, num_turns: Optional[int] = None) -> float:
+        """Returns the expected amount of damage received by the specified Pokemon
+        This uses the expected optimal moves. This means that if a Pokemon is expected to use SwordsDance in
+        his first turn, this Method returns an expected damage taken of 0 for the enemy Pokemon.
+        This method also accepts zero or a negative amount of num_turns as parameter and will always return zero
+        if num_turns is smaller than one. This is done to make MinMax a bit easier as we can then treat the case
+        that two pokemon can kill each other in the first turn equal to the case that the two pokemon can kill
+        each other in the same turn.
+        If num_turns is bigger than the amount of moves collected, we add the average damage.
+        """
+
+        if num_turns is None:
+            num_turns = self.len_moves
+
+        # Returning zero to make MinMax a bit easier
+        if num_turns < 1:
+            return 0
+
+        move_results = self.get_optimal_moves_for_species(self.get_opponent(species))
+
+        # Sum of precalculated moves
+        if num_turns <= self.len_moves:
+            return sum([round(m.get_average_damage()) for m in move_results][:num_turns])
+
+        # Not enough moves precalculated, adding expected damage
+        return sum([round(m.get_average_damage()) for m in move_results]) \
+            + self.get_average_damage_per_turn(species) * (num_turns - self.len_moves)
 
     def get_average_damage_per_turn(self, species: str) -> float:
-        return ceil(self.get_expected_damage_after_turns(species) / MATCHUP_MOVES_DEPTH)
+        return round(self.get_expected_damage_after_turns(species) / self.len_moves)
 
     def get_min_damage_after_turns(self, species: str, num_turns: int) -> int:
         """Returns the minimal amount of damage received by the specified Pokemon"""
@@ -87,12 +111,11 @@ class PokemonMatchup:
         # Fraction of hp loss for both pokemon
         # TODO: Broken as well
         damage_taken_p1_frac = self.get_expected_damage_after_turns(species2) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species1, MATCHUP_MOVES_DEPTH - 1) / hp_p2
+        damage_taken_p2_frac = self.get_expected_damage_after_turns(species1, self.len_moves - 1) / hp_p2
 
         is_check = damage_taken_p1_frac < damage_taken_p2_frac
 
         return is_check
-
 
     def is_counter(self, species1: str, species2: str) -> bool:
         """Returns True if species1 counters species2, False otherwise"""
@@ -104,8 +127,8 @@ class PokemonMatchup:
 
         if hp_p1 == 0 or hp_p2 == 0:
             # logger.warning(f'The HP stat of one pokemon was zero!\n' +
-                #f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
-                #f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
+            # f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
+            # f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
             return False
 
         # Fraction of hp loss for both pokemon
@@ -123,9 +146,9 @@ class PokemonMatchup:
             return self.pokemon_1
         elif self.pokemon_2.species == species:
             return self.pokemon_2
-        
+
         raise ValueError(f'The Pokemon {species} does not exist in the given matchup!\n' +
-                f'Known Pokemon: {self.pokemon_1.species} - {self.pokemon_2.species}') 
+                         f'Known Pokemon: {self.pokemon_1.species} - {self.pokemon_2.species}')
 
     def is_wall(self, species1: str, species2: str) -> bool:
         """Returns True if species1 can wall against species1"""
@@ -138,7 +161,7 @@ class PokemonMatchup:
         # logger.info(f'{species} HP: {hp}')
         dmg_taken = self.get_average_damage_per_turn(species)
         # logger.info(f'{species} damage taken: {dmg_taken}')
-        return floor(hp / dmg_taken)
+        return ceil(hp / dmg_taken)
 
     def is_battle_between(self, species1: str, species2: str) -> bool:
         """Checks if this matchup is played between the given two pokemon"""
