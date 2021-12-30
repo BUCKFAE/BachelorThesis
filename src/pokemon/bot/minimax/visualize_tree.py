@@ -7,7 +7,7 @@ from src.pokemon.bot.minimax.min_max_node import MinMaxNode
 
 
 def visualize_tree(root: MinMaxNode) -> graphviz.Digraph:
-    dot = graphviz.Digraph('Game Plan')
+    dot = graphviz.Digraph('Game Plan', directory='src/data/graphs')
     _complete_tree(root, dot)
     return dot
 

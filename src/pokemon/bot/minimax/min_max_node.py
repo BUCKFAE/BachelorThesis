@@ -36,7 +36,7 @@ class MinMaxNode:
         hp_p2 = self.remaining_hp_team_2[self.enemy_species]
 
 
-        if self.own_species == 'dialga' and self.enemy_species == 'garchomp':
+        if self.own_species == 'salamence' and self.enemy_species == 'garchomp':
             logger.info('borken')
 
         # Calculating the remaining HP if both Pokémon battle

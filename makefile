@@ -38,6 +38,9 @@ setup:
 	mkdir 'src/data/replays'
 	mkdir 'src/data/archive/replays'
 
+	@echo 'Creating folder for Graphs'
+	mkdir 'src/data/graphs'
+
 generate-builds:
 	@echo 'Please make sure that a local showdown instance is running!'
 	@echo 'Removing old build data'

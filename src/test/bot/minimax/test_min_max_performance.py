@@ -20,8 +20,8 @@ class TestMinMaxPerformance(unittest.TestCase):
 
         battle = Battle('test_battle_tag', 'buckfae', None, False)
 
-        names_team_p1 = ['charizard', 'salamence', 'kyogre', 'dialga']
-        names_team_p2 = ['roserade', 'luxray', 'garchomp', 'kyuremblack']
+        names_team_p1 = ['charizard', 'salamence', 'kyogre']
+        names_team_p2 = ['roserade', 'luxray', 'garchomp']
 
         pokemon_p1 = [clone_pokemon(load_pokemon_from_file(p), load_build_from_file(p)) for p in names_team_p1]
         pokemon_p1[0]._active = True
