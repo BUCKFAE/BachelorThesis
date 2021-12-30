@@ -110,8 +110,8 @@ class PokemonMatchup:
 
         # Fraction of hp loss for both pokemon
         # TODO: Broken as well
-        damage_taken_p1_frac = self.get_expected_damage_after_turns(species2) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species1, self.len_moves - 1) / hp_p2
+        damage_taken_p1_frac = self.get_expected_damage_after_turns(species1) / hp_p1
+        damage_taken_p2_frac = self.get_expected_damage_after_turns(species2, self.len_moves - 1) / hp_p2
 
         is_check = damage_taken_p1_frac < damage_taken_p2_frac
 
@@ -133,8 +133,8 @@ class PokemonMatchup:
 
         # Fraction of hp loss for both pokemon
         # TODO: Broken as well
-        damage_taken_p1_frac = self.get_expected_damage_after_turns(species2) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species1) / hp_p2
+        damage_taken_p1_frac = self.get_expected_damage_after_turns(species1) / hp_p1
+        damage_taken_p2_frac = self.get_expected_damage_after_turns(species2) / hp_p2
 
         is_check = damage_taken_p1_frac < damage_taken_p2_frac
 

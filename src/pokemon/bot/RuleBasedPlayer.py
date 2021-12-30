@@ -57,7 +57,7 @@ class RuleBasedPlayer(Player):
         # Determining matchup again if new information was gathered
         if new_information_collected or battle.active_pokemon.first_turn:
             logger.info(f'Gathered new Information, determining matchups.')
-            self.matchups = determine_matchups(battle, self.enemy_pokemon)
+            self.matchups = determine_matchups(battle, self.enemy_pokemon, is_early_game=True)
 
         # Getting matchups against the current enemy
         enemy_matchups = self._find_matchups_pokemon(enemy_species)
@@ -135,7 +135,8 @@ class RuleBasedPlayer(Player):
                 self.enemy_pokemon[enemy_species],
                 [m.id for m in battle.available_moves],
                 MATCHUP_MOVES_DEPTH,
-                damage_calculator=DamageCalculator()
+                damage_calculator=DamageCalculator(),
+                is_early_game=True
             )
             self.current_game_plan = (optimal_moves, enemy_species, own_species)
 
@@ -224,7 +225,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=1)
+    await p1.battle_against(p2, n_battles=10)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

@@ -34,11 +34,18 @@ class TestDetermineMatchup(unittest.TestCase):
 
         d = DamageCalculator()
 
-        optimal_moves_absol = get_optimal_moves(build1, build2, build1.get_most_likely_moves(), 4, d)
-        optimal_moves_latios = get_optimal_moves(build2, build1, build2.get_most_likely_moves(), 4, d)
+        for is_early_game in [True, False]:
+            optimal_moves_absol = get_optimal_moves(
+                build1, build2, build1.get_most_likely_moves(), 4, d,
+                is_early_game=is_early_game)
+            optimal_moves_latios = get_optimal_moves(
+                build2, build1, build2.get_most_likely_moves(), 4, d,
+                is_early_game=is_early_game)
 
-        print(f'{optimal_moves_absol=}')
-        print(f'{optimal_moves_latios=}')
+            logger.info(f'Early Game: {is_early_game}\n{optimal_moves_absol=}')
+            logger.info(f'Early Game: {is_early_game}\n{optimal_moves_latios=}')
+
+
 
 
 

@@ -1,4 +1,5 @@
 import itertools
+import sys
 from typing import Dict, List, Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
@@ -19,7 +20,8 @@ from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, 
 
 
 def determine_matchups(battle: AbstractBattle,
-                       enemy_builds: Dict[str, PokemonBuild], depth: int = MATCHUP_MOVES_DEPTH) -> List[PokemonMatchup]:
+                       enemy_builds: Dict[str, PokemonBuild], depth: int = MATCHUP_MOVES_DEPTH,
+                       is_early_game: bool = False) -> List[PokemonMatchup]:
     """Returns the matchups for all enemy Pokemon"""
 
     # Stores all matchups
@@ -49,7 +51,8 @@ def determine_matchups(battle: AbstractBattle,
                 depth=depth,
                 damage_calculator=damage_calculator,
                 attacker_pokemon=member,
-                defender_pokemon=enemy
+                defender_pokemon=enemy,
+                is_early_game=is_early_game
             )
 
             enemy_optimal_moves = get_optimal_moves(
@@ -59,7 +62,8 @@ def determine_matchups(battle: AbstractBattle,
                 depth=depth,
                 damage_calculator=damage_calculator,
                 attacker_pokemon=enemy,
-                defender_pokemon=member
+                defender_pokemon=member,
+                is_early_game=is_early_game
             )
 
             matchup = PokemonMatchup(
@@ -83,7 +87,12 @@ def get_optimal_moves(
         damage_calculator: DamageCalculator,
         field_state: Optional[FieldState] = None,
         attacker_pokemon: Optional[Pokemon] = None,
-        defender_pokemon: Optional[Pokemon] = None):
+        defender_pokemon: Optional[Pokemon] = None,
+        is_early_game: bool = False):
+    """
+    :param is_early_game: We won't boost in the early game
+    """
+
     # All possible move combinations
     combinations = itertools.product(possible_moves, repeat=depth)
 
@@ -100,6 +109,12 @@ def get_optimal_moves(
     best_move_expected_damage = -1
 
     for combination in combinations:
+
+        # Skipping boosting combination in early game
+        if is_early_game:
+            if any([Move(c).boosts is not None and Move(c).target in ['allySide', 'self'] for c in combination]):
+                continue
+
         #print(f"{combination=}")
         current_moves = []
 
@@ -132,7 +147,7 @@ def get_optimal_moves(
             logger.critical('Defender had wrong stats')
 
         # Making all moves
-        for current_move in combination:
+        for current_move in list(combination):
             #print(f'{current_move=}')
             current_move = Move(current_move)
 
