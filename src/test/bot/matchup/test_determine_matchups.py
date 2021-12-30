@@ -6,31 +6,17 @@ from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_optimal_moves
 from src.pokemon.data_handling.util.pokemon_creation import load_pokemon_from_file, load_build_from_file
+from src.test.bot.matchup.matchup_creator import MatchupCreator
 
 
 class TestDetermineMatchup(unittest.TestCase):
 
     def test_determine_matchup(self):
-        battle = Battle('test_battle_tag', 'buckfae', None, False)
 
-        # Creating teams
-        names_team_p1 = ["charizard", "salamence", "kyogre"]
-        names_team_p2 = ["roserade", "luxray", "garchomp"]
-
-        pokemon_p1 = [load_pokemon_from_file(p) for p in names_team_p1]
-
-        pokemon_p2 = [load_pokemon_from_file(p) for p in names_team_p2]
-        builds_p2 = [load_build_from_file(p) for p in names_team_p2]
-
-        battle._available_switches = pokemon_p1
-        battle._active_pokemon = pokemon_p1[0]
-
-        battle._opponent_team = {names_team_p2[p]: pokemon_p2[p] for p in range(len(names_team_p2))}
-
-        matchups = determine_matchups(battle, {names_team_p2[p]: builds_p2[p] for p in range(len(names_team_p2))})
+        matchup_creator = MatchupCreator()
 
         # Getting Checks and counter
-        for matchup in matchups:
+        for matchup in matchup_creator.get_test_matchups():
             p1 = matchup.pokemon_1.species
             p2 = matchup.pokemon_2.species
             logger.info(f'{p1} checks {p2}: {matchup.is_check(p1, p2)}')
