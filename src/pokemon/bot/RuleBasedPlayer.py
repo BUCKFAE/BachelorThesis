@@ -73,7 +73,10 @@ class RuleBasedPlayer(Player):
             # Pokemon_1 is always our Pokemon
             assert own_species in [p.species for p in battle.team.values()]
             # Pokemon_2 is always the enemy Pokémon
-            assert enemy_species == matchup.pokemon_2.species
+            if enemy_species != matchup.pokemon_2.species:
+                logger.critical(f'Enemy species was not what we expected!\n'
+                                f'Expected: {enemy_species}\n'
+                                f'Actual: {matchup.pokemon_2.species}')
 
             if matchup.is_check(own_species, enemy_species):
                 current_enemy_checks.append(own_species)
@@ -94,8 +97,6 @@ class RuleBasedPlayer(Player):
             logger.info('We have to switch pokemon!')
             if len(allowed_switches_check) > 0:
                 switch = _pokemon_from_species(allowed_switches_check[0], battle)
-            elif len(allowed_switches_counter) > 0:
-                switch = _pokemon_from_species(allowed_switches_counter[0], battle)
             else:
                 # Random switch
                 if len(battle.available_switches) > 0:
@@ -175,7 +176,9 @@ class RuleBasedPlayer(Player):
                 logger.info(f'Switching to {switch.species}')
                 return self.create_order(switch)
         else:
-            if len(battle.opponent_team) > 4 and battle.can_dynamax:
+            if (len(battle.opponent_team) >= 4 and battle.can_dynamax \
+                    and battle.active_pokemon.current_hp_fraction > 0.7) or \
+                    len(battle.available_switches) == 1:
                 return self.create_order(Move(next_own_move.move), dynamax=True)
 
         # TODO: fix this

@@ -99,23 +99,13 @@ class PokemonMatchup:
         hp_p1 = round(pokemon_1.current_hp_fraction * self._build_p1.get_most_likely_stats()["hp"])
         hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
 
-        if pokemon_1.fainted or pokemon_2.fainted:
-            return False
+        faint_p1 = self.expected_turns_until_faint(species1, hp_p1)
+        faint_p2 = self.expected_turns_until_faint(species2, hp_p2)
 
-        if hp_p1 == 0 or hp_p2 == 0:
-            # logger.warning(f'The HP stat of one pokemon was zero!\n' +
-            #    f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
-            #    f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
-            return False
+        if faint_p1 == faint_p2:
+            return self._build_p1.get_most_likely_stats()["spe"] > self._build_p2.get_most_likely_stats()["spe"]
 
-        # Fraction of hp loss for both pokemon
-        # TODO: Broken as well
-        damage_taken_p1_frac = self.get_expected_damage_after_turns(species1) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species2, self.len_moves - 1) / hp_p2
-
-        is_check = damage_taken_p1_frac < damage_taken_p2_frac
-
-        return is_check
+        return faint_p1 > faint_p2
 
     def is_counter(self, species1: str, species2: str) -> bool:
         """Returns True if species1 counters species2, False otherwise"""
@@ -125,20 +115,14 @@ class PokemonMatchup:
         hp_p1 = round(pokemon_1.current_hp_fraction * self._build_p1.get_most_likely_stats()["hp"])
         hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
 
-        if hp_p1 == 0 or hp_p2 == 0:
-            # logger.warning(f'The HP stat of one pokemon was zero!\n' +
-            # f'\t{self.pokemon_1.species}: {self.pokemon_1.current_hp}\n' +
-            # f'\t{self.pokemon_2.species}: {self.pokemon_2.current_hp}')
-            return False
+        faint_p1 = self.expected_turns_until_faint(species1, hp_p1) - 1
+        faint_p2 = self.expected_turns_until_faint(species2, hp_p2)
 
-        # Fraction of hp loss for both pokemon
-        # TODO: Broken as well
-        damage_taken_p1_frac = self.get_expected_damage_after_turns(species1) / hp_p1
-        damage_taken_p2_frac = self.get_expected_damage_after_turns(species2) / hp_p2
+        if faint_p1 == faint_p2:
+            return self._build_p1.get_most_likely_stats()["spe"] > self._build_p2.get_most_likely_stats()["spe"]
 
-        is_check = damage_taken_p1_frac < damage_taken_p2_frac
+        return faint_p1 > faint_p2
 
-        return is_check
 
     def _get_pokemon_from_species(self, species: str) -> Pokemon:
         """Returns the Pokemon with the name of this species"""
@@ -161,7 +145,7 @@ class PokemonMatchup:
         # logger.info(f'{species} HP: {hp}')
         dmg_taken = self.get_average_damage_per_turn(species)
         # logger.info(f'{species} damage taken: {dmg_taken}')
-        return ceil(hp / dmg_taken)
+        return ceil(hp / dmg_taken) if dmg_taken > 0 else 50
 
     def is_battle_between(self, species1: str, species2: str) -> bool:
         """Checks if this matchup is played between the given two pokemon"""

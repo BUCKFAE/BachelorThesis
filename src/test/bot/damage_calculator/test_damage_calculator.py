@@ -39,6 +39,8 @@ class TestDamageCalculator(unittest.TestCase):
         - Air ballon TODO
     """
 
+    # TODO: Golurk vs Type:Null: Spemmed Poltergeist
+
     def test_damage_calculator_basic(self):
         """Tests a very basic example where Charizard attacks Salamence"""
 
