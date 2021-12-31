@@ -4,7 +4,7 @@ from itertools import combinations
 from poke_env.player.player import Player
 from poke_env.player.random_player import RandomPlayer
 
-from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
+from src.pokemon.bot.SimpleRuleBasedPlayer import RuleBasedPlayer
 
 EVAL_EPISODES = 2
 
