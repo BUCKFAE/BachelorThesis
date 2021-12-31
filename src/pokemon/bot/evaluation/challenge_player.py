@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from poke_env.player_configuration import PlayerConfiguration
 from poke_env.server_configuration import ShowdownServerConfiguration, LocalhostServerConfiguration
 
-from src.pokemon.bot.SimpleRuleBasedPlayer import RuleBasedPlayer
+from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
 
 
 async def main():

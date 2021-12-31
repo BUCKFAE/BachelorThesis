@@ -21,7 +21,9 @@ from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, 
 
 def determine_matchups(battle: AbstractBattle,
                        enemy_builds: Dict[str, PokemonBuild], depth: int = MATCHUP_MOVES_DEPTH,
-                       is_early_game: bool = False) -> List[PokemonMatchup]:
+                       is_early_game: bool = False,
+                       existing_matchups: Optional[List[PokemonMatchup]] = None,
+                       matchups_to_update: Optional[List[str]] = None) -> List[PokemonMatchup]:
     """Returns the matchups for all enemy Pokemon"""
 
     # Stores all matchups
@@ -31,7 +33,7 @@ def determine_matchups(battle: AbstractBattle,
 
     # Getting both teams
     own_pokemon = battle.available_switches + ([battle.active_pokemon]
-                                               if battle.active_pokemon is not None else [])
+                    if battle.active_pokemon is not None and not battle.active_pokemon.fainted else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     logger.info(f'Determining matchups:\n\t{"-".join([s.species for s in own_pokemon])}'
@@ -40,6 +42,13 @@ def determine_matchups(battle: AbstractBattle,
     # Determining checks and counter for each known enemy
     for enemy in enemy_pokemon:
         for member in own_pokemon:
+
+            # Keeping existing matchups
+            if matchups_to_update is not None and existing_matchups is not None:
+                if enemy.species not in matchups_to_update:
+                    matchups += [m for m in existing_matchups if m.pokemon_1.species == member.species and
+                                     m.pokemon_2.species == enemy.species]
+                    continue
 
             member_build = build_from_pokemon(member)
 
@@ -79,6 +88,7 @@ def determine_matchups(battle: AbstractBattle,
 
     return matchups
 
+
 def get_optimal_moves(
         attacker_build: PokemonBuild,
         defender_build: PokemonBuild,
@@ -88,9 +98,10 @@ def get_optimal_moves(
         field_state: Optional[FieldState] = None,
         attacker_pokemon: Optional[Pokemon] = None,
         defender_pokemon: Optional[Pokemon] = None,
-        is_early_game: bool = False):
+        is_early_game: bool = False) -> List[MoveResult]:
     """
     :param is_early_game: We won't boost in the early game
+    TODO: Kill the enemy as fast as possible
     """
 
     # All possible move combinations
@@ -115,7 +126,7 @@ def get_optimal_moves(
             if any([Move(c).boosts is not None and Move(c).target in ['allySide', 'self'] for c in combination]):
                 continue
 
-        #print(f"{combination=}")
+        # print(f"{combination=}")
         current_moves = []
 
         # Creating field at the start if needed
@@ -142,13 +153,12 @@ def get_optimal_moves(
         if attacker_pokemon.base_stats != attacker_copy.base_stats:
             logger.critical('Attacker had wrong stats')
 
-
         if defender_pokemon.base_stats != defender_pokemon.base_stats:
             logger.critical('Defender had wrong stats')
 
         # Making all moves
         for current_move in list(combination):
-            #print(f'{current_move=}')
+            # print(f'{current_move=}')
             current_move = Move(current_move)
 
             # Calculating expected damage after these 3 moves
@@ -193,7 +203,7 @@ def get_optimal_moves(
             best_moves = current_moves
             best_move_expected_damage = current_expected_damage
 
-    #logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
+    # logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
     #            '\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
     #            + f'\tTotal: ({best_move_expected_damage})')
     assert len(best_moves) == depth

@@ -1,5 +1,6 @@
 """Represents the current state of the field"""
 from dataclasses import dataclass
+from typing import Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
 
@@ -30,9 +31,11 @@ class FieldState:
         self.is_gravity = is_gravity
 
 
-def battle_to_field(battle: AbstractBattle) -> FieldState:
+def battle_to_field(battle: AbstractBattle) -> Optional[FieldState]:
     """Converts the field of an ongoing battle to a FieldState"""
-    raise NotImplementedError
+    # TODO: implement this
+    return None
+    #raise NotImplementedError
 
 
 def move_to_field_state(prev_field_state: FieldSide, side: int, move: str) -> FieldState:

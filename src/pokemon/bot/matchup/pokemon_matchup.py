@@ -135,8 +135,11 @@ class PokemonMatchup:
                          f'Known Pokemon: {self.pokemon_1.species} - {self.pokemon_2.species}')
 
     def is_wall(self, species1: str, species2: str) -> bool:
-        """Returns True if species1 can wall against species1"""
-        raise NotImplementedError
+        """Returns True if species1 can wall against species1
+        TODO: Implement this
+        """
+        return False
+        # raise NotImplementedError
 
     def expected_turns_until_faint(self, species: str, current_hp: Optional[int] = None):
         """Returns the minimum amount of turns the given species will survive this matchup"""
