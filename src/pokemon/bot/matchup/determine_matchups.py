@@ -33,7 +33,7 @@ def determine_matchups(battle: AbstractBattle,
 
     # Getting both teams
     own_pokemon = battle.available_switches + ([battle.active_pokemon]
-                    if battle.active_pokemon is not None and not battle.active_pokemon.fainted else [])
+                                               if battle.active_pokemon is not None and not battle.active_pokemon.fainted else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     logger.info(f'Determining matchups:\n\t{"-".join([s.species for s in own_pokemon])}'
@@ -47,7 +47,7 @@ def determine_matchups(battle: AbstractBattle,
             if matchups_to_update is not None and existing_matchups is not None:
                 if enemy.species not in matchups_to_update:
                     matchups += [m for m in existing_matchups if m.pokemon_1.species == member.species and
-                                     m.pokemon_2.species == enemy.species]
+                                 m.pokemon_2.species == enemy.species]
                     continue
 
             member_build = build_from_pokemon(member)
@@ -118,6 +118,7 @@ def get_optimal_moves(
     # Storing the best move combination
     best_moves = List[MoveResult]
     best_move_expected_damage = -1
+    best_moves_turns_to_kill = 1000
 
     for combination in combinations:
 
@@ -197,14 +198,36 @@ def get_optimal_moves(
             current_moves.append(res)
 
         # If the current combination is better than the best known combination
-        current_expected_damage = sum([x.get_average_damage() for x in current_moves])
+        current_expected_damage = sum([x.get_average_damage() * Move(x.move).accuracy for x in current_moves])
 
-        if current_expected_damage >= best_move_expected_damage:
-            best_moves = current_moves
-            best_move_expected_damage = current_expected_damage
+        defender_hp = defender_pokemon.current_hp if defender_pokemon is not None \
+            else defender_build.get_most_likely_stats()["hp"]
 
-    # logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
+        # We haven't found a combination to kill yet, picking the one that deals the most amount of damage
+        if current_expected_damage < defender_hp:
+            if best_moves_turns_to_kill == 1000:
+                if current_expected_damage >= best_move_expected_damage:
+                    best_moves = current_moves
+                    best_move_expected_damage = current_expected_damage
+
+        else:
+            to_kill = _get_turns_until_faint_from_moves(defender_hp, current_moves)
+            # TODO: How do decide if both methods kill after equal turns?
+            if to_kill < best_moves_turns_to_kill:
+                best_moves = current_moves
+                best_move_expected_damage = current_expected_damage
+                best_moves_turns_to_kill = to_kill
+
+        # logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
     #            '\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
     #            + f'\tTotal: ({best_move_expected_damage})')
-    assert len(best_moves) == depth
     return best_moves
+
+
+def _get_turns_until_faint_from_moves(hp: int, attacks: List[MoveResult]) -> int:
+    damage_taken = 0
+    turn = 0
+    while damage_taken < hp:
+        turn += 1
+        damage_taken += attacks[turn - 1].get_average_damage() * Move(attacks[turn - 1].move).accuracy
+    return turn
