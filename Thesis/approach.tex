@@ -9,12 +9,65 @@
 \todo{If a Pokémon has no HP left, it faints} \\
 \todo{If all Pokémon of a player fainted, the player loses} 
 
+\section{Battling}
+One of the key aspects of the Pokémon game is to battle other Pokémon. In the mainline games, you can 
+have up to six Pokémon in your team, also known as party. There is the option to swap a Pokémon with
+another Pokémon, but you can't have more than six Pokémon at any point in your team. When playing the 
+original Games, you can explore the world to find more Pokémon and use your team to defeat wild Pokémon
+and other Pokémon trainer. This thesis however focus on random battles taking place on Pokémon Showdown.
+In a random battle, both you and your opponent get a team of six random Pokémon. At the start of the battle,
+you know each of your six Pokémon but only the currently active enemy Pokémon. \\
+Every turn, both players can choose to either use a Move of their currently active Pokémon or switch
+their active Pokémon to another Pokémon. Moves can either deal direct damage to the enemy Pokémon or 
+yield other advantages like increasing the damage dealt by the next move. Moves will be covered in more
+detail in section \ref{sec:moves}. Each Pokémon has an amount of \ac{HP}. The \ac{HP} of a Pokémon
+can be dropped by attacking it with a Move. If the \ac{HP} of a Pokémon drops to zero, it faints and 
+can't be used in this battle anymore. A player wins, if all Pokémon of the enemy are fainted. \\
+\textit{Note:} In the mainline games there is the possibility to heal or even revive a fainted 
+Pokémon during battle using \textit{Healing Items} like \textit{Revive} or \textit{Hyper Potion}.
+In competitive Play, only \textit{Held items} like \textit{Leftovers} are allowed. Items will explained
+in depth in section \ref{sec:items}.
+
+\subsection{Types}
+Pokémon implements a \textit{Rock-Paper-Scissors}-like system. Each Pokémon has eiter one or two of 
+18 types. For example, a \textit{Fire}-type Pokémon is weak against \textit{Water}-type Pokémon
+whereas a \textit{Water}-type Pokémon is weak against \textit{Grass}-type Pokémon. Lastly,
+a \textit{Grass}-type Pokémon is weak against \textit{Fire}-type Pokémon. 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/type_chart.png}
+	\caption{Pokémon type chart \cite{Pokemondb:Type}}
+	\label{fig:type_chart}
+\end{figure}
+The figure \ref{fig:type_chart} shows how different Pokémon types interact with each other. It is important
+to note, that the type modifiers will be multiplied if a Pokémon has two types. For example, a \textit{Fire}-type
+attack will deal 4 times the damage against \textit{Parasect} as \textit{Parasect} has the types \textit{Grass} and
+\textit{Bug} \cite{Veekun:Parasect}.
+
 \subsection{Moves}
-\todo{Moves either deal damage or give an advantage later in the battle} 
+\label{sec:moves}
+Moves can either deal direct damage to the enemy Pokémon or yield other advantages, possibly multiple turns 
+in the future. \\
+
+
+
 \subsubsection{Move Categories}
 \todo{Physical and Special moves} 
 
+\subsection{Switching}
+\label{sec:switching}
+
+\subsection{Types}
+\label{sec:types}
+
+\subsection{Items}
+\label{sec:items}
+
+\subsection{Field Conditions}
+\todo{Weather conditions} \\
+
 \subsection{Damage calculation}
+\label{sec:damage-calculation}
 The damage dealt by a move mainly depends on the \textit{level} of the Pokémon
 that uses the move, its effective Attack or Special Attack stat, the
 opponent's effective Defense or Special Defense stat and the move's effective
@@ -62,8 +115,42 @@ The \textit{Base Power} of a move in Showdown can be seen when hovering over a m
 always have a base power of 75\cite{Bulbapedia:FirePunch}.
 
 \subsubsection{Weather}
+The \textit{Weather} modifier is 1.5 if a \textit{Water-type} move is used during \textit{rain} or a 
+\textit{Fire-type} move during \textit{Harsh Sunlight}. The modifier is 0.5 if a \textit{Water-type} move
+is used during \textit{Harsh Sunlight} or a \textit{Fire-type} move during \textit{rain} \cite{Bulbapedia:Damage}.
+\todo{Reference to weather section}
+
+\subsubsection{Critical}
+In the latest Generation, a \ac{CRIT} deals 1.5 times the damage compared to a normal hit.
+If the \ac{CRIT} rate is not increased, the chance of landing a \ac{CRIT} is 1/24
+\cite{Bulbapedia:CriticalHit}. Increasing \ac{CRIT} rate, as well as other stats, will 
+be explained in chapter \ref{sec:boosting}. \\
+\textit{Note:} In earlier games, \ac{CRIT}s worked different, see \cite{Bulbapedia:CriticalHit} for
+more details.
+
+\subsubsection{Random}
+\textit{Random} is a random integer percentage between 85\% and 100\%. Because of this, the same move
+may deal different damage in the same scenario \cite{Bulbapedia:Damage}.
+
+\subsubsection{STAB}
+\textit{STAB} stands for \textit{Same Type Attack Bonus}. It is a multiplier of 1.5 if the used move
+is of the same type as the attacking Pokémon. Otherwise, it is 1.0 \cite{Bulbapedia:Damage}.
+
+\subsubsection{Type}
+This is the in section \ref{sec:types} described type modifier \cite{Bulbapedia:Damage}.
+
+\subsubsection{Burn}
+\textit{Burn} is 0.5 if the attacking Pokémon is burned, and the used move
+is a physical move\footnote{This does not apply if the attacking Pokémon has the Ability \textit{Guts}
+or the used move is \textit{Facade}}. Otherwise, it is 1.0 \cite{Bulbapedia:Damage}.
+
+\subsubsection{Other}
+The \textit{other} modifier is usually 1. A list of exceptions can be found at \cite{Bulbapedia:Damage}.
 
 \subsection{Effective Stats}
+\subsubsection{Boosting}
+\label{sec:boosting}
+\todo{Boosting critical rate}
 
 \section{Hazards}
 An \textit{entry hazard} is a condition that affects a side of the field that causes
