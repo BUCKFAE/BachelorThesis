@@ -36,6 +36,11 @@ class RuleBasedPlayer(Player):
 
         # Logging the tag of the battle on the first turn in order to combine logs and replays
         if battle.turn == 1:
+
+            self.enemy_builds = {}
+            self.current_strategy = None
+            self.matchups = []
+
             print(f'\n\n\n\n{self.n_won_battles} / {self.n_lost_battles}\n\n\n\n')
             logger.info(f'Battle: {battle.battle_tag}')
 
@@ -197,9 +202,6 @@ class RuleBasedPlayer(Player):
             elif len(current_enemy_checks) > 0:
                 switch = current_enemy_checks[0]
                 logger.info(f'\tSwitching to check')
-            elif len(current_enemy_counters) > 0:
-                logger.info(f'\tSwitching to counter')
-                switch = current_enemy_counters[0]
 
             # Switching if we found a better option
             if switch is not None:
@@ -207,7 +209,7 @@ class RuleBasedPlayer(Player):
 
         else:
             # Dynamaxing if we are in a good matchup, know enough of the enemy team and have good hp
-            if battle.can_dynamax and len(self.enemy_builds) >= 4 and battle.active_pokemon.current_hp_fraction >= 0.7:
+            if battle.can_dynamax and len(self.enemy_builds.keys()) >= 5 and battle.active_pokemon.current_hp_fraction >= 0.7:
                 logger.info(f'Dynamaxing as the matchup is good!')
                 return self.create_order(Move(best_own_move.move), dynamax=True)
 
