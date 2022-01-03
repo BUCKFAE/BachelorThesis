@@ -278,6 +278,5 @@ class TestDamageCalculator(unittest.TestCase):
         res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("shadowsneak"))
         assert res3.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
 
-
 if __name__ == "__main__":
     unittest.main()

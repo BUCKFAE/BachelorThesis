@@ -17,6 +17,7 @@ from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
+from src.pokemon.data_handling.items.item_to_calc_item import item_to_calc_item
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon, pokemon_from_build, clone_pokemon
 
 
@@ -147,9 +148,6 @@ def get_optimal_moves(
         # Here the HP percentage is also adjusted
         attacker_copy = clone_pokemon(attacker_pokemon, attacker_build)
         defender_copy = clone_pokemon(defender_pokemon, defender_build)
-
-        attacker_copy.item = ''
-        defender_copy.item = ''
 
         assert attacker_pokemon.boosts == attacker_copy.boosts
         assert defender_pokemon.boosts == defender_copy.boosts

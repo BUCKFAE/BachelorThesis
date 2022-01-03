@@ -16,6 +16,7 @@ from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
 from src.pokemon.data_handling.abilities.convert_ability import get_calculator_ability
+from src.pokemon.data_handling.items.item_to_calc_item import item_to_calc_item
 
 
 @singleton
@@ -81,8 +82,8 @@ class DamageCalculator:
 
         # Item
         # TODO: Get item from Pokemon directly
-        attacker_item = attacker_build.get_most_likely_item()
-        defender_item = defender_build.get_most_likely_item()
+        attacker_item = item_to_calc_item(attacker_build.get_most_likely_item())
+        defender_item = item_to_calc_item(defender_build.get_most_likely_item())
 
         # HP
         attacker_hp = attacker_build.get_most_likely_stats()["hp"] if attacker_pokemon is None \
