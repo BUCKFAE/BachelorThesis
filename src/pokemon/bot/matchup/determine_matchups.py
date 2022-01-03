@@ -2,6 +2,7 @@ import itertools
 import sys
 from typing import Dict, List, Optional
 
+from poke_env.environment import status
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
@@ -120,6 +121,8 @@ def get_optimal_moves(
     best_move_expected_damage = -1
     best_moves_turns_to_kill = 1000
 
+    knows_no_drawback_moves = False
+
     for combination in combinations:
 
         # Skipping boosting combination in early game
@@ -206,7 +209,24 @@ def get_optimal_moves(
         # We haven't found a combination to kill yet, picking the one that deals the most amount of damage
         if current_expected_damage < defender_hp:
             if best_moves_turns_to_kill == 1000:
-                if current_expected_damage >= best_move_expected_damage:
+
+                # Using no drawback move
+                first_is_no_drawback = is_no_drawback_move(Move(combination[0]), defender_pokemon)
+
+                if first_is_no_drawback:
+                    # Not the first no-drawback-move. Picking combination that deals more damage
+                    if knows_no_drawback_moves:
+                        if current_expected_damage >= best_move_expected_damage:
+                            best_moves = current_moves
+                            best_move_expected_damage = current_expected_damage
+                    else:
+                        # This is the first no drawback move. Using this combination as new best
+                        best_moves = current_moves
+                        best_move_expected_damage = current_expected_damage
+                    knows_no_drawback_moves = True
+
+                elif current_expected_damage >= best_move_expected_damage:
+                    # Pokemon doesn't know any no drawback moves, dealing the most amount of damage possible
                     best_moves = current_moves
                     best_move_expected_damage = current_expected_damage
 
@@ -221,7 +241,26 @@ def get_optimal_moves(
         # logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +
     #            '\t' + '\t'.join([f'{res.move} ({res.get_average_damage()})' for res in best_moves])
     #            + f'\tTotal: ({best_move_expected_damage})')
+
     return best_moves
+
+
+def is_no_drawback_move(move: Move, defender: Pokemon) -> bool:
+    """Determines if the given move is a no drawback move against the given enemy
+
+    A move is a has no drawback if:
+    - We add a status to the enemy
+    """
+
+    # If the move applies a status to the enemy Pokemon
+    if move.status is not None:
+        # If the enemy is already affected by a status we won't use the move as status can't be stacked
+        if defender.status is not None:
+            return False
+
+        return True
+
+    return False
 
 
 def _get_turns_until_faint_from_moves(hp: int, attacks: List[MoveResult]) -> int:
