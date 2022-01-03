@@ -95,31 +95,36 @@ class PokemonMatchup:
         """Returns True if species1 checks species2, False otherwise"""
         pokemon_1 = self._get_pokemon_from_species(species1)
         pokemon_2 = self._get_pokemon_from_species(species2)
+        build_1 = self._get_build_from_species(species1)
+        build_2 = self._get_build_from_species(species2)
 
-        hp_p1 = round(pokemon_1.current_hp_fraction * self._build_p1.get_most_likely_stats()["hp"])
-        hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
-
-        faint_p1 = self.expected_turns_until_faint(species1, hp_p1)
-        faint_p2 = self.expected_turns_until_faint(species2, hp_p2)
-
-        if faint_p1 == faint_p2:
-            return self._build_p1.get_most_likely_stats()["spe"] > self._build_p2.get_most_likely_stats()["spe"]
-
-        return faint_p1 > faint_p2
-
-    def is_counter(self, species1: str, species2: str) -> bool:
-        """Returns True if species1 counters species2, False otherwise"""
-        pokemon_1 = self._get_pokemon_from_species(species1)
-        pokemon_2 = self._get_pokemon_from_species(species2)
-
-        hp_p1 = round(pokemon_1.current_hp_fraction * self._build_p1.get_most_likely_stats()["hp"])
-        hp_p2 = round(pokemon_2.current_hp_fraction * self._build_p2.get_most_likely_stats()["hp"])
+        hp_p1 = round(pokemon_1.current_hp_fraction * build_1.get_most_likely_stats()["hp"])
+        hp_p2 = round(pokemon_2.current_hp_fraction * build_2.get_most_likely_stats()["hp"])
 
         faint_p1 = self.expected_turns_until_faint(species1, hp_p1) - 1
         faint_p2 = self.expected_turns_until_faint(species2, hp_p2)
 
         if faint_p1 == faint_p2:
-            return self._build_p1.get_most_likely_stats()["spe"] > self._build_p2.get_most_likely_stats()["spe"]
+            return build_1.get_most_likely_stats()["spe"] > build_2.get_most_likely_stats()["spe"]
+
+        return faint_p1 > faint_p2
+
+
+    def is_counter(self, species1: str, species2: str) -> bool:
+        """Returns True if species1 counters species2, False otherwise"""
+        pokemon_1 = self._get_pokemon_from_species(species1)
+        pokemon_2 = self._get_pokemon_from_species(species2)
+        build_1 = self._get_build_from_species(species1)
+        build_2 = self._get_build_from_species(species2)
+
+        hp_p1 = round(pokemon_1.current_hp_fraction * build_1.get_most_likely_stats()["hp"])
+        hp_p2 = round(pokemon_2.current_hp_fraction * build_2.get_most_likely_stats()["hp"])
+
+        faint_p1 = self.expected_turns_until_faint(species1, hp_p1)
+        faint_p2 = self.expected_turns_until_faint(species2, hp_p2)
+
+        if faint_p1 == faint_p2:
+            return build_1.get_most_likely_stats()["spe"] > build_2.get_most_likely_stats()["spe"]
 
         return faint_p1 > faint_p2
 
@@ -130,6 +135,15 @@ class PokemonMatchup:
             return self.pokemon_1
         elif self.pokemon_2.species == species:
             return self.pokemon_2
+
+        raise ValueError(f'The Pokemon {species} does not exist in the given matchup!\n' +
+                         f'Known Pokemon: {self.pokemon_1.species} - {self.pokemon_2.species}')
+
+    def _get_build_from_species(self, species: str) -> PokemonBuild:
+        if self._build_p1.species == species:
+            return self._build_p1
+        elif self._build_p2.species == species:
+            return self._build_p2
 
         raise ValueError(f'The Pokemon {species} does not exist in the given matchup!\n' +
                          f'Known Pokemon: {self.pokemon_1.species} - {self.pokemon_2.species}')

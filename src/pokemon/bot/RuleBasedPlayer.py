@@ -113,7 +113,7 @@ class RuleBasedPlayer(Player):
                     logger.info(f'\tSwitching to check')
                 elif len(current_enemy_counters) > 0:
                     logger.info(f'\tSwitching to counter')
-                    switch = current_enemy_counters
+                    switch = current_enemy_counters[0]
                 else:
                     # TODO: Determine better Pokemon to switch into
                     logger.info(f'\tSwitching random')
@@ -174,6 +174,17 @@ class RuleBasedPlayer(Player):
                 logger.info(f'We can kill the enemy this turn!')
                 return self.create_order(Move(best_own_move.move))
 
+        # Healing if we can heal more than the average enemy damage
+        enemy_average_damage = current_matchup.get_average_damage_per_turn(own_species)
+        best_healing_move = max(own_possible_moves, key=lambda m: Move(m).heal)
+        if Move(best_healing_move).heal > 0:
+            health_regenerated = battle.active_pokemon.current_hp * Move(best_healing_move).heal
+            hp_lost = battle.active_pokemon.max_hp - battle.active_pokemon.current_hp
+            if hp_lost > health_regenerated > enemy_average_damage:
+                logger.info(f'Healing using {best_healing_move}')
+                return self.create_order(Move(best_healing_move))
+
+
         # Switching if we have a better option
         if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters:
             logger.info(f'Current matchup is not favorable!')
@@ -188,7 +199,7 @@ class RuleBasedPlayer(Player):
                 logger.info(f'\tSwitching to check')
             elif len(current_enemy_counters) > 0:
                 logger.info(f'\tSwitching to counter')
-                switch = current_enemy_counters
+                switch = current_enemy_counters[0]
 
             # Switching if we found a better option
             if switch is not None:

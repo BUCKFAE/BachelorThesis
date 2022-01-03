@@ -232,8 +232,8 @@ def get_optimal_moves(
 
         else:
             to_kill = _get_turns_until_faint_from_moves(defender_hp, current_moves)
-            # TODO: How do decide if both methods kill after equal turns?
-            if to_kill < best_moves_turns_to_kill:
+            if to_kill < best_moves_turns_to_kill or \
+                    (to_kill == best_moves_turns_to_kill and current_expected_damage >= best_move_expected_damage):
                 best_moves = current_moves
                 best_move_expected_damage = current_expected_damage
                 best_moves_turns_to_kill = to_kill
