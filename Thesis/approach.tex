@@ -53,9 +53,6 @@ While \textit{Physical}- and \textit{Special}-moves usually deal damage to the o
 in section \ref{sec:damage-calculation}, inflict status effects, raise or lower the stats of a Pokémon. Just 
 as Pokémon, each Move has one of the 18 possible types. 
 
-\subsubsection{Move Categories}
-\todo{Physical and Special moves} 
-
 \subsection{Pokémon}
 \label{sec:pokemon}
 As stated in \ref{sec:battling}, each Pokémon has a given amount of \ac{HP}. However, two Pokémon of the same 
@@ -81,6 +78,8 @@ the faster Pokémon moved, the slower Pokémon will move. Therefore, the faster 
 advantage. 
 \todo{Cover priority moves and trickroom}
 \todo{Cover evasion / accuracy, context to showdown}
+\subsubsection{Status effects}
+\todo{BRN, SLP, FRZ, PSN, CONF, PAR, etc.}
 
 \subsubsection{Determination of stats}
 The total stat of a Pokémon is calculated as described in equation \ref{eq:stats-hp} and equation 
@@ -125,12 +124,63 @@ will have 1 extra point in the given stat. A Pokémon can earn up to 510 \ac{EV}
 
 \subsection{Switching}
 \label{sec:switching}
+Instead of using a move with the current Pokémon, the player also has the option to switch out the 
+active Pokémon for another Pokémon is his party. Switching always takes place before the execution of moves.
+However, the player does not know whether the opponent is switching or using a Move. Therefore, if the 
+player decides to switch out a non-fainted Pokémon, the enemy gets to use his move on the new Pokémon.
+If a Pokémon faints, the player has to switch in a new Pokémon and then the next turns tarts. This means
+that the opponent gains a one turn advantage if the player decides to switch out a healthy Pokémon, but
+won't get to attack an additional time if the Pokémon was defeated.  
 
 \subsection{Items}
 \label{sec:items}
+A Pokémon can also hold an Item that yields benefits in battle. There are various purposes that items 
+can fulfill. For example, the item \textit{Life Orb} boosts damage dealt by the holder's damaging move
+by 30\%\footnote{This boost is approximated as 5324/4096 $\approx$ 1.29980}, but the holder takes
+damage equal to 10\% of its maximum \ac{HP} after it uses a damaging move\footnote{Rounded down, 
+but not less than 1} \cite{Bulbapedia:LifeOrb}. \textit{Leftovers} restore 1/16 of the holder's
+maximum \ac{HP}\footnote{Rounded down, but not less than 1} at the end of each turn whereas the item
+\textit{Air Balloon} makes the holder \textit{ungrounded}, which means that the holder is immune to
+\textit{Ground}-type moves as well as several related effects\cite{Bulbapedia:AirBalloon}. The 
+items generated in Pokémon Showdown are described in more details in \ref{sec:randbats-items}.
 
-\subsection{Field Conditions}
-\todo{Weather conditions} \\
+\subsection{Field effects}
+There are multiple \textit{field effects} that affect combat.
+\subsubsection{Terrain}
+\textit{Terrain} is set up by the respective move with identical name and last for five turns. 
+All of them are beneficial to \textit{grounded} Pokémon. A Pokémon is \textit{not grounded} if any of the 
+following conditions apply:
+\begin{itemize}
+	\item The Pokémon has the \textit{Flying}-type
+	\item The Pokémon has the Ability Levitate
+	\item The Pokémon is holding the item \textit{Air Balloon}
+	\item The Pokémon is under the effect of \textit{Magnet Rise} or Telekinesis.
+\end{itemize}
+\textit{Grounded} Pokémon are with a few exceptions those Pokémon, that are not \textit{ungrounded}. A 
+Pokémon will be grounded if any of the following conditions apply:
+\begin{itemize}
+	\item The Pokémon is holding an \textit{Iron Ball}
+	\item The Pokémon is under the effect of \textit{Ingrain}, \textit{Smack Down} or \textit{Thousand Arrows}.
+	\item The \textit{Field effect} \textit{Gravity} is in effect.
+\end{itemize}
+More information about grounding can be found at \cite{Bulbapedia:Grounded}
+There are five different possible \textit{terrain}-states. 
+\begin{itemize}
+	\item \textbf{None:} The default state, no other effects are applied. 
+	\item \textbf{Electric Terrain:} Grounded Pokémon can't fall asleep and the power of \textit{Electric}-type
+		moves is also by 50\%.
+	\item \textbf{Grassy Terrain:} The HP of grounded Pokémon is restored by 1/16 of their maximum HP at the
+		end of each turn. In addition, the power of \textit{Grass}-type moves is increased by 50\% and the 
+		moves \textit{Earthquake}, \textit{Magnitude} and \textit{Bulldoze} halve in power. 
+	\item \textbf{Misty Terrain:} protects all grounded Pokémon from status conditions (including confusion).
+		The power of \textit{Dragon}-type moves is halved while in effect. 
+	\item \textbf{Psychic Terrain} prevents grounded Pokémon from being hit by high-priority moves (such as
+		\textbf{Quick Attack} or \textit{Sucker Punch}). The power of \textit{Psychic}-type moves is also increased
+\end{itemize}
+It is important to note, that only one \textit{terrain} can be active at a time, yet, \textit{terrain}
+can coexist with other \textit{field effects} like \textit{weather}.
+
+\subsubsection{Weather}
 
 \subsection{Damage calculation}
 \label{sec:damage-calculation}
@@ -332,3 +382,8 @@ entry hazards, but grounded \textit{Poison}-type Pokémon can still remove
 Toxic Spikes even if they hold the boots\cite{Bulbapedia:EntryHazards}.
 There are various exceptions and special cases to hazards. 
 \todo{Special cases of hazards}
+
+\section{Showdown random battles}
+\label{sec:showdown-randbats}
+\subsection{Items}
+\label{sec:randbats-items}
