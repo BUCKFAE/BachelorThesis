@@ -1,5 +1,6 @@
 import re
 import subprocess
+from math import floor
 from typing import Tuple, Dict, Optional
 
 from poke_env.environment import status
@@ -81,9 +82,10 @@ class DamageCalculator:
         defender_base_stats = re.sub("\'", "\"", str(defender_build.base_stats))
 
         # Item
-        # TODO: Get item from Pokemon directly
-        attacker_item = item_to_calc_item(attacker_build.get_most_likely_item())
-        defender_item = item_to_calc_item(defender_build.get_most_likely_item())
+        attacker_item = item_to_calc_item(attacker_build.get_most_likely_item() if attacker_pokemon is None
+                                                                                   or attacker_pokemon.item == 'unknown_item' else attacker_pokemon.item)
+        defender_item = item_to_calc_item(defender_build.get_most_likely_item() if defender_pokemon is None
+                                                                                   or defender_pokemon.item == 'unknown_item' else defender_pokemon.item)
 
         # HP
         attacker_hp = attacker_build.get_most_likely_stats()["hp"] if attacker_pokemon is None \
@@ -161,7 +163,7 @@ class DamageCalculator:
         calculator_args[14] = calculator_args[14].capitalize()
 
         calc_input = (";;".join([str(i) for i in calculator_args]) + "\n").encode()
-        #print(f'{calc_input=}')
+        # print(f'{calc_input=}')
         self._cli_tool.stdin.write(calc_input)
         self._cli_tool.stdin.flush()
 
@@ -213,6 +215,8 @@ class DamageCalculator:
 
         # Recoil
         damage_taken_attacker = round((sum(ranges) / len(ranges)) * move.recoil)
+        damage_taken_attacker += floor(attacker_build.get_most_likely_stats()["hp"] / 10
+                                       if attacker_item == 'Life Orb' else 0)
 
         # Healing attacker
         damage_healed_attacker = move.heal * attacker_build.get_most_likely_stats()["hp"]
@@ -236,6 +240,7 @@ class DamageCalculator:
         )
 
         return move_result
+
 
 def extract_evs_ivs_from_build(pokemon: PokemonBuild) -> Tuple[Dict[str, int], Dict[str, int]]:
     assumed_ivs = {"hp": 31, "atk": 31, "def": 31, "spa": 31, "spd": 31, "spe": 31}
@@ -333,8 +338,9 @@ def _side_condition_to_field(side_condition: str, old_field: FieldState, side: O
     else:
         pass
         # TODO: Implement other field conditions
-        #logger.critical(f'Field condition {side_condition} is not yet implemented!')
-        #raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
+        # logger.critical(f'Field condition {side_condition} is not yet implemented!')
+        # raise NotImplementedError(f'Field condition {side_condition} is not yet implemented!')
+
 
 def get_total_stat(base: Dict[str, int], evs: Dict[str, int], ivs: Dict[str, int], level: int, stat: str) -> int:
     # Different formula for HP stat

@@ -1,4 +1,5 @@
 import unittest
+from math import floor
 
 from poke_env.environment import status
 from poke_env.environment.effect import Effect
@@ -95,11 +96,10 @@ class TestDamageCalculator(unittest.TestCase):
         assert res1.damage_taken_defender == \
                [657, 664, 672, 681, 688, 696, 703, 711, 718, 727, 735, 742, 750, 757, 765, 774]
 
-
         # Charizard: Earthquake
         res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
                                                               attacker_pokemon=pokemon1, defender_pokemon=pokemon2)
-        assert res2.damage_taken_defender ==  \
+        assert res2.damage_taken_defender == \
                [135, 136, 138, 139, 141, 143, 144, 146, 147, 149, 151, 152, 154, 155, 157, 159]
 
         # Garchomp: Fire Blast
@@ -136,7 +136,6 @@ class TestDamageCalculator(unittest.TestCase):
         res3: MoveResult = damage_calculator.calculate_damage(build2, build1, Move('firefang'),
                                                               attacker_pokemon=pokemon2)
         assert res3.damage_taken_defender == [16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 19]
-
 
         # Only one status can be active at a time
         pokemon2._status = status.Status.SLP
@@ -219,7 +218,6 @@ class TestDamageCalculator(unittest.TestCase):
         assert res1.new_field_state.field_side_p1.light_screen
 
     def test_damage_calculator_dynamax(self):
-
         build1 = load_build_from_file("charizard")
         build2 = load_build_from_file("salamence")
         pokemon1 = pokemon_from_build(build1)
@@ -243,7 +241,6 @@ class TestDamageCalculator(unittest.TestCase):
         assert res3.damage_taken_defender == [83, 84, 84, 86, 87, 87, 89, 90, 90, 92, 93, 93, 95, 96, 96, 98]
 
     def test_damage_calculator_gastrodon(self):
-
         build1 = load_build_from_file("gastrodon")
         build2 = load_build_from_file("gastrodoneast")
 
@@ -253,9 +250,9 @@ class TestDamageCalculator(unittest.TestCase):
         res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"))
         res2: MoveResult = damage_calculator.calculate_damage(build2, build1, Move("earthquake"))
         assert res1.damage_taken_defender == \
-            [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
+               [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
         assert res2.damage_taken_defender == \
-            [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
+               [105, 106, 108, 109, 109, 111, 112, 114, 115, 117, 117, 118, 120, 121, 123, 124]
 
     def test_damage_calculator_gourgeist_venusaur(self):
         """This matchup used to return incorrect damage ranges."""
@@ -277,6 +274,41 @@ class TestDamageCalculator(unittest.TestCase):
         # Shadow Sneak
         res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("shadowsneak"))
         assert res3.damage_taken_defender == [43, 45, 45, 45, 46, 46, 46, 48, 48, 48, 49, 49, 49, 51, 51, 52]
+
+    def test_damage_calculator_item(self):
+        """Ensures Items work with the damage calculator"""
+
+        build1 = load_build_from_file("charizard")
+        build2 = load_build_from_file("absol")
+        pokemon1 = pokemon_from_build(build1)
+        pokemon2 = pokemon_from_build(build2)
+
+        damage_calculator = DamageCalculator()
+
+        # Earhtquake- Heay-Duty-Boots
+        res1: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
+                                                              attacker_pokemon=pokemon1,
+                                                              defender_pokemon=pokemon2)
+        assert res1.damage_taken_defender == [73, 73, 74, 75, 76, 77, 78, 79, 79, 80, 81, 82, 83, 84, 85, 86]
+
+        pokemon1.item = 'lifeorb'
+
+        # Earthquake - Life Orb
+        res2: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
+                                                              attacker_pokemon=pokemon1,
+                                                              defender_pokemon=pokemon2)
+        assert res2.damage_taken_defender == \
+               [95, 95, 96, 97, 99, 100, 101, 103, 103, 104, 105, 107, 108, 109, 110, 112]
+        assert res2.damage_taken_attacker == floor(pokemon1.max_hp / 10)
+
+        # Earthquake - Air balloon
+        pokemon2.item = 'airballoon'
+        res3: MoveResult = damage_calculator.calculate_damage(build1, build2, Move("earthquake"),
+                                                              attacker_pokemon=pokemon1,
+                                                              defender_pokemon=pokemon2)
+        assert res3.damage_taken_defender == [0]
+        assert res3.damage_taken_attacker == floor(pokemon1.max_hp / 10)
+
 
 if __name__ == "__main__":
     unittest.main()
