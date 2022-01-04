@@ -17,8 +17,8 @@ from src.pokemon.bot.matchup.field.field_terrain import FieldTerrain
 from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
 from src.pokemon.config import NODE_DAMAGE_CALCULATOR_PATH
-from src.pokemon.data_handling.abilities.convert_ability import get_calculator_ability
-from src.pokemon.data_handling.items.item_to_calc_item import item_to_calc_item
+from src.pokemon.data_handling.abilities.convert_ability import AbilityTranslator
+from src.pokemon.data_handling.items.item_to_calc_item import ItemTranslator
 
 
 @singleton
@@ -83,9 +83,10 @@ class DamageCalculator:
         defender_base_stats = re.sub("\'", "\"", str(defender_build.base_stats))
 
         # Item
-        attacker_item = item_to_calc_item(attacker_build.get_most_likely_item() if attacker_pokemon is None
+        it = ItemTranslator()
+        attacker_item = it.item_to_calc_item(attacker_build.get_most_likely_item() if attacker_pokemon is None
                                                                                    or attacker_pokemon.item == 'unknown_item' else attacker_pokemon.item)
-        defender_item = item_to_calc_item(defender_build.get_most_likely_item() if defender_pokemon is None
+        defender_item = it.item_to_calc_item(defender_build.get_most_likely_item() if defender_pokemon is None
                                                                                    or defender_pokemon.item == 'unknown_item' else defender_pokemon.item)
 
         # HP
@@ -99,8 +100,9 @@ class DamageCalculator:
         defender_status = "" if defender_pokemon is None else _extract_status_from_pokemon(defender_pokemon)
 
         # Ability
-        attacker_ability = get_calculator_ability(attacker_build.get_most_likely_ability())
-        defender_ability = get_calculator_ability(defender_build.get_most_likely_ability())
+        at = AbilityTranslator()
+        attacker_ability = at.ability_to_calc_ability(attacker_build.get_most_likely_ability())
+        defender_ability = at.ability_to_calc_ability(defender_build.get_most_likely_ability())
 
         # Dynamax
         attacker_is_dynamaxed = str(False if attacker_pokemon is None else attacker_pokemon.is_dynamaxed)
