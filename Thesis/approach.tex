@@ -10,6 +10,7 @@
 \todo{If all Pokémon of a player fainted, the player loses} 
 
 \section{Battling}
+\label{sec:battling}
 One of the key aspects of the Pokémon game is to battle other Pokémon. In the mainline games, you can 
 have up to six Pokémon in your team, also known as party. There is the option to swap a Pokémon with
 another Pokémon, but you can't have more than six Pokémon at any point in your team. When playing the 
@@ -25,11 +26,11 @@ can be dropped by attacking it with a Move. If the \ac{HP} of a Pokémon drops t
 can't be used in this battle anymore. A player wins, if all Pokémon of the enemy are fainted. \\
 \textit{Note:} In the mainline games there is the possibility to heal or even revive a fainted 
 Pokémon during battle using \textit{Healing Items} like \textit{Revive} or \textit{Hyper Potion}.
-In competitive Play, only \textit{Held items} like \textit{Leftovers} are allowed. Items will explained
+In competitive Play, only \textit{Held items} like \textit{Leftovers} are allowed. Items will be explained
 in depth in section \ref{sec:items}.
 
 \subsection{Types}
-Pokémon implements a \textit{Rock-Paper-Scissors}-like system. Each Pokémon has eiter one or two of 
+Pokémon implements a \textit{Rock-Paper-Scissors}-like system. Each Pokémon has eihter one or two of 
 18 types. For example, a \textit{Fire}-type Pokémon is weak against \textit{Water}-type Pokémon
 whereas a \textit{Water}-type Pokémon is weak against \textit{Grass}-type Pokémon. Lastly,
 a \textit{Grass}-type Pokémon is weak against \textit{Fire}-type Pokémon. 
@@ -46,19 +47,84 @@ attack will deal 4 times the damage against \textit{Parasect} as \textit{Parasec
 
 \subsection{Moves}
 \label{sec:moves}
-Moves can either deal direct damage to the enemy Pokémon or yield other advantages, possibly multiple turns 
-in the future. \\
-
-
+Moves can be split up into three categories: \textit{Physical}-, \textit{Special}- and \textit{Status}-Moves.
+While \textit{Physical}- and \textit{Special}-moves usually deal damage to the opponent Pokémon, 
+\textit{Status}-Moves can for example change the weather, which plays a role in damage calculation explained
+in section \ref{sec:damage-calculation}, inflict status effects, raise or lower the stats of a Pokémon. Just 
+as Pokémon, each Move has one of the 18 possible types. 
 
 \subsubsection{Move Categories}
 \todo{Physical and Special moves} 
 
+\subsection{Pokémon}
+\label{sec:pokemon}
+As stated in \ref{sec:battling}, each Pokémon has a given amount of \ac{HP}. However, two Pokémon of the same 
+\textit{species}, meaning two Pokémon with the same name, can have different starting \ac{HP} values. The figure
+\ref{fig:charizard-stats} shows the different \textit{stats} for the Pokémon \textit{Charizard}.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/charizard-stats.png}
+	\caption{Charizard's stats \cite{Bulbapedia:Charizard}}
+	\label{fig:charizard-stats}
+\end{figure}
+\subsubsection{Explanation of stats}
+\textbf{HP:} The \ac{HP} determines how much damage a Pokémon can receive before fainting. \\
+\textbf{Attack:} The \ac{ATK} determines how much damage a Pokémon will deal when using 
+a \textit{Physical}-Move. \\
+\textbf{Defense:} The \ac{DEF} determines how well a Pokémon can resist against physical attacks. \\
+\textbf{Sp. Atk:} The \ac{SPA} determines how much damage a Pokémon will deal when using
+a \textit{Special}-Move. \\
+\textbf{Sp. Def:} The \ac{SPD} determines how well a Pokémon can resist against special attacks. \\
+\textbf{Speed:} The \ac{SPE} determines how fast a Pokémon can act. This is important as instead of
+both Pokémon moving at the same time, the Pokémon with the higher \ac{SPE} will move first. After 
+the faster Pokémon moved, the slower Pokémon will move. Therefore, the faster Pokémon is usually at an
+advantage. 
+\todo{Cover priority moves and trickroom}
+\todo{Cover evasion / accuracy, context to showdown}
+
+\subsubsection{Determination of stats}
+The total stat of a Pokémon is calculated as described in equation \ref{eq:stats-hp} and equation 
+\ref{eq:stats-other} \cite{Bulbapedia:Stat}.
+\begin{equation}
+	\label{eq:stats-hp}
+	HP = \Bigl\lfloor \frac{(2 \times Base + IV + \lfloor \frac{EV}{4} \rfloor) \times Level}{100}\Bigr\rfloor
+	+ Level + 10 \\
+\end{equation}
+\begin{equation}
+	\label{eq:stats-other}
+	OtherStat = \Bigl\lfloor \Big( \frac{2 \times Base + IV + \lfloor \frac{EV}{4} \rfloor) \times Level}
+	{100} + 5\Big) \times Nature \Bigr\rfloor
+\end{equation}
+\textbf{Base:} Refers to the base stat of a Pokémon. Two Pokémon of the same species will always have the 
+same base-stats. As seen in figure \ref{fig:charizard-stats}, a \textit{Charizard} will always have a
+base-\ac{ATK} of 84.
+
+\textbf{Level:} As mentioned in section \ref{sec:battling}, the goal of the mainline games is to create 
+a team of six Pokémon and to make that team stronger by fighting other Pokémon. If a Pokémon defeats
+enough other Pokémon, it grows a Level. The maximum level of a Pokémon is 100. If the level of a Pokémon
+increases, so will its stats. For each level gained (ignoring Nature), stats will increase by 1/50 the
+base stat value, and 1/100 the combined \ac{IV} and \ac{EV} values \cite{Bulbapedia:Stat}. 
+In Pokémon Showdown, the level of  a Pokémon is set at the start of the battle and won't 
+increase \cite{Smogon:RandBatsGuide}.
+
+\textbf{Nature:} A Pokémon has a nature. Most natures enhance the growth of one stat, while hindering
+the growth of another. After all other calculations are finished, the stat that the Nature enhances will
+be 100\% of what it would be without the Nature, and the stat hindered will be 90\% of its normal value
+\cite{Bulbapedia:Stat}. Nature can be neglected in this thesis as all Pokémon in random battles have
+a neutral nature, meaning no stat is enhanced or hindered \cite{Smogon:RandBatsGuide}.
+
+\textbf{IV:} Refers to the \ac{IV} of a Pokémon. These cause two Pokémon of the same species to have
+different Stats \cite{Bulbapedia:Stat}. Pokémon in Pokémon Showdown will always have the best possible \ac{IV} 
+stat, 31, unless it is a disadvantage for the Pokémon, then it will be zero \cite{Smogon:RandBatsGuide}.
+
+\textbf{EV:} These are the \ac{EV} of the Pokémon. \ac{EV} are what causes a trained Pokémon to have higher
+stats than an untrained counterpart of the same level. For every 4 \ac{EV} gained, a level 100 Pokémon 
+will have 1 extra point in the given stat. A Pokémon can earn up to 510 \ac{EV}, but can't have more than
+255 \ac{EV} in a single stat \cite{Bulbapedia:Stat}. Random Pokémon on Showdown will always have 85 
+\ac{EV} in each stat, or 0 in the case that having a high stat being detrimental \cite{Smogon:RandBatsGuide}.
+
 \subsection{Switching}
 \label{sec:switching}
-
-\subsection{Types}
-\label{sec:types}
 
 \subsection{Items}
 \label{sec:items}
