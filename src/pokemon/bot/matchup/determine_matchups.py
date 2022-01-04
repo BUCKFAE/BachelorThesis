@@ -102,8 +102,17 @@ def get_optimal_moves(
         defender_pokemon: Optional[Pokemon] = None,
         is_early_game: bool = False) -> List[MoveResult]:
     """
+    Calculates the optimal moves of the attacker against the defender
+    :param attacker_build: The build of the attacking Pokemon
+    :param defender_build: The build of the defending Pokemon
+    :param possible_moves: The Moves the attacking Pokemon can use
+    :param depth: How many turns to look into the future
+    :param damage_calculator: The damage calculator instance to use. This is passed as the calculator
+        takes some time to set up for the first time
+    :param field_state: The current state of the field
+    :param attacker_pokemon: The Pokemon attacking
+    :param defender_pokemon: The Pokemon getting attacked
     :param is_early_game: We won't boost in the early game
-    TODO: Kill the enemy as fast as possible
     """
 
     # All possible move combinations
@@ -198,14 +207,14 @@ def get_optimal_moves(
 
             current_moves.append(res)
 
-        # If the current combination is better than the best known combination
-        current_expected_damage = sum([x.get_average_damage() * Move(x.move).accuracy for x in current_moves])
+        # Calculating the damage the attacker takes
+        defender_damage_taken = sum([x.get_average_damage() * Move(x.move).accuracy for x in current_moves])
 
         defender_hp = defender_pokemon.current_hp if defender_pokemon is not None \
             else defender_build.get_most_likely_stats()["hp"]
 
         # We haven't found a combination to kill yet, picking the one that deals the most amount of damage
-        if current_expected_damage < defender_hp:
+        if defender_damage_taken < defender_hp:
             if best_moves_turns_to_kill == 1000:
 
                 # Using no drawback move
@@ -214,26 +223,26 @@ def get_optimal_moves(
                 if first_is_no_drawback:
                     # Not the first no-drawback-move. Picking combination that deals more damage
                     if knows_no_drawback_moves:
-                        if current_expected_damage >= best_move_expected_damage:
+                        if defender_damage_taken >= best_move_expected_damage:
                             best_moves = current_moves
-                            best_move_expected_damage = current_expected_damage
+                            best_move_expected_damage = defender_damage_taken
                     else:
                         # This is the first no drawback move. Using this combination as new best
                         best_moves = current_moves
-                        best_move_expected_damage = current_expected_damage
+                        best_move_expected_damage = defender_damage_taken
                     knows_no_drawback_moves = True
 
-                elif current_expected_damage >= best_move_expected_damage:
+                elif defender_damage_taken >= best_move_expected_damage:
                     # Pokemon doesn't know any no drawback moves, dealing the most amount of damage possible
                     best_moves = current_moves
-                    best_move_expected_damage = current_expected_damage
+                    best_move_expected_damage = defender_damage_taken
 
         else:
             to_kill = _get_turns_until_faint_from_moves(defender_hp, current_moves)
             if to_kill < best_moves_turns_to_kill or \
-                    (to_kill == best_moves_turns_to_kill and current_expected_damage >= best_move_expected_damage):
+                    (to_kill == best_moves_turns_to_kill and defender_damage_taken >= best_move_expected_damage):
                 best_moves = current_moves
-                best_move_expected_damage = current_expected_damage
+                best_move_expected_damage = defender_damage_taken
                 best_moves_turns_to_kill = to_kill
 
         # logger.info(f"Optimal moves for {attacker_build.species} vs {defender_build.species}:" +

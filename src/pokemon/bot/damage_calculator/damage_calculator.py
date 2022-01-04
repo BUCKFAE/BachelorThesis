@@ -9,6 +9,7 @@ from poke_env.environment.pokemon import Pokemon
 from poke_env.environment.pokemon_type import PokemonType
 from singleton_decorator import singleton
 
+from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.field.field_side import FieldSide
 from src.pokemon.bot.matchup.field.field_state import FieldState

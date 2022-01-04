@@ -2,11 +2,13 @@
 from math import ceil, floor
 from typing import List, Dict, Optional
 
-from poke_env.environment.pokemon import Pokemon
+from poke_env.environment.pokemon import Pokemon, Gen8Pokemon
+from poke_env.environment.pokemon_type import PokemonType
 
 from src.pokemon import logger
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
 from src.pokemon.bot.matchup.field.field_state import FieldState
+from src.pokemon.bot.matchup.field.field_weather import FieldWeather
 from src.pokemon.bot.matchup.move_result import MoveResult
 
 
@@ -157,12 +159,47 @@ class PokemonMatchup:
 
     def expected_turns_until_faint(self, species: str, current_hp: Optional[int] = None):
         """Returns the minimum amount of turns the given species will survive this matchup"""
-        # TODO: Use this method for isCheck and isCounter instead
         hp = self._get_pokemon_from_species(species).current_hp if current_hp is None else current_hp
-        # logger.info(f'{species} HP: {hp}')
-        dmg_taken = self.get_average_damage_per_turn(species)
-        # logger.info(f'{species} damage taken: {dmg_taken}')
-        return ceil(hp / dmg_taken) if dmg_taken > 0 else 50
+
+        # Simulating turns until Pokémon faints
+        hp_lost = 0
+        turns_survived = 0
+        while hp_lost < hp:
+
+            # Enemy Attack
+            enemy_move = self.get_optimal_moves_for_species(self.get_opponent(species))[turns_survived]
+            own_move = self.get_optimal_moves_for_species(species)[turns_survived]
+
+            # Damage enemy attack + recoil
+            hp_lost += enemy_move.get_average_damage() + own_move.damage_taken_attacker
+
+            # Healing of move
+            hp_lost = max(0, hp_lost - enemy_move.damage_healed_defender - own_move.damage_healed_attacker)
+
+            # No healing at the end of a turn if Pokémon faints
+            if hp_lost >= hp:
+                break
+
+            # Steel / Rock / Ground are not affected by sandstorm
+            if any([m.new_field_state.weather == FieldWeather.SAND for m in [enemy_move, own_move]]):
+                pkm = self._get_pokemon_from_species(species)
+                if not any(t in [PokemonType.STEEL, PokemonType.ROCK, PokemonType.GROUND] for t in pkm.types):
+                    hp_lost += round(hp / 16)
+
+            # Ice not effected by Hail
+            if any([m.new_field_state.weather == FieldWeather.HAIL for m in [enemy_move, own_move]]):
+                pkm = self._get_pokemon_from_species(species)
+                if not any([PokemonType.ICE == t for t in pkm.types]):
+                    hp_lost += round(hp / 16)
+
+            # Leftover
+            if self._get_pokemon_from_species(species).item == 'leftovers':
+                hp_lost = max(0, hp_lost - round(hp / 16))
+
+            turns_survived += 1
+
+        return max(0, turns_survived + 1)
+
 
     def is_battle_between(self, species1: str, species2: str) -> bool:
         """Checks if this matchup is played between the given two pokemon"""

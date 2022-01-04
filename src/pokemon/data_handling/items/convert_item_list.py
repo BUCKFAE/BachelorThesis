@@ -7,7 +7,7 @@ if __name__ == "__main__":
         items = []
 
         for line in lines:
-            match = re.search('\'([a-zA-Z0-9 ]+)\'', line)
+            match = re.search('\'([a-zA-Z0-9- ]+)\'', line)
             if match:
                 items.append(match.group(1))
 
