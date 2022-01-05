@@ -22,7 +22,8 @@ class MinMaxNode:
         self.remaining_hp_team_2 = remaining_hp_team_2
         self.matchups = matchups
         self.current_depth = current_depth
-        self.children = []
+        self.children = {}
+        self.is_min_node = is_min_node
 
     def build_tree_below_node(self):
         current_matchup: PokemonMatchup = list(filter(lambda matchup:
@@ -34,10 +35,6 @@ class MinMaxNode:
 
         hp_p1 = self.remaining_hp_team_1[self.own_species]
         hp_p2 = self.remaining_hp_team_2[self.enemy_species]
-
-
-        if self.own_species == 'salamence' and self.enemy_species == 'garchomp':
-            logger.info('borken')
 
         # Calculating the remaining HP if both Pokémon battle
         fainted_after_turns_p1 = current_matchup.expected_turns_until_faint(self.own_species, hp_p1)
@@ -73,34 +70,33 @@ class MinMaxNode:
         # logger.info(f'Remaining HP Team2: {self.remaining_hp_team_2}')
 
         # We have to switch
-        if all([v == 0 for v in self.remaining_hp_team_1.values()]) or \
-                all([v == 0 for v in self.remaining_hp_team_2.values()]):
-            pass
-        elif self.remaining_hp_team_1[self.own_species] == 0:
+
+        if self.remaining_hp_team_1[self.own_species] == 0:
             # logger.info('We have to make a move!')
             options = [p for p in self.remaining_hp_team_1.keys() if self.remaining_hp_team_1[p] > 0]
-            self.children = [MinMaxNode(
+            self.is_min_node = True
+            self.children = {option: MinMaxNode(
                 option,
                 self.enemy_species,
                 copy.deepcopy(self.remaining_hp_team_1),
                 copy.deepcopy(self.remaining_hp_team_2),
                 self.matchups,
-                self.current_depth + 1) for option in options]
+                self.current_depth + 1) for option in options}
 
         elif self.remaining_hp_team_2[self.enemy_species] == 0:
             # logger.info('The enemy has to make a move!')
             options = [p for p in self.remaining_hp_team_2.keys() if self.remaining_hp_team_2[p] > 0]
-            self.children = [MinMaxNode(
+            self.is_min_node = False
+            self.children = {option: MinMaxNode(
                     self.own_species,
                     option,
                     copy.deepcopy(self.remaining_hp_team_1),
                     copy.deepcopy(self.remaining_hp_team_2),
                     self.matchups,
-                    self.current_depth + 1) for option in options]
+                    self.current_depth + 1) for option in options}
 
         else:
-            print(f'coo')
             raise ValueError('Neither Pokemon was dead')
 
         # logger.info(f'Possible switches: {options}')
-        [n.build_tree_below_node() for n in self.children]
+        [n.build_tree_below_node() for n in self.children.values()]
