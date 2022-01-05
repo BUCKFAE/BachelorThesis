@@ -102,6 +102,7 @@ def clone_pokemon(pokemon: Gen8Pokemon, assumed_build: PokemonBuild) -> Pokemon:
     p._last_request["stats"] = assumed_build.get_most_likely_stats()
     p._current_hp = int(pokemon.current_hp_fraction * assumed_build.get_most_likely_stats()["hp"])
     p._max_hp = assumed_build.get_most_likely_stats()["hp"]
-    p._boosts = copy.deepcopy(pokemon.boosts)
+    if pokemon.active:
+        p._boosts = copy.deepcopy(pokemon.boosts)
 
     return p

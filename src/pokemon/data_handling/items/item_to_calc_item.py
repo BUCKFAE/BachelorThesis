@@ -19,7 +19,6 @@ class ItemTranslator:
     def item_to_calc_item(self, item: str) -> str:
 
         if item is None or item == 'None' or item == '':
-            logger.info(f'Item is none')
             return ''
 
         return self.item_table[item]

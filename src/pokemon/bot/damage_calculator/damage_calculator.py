@@ -88,10 +88,6 @@ class DamageCalculator:
                                                                                    or attacker_pokemon.item == 'unknown_item' else attacker_pokemon.item)
         defender_item = it.item_to_calc_item(defender_build.get_most_likely_item() if defender_pokemon is None
                                                                                    or defender_pokemon.item == 'unknown_item' else defender_pokemon.item)
-        logger.info(type(attacker_item))
-        logger.info(f'{attacker_item=}')
-        logger.info(f'{defender_item=}')
-
         # HP
         attacker_hp = attacker_build.get_most_likely_stats()["hp"] if attacker_pokemon is None \
             else round(attacker_build.get_most_likely_stats()["hp"] * attacker_pokemon.current_hp_fraction)
@@ -180,8 +176,6 @@ class DamageCalculator:
             if res == "DONE!":
                 break
             output.append(res)
-
-        print('\n'.join(output))
 
         # Getting the damage ranges
         res = [e for e in output if re.match("damage: [0-9]+,", e)]

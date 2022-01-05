@@ -33,8 +33,6 @@ class RuleBasedPlayer(Player):
     # Stores the damage calculator
     damage_calculator = DamageCalculator()
 
-    # TODO: Reset boosts of inactive Pokemon
-
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
         # Logging the tag of the battle on the first turn in order to combine logs and replays
