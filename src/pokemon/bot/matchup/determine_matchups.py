@@ -5,6 +5,7 @@ from typing import Dict, List, Optional
 from poke_env.environment import status
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
+from poke_env.environment.move_category import MoveCategory
 from poke_env.environment.pokemon import Pokemon
 
 from src.pokemon import logger
@@ -77,7 +78,8 @@ def determine_matchups(battle: AbstractBattle,
                 damage_calculator=damage_calculator,
                 attacker_pokemon=enemy,
                 defender_pokemon=member,
-                is_early_game=is_early_game
+                is_early_game=is_early_game,
+                use_no_drawback=False
             )
 
             matchup = PokemonMatchup(
@@ -103,7 +105,8 @@ def get_optimal_moves(
         field_state: Optional[FieldState] = None,
         attacker_pokemon: Optional[Pokemon] = None,
         defender_pokemon: Optional[Pokemon] = None,
-        is_early_game: bool = False) -> List[MoveResult]:
+        is_early_game: bool = False,
+        use_no_drawback: bool = True) -> List[MoveResult]:
     """
     Calculates the optimal moves of the attacker against the defender
     :param attacker_build: The build of the attacking Pokemon
@@ -232,6 +235,9 @@ def get_optimal_moves(
                 # Using no drawback move
                 first_is_no_drawback = is_no_drawback_move(Move(combination[0]), defender_pokemon)
 
+                if not use_no_drawback:
+                    first_is_no_drawback = False
+
                 if first_is_no_drawback:
                     # Not the first no-drawback-move. Picking combination that deals more damage
                     if knows_no_drawback_moves:
@@ -273,6 +279,10 @@ def is_no_drawback_move(move: Move, defender: Pokemon) -> bool:
 
     # If the move applies a status to the enemy Pokemon
     if move.status is not None:
+
+        if move.category != MoveCategory.STATUS:
+            print('oof')
+
         # If the enemy is already affected by a status we won't use the move as status can't be stacked
         if defender.status is not None:
             return False

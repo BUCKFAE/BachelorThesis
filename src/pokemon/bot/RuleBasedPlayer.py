@@ -194,7 +194,7 @@ class RuleBasedPlayer(Player):
                 return self.create_order(Move(best_healing_move))
 
         # Setting hazards earlygame if we are a check / counter
-        # if own_species in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
+        #if own_species in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
         if is_early_game:
             hazard_moves = [m for m in battle.available_moves if m.side_condition is not None]
 
@@ -230,7 +230,7 @@ class RuleBasedPlayer(Player):
                                     break
 
         # Boosting on checks
-        if own_species in current_enemy_walls + current_enemy_checks:
+        if own_species in current_enemy_walls + current_enemy_checks and not is_early_game:
             boost_moves = [m for m in battle.available_moves if m.boosts]
             if len(boost_moves) > 0:
                 if any([battle.active_pokemon.boosts[k] < 3.5 for k in boost_moves[0].boosts.keys()]):
