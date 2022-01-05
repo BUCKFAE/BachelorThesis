@@ -1,7 +1,6 @@
 import copy
 from typing import Dict, List
 
-from src.pokemon import logger
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 
 
@@ -24,6 +23,22 @@ class MinMaxNode:
         self.current_depth = current_depth
         self.children = {}
         self.is_min_node = is_min_node
+
+    def evaluate_node(self):
+
+        # Player 1 lost
+        if all([p == 0 for p in self.remaining_hp_team_1.values()]):
+            return -1
+
+        # Player 2 lost
+        if all([p == 0 for p in self.remaining_hp_team_2.values()]):
+            return 1
+
+        return sum([n.evaluate_node() for n in self.children.values()])
+
+    def is_leaf(self):
+        return all([p == 0 for p in self.remaining_hp_team_1.values()]) or \
+            all([p == 0 for p in self.remaining_hp_team_2.values()])
 
     def build_tree_below_node(self):
         current_matchup: PokemonMatchup = list(filter(lambda matchup:

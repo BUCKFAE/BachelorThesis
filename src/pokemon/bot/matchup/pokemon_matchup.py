@@ -164,7 +164,7 @@ class PokemonMatchup:
         # Simulating turns until Pokémon faints
         hp_lost = 0
         turns_survived = 0
-        while hp_lost < hp:
+        while hp_lost < hp and turns_survived < len(self.get_optimal_moves_for_species(species)):
 
             # Enemy Attack
             enemy_move = self.get_optimal_moves_for_species(self.get_opponent(species))[turns_survived]
@@ -198,7 +198,13 @@ class PokemonMatchup:
 
             turns_survived += 1
 
-        return max(0, turns_survived + 1)
+        # We were able to kill the enemy within the pre-calculated moves
+        if hp_lost >= hp:
+            return max(0, turns_survived + 1)
+
+        # We were not able to kill the enemy within the pre-calculated moves
+        dmg_taken = self.get_average_damage_per_turn(species)
+        return ceil(hp / dmg_taken) if dmg_taken > 0 else 50
 
 
     def is_battle_between(self, species1: str, species2: str) -> bool:

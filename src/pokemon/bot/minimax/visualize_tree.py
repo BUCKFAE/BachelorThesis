@@ -37,6 +37,8 @@ def _node_to_desc(node: MinMaxNode) -> str:
     s += f'{str(node.remaining_hp_team_1)}'
     s += f'<BR/>'
     s += f'{str(node.remaining_hp_team_2)}'
+    s += f'<BR/>'
+    s += f'Value: {str(node.evaluate_node())}'
     s += '>'
 
     return s
