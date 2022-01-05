@@ -17,7 +17,7 @@ from src.pokemon.config import GENERATED_DATA_PATH
 from src.pokemon.data_handling.cleanup_build_data import remove_illegal_pokemon_builds
 from src.pokemon.data_handling.util.species_names import convert_species_name
 
-NUM_BATTLES = 20_000
+NUM_BATTLES = 50_000
 
 
 class DumpingPlayer(Player):
@@ -130,7 +130,8 @@ async def main():
     p1 = DumpingPlayer(battle_format="gen8randombattle")
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=NUM_BATTLES)
+    for _ in range(NUM_BATTLES):
+        await p1.battle_against(p2, n_battles=1)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Random")
 

@@ -1,6 +1,7 @@
 import copy
 from typing import Dict, List
 
+from src.pokemon import logger
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
 
 
@@ -38,15 +39,19 @@ class MinMaxNode:
 
     def is_leaf(self):
         return all([p == 0 for p in self.remaining_hp_team_1.values()]) or \
-            all([p == 0 for p in self.remaining_hp_team_2.values()])
+               all([p == 0 for p in self.remaining_hp_team_2.values()])
 
     def build_tree_below_node(self):
-        current_matchup: PokemonMatchup = list(filter(lambda matchup:
+
+        try:
+            current_matchup: PokemonMatchup = list(filter(lambda matchup:
                                                       matchup.is_battle_between(self.own_species, self.enemy_species),
                                                       self.matchups))[0]
-        # logger.info(f'\n\n\n\nCreating tree below node')
-        # logger.info(f'{self.own_species=}')
-        # logger.info(f'{self.enemy_species=}')
+        except:
+            logger.info(f'Unkown matchup: {self.own_species} vs {self.enemy_species}')
+            logger.info(f'Known matchups:\n'
+                        '\n'.join([f'{m.pokemon_1} vs {m.pokemon_2.species}' for m in self.matchups]))
+            return
 
         hp_p1 = self.remaining_hp_team_1[self.own_species]
         hp_p2 = self.remaining_hp_team_2[self.enemy_species]
@@ -62,6 +67,7 @@ class MinMaxNode:
                 fainted_after_turns_p1 -= 1
             else:
                 fainted_after_turns_p2 -= 1
+
 
         if fainted_after_turns_p1 < fainted_after_turns_p2:
             # logger.info(f'{self.own_species} faints before {self.enemy_species}')
@@ -81,10 +87,10 @@ class MinMaxNode:
             self.remaining_hp_team_1[self.own_species] = remaining_hp_p1
             self.remaining_hp_team_2[self.enemy_species] = 0
 
-        # logger.info(f'Remaining HP Team1: {self.remaining_hp_team_1}')
-        # logger.info(f'Remaining HP Team2: {self.remaining_hp_team_2}')
+            # logger.info(f'Remaining HP Team1: {self.remaining_hp_team_1}')
+            # logger.info(f'Remaining HP Team2: {self.remaining_hp_team_2}')
 
-        # We have to switch
+            # We have to switch
 
         if self.remaining_hp_team_1[self.own_species] == 0:
             # logger.info('We have to make a move!')
@@ -103,15 +109,15 @@ class MinMaxNode:
             options = [p for p in self.remaining_hp_team_2.keys() if self.remaining_hp_team_2[p] > 0]
             self.is_min_node = False
             self.children = {option: MinMaxNode(
-                    self.own_species,
-                    option,
-                    copy.deepcopy(self.remaining_hp_team_1),
-                    copy.deepcopy(self.remaining_hp_team_2),
-                    self.matchups,
-                    self.current_depth + 1) for option in options}
+                self.own_species,
+                option,
+                copy.deepcopy(self.remaining_hp_team_1),
+                copy.deepcopy(self.remaining_hp_team_2),
+                self.matchups,
+                self.current_depth + 1) for option in options}
 
         else:
             raise ValueError('Neither Pokemon was dead')
 
-        # logger.info(f'Possible switches: {options}')
+            # logger.info(f'Possible switches: {options}')
         [n.build_tree_below_node() for n in self.children.values()]

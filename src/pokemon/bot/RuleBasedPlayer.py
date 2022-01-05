@@ -16,6 +16,7 @@ from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_o
 from src.pokemon.bot.matchup.field.field_state import battle_to_field
 from src.pokemon.bot.matchup.one_vs_one_strategy import OneVsOneStrategy
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
+from src.pokemon.bot.minimax.min_max import create_game_plan
 from src.pokemon.config import MATCHUP_MOVES_DEPTH
 from src.pokemon.data_handling.util.pokemon_creation import build_from_pokemon
 
@@ -31,6 +32,8 @@ class RuleBasedPlayer(Player):
 
     # Stores the damage calculator
     damage_calculator = DamageCalculator()
+
+    # TODO: Reset boosts of inactive Pokemon
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
@@ -52,9 +55,7 @@ class RuleBasedPlayer(Player):
         logger.info(f'Turn {battle.turn}')
         logger.info(f'Remaining team:\n\t' + ' '.join(alive_team))
 
-        # TODO: Determine at what point to leave early game
-        # TODO: Update all matchups on switch to late game
-        is_early_game = True
+        is_early_game = len(battle.opponent_team.keys()) < 6
         logger.info(f'Early Game: {is_early_game}')
 
         own_species = battle.active_pokemon.species
@@ -121,12 +122,13 @@ class RuleBasedPlayer(Player):
                     switch = current_enemy_counters[0]
                 else:
                     # TODO: Determine better Pokemon to switch into
-                    logger.info(f'\tSwitching random')
-                    switch = battle.available_switches[0].species
+                    switch = self.early_game_switch(battle)
+                    logger.info(f'\n\n\nEarly game switch: {switch}\n\n')
 
             else:
-                # TODO: Use MinMax to determine switch in defeat phase
-                switch = None
+                # TMinMax to determine switch in defeat phase
+                switch = self.get_late_game_switch(battle)
+                logger.info(f'\n\n\nMinmax Switch: \'{switch}\'\n\n\n')
 
             assert switch is not None
             new_pokemon = _pokemon_from_species(switch, battle)
@@ -135,6 +137,7 @@ class RuleBasedPlayer(Player):
 
         # Getting the matchup of both active Pokemon
         current_matchup = [m for m in enemy_matchups if m.pokemon_1.species == own_species]
+
         assert len(current_matchup) == 1
         current_matchup = current_matchup[0]
 
@@ -191,7 +194,7 @@ class RuleBasedPlayer(Player):
 
 
         # Switching if we have a better option
-        if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters:
+        if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
             logger.info(f'Current matchup is not favorable!')
 
             # Determining optimal pokemon to switch to
@@ -240,12 +243,37 @@ class RuleBasedPlayer(Player):
                                  battle.opponent_team[pokemon].gender.name,
                                  battle.opponent_team[pokemon].item,
                                  battle.opponent_team[pokemon].ability)
+                matchups_to_update.append(battle.opponent_team[pokemon])
 
         # Updating information about the enemy Pokemon
         self.enemy_builds[battle.opponent_active_pokemon.species].update_pokemon(battle.opponent_active_pokemon)
         matchups_to_update.append(battle.opponent_active_pokemon.species)
 
         return matchups_to_update
+
+    def get_late_game_switch(self, battle: AbstractBattle):
+
+        root_node = create_game_plan(battle, self.enemy_builds, self.matchups)
+
+        if battle.active_pokemon.fainted:
+            return root_node.own_species
+
+        return max(root_node.children.items(), key=lambda k: k[1].evaluate_node())[0]
+
+    def early_game_switch(self, battle: AbstractBattle):
+
+        worst_pokemon = None
+        worst_value = None
+
+        for pokemon in battle.available_switches:
+            value = 0
+            for m in self.matchups:
+                if m.pokemon_1 == pokemon.species:
+                    value += m.get_expected_damage_after_turns(MATCHUP_MOVES_DEPTH)
+            if worst_value is None or value < worst_pokemon:
+                worst_pokemon = pokemon
+
+        return worst_pokemon.species
 
 
 def _pokemon_from_species(species: str, battle: AbstractBattle) -> Pokemon:

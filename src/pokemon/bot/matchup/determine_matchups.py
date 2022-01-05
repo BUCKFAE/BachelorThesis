@@ -139,6 +139,15 @@ def get_optimal_moves(
             if any([Move(c).boosts is not None and Move(c).target in ['allySide', 'self'] for c in combination]):
                 continue
 
+        # Only boosting once
+        if len([c for c in combination if Move(c).boosts is not None and Move(c).target in ['allySide', 'self']]) > 1:
+            continue
+
+        # Not boosting if pokemon is already boosted
+        if attacker_pokemon.boosts:
+            if any([Move(c).boosts is not None and Move(c).target in ['allySide', 'self'] for c in combination]):
+                continue
+
         # print(f"{combination=}")
         current_moves = []
 

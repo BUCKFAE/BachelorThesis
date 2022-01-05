@@ -25,7 +25,7 @@ async def main():
 
     while True:
         await player.send_challenges("HerrDonner", 1)
-        time.sleep(10)
+        time.sleep(2)
 
     print(f'Stats: {player.n_won_battles} / {player.n_lost_battles}')
 
