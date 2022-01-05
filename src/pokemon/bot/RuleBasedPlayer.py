@@ -1,10 +1,12 @@
 import asyncio
+import re
 import sys
 from typing import Dict, List, Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
 from poke_env.environment.move import Move
 from poke_env.environment.pokemon import Pokemon
+from poke_env.environment.side_condition import SideCondition
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
 
@@ -37,7 +39,6 @@ class RuleBasedPlayer(Player):
 
         # Logging the tag of the battle on the first turn in order to combine logs and replays
         if battle.turn == 1:
-
             self.enemy_builds = {}
             self.current_strategy = None
             self.matchups = []
@@ -119,7 +120,6 @@ class RuleBasedPlayer(Player):
                     logger.info(f'\tSwitching to counter')
                     switch = current_enemy_counters[0]
                 else:
-                    # TODO: Determine better Pokemon to switch into
                     switch = self.early_game_switch(battle)
                     logger.info(f'\n\n\nEarly game switch: {switch}\n\n')
 
@@ -136,6 +136,9 @@ class RuleBasedPlayer(Player):
         # Getting the matchup of both active Pokemon
         current_matchup = [m for m in enemy_matchups if m.pokemon_1.species == own_species]
 
+        # TODO: Bug here in dmg calc, one pokemon added twice
+        if len(current_matchup) != 1:
+            print('h')
         assert len(current_matchup) == 1
         current_matchup = current_matchup[0]
 
@@ -190,6 +193,49 @@ class RuleBasedPlayer(Player):
                 logger.info(f'Healing using {best_healing_move}')
                 return self.create_order(Move(best_healing_move))
 
+        # Setting hazards earlygame if we are a check / counter
+        # if own_species in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
+        if is_early_game:
+            hazard_moves = [m for m in battle.available_moves if m.side_condition is not None]
+
+            if len(hazard_moves) > 0:
+                logger.info(f'We can set the following hazrads:\n' +
+                            '-'.join([m.id for m in hazard_moves]))
+                for hazard_move in hazard_moves:
+                    if hazard_move.id == 'toxicspikes':
+                        if battle.opponent_side_conditions.get(SideCondition.TOXIC_SPIKES, 0) < 2:
+                            logger.info(f'\n\nSetting toxic spikes\n\n')
+                            return self.create_order(hazard_move)
+                    elif hazard_move.id == 'spikes':
+                        if battle.opponent_side_conditions.get(SideCondition.SPIKES, 0) < 3:
+                            logger.info(f'\n\nSetting spikes\n\n')
+                            return self.create_order(hazard_move)
+                    elif hazard_move.id == 'stealthrock':
+                        if battle.opponent_side_conditions.get(SideCondition.STEALTH_ROCK, 0) < 1:
+                            logger.info(f'\n\nSetting Stealthrock\n\n')
+                            return self.create_order(hazard_move)
+                    elif hazard_move.id == 'stickyweb':
+                        if battle.opponent_side_conditions.get(SideCondition.STICKY_WEB, 0) < 1:
+                            logger.info(f'\n\nSetting Sticky web\n\n')
+                            return self.create_order(hazard_move)
+                    else:
+                        # Other beneficial side conditions
+                        for side_condition in SideCondition:
+                            n = re.sub('[^a-z]+', '', side_condition.name.lower())
+                            logger.info(f'{side_condition} -> {n}')
+                            if n == hazard_move.id:
+                                if battle.side_conditions.get(side_condition, 0) == 0:
+                                    return self.create_order(hazard_move)
+                                else:
+                                    break
+
+        # Boosting on checks
+        if own_species in current_enemy_walls + current_enemy_checks:
+            boost_moves = [m for m in battle.available_moves if m.boosts]
+            if len(boost_moves) > 0:
+                if any([battle.active_pokemon.boosts[k] < 3.5 for k in boost_moves[0].boosts.keys()]):
+                    logger.info(f'Boost Moves: {boost_moves}')
+                    return self.create_order(boost_moves[0])
 
         # Switching if we have a better option
         if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
@@ -210,7 +256,8 @@ class RuleBasedPlayer(Player):
 
         else:
             # Dynamaxing if we are in a good matchup, know enough of the enemy team and have good hp
-            if battle.can_dynamax and len(self.enemy_builds.keys()) >= 5 and battle.active_pokemon.current_hp_fraction >= 0.7:
+            if battle.can_dynamax and len(
+                    self.enemy_builds.keys()) >= 5 and battle.active_pokemon.current_hp_fraction >= 0.7:
                 logger.info(f'Dynamaxing as the matchup is good!')
                 return self.create_order(Move(best_own_move.move), dynamax=True)
 
@@ -241,7 +288,7 @@ class RuleBasedPlayer(Player):
                                  battle.opponent_team[pokemon].gender.name,
                                  battle.opponent_team[pokemon].item,
                                  battle.opponent_team[pokemon].ability)
-                matchups_to_update.append(battle.opponent_team[pokemon])
+                matchups_to_update.append(battle.opponent_team[pokemon].species)
 
         # Updating information about the enemy Pokemon
         self.enemy_builds[battle.opponent_active_pokemon.species].update_pokemon(battle.opponent_active_pokemon)
@@ -253,7 +300,7 @@ class RuleBasedPlayer(Player):
 
         root_node = create_game_plan(battle, self.enemy_builds, self.matchups)
 
-        if battle.active_pokemon.fainted:
+        if battle.active_pokemon.fainted or len(root_node.children) == 0:
             return root_node.own_species
 
         return max(root_node.children.items(), key=lambda k: k[1].evaluate_node())[0]
@@ -271,7 +318,7 @@ class RuleBasedPlayer(Player):
             if worst_value is None or value < worst_pokemon:
                 worst_pokemon = pokemon
 
-        return worst_pokemon.species
+        return worst_pokemon.species if worst_pokemon is not None else battle.available_switches[0]
 
 
 def _pokemon_from_species(species: str, battle: AbstractBattle) -> Pokemon:

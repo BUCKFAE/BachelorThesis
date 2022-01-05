@@ -33,8 +33,12 @@ def determine_matchups(battle: AbstractBattle,
     damage_calculator = DamageCalculator()
 
     # Getting both teams
+    # Sometimes the active Pokemon is also in the list of available switches. This needs to be filtered
     own_pokemon = battle.available_switches + ([battle.active_pokemon]
-                                               if battle.active_pokemon is not None and not battle.active_pokemon.fainted else [])
+                                               if battle.active_pokemon is not None and not battle.active_pokemon.fainted
+                                               and battle.active_pokemon.active
+                                               and battle.active_pokemon.species not in [p.species for p in battle.available_switches]
+                                               else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     logger.info(f'Determining matchups:\n\t{"-".join([s.species for s in own_pokemon])}'
@@ -136,7 +140,7 @@ def get_optimal_moves(
 
         # Skipping boosting combination in early game
         if is_early_game:
-            if any([Move(c).boosts is not None and Move(c).target in ['allySide', 'self'] for c in combination]):
+            if any([Move(c).boosts and Move(c).target in ['allySide', 'self'] for c in combination]):
                 continue
 
         # Only boosting once

@@ -16,6 +16,6 @@ class AbilityTranslator:
 
 
     def ability_to_calc_ability(self, ability: str) -> str:
-        if ability == 'asonespectrier':
+        if ability == 'asonespectrier' or ability == 'asoneglastrier':
             return 'As One'
         return self.ability_table[ability]

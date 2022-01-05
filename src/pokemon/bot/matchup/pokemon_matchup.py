@@ -181,13 +181,15 @@ class PokemonMatchup:
                 break
 
             # Steel / Rock / Ground are not affected by sandstorm
-            if any([m.new_field_state.weather == FieldWeather.SAND for m in [enemy_move, own_move]]):
+            # TODO: Why is the field state here none
+            if any([m.new_field_state.weather == FieldWeather.SAND for m in [enemy_move, own_move] if m.new_field_state is not None]):
                 pkm = self._get_pokemon_from_species(species)
                 if not any(t in [PokemonType.STEEL, PokemonType.ROCK, PokemonType.GROUND] for t in pkm.types):
                     hp_lost += round(hp / 16)
 
             # Ice not effected by Hail
-            if any([m.new_field_state.weather == FieldWeather.HAIL for m in [enemy_move, own_move]]):
+            # TODO: Why is the field state here none?
+            if any([m.new_field_state.weather == FieldWeather.HAIL for m in [enemy_move, own_move] if m.new_field_state is not None]):
                 pkm = self._get_pokemon_from_species(species)
                 if not any([PokemonType.ICE == t for t in pkm.types]):
                     hp_lost += round(hp / 16)
