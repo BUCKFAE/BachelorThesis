@@ -133,6 +133,15 @@ class PokemonMatchup:
 
     def _get_pokemon_from_species(self, species: str) -> Pokemon:
         """Returns the Pokemon with the name of this species"""
+
+        if 'mimikyu' in species:
+            species = 'mimikyu'
+            logger.critical('Mimikyu is fixed!')
+
+        if 'eiscue' in species:
+            species = 'eiscue'
+            logger.critical('Eiscue is fixed')
+
         if self.pokemon_1.species == species:
             return self.pokemon_1
         elif self.pokemon_2.species == species:
@@ -142,6 +151,16 @@ class PokemonMatchup:
                          f'Known Pokemon: {self.pokemon_1.species} - {self.pokemon_2.species}')
 
     def _get_build_from_species(self, species: str) -> PokemonBuild:
+
+        # Mimikyu changes name during play
+        if 'mimikyu' in species:
+            species = 'mimikyu'
+            logger.critical('Mimikyu is fixed!')
+
+        if 'eiscue' in species:
+            species = 'eiscue'
+            logger.critical('Eiscue is fixed')
+
         if self._build_p1.species == species:
             return self._build_p1
         elif self._build_p2.species == species:

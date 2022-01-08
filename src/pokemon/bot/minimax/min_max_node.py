@@ -45,8 +45,9 @@ class MinMaxNode:
 
         try:
             current_matchup: PokemonMatchup = list(filter(lambda matchup:
-                                                      matchup.is_battle_between(self.own_species, self.enemy_species),
-                                                      self.matchups))[0]
+                                                          matchup.is_battle_between(self.own_species,
+                                                                                    self.enemy_species),
+                                                          self.matchups))[0]
         except:
             logger.info(f'Unkown matchup: {self.own_species} vs {self.enemy_species}')
             logger.info(f'Known matchups:\n'
@@ -67,7 +68,6 @@ class MinMaxNode:
                 fainted_after_turns_p1 -= 1
             else:
                 fainted_after_turns_p2 -= 1
-
 
         if fainted_after_turns_p1 < fainted_after_turns_p2:
             # logger.info(f'{self.own_species} faints before {self.enemy_species}')
@@ -94,7 +94,8 @@ class MinMaxNode:
 
         if self.remaining_hp_team_1[self.own_species] == 0:
             # logger.info('We have to make a move!')
-            options = [p for p in self.remaining_hp_team_1.keys() if self.remaining_hp_team_1[p] > 0]
+            options = [p for p in self.remaining_hp_team_1.keys() \
+                       if self.remaining_hp_team_1[p] is not None if self.remaining_hp_team_1[p] > 0]
             self.is_min_node = True
             self.children = {option: MinMaxNode(
                 option,
@@ -106,7 +107,9 @@ class MinMaxNode:
 
         elif self.remaining_hp_team_2[self.enemy_species] == 0:
             # logger.info('The enemy has to make a move!')
-            options = [p for p in self.remaining_hp_team_2.keys() if self.remaining_hp_team_2[p] > 0]
+            # TODO: A dictionary entry was none here
+            options = [p for p in self.remaining_hp_team_2.keys() \
+                       if self.remaining_hp_team_2[p] is not None and self.remaining_hp_team_2[p] > 0]
             self.is_min_node = False
             self.children = {option: MinMaxNode(
                 self.own_species,
