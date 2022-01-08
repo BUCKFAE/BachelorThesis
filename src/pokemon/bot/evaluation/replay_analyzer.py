@@ -8,7 +8,7 @@ def main():
     joni_wins = 0
     donner_wins = 0
 
-    for path, _, files in os.walk('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/Joni/data/enhanced_replays'):
+    for path, _, files in os.walk('/Evaluation/HerrDonner/Joni/data/replays_joni'):
         for file_name in files:
             with open(os.path.join(path, file_name), 'r') as f:
                 replay = f.readlines()
