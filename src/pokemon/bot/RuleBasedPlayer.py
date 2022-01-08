@@ -67,6 +67,9 @@ class RuleBasedPlayer(Player):
         self.matchups = determine_matchups(battle, self.enemy_builds, existing_matchups=self.matchups,
                                            matchups_to_update=matchups_to_update, is_early_game=is_early_game)
 
+        logger.info(f'Own moves: ' + ' '.join([m.id for m in battle.available_moves]))
+        logger.info(f'Enemy moves: ' + ' '.join([m for m in self.enemy_builds[enemy_species].get_most_likely_moves()]))
+
         # Getting all matchups involving the current enemy
         enemy_matchups = [m for m in self.matchups if m.pokemon_2.species == enemy_species]
 
@@ -97,7 +100,6 @@ class RuleBasedPlayer(Player):
 
         logger.info(f'Checks: {current_enemy_checks}')
         logger.info(f'Counter: {current_enemy_counters}')
-        logger.info(f'Walls: {current_enemy_walls}')
 
         # Switching if we have to
         if len(battle.available_moves) == 0:
@@ -121,12 +123,12 @@ class RuleBasedPlayer(Player):
                     switch = current_enemy_counters[0]
                 else:
                     switch = self.early_game_switch(battle, enemy_matchups)
-                    logger.info(f'\n\n\nEarly game switch: {switch}\n\n')
+                    logger.info(f'Early game switch: {switch}')
 
             else:
                 # TMinMax to determine switch in defeat phase
                 switch = self.get_late_game_switch(battle)
-                logger.info(f'\n\n\nMinmax Switch: \'{switch}\'\n\n\n')
+                logger.info(f'Minmax Switch: \'{switch}\'')
 
             assert switch is not None
             new_pokemon = _pokemon_from_species(switch, battle)
@@ -208,25 +210,24 @@ class RuleBasedPlayer(Player):
                 for hazard_move in hazard_moves:
                     if hazard_move.id == 'toxicspikes':
                         if battle.opponent_side_conditions.get(SideCondition.TOXIC_SPIKES, 0) < 2:
-                            logger.info(f'\n\nSetting toxic spikes\n\n')
+                            logger.info(f'Setting toxic spikes')
                             return self.create_order(hazard_move)
                     elif hazard_move.id == 'spikes':
                         if battle.opponent_side_conditions.get(SideCondition.SPIKES, 0) < 3:
-                            logger.info(f'\n\nSetting spikes\n\n')
+                            logger.info(f'Setting spikes')
                             return self.create_order(hazard_move)
                     elif hazard_move.id == 'stealthrock':
                         if battle.opponent_side_conditions.get(SideCondition.STEALTH_ROCK, 0) < 1:
-                            logger.info(f'\n\nSetting Stealthrock\n\n')
+                            logger.info(f'Setting Stealthrock')
                             return self.create_order(hazard_move)
                     elif hazard_move.id == 'stickyweb':
                         if battle.opponent_side_conditions.get(SideCondition.STICKY_WEB, 0) < 1:
-                            logger.info(f'\n\nSetting Sticky web\n\n')
+                            logger.info(f'Setting Sticky web')
                             return self.create_order(hazard_move)
                     else:
                         # Other beneficial side conditions
                         for side_condition in SideCondition:
                             n = re.sub('[^a-z]+', '', side_condition.name.lower())
-                            logger.info(f'{side_condition} -> {n}')
                             if n == hazard_move.id:
                                 if battle.side_conditions.get(side_condition, 0) == 0:
                                     return self.create_order(hazard_move)
