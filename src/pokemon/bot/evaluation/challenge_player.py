@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from poke_env.player_configuration import PlayerConfiguration
 from poke_env.server_configuration import ShowdownServerConfiguration, LocalhostServerConfiguration
 
+from src.pokemon import logger
 from src.pokemon.bot.RuleBasedPlayer import RuleBasedPlayer
 
 
@@ -18,13 +19,16 @@ async def main():
     player = RuleBasedPlayer(
         battle_format="gen8randombattle",
         player_configuration=config,
-        server_configuration=LocalhostServerConfiguration,
+        server_configuration=ShowdownServerConfiguration,
         save_replays='src/data/replays',
         max_concurrent_battles=1,
         start_timer_on_battle_start=True)
 
     while True:
-        await player.send_challenges("HerrDonner", 1)
+        try:
+            await player.send_challenges("HerrDonner", 1)
+        except Exception:
+            logger.critical(f'Unable to finish game.')
         time.sleep(2)
 
     print(f'Stats: {player.n_won_battles} / {player.n_lost_battles}')

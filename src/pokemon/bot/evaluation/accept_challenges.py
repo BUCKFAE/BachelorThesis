@@ -29,7 +29,7 @@ async def main():
         try:
             await player.accept_challenges(None, 1)
         except Exception:
-            logging.critical("Error :(")
+            logging.critical("Unable to finish game.")
 
         time.sleep(5)
 
