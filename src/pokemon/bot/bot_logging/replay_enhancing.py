@@ -62,7 +62,7 @@ def enhance_replays():
             bot_team_string = '-'.join(bot_team)
 
             # Index of the replay
-            existing_replays = os.listdir('src/data/replays_joni')
+            existing_replays = os.listdir('src/data/enhanced_replays')
             next_file_index = 0
             if len(existing_replays) > 0:
                 existing_replays.sort(key=lambda x: x.split("-")[0], reverse=True)
@@ -72,7 +72,7 @@ def enhance_replays():
             new_file_name = re.sub('\\s+', '', f'{next_file_index:08d}-{name1}-{name2}-{bot_team_string}.html')
 
             # Creating enhanced HTML File
-            with open(f'src/data/replays_joni/{new_file_name}', 'w') as f:
+            with open(f'src/data/enhanced_replays/{new_file_name}', 'w') as f:
 
                 current_battle_log_line = 2
 
