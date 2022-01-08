@@ -14,7 +14,7 @@ from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
 from src.pokemon.bot.damage_calculator.damage_calculator import DamageCalculator
 from src.pokemon.bot.damage_calculator.pokemon_build import PokemonBuild
-from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_optimal_moves
+from src.pokemon.bot.matchup.determine_matchups import determine_matchups, get_optimal_moves, is_no_drawback_move
 from src.pokemon.bot.matchup.field.field_state import battle_to_field
 from src.pokemon.bot.matchup.one_vs_one_strategy import OneVsOneStrategy
 from src.pokemon.bot.matchup.pokemon_matchup import PokemonMatchup
@@ -120,7 +120,7 @@ class RuleBasedPlayer(Player):
                     logger.info(f'\tSwitching to counter')
                     switch = current_enemy_counters[0]
                 else:
-                    switch = self.early_game_switch(battle)
+                    switch = self.early_game_switch(battle, enemy_matchups)
                     logger.info(f'\n\n\nEarly game switch: {switch}\n\n')
 
             else:
@@ -136,10 +136,12 @@ class RuleBasedPlayer(Player):
         # Getting the matchup of both active Pokemon
         current_matchup = [m for m in enemy_matchups if m.pokemon_1.species == own_species]
 
-        # TODO: Bug here in dmg calc, one pokemon added twice
+        # If Zoruak transforms the matchups break, calculating matchups again, then deciding how to act
         if len(current_matchup) != 1:
-            print('h')
-        assert len(current_matchup) == 1
+            logger.critical(f'Invalid length for Matchup: \"{len(current_matchup)}\"')
+            self.matchups = determine_matchups(battle, self.enemy_builds)
+            return self.choose_move(battle)
+
         current_matchup = current_matchup[0]
 
         speed_p1 = battle.active_pokemon.stats["spe"]
@@ -154,8 +156,10 @@ class RuleBasedPlayer(Player):
         own_possible_moves = [m.id for m in battle.available_moves]
 
         # If the matchup changed we have to make a new strategy vs the opponent
+        # Reevaluate on choice item used.
         if self.current_strategy is None or \
-                self.current_strategy.needs_update(own_species, enemy_species, own_possible_moves):
+                self.current_strategy.needs_update(own_species, enemy_species, own_possible_moves) \
+                or len(battle.available_moves) == 1:
             optimal_moves = get_optimal_moves(
                 own_pokemon_build,
                 self.enemy_builds[enemy_species],
@@ -194,7 +198,7 @@ class RuleBasedPlayer(Player):
                 return self.create_order(Move(best_healing_move))
 
         # Setting hazards earlygame if we are a check / counter
-        #if own_species in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
+        # if own_species in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
         if is_early_game:
             hazard_moves = [m for m in battle.available_moves if m.side_condition is not None]
 
@@ -229,11 +233,15 @@ class RuleBasedPlayer(Player):
                                 else:
                                     break
 
-        # Boosting on checks
-        if own_species in current_enemy_walls + current_enemy_checks and not is_early_game:
+        # Boosting if survive for two turns longer than the enemy
+        # TODO: Boost only late?
+        if current_matchup.expected_turns_until_faint(own_species) - 2 > \
+                 current_matchup.expected_turns_until_faint(enemy_species) \
+                and battle.active_pokemon.current_hp_fraction > 0.7:
             boost_moves = [m for m in battle.available_moves if m.boosts]
             if len(boost_moves) > 0:
-                if any([battle.active_pokemon.boosts[k] < 3.5 for k in boost_moves[0].boosts.keys()]):
+                # Boosting one stage in early game
+                if any([battle.active_pokemon.boosts[k] < 2 for k in boost_moves[0].boosts.keys()]):
                     logger.info(f'Boost Moves: {boost_moves}')
                     return self.create_order(boost_moves[0])
 
@@ -261,9 +269,16 @@ class RuleBasedPlayer(Player):
                 logger.info(f'Dynamaxing as the matchup is good!')
                 return self.create_order(Move(best_own_move.move), dynamax=True)
 
-        # Dynamaxing on the last Pokemon
-        if battle.can_dynamax and len(alive_team) == 1:
-            logger.info(f'Dynamaxing as we only have one Pokemon remaining!')
+        # Switching early if we are at a disadvantage and there is no check / counter
+        if current_matchup.expected_turns_until_faint(own_species) + 3 < \
+                current_matchup.expected_turns_until_faint(enemy_species):
+            switch = self.create_order(self.early_game_switch(battle, enemy_matchups))
+            logger.info(f'Switching to {switch} as we are on a very bad matchup!')
+            return switch
+
+        if battle.can_dynamax and len([p for p in battle.team.values() if p.current_hp_fraction == 1]) == 1 and \
+                battle.active_pokemon.current_hp_fraction == 1:
+            logger.info(f'Dynamaxing on last full health pokemon!')
             return self.create_order(Move(best_own_move.move), dynamax=True)
 
         # Attacking the enemy
@@ -305,20 +320,51 @@ class RuleBasedPlayer(Player):
 
         return max(root_node.children.items(), key=lambda k: k[1].evaluate_node())[0]
 
-    def early_game_switch(self, battle: AbstractBattle):
+    def early_game_switch(self, battle: AbstractBattle, enemy_matchups: List[PokemonMatchup]):
+        """Switching to a Pokémon that can set hazards, or our worst Pokémon"""
 
-        worst_pokemon = None
-        worst_value = None
+        species_dict = {p.species: sum([m.get_expected_damage_after_turns(m.pokemon_2.species)
+                                        for m in enemy_matchups if m.pokemon_1.species == p.species])
+                        for p in battle.available_switches}
 
-        for pokemon in battle.available_switches:
-            value = 0
-            for m in self.matchups:
-                if m.pokemon_1 == pokemon.species:
-                    value += m.get_expected_damage_after_turns(MATCHUP_MOVES_DEPTH)
-            if worst_value is None or value < worst_pokemon:
-                worst_pokemon = pokemon
+        species_by_value = sorted([p.species for p in battle.team.values() if not p.fainted], key=lambda p:
+        sum([m.get_expected_damage_after_turns(m.pokemon_2.species)
+             for m in self.matchups if m.pokemon_1.species == p]), reverse=True)
 
-        return worst_pokemon.species if worst_pokemon is not None else battle.available_switches[0]
+        # Rules for switching
+        # - We won't switch into our top 2, unless we have to.
+        # - If a Pokémon can set a hazard: We use this Pokémon.
+        #       # TODO: This does not check if the hazard is already set (which is very unlikely)
+        # - If a Pokémon can use a no drawback move: We use this Pokémon.
+        for possible_switch in battle.available_switches:
+
+            # Not switching in our best 2 Pokémon
+            if possible_switch.species in species_by_value[:2]:
+                continue
+
+            possible_matchups = [m for m in enemy_matchups if m.pokemon_1.species == possible_switch.species]
+            if len(possible_matchups) != 1:
+                logger.critical(f'Unable to find matchup for possible switch: {possible_matchups}')
+                continue
+            matchup = possible_matchups[0]
+            survive_p1 = matchup.expected_turns_until_faint(possible_switch.species)
+
+            # Only switching in that Pokémon if it can survive for more than two turns
+            if survive_p1 > 2:
+
+                # Setting Hazards
+                hazard_moves = [m for m in possible_switch.moves if Move(m).side_condition is not None]
+                if len(hazard_moves) > 1:
+                    logger.info(f'Switching to Pokemon that can set hazards: {possible_switch.species}')
+                    return possible_switch.species
+
+            # If the Pokémon has a no drawback move it can use
+            if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon) for m in possible_switch.moves]):
+                logger.info(f'Switching to Pokemon that has a no drawback move: {possible_switch.species}')
+                return possible_switch.species
+
+        # Using our wors Pokemon
+        return species_by_value[-1]
 
 
 def _pokemon_from_species(species: str, battle: AbstractBattle) -> Pokemon:
@@ -333,7 +379,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = MaxDamagePlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=10)
+    await p1.battle_against(p2, n_battles=1000)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 

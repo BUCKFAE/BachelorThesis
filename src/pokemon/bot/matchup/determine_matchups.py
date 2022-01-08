@@ -37,7 +37,6 @@ def determine_matchups(battle: AbstractBattle,
     # Sometimes the active Pokemon is also in the list of available switches. This needs to be filtered
     own_pokemon = battle.available_switches + ([battle.active_pokemon]
                                                if battle.active_pokemon is not None and not battle.active_pokemon.fainted
-                                               and battle.active_pokemon.active
                                                and battle.active_pokemon.species not in [p.species for p in battle.available_switches]
                                                else [])
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
@@ -52,6 +51,9 @@ def determine_matchups(battle: AbstractBattle,
             # Keeping existing matchups
             if matchups_to_update is not None and existing_matchups is not None:
                 if enemy.species not in matchups_to_update:
+                    # Always re-evaluating on choice items.
+                    if member.species == battle.active_pokemon.species and len(battle.available_moves) == 1:
+                        continue
                     matchups += [m for m in existing_matchups if m.pokemon_1.species == member.species and
                                  m.pokemon_2.species == enemy.species]
                     continue
@@ -154,6 +156,10 @@ def get_optimal_moves(
         if attacker_pokemon.boosts:
             if any([Move(c).boosts is not None and Move(c).target in ['allySide', 'self'] for c in combination]):
                 continue
+
+        # Not using explosion if we are above 25% hp
+        if any([Move(c).id == 'explosion' for c in combination]) and attacker_pokemon.current_hp_fraction > 0.25:
+            continue
 
         # print(f"{combination=}")
         current_moves = []
