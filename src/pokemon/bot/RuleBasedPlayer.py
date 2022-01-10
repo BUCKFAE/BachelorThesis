@@ -359,12 +359,12 @@ class RuleBasedPlayer(Player):
                     logger.info(f'Switching to Pokemon that can set hazards: {possible_switch.species}')
                     return possible_switch.species
 
-            # If the Pokémon has a no drawback move it can use
-            if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon) for m in possible_switch.moves]):
-                logger.info(f'Switching to Pokemon that has a no drawback move: {possible_switch.species}')
-                return possible_switch.species
+                # If the Pokémon has a no drawback move it can use
+                if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon) for m in possible_switch.moves]):
+                    logger.info(f'Switching to Pokemon that has a no drawback move: {possible_switch.species}')
+                    return possible_switch.species
 
-        # Using our wors Pokemon
+        # Using our worst Pokemon
         return species_by_value[-1]
 
 
