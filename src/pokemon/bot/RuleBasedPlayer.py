@@ -238,7 +238,7 @@ class RuleBasedPlayer(Player):
         # TODO: Boost only late?
         if current_matchup.expected_turns_until_faint(own_species) - 2 > \
                  current_matchup.expected_turns_until_faint(enemy_species) \
-                and battle.active_pokemon.current_hp_fraction > 0.7 and not is_early_game:
+                and battle.active_pokemon.current_hp_fraction > 0.7:
             boost_moves = [m for m in battle.available_moves if m.boosts]
             if len(boost_moves) > 0:
                 # Boosting one stage in early game
