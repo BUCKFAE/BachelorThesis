@@ -51,12 +51,11 @@ def determine_matchups(battle: AbstractBattle,
             # Keeping existing matchups
             if matchups_to_update is not None and existing_matchups is not None:
                 if enemy.species not in matchups_to_update:
-                    # Always re-evaluating on choice items.
-                    if member.species == battle.active_pokemon.species and len(battle.available_moves) == 1:
+                    # Always re-evaluating active Pokémon
+                    if member.species != battle.active_pokemon.species:
+                        matchups += [m for m in existing_matchups if m.pokemon_1.species == member.species and
+                                     m.pokemon_2.species == enemy.species]
                         continue
-                    matchups += [m for m in existing_matchups if m.pokemon_1.species == member.species and
-                                 m.pokemon_2.species == enemy.species]
-                    continue
 
             member_build = build_from_pokemon(member)
 
