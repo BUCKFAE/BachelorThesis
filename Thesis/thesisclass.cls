@@ -34,9 +34,8 @@
 \usepackage[absolute,overlay]{textpos}
 \usepackage{tikz}
 
-\usepackage{algorithm}		  % Code-Listings
-\usepackage{algorithmic}	  % Code-Listings
-\usepackage{algpseudocode}
+\usepackage{algorithm2e}		  % Code-Listings
+\RestyleAlgo{ruled}
 % see http://www.ctan.org/tex-archive/macros/latex/contrib/algorithm2e/algorithm2e.pdf
 % for more sophisticated algorithm listings
 
