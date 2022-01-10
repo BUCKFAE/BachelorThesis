@@ -317,10 +317,7 @@ class RuleBasedPlayer(Player):
 
         root_node = create_game_plan(battle, self.enemy_builds, self.matchups)
 
-        if battle.active_pokemon.fainted or len(root_node.children) == 0:
-            return root_node.own_species
-
-        return max(root_node.children.items(), key=lambda k: k[1].evaluate_node())[0]
+        return root_node.own_species
 
     def early_game_switch(self, battle: AbstractBattle, enemy_matchups: List[PokemonMatchup]):
         """Switching to a Pokémon that can set hazards, or our worst Pokémon"""

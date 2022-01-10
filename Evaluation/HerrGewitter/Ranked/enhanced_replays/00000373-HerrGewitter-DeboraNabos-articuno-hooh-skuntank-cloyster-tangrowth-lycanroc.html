@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1488240850</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1488240850|init|battle
+|title|HerrGewitter vs. DeboraNabos
+|j|☆HerrGewitter
+|j|☆DeboraNabos
+|gametype|singles
+|player|p1|HerrGewitter|266|1293
+|player|p2|DeboraNabos|170|1323
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Articuno|Articuno, L84|288/288
+|switch|p2a: Articuno|Articuno, L84|100/100
+|-ability|p2a: Articuno|Pressure
+|-ability|p1a: Articuno|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-skuntank-cloyster-tangrowth-lycanroc-articuno -- articuno
+|chat|DEBUG|Own moves: healbell roost freezedry toxic
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['hooh', 'lycanroc']
+|chat|DEBUG|Counter: ['hooh', 'skuntank', 'lycanroc']
+|chat|DEBUG|Speed: 191 vs 191
+|chat|DEBUG|HP: 288 vs 288
+|chat|DEBUG|Created a new Strategy for articuno vs articuno:
+|chat|DEBUG|>[freezedry: 55.9375 [51, 61], freezedry: 55.9375 [51, 61], freezedry: 55.9375 [51, 61]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 55.9375 [51, 61]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 55.9375 [51, 61]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by HerrGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Ho-Oh|Ho-Oh, L72|272/272
+|move|p2a: Articuno|Toxic|p1a: Ho-Oh
+|-status|p1a: Ho-Oh|tox
+|-damage|p1a: Ho-Oh|255/272 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-cloyster-tangrowth-lycanroc-hooh -- articuno
+|chat|DEBUG|Own moves: roost earthquake sacredfire bravebird
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['lycanroc', 'hooh']
+|chat|DEBUG|Counter: ['skuntank', 'lycanroc', 'hooh']
+|chat|DEBUG|Speed: 172 vs 191
+|chat|DEBUG|HP: 255 vs 288
+|chat|DEBUG|Created a new Strategy for hooh vs articuno:
+|chat|DEBUG|>[sacredfire: 178.375 [164, 194], sacredfire: 178.375 [164, 194], sacredfire: 178.375 [164, 194]]
+|chat|DEBUG|Best move of hooh (p1): sacredfire: 178.375 [164, 194]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 54.75 [51, 60]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|100/100
+|move|p1a: Ho-Oh|Sacred Fire|p2a: Latias
+|-resisted|p2a: Latias
+|-damage|p2a: Latias|79/100
+|-status|p2a: Latias|brn
+|-heal|p2a: Latias|85/100 brn|[from] item: Leftovers
+|-damage|p1a: Ho-Oh|221/272 tox|[from] psn
+|-damage|p2a: Latias|79/100 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-cloyster-tangrowth-lycanroc-hooh -- articuno-latias
+|chat|DEBUG|Own moves: roost earthquake sacredfire bravebird
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['articuno']
+|chat|DEBUG|Counter: ['articuno', 'lycanroc']
+|chat|DEBUG|Speed: 172 vs 222
+|chat|DEBUG|HP: 221 vs 204
+|chat|DEBUG|Created a new Strategy for hooh vs latias:
+|chat|DEBUG|>[bravebird: 121.1875 [111, 132], bravebird: 121.1875 [111, 132], bravebird: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of hooh (p1): bravebird: 121.1875 [111, 132]
+|chat|DEBUG|Best move of latias (p2): psychic: 72.5625 [67, 79]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Articuno|Articuno, L84|288/288
+|-ability|p1a: Articuno|Pressure
+|move|p2a: Latias|Psychic|p1a: Articuno
+|-damage|p1a: Articuno|210/288
+|-heal|p2a: Latias|85/100 brn|[from] item: Leftovers
+|-damage|p2a: Latias|79/100 brn|[from] brn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-skuntank-cloyster-tangrowth-lycanroc-articuno -- articuno-latias
+|chat|DEBUG|Own moves: healbell roost freezedry toxic
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hooh', 'lycanroc', 'articuno']
+|chat|DEBUG|Speed: 191 vs 222
+|chat|DEBUG|HP: 210 vs 204
+|chat|DEBUG|Created a new Strategy for articuno vs latias:
+|chat|DEBUG|>[freezedry: 114.625 [104, 126], freezedry: 114.625 [104, 126], freezedry: 114.625 [104, 126]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 114.625 [104, 126]
+|chat|DEBUG|Best move of latias (p2): psychic: 73.9375 [67, 81]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Excadrill|Excadrill, L78, M|100/100
+|-ability|p2a: Excadrill|Mold Breaker
+|move|p1a: Articuno|Freeze-Dry|p2a: Excadrill
+|-damage|p2a: Excadrill|70/100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-skuntank-cloyster-tangrowth-lycanroc-articuno -- articuno-latias-excadrill
+|chat|DEBUG|Own moves: healbell roost freezedry toxic
+|chat|DEBUG|Enemy moves: earthquake ironhead rapidspin swordsdance
+|chat|DEBUG|Checks: ['hooh', 'cloyster', 'tangrowth']
+|chat|DEBUG|Counter: ['hooh', 'skuntank', 'cloyster', 'tangrowth', 'lycanroc']
+|chat|DEBUG|Speed: 191 vs 182
+|chat|DEBUG|HP: 210 vs 210
+|chat|DEBUG|Created a new Strategy for articuno vs excadrill:
+|chat|DEBUG|>[freezedry: 97.625 [90, 106], freezedry: 97.625 [90, 106], freezedry: 97.625 [90, 106]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 97.625 [90, 106]
+|chat|DEBUG|Best move of excadrill (p2): ironhead: 175.875 [162, 192]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ho-Oh|Ho-Oh, L72|272/272 tox
+|move|p2a: Excadrill|Iron Head|p1a: Ho-Oh
+|-resisted|p1a: Ho-Oh
+|-damage|p1a: Ho-Oh|203/272 tox
+|-damage|p2a: Excadrill|60/100|[from] item: Life Orb
+|-damage|p1a: Ho-Oh|186/272 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-cloyster-tangrowth-lycanroc-hooh -- articuno-latias-excadrill
+|chat|DEBUG|Own moves: roost earthquake sacredfire bravebird
+|chat|DEBUG|Enemy moves: earthquake ironhead rockslide swordsdance
+|chat|DEBUG|Checks: ['cloyster', 'tangrowth']
+|chat|DEBUG|Counter: ['skuntank', 'cloyster', 'tangrowth', 'lycanroc']
+|chat|DEBUG|Speed: 172 vs 182
+|chat|DEBUG|HP: 186 vs 180
+|chat|DEBUG|Created a new Strategy for hooh vs excadrill:
+|chat|DEBUG|>[sacredfire: 277.0 [254, 300], sacredfire: 277.0 [254, 300], sacredfire: 277.0 [254, 300]]
+|chat|DEBUG|Best move of hooh (p1): sacredfire: 277.0 [254, 300]
+|chat|DEBUG|Best move of excadrill (p2): rockslide: 358.8125 [328, 390]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cloyster|Cloyster, L80, M|211/211
+|move|p2a: Excadrill|Rock Slide|p1a: Cloyster
+|-supereffective|p1a: Cloyster
+|-damage|p1a: Cloyster|123/211
+|-damage|p2a: Excadrill|50/100|[from] item: Life Orb
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-tangrowth-lycanroc-cloyster -- articuno-latias-excadrill
+|chat|DEBUG|Own moves: hydropump shellsmash rockblast iciclespear
+|chat|DEBUG|Enemy moves: earthquake ironhead rockslide swordsdance
+|chat|DEBUG|Checks: ['tangrowth']
+|chat|DEBUG|Counter: ['skuntank', 'tangrowth', 'lycanroc', 'cloyster']
+|chat|DEBUG|Speed: 158 vs 182
+|chat|DEBUG|HP: 123 vs 150
+|chat|DEBUG|Created a new Strategy for cloyster vs excadrill:
+|chat|DEBUG|>[hydropump: 262.0 [240, 284], hydropump: 262.0 [240, 284], hydropump: 262.0 [240, 284]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 262.0 [240, 284]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 92.5 [86, 101]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Excadrill|Iron Head|p1a: Cloyster
+|-damage|p1a: Cloyster|52/211
+|-damage|p2a: Excadrill|40/100|[from] item: Life Orb
+|cant|p1a: Cloyster|flinch
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-tangrowth-lycanroc-cloyster -- articuno-latias-excadrill
+|chat|DEBUG|Own moves: hydropump shellsmash rockblast iciclespear
+|chat|DEBUG|Enemy moves: earthquake ironhead rockslide swordsdance
+|chat|DEBUG|Checks: ['tangrowth']
+|chat|DEBUG|Counter: ['articuno', 'skuntank', 'tangrowth', 'lycanroc']
+|chat|DEBUG|Speed: 158 vs 182
+|chat|DEBUG|HP: 52 vs 120
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 262.0 [240, 284]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 92.5 [86, 101]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tangrowth|Tangrowth, L84, F|305/305
+|move|p2a: Excadrill|Rock Slide|p1a: Tangrowth
+|-damage|p1a: Tangrowth|249/305
+|-damage|p2a: Excadrill|30/100|[from] item: Life Orb
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-cloyster-lycanroc-tangrowth -- articuno-latias-excadrill
+|chat|DEBUG|Own moves: earthquake knockoff gigadrain leechseed
+|chat|DEBUG|Enemy moves: earthquake ironhead rockslide swordsdance
+|chat|DEBUG|Checks: ['tangrowth']
+|chat|DEBUG|Counter: ['articuno', 'skuntank', 'lycanroc', 'tangrowth']
+|chat|DEBUG|Speed: 132 vs 182
+|chat|DEBUG|HP: 249 vs 90
+|chat|DEBUG|Created a new Strategy for tangrowth vs excadrill:
+|chat|DEBUG|>[earthquake: 202.5 [186, 220], earthquake: 202.5 [186, 220], earthquake: 202.5 [186, 220]]
+|chat|DEBUG|Best move of tangrowth (p1): earthquake: 202.5 [186, 220]
+|chat|DEBUG|Best move of excadrill (p2): ironhead: 96.125 [87, 105]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, F|100/100
+|move|p1a: Tangrowth|Earthquake|p2a: Sigilyph
+|-immune|p2a: Sigilyph
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "sigilyph"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-cloyster-lycanroc-tangrowth -- articuno-latias-excadrill-sigilyph
+|chat|DEBUG|Own moves: earthquake knockoff gigadrain leechseed
+|chat|DEBUG|Enemy moves: airslash defog energyball psychic
+|chat|DEBUG|Checks: ['lycanroc']
+|chat|DEBUG|Counter: ['articuno', 'lycanroc']
+|chat|DEBUG|Speed: 132 vs 209
+|chat|DEBUG|HP: 249 vs 255
+|chat|DEBUG|Created a new Strategy for tangrowth vs sigilyph:
+|chat|DEBUG|>[knockoff: 152.75 [140, 166], knockoff: 152.75 [140, 166], knockoff: 152.75 [140, 166]]
+|chat|DEBUG|Best move of tangrowth (p1): knockoff: 152.75 [140, 166]
+|chat|DEBUG|Best move of sigilyph (p2): airslash: 318.625 [291, 346]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lycanroc|Lycanroc, L80, F|251/251
+|move|p2a: Sigilyph|Air Slash|p1a: Lycanroc
+|-resisted|p1a: Lycanroc
+|-damage|p1a: Lycanroc|177/251
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanroc" vs "sigilyph"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-cloyster-tangrowth-lycanroc -- articuno-latias-excadrill-sigilyph
+|chat|DEBUG|Own moves: closecombat swordsdance psychicfangs stoneedge
+|chat|DEBUG|Enemy moves: airslash defog energyball psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articuno', 'lycanroc']
+|chat|DEBUG|Speed: 225 vs 209
+|chat|DEBUG|HP: 177 vs 255
+|chat|DEBUG|Created a new Strategy for lycanroc vs sigilyph:
+|chat|DEBUG|>[stoneedge: 315.0625 [289, 343], stoneedge: 315.0625 [289, 343], stoneedge: 315.0625 [289, 343]]
+|chat|DEBUG|Best move of lycanroc (p1): stoneedge: 315.0625 [289, 343]
+|chat|DEBUG|Best move of sigilyph (p2): energyball: 222.4375 [205, 242]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Clefable|Clefable, L82, M|100/100
+|move|p1a: Lycanroc|Stone Edge|p2a: Clefable
+|-damage|p2a: Clefable|45/100
+|-damage|p1a: Lycanroc|152/251|[from] item: Life Orb
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanroc" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-cloyster-tangrowth-lycanroc -- articuno-latias-excadrill-sigilyph-clefable
+|chat|DEBUG|Own moves: closecombat swordsdance psychicfangs stoneedge
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: ['skuntank', 'hooh']
+|chat|DEBUG|Counter: ['articuno', 'skuntank', 'hooh', 'lycanroc']
+|chat|DEBUG|Speed: 225 vs 146
+|chat|DEBUG|HP: 152 vs 130
+|chat|DEBUG|Created a new Strategy for lycanroc vs clefable:
+|chat|DEBUG|>[stoneedge: 170.3125 [156, 185], stoneedge: 170.3125 [156, 185], stoneedge: 170.3125 [156, 185]]
+|chat|DEBUG|Best move of lycanroc (p1): stoneedge: 170.3125 [156, 185]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 159.3125 [146, 173]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lycanroc|Stone Edge|p2a: Clefable
+|-damage|p2a: Clefable|0 fnt
+|faint|p2a: Clefable
+|-damage|p1a: Lycanroc|127/251|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|79/100 brn
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth lycanroc
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanroc" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-cloyster-tangrowth-lycanroc -- articuno-latias-excadrill-sigilyph
+|chat|DEBUG|Own moves: closecombat swordsdance psychicfangs stoneedge
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articuno', 'hooh']
+|chat|DEBUG|Speed: 225 vs 222
+|chat|DEBUG|HP: 127 vs 204
+|chat|DEBUG|Created a new Strategy for lycanroc vs latias:
+|chat|DEBUG|>[stoneedge: 150.25 [138, 164], stoneedge: 150.25 [138, 164], stoneedge: 150.25 [138, 164]]
+|chat|DEBUG|Best move of lycanroc (p1): stoneedge: 150.25 [138, 164]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 182.375 [168, 198]
+|chat|DEBUG|Current matchup is not favorable!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lycanroc|Stone Edge|p2a: Latias
+|-damage|p2a: Latias|22/100 brn
+|-damage|p1a: Lycanroc|102/251|[from] item: Life Orb
+|move|p2a: Latias|Psychic|p1a: Lycanroc
+|-damage|p1a: Lycanroc|0 fnt
+|faint|p1a: Lycanroc
+|-heal|p2a: Latias|28/100 brn|[from] item: Leftovers
+|-damage|p2a: Latias|22/100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Articuno|Articuno, L84|210/288
+|-ability|p1a: Articuno|Pressure
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanroc" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>articuno-skuntank-hooh-cloyster-tangrowth -- articuno-latias-excadrill-sigilyph
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articuno', 'hooh']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to articuno (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Draco Meteor|p1a: Articuno
+|-damage|p1a: Articuno|101/288
+|-unboost|p2a: Latias|spa|2
+|move|p1a: Articuno|Freeze-Dry|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|0 fnt
+|faint|p2a: Latias
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Reshiram|Reshiram, L74|100/100
+|-ability|p2a: Reshiram|Turboblaze
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-hooh-cloyster-tangrowth-articuno -- articuno-latias-excadrill-sigilyph
+|chat|DEBUG|Own moves: healbell roost freezedry toxic
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['hooh', 'articuno']
+|chat|DEBUG|Counter: ['skuntank', 'hooh', 'tangrowth', 'articuno']
+|chat|DEBUG|Speed: 191 vs 222
+|chat|DEBUG|HP: 210 vs 56
+|chat|DEBUG|Created a new Strategy for articuno vs latias:
+|chat|DEBUG|>[freezedry: 114.625 [104, 126], freezedry: 114.625 [104, 126], freezedry: 114.625 [104, 126]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 114.625 [104, 126]
+|chat|DEBUG|Best move of latias (p2): psychic: 73.9375 [67, 81]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Articuno|Freeze-Dry|p2a: Reshiram
+|-damage|p2a: Reshiram|77/100
+|move|p2a: Reshiram|Blue Flare|p1a: Articuno
+|-supereffective|p1a: Articuno
+|-damage|p1a: Articuno|0 fnt
+|faint|p1a: Articuno
+|-heal|p2a: Reshiram|83/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Skuntank|Skuntank, L85, F|314/314
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>articuno hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "articuno" vs "reshiram"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-hooh-cloyster-tangrowth-articuno -- articuno-excadrill-sigilyph-reshiram
+|chat|DEBUG|Own moves: healbell roost freezedry toxic
+|chat|DEBUG|Enemy moves: blueflare dracometeor roost toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|Speed: 191 vs 176
+|chat|DEBUG|HP: 101 vs 270
+|chat|DEBUG|Created a new Strategy for articuno vs reshiram:
+|chat|DEBUG|>[freezedry: 65.75 [60, 72], freezedry: 65.75 [60, 72], freezedry: 65.75 [60, 72]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 65.75 [60, 72]
+|chat|DEBUG|Best move of reshiram (p2): blueflare: 231.25 [212, 252]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Skuntank|Dynamax
+|-heal|p1a: Skuntank|628/628|[silent]
+|move|p1a: Skuntank|Max Ooze|p2a: Reshiram
+|-damage|p2a: Reshiram|38/100
+|-boost|p1a: Skuntank|spa|1
+|-damage|p1a: Skuntank|597/628|[from] item: Life Orb
+|move|p2a: Reshiram|Blue Flare|p1a: Skuntank
+|-damage|p1a: Skuntank|413/628
+|-heal|p2a: Reshiram|43/100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "articuno" vs "reshiram"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-hooh-cloyster-tangrowth -- articuno-excadrill-sigilyph-reshiram
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: blueflare dracometeor roost toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'hooh': 272, 'skuntank': 314, 'cloyster': 52, 'tangrowth': 305}
+|chat|DEBUG|remaining_hp_team_2={'articuno': 100, 'excadrill': 30, 'sigilyph': 100, 'reshiram': 100}
+|chat|DEBUG|battle.available_switches=[skuntank (pokemon object) [Active: False, Status: None], hooh (pokemon object) [Active: False, Status: TOX], cloyster (pokemon object) [Active: False, Status: None], tangrowth (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'skuntank'
+|chat|DEBUG|>Switching to skuntank (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Skuntank|Max Ooze|p2a: Reshiram
+|-damage|p2a: Reshiram|0 fnt
+|-boost|p1a: Skuntank|spa|1
+|faint|p2a: Reshiram
+|-damage|p1a: Skuntank|382/628|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Excadrill|Excadrill, L78, M|30/100
+|-ability|p2a: Excadrill|Mold Breaker
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "reshiram"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-cloyster-tangrowth-skuntank -- articuno-excadrill-sigilyph-reshiram
+|chat|DEBUG|Own moves: suckerpunch defog poisonjab fireblast
+|chat|DEBUG|Enemy moves: blueflare dracometeor roost toxic
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|Speed: 192 vs 176
+|chat|DEBUG|HP: 314 vs 224
+|chat|DEBUG|Created a new Strategy for skuntank vs reshiram:
+|chat|DEBUG|>[poisonjab: 114.25 [105, 125], poisonjab: 114.25 [105, 125], poisonjab: 114.25 [105, 125]]
+|chat|DEBUG|Best move of skuntank (p1): poisonjab: 114.25 [105, 125]
+|chat|DEBUG|Best move of reshiram (p2): blueflare: 196.125 [180, 213]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Skuntank|Max Flare|p2a: Excadrill
+|-supereffective|p2a: Excadrill
+|-damage|p2a: Excadrill|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Excadrill
+|-damage|p1a: Skuntank|351/628|[from] item: Life Orb
+|-weather|SunnyDay|[upkeep]
+|-end|p1a: Skuntank|Dynamax
+|-heal|p1a: Skuntank|176/314|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno, L84|100/100
+|-ability|p2a: Articuno|Pressure
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "reshiram"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-cloyster-tangrowth-skuntank -- articuno-excadrill-sigilyph-reshiram
+|chat|DEBUG|Own moves: suckerpunch defog poisonjab fireblast
+|chat|DEBUG|Enemy moves: blueflare dracometeor roost toxic
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['hooh', 'skuntank']
+|chat|DEBUG|Speed: 192 vs 176
+|chat|DEBUG|HP: 413 vs 116
+|chat|DEBUG|Best move of skuntank (p1): poisonjab: 114.25 [105, 125]
+|chat|DEBUG|Best move of reshiram (p2): blueflare: 196.125 [180, 213]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Articuno|Dynamax
+|-heal|p2a: Articuno|100/100|[silent]
+|move|p1a: Skuntank|Fire Blast|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|38/100
+|-damage|p1a: Skuntank|145/314|[from] item: Life Orb
+|move|p2a: Articuno|Max Hailstorm|p1a: Skuntank
+|-damage|p1a: Skuntank|0 fnt
+|-weather|Hail
+|faint|p1a: Skuntank
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ho-Oh|Ho-Oh, L72|272/272 tox
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-cloyster-tangrowth-skuntank -- articuno-excadrill-sigilyph
+|chat|DEBUG|Own moves: suckerpunch defog poisonjab fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead rockslide swordsdance
+|chat|DEBUG|Checks: ['tangrowth']
+|chat|DEBUG|Counter: ['tangrowth', 'skuntank']
+|chat|DEBUG|Speed: 192 vs 182
+|chat|DEBUG|HP: 382 vs 90
+|chat|DEBUG|Created a new Strategy for skuntank vs excadrill:
+|chat|DEBUG|>[fireblast: 443.75 [408, 481], fireblast: 443.75 [408, 481], fireblast: 443.75 [408, 481]]
+|chat|DEBUG|Best move of skuntank (p1): fireblast: 443.75 [408, 481]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 375.875 [346, 408]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Max Guard|p2a: Articuno
+|-singleturn|p2a: Articuno|Max Guard
+|move|p1a: Ho-Oh|Sacred Fire|p2a: Articuno
+|-activate|p2a: Articuno|move: Max Guard
+|-weather|Hail|[upkeep]
+|-damage|p1a: Ho-Oh|255/272 tox|[from] Hail
+|-damage|p1a: Ho-Oh|238/272 tox|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh skuntank cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-cloyster-tangrowth-skuntank -- articuno-sigilyph
+|chat|DEBUG|Own moves: suckerpunch defog poisonjab fireblast
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['hooh', 'skuntank']
+|chat|DEBUG|Speed: 192 vs 191
+|chat|DEBUG|HP: 176 vs 288
+|chat|DEBUG|Created a new Strategy for skuntank vs articuno:
+|chat|DEBUG|>[fireblast: 251.0625 [231, 273], fireblast: 251.0625 [231, 273], fireblast: 251.0625 [231, 273]]
+|chat|DEBUG|Best move of skuntank (p1): fireblast: 251.0625 [231, 273]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 94.875 [87, 103]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Max Hailstorm|p1a: Ho-Oh
+|-crit|p1a: Ho-Oh
+|-damage|p1a: Ho-Oh|103/272 tox
+|move|p1a: Ho-Oh|Sacred Fire|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|4/100
+|-status|p2a: Articuno|brn
+|-weather|Hail|[upkeep]
+|-damage|p1a: Ho-Oh|86/272 tox|[from] Hail
+|-damage|p1a: Ho-Oh|52/272 tox|[from] psn
+|-damage|p2a: Articuno|1/100 brn|[from] brn
+|-end|p2a: Articuno|Dynamax
+|-heal|p2a: Articuno|2/100 brn|[silent]
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-cloyster-tangrowth -- articuno-sigilyph
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'hooh': 272, 'cloyster': 52, 'tangrowth': 305}
+|chat|DEBUG|remaining_hp_team_2={'articuno': 100, 'sigilyph': 100}
+|chat|DEBUG|battle.available_switches=[hooh (pokemon object) [Active: False, Status: TOX], cloyster (pokemon object) [Active: False, Status: None], tangrowth (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'hooh'
+|chat|DEBUG|>Switching to hooh (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Roost|p2a: Articuno
+|-heal|p2a: Articuno|52/100 brn
+|-singleturn|p2a: Articuno|move: Roost
+|move|p1a: Ho-Oh|Sacred Fire|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|0 fnt
+|faint|p2a: Articuno
+|-weather|Hail|[upkeep]
+|-damage|p1a: Ho-Oh|35/272 tox|[from] Hail
+|-damage|p1a: Ho-Oh|0 fnt|[from] psn
+|faint|p1a: Ho-Oh
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, F|100/100
+|switch|p1a: Cloyster|Cloyster, L80, M|52/211
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "hooh" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-tangrowth-hooh -- articuno-sigilyph
+|chat|DEBUG|Own moves: roost earthquake sacredfire bravebird
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|Speed: 172 vs 191
+|chat|DEBUG|HP: 272 vs 109
+|chat|DEBUG|Created a new Strategy for hooh vs articuno:
+|chat|DEBUG|>[sacredfire: 178.375 [164, 194], sacredfire: 178.375 [164, 194], sacredfire: 178.375 [164, 194]]
+|chat|DEBUG|Best move of hooh (p1): sacredfire: 178.375 [164, 194]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 54.75 [51, 60]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Psychic|p1a: Cloyster
+|-damage|p1a: Cloyster|0 fnt
+|faint|p1a: Cloyster
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tangrowth|Tangrowth, L84, F|305/305
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "hooh" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-tangrowth-hooh -- articuno-sigilyph
+|chat|DEBUG|Own moves: roost earthquake sacredfire bravebird
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|Speed: 172 vs 191
+|chat|DEBUG|HP: 238 vs 109
+|chat|DEBUG|Best move of hooh (p1): sacredfire: 178.375 [164, 194]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 54.75 [51, 60]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Air Slash|p1a: Tangrowth
+|-supereffective|p1a: Tangrowth
+|-damage|p1a: Tangrowth|1/305
+|cant|p1a: Tangrowth|flinch
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh cloyster tangrowth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "hooh" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-tangrowth-hooh -- articuno-sigilyph
+|chat|DEBUG|Own moves: roost earthquake sacredfire bravebird
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tangrowth']
+|chat|DEBUG|Speed: 172 vs 191
+|chat|DEBUG|HP: 52 vs 5
+|chat|DEBUG|Best move of hooh (p1): sacredfire: 178.375 [164, 194]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 54.75 [51, 60]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Psychic|p1a: Tangrowth
+|-damage|p1a: Tangrowth|0 fnt
+|faint|p1a: Tangrowth
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>HerrGewitter<br>vs<br>DeboraNabos</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">articuno hooh skuntank cloyster tangrowth lycanroc</h1>
