@@ -37,16 +37,16 @@ class RuleBasedPlayer(Player):
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
+        alive_team = [p.species for p in battle.team.values() if not p.fainted]
+
         # Logging the tag of the battle on the first turn in order to combine logs and replays
-        if battle.turn == 1:
+        if battle.turn == 1 and len(alive_team) == 6:
             self.enemy_builds = {}
             self.current_strategy = None
             self.matchups = []
 
             print(f'\n\n\n\n{self.n_won_battles} / {self.n_lost_battles}\n\n\n\n')
             logger.info(f'Battle: {battle.battle_tag}')
-
-        alive_team = [p.species for p in battle.team.values() if not p.fainted]
 
         # Logging turn and remaining team
         # Both lines are required to enhance replays as we include the remaining team in the first turn in the
@@ -238,7 +238,7 @@ class RuleBasedPlayer(Player):
         # TODO: Boost only late?
         if current_matchup.expected_turns_until_faint(own_species) - 2 > \
                  current_matchup.expected_turns_until_faint(enemy_species) \
-                and battle.active_pokemon.current_hp_fraction > 0.7:
+                and battle.active_pokemon.current_hp_fraction > 0.7 and not is_early_game:
             boost_moves = [m for m in battle.available_moves if m.boosts]
             if len(boost_moves) > 0:
                 # Boosting one stage in early game
@@ -273,9 +273,9 @@ class RuleBasedPlayer(Player):
         # Switching early if we are at a disadvantage and there is no check / counter
         if current_matchup.expected_turns_until_faint(own_species) + 3 < \
                 current_matchup.expected_turns_until_faint(enemy_species):
-            switch = self.create_order(self.early_game_switch(battle, enemy_matchups))
+            switch = self.early_game_switch(battle, enemy_matchups)
             logger.info(f'Switching to {switch} as we are on a very bad matchup!')
-            return switch
+            return self.create_order(_pokemon_from_species(switch, battle))
 
         if battle.can_dynamax and len([p for p in battle.team.values() if p.current_hp_fraction == 1]) == 1 and \
                 battle.active_pokemon.current_hp_fraction == 1:
