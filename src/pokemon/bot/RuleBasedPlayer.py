@@ -274,8 +274,9 @@ class RuleBasedPlayer(Player):
         if current_matchup.expected_turns_until_faint(own_species) + 3 < \
                 current_matchup.expected_turns_until_faint(enemy_species):
             switch = self.early_game_switch(battle, enemy_matchups)
-            logger.info(f'Switching to {switch} as we are on a very bad matchup!')
-            return self.create_order(_pokemon_from_species(switch, battle))
+            if switch != own_species:
+                logger.info(f'Switching to {switch} as we are on a very bad matchup!')
+                return self.create_order(_pokemon_from_species(switch, battle))
 
         if battle.can_dynamax and len([p for p in battle.team.values() if p.current_hp_fraction == 1]) == 1 and \
                 battle.active_pokemon.current_hp_fraction == 1:
