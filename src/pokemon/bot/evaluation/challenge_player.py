@@ -19,7 +19,7 @@ async def main():
     player = RuleBasedPlayer(
         battle_format="gen8randombattle",
         player_configuration=config,
-        server_configuration=ShowdownServerConfiguration,
+        server_configuration=LocalhostServerConfiguration,
         save_replays='src/data/replays',
         max_concurrent_battles=1,
         start_timer_on_battle_start=True)

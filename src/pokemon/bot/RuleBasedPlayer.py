@@ -263,7 +263,7 @@ class RuleBasedPlayer(Player):
             if switch is not None:
                 return self.create_order(_pokemon_from_species(switch, battle))
 
-        else:
+        elif not is_early_game:
             # Dynamaxing if we are in a good matchup, know enough of the enemy team and have good hp
             if battle.can_dynamax and len(
                     self.enemy_builds.keys()) >= 5 and battle.active_pokemon.current_hp_fraction >= 0.7:
