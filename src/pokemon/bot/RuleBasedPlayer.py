@@ -40,7 +40,7 @@ class RuleBasedPlayer(Player):
         alive_team = [p.species for p in battle.team.values() if not p.fainted]
 
         # Logging the tag of the battle on the first turn in order to combine logs and replays
-        if battle.turn == 1 and len(alive_team) == 6:
+        if battle.turn == 1 and len(alive_team) == 6 and len([p for p in battle.team.values() if p.revealed]) == 1:
             self.enemy_builds = {}
             self.current_strategy = None
             self.matchups = []
@@ -237,7 +237,7 @@ class RuleBasedPlayer(Player):
         # Boosting if survive for two turns longer than the enemy
         # TODO: Boost only late?
         if current_matchup.expected_turns_until_faint(own_species) - 2 > \
-                 current_matchup.expected_turns_until_faint(enemy_species) \
+                current_matchup.expected_turns_until_faint(enemy_species) \
                 and battle.active_pokemon.current_hp_fraction > 0.7:
             boost_moves = [m for m in battle.available_moves if m.boosts]
             if len(boost_moves) > 0:
