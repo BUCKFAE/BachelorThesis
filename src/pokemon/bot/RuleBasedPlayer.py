@@ -308,7 +308,7 @@ class RuleBasedPlayer(Player):
             logger.info(f'Dynamaxing on last full health pokemon!')
             return self.create_order(Move(best_own_move.move), dynamax=True)
 
-        logger.info(f'Attacking')
+        logger.info(f'Attacking using {best_own_move.move}')
 
         # Attacking the enemy
         return self.create_order(Move(best_own_move.move))
