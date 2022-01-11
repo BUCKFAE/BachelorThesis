@@ -38,7 +38,7 @@ class RuleBasedPlayer(Player):
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
         try:
             return self._choose_move(battle)
-        except:
+        except Exception:
             logger.critical(f'The choose move method crashed, preforming random action!')
             return self.choose_random_move(battle)
 
@@ -84,7 +84,9 @@ class RuleBasedPlayer(Player):
                      and p2.species == m.pokemon_2.species
                      and m.is_battle_between(p1.species, p2.species)]
 
-                assert len(m) == 1, f'Could not determine matchup between {p1.species} and {p2.species}'
+                if len(m) != 1:
+                    raise ValueError
+
 
         logger.info(f'Own moves: ' + ' '.join([m.id for m in battle.available_moves]))
         logger.info(f'Enemy moves: ' + ' '.join([m for m in self.enemy_builds[enemy_species].get_most_likely_moves()]))
@@ -305,6 +307,8 @@ class RuleBasedPlayer(Player):
                 battle.active_pokemon.current_hp_fraction == 1:
             logger.info(f'Dynamaxing on last full health pokemon!')
             return self.create_order(Move(best_own_move.move), dynamax=True)
+
+        logger.info(f'Attacking')
 
         # Attacking the enemy
         return self.create_order(Move(best_own_move.move))

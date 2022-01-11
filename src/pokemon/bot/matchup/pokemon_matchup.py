@@ -136,11 +136,9 @@ class PokemonMatchup:
 
         if species == 'mimikyubusted' and self.pokemon_1.species == 'mimikyu' or self.pokemon_2.species == 'mimikyu':
             species = 'mimikyu'
-            logger.critical('Mimikyu is fixed!')
 
         if species == 'eiscuenoice' and self.pokemon_1.species == 'eiscue' or self.pokemon_2.species == 'eiscue':
             species = 'eiscue'
-            logger.critical('Eiscue is fixed')
 
         if self.pokemon_1.species == species:
             return self.pokemon_1
@@ -155,11 +153,9 @@ class PokemonMatchup:
 
         if species == 'mimikyubusted' and self._build_p1.species == 'mimikyu' or self._build_p2.species == 'mimikyu':
             species = 'mimikyu'
-            logger.critical('Mimikyu is fixed!')
 
         if species == 'eiscuenoice' and self._build_p1.species == 'eiscue' or self._build_p2.species == 'eiscue':
             species = 'eiscue'
-            logger.critical('Eiscue is fixed')
 
         if self._build_p1.species == species:
             return self._build_p1
