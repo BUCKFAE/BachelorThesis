@@ -127,10 +127,13 @@ class RuleBasedPlayer(Player):
             logger.info(f'We have to switch Pokemon')
 
             if is_early_game:
-                # Removing the active Pokemon from Checks / Counters / Walls
-                current_enemy_checks = [c for c in current_enemy_checks if c != own_species]
-                current_enemy_counters = [c for c in current_enemy_counters if c != own_species]
-                current_enemy_walls = [c for c in current_enemy_walls if c != own_species]
+
+                available_switch_species = [p.species for p in battle.available_switches]
+
+                # Only allowing switches to valid Pokémon
+                current_enemy_checks = [c for c in current_enemy_checks if c in available_switch_species]
+                current_enemy_counters = [c for c in current_enemy_counters if c in available_switch_species]
+                current_enemy_walls = [c for c in current_enemy_walls if c in available_switch_species]
 
                 # Switching to wall > check > counter
                 if len(current_enemy_walls) > 0:
@@ -270,9 +273,12 @@ class RuleBasedPlayer(Player):
         if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
             logger.info(f'Current matchup is not favorable!')
 
-            current_enemy_checks = [c for c in current_enemy_checks if c != own_species]
-            current_enemy_counters = [c for c in current_enemy_counters if c != own_species]
-            current_enemy_walls = [c for c in current_enemy_walls if c != own_species]
+            available_switch_species = [p.species for p in battle.available_switches]
+
+            # Only allowing switches to valid Pokémon
+            current_enemy_checks = [c for c in current_enemy_checks if c in available_switch_species]
+            current_enemy_counters = [c for c in current_enemy_counters if c in available_switch_species]
+            current_enemy_walls = [c for c in current_enemy_walls if c in available_switch_species]
 
             # Determining optimal pokemon to switch to
             switch = None
@@ -298,7 +304,7 @@ class RuleBasedPlayer(Player):
         if current_matchup.expected_turns_until_faint(own_species) + 3 < \
                 current_matchup.expected_turns_until_faint(enemy_species):
             switch = self.early_game_switch(battle, enemy_matchups)
-            if switch != own_species:
+            if switch is not None:
                 logger.info(f'Switching to {switch} as we are on a very bad matchup!')
                 return self.create_order(_pokemon_from_species(switch, battle))
 
@@ -350,7 +356,7 @@ class RuleBasedPlayer(Player):
                                         for m in enemy_matchups if m.pokemon_1.species == p.species])
                         for p in battle.available_switches}
 
-        species_by_value = sorted([p.species for p in battle.team.values() if not p.fainted],
+        species_by_value = sorted([p.species for p in battle.available_switches if not p.fainted],
                                   key=lambda p: sum(
                                       [m.get_expected_damage_after_turns(m.pokemon_2.species) for m in self.matchups
                                        if m.pokemon_1.species == p]), reverse=True)
@@ -393,6 +399,7 @@ class RuleBasedPlayer(Player):
 
         if len(species_by_value) == 0:
             logger.critical('There was no Pokemon available! This is likely due to Zoroark!')
+            return None
 
         # Using our worst Pokemon
         return species_by_value[-1]
