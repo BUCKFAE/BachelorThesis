@@ -29,16 +29,12 @@ def determine_matchups(battle: AbstractBattle,
     """Returns the matchups for all enemy Pokemon"""
 
     # Stores all matchups
-    matchups = []
+    matchups = [] if existing_matchups is None else existing_matchups
 
     damage_calculator = DamageCalculator()
 
     # Getting both teams
-    # Sometimes the active Pokemon is also in the list of available switches. This needs to be filtered
-    own_pokemon = battle.available_switches + ([battle.active_pokemon]
-                                               if battle.active_pokemon is not None and not battle.active_pokemon.fainted
-                                               and battle.active_pokemon.species not in [p.species for p in battle.available_switches]
-                                               else [])
+    own_pokemon = [p for p in battle.team.values() if not p.fainted]
     enemy_pokemon = [battle.opponent_team[p] for p in battle.opponent_team if not battle.opponent_team[p].fainted]
 
     logger.info(f'Determining matchups:\n\t{"-".join([s.species for s in own_pokemon])}'
@@ -48,14 +44,21 @@ def determine_matchups(battle: AbstractBattle,
     for enemy in enemy_pokemon:
         for member in own_pokemon:
 
-            # Keeping existing matchups
-            if matchups_to_update is not None and existing_matchups is not None:
-                if enemy.species not in matchups_to_update:
-                    # Always re-evaluating active Pokémon
-                    if member.species != battle.active_pokemon.species:
-                        matchups += [m for m in existing_matchups if m.pokemon_1.species == member.species and
-                                     m.pokemon_2.species == enemy.species]
-                        continue
+            # Checking if we already know this matchup
+            current_matchup = [i for i in range(len(matchups))
+                               if matchups[i].pokemon_1.species == member.species
+                               and matchups[i].pokemon_2.species == enemy.species]
+
+            assert len(current_matchup) <= 1
+
+            replace_index = -1
+
+            # If we already know the matchup, we store the index of the matchup to update.
+            if matchups_to_update is not None and len(current_matchup) == 1:
+                if matchups[current_matchup[0]].pokemon_2.species in matchups_to_update:
+                    replace_index = current_matchup[0]
+                else:
+                    continue
 
             member_build = build_from_pokemon(member)
 
@@ -92,7 +95,13 @@ def determine_matchups(battle: AbstractBattle,
                 optimal_moves_p2=enemy_optimal_moves
             )
 
-            matchups.append(matchup)
+            # Appending matchup if it is new, replacing old matchup if existing
+            if replace_index == -1:
+                matchups.append(matchup)
+            else:
+                matchups[replace_index] = matchup
+
+    matchups = [m for m in matchups if not m.pokemon_1.fainted and not m.pokemon_2.fainted]
 
     return matchups
 
@@ -238,7 +247,7 @@ def get_optimal_moves(
             if best_moves_turns_to_kill == 1000:
 
                 # Using no drawback move
-                first_is_no_drawback = is_no_drawback_move(Move(combination[0]), defender_pokemon)
+                first_is_no_drawback = is_no_drawback_move(Move(combination[0]), defender_pokemon, attacker_pokemon)
 
                 if not use_no_drawback:
                     first_is_no_drawback = False
@@ -275,7 +284,7 @@ def get_optimal_moves(
     return best_moves
 
 
-def is_no_drawback_move(move: Move, defender: Pokemon) -> bool:
+def is_no_drawback_move(move: Move, defender: Pokemon, attacker: Pokemon) -> bool:
     """Determines if the given move is a no drawback move against the given enemy
 
     A move is a has no drawback if:
@@ -287,6 +296,10 @@ def is_no_drawback_move(move: Move, defender: Pokemon) -> bool:
 
         if move.category != MoveCategory.STATUS:
             print('oof')
+
+        # If we kill ourself
+        if move.self_destruct and attacker.current_hp_fraction > 0.3:
+            return False
 
         # If the enemy is already affected by a status we won't use the move as status can't be stacked
         if defender.status is not None:

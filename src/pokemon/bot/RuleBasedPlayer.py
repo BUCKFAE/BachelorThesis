@@ -36,6 +36,14 @@ class RuleBasedPlayer(Player):
     damage_calculator = DamageCalculator()
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
+        try:
+            return self._choose_move(battle)
+        except:
+            logger.critical(f'The choose move method crashed, preforming random action!')
+            return self.choose_random_move(battle)
+
+
+    def _choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
         alive_team = [p.species for p in battle.team.values() if not p.fainted]
 
@@ -66,6 +74,19 @@ class RuleBasedPlayer(Player):
         matchups_to_update = self.update_enemy_information(battle)
         self.matchups = determine_matchups(battle, self.enemy_builds, existing_matchups=self.matchups,
                                            matchups_to_update=matchups_to_update, is_early_game=is_early_game)
+
+        # Ensuring that we have matchups for all Pokémon
+        for p1 in [p for p in battle.team.values() if not p.fainted]:
+            for p2 in [p for p in battle.opponent_team.values() if not p.fainted]:
+
+                # Ensuring there is exactly one matchup between these two Pokemon
+                m = [m for m in self.matchups if p1.species == m.pokemon_1.species
+                     and p2.species == m.pokemon_2.species
+                     and m.is_battle_between(p1.species, p2.species)]
+
+                if len(m) != 1:
+                    print(p1)
+                    print(f'Could not determine matchup between {p1.species} and {p2.species}')
 
         logger.info(f'Own moves: ' + ' '.join([m.id for m in battle.available_moves]))
         logger.info(f'Enemy moves: ' + ' '.join([m for m in self.enemy_builds[enemy_species].get_most_likely_moves()]))
@@ -140,7 +161,6 @@ class RuleBasedPlayer(Player):
 
         # If Zoruak transforms the matchups break, calculating matchups again, then deciding how to act
         if len(current_matchup) != 1:
-            logger.critical(f'Invalid length for Matchup: \"{len(current_matchup)}\"')
             self.matchups = determine_matchups(battle, self.enemy_builds)
             return self.choose_move(battle)
 
@@ -250,14 +270,18 @@ class RuleBasedPlayer(Player):
         if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
             logger.info(f'Current matchup is not favorable!')
 
+            current_enemy_checks = [c for c in current_enemy_checks if c != own_species]
+            current_enemy_counters = [c for c in current_enemy_counters if c != own_species]
+            current_enemy_walls = [c for c in current_enemy_walls if c != own_species]
+
             # Determining optimal pokemon to switch to
             switch = None
             if len(current_enemy_walls) > 0:
-                logger.info(f'\tSwitching to wall')
+                logger.info(f'\tSwitching to wall {switch}')
                 switch = current_enemy_walls[0]
             elif len(current_enemy_checks) > 0:
                 switch = current_enemy_checks[0]
-                logger.info(f'\tSwitching to check')
+                logger.info(f'\tSwitching to check {switch}')
 
             # Switching if we found a better option
             if switch is not None:
@@ -326,9 +350,14 @@ class RuleBasedPlayer(Player):
                                         for m in enemy_matchups if m.pokemon_1.species == p.species])
                         for p in battle.available_switches}
 
-        species_by_value = sorted([p.species for p in battle.team.values() if not p.fainted], key=lambda p:
-        sum([m.get_expected_damage_after_turns(m.pokemon_2.species)
-             for m in self.matchups if m.pokemon_1.species == p]), reverse=True)
+        species_by_value = sorted([p.species for p in battle.team.values() if not p.fainted],
+                                  key=lambda p: sum(
+                                      [m.get_expected_damage_after_turns(m.pokemon_2.species) for m in self.matchups
+                                       if m.pokemon_1.species == p]), reverse=True)
+
+        # If we are forced to switch we can't consider the currently active Pokémon
+        species_by_value = [s for s in species_by_value
+                            if not (s == battle.active_pokemon.species and battle.force_switch)]
 
         # Rules for switching
         # - We won't switch into our top 2, unless we have to.
@@ -358,9 +387,12 @@ class RuleBasedPlayer(Player):
                     return possible_switch.species
 
                 # If the Pokémon has a no drawback move it can use
-                if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon) for m in possible_switch.moves]):
+                if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon, battle.active_pokemon) for m in possible_switch.moves]):
                     logger.info(f'Switching to Pokemon that has a no drawback move: {possible_switch.species}')
                     return possible_switch.species
+
+        if len(species_by_value) == 0:
+            logger.critical('There was no Pokemon available! This is likely due to Zoroark!')
 
         # Using our worst Pokemon
         return species_by_value[-1]
@@ -368,7 +400,15 @@ class RuleBasedPlayer(Player):
 
 def _pokemon_from_species(species: str, battle: AbstractBattle) -> Pokemon:
     """Gets our Pokemon with the corresponding species"""
-    return [p for p in battle.team.values() if p.species == species][0]
+
+    if len([p for p in battle.team.values() if p.species == species]) != 1:
+        print('How doest this happen?')
+
+    try:
+        return [p for p in battle.team.values() if p.species == species][0]
+    except:
+        print('Unable pokemon :(')
+        print('no')
 
 
 async def main():
