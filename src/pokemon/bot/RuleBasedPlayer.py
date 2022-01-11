@@ -1,6 +1,7 @@
 import asyncio
 import re
 import sys
+import random
 from typing import Dict, List, Optional
 
 from poke_env.environment.abstract_battle import AbstractBattle
@@ -9,6 +10,7 @@ from poke_env.environment.pokemon import Pokemon
 from poke_env.environment.side_condition import SideCondition
 from poke_env.player.battle_order import BattleOrder
 from poke_env.player.player import Player
+from poke_env.player.random_player import RandomPlayer
 
 from src.pokemon import logger
 from src.pokemon.bot.MaxDamagePlayer import MaxDamagePlayer
@@ -35,13 +37,17 @@ class RuleBasedPlayer(Player):
     # Stores the damage calculator
     damage_calculator = DamageCalculator()
 
+    # Used to predict enemy actions on counter matchups
+    enemy_stayed_in_check = 0
+    enemy_switched_out_check = 0
+    last_matchup_was_check = False
+
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
         try:
             return self._choose_move(battle)
         except Exception:
             logger.critical(f'The choose move method crashed, preforming random action!')
             return self.choose_random_move(battle)
-
 
     def _choose_move(self, battle: AbstractBattle) -> BattleOrder:
 
@@ -52,6 +58,10 @@ class RuleBasedPlayer(Player):
             self.enemy_builds = {}
             self.current_strategy = None
             self.matchups = []
+
+            self.enemy_stayed_in_check = 0
+            self.enemy_switched_out_check = 0
+            self.last_matchup_was_check = False
 
             print(f'\n\n\n\n{self.n_won_battles} / {self.n_lost_battles}\n\n\n\n')
             logger.info(f'Battle: {battle.battle_tag}')
@@ -86,7 +96,6 @@ class RuleBasedPlayer(Player):
 
                 if len(m) != 1:
                     raise ValueError
-
 
         logger.info(f'Own moves: ' + ' '.join([m.id for m in battle.available_moves]))
         logger.info(f'Enemy moves: ' + ' '.join([m for m in self.enemy_builds[enemy_species].get_most_likely_moves()]))
@@ -126,6 +135,8 @@ class RuleBasedPlayer(Player):
         if len(battle.available_moves) == 0:
             logger.info(f'We have to switch Pokemon')
 
+            self.last_matchup_was_check = False
+
             if is_early_game:
 
                 available_switch_species = [p.species for p in battle.available_switches]
@@ -164,6 +175,25 @@ class RuleBasedPlayer(Player):
 
         current_matchup = current_matchup[0]
 
+        if self.last_matchup_was_check:
+            if current_matchup.is_check(own_species, enemy_species):
+                # The enemy did not switch out on a bad matchup
+                self.enemy_stayed_in_check += 1
+            else:
+                # The enemy switched out on a bad matchup
+                self.enemy_switched_out_check += 1
+
+        self.last_matchup_was_check = current_matchup.is_check(own_species, enemy_species)
+        switch_chance = self.enemy_switched_out_check / \
+                        (1 + self.enemy_stayed_in_check + self.enemy_switched_out_check)
+
+        if current_matchup.is_check(own_species, enemy_species):
+            attack_enemy = random.random() < switch_chance
+            logger.info(f'Predicting enemy to switch on check: {attack_enemy}')
+        else:
+            # Not predicting if we aren't checking the enemy
+            attack_enemy = True
+
         speed_p1 = battle.active_pokemon.stats["spe"]
         speed_p2 = self.enemy_builds[enemy_species].get_most_likely_stats()["spe"]
         logger.info(f'Speed: {speed_p1} vs {speed_p2}')
@@ -201,7 +231,8 @@ class RuleBasedPlayer(Player):
         logger.info(f'Best move of {enemy_species} (p2): {best_enemy_move}')
 
         # Killing the enemy if possible
-        if best_own_move.get_min_damage() > hp_p2:
+        if best_own_move.get_min_damage() > hp_p2 \
+                and (attack_enemy or battle.opponent_active_pokemon.current_hp_fraction < 0.25):
             # The enemy either can't kill us with his next move or is slower
             if best_enemy_move.get_max_damage() < hp_p1 or speed_p1 > speed_p2:
                 logger.info(f'We can kill the enemy this turn!')
@@ -263,6 +294,25 @@ class RuleBasedPlayer(Player):
                 if any([battle.active_pokemon.boosts[k] < 2 for k in boost_moves[0].boosts.keys()]):
                     logger.info(f'Boost Moves: {boost_moves}')
                     return self.create_order(boost_moves[0])
+
+        # Predicting next enemy action
+        if not attack_enemy:
+            logger.info(f'Predicting the enemy to switch!')
+            possible_reactions = []
+            for possible_enemy in [p.species for p in battle.opponent_team.values() if not p.active and not p.fainted]:
+                matchup = [m for m in self.matchups if m.is_battle_between(own_species, possible_enemy)][0]
+                if matchup.is_check(possible_enemy, own_species):
+                    possible_reactions.append(possible_enemy)
+            if len(possible_reactions) > 0:
+                logger.info(f'Possible reactions: {possible_reactions}')
+                expected_enemy = random.choice(possible_reactions)
+                logger.info(f'Expected enemy: {expected_enemy}')
+                enemy_matchup = [m for m in self.matchups if m.is_battle_between(own_species, expected_enemy)][0]
+
+                next_move = enemy_matchup.get_optimal_moves_for_species(own_species)[0]
+                if next_move.move in [m.id for m in battle.available_moves]:
+                    logger.info(f'Using move {next_move.move}')
+                    return self.create_order(Move(next_move.move))
 
         # Switching if we have a better option
         if own_species not in current_enemy_walls + current_enemy_checks + current_enemy_counters and is_early_game:
@@ -390,7 +440,8 @@ class RuleBasedPlayer(Player):
                     return possible_switch.species
 
                 # If the Pokémon has a no drawback move it can use
-                if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon, battle.active_pokemon) for m in possible_switch.moves]):
+                if any([is_no_drawback_move(Move(m), battle.opponent_active_pokemon, battle.active_pokemon) for m in
+                        possible_switch.moves]):
                     logger.info(f'Switching to Pokemon that has a no drawback move: {possible_switch.species}')
                     return possible_switch.species
 
@@ -412,7 +463,7 @@ async def main():
                          max_concurrent_battles=1,
                          save_replays='src/data/replays',
                          start_timer_on_battle_start=True)
-    p2 = MaxDamagePlayer(battle_format="gen8randombattle")
+    p2 = RandomPlayer(battle_format="gen8randombattle")
 
     await p1.battle_against(p2, n_battles=1000)
 
