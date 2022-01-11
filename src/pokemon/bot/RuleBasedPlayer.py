@@ -84,9 +84,7 @@ class RuleBasedPlayer(Player):
                      and p2.species == m.pokemon_2.species
                      and m.is_battle_between(p1.species, p2.species)]
 
-                if len(m) != 1:
-                    print(p1)
-                    print(f'Could not determine matchup between {p1.species} and {p2.species}')
+                assert len(m) == 1, f'Could not determine matchup between {p1.species} and {p2.species}'
 
         logger.info(f'Own moves: ' + ' '.join([m.id for m in battle.available_moves]))
         logger.info(f'Enemy moves: ' + ' '.join([m for m in self.enemy_builds[enemy_species].get_most_likely_moves()]))
@@ -161,11 +159,6 @@ class RuleBasedPlayer(Player):
 
         # Getting the matchup of both active Pokemon
         current_matchup = [m for m in enemy_matchups if m.pokemon_1.species == own_species]
-
-        # If Zoruak transforms the matchups break, calculating matchups again, then deciding how to act
-        if len(current_matchup) != 1:
-            self.matchups = determine_matchups(battle, self.enemy_builds)
-            return self.choose_move(battle)
 
         current_matchup = current_matchup[0]
 
@@ -397,8 +390,8 @@ class RuleBasedPlayer(Player):
                     logger.info(f'Switching to Pokemon that has a no drawback move: {possible_switch.species}')
                     return possible_switch.species
 
+        # If no Pokemon to switch is available we won't switch
         if len(species_by_value) == 0:
-            logger.critical('There was no Pokemon available! This is likely due to Zoroark!')
             return None
 
         # Using our worst Pokemon
@@ -407,15 +400,7 @@ class RuleBasedPlayer(Player):
 
 def _pokemon_from_species(species: str, battle: AbstractBattle) -> Pokemon:
     """Gets our Pokemon with the corresponding species"""
-
-    if len([p for p in battle.team.values() if p.species == species]) != 1:
-        print('How doest this happen?')
-
-    try:
-        return [p for p in battle.team.values() if p.species == species][0]
-    except:
-        print('Unable pokemon :(')
-        print('no')
+    return [p for p in battle.team.values() if p.species == species][0]
 
 
 async def main():
