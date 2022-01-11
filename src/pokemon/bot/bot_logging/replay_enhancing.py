@@ -47,12 +47,9 @@ def enhance_replays():
 
             # Getting the names of the players
             name_lines = [line for line in replay_file_content if line.startswith('|j|☆')]
-            if len(name_lines) != 2:
-                logging.critical("Corrupted battle!")
-                continue
 
             # Player names
-            [name1, name2] = [line.replace('|j|☆', '').strip() for line in name_lines]
+            [name1, name2] = [line.replace('|j|☆', '').strip() for line in name_lines[:2]]
 
             # Team bot
             bot_team_index = 3

@@ -184,8 +184,11 @@ class RuleBasedPlayer(Player):
                 self.enemy_switched_out_check += 1
 
         self.last_matchup_was_check = current_matchup.is_check(own_species, enemy_species)
-        switch_chance = self.enemy_switched_out_check / \
-                        (1 + self.enemy_stayed_in_check + self.enemy_switched_out_check)
+        if self.enemy_switched_out_check + self.enemy_stayed_in_check == 0:
+            switch_chance = 0
+        else:
+            switch_chance = self.enemy_switched_out_check / \
+                        (self.enemy_stayed_in_check + self.enemy_switched_out_check)
 
         if current_matchup.is_check(own_species, enemy_species):
             attack_enemy = random.random() < switch_chance
@@ -465,7 +468,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = RandomPlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=1000)
+    await p1.battle_against(p2, n_battles=10)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 
