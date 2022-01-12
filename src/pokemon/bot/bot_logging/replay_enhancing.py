@@ -45,6 +45,12 @@ def enhance_replays():
                 print(f'Unable to find replay for battle {battle_id}')
                 continue
 
+            # Replacing names of unverified players
+            replay_file_content = [line.replace('‽', '☆') for line in replay_file_content]
+
+            # Removing illegal characters from player names
+            replay_file_content = [line.replace('/', '') for line in replay_file_content]
+
             # Getting the names of the players
             name_lines = [line for line in replay_file_content if line.startswith('|j|☆')]
 

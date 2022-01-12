@@ -468,7 +468,7 @@ async def main():
                          start_timer_on_battle_start=True)
     p2 = RandomPlayer(battle_format="gen8randombattle")
 
-    await p1.battle_against(p2, n_battles=10)
+    await p1.battle_against(p2, n_battles=90)
 
     print(f"RuleBased ({p1.n_won_battles} / {p2.n_won_battles}) Max Damage")
 
