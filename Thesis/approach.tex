@@ -579,6 +579,27 @@ In actual battles, if a new Pokémon enters the enemy side, we assume it to have
 Once more information becomes available on items, moves and abilities, we rule-out non-matching builds and always
 assume the enemy to have the remaining most likely build.
 
+\subsection{Scoring the current game state}
+In Order to not only rate the current board state, but also individual Pokémon, we implement the following scoring 
+algorithm:
+\begin{equation}
+\label{eq:score-attack}
+	score(e_{i, j}) = \text{Expected Damage that Pokémon } i \text{ will deal to Pokémon j}
+\end{equation}
+The expected damage is the damage dealt if both Pokémon behave optimal in the amount of turns that the bot looks into
+the future. Section \ref{sec:determine-matchups} covers how the optimal moves are determined.
+\ref{eq:score-attack}
+\begin{equation}
+	val(i) = \sum_{j \in \text{Enemy Pokémon}} score(e_{i, j})
+\end{equation}
+Using this, we can also introduce a \textbf{value} for each of our Pokémon where a higher value implies a more important
+Pokémon. It is important to note, that scores are determined independently of each other meaning that we do not take
+into account damage taken by the attacker. This does explicitly mean that this metric does not determine how good the 
+Pokémon is if it has to battle \textit{all} enemy Pokémon but rather against how many other Pokémon it \textit{could}
+be used. This is done as the order in which a Pokémon battles multiple Pokémon plays a huge role. The reasoning
+behind this as well as the determination of an optimal order is explained in \todo{Ref to MinMax}.
+\todo{Flaws: Does not take Hazards, status moves, etc. into account.}
+
 \subsection{Stages of the game}
 We divide the game into two phases, the first one being the \textit{Discover}-Phase whereas the second phase is called
 \textit{Defeat}-Phase. Our goal and therefore our play style, is different in both phases.
@@ -598,22 +619,10 @@ these rules:
 \end{enumerate}
 If none of these conditions apply, we decide whether to switch out our Pokémon or not. If our current Pokémon is a 
 \textit{check} or \textit{counter} against the enemy Pokémon, we won't switch. Otherwise, we switch to a \textit{check},
-or \textit{counter} if present. If the current matchup is very unfavorable \todo{Explain when unvaforable}, we switch 
-as described in
-\begin{algorithm}
-	\caption{Early Game switch routine}
-	$i\gets 10$\;
-	\eIf{$i\geq 5$}
-	{
-		$i\gets i-1$\;
-	}{
-		\If{$i\leq 3$}
-		{
-			$i\gets i+2$\;
-		}
-	}
-	\end{algorithm}
-	
+or \textit{counter} if present. Next, we check if the current matchup is very unfavorable. This applies, if the enemy
+is expected to survive the current matchups for two turns longer than we do, meaning that our Pokémon would not be able
+to defeat the enemy, if it was allowed to attack two additional times. If this is the case, we determine the next action
+as follows:
 \subsection{Determining matchups}
-\label{sec:implementation-matchups}
+\label{sec:determine-matchups}
 In order to determine whether to attack or to switch, we need to 
