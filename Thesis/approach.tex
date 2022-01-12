@@ -592,13 +592,27 @@ the future. Section \ref{sec:determine-matchups} covers how the optimal moves ar
 \begin{equation}
 	val(i) = \sum_{j \in \text{Enemy Pokémon}} score(e_{i, j})
 \end{equation}
-Using this, we can also introduce a \textbf{value} for each of our Pokémon where a higher value implies a more important
+Using this, we can also introduce a \textit{value} for each of our Pokémon where a higher value implies a more important
 Pokémon. It is important to note, that scores are determined independently of each other meaning that we do not take
 into account damage taken by the attacker. This does explicitly mean that this metric does not determine how good the 
 Pokémon is if it has to battle \textit{all} enemy Pokémon but rather against how many other Pokémon it \textit{could}
 be used. This is done as the order in which a Pokémon battles multiple Pokémon plays a huge role. The reasoning
 behind this as well as the determination of an optimal order is explained in \todo{Ref to MinMax}.
-\todo{Flaws: Does not take Hazards, status moves, etc. into account.}
+This metric also has multiple flaws as it only takes the damage dealt to the enemy into account, other important 
+factors like damage received, healing, the availability of status moves and hazards is not taken into account. \\
+Similarly, we can determine the \textit{thread level} as shown in equation \ref{eq:thread-level}
+\begin{equation}
+\label{eq:thread-level}
+	thread\_level(j) = \sum_{i \in \text{Own Pokémon}} score(e_{j, i})
+\end{equation}
+Combining the \textit{value} and \textit{thread level}:
+\begin{equation}
+	board\_rating = \sum_{i \in \text{Own Pokémon}} val(i) - \sum_{j \in \text{Enemy Pokémon}} thread\_level(j)
+\end{equation}
+\todo{Maybe use can_defeat with 0 / 1 instead here}
+Therefore, a positive rating indicates that the board is favorable for the player, a negative rating indicates that
+the board is unfavorable for the player and a value close to zero indicates that no player currently has and
+advantage over the other.
 
 \subsection{Stages of the game}
 We divide the game into two phases, the first one being the \textit{Discover}-Phase whereas the second phase is called
@@ -622,7 +636,33 @@ If none of these conditions apply, we decide whether to switch out our Pokémon 
 or \textit{counter} if present. Next, we check if the current matchup is very unfavorable. This applies, if the enemy
 is expected to survive the current matchups for two turns longer than we do, meaning that our Pokémon would not be able
 to defeat the enemy, if it was allowed to attack two additional times. If this is the case, we determine the next action
-as follows:
+as follows: \\
+We start by determining the \textit{score} of each of our Pokémon as described in \ref{eq:score-attack} and exclude our
+two most valuable Pokémon from the next steps. This is done as we assume to depend heavily on these Pokémon to defeat
+other enemies. Next up, we pick the Pokémon with the lowest \textit{score} that fulfills the following 
+criteria:
+\begin{itemize}
+	\item The Pokémon has to survive for at least three turns against the enemy
+	\item The Pokémon has to fulfill at least one of these criteria:
+	\begin{itemize}
+		\item It is able to set a \textit{hazard} or other beneficial field effect that is not already present.
+		\item It can inflict a status condition on the enemy.
+	\end{itemize}
+\end{itemize}
+If not Pokémon matches these criteria, the Pokémon with the lowest score is picked instead. \\
+In any other case, the currently active Pokémon will use the best move calculated in \ref{sec:determine-matchups}.
 \subsection{Determining matchups}
 \label{sec:determine-matchups}
-In order to determine whether to attack or to switch, we need to 
+In order to determine whether to attack or to switch, we need to determine how the optimal moves for a Pokémon against
+another Pokémon are calculated. As stated before, the amount of possible combinations combined with the non-deterministic
+nature of the game makes it unfeasible get the optimal move combination by simulating every possible combination of 
+actions and reactions over the span of multiple turns. Therefore, we determine the optimal moves for a Pokémon using 
+this simplified method: \\
+We start by generating all possible move combinations for a Pokémon with a given length. Then, we simulate the outcome
+of the battle, if the attacking Pokémon would use these moves in the defined order given the enemy would not do anything
+\footnote{The option of not doing anything in a turn does not exist in Pokémon, if possible, the player is always 
+forced to either select a move or switch.} Here, we also take boosting, items, status effects and the possibly changing
+field state into account \todo{Reference to further work with things that do not work like recognizing focus items}.
+In the early game. Then, the combination resulting in the lowest amount of turns until the enemy faints is selected. 
+It is important to note that this is not necessarily the move that the bot will use in the next turn as in the 
+\textit{Discover}-Phase healing, status and other beneficial effects are prioritized.
