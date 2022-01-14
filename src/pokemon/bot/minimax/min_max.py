@@ -1,3 +1,4 @@
+import copy
 import datetime
 from typing import Dict, List
 
@@ -31,8 +32,8 @@ def create_game_plan(battle: AbstractBattle, enemy_builds: Dict[str, PokemonBuil
         node = MinMaxNode(
             possible_switch.species,
             battle.opponent_active_pokemon.species,
-            remaining_hp_team_1,
-            remaining_hp_team_2,
+            copy.deepcopy(remaining_hp_team_1),
+            copy.deepcopy(remaining_hp_team_2),
             matchups
         )
         node.build_tree_below_node()

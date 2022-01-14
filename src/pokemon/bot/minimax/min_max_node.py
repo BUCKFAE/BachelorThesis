@@ -73,7 +73,7 @@ class MinMaxNode:
             # logger.info(f'{self.own_species} faints before {self.enemy_species}')
             total_hp_p2 = self.remaining_hp_team_2[self.enemy_species]
             remaining_hp_p2 = total_hp_p2 - current_matchup.get_expected_damage_after_turns(self.enemy_species,
-                                                                                            fainted_after_turns_p1)
+                                                                                            num_turns=fainted_after_turns_p1)
             # logger.info(f'{self.enemy_species} will have {remaining_hp_p2} remaining!')
             self.remaining_hp_team_1[self.own_species] = 0
             self.remaining_hp_team_2[self.enemy_species] = remaining_hp_p2
@@ -82,13 +82,13 @@ class MinMaxNode:
             # logger.info(f'{self.enemy_species} faints before {self.own_species}')
             total_hp_p1 = self.remaining_hp_team_1[self.own_species]
             remaining_hp_p1 = total_hp_p1 - current_matchup.get_expected_damage_after_turns(self.own_species,
-                                                                                            fainted_after_turns_p2)
+                                                                                            num_turns=fainted_after_turns_p2)
             # logger.info(f'{self.own_species} will have {remaining_hp_p1} remaining!')
             self.remaining_hp_team_1[self.own_species] = remaining_hp_p1
             self.remaining_hp_team_2[self.enemy_species] = 0
 
-            # logger.info(f'Remaining HP Team1: {self.remaining_hp_team_1}')
-            # logger.info(f'Remaining HP Team2: {self.remaining_hp_team_2}')
+            logger.info(f'Remaining HP Team1: {self.remaining_hp_team_1}')
+            logger.info(f'Remaining HP Team2: {self.remaining_hp_team_2}')
 
             # We have to switch
 
