@@ -65,15 +65,15 @@ class MinMaxNode:
             speed_1 = current_matchup._build_p1.get_most_likely_stats()["spe"]
             speed_2 = current_matchup._build_p2.get_most_likely_stats()["spe"]
             if speed_1 > speed_2:
-                fainted_after_turns_p1 -= 1
+                fainted_after_turns_p1 += 1
             else:
-                fainted_after_turns_p2 -= 1
+                fainted_after_turns_p2 += 1
 
         if fainted_after_turns_p1 < fainted_after_turns_p2:
             # logger.info(f'{self.own_species} faints before {self.enemy_species}')
             total_hp_p2 = self.remaining_hp_team_2[self.enemy_species]
             remaining_hp_p2 = total_hp_p2 - current_matchup.get_expected_damage_after_turns(self.enemy_species,
-                                                                                            num_turns=fainted_after_turns_p1)
+                                                                                            num_turns=fainted_after_turns_p1 - 1)
             # logger.info(f'{self.enemy_species} will have {remaining_hp_p2} remaining!')
             self.remaining_hp_team_1[self.own_species] = 0
             self.remaining_hp_team_2[self.enemy_species] = remaining_hp_p2
@@ -82,7 +82,7 @@ class MinMaxNode:
             # logger.info(f'{self.enemy_species} faints before {self.own_species}')
             total_hp_p1 = self.remaining_hp_team_1[self.own_species]
             remaining_hp_p1 = total_hp_p1 - current_matchup.get_expected_damage_after_turns(self.own_species,
-                                                                                            num_turns=fainted_after_turns_p2)
+                                                                                            num_turns=fainted_after_turns_p2 - 1)
             # logger.info(f'{self.own_species} will have {remaining_hp_p1} remaining!')
             self.remaining_hp_team_1[self.own_species] = remaining_hp_p1
             self.remaining_hp_team_2[self.enemy_species] = 0
