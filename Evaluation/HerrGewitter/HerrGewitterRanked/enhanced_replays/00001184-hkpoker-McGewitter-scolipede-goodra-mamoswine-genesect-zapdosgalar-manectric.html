@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491888518<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491888518|init|battle
+|title|hkpoker vs. McGewitter
+|j|☆hkpoker
+|j|☆McGewitter
+|gametype|singles
+|player|p1|hkpoker|ingo|1246
+|player|p2|McGewitter|265|1289
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Turtonator|Turtonator, L84, F|100100
+|switch|p2a: Scolipede|Scolipede, L80, F|227227
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede goodra mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-goodra-mamoswine-genesect-zapdosgalar-manectric -- turtonator
+|chat|DEBUG|Own moves: protect earthquake poisonjab megahorn
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['goodra', 'mamoswine']
+|chat|DEBUG|Counter: ['goodra', 'mamoswine', 'zapdosgalar']
+|chat|DEBUG|Speed: 225 vs 109
+|chat|DEBUG|HP: 227 vs 238
+|chat|DEBUG|Created a new Strategy for scolipede vs turtonator:
+|chat|DEBUG|>[earthquake: 123.625 [114, 135], earthquake: 123.625 [114, 135], earthquake: 123.625 [114, 135]]
+|chat|DEBUG|Best move of scolipede (p1): earthquake: 123.625 [114, 135]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check goodra
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Goodra|Goodra, L82, F|282282
+|move|p1a: Turtonator|Fire Blast|p2a: Goodra|[miss]
+|-miss|p1a: Turtonator|p2a: Goodra
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede goodra mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-goodra-mamoswine-genesect-zapdosgalar-manectric -- turtonator
+|chat|DEBUG|Own moves: earthquake powerwhip dracometeor sludgebomb
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['goodra', 'mamoswine']
+|chat|DEBUG|Counter: ['goodra', 'mamoswine', 'zapdosgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 109
+|chat|DEBUG|HP: 282 vs 238
+|chat|DEBUG|Created a new Strategy for goodra vs turtonator:
+|chat|DEBUG|>[dracometeor: 295.0 [270, 320], dracometeor: 147.875 [134, 162], earthquake: 98.875 [90, 108]]
+|chat|DEBUG|Best move of goodra (p1): dracometeor: 295.0 [270, 320]
+|chat|DEBUG|Best move of turtonator (p2): earthquake: 72.625 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Draco Meteor|p1a: Turtonator
+|-supereffective|p1a: Turtonator
+|-damage|p1a: Turtonator|0 fnt
+|-unboost|p2a: Goodra|spa|2
+|faint|p1a: Turtonator
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crawdaunt|Crawdaunt, L84, M|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede goodra mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-goodra-mamoswine-genesect-zapdosgalar-manectric -- crawdaunt
+|chat|DEBUG|Own moves: earthquake powerwhip dracometeor sludgebomb
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['genesect', 'zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'goodra', 'genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 178 vs 141
+|chat|DEBUG|HP: 282 vs 243
+|chat|DEBUG|Created a new Strategy for goodra vs crawdaunt:
+|chat|DEBUG|>[powerwhip: 169.375 [156, 184], powerwhip: 169.375 [156, 184], powerwhip: 169.375 [156, 184]]
+|chat|DEBUG|Best move of goodra (p1): powerwhip: 169.375 [156, 184]
+|chat|DEBUG|Best move of crawdaunt (p2): knockoff: 253.6875 [234, 276]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Power Whip|p1a: Crawdaunt
+|-supereffective|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|36100
+|move|p1a: Crawdaunt|Knock Off|p2a: Goodra
+|-damage|p2a: Goodra|35282
+|-enditem|p2a: Goodra|Assault Vest|[from] move: Knock Off|[of] p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|26100|[from] item: Life Orb
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede goodra mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-goodra-mamoswine-genesect-zapdosgalar-manectric -- crawdaunt
+|chat|DEBUG|Own moves: earthquake powerwhip dracometeor sludgebomb
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['genesect', 'zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'goodra', 'mamoswine', 'genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 178 vs 141
+|chat|DEBUG|HP: 35 vs 63
+|chat|DEBUG|Best move of goodra (p1): powerwhip: 169.375 [156, 184]
+|chat|DEBUG|Best move of crawdaunt (p2): knockoff: 171.9375 [159, 187]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crawdaunt|Aqua Jet|p2a: Goodra
+|-resisted|p2a: Goodra
+|-damage|p2a: Goodra|0 fnt
+|faint|p2a: Goodra
+|-damage|p1a: Crawdaunt|17100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Genesect|Genesect, L74|227227
+|-ability|p2a: Genesect|Download|boost
+|-boost|p2a: Genesect|spa|1
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- crawdaunt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['genesect', 'zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'mamoswine', 'genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to genesect (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crawdaunt|Aqua Jet|p2a: Genesect
+|-damage|p2a: Genesect|133227
+|-damage|p1a: Crawdaunt|7100|[from] item: Life Orb
+|move|p2a: Genesect|Thunderbolt|p1a: Crawdaunt
+|-supereffective|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|0 fnt
+|faint|p1a: Crawdaunt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "genesect" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- crawdaunt
+|chat|DEBUG|Own moves: ironhead thunderbolt uturn extremespeed
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['genesect', 'zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'mamoswine', 'genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 227 vs 41
+|chat|DEBUG|Created a new Strategy for genesect vs crawdaunt:
+|chat|DEBUG|>[thunderbolt: 324.625 [298, 352], thunderbolt: 324.625 [298, 352], thunderbolt: 324.625 [298, 352]]
+|chat|DEBUG|Best move of genesect (p1): thunderbolt: 324.625 [298, 352]
+|chat|DEBUG|Best move of crawdaunt (p2): knockoff: 224.875 [205, 244]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mamoswine|Mamoswine, L80, F|307307
+|move|p1a: Diggersby|Earthquake|p2a: Mamoswine
+|-damage|p2a: Mamoswine|108307
+|-damage|p1a: Diggersby|91100|[from] item: Life Orb
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "genesect" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- diggersby
+|chat|DEBUG|Own moves: ironhead thunderbolt uturn extremespeed
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['mamoswine', 'zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'mamoswine', 'zapdosgalar']
+|chat|DEBUG|Speed: 190 vs 171
+|chat|DEBUG|HP: 133 vs 267
+|chat|DEBUG|Created a new Strategy for genesect vs diggersby:
+|chat|DEBUG|>[ironhead: 90.875 [84, 99], ironhead: 90.875 [84, 99], ironhead: 90.875 [84, 99]]
+|chat|DEBUG|Best move of genesect (p1): ironhead: 90.875 [84, 99]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 182.125 [168, 199]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mamoswine
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mamoswine|Icicle Crash|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|faint|p1a: Diggersby
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blastoise|Blastoise, L82, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- diggersby
+|chat|DEBUG|Own moves: iceshard iciclecrash knockoff earthquake
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'mamoswine', 'zapdosgalar']
+|chat|DEBUG|Speed: 174 vs 171
+|chat|DEBUG|HP: 108 vs 242
+|chat|DEBUG|Created a new Strategy for mamoswine vs diggersby:
+|chat|DEBUG|>[iciclecrash: 364.75 [336, 396], iciclecrash: 364.75 [336, 396], iciclecrash: 364.75 [336, 396]]
+|chat|DEBUG|Best move of mamoswine (p1): iciclecrash: 364.75 [336, 396]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 193.4375 [177, 211]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Genesect|Genesect, L74|133227
+|-ability|p2a: Genesect|Download|boost
+|-boost|p2a: Genesect|atk|1
+|move|p1a: Blastoise|Scald|p2a: Genesect
+|-damage|p2a: Genesect|78227
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise
+|chat|DEBUG|Own moves: iciclecrash
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['genesect']
+|chat|DEBUG|Counter: ['scolipede', 'genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 174 vs 175
+|chat|DEBUG|HP: 108 vs 264
+|chat|DEBUG|Created a new Strategy for mamoswine vs blastoise:
+|chat|DEBUG|>[iciclecrash: 72.8125 [67, 79], iciclecrash: 72.8125 [67, 79], iciclecrash: 72.8125 [67, 79]]
+|chat|DEBUG|Best move of mamoswine (p1): iciclecrash: 72.8125 [67, 79]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check genesect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Druddigon|Druddigon, L84, F|100100
+|-ability|p1a: Druddigon|Mold Breaker
+|move|p2a: Genesect|U-turn|p1a: Druddigon
+|-damage|p1a: Druddigon|60100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scolipede|Scolipede, L80, F|227227
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "genesect" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise
+|chat|DEBUG|Own moves: ironhead thunderbolt uturn extremespeed
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede', 'zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 190 vs 175
+|chat|DEBUG|HP: 78 vs 264
+|chat|DEBUG|Created a new Strategy for genesect vs blastoise:
+|chat|DEBUG|>[uturn: 126.8125 [117, 138], uturn: 126.8125 [117, 138], uturn: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of genesect (p1): uturn: 126.8125 [117, 138]
+|chat|DEBUG|Best move of blastoise (p2): earthquake: 63.375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Megahorn|p1a: Druddigon
+|-damage|p1a: Druddigon|0 fnt
+|faint|p1a: Druddigon
+|-damage|p2a: Scolipede|205227|[from] item: Life Orb
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|100100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "genesect" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede', 'zapdosgalar', 'manectric']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scolipede (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Scolipede|Dynamax
+|-heal|p2a: Scolipede|410454|[silent]
+|move|p2a: Scolipede|Max Flutterby|p1a: Groudon
+|-damage|p1a: Groudon|50100
+|-unboost|p1a: Groudon|spa|1
+|-damage|p2a: Scolipede|388454|[from] item: Life Orb
+|move|p1a: Groudon|Stealth Rock|p2a: Scolipede
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|57100|[from] item: Leftovers
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise-druddigon
+|chat|DEBUG|Own moves: protect earthquake poisonjab megahorn
+|chat|DEBUG|Enemy moves: glare outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['scolipede', 'zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'mamoswine', 'zapdosgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 225 vs 129
+|chat|DEBUG|HP: 227 vs 160
+|chat|DEBUG|Created a new Strategy for scolipede vs druddigon:
+|chat|DEBUG|>[megahorn: 153.75 [142, 168], megahorn: 153.75 [142, 168], megahorn: 153.75 [142, 168]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 153.75 [142, 168]
+|chat|DEBUG|Best move of druddigon (p2): outrage: 202.5 [187, 220]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Groudon|Dynamax
+|-heal|p1a: Groudon|57100|[silent]
+|move|p1a: Groudon|Max Guard|p1a: Groudon
+|-singleturn|p1a: Groudon|Max Guard
+|move|p2a: Scolipede|Max Flutterby|p1a: Groudon
+|-activate|p1a: Groudon|move: Max Guard
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|60100|[from] item: Leftovers
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: protect earthquake poisonjab megahorn
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdosgalar']
+|chat|DEBUG|Speed: 225 vs 174
+|chat|DEBUG|HP: 205 vs 266
+|chat|DEBUG|Created a new Strategy for scolipede vs groudon:
+|chat|DEBUG|>[megahorn: 125.0 [114, 136], megahorn: 125.0 [114, 136], megahorn: 125.0 [114, 136]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 125.0 [114, 136]
+|chat|DEBUG|Best move of groudon (p2): heatcrash: 160.0 [146, 174]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Max Flutterby|p1a: Groudon
+|-damage|p1a: Groudon|31100
+|-unboost|p1a: Groudon|spa|1
+|-damage|p2a: Scolipede|366454|[from] item: Life Orb
+|move|p1a: Groudon|Max Rockfall|p2a: Scolipede
+|-supereffective|p2a: Scolipede
+|-damage|p2a: Scolipede|166454
+|-weather|Sandstorm
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Scolipede|152454|[from] Sandstorm
+|-heal|p1a: Groudon|34100|[from] item: Leftovers
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|-end|p2a: Scolipede|Dynamax
+|-heal|p2a: Scolipede|76227|[silent]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: protect earthquake poisonjab megahorn
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'zapdosgalar']
+|chat|DEBUG|Speed: 225 vs 174
+|chat|DEBUG|HP: 388 vs 151
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 125.0 [114, 136]
+|chat|DEBUG|Best move of groudon (p2): heatcrash: 160.0 [146, 174]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Megahorn|p1a: Groudon|[miss]
+|-miss|p2a: Scolipede|p1a: Groudon
+|move|p1a: Groudon|Max Rockfall|p2a: Scolipede
+|-supereffective|p2a: Scolipede
+|-damage|p2a: Scolipede|0 fnt
+|faint|p2a: Scolipede
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Groudon|37100|[from] item: Leftovers
+|-end|p1a: Groudon|Dynamax
+|-heal|p1a: Groudon|37100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Genesect|Genesect, L74|78227
+|-damage|p2a: Genesect|50227|[from] Stealth Rock
+|-ability|p2a: Genesect|Download|boost
+|-boost|p2a: Genesect|spa|1
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: protect earthquake poisonjab megahorn
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'zapdosgalar']
+|chat|DEBUG|Speed: 225 vs 174
+|chat|DEBUG|HP: 388 vs 159
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 125.0 [114, 136]
+|chat|DEBUG|Best move of groudon (p2): heatcrash: 160.0 [146, 174]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Genesect|Iron Head|p1a: Groudon
+|-damage|p1a: Groudon|14100
+|move|p1a: Groudon|Precipice Blades|p2a: Genesect
+|-damage|p2a: Genesect|0 fnt
+|faint|p2a: Genesect
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Groudon|20100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Manectric|Manectric, L86, M|261261
+|-damage|p2a: Manectric|229261|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-mamoswine-genesect-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: protect earthquake poisonjab megahorn
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['scolipede', 'genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 225 vs 174
+|chat|DEBUG|HP: 76 vs 90
+|chat|DEBUG|Created a new Strategy for scolipede vs groudon:
+|chat|DEBUG|>[megahorn: 125.0 [114, 136], megahorn: 125.0 [114, 136], megahorn: 125.0 [114, 136]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 125.0 [114, 136]
+|chat|DEBUG|Best move of groudon (p2): heatcrash: 160.0 [146, 174]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Overheat|p1a: Groudon
+|-damage|p1a: Groudon|0 fnt
+|-unboost|p2a: Manectric|spa|2
+|faint|p1a: Groudon
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Manectric|213261|[from] Sandstorm
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blastoise|Blastoise, L82, F|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-genesect-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['genesect', 'zapdosgalar', 'manectric']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'mamoswine': 108, 'genesect': 78, 'zapdosgalar': 262, 'manectric': 261}
+|chat|DEBUG|remaining_hp_team_2={'blastoise': 100, 'groudon': 34}
+|chat|DEBUG|battle.available_switches=[genesect (pokemon object) [Active: False, Status: None], mamoswine (pokemon object) [Active: False, Status: None], zapdosgalar (pokemon object) [Active: False, Status: None], manectric (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'genesect'
+|chat|DEBUG|>Switching to genesect (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Overheat|p1a: Blastoise|[miss]
+|-miss|p2a: Manectric|p1a: Blastoise
+|move|p1a: Blastoise|Scald|p2a: Manectric
+|-damage|p2a: Manectric|126261
+|-weather|none
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine genesect zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "genesect" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-genesect-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: ironhead thunderbolt uturn extremespeed
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 190 vs 174
+|chat|DEBUG|HP: 50 vs 98
+|chat|DEBUG|Created a new Strategy for genesect vs groudon:
+|chat|DEBUG|>[ironhead: 62.9375 [58, 69], ironhead: 62.9375 [58, 69], ironhead: 62.9375 [58, 69]]
+|chat|DEBUG|Best move of genesect (p1): ironhead: 62.9375 [58, 69]
+|chat|DEBUG|Best move of groudon (p2): heatcrash: 394.0 [360, 428]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Overheat|p1a: Blastoise
+|-resisted|p1a: Blastoise
+|-damage|p1a: Blastoise|92100
+|-unboost|p2a: Manectric|spa|2
+|move|p1a: Blastoise|Scald|p2a: Manectric
+|-damage|p2a: Manectric|24261
+|-heal|p1a: Blastoise|98100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "genesect" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['zapdosgalar', 'manectric']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'mamoswine': 108, 'zapdosgalar': 262, 'manectric': 261}
+|chat|DEBUG|remaining_hp_team_2={'blastoise': 100, 'groudon': 37}
+|chat|DEBUG|battle.available_switches=[mamoswine (pokemon object) [Active: False, Status: None], zapdosgalar (pokemon object) [Active: False, Status: None], manectric (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'manectric'
+|chat|DEBUG|>Switching to manectric (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Overheat|p1a: Blastoise
+|-resisted|p1a: Blastoise
+|-damage|p1a: Blastoise|92100
+|-unboost|p2a: Manectric|spa|2
+|move|p1a: Blastoise|Scald|p2a: Manectric
+|-damage|p2a: Manectric|0 fnt
+|faint|p2a: Manectric
+|-heal|p1a: Blastoise|98100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mamoswine|Mamoswine, L80, F|108307
+|-damage|p2a: Mamoswine|70307|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "manectric" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-zapdosgalar-manectric -- blastoise-groudon
+|chat|DEBUG|Own moves: overheat voltswitch thunderbolt switcheroo
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['zapdosgalar', 'manectric']
+|chat|DEBUG|Speed: 230 vs 174
+|chat|DEBUG|HP: 229 vs 53
+|chat|DEBUG|Created a new Strategy for manectric vs groudon:
+|chat|DEBUG|>[overheat: 115.25 [106, 125], overheat: 57.8125 [53, 63], overheat: 38.375 [35, 42]]
+|chat|DEBUG|Best move of manectric (p1): overheat: 115.25 [106, 125]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 355.875 [326, 386]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blastoise|Scald|p2a: Mamoswine
+|-supereffective|p2a: Mamoswine
+|-crit|p2a: Mamoswine
+|-damage|p2a: Mamoswine|0 fnt
+|faint|p2a: Mamoswine
+|-heal|p1a: Blastoise|100100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos-Galar, L76|262262
+|-damage|p2a: Zapdos|230262|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "manectric" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-zapdosgalar-manectric -- blastoise
+|chat|DEBUG|Own moves: overheat
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdosgalar']
+|chat|DEBUG|Speed: 230 vs 175
+|chat|DEBUG|HP: 213 vs 264
+|chat|DEBUG|Created a new Strategy for manectric vs blastoise:
+|chat|DEBUG|>[overheat: 23.0 [21, 25], overheat: 15.1875 [14, 17], overheat: 11.5625 [11, 13]]
+|chat|DEBUG|Best move of manectric (p1): overheat: 23.0 [21, 25]
+|chat|DEBUG|Best move of blastoise (p2): earthquake: 152.75 [140, 166]
+|chat|DEBUG|Attacking using overheat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Close Combat|p1a: Blastoise
+|-damage|p1a: Blastoise|46100
+|-unboost|p2a: Zapdos|def|1
+|-unboost|p2a: Zapdos|spd|1
+|-damage|p2a: Zapdos|204262|[from] item: Life Orb
+|move|p1a: Blastoise|Ice Beam|p2a: Zapdos
+|-supereffective|p2a: Zapdos
+|-damage|p2a: Zapdos|34262
+|-heal|p1a: Blastoise|52100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine zapdosgalar manectric
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "manectric" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-zapdosgalar-manectric -- blastoise
+|chat|DEBUG|Own moves: overheat
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdosgalar']
+|chat|DEBUG|Speed: 230 vs 175
+|chat|DEBUG|HP: 126 vs 264
+|chat|DEBUG|Created a new Strategy for manectric vs blastoise:
+|chat|DEBUG|>[overheat: 23.0 [21, 25], overheat: 15.1875 [14, 17], overheat: 11.5625 [11, 13]]
+|chat|DEBUG|Best move of manectric (p1): overheat: 23.0 [21, 25]
+|chat|DEBUG|Best move of blastoise (p2): earthquake: 152.75 [140, 166]
+|chat|DEBUG|Attacking using overheat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Close Combat|p1a: Blastoise
+|-damage|p1a: Blastoise|0 fnt
+|-unboost|p2a: Zapdos|def|1
+|-unboost|p2a: Zapdos|spd|1
+|faint|p1a: Blastoise
+|-damage|p2a: Zapdos|8262|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>hkpoker<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">scolipede goodra mamoswine genesect zapdosgalar manectric</h1>

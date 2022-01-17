@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490575722</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490575722|init|battle
+|title|TheTransAgenda vs. McDonner
+|j|☆TheTransAgenda
+|j|☆McDonner
+|gametype|singles
+|player|p1|TheTransAgenda|dawn-gen4pt|1145
+|player|p2|McDonner|265|1195
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Rotom|Rotom-Wash, L82|100/100
+|switch|p2a: Registeel|Registeel, L83|268/268
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: registeel vs rotomwash
+|chat|DEBUG|Updating information about rotomwash
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['meowsticf', 'escavalier', 'vanilluxe', 'sceptile']}}
+|chat|DEBUG|Speed: 131 - 188
+|chat|DEBUG|Most likely moves for: registeel
+|chat|DEBUG|>['toxic', 'ironhead', 'protect', 'stealthrock']
+|chat|DEBUG|Most likely moves for: rotomwash
+|chat|DEBUG|>['hydropump', 'thunderbolt', 'voltswitch', 'willowisp']
+|chat|DEBUG|Best own move: ('ironhead', 15.0625)
+|chat|DEBUG|Best enemy move: ('hydropump', 78.1875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: meowsticf
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Meowstic|Meowstic-F, L86, F|268/268
+|move|p1a: Rotom|Trick|p2a: Meowstic
+|-activate|p1a: Rotom|move: Trick|[of] p2a: Meowstic
+|-item|p2a: Meowstic|Choice Scarf|[from] move: Trick
+|-item|p1a: Rotom|Life Orb|[from] move: Trick
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: meowsticf vs rotomwash
+|chat|DEBUG|Updating information about rotomwash
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'sceptile', 'meowsticf']}}
+|chat|DEBUG|Speed: 228 - 188
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'energyball', 'thunderbolt', 'psychic']
+|chat|DEBUG|Most likely moves for: rotomwash
+|chat|DEBUG|>['hydropump', 'thunderbolt', 'voltswitch', 'willowisp']
+|chat|DEBUG|Best own move: ('energyball', 104.625)
+|chat|DEBUG|Best enemy move: ('hydropump', 121.1875)
+|chat|DEBUG|Picking the most damaging move from meowsticf against rotomwash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Energy Ball|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|51/100
+|move|p1a: Rotom|Volt Switch|p2a: Meowstic
+|-damage|p2a: Meowstic|173/268
+|-damage|p1a: Rotom|42/100|[from] item: Life Orb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rapidash|Rapidash-Galar, L84, F|100/100|[from]move: Volt Switch
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: meowsticf vs rapidashgalar
+|chat|DEBUG|Updating information about rapidashgalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. rapidashgalar
+|chat|DEBUG|Getting matchup: tapukoko vs. rapidashgalar
+|chat|DEBUG|Getting matchup: escavalier vs. rapidashgalar
+|chat|DEBUG|Getting matchup: vanilluxe vs. rapidashgalar
+|chat|DEBUG|Getting matchup: sceptile vs. rapidashgalar
+|chat|DEBUG|Getting matchup: meowsticf vs. rapidashgalar
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'sceptile', 'meowsticf']}, 'rapidashgalar': {'checks': [], 'counter': ['registeel', 'escavalier', 'vanilluxe']}}
+|chat|DEBUG|Speed: 228 - 225
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['energyball']
+|chat|DEBUG|Most likely moves for: rapidashgalar
+|chat|DEBUG|>['morningsun', 'playrough', 'swordsdance', 'zenheadbutt']
+|chat|DEBUG|Best own move: ('energyball', 63.375)
+|chat|DEBUG|Best enemy move: ('playrough', 105.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: registeel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268/268
+|move|p1a: Rapidash|Swords Dance|p1a: Rapidash
+|-boost|p1a: Rapidash|atk|2
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: registeel vs rapidashgalar
+|chat|DEBUG|Updating information about rapidashgalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. rapidashgalar
+|chat|DEBUG|Getting matchup: tapukoko vs. rapidashgalar
+|chat|DEBUG|Getting matchup: escavalier vs. rapidashgalar
+|chat|DEBUG|Getting matchup: vanilluxe vs. rapidashgalar
+|chat|DEBUG|Getting matchup: sceptile vs. rapidashgalar
+|chat|DEBUG|Getting matchup: registeel vs. rapidashgalar
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['meowsticf', 'escavalier', 'vanilluxe', 'sceptile']}, 'rapidashgalar': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'registeel']}}
+|chat|DEBUG|Speed: 131 - 225
+|chat|DEBUG|Most likely moves for: registeel
+|chat|DEBUG|>['toxic', 'ironhead', 'protect', 'stealthrock']
+|chat|DEBUG|Most likely moves for: rapidashgalar
+|chat|DEBUG|>['morningsun', 'playrough', 'swordsdance', 'zenheadbutt']
+|chat|DEBUG|Best own move: ('ironhead', 164.875)
+|chat|DEBUG|Best enemy move: ('playrough', 31.875)
+|chat|DEBUG|Picking the most damaging move from registeel against rapidashgalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rapidash|Swords Dance|p1a: Rapidash
+|-boost|p1a: Rapidash|atk|2
+|move|p2a: Registeel|Iron Head|p1a: Rapidash
+|-supereffective|p1a: Rapidash
+|-damage|p1a: Rapidash|32/100
+|-heal|p1a: Rapidash|38/100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: registeel vs rapidashgalar
+|chat|DEBUG|Updating information about rapidashgalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. rapidashgalar
+|chat|DEBUG|Getting matchup: tapukoko vs. rapidashgalar
+|chat|DEBUG|Getting matchup: escavalier vs. rapidashgalar
+|chat|DEBUG|Getting matchup: vanilluxe vs. rapidashgalar
+|chat|DEBUG|Getting matchup: sceptile vs. rapidashgalar
+|chat|DEBUG|Getting matchup: registeel vs. rapidashgalar
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['meowsticf', 'escavalier', 'vanilluxe', 'sceptile']}, 'rapidashgalar': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'registeel']}}
+|chat|DEBUG|Speed: 131 - 225
+|chat|DEBUG|Most likely moves for: registeel
+|chat|DEBUG|>['toxic', 'ironhead', 'protect', 'stealthrock']
+|chat|DEBUG|Most likely moves for: rapidashgalar
+|chat|DEBUG|>['morningsun', 'playrough', 'swordsdance', 'zenheadbutt']
+|chat|DEBUG|Best own move: ('ironhead', 164.875)
+|chat|DEBUG|Best enemy move: ('playrough', 31.875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('ironhead', 164.875)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rapidash|Zen Headbutt|p2a: Registeel
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|179/268
+|move|p2a: Registeel|Iron Head|p1a: Rapidash
+|-supereffective|p1a: Rapidash
+|-damage|p1a: Rapidash|0 fnt
+|faint|p1a: Rapidash
+|-heal|p2a: Registeel|195/268|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gurdurr|Gurdurr, L83, F|100/100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: registeel vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. gurdurr
+|chat|DEBUG|Getting matchup: tapukoko vs. gurdurr
+|chat|DEBUG|Getting matchup: escavalier vs. gurdurr
+|chat|DEBUG|Getting matchup: vanilluxe vs. gurdurr
+|chat|DEBUG|Getting matchup: sceptile vs. gurdurr
+|chat|DEBUG|Getting matchup: registeel vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['meowsticf', 'escavalier', 'vanilluxe', 'sceptile']}, 'gurdurr': {'checks': [], 'counter': ['meowsticf', 'tapukoko', 'escavalier', 'sceptile']}}
+|chat|DEBUG|Speed: 131 - 114
+|chat|DEBUG|Most likely moves for: registeel
+|chat|DEBUG|>['toxic', 'ironhead', 'protect', 'stealthrock']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('ironhead', 71.125)
+|chat|DEBUG|Best enemy move: ('drainpunch', 111.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: meowsticf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Meowstic|Meowstic-F, L86, F|173/268
+|move|p1a: Gurdurr|Bulk Up|p1a: Gurdurr
+|-boost|p1a: Gurdurr|atk|1
+|-boost|p1a: Gurdurr|def|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel meowsticf tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: meowsticf vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. gurdurr
+|chat|DEBUG|Getting matchup: tapukoko vs. gurdurr
+|chat|DEBUG|Getting matchup: escavalier vs. gurdurr
+|chat|DEBUG|Getting matchup: vanilluxe vs. gurdurr
+|chat|DEBUG|Getting matchup: sceptile vs. gurdurr
+|chat|DEBUG|Getting matchup: meowsticf vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'sceptile', 'meowsticf']}, 'gurdurr': {'checks': [], 'counter': ['tapukoko', 'escavalier', 'sceptile', 'meowsticf']}}
+|chat|DEBUG|Speed: 228 - 114
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'energyball', 'thunderbolt', 'psychic']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('psychic', 265.0)
+|chat|DEBUG|Best enemy move: ('knockoff', 156.375)
+|chat|DEBUG|Picking the most damaging move from meowsticf against gurdurr
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Psychic|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|35/100
+|-unboost|p1a: Gurdurr|spd|1
+|move|p1a: Gurdurr|Knock Off|p2a: Meowstic
+|-supereffective|p2a: Meowstic
+|-damage|p2a: Meowstic|0 fnt
+|-enditem|p2a: Meowstic|Choice Scarf|[from] move: Knock Off|[of] p1a: Gurdurr
+|faint|p2a: Meowstic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tapu Koko|Tapu Koko, L78|237/237
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p2a: Tapu Koko
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: meowsticf vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: meowsticf vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. gurdurr
+|chat|DEBUG|Getting matchup: tapukoko vs. gurdurr
+|chat|DEBUG|Getting matchup: escavalier vs. gurdurr
+|chat|DEBUG|Getting matchup: vanilluxe vs. gurdurr
+|chat|DEBUG|Getting matchup: sceptile vs. gurdurr
+|chat|DEBUG|Getting matchup: meowsticf vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'sceptile', 'meowsticf']}, 'gurdurr': {'checks': [], 'counter': ['tapukoko', 'escavalier', 'sceptile', 'meowsticf']}}
+|chat|DEBUG|>>Switching to counter: tapukoko
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gurdurr|Mach Punch|p2a: Tapu Koko
+|-resisted|p2a: Tapu Koko
+|-damage|p2a: Tapu Koko|201/237
+|move|p2a: Tapu Koko|Dazzling Gleam|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|0 fnt
+|faint|p1a: Gurdurr
+|-damage|p2a: Tapu Koko|178/237|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nidoking|Nidoking, L82, M|100/100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: tapukoko vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. gurdurr
+|chat|DEBUG|Getting matchup: escavalier vs. gurdurr
+|chat|DEBUG|Getting matchup: vanilluxe vs. gurdurr
+|chat|DEBUG|Getting matchup: sceptile vs. gurdurr
+|chat|DEBUG|Getting matchup: tapukoko vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'sceptile']}, 'gurdurr': {'checks': [], 'counter': ['escavalier', 'sceptile', 'tapukoko']}}
+|chat|DEBUG|Speed: 248 - 114
+|chat|DEBUG|Most likely moves for: tapukoko
+|chat|DEBUG|>['dazzlinggleam', 'thunderbolt', 'grassknot', 'calmmind']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('dazzlinggleam', 217.25)
+|chat|DEBUG|Best enemy move: ('drainpunch', 45.6875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('dazzlinggleam', 217.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Escavalier|Escavalier, L84, M|255/255
+|move|p1a: Nidoking|Sludge Wave|p2a: Escavalier
+|-immune|p2a: Escavalier
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: tapukoko vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: escavalier vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['escavalier', 'vanilluxe', 'sceptile']}, 'nidoking': {'checks': [], 'counter': ['escavalier', 'vanilluxe']}}
+|chat|DEBUG|Speed: 248 - 187
+|chat|DEBUG|Most likely moves for: tapukoko
+|chat|DEBUG|>['dazzlinggleam', 'thunderbolt', 'grassknot', 'calmmind']
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'icebeam', 'sludgewave', 'substitute']
+|chat|DEBUG|Best own move: ('grassknot', 55.9375)
+|chat|DEBUG|Best enemy move: ('sludgewave', 209.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: escavalier
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Nidoking|Earth Power|p2a: Escavalier
+|-damage|p2a: Escavalier|141/255
+|move|p2a: Escavalier|Iron Head|p1a: Nidoking
+|-damage|p1a: Nidoking|56/100
+|-heal|p2a: Escavalier|156/255|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: escavalier vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: escavalier vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['vanilluxe', 'sceptile', 'escavalier']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe', 'escavalier']}}
+|chat|DEBUG|Speed: 82 - 187
+|chat|DEBUG|Most likely moves for: escavalier
+|chat|DEBUG|>['swordsdance', 'ironhead', 'closecombat', 'megahorn']
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'icebeam', 'sludgewave', 'substitute']
+|chat|DEBUG|Best own move: ('ironhead', 125.375)
+|chat|DEBUG|Best enemy move: ('earthpower', 71.125)
+|chat|DEBUG|Picking the most damaging move from escavalier against nidoking
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Nidoking|Earth Power|p2a: Escavalier
+|-damage|p2a: Escavalier|30/255
+|move|p2a: Escavalier|Iron Head|p1a: Nidoking
+|-damage|p1a: Nidoking|6/100
+|-heal|p2a: Escavalier|45/255|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: escavalier vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: escavalier vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['vanilluxe', 'sceptile', 'escavalier']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe', 'escavalier']}}
+|chat|DEBUG|Speed: 82 - 187
+|chat|DEBUG|Most likely moves for: escavalier
+|chat|DEBUG|>['swordsdance', 'ironhead', 'closecombat', 'megahorn']
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'icebeam', 'sludgewave', 'substitute']
+|chat|DEBUG|Best own move: ('ironhead', 125.375)
+|chat|DEBUG|Best enemy move: ('earthpower', 71.125)
+|chat|DEBUG|Picking the most damaging move from escavalier against nidoking
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Nidoking|Earth Power|p2a: Escavalier
+|-damage|p2a: Escavalier|0 fnt
+|faint|p2a: Escavalier
+|-fieldend|move: Electric Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vanilluxe|Vanilluxe, L82, F|251/251
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Vanilluxe
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko escavalier vanilluxe sceptile
+|chat|DEBUG|Matchup: escavalier vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: escavalier vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['vanilluxe', 'sceptile', 'escavalier']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe', 'escavalier']}}
+|chat|DEBUG|Speed: 82 - 187
+|chat|DEBUG|Most likely moves for: escavalier
+|chat|DEBUG|>['swordsdance', 'ironhead', 'closecombat', 'megahorn']
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'icebeam', 'sludgewave', 'substitute']
+|chat|DEBUG|Best own move: ('ironhead', 125.375)
+|chat|DEBUG|Best enemy move: ('earthpower', 71.125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from escavalier against nidoking
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Espeon|Espeon, L82, M|100/100
+|move|p2a: Vanilluxe|Blizzard|p1a: Espeon
+|-damage|p1a: Espeon|49/100
+|-weather|Hail|[upkeep]
+|-damage|p1a: Espeon|43/100|[from] Hail
+|-heal|p1a: Espeon|49/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko vanilluxe sceptile
+|chat|DEBUG|Matchup: escavalier vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: escavalier vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: escavalier vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['vanilluxe', 'sceptile', 'escavalier']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe', 'escavalier']}}
+|chat|DEBUG|>>Switching to counter: vanilluxe
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Espeon|Dazzling Gleam|p2a: Vanilluxe
+|-damage|p2a: Vanilluxe|185/251
+|move|p2a: Vanilluxe|Blizzard|p1a: Espeon
+|-damage|p1a: Espeon|2/100
+|-weather|Hail|[upkeep]
+|-damage|p1a: Espeon|0 fnt|[from] Hail
+|faint|p1a: Espeon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|42/100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko vanilluxe sceptile
+|chat|DEBUG|Matchup: vanilluxe vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['sceptile', 'vanilluxe']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe']}}
+|chat|DEBUG|Speed: 177 - 187
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'freezedry', 'flashcannon']
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'icebeam', 'sludgewave', 'substitute']
+|chat|DEBUG|Best own move: ('blizzard', 280.25)
+|chat|DEBUG|Best enemy move: ('sludgewave', 83.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('blizzard', 280.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Hydro Pump|p2a: Vanilluxe
+|-damage|p2a: Vanilluxe|47/251
+|-damage|p1a: Rotom|32/100|[from] item: Life Orb
+|move|p2a: Vanilluxe|Freeze-Dry|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nidoking|Nidoking, L82, M|6/100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko vanilluxe sceptile
+|chat|DEBUG|Matchup: vanilluxe vs espeon
+|chat|DEBUG|Updating information about espeon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Getting matchup: registeel vs. espeon
+|chat|DEBUG|Getting matchup: tapukoko vs. espeon
+|chat|DEBUG|Getting matchup: sceptile vs. espeon
+|chat|DEBUG|Getting matchup: vanilluxe vs. espeon
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['sceptile', 'vanilluxe']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe']}, 'espeon': {'checks': [], 'counter': ['registeel', 'vanilluxe']}}
+|chat|DEBUG|Speed: 177 - 228
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'freezedry', 'flashcannon']
+|chat|DEBUG|Most likely moves for: espeon
+|chat|DEBUG|>['calmmind', 'dazzlinggleam', 'morningsun', 'psychic']
+|chat|DEBUG|Best own move: ('blizzard', 118.3125)
+|chat|DEBUG|Best enemy move: ('psychic', 110.25)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('blizzard', 118.3125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Vanilluxe|Dynamax
+|-heal|p2a: Vanilluxe|94/502|[silent]
+|move|p1a: Nidoking|Sludge Wave|p2a: Vanilluxe
+|-damage|p2a: Vanilluxe|0 fnt
+|faint|p2a: Vanilluxe
+|-weather|Hail|[upkeep]
+|-damage|p1a: Nidoking|0 fnt|[from] Hail
+|faint|p1a: Nidoking
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mudsdale|Mudsdale, L82, M|100/100
+|switch|p2a: Registeel|Registeel, L83|195/268
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko vanilluxe sceptile
+|chat|DEBUG|Matchup: vanilluxe vs rotomwash
+|chat|DEBUG|Updating information about rotomwash
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. rotomwash
+|chat|DEBUG|Getting matchup: tapukoko vs. rotomwash
+|chat|DEBUG|Getting matchup: sceptile vs. rotomwash
+|chat|DEBUG|Getting matchup: vanilluxe vs. rotomwash
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Checks / Counter: {'rotomwash': {'checks': [], 'counter': ['sceptile', 'vanilluxe']}, 'nidoking': {'checks': [], 'counter': ['vanilluxe']}}
+|chat|DEBUG|Speed: 177 - 188
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'freezedry', 'flashcannon']
+|chat|DEBUG|Most likely moves for: rotomwash
+|chat|DEBUG|>['hydropump', 'thunderbolt', 'voltswitch', 'willowisp']
+|chat|DEBUG|Best own move: ('freezedry', 137.5)
+|chat|DEBUG|Best enemy move: ('hydropump', 112.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('freezedry', 137.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, M|261/261
+|move|p1a: Mudsdale|Earthquake|p2a: Sceptile
+|-resisted|p2a: Sceptile
+|-damage|p2a: Sceptile|189/261
+|-weather|none
+|-heal|p2a: Sceptile|205/261|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko vanilluxe sceptile
+|chat|DEBUG|Matchup: vanilluxe vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Checks / Counter: {'nidoking': {'checks': [], 'counter': ['vanilluxe']}}
+|chat|DEBUG|Speed: 177 - 187
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'freezedry', 'flashcannon']
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'icebeam', 'sludgewave', 'substitute']
+|chat|DEBUG|Best own move: ('blizzard', 280.25)
+|chat|DEBUG|Best enemy move: ('sludgewave', 83.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Giga Drain|p1a: Mudsdale
+|-supereffective|p1a: Mudsdale
+|-damage|p1a: Mudsdale|32/100
+|-heal|p2a: Sceptile|261/261|[from] drain|[of] p1a: Mudsdale
+|-ability|p1a: Mudsdale|Stamina|boost
+|-boost|p1a: Mudsdale|def|1
+|move|p1a: Mudsdale|Heavy Slam|p2a: Sceptile
+|-damage|p2a: Sceptile|140/261
+|-heal|p2a: Sceptile|156/261|[from] item: Leftovers
+|-heal|p1a: Mudsdale|38/100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel tapukoko sceptile
+|chat|DEBUG|Matchup: vanilluxe vs nidoking
+|chat|DEBUG|Updating information about nidoking
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: registeel vs. nidoking
+|chat|DEBUG|Getting matchup: tapukoko vs. nidoking
+|chat|DEBUG|Getting matchup: sceptile vs. nidoking
+|chat|DEBUG|Getting matchup: vanilluxe vs. nidoking
+|chat|DEBUG|Checks / Counter: {'nidoking': {'checks': [], 'counter': ['vanilluxe']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Giga Drain|p1a: Mudsdale
+|-supereffective|p1a: Mudsdale
+|-damage|p1a: Mudsdale|0 fnt
+|-heal|p2a: Sceptile|212/261|[from] drain|[of] p1a: Mudsdale
+|faint|p1a: Mudsdale
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>TheTransAgenda<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">registeel meowsticf tapukoko escavalier vanilluxe sceptile</h1>

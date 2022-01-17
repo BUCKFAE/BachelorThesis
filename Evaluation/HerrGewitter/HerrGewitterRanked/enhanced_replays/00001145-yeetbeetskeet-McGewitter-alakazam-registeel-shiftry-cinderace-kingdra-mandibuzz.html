@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491847277<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491847277|init|battle
+|title|yeet beet skeet vs. McGewitter
+|j|☆yeet beet skeet
+|j|☆McGewitter
+|gametype|singles
+|player|p1|yeet beet skeet|102|1166
+|player|p2|McGewitter|265|1129
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Zygarde|Zygarde-10%, L82|100100
+|switch|p2a: Alakazam|Alakazam, L78, F|214214
+|-ability|p1a: Zygarde|Aura Break
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alakazam registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alakazam-registeel-shiftry-cinderace-kingdra-mandibuzz -- zygarde10
+|chat|DEBUG|Own moves: nastyplot psychic shadowball focusblast
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mandibuzz']
+|chat|DEBUG|Speed: 232 vs 236
+|chat|DEBUG|HP: 214 vs 223
+|chat|DEBUG|Created a new Strategy for alakazam vs zygarde10:
+|chat|DEBUG|>[psychic: 148.5 [136, 161], psychic: 148.5 [136, 161], psychic: 148.5 [136, 161]]
+|chat|DEBUG|Best move of alakazam (p1): psychic: 148.5 [136, 161]
+|chat|DEBUG|Best move of zygarde10 (p2): outrage: 270.8125 [250, 294]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Zygarde|Coil|p1a: Zygarde
+|-boost|p1a: Zygarde|atk|1
+|-boost|p1a: Zygarde|def|1
+|-boost|p1a: Zygarde|accuracy|1
+|move|p2a: Alakazam|Psychic|p1a: Zygarde
+|-damage|p1a: Zygarde|37100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alakazam registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alakazam-registeel-shiftry-cinderace-kingdra-mandibuzz -- zygarde10
+|chat|DEBUG|Own moves: nastyplot psychic shadowball focusblast
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 232 vs 236
+|chat|DEBUG|HP: 214 vs 82
+|chat|DEBUG|Best move of alakazam (p1): psychic: 148.5 [136, 161]
+|chat|DEBUG|Best move of zygarde10 (p2): outrage: 406.1875 [374, 441]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zygarde|Outrage|p2a: Alakazam
+|-damage|p2a: Alakazam|0 fnt
+|faint|p2a: Alakazam
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268268
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- zygarde10
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zygarde|Outrage|p2a: Registeel|[from]lockedmove
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|207268
+|-start|p1a: Zygarde|confusion|[fatigue]
+|move|p2a: Registeel|Body Press|p1a: Zygarde
+|-damage|p1a: Zygarde|9100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- zygarde10
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 131 vs 236
+|chat|DEBUG|HP: 268 vs 82
+|chat|DEBUG|Created a new Strategy for registeel vs zygarde10:
+|chat|DEBUG|>[bodypress: 63.375 [58, 69], bodypress: 63.375 [58, 69], bodypress: 63.375 [58, 69]]
+|chat|DEBUG|Best move of registeel (p1): bodypress: 63.375 [58, 69]
+|chat|DEBUG|Best move of zygarde10 (p2): thousandarrows: 238.875 [218, 260]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p1a: Zygarde|confusion
+|-damage|p1a: Zygarde|0 fnt|[from] confusion
+|faint|p1a: Zygarde
+|move|p2a: Registeel|Body Press|p1: Zygarde|[notarget]
+|-fail|p2a: Registeel
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Solgaleo|Solgaleo, L72|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- zygarde10
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mandibuzz']
+|chat|DEBUG|Speed: 131 vs 236
+|chat|DEBUG|HP: 207 vs 20
+|chat|DEBUG|Best move of registeel (p1): bodypress: 63.375 [58, 69]
+|chat|DEBUG|Best move of zygarde10 (p2): thousandarrows: 238.875 [218, 260]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|240240
+|move|p1a: Solgaleo|Knock Off|p2a: Cinderace
+|-damage|p2a: Cinderace|161240
+|-enditem|p2a: Cinderace|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Solgaleo
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['cinderace', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Counter: ['shiftry', 'cinderace', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 131 vs 182
+|chat|DEBUG|HP: 207 vs 316
+|chat|DEBUG|Created a new Strategy for registeel vs solgaleo:
+|chat|DEBUG|>[bodypress: 79.0625 [73, 86], bodypress: 79.0625 [73, 86], bodypress: 79.0625 [73, 86]]
+|chat|DEBUG|Best move of registeel (p1): bodypress: 79.0625 [73, 86]
+|chat|DEBUG|Best move of solgaleo (p2): closecombat: 108.25 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cinderace
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pangoro|Pangoro, L84, F|100100
+|move|p2a: Cinderace|Pyro Ball|p1a: Pangoro
+|-damage|p1a: Pangoro|58100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinderace" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo
+|chat|DEBUG|Own moves: courtchange zenheadbutt highjumpkick pyroball
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['kingdra', 'mandibuzz']
+|chat|DEBUG|Counter: ['shiftry', 'cinderace', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 219 vs 182
+|chat|DEBUG|HP: 161 vs 316
+|chat|DEBUG|Created a new Strategy for cinderace vs solgaleo:
+|chat|DEBUG|>[pyroball: 228.625 [210, 248], pyroball: 228.625 [210, 248], pyroball: 228.625 [210, 248]]
+|chat|DEBUG|Best move of cinderace (p1): pyroball: 228.625 [210, 248]
+|chat|DEBUG|Best move of solgaleo (p2): psychicfangs: 111.4375 [102, 121]
+|chat|DEBUG|Attacking using pyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|High Jump Kick|p1a: Pangoro
+|-start|p2a: Cinderace|typechange|Fighting|[from] ability: Libero
+|-supereffective|p1a: Pangoro
+|-damage|p1a: Pangoro|0 fnt
+|faint|p1a: Pangoro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togekiss|Togekiss, L80, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinderace" vs "pangoro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-pangoro
+|chat|DEBUG|Own moves: courtchange zenheadbutt highjumpkick pyroball
+|chat|DEBUG|Enemy moves: closecombat icepunch knockoff partingshot
+|chat|DEBUG|Checks: ['kingdra', 'mandibuzz']
+|chat|DEBUG|Counter: ['cinderace', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 219 vs 146
+|chat|DEBUG|HP: 161 vs 172
+|chat|DEBUG|Created a new Strategy for cinderace vs pangoro:
+|chat|DEBUG|>[highjumpkick: 271.0 [248, 294], highjumpkick: 271.0 [248, 294], highjumpkick: 271.0 [248, 294]]
+|chat|DEBUG|Best move of cinderace (p1): highjumpkick: 271.0 [248, 294]
+|chat|DEBUG|Best move of pangoro (p2): closecombat: 293.1875 [270, 318]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Pyro Ball|p1a: Togekiss
+|-start|p2a: Cinderace|typechange|Fire|[from] ability: Libero
+|-damage|p1a: Togekiss|60100
+|move|p1a: Togekiss|Air Slash|p2a: Cinderace
+|-damage|p2a: Cinderace|43240
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinderace" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: courtchange zenheadbutt highjumpkick pyroball
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 219 vs 174
+|chat|DEBUG|HP: 161 vs 267
+|chat|DEBUG|Created a new Strategy for cinderace vs togekiss:
+|chat|DEBUG|>[pyroball: 112.8125 [103, 123], pyroball: 112.8125 [103, 123], pyroball: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of cinderace (p1): pyroball: 112.8125 [103, 123]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using pyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingdra|Kingdra, L82, M|257257
+|move|p1a: Togekiss|Air Slash|p2a: Kingdra
+|-damage|p2a: Kingdra|175257
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinderace" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: courtchange zenheadbutt highjumpkick pyroball
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['kingdra', 'mandibuzz']
+|chat|DEBUG|Counter: ['registeel', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 219 vs 174
+|chat|DEBUG|HP: 43 vs 160
+|chat|DEBUG|Best move of cinderace (p1): pyroball: 112.8125 [103, 123]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kingdra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|14100
+|-damage|p2a: Kingdra|150257|[from] item: Life Orb
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|65100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['mandibuzz']
+|chat|DEBUG|Counter: ['registeel', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 175 vs 160
+|chat|DEBUG|Created a new Strategy for kingdra vs togekiss:
+|chat|DEBUG|>[hydropump: 121.125 [110, 133], hydropump: 121.125 [110, 133], hydropump: 121.125 [110, 133]]
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|19100
+|-damage|p2a: Kingdra|125257|[from] item: Life Orb
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|69100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['mandibuzz']
+|chat|DEBUG|Counter: ['registeel', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 150 vs 173
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|22100
+|-damage|p2a: Kingdra|100257|[from] item: Life Orb
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|72100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'kingdra', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 125 vs 184
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|25100
+|-damage|p2a: Kingdra|75257|[from] item: Life Orb
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|75100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 100 vs 192
+|chat|DEBUG|Created a new Strategy for kingdra vs togekiss:
+|chat|DEBUG|>[hydropump: 121.125 [110, 133], hydropump: 121.125 [110, 133], hydropump: 121.125 [110, 133]]
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|28100
+|-damage|p2a: Kingdra|50257|[from] item: Life Orb
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|78100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 75 vs 200
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|34100
+|-damage|p2a: Kingdra|25257|[from] item: Life Orb
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|84100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 50 vs 208
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Togekiss
+|-damage|p1a: Togekiss|38100
+|-damage|p2a: Kingdra|0 fnt|[from] item: Life Orb
+|faint|p2a: Kingdra
+|move|p1a: Togekiss|Roost|p1a: Togekiss
+|-heal|p1a: Togekiss|88100
+|-singleturn|p1a: Togekiss|move: Roost
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|207268
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace kingdra mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-kingdra-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: hurricane hydropump dracometeor raindance
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 187 vs 174
+|chat|DEBUG|HP: 25 vs 224
+|chat|DEBUG|Created a new Strategy for kingdra vs togekiss:
+|chat|DEBUG|>[hydropump: 121.125 [110, 133], hydropump: 121.125 [110, 133], hydropump: 121.125 [110, 133]]
+|chat|DEBUG|Best move of kingdra (p1): hydropump: 121.125 [110, 133]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆yeet beet skeet|nice
+|switch|p1a: Lopunny|Lopunny, L90, F|100100
+|move|p2a: Registeel|Iron Head|p1a: Lopunny
+|-crit|p1a: Lopunny
+|-damage|p1a: Lopunny|61100
+|-status|p1a: Lopunny|tox|[from] item: Toxic Orb
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mandibuzz|Mandibuzz, L82, F|315315
+|move|p1a: Lopunny|Switcheroo|p2a: Mandibuzz
+|-activate|p1a: Lopunny|move: Trick|[of] p2a: Mandibuzz
+|-item|p2a: Mandibuzz|Toxic Orb|[from] move: Switcheroo
+|-item|p1a: Lopunny|Heavy-Duty Boots|[from] move: Switcheroo
+|-damage|p1a: Lopunny|54100 tox|[from] psn
+|-status|p2a: Mandibuzz|tox|[from] item: Toxic Orb
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-mandibuzz -- solgaleo-togekiss
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Speed: 131 vs 174
+|chat|DEBUG|HP: 207 vs 234
+|chat|DEBUG|Created a new Strategy for registeel vs togekiss:
+|chat|DEBUG|>[ironhead: 137.5 [126, 150], ironhead: 137.5 [126, 150], ironhead: 137.5 [126, 150]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 137.5 [126, 150]
+|chat|DEBUG|Best move of togekiss (p2): aurasphere: 82.375 [76, 90]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lopunny|Facade|p2a: Mandibuzz
+|-damage|p2a: Mandibuzz|191315 tox
+|move|p2a: Mandibuzz|Brave Bird|p1a: Lopunny
+|-damage|p1a: Lopunny|21100 tox
+|-damage|p2a: Mandibuzz|162315 tox|[from] Recoil
+|-damage|p1a: Lopunny|9100 tox|[from] psn
+|-damage|p2a: Mandibuzz|143315 tox|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "lopunny"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-mandibuzz -- solgaleo-togekiss-lopunny
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: closecombat facade healingwish switcheroo
+|chat|DEBUG|Checks: ['mandibuzz']
+|chat|DEBUG|Counter: ['mandibuzz']
+|chat|DEBUG|Speed: 131 vs 240
+|chat|DEBUG|HP: 207 vs 160
+|chat|DEBUG|Created a new Strategy for registeel vs lopunny:
+|chat|DEBUG|>[bodypress: 152.75 [140, 166], bodypress: 152.75 [140, 166], bodypress: 152.75 [140, 166]]
+|chat|DEBUG|Best move of registeel (p1): bodypress: 152.75 [140, 166]
+|chat|DEBUG|Best move of lopunny (p2): closecombat: 108.25 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mandibuzz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lopunny|Facade|p2a: Mandibuzz
+|-damage|p2a: Mandibuzz|23315 tox
+|move|p2a: Mandibuzz|Brave Bird|p1a: Lopunny
+|-damage|p1a: Lopunny|0 fnt
+|faint|p1a: Lopunny
+|-damage|p2a: Mandibuzz|15315 tox|[from] Recoil
+|-damage|p2a: Mandibuzz|0 fnt|[from] psn
+|faint|p2a: Mandibuzz
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togekiss|Togekiss, L80, F|88100
+|switch|p2a: Registeel|Registeel, L83|207268
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mandibuzz" vs "lopunny"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-mandibuzz -- solgaleo-togekiss-lopunny
+|chat|DEBUG|Own moves: foulplay bravebird roost defog
+|chat|DEBUG|Enemy moves: closecombat facade healingwish switcheroo
+|chat|DEBUG|Checks: ['mandibuzz']
+|chat|DEBUG|Counter: ['registeel', 'mandibuzz']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 240
+|chat|DEBUG|HP: 315 vs 142
+|chat|DEBUG|Created a new Strategy for mandibuzz vs lopunny:
+|chat|DEBUG|>[bravebird: 86.4375 [79, 94], bravebird: 86.4375 [79, 94], bravebird: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of mandibuzz (p1): bravebird: 86.4375 [79, 94]
+|chat|DEBUG|Best move of lopunny (p2): closecombat: 73.625 [68, 80]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom, L84|100100
+|move|p2a: Registeel|Iron Head|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|81100
+|-heal|p1a: Rotom|87100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace mandibuzz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mandibuzz" vs "lopunny"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace-mandibuzz -- solgaleo-togekiss-lopunny
+|chat|DEBUG|Own moves: foulplay bravebird roost defog
+|chat|DEBUG|Enemy moves: closecombat facade healingwish switcheroo
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'shiftry', 'mandibuzz']
+|chat|DEBUG|Speed: 178 vs 240
+|chat|DEBUG|HP: 143 vs 23
+|chat|DEBUG|Best move of mandibuzz (p1): bravebird: 86.4375 [79, 94]
+|chat|DEBUG|Best move of lopunny (p2): closecombat: 73.625 [68, 80]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Registeel|Dynamax
+|-heal|p2a: Registeel|414536|[silent]
+|move|p1a: Rotom|Will-O-Wisp|p2a: Registeel
+|-status|p2a: Registeel|brn
+|move|p2a: Registeel|Max Steelspike|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|74100
+|-boost|p2a: Registeel|def|1
+|-heal|p1a: Rotom|80100|[from] item: Leftovers
+|-damage|p2a: Registeel|398536 brn|[from] brn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mandibuzz" vs "lopunny"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace -- solgaleo-togekiss-lopunny
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat facade healingwish switcheroo
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'shiftry']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Nasty Plot|p1a: Rotom
+|-boost|p1a: Rotom|spa|2
+|move|p2a: Registeel|Max Steelspike|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|67100
+|-boost|p2a: Registeel|def|1
+|-heal|p1a: Rotom|72100|[from] item: Leftovers
+|-damage|p2a: Registeel|382536 brn|[from] brn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace -- solgaleo-togekiss
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|Speed: 131 vs 174
+|chat|DEBUG|HP: 207 vs 234
+|chat|DEBUG|Created a new Strategy for registeel vs togekiss:
+|chat|DEBUG|>[ironhead: 137.5 [126, 150], ironhead: 137.5 [126, 150], ironhead: 137.5 [126, 150]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 137.5 [126, 150]
+|chat|DEBUG|Best move of togekiss (p2): aurasphere: 82.375 [76, 90]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Nasty Plot|p1a: Rotom
+|-boost|p1a: Rotom|spa|2
+|move|p2a: Registeel|Max Steelspike|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|60100
+|-boost|p2a: Registeel|def|1
+|-heal|p1a: Rotom|66100|[from] item: Leftovers
+|-damage|p2a: Registeel|366536 brn|[from] brn
+|-end|p2a: Registeel|Dynamax
+|-heal|p2a: Registeel|183268 brn|[silent]
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "rotom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace -- solgaleo-togekiss-rotom
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: nastyplot shadowball thunderbolt willowisp
+|chat|DEBUG|Checks: ['shiftry']
+|chat|DEBUG|Counter: ['shiftry']
+|chat|DEBUG|Speed: 131 vs 201
+|chat|DEBUG|HP: 207 vs 192
+|chat|DEBUG|Created a new Strategy for registeel vs rotom:
+|chat|DEBUG|>[ironhead: 38.125 [35, 42], ironhead: 38.125 [35, 42], ironhead: 38.125 [35, 42]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 38.125 [35, 42]
+|chat|DEBUG|Best move of rotom (p2): thunderbolt: 62.9375 [58, 69]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Nasty Plot|p1a: Rotom
+|-boost|p1a: Rotom|spa|2
+|move|p2a: Registeel|Iron Head|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|58100
+|-heal|p1a: Rotom|63100|[from] item: Leftovers
+|-damage|p2a: Registeel|167268 brn|[from] brn
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "rotom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace -- solgaleo-togekiss-rotom
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: nastyplot shadowball thunderbolt willowisp
+|chat|DEBUG|Checks: ['registeel', 'shiftry']
+|chat|DEBUG|Counter: ['registeel', 'shiftry']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 131 vs 201
+|chat|DEBUG|HP: 398 vs 176
+|chat|DEBUG|Best move of registeel (p1): ironhead: 38.125 [35, 42]
+|chat|DEBUG|Best move of rotom (p2): thunderbolt: 62.9375 [58, 69]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Rotom|Dynamax
+|-heal|p1a: Rotom|63100|[silent]
+|move|p1a: Rotom|Max Lightning|p2a: Registeel
+|-damage|p2a: Registeel|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Registeel
+|-heal|p1a: Rotom|66100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shiftry|Shiftry, L86, M|295295
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "rotom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace -- solgaleo-togekiss-rotom
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: nastyplot shadowball thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry']
+|chat|DEBUG|Speed: 131 vs 201
+|chat|DEBUG|HP: 382 vs 159
+|chat|DEBUG|Best move of registeel (p1): ironhead: 38.125 [35, 42]
+|chat|DEBUG|Best move of rotom (p2): thunderbolt: 124.0625 [114, 135]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Max Lightning|p2a: Shiftry
+|-resisted|p2a: Shiftry
+|-damage|p2a: Shiftry|0 fnt
+|faint|p2a: Shiftry
+|-heal|p1a: Rotom|69100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|43240
+|turn|28
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel shiftry cinderace
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "rotom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-shiftry-cinderace -- solgaleo-togekiss-rotom
+|chat|DEBUG|Own moves: ironhead curse bodypress rest
+|chat|DEBUG|Enemy moves: nastyplot shadowball thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry']
+|chat|DEBUG|Speed: 131 vs 201
+|chat|DEBUG|HP: 183 vs 145
+|chat|DEBUG|Created a new Strategy for registeel vs rotom:
+|chat|DEBUG|>[ironhead: 38.125 [35, 42], ironhead: 38.125 [35, 42], ironhead: 38.125 [35, 42]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 38.125 [35, 42]
+|chat|DEBUG|Best move of rotom (p2): thunderbolt: 184.75 [169, 201]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Pyro Ball|p1a: Rotom
+|-damage|p1a: Rotom|43100
+|move|p1a: Rotom|Max Lightning|p2a: Cinderace
+|-damage|p2a: Cinderace|0 fnt
+|faint|p2a: Cinderace
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>yeet beet skeet<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">alakazam registeel shiftry cinderace kingdra mandibuzz</h1>

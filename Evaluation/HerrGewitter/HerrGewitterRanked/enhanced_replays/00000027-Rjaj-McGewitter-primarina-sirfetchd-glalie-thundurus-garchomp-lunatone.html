@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1489993591<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1489993591|init|battle
+|title|Rjaj vs. McGewitter
+|j|☆Rjaj
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Rjaj|101|1040
+|player|p2|McGewitter|265|1094
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Slowbro|Slowbro, L84, F|100100
+|switch|p2a: Primarina|Primarina, L82, F|265265
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina sirfetchd glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-sirfetchd-glalie-thundurus-garchomp-lunatone -- slowbro
+|chat|DEBUG|Own moves: sparklingaria psychic hydropump moonblast
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina', 'thundurus']
+|chat|DEBUG|Speed: 146 vs 99
+|chat|DEBUG|HP: 265 vs 297
+|chat|DEBUG|Created a new Strategy for primarina vs slowbro:
+|chat|DEBUG|>[moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Primarina|Moonblast|p1a: Slowbro
+|-damage|p1a: Slowbro|55100
+|-unboost|p1a: Slowbro|spa|1
+|move|p1a: Slowbro|Thunder Wave|p2a: Primarina
+|-status|p2a: Primarina|par
+|-heal|p1a: Slowbro|61100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina sirfetchd glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-sirfetchd-glalie-thundurus-garchomp-lunatone -- slowbro
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: ['primarina', 'sirfetchd', 'glalie', 'thundurus', 'garchomp', 'lunatone']
+|chat|DEBUG|Counter: ['primarina', 'sirfetchd', 'glalie', 'thundurus', 'garchomp', 'lunatone']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 99
+|chat|DEBUG|HP: 265 vs 181
+|chat|DEBUG|Created a new Strategy for primarina vs slowbro:
+|chat|DEBUG|>[moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 72.5625 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Moonblast|p1a: Slowbro
+|-damage|p1a: Slowbro|17100
+|-unboost|p1a: Slowbro|spa|1
+|move|p1a: Slowbro|Slack Off|p1a: Slowbro
+|-heal|p1a: Slowbro|67100
+|-heal|p1a: Slowbro|73100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina sirfetchd glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-sirfetchd-glalie-thundurus-garchomp-lunatone -- slowbro
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: ['primarina', 'glalie', 'thundurus', 'garchomp', 'lunatone']
+|chat|DEBUG|Counter: ['primarina', 'sirfetchd', 'glalie', 'thundurus', 'garchomp', 'lunatone']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 99
+|chat|DEBUG|HP: 265 vs 216
+|chat|DEBUG|Created a new Strategy for primarina vs slowbro:
+|chat|DEBUG|>[moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 54.75 [51, 60]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lurantis|Lurantis, L86, F|100100
+|move|p2a: Primarina|Moonblast|p1a: Lurantis
+|-damage|p1a: Lurantis|61100
+|-boost|p1a: Lurantis|spa|1
+|-heal|p1a: Lurantis|67100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina sirfetchd glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-sirfetchd-glalie-thundurus-garchomp-lunatone -- slowbro-lurantis
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['sirfetchd', 'thundurus']
+|chat|DEBUG|Counter: ['sirfetchd', 'glalie', 'thundurus', 'garchomp']
+|chat|DEBUG|Speed: 146 vs 127
+|chat|DEBUG|HP: 265 vs 174
+|chat|DEBUG|Created a new Strategy for primarina vs lurantis:
+|chat|DEBUG|>[moonblast: 112.8125 [103, 123], moonblast: 112.8125 [103, 123], moonblast: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 112.8125 [103, 123]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 308.875 [284, 336]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sirfetchd
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sirfetch’d|Sirfetch’d, L82, M|236236
+|move|p1a: Lurantis|Leaf Storm|p2a: Sirfetch’d
+|-damage|p2a: Sirfetch’d|25236
+|-boost|p1a: Lurantis|spa|2
+|-heal|p1a: Lurantis|73100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina sirfetchd glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sirfetchd" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-sirfetchd-glalie-thundurus-garchomp-lunatone -- slowbro-lurantis
+|chat|DEBUG|Own moves: firstimpression closecombat bravebird knockoff
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['thundurus']
+|chat|DEBUG|Counter: ['sirfetchd', 'thundurus']
+|chat|DEBUG|Speed: 154 vs 127
+|chat|DEBUG|HP: 25 vs 190
+|chat|DEBUG|Created a new Strategy for sirfetchd vs lurantis:
+|chat|DEBUG|>[bravebird: 300.625 [276, 326], bravebird: 300.625 [276, 326], bravebird: 300.625 [276, 326]]
+|chat|DEBUG|Best move of sirfetchd (p1): bravebird: 300.625 [276, 326]
+|chat|DEBUG|Best move of lurantis (p2): superpower: 91.5 [84, 99]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sirfetch’d|Brave Bird|p1a: Lurantis
+|-supereffective|p1a: Lurantis
+|-damage|p1a: Lurantis|0 fnt
+|faint|p1a: Lurantis
+|-damage|p2a: Sirfetch’d|0 fnt|[from] Recoil
+|faint|p2a: Sirfetch’d
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thundurus|Thundurus, L80, M|258258
+|switch|p1a: Walrein|Walrein, L86, F|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sirfetchd" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-thundurus-garchomp-lunatone -- slowbro-lurantis
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['thundurus']
+|chat|DEBUG|Counter: ['thundurus']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to thundurus (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Protect|p1a: Walrein
+|-singleturn|p1a: Walrein|Protect
+|move|p2a: Thundurus|Thunderbolt|p1a: Walrein
+|-activate|p1a: Walrein|move: Protect
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-thundurus-garchomp-lunatone -- slowbro-walrein
+|chat|DEBUG|Own moves: superpower knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['primarina', 'thundurus', 'lunatone']
+|chat|DEBUG|Speed: 224 vs 161
+|chat|DEBUG|HP: 258 vs 329
+|chat|DEBUG|Created a new Strategy for thundurus vs walrein:
+|chat|DEBUG|>[thunderbolt: 206.5 [188, 224], thunderbolt: 206.5 [188, 224], thunderbolt: 206.5 [188, 224]]
+|chat|DEBUG|Best move of thundurus (p1): thunderbolt: 206.5 [188, 224]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 222.875 [204, 242]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|40100
+|move|p1a: Walrein|Ice Beam|p2a: Thundurus
+|-supereffective|p2a: Thundurus
+|-damage|p2a: Thundurus|36258
+|-heal|p1a: Walrein|46100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-thundurus-garchomp-lunatone -- slowbro-walrein
+|chat|DEBUG|Own moves: superpower knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['primarina', 'thundurus', 'lunatone']
+|chat|DEBUG|Speed: 224 vs 161
+|chat|DEBUG|HP: 258 vs 329
+|chat|DEBUG|Best move of thundurus (p1): thunderbolt: 206.5 [188, 224]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 222.875 [204, 242]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Protect|p1a: Walrein
+|-singleturn|p1a: Walrein|Protect
+|move|p2a: Thundurus|Thunderbolt|p1a: Walrein
+|-activate|p1a: Walrein|move: Protect
+|-heal|p1a: Walrein|52100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-thundurus-garchomp-lunatone -- slowbro-walrein
+|chat|DEBUG|Own moves: superpower knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['primarina', 'lunatone']
+|chat|DEBUG|Counter: ['primarina', 'thundurus', 'lunatone']
+|chat|DEBUG|Speed: 224 vs 161
+|chat|DEBUG|HP: 36 vs 151
+|chat|DEBUG|Best move of thundurus (p1): thunderbolt: 206.5 [188, 224]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 222.875 [204, 242]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Protect||[still]
+|-fail|p1a: Walrein
+|move|p2a: Thundurus|Thunderbolt|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|0 fnt
+|faint|p1a: Walrein
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zarude|Zarude-Dada, L78|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-thundurus-garchomp-lunatone -- slowbro-walrein
+|chat|DEBUG|Own moves: superpower knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['primarina', 'lunatone']
+|chat|DEBUG|Counter: ['primarina', 'thundurus', 'lunatone']
+|chat|DEBUG|Speed: 224 vs 161
+|chat|DEBUG|HP: 36 vs 171
+|chat|DEBUG|Created a new Strategy for thundurus vs walrein:
+|chat|DEBUG|>[thunderbolt: 206.5 [188, 224], thunderbolt: 206.5 [188, 224], thunderbolt: 206.5 [188, 224]]
+|chat|DEBUG|Best move of thundurus (p1): thunderbolt: 206.5 [188, 224]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 222.875 [204, 242]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Sludge Wave|p1a: Zarude
+|-supereffective|p1a: Zarude
+|-damage|p1a: Zarude|50100
+|move|p1a: Zarude|Power Whip|p2a: Thundurus
+|-resisted|p2a: Thundurus
+|-damage|p2a: Thundurus|0 fnt
+|faint|p2a: Thundurus
+|-heal|p1a: Zarude|56100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garchomp|Garchomp, L74, M|282282
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie thundurus garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-thundurus-garchomp-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: superpower knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 224 vs 209
+|chat|DEBUG|HP: 36 vs 292
+|chat|DEBUG|Created a new Strategy for thundurus vs zarudedada:
+|chat|DEBUG|>[sludgewave: 154.5 [142, 168], sludgewave: 154.5 [142, 168], superpower: 167.5 [154, 182]]
+|chat|DEBUG|Best move of thundurus (p1): sludgewave: 154.5 [142, 168]
+|chat|DEBUG|Best move of zarudedada (p2): darkestlariat: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, F|100100
+|move|p2a: Garchomp|Outrage|p1a: Audino
+|-damage|p1a: Audino|63100
+|-heal|p1a: Audino|69100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-garchomp-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: garchomp
+|chat|DEBUG|>Switching to garchomp (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garchomp|Outrage|p1a: Audino|[from]lockedmove
+|-damage|p1a: Audino|35100
+|move|p1a: Audino|Toxic|p2a: Garchomp
+|-status|p2a: Garchomp|tox
+|-enditem|p2a: Garchomp|Lum Berry|[eat]
+|-curestatus|p2a: Garchomp|tox|[msg]
+|-heal|p1a: Audino|41100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garchomp" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-garchomp-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: earthquake outrage swordsdance stoneedge
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['garchomp']
+|chat|DEBUG|Speed: 194 vs 209
+|chat|DEBUG|HP: 282 vs 163
+|chat|DEBUG|Created a new Strategy for garchomp vs zarudedada:
+|chat|DEBUG|>[outrage: 117.0 [108, 127], outrage: 117.0 [108, 127], outrage: 117.0 [108, 127]]
+|chat|DEBUG|Best move of garchomp (p1): outrage: 117.0 [108, 127]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 138.5625 [127, 151]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garchomp|Outrage|p1a: Audino|[from]lockedmove
+|-damage|p1a: Audino|6100
+|-start|p2a: Garchomp|confusion|[fatigue]
+|move|p1a: Audino|Knock Off|p2a: Garchomp
+|-damage|p2a: Garchomp|242282
+|-damage|p1a: Audino|0 fnt|[from] ability: Rough Skin|[of] p2a: Garchomp
+|faint|p1a: Audino
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowbro|Slowbro, L84, F|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garchomp" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-garchomp-lunatone -- slowbro-zarudedada-audino
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['primarina', 'garchomp']
+|chat|DEBUG|Counter: ['primarina', 'glalie', 'garchomp', 'lunatone']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 194 vs 141
+|chat|DEBUG|HP: 282 vs 229
+|chat|DEBUG|Created a new Strategy for garchomp vs audino:
+|chat|DEBUG|>[outrage: 118.3125 [109, 129], outrage: 118.3125 [109, 129], outrage: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of garchomp (p1): outrage: 118.3125 [109, 129]
+|chat|DEBUG|Best move of audino (p2): knockoff: 59.6875 [55, 65]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Garchomp|confusion
+|-damage|p2a: Garchomp|210282|[from] confusion
+|move|p1a: Slowbro|Scald|p2a: Garchomp
+|-damage|p2a: Garchomp|114282
+|-status|p2a: Garchomp|brn
+|-damage|p2a: Garchomp|97282 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garchomp" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-garchomp-lunatone -- slowbro-zarudedada-audino
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['primarina', 'glalie', 'garchomp']
+|chat|DEBUG|Counter: ['primarina', 'glalie', 'garchomp', 'lunatone']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 194 vs 141
+|chat|DEBUG|HP: 282 vs 136
+|chat|DEBUG|Created a new Strategy for garchomp vs audino:
+|chat|DEBUG|>[outrage: 118.3125 [109, 129], outrage: 118.3125 [109, 129], outrage: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of garchomp (p1): outrage: 118.3125 [109, 129]
+|chat|DEBUG|Best move of audino (p2): knockoff: 40.25 [37, 44]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Garchomp|confusion
+|-damage|p2a: Garchomp|67282 brn|[from] confusion
+|move|p1a: Slowbro|Scald|p2a: Garchomp
+|-damage|p2a: Garchomp|0 fnt
+|faint|p2a: Garchomp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Primarina|Primarina, L82, F|265265 par
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garchomp" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-garchomp-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: earthquake outrage swordsdance stoneedge
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Speed: 194 vs 99
+|chat|DEBUG|HP: 242 vs 297
+|chat|DEBUG|Created a new Strategy for garchomp vs slowbro:
+|chat|DEBUG|>[outrage: 105.875 [97, 115], outrage: 105.875 [97, 115], outrage: 105.875 [97, 115]]
+|chat|DEBUG|Best move of garchomp (p1): outrage: 105.875 [97, 115]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 150.1875 [138, 163]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zarude|Zarude-Dada, L78|56100
+|move|p2a: Primarina|Moonblast|p1a: Zarude
+|-supereffective|p1a: Zarude
+|-damage|p1a: Zarude|0 fnt
+|faint|p1a: Zarude
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zekrom|Zekrom, L69|100100
+|-ability|p1a: Zekrom|Teravolt
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie garchomp lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garchomp" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-garchomp-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: earthquake outrage swordsdance stoneedge
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Speed: 194 vs 99
+|chat|DEBUG|HP: 97 vs 297
+|chat|DEBUG|Best move of garchomp (p1): outrage: 105.875 [97, 115]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 150.1875 [138, 163]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Primarina|Dynamax
+|-heal|p2a: Primarina|530530 par|[silent]
+|move|p1a: Zekrom|Bolt Strike|p2a: Primarina
+|-supereffective|p2a: Primarina
+|-damage|p2a: Primarina|228530 par
+|move|p2a: Primarina|Max Starfall|p1a: Zekrom
+|-supereffective|p1a: Zekrom
+|-damage|p1a: Zekrom|0 fnt
+|-fieldstart|move: Misty Terrain
+|faint|p1a: Zekrom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowbro|Slowbro, L84, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garchomp" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to primarina (pokemon object) [Active: False, Status: PAR]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Slowbro|Dynamax
+|-heal|p1a: Slowbro|100100|[silent]
+|move|p1a: Slowbro|Max Geyser|p2a: Primarina
+|-resisted|p2a: Primarina
+|-damage|p2a: Primarina|174530 par
+|-weather|RainDance
+|cant|p2a: Primarina|par
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie lunatone
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-lunatone -- slowbro-zarudedada
+|chat|DEBUG|Own moves: sparklingaria psychic hydropump moonblast
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Speed: 146 vs 99
+|chat|DEBUG|HP: 265 vs 297
+|chat|DEBUG|Created a new Strategy for primarina vs slowbro:
+|chat|DEBUG|>[moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Slowbro|Max Geyser|p2a: Primarina
+|-resisted|p2a: Primarina
+|-damage|p2a: Primarina|90530 par
+|move|p2a: Primarina|Max Starfall|p1a: Slowbro
+|-damage|p1a: Slowbro|74100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Slowbro|77100|[from] item: Leftovers
+|-end|p2a: Primarina|Dynamax
+|-heal|p2a: Primarina|45265 par|[silent]
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie lunatone
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "primarina" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-lunatone -- slowbro-zekrom
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['glalie', 'lunatone']
+|chat|DEBUG|Speed: 146 vs 165
+|chat|DEBUG|HP: 265 vs 252
+|chat|DEBUG|Created a new Strategy for primarina vs zekrom:
+|chat|DEBUG|>[moonblast: 259.0 [236, 282], moonblast: 259.0 [236, 282], moonblast: 259.0 [236, 282]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 259.0 [236, 282]
+|chat|DEBUG|Best move of zekrom (p2): boltstrike: 308.875 [284, 336]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Moonblast|p1a: Slowbro
+|-damage|p1a: Slowbro|57100
+|move|p1a: Slowbro|Max Geyser|p2a: Primarina
+|-resisted|p2a: Primarina
+|-crit|p2a: Primarina
+|-damage|p2a: Primarina|0 fnt
+|faint|p2a: Primarina
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Slowbro|60100|[from] item: Leftovers
+|-end|p1a: Slowbro|Dynamax
+|-heal|p1a: Slowbro|60100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Glalie|Glalie, L80, M|259259
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie lunatone
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "primarina" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-lunatone -- slowbro
+|chat|DEBUG|Own moves: sparklingaria psychic hydropump moonblast
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Speed: 146 vs 99
+|chat|DEBUG|HP: 228 vs 297
+|chat|DEBUG|Created a new Strategy for primarina vs slowbro:
+|chat|DEBUG|>[moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136], moonblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Glalie|Freeze-Dry|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|20100
+|move|p1a: Slowbro|Teleport||[still]
+|-fail|p1a: Slowbro
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Slowbro|26100|[from] item: Leftovers
+|-fieldend|Misty Terrain
+|-ability|p2a: Glalie|Moody|boost
+|-boost|p2a: Glalie|spd|2
+|-unboost|p2a: Glalie|atk|1
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina glalie lunatone
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "primarina" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-glalie-lunatone -- slowbro
+|chat|DEBUG|Own moves: sparklingaria psychic hydropump moonblast
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 99
+|chat|DEBUG|HP: 174 vs 297
+|chat|DEBUG|Best move of primarina (p1): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Glalie|Freeze-Dry|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|faint|p1a: Slowbro
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Rjaj<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">primarina sirfetchd glalie thundurus garchomp lunatone</h1>

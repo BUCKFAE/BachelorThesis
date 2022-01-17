@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490424214<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490424214|init|battle
+|title|BrookAalto vs. McGewitter
+|j|☆BrookAalto
+|j|☆McGewitter
+|gametype|singles
+|player|p1|BrookAalto|wallace|1238
+|player|p2|McGewitter|265|1240
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Persian|Persian, L88, M|100100
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, F|307307
+|-item|p1a: Persian|Choice Band|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor durant persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-durant-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: dracometeor flamethrower leafstorm gigadrain
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: ['durant', 'corviknight']
+|chat|DEBUG|Counter: ['durant', 'groudon', 'corviknight']
+|chat|DEBUG|Speed: 128 vs 253
+|chat|DEBUG|HP: 307 vs 258
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs persian:
+|chat|DEBUG|>[gigadrain: 182.375 [168, 198], gigadrain: 182.375 [168, 198], leafstorm: 315.4375 [289, 342]]
+|chat|DEBUG|Best move of exeggutoralola (p1): gigadrain: 182.375 [168, 198]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 162.8125 [150, 177]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check durant
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Durant|Durant, L78, F|219219
+|move|p1a: Persian|U-turn|p2a: Durant
+|-resisted|p2a: Durant
+|-damage|p2a: Durant|190219
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Flygon|Flygon, L80, M|100100|[from]move: U-turn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor durant persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "flygon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-durant-persian-groudon-corviknight -- persian-flygon
+|chat|DEBUG|Own moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Enemy moves: dragondance earthquake firepunch outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['persian']
+|chat|DEBUG|Speed: 215 vs 206
+|chat|DEBUG|HP: 190 vs 259
+|chat|DEBUG|Created a new Strategy for durant vs flygon:
+|chat|DEBUG|>[ironhead: 178.0625 [164, 192], ironhead: 178.0625 [164, 192], ironhead: 178.0625 [164, 192]]
+|chat|DEBUG|Best move of durant (p1): ironhead: 178.0625 [164, 192]
+|chat|DEBUG|Best move of flygon (p2): firepunch: 234.0 [213, 255]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Durant|Iron Head|p1a: Flygon
+|-damage|p1a: Flygon|29100
+|-damage|p2a: Durant|169219|[from] item: Life Orb
+|cant|p1a: Flygon|flinch
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor durant persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "flygon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-durant-persian-groudon-corviknight -- persian-flygon
+|chat|DEBUG|Own moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Enemy moves: dragondance earthquake firepunch outrage
+|chat|DEBUG|Checks: ['persian', 'groudon']
+|chat|DEBUG|Counter: ['garbodor', 'durant', 'persian', 'groudon', 'corviknight']
+|chat|DEBUG|Speed: 215 vs 206
+|chat|DEBUG|HP: 169 vs 75
+|chat|DEBUG|Best move of durant (p1): ironhead: 178.0625 [164, 192]
+|chat|DEBUG|Best move of flygon (p2): firepunch: 234.0 [213, 255]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Durant|Iron Head|p1a: Flygon
+|-damage|p1a: Flygon|0 fnt
+|faint|p1a: Flygon
+|-damage|p2a: Durant|148219|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rayquaza|Rayquaza, L74|100100
+|-ability|p1a: Rayquaza|Air Lock
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor durant persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-durant-persian-groudon-corviknight -- persian-rayquaza
+|chat|DEBUG|Own moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola', 'persian', 'groudon']
+|chat|DEBUG|Speed: 215 vs 184
+|chat|DEBUG|HP: 148 vs 277
+|chat|DEBUG|Created a new Strategy for durant vs rayquaza:
+|chat|DEBUG|>[rockslide: 220.1875 [203, 239], rockslide: 220.1875 [203, 239], rockslide: 220.1875 [203, 239]]
+|chat|DEBUG|Best move of durant (p1): rockslide: 220.1875 [203, 239]
+|chat|DEBUG|Best move of rayquaza (p2): vcreate: 501.25 [460, 544]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Durant|Rock Slide|p1a: Rayquaza
+|-supereffective|p1a: Rayquaza
+|-damage|p1a: Rayquaza|22100
+|-damage|p2a: Durant|127219|[from] item: Life Orb
+|cant|p1a: Rayquaza|flinch
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor durant persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-durant-persian-groudon-corviknight -- persian-rayquaza
+|chat|DEBUG|Own moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['persian', 'groudon']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'durant', 'persian', 'groudon']
+|chat|DEBUG|Speed: 215 vs 184
+|chat|DEBUG|HP: 127 vs 60
+|chat|DEBUG|Best move of durant (p1): rockslide: 220.1875 [203, 239]
+|chat|DEBUG|Best move of rayquaza (p2): vcreate: 501.25 [460, 544]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Durant|Rock Slide|p1a: Rayquaza
+|-supereffective|p1a: Rayquaza
+|-damage|p1a: Rayquaza|0 fnt
+|faint|p1a: Rayquaza
+|-damage|p2a: Durant|106219|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mewtwo|Mewtwo, L72|100100
+|-ability|p1a: Mewtwo|Unnerve
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor durant persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "mewtwo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-durant-persian-groudon-corviknight -- persian-mewtwo
+|chat|DEBUG|Own moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Enemy moves: fireblast nastyplot psystrike recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola', 'persian', 'groudon']
+|chat|DEBUG|Speed: 215 vs 229
+|chat|DEBUG|HP: 106 vs 272
+|chat|DEBUG|Created a new Strategy for durant vs mewtwo:
+|chat|DEBUG|>[ironhead: 180.0 [165, 195], ironhead: 180.0 [165, 195], ironhead: 180.0 [165, 195]]
+|chat|DEBUG|Best move of durant (p1): ironhead: 180.0 [165, 195]
+|chat|DEBUG|Best move of mewtwo (p2): fireblast: 542.0 [496, 588]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Shadow Ball|p2a: Durant
+|-damage|p2a: Durant|6219
+|-unboost|p2a: Durant|spd|1
+|move|p2a: Durant|Iron Head|p1a: Mewtwo
+|-damage|p1a: Mewtwo|40100
+|-damage|p2a: Durant|0 fnt|[from] item: Life Orb
+|faint|p2a: Durant
+|-heal|p1a: Mewtwo|46100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, F|307307
+|-item|p1a: Mewtwo|Leftovers|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "mewtwo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian-mewtwo
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: fireblast nastyplot psystrike recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola', 'persian', 'groudon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to exeggutoralola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Recover|p1a: Mewtwo
+|-heal|p1a: Mewtwo|96100
+|move|p2a: Exeggutor|Giga Drain|p1a: Mewtwo
+|-damage|p1a: Mewtwo|30100
+|-heal|p1a: Mewtwo|36100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "mewtwo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian-mewtwo
+|chat|DEBUG|Own moves: dracometeor flamethrower leafstorm gigadrain
+|chat|DEBUG|Enemy moves: fireblast nastyplot psystrike recover
+|chat|DEBUG|Checks: ['exeggutoralola', 'persian', 'groudon']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'persian', 'groudon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 128 vs 229
+|chat|DEBUG|HP: 307 vs 125
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs mewtwo:
+|chat|DEBUG|>[gigadrain: 175.1875 [160, 190], gigadrain: 175.1875 [160, 190], leafstorm: 303.0 [279, 328]]
+|chat|DEBUG|Best move of exeggutoralola (p1): gigadrain: 175.1875 [160, 190]
+|chat|DEBUG|Best move of mewtwo (p2): psystrike: 112.8125 [103, 123]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Psystrike|p2a: Exeggutor
+|-damage|p2a: Exeggutor|190307
+|move|p2a: Exeggutor|Giga Drain|p1a: Mewtwo
+|-damage|p1a: Mewtwo|0 fnt
+|-heal|p2a: Exeggutor|238307|[from] drain|[of] p1a: Mewtwo
+|faint|p1a: Mewtwo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian, L88, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "mewtwo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian-mewtwo
+|chat|DEBUG|Own moves: gigadrain
+|chat|DEBUG|Enemy moves: fireblast nastyplot psystrike recover
+|chat|DEBUG|Checks: ['exeggutoralola', 'persian', 'groudon']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'persian', 'groudon', 'corviknight']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 128 vs 229
+|chat|DEBUG|HP: 307 vs 97
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs mewtwo:
+|chat|DEBUG|>[gigadrain: 175.1875 [160, 190], gigadrain: 175.1875 [160, 190], gigadrain: 175.1875 [160, 190]]
+|chat|DEBUG|Best move of exeggutoralola (p1): gigadrain: 175.1875 [160, 190]
+|chat|DEBUG|Best move of mewtwo (p2): psystrike: 112.8125 [103, 123]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corviknight|Corviknight, L78, M|281281
+|move|p1a: Persian|Play Rough|p2a: Corviknight
+|-resisted|p2a: Corviknight
+|-damage|p2a: Corviknight|239281
+|-heal|p2a: Corviknight|256281|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: gigadrain
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: ['corviknight']
+|chat|DEBUG|Counter: ['groudon', 'corviknight']
+|chat|DEBUG|Speed: 128 vs 253
+|chat|DEBUG|HP: 238 vs 258
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs persian:
+|chat|DEBUG|>[gigadrain: 182.375 [168, 198], gigadrain: 182.375 [168, 198], gigadrain: 182.375 [168, 198]]
+|chat|DEBUG|Best move of exeggutoralola (p1): gigadrain: 182.375 [168, 198]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 162.8125 [150, 177]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check corviknight
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|100100
+|move|p2a: Corviknight|Bulk Up|p2a: Corviknight
+|-boost|p2a: Corviknight|atk|1
+|-boost|p2a: Corviknight|def|1
+|-heal|p2a: Corviknight|273281|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corviknight" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: bravebird bulkup bodypress roost
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: ['corviknight']
+|chat|DEBUG|Counter: ['groudon', 'corviknight']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 150 vs 253
+|chat|DEBUG|HP: 256 vs 258
+|chat|DEBUG|Created a new Strategy for corviknight vs persian:
+|chat|DEBUG|>[bodypress: 132.25 [122, 144], bodypress: 132.25 [122, 144], bodypress: 132.25 [122, 144]]
+|chat|DEBUG|Best move of corviknight (p1): bodypress: 132.25 [122, 144]
+|chat|DEBUG|Best move of persian (p2): knockoff: 82.875 [76, 90]
+|chat|DEBUG|Boost Moves: [bulkup (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, F|238307
+|-item|p1a: Rotom|Leftovers|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|move|p1a: Rotom|Thunderbolt|p2a: Exeggutor
+|-resisted|p2a: Exeggutor
+|-damage|p2a: Exeggutor|214307
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corviknight" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian-rotomwash
+|chat|DEBUG|Own moves: bravebird bulkup bodypress roost
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['exeggutoralola']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'persian']
+|chat|DEBUG|Speed: 150 vs 188
+|chat|DEBUG|HP: 273 vs 216
+|chat|DEBUG|Created a new Strategy for corviknight vs rotomwash:
+|chat|DEBUG|>[bodypress: 69.8125 [64, 76], bodypress: 69.8125 [64, 76], bodypress: 69.8125 [64, 76]]
+|chat|DEBUG|Best move of corviknight (p1): bodypress: 69.8125 [64, 76]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Hydro Pump|p2a: Exeggutor|[miss]
+|-miss|p1a: Rotom|p2a: Exeggutor
+|move|p2a: Exeggutor|Giga Drain|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|-heal|p2a: Exeggutor|307307|[from] drain|[of] p1a: Rotom
+|faint|p1a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian, L88, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian-rotomwash
+|chat|DEBUG|Own moves: dracometeor flamethrower leafstorm gigadrain
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['exeggutoralola']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'persian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 128 vs 188
+|chat|DEBUG|HP: 214 vs 216
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs rotomwash:
+|chat|DEBUG|>[gigadrain: 271.0 [248, 294], gigadrain: 271.0 [248, 294], leafstorm: 467.0 [428, 506]]
+|chat|DEBUG|Best move of exeggutoralola (p1): gigadrain: 271.0 [248, 294]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 25.75 [24, 28]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corviknight|Corviknight, L78, M|273281
+|move|p1a: Persian|Knock Off|p2a: Corviknight
+|-damage|p2a: Corviknight|192281
+|-enditem|p2a: Corviknight|Leftovers|[from] move: Knock Off|[of] p1a: Persian
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: gigadrain
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: ['corviknight']
+|chat|DEBUG|Counter: ['groudon', 'corviknight']
+|chat|DEBUG|Speed: 128 vs 253
+|chat|DEBUG|HP: 307 vs 258
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs persian:
+|chat|DEBUG|>[gigadrain: 182.375 [168, 198], gigadrain: 182.375 [168, 198], gigadrain: 182.375 [168, 198]]
+|chat|DEBUG|Best move of exeggutoralola (p1): gigadrain: 182.375 [168, 198]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 162.8125 [150, 177]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check corviknight
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Knock Off|p2a: Corviknight
+|-damage|p2a: Corviknight|133281
+|move|p2a: Corviknight|Body Press|p1a: Persian
+|-supereffective|p1a: Persian
+|-damage|p1a: Persian|51100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corviknight" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: bravebird bulkup bodypress roost
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon', 'corviknight']
+|chat|DEBUG|Speed: 150 vs 253
+|chat|DEBUG|HP: 192 vs 258
+|chat|DEBUG|Created a new Strategy for corviknight vs persian:
+|chat|DEBUG|>[bodypress: 132.25 [122, 144], bodypress: 132.25 [122, 144], bodypress: 132.25 [122, 144]]
+|chat|DEBUG|Best move of corviknight (p1): bodypress: 132.25 [122, 144]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 77.0 [71, 84]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Knock Off|p2a: Corviknight
+|-damage|p2a: Corviknight|79281
+|move|p2a: Corviknight|Body Press|p1a: Persian
+|-supereffective|p1a: Persian
+|-damage|p1a: Persian|4100
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corviknight" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: bravebird bulkup bodypress roost
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: ['groudon']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'groudon', 'corviknight']
+|chat|DEBUG|Speed: 150 vs 253
+|chat|DEBUG|HP: 133 vs 131
+|chat|DEBUG|Best move of corviknight (p1): bodypress: 132.25 [122, 144]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 77.0 [71, 84]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Knock Off|p2a: Corviknight
+|-damage|p2a: Corviknight|24281
+|move|p2a: Corviknight|Body Press|p1a: Persian
+|-supereffective|p1a: Persian
+|-damage|p1a: Persian|0 fnt
+|faint|p1a: Persian
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Claydol|Claydol, L86|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corviknight" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- persian
+|chat|DEBUG|Own moves: bravebird bulkup bodypress roost
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: ['groudon']
+|chat|DEBUG|Counter: ['exeggutoralola', 'garbodor', 'groudon', 'corviknight']
+|chat|DEBUG|Speed: 150 vs 253
+|chat|DEBUG|HP: 79 vs 10
+|chat|DEBUG|Best move of corviknight (p1): bodypress: 132.25 [122, 144]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 77.0 [71, 84]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Claydol|Stealth Rock|p2a: Corviknight
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|move|p2a: Corviknight|Brave Bird|p1a: Claydol
+|-damage|p1a: Claydol|63100
+|-damage|p2a: Corviknight|0 fnt|[from] Recoil
+|faint|p2a: Corviknight
+|-heal|p1a: Claydol|70100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, F|281281
+|-damage|p2a: Garbodor|246281|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon corviknight
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "corviknight" vs "claydol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon-corviknight -- claydol
+|chat|DEBUG|Own moves: bravebird bulkup bodypress roost
+|chat|DEBUG|Enemy moves: earthquake icebeam psychic toxic
+|chat|DEBUG|Checks: ['persian']
+|chat|DEBUG|Counter: ['persian']
+|chat|DEBUG|Speed: 150 vs 178
+|chat|DEBUG|HP: 24 vs 243
+|chat|DEBUG|Created a new Strategy for corviknight vs claydol:
+|chat|DEBUG|>[bravebird: 87.9375 [81, 96], bravebird: 87.9375 [81, 96], bravebird: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of corviknight (p1): bravebird: 87.9375 [81, 96]
+|chat|DEBUG|Best move of claydol (p2): icebeam: 57.8125 [53, 63]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Garbodor|Dynamax
+|-formechange|p2a: Garbodor|Garbodor-Gmax
+|-heal|p2a: Garbodor|492562|[silent]
+|move|p2a: Garbodor|G-Max Malodor|p1a: Claydol
+|-resisted|p1a: Claydol
+|-damage|p1a: Claydol|50100
+|-status|p1a: Claydol|psn
+|move|p1a: Claydol|Earthquake|p2a: Garbodor
+|-supereffective|p2a: Garbodor
+|-damage|p2a: Garbodor|316562
+|-heal|p2a: Garbodor|333562|[from] item: Black Sludge
+|-heal|p1a: Claydol|56100 psn|[from] item: Leftovers
+|-damage|p1a: Claydol|44100 psn|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "corviknight" vs "claydol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon -- claydol
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake icebeam psychic toxic
+|chat|DEBUG|Checks: ['persian']
+|chat|DEBUG|Counter: ['persian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'exeggutoralola': 307, 'garbodor': 281, 'persian': 258, 'groudon': 266}
+|chat|DEBUG|remaining_hp_team_2={'claydol': 100}
+|chat|DEBUG|battle.available_switches=[garbodor (pokemon object) [Active: False, Status: None], persian (pokemon object) [Active: False, Status: None], groudon (pokemon object) [Active: False, Status: None], exeggutoralola (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'garbodor'
+|chat|DEBUG|>Switching to garbodor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Claydol|Dynamax
+|-heal|p1a: Claydol|44100 psn|[silent]
+|move|p2a: Garbodor|G-Max Malodor|p1a: Claydol
+|-resisted|p1a: Claydol
+|-damage|p1a: Claydol|34100 psn
+|move|p1a: Claydol|Max Quake|p2a: Garbodor
+|-supereffective|p2a: Garbodor
+|-damage|p2a: Garbodor|115562
+|-boost|p1a: Claydol|spd|1
+|-heal|p2a: Garbodor|132562|[from] item: Black Sludge
+|-heal|p1a: Claydol|37100 psn|[from] item: Leftovers
+|-damage|p1a: Claydol|31100 psn|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "garbodor" vs "claydol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon -- claydol
+|chat|DEBUG|Own moves: painsplit spikes gunkshot stompingtantrum
+|chat|DEBUG|Enemy moves: earthquake icebeam psychic toxic
+|chat|DEBUG|Checks: ['persian']
+|chat|DEBUG|Counter: ['exeggutoralola', 'persian']
+|chat|DEBUG|Speed: 180 vs 178
+|chat|DEBUG|HP: 246 vs 170
+|chat|DEBUG|Created a new Strategy for garbodor vs claydol:
+|chat|DEBUG|>[gunkshot: 56.125 [51, 61], gunkshot: 56.125 [51, 61], gunkshot: 56.125 [51, 61]]
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 56.125 [51, 61]
+|chat|DEBUG|Best move of claydol (p2): earthquake: 178.375 [164, 194]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|G-Max Malodor|p1a: Claydol
+|-resisted|p1a: Claydol
+|-damage|p1a: Claydol|21100 psn
+|move|p1a: Claydol|Max Quake|p2a: Garbodor
+|-supereffective|p2a: Garbodor
+|-damage|p2a: Garbodor|0 fnt
+|-boost|p1a: Claydol|spd|1
+|faint|p2a: Garbodor
+|-heal|p1a: Claydol|24100 psn|[from] item: Leftovers
+|-damage|p1a: Claydol|18100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Persian|Persian, L88, F|258258
+|-damage|p2a: Persian|226258|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola garbodor persian groudon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "garbodor" vs "claydol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-garbodor-persian-groudon -- claydol
+|chat|DEBUG|Own moves: painsplit spikes gunkshot stompingtantrum
+|chat|DEBUG|Enemy moves: earthquake icebeam psychic toxic
+|chat|DEBUG|Checks: ['persian']
+|chat|DEBUG|Counter: ['exeggutoralola', 'persian', 'groudon']
+|chat|DEBUG|Speed: 180 vs 178
+|chat|DEBUG|HP: 333 vs 106
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 56.125 [51, 61]
+|chat|DEBUG|Best move of claydol (p2): earthquake: 178.375 [164, 194]
+|chat|DEBUG|Attacking using gunkshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Persian|Knock Off|p1a: Claydol
+|-supereffective|p1a: Claydol
+|-damage|p1a: Claydol|0 fnt
+|-enditem|p1a: Claydol|Leftovers|[from] move: Knock Off|[of] p2a: Persian
+|faint|p1a: Claydol
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>BrookAalto<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">exeggutoralola garbodor durant persian groudon corviknight</h1>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492193948<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492193948|init|battle
+|title|imkepow vs. McGewitter
+|j|☆imkepow
+|j|☆McGewitter
+|gametype|singles
+|player|p1|imkepow|170|1311
+|player|p2|McGewitter|265|1279
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Rotom|Rotom-Fan, L84|100100
+|switch|p2a: Druddigon|Druddigon, L84, F|267267
+|-ability|p2a: Druddigon|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "druddigon" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- rotomfan
+|chat|DEBUG|Own moves: outrage superpower suckerpunch stealthrock
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['eternatus']
+|chat|DEBUG|Counter: ['druddigon', 'eternatus', 'boltund', 'chandelure']
+|chat|DEBUG|Speed: 129 vs 193
+|chat|DEBUG|HP: 267 vs 221
+|chat|DEBUG|Created a new Strategy for druddigon vs rotomfan:
+|chat|DEBUG|>[outrage: 168.3125 [153, 183], outrage: 168.3125 [153, 183], outrage: 168.3125 [153, 183]]
+|chat|DEBUG|Best move of druddigon (p1): outrage: 168.3125 [153, 183]
+|chat|DEBUG|Best move of rotomfan (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|imkepow also wants the timer to be on.
+|move|p1a: Rotom|Will-O-Wisp|p2a: Druddigon
+|-status|p2a: Druddigon|brn
+|move|p2a: Druddigon|Stealth Rock|p1a: Rotom
+|-sidestart|p1: imkepow|move: Stealth Rock
+|-damage|p2a: Druddigon|251267 brn|[from] brn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "druddigon" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- rotomfan
+|chat|DEBUG|Own moves: outrage superpower suckerpunch stealthrock
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['eternatus']
+|chat|DEBUG|Counter: ['druddigon', 'eternatus', 'boltund', 'chandelure']
+|chat|DEBUG|Speed: 129 vs 193
+|chat|DEBUG|HP: 251 vs 221
+|chat|DEBUG|Best move of druddigon (p1): outrage: 168.3125 [153, 183]
+|chat|DEBUG|Best move of rotomfan (p2): airslash: 83.625 [76, 91]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Nasty Plot|p1a: Rotom
+|-boost|p1a: Rotom|spa|2
+|move|p2a: Druddigon|Outrage|p1a: Rotom
+|-damage|p1a: Rotom|65100
+|-damage|p2a: Druddigon|225267 brn|[from] item: Life Orb
+|-damage|p2a: Druddigon|209267 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "druddigon" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- rotomfan
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['druddigon', 'eternatus', 'boltund', 'chandelure']
+|chat|DEBUG|Speed: 129 vs 193
+|chat|DEBUG|HP: 209 vs 143
+|chat|DEBUG|Created a new Strategy for druddigon vs rotomfan:
+|chat|DEBUG|>[outrage: 168.3125 [153, 183], outrage: 168.3125 [153, 183], outrage: 168.3125 [153, 183]]
+|chat|DEBUG|Best move of druddigon (p1): outrage: 168.3125 [153, 183]
+|chat|DEBUG|Best move of rotomfan (p2): airslash: 165.75 [153, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Druddigon
+|-resisted|p2a: Druddigon
+|-damage|p2a: Druddigon|117267 brn
+|move|p2a: Druddigon|Outrage|p1a: Rotom|[from]lockedmove
+|-damage|p1a: Rotom|29100
+|-damage|p2a: Druddigon|91267 brn|[from] item: Life Orb
+|-start|p2a: Druddigon|confusion|[fatigue]
+|-damage|p2a: Druddigon|75267 brn|[from] brn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "druddigon" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- rotomfan
+|chat|DEBUG|Own moves: outrage superpower suckerpunch stealthrock
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['eternatus', 'boltund']
+|chat|DEBUG|Counter: ['eternatus', 'boltund', 'chandelure']
+|chat|DEBUG|Speed: 129 vs 193
+|chat|DEBUG|HP: 75 vs 64
+|chat|DEBUG|Best move of druddigon (p1): outrage: 168.3125 [153, 183]
+|chat|DEBUG|Best move of rotomfan (p2): airslash: 165.75 [153, 180]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check eternatus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Eternatus|Eternatus, L69|308308
+|-ability|p2a: Eternatus|Pressure
+|move|p1a: Rotom|Thunderbolt|p2a: Eternatus
+|-resisted|p2a: Eternatus
+|-damage|p2a: Eternatus|186308
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- rotomfan
+|chat|DEBUG|Own moves: sludgewave flamethrower recover dynamaxcannon
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['boltund']
+|chat|DEBUG|Counter: ['eternatus', 'boltund', 'chandelure']
+|chat|DEBUG|Speed: 220 vs 193
+|chat|DEBUG|HP: 186 vs 64
+|chat|DEBUG|Created a new Strategy for eternatus vs rotomfan:
+|chat|DEBUG|>[dynamaxcannon: 86.4375 [79, 94], dynamaxcannon: 86.4375 [79, 94], dynamaxcannon: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 86.4375 [79, 94]
+|chat|DEBUG|Best move of rotomfan (p2): airslash: 193.4375 [178, 210]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Eternatus|Dynamax Cannon|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Vanilluxe|Vanilluxe, L82, F|100100
+|-damage|p1a: Vanilluxe|76100|[from] Stealth Rock
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Vanilluxe
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "vanilluxe"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- vanilluxe
+|chat|DEBUG|Own moves: sludgewave flamethrower recover dynamaxcannon
+|chat|DEBUG|Enemy moves: blizzard explosion flashcannon freezedry
+|chat|DEBUG|Checks: ['chandelure']
+|chat|DEBUG|Counter: ['dhelmise', 'conkeldurr', 'boltund', 'chandelure']
+|chat|DEBUG|Speed: 220 vs 177
+|chat|DEBUG|HP: 186 vs 190
+|chat|DEBUG|Created a new Strategy for eternatus vs vanilluxe:
+|chat|DEBUG|>[flamethrower: 78.5 [72, 86], flamethrower: 78.5 [72, 86], flamethrower: 78.5 [72, 86]]
+|chat|DEBUG|Best move of eternatus (p1): flamethrower: 78.5 [72, 86]
+|chat|DEBUG|Best move of vanilluxe (p2): blizzard: 277.125 [254, 302]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check chandelure
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Chandelure|Chandelure, L82, M|233233
+|move|p1a: Vanilluxe|Blizzard|p2a: Chandelure
+|-resisted|p2a: Chandelure
+|-damage|p2a: Chandelure|169233
+|-weather|Hail|[upkeep]
+|-damage|p2a: Chandelure|155233|[from] Hail
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "chandelure" vs "vanilluxe"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- vanilluxe
+|chat|DEBUG|Own moves: substitute shadowball calmmind fireblast
+|chat|DEBUG|Enemy moves: blizzard explosion flashcannon freezedry
+|chat|DEBUG|Checks: ['chandelure']
+|chat|DEBUG|Counter: ['dhelmise', 'conkeldurr', 'boltund', 'chandelure']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 177
+|chat|DEBUG|HP: 155 vs 190
+|chat|DEBUG|Created a new Strategy for chandelure vs vanilluxe:
+|chat|DEBUG|>[fireblast: 295.0 [270, 320], fireblast: 295.0 [270, 320], fireblast: 295.0 [270, 320]]
+|chat|DEBUG|Best move of chandelure (p1): fireblast: 295.0 [270, 320]
+|chat|DEBUG|Best move of vanilluxe (p2): blizzard: 61.0625 [56, 66]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Chandelure|Fire Blast|p1a: Vanilluxe
+|-supereffective|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|0 fnt
+|faint|p1a: Vanilluxe
+|-weather|Hail|[upkeep]
+|-damage|p2a: Chandelure|141233|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyogre|Kyogre, L72|100100
+|-damage|p1a: Kyogre|88100|[from] Stealth Rock
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "chandelure" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- kyogre
+|chat|DEBUG|Own moves: substitute shadowball calmmind fireblast
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['dhelmise', 'boltund']
+|chat|DEBUG|Counter: ['dhelmise', 'boltund']
+|chat|DEBUG|Speed: 178 vs 172
+|chat|DEBUG|HP: 141 vs 231
+|chat|DEBUG|Created a new Strategy for chandelure vs kyogre:
+|chat|DEBUG|>[shadowball: 89.1875 [82, 97], shadowball: 89.1875 [82, 97], shadowball: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of chandelure (p1): shadowball: 89.1875 [82, 97]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 245.125 [224, 266]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dhelmise|Dhelmise, L86|261261
+|move|p1a: Kyogre|Origin Pulse|p2a: Dhelmise
+|-resisted|p2a: Dhelmise
+|-damage|p2a: Dhelmise|172261
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|94100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus dhelmise conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-dhelmise-conkeldurr-boltund-chandelure -- kyogre
+|chat|DEBUG|Own moves: powerwhip poltergeist swordsdance anchorshot
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['boltund']
+|chat|DEBUG|Counter: ['dhelmise', 'boltund']
+|chat|DEBUG|Speed: 118 vs 172
+|chat|DEBUG|HP: 172 vs 247
+|chat|DEBUG|Created a new Strategy for dhelmise vs kyogre:
+|chat|DEBUG|>[powerwhip: 386.875 [356, 420], powerwhip: 386.875 [356, 420], powerwhip: 386.875 [356, 420]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 386.875 [356, 420]
+|chat|DEBUG|Best move of kyogre (p2): icebeam: 128.625 [118, 140]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Kyogre|Dynamax
+|-heal|p1a: Kyogre|94100|[silent]
+|move|p1a: Kyogre|Max Hailstorm|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|0 fnt
+|-weather|Hail
+|faint|p2a: Dhelmise
+|-weather|Hail|[upkeep]
+|-damage|p1a: Kyogre|91100|[from] Hail
+|-heal|p1a: Kyogre|94100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Boltund|Boltund, L84, F|253253
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-boltund-chandelure -- kyogre
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['boltund']
+|chat|DEBUG|Counter: ['boltund']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to boltund (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Boltund|Thunder Fang|p1a: Kyogre|[miss]
+|-miss|p2a: Boltund|p1a: Kyogre
+|move|p1a: Kyogre|Max Geyser|p2a: Boltund
+|-damage|p2a: Boltund|64253
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|97100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "boltund" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-boltund-chandelure -- kyogre
+|chat|DEBUG|Own moves: firefang voltswitch thunderfang crunch
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['boltund']
+|chat|DEBUG|Counter: ['boltund']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 251 vs 172
+|chat|DEBUG|HP: 253 vs 247
+|chat|DEBUG|Created a new Strategy for boltund vs kyogre:
+|chat|DEBUG|>[thunderfang: 286.625 [265, 312], thunderfang: 286.625 [265, 312], thunderfang: 286.625 [265, 312]]
+|chat|DEBUG|Best move of boltund (p1): thunderfang: 286.625 [265, 312]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 160.0 [147, 174]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Boltund|Thunder Fang|p1a: Kyogre
+|-supereffective|p1a: Kyogre
+|-damage|p1a: Kyogre|41100
+|-damage|p2a: Boltund|39253|[from] item: Life Orb
+|move|p1a: Kyogre|Max Geyser|p2a: Boltund
+|-crit|p2a: Boltund
+|-damage|p2a: Boltund|0 fnt
+|faint|p2a: Boltund
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|44100|[from] item: Leftovers
+|-end|p1a: Kyogre|Dynamax
+|-heal|p1a: Kyogre|44100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Eternatus|Eternatus, L69|186308
+|-ability|p2a: Eternatus|Pressure
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr boltund chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "boltund" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-boltund-chandelure -- kyogre
+|chat|DEBUG|Own moves: firefang voltswitch thunderfang crunch
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['boltund']
+|chat|DEBUG|Speed: 251 vs 172
+|chat|DEBUG|HP: 64 vs 255
+|chat|DEBUG|Best move of boltund (p1): thunderfang: 286.625 [265, 312]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 160.0 [147, 174]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Eternatus|Dynamax Cannon|p1a: Kyogre
+|-damage|p1a: Kyogre|10100
+|move|p1a: Kyogre|Ice Beam|p2a: Eternatus
+|-supereffective|p2a: Eternatus
+|-damage|p2a: Eternatus|22308
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|16100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "boltund" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-chandelure -- kyogre
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: eternatus
+|chat|DEBUG|>Switching to eternatus (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Eternatus|Dynamax Cannon|p1a: Kyogre
+|-damage|p1a: Kyogre|0 fnt
+|faint|p1a: Kyogre
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zacian|Zacian, L68|100100
+|-damage|p1a: Zacian|88100|[from] Stealth Rock
+|-ability|p1a: Zacian|Intrepid Sword|boost
+|-boost|p1a: Zacian|atk|1
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-chandelure -- kyogre
+|chat|DEBUG|Own moves: sludgewave flamethrower recover dynamaxcannon
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eternatus']
+|chat|DEBUG|Speed: 220 vs 172
+|chat|DEBUG|HP: 186 vs 115
+|chat|DEBUG|Created a new Strategy for eternatus vs kyogre:
+|chat|DEBUG|>[dynamaxcannon: 80.9375 [75, 88], dynamaxcannon: 80.9375 [75, 88], dynamaxcannon: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 80.9375 [75, 88]
+|chat|DEBUG|Best move of kyogre (p2): icebeam: 152.75 [140, 166]
+|chat|DEBUG|Attacking using dynamaxcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zacian|Psychic Fangs|p2a: Eternatus
+|-supereffective|p2a: Eternatus
+|-damage|p2a: Eternatus|0 fnt
+|faint|p2a: Eternatus
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Druddigon|Druddigon, L84, F|75267 brn
+|-ability|p2a: Druddigon|Mold Breaker
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-chandelure -- kyogre
+|chat|DEBUG|Own moves: sludgewave flamethrower recover dynamaxcannon
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eternatus', 'conkeldurr', 'chandelure']
+|chat|DEBUG|Speed: 220 vs 172
+|chat|DEBUG|HP: 22 vs 42
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 80.9375 [75, 88]
+|chat|DEBUG|Best move of kyogre (p2): icebeam: 152.75 [140, 166]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Druddigon|Sucker Punch|p1a: Zacian
+|-resisted|p1a: Zacian
+|-damage|p1a: Zacian|81100
+|-damage|p2a: Druddigon|49267 brn|[from] item: Life Orb
+|move|p1a: Zacian|Psychic Fangs|p2a: Druddigon
+|-damage|p2a: Druddigon|0 fnt
+|faint|p2a: Druddigon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Conkeldurr|Conkeldurr, L80, F|299299
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon eternatus conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-eternatus-conkeldurr-chandelure -- zacian
+|chat|DEBUG|Own moves: sludgewave flamethrower recover dynamaxcannon
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 220 vs 228
+|chat|DEBUG|HP: 22 vs 209
+|chat|DEBUG|Created a new Strategy for eternatus vs zacian:
+|chat|DEBUG|>[sludgewave: 189.75 [174, 206], sludgewave: 189.75 [174, 206], sludgewave: 189.75 [174, 206]]
+|chat|DEBUG|Best move of eternatus (p1): sludgewave: 189.75 [174, 206]
+|chat|DEBUG|Best move of zacian (p2): playrough: 184.75 [169, 201]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Conkeldurr|Dynamax
+|-heal|p2a: Conkeldurr|598598|[silent]
+|move|p1a: Zacian|Psychic Fangs|p2a: Conkeldurr
+|-supereffective|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|380598
+|move|p2a: Conkeldurr|Max Strike|p1a: Zacian
+|-damage|p1a: Zacian|36100
+|-unboost|p1a: Zacian|spe|1
+|-status|p2a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-conkeldurr-chandelure -- zacian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: druddigon
+|chat|DEBUG|>Switching to druddigon (pokemon object) [Active: False, Status: BRN]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zacian|Psychic Fangs|p2a: Conkeldurr
+|-supereffective|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|154598 brn
+|move|p2a: Conkeldurr|Max Strike|p1a: Zacian
+|-damage|p1a: Zacian|0 fnt
+|faint|p1a: Zacian
+|-damage|p2a: Conkeldurr|136598 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jirachi|Jirachi, L79|100100
+|-damage|p1a: Jirachi|94100|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>druddigon conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "druddigon" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>druddigon-conkeldurr-chandelure -- zacian
+|chat|DEBUG|Own moves: outrage superpower suckerpunch stealthrock
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 129 vs 228
+|chat|DEBUG|HP: 75 vs 209
+|chat|DEBUG|Created a new Strategy for druddigon vs zacian:
+|chat|DEBUG|>[suckerpunch: 37.875 [35, 42], superpower: 64.875 [60, 70], superpower: 43.25 [40, 47]]
+|chat|DEBUG|Best move of druddigon (p1): suckerpunch: 37.875 [35, 42]
+|chat|DEBUG|Best move of zacian (p2): playrough: 317.125 [290, 344]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-end|p2a: Conkeldurr|Dynamax
+|-heal|p2a: Conkeldurr|68299 brn|[silent]
+|switch|p2a: Chandelure|Chandelure, L82, M|141233
+|move|p1a: Jirachi|Fire Punch|p2a: Chandelure
+|-start|p2a: Chandelure|ability: Flash Fire
+|-heal|p1a: Jirachi|100100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "druddigon" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-chandelure -- zacian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: conkeldurr
+|chat|DEBUG|>Switching to conkeldurr (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Toxic|p2a: Chandelure
+|-status|p2a: Chandelure|tox
+|move|p2a: Chandelure|Fire Blast|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|0 fnt
+|faint|p1a: Jirachi
+|-damage|p2a: Chandelure|127233 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragalge|Dragalge, L86, M|100100
+|-damage|p1a: Dragalge|88100|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-chandelure -- zacian
+|chat|DEBUG|Own moves: facade drainpunch knockoff machpunch
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 228
+|chat|DEBUG|HP: 299 vs 192
+|chat|DEBUG|Created a new Strategy for conkeldurr vs zacian:
+|chat|DEBUG|>[facade: 61.375 [56, 67], facade: 61.375 [56, 67], facade: 61.375 [56, 67]]
+|chat|DEBUG|Best move of conkeldurr (p1): facade: 61.375 [56, 67]
+|chat|DEBUG|Best move of zacian (p2): playrough: 320.0 [294, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Chandelure|Shadow Ball|p1a: Dragalge
+|-damage|p1a: Dragalge|53100
+|move|p1a: Dragalge|Sludge Wave|p2a: Chandelure
+|-resisted|p2a: Chandelure
+|-damage|p2a: Chandelure|29233 tox
+|-damage|p2a: Chandelure|1233 tox|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-chandelure -- zacian
+|chat|DEBUG|Own moves: facade drainpunch knockoff machpunch
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 228
+|chat|DEBUG|HP: 380 vs 85
+|chat|DEBUG|Best move of conkeldurr (p1): facade: 61.375 [56, 67]
+|chat|DEBUG|Best move of zacian (p2): playrough: 320.0 [294, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Chandelure|Shadow Ball|p1a: Dragalge
+|-damage|p1a: Dragalge|18100
+|move|p1a: Dragalge|Sludge Wave|p2a: Chandelure
+|-resisted|p2a: Chandelure
+|-damage|p2a: Chandelure|0 fnt
+|faint|p2a: Chandelure
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Conkeldurr|Conkeldurr, L80, F|68299 brn
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr chandelure
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-chandelure -- jirachi
+|chat|DEBUG|Own moves: facade drainpunch knockoff machpunch
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['chandelure']
+|chat|DEBUG|Counter: ['chandelure']
+|chat|DEBUG|Speed: 118 vs 204
+|chat|DEBUG|HP: 136 vs 270
+|chat|DEBUG|Created a new Strategy for conkeldurr vs jirachi:
+|chat|DEBUG|>[knockoff: 163.75 [150, 178], knockoff: 163.75 [150, 178], knockoff: 163.75 [150, 178]]
+|chat|DEBUG|Best move of conkeldurr (p1): knockoff: 163.75 [150, 178]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check chandelure
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dragalge|Sludge Wave|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|0 fnt
+|faint|p2a: Conkeldurr
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>imkepow<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">druddigon eternatus dhelmise conkeldurr boltund chandelure</h1>

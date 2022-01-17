@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490643940<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490643940|init|battle
+|title|yelloyelloyello vs. McGewitter
+|j|☆yelloyelloyello
+|j|☆McGewitter
+|gametype|singles
+|player|p1|yelloyelloyello|acetrainerf-gen4dp|1175
+|player|p2|McGewitter|265|1218
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Magearna|Magearna, L75|100100
+|switch|p2a: Sharpedo|Sharpedo, L82, F|249249
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna
+|chat|DEBUG|Own moves: hydropump protect closecombat crunch
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['torkoal', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'torkoal', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 203 vs 141
+|chat|DEBUG|HP: 249 vs 244
+|chat|DEBUG|Created a new Strategy for sharpedo vs magearna:
+|chat|DEBUG|>[closecombat: 112.4375 [103, 122], closecombat: 112.4375 [103, 122], closecombat: 112.4375 [103, 122]]
+|chat|DEBUG|Best move of sharpedo (p1): closecombat: 112.4375 [103, 122]
+|chat|DEBUG|Best move of magearna (p2): fleurcannon: 489.125 [450, 530]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check torkoal
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Torkoal|Torkoal, L86, M|261261
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Torkoal
+|move|p1a: Magearna|Fleur Cannon|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|186261
+|-unboost|p1a: Magearna|spa|2
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna
+|chat|DEBUG|Own moves: lavaplume solarbeam rapidspin stealthrock
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['thundurustherian', 'torkoal', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'torkoal', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 84 vs 141
+|chat|DEBUG|HP: 186 vs 244
+|chat|DEBUG|Created a new Strategy for torkoal vs magearna:
+|chat|DEBUG|>[lavaplume: 147.875 [134, 162], lavaplume: 147.875 [134, 162], lavaplume: 147.875 [134, 162]]
+|chat|DEBUG|Best move of torkoal (p1): lavaplume: 147.875 [134, 162]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 25.0 [23, 27]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nidoqueen|Nidoqueen, L84, F|100100
+|move|p2a: Torkoal|Stealth Rock|p1a: Nidoqueen
+|-sidestart|p1: yelloyelloyello|move: Stealth Rock
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "nidoqueen"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-nidoqueen
+|chat|DEBUG|Own moves: lavaplume solarbeam rapidspin stealthrock
+|chat|DEBUG|Enemy moves: earthpower icebeam sludgewave toxicspikes
+|chat|DEBUG|Checks: ['goodra']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol']
+|chat|DEBUG|Speed: 84 vs 176
+|chat|DEBUG|HP: 186 vs 288
+|chat|DEBUG|Created a new Strategy for torkoal vs nidoqueen:
+|chat|DEBUG|>[solarbeam: 82.875 [76, 90], solarbeam: 82.875 [76, 90], solarbeam: 82.875 [76, 90]]
+|chat|DEBUG|Best move of torkoal (p1): solarbeam: 82.875 [76, 90]
+|chat|DEBUG|Best move of nidoqueen (p2): earthpower: 304.1875 [281, 330]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check goodra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, F|282282
+|move|p1a: Nidoqueen|Toxic Spikes|p2a: Goodra
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "nidoqueen"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-nidoqueen
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: earthpower icebeam sludgewave toxicspikes
+|chat|DEBUG|Checks: ['goodra']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 176
+|chat|DEBUG|HP: 282 vs 288
+|chat|DEBUG|Created a new Strategy for goodra vs nidoqueen:
+|chat|DEBUG|>[earthquake: 138.0 [126, 150], earthquake: 138.0 [126, 150], earthquake: 138.0 [126, 150]]
+|chat|DEBUG|Best move of goodra (p1): earthquake: 138.0 [126, 150]
+|chat|DEBUG|Best move of nidoqueen (p2): icebeam: 80.25 [73, 88]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Earthquake|p1a: Nidoqueen
+|-supereffective|p1a: Nidoqueen
+|-damage|p1a: Nidoqueen|56100
+|move|p1a: Nidoqueen|Ice Beam|p2a: Goodra
+|-supereffective|p2a: Goodra
+|-damage|p2a: Goodra|196282
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "nidoqueen"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-nidoqueen
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: earthpower icebeam sludgewave toxicspikes
+|chat|DEBUG|Checks: ['thundurustherian', 'goodra', 'claydol']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 176
+|chat|DEBUG|HP: 196 vs 161
+|chat|DEBUG|Best move of goodra (p1): earthquake: 138.0 [126, 150]
+|chat|DEBUG|Best move of nidoqueen (p2): icebeam: 80.25 [73, 88]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Earthquake|p1a: Nidoqueen
+|-supereffective|p1a: Nidoqueen
+|-damage|p1a: Nidoqueen|12100
+|move|p1a: Nidoqueen|Toxic Spikes|p2a: Goodra
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-weather|none
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "nidoqueen"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-nidoqueen
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: earthpower icebeam sludgewave toxicspikes
+|chat|DEBUG|Checks: ['thundurustherian', 'goodra', 'claydol']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 176
+|chat|DEBUG|HP: 196 vs 34
+|chat|DEBUG|Best move of goodra (p1): earthquake: 138.0 [126, 150]
+|chat|DEBUG|Best move of nidoqueen (p2): icebeam: 80.25 [73, 88]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Earthquake|p1a: Nidoqueen
+|-supereffective|p1a: Nidoqueen
+|-damage|p1a: Nidoqueen|0 fnt
+|faint|p1a: Nidoqueen
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Steelix|Steelix, L84, F|100100
+|-damage|p1a: Steelix|97100|[from] Stealth Rock
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['sharpedo', 'thundurustherian', 'claydol', 'landorustherian']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 178 vs 99
+|chat|DEBUG|HP: 196 vs 255
+|chat|DEBUG|Created a new Strategy for goodra vs steelix:
+|chat|DEBUG|>[fireblast: 202.5 [186, 220], fireblast: 202.5 [186, 220], fireblast: 202.5 [186, 220]]
+|chat|DEBUG|Best move of goodra (p1): fireblast: 202.5 [186, 220]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 115.625 [106, 126]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Azelf|Azelf, L82|100100
+|-damage|p1a: Azelf|88100|[from] Stealth Rock
+|move|p2a: Goodra|Fire Blast|p1a: Azelf|[miss]
+|-miss|p2a: Goodra|p1a: Azelf
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "azelf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-azelf
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['goodra']
+|chat|DEBUG|Speed: 178 vs 236
+|chat|DEBUG|HP: 196 vs 226
+|chat|DEBUG|Created a new Strategy for goodra vs azelf:
+|chat|DEBUG|>[dracometeor: 173.875 [160, 189], dracometeor: 87.9375 [81, 96], dracometeor: 58.625 [54, 64]]
+|chat|DEBUG|Best move of goodra (p1): dracometeor: 173.875 [160, 189]
+|chat|DEBUG|Best move of azelf (p2): dazzlinggleam: 78.5 [73, 86]
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Azelf|Dazzling Gleam|p2a: Goodra
+|-supereffective|p2a: Goodra
+|-damage|p2a: Goodra|121282
+|-damage|p1a: Azelf|78100|[from] item: Life Orb
+|move|p2a: Goodra|Draco Meteor|p1a: Azelf
+|-damage|p1a: Azelf|11100
+|-unboost|p2a: Goodra|spa|2
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "azelf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-azelf
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast nastyplot psychic
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['thundurustherian', 'torkoal', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 178 vs 236
+|chat|DEBUG|HP: 121 vs 28
+|chat|DEBUG|Best move of goodra (p1): dracometeor: 87.9375 [81, 96]
+|chat|DEBUG|Best move of azelf (p2): dazzlinggleam: 78.5 [73, 86]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Azelf|Dazzling Gleam|p2a: Goodra
+|-supereffective|p2a: Goodra
+|-damage|p2a: Goodra|40282
+|-damage|p1a: Azelf|2100|[from] item: Life Orb
+|move|p2a: Goodra|Draco Meteor|p1a: Azelf
+|-damage|p1a: Azelf|0 fnt
+|-unboost|p2a: Goodra|spa|2
+|faint|p1a: Azelf
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Magearna|Magearna, L75|100100
+|-damage|p1a: Magearna|94100|[from] Stealth Rock
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['torkoal', 'claydol', 'landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'torkoal', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 178 vs 141
+|chat|DEBUG|HP: 40 vs 229
+|chat|DEBUG|Created a new Strategy for goodra vs magearna:
+|chat|DEBUG|>[earthquake: 124.75 [114, 136], earthquake: 124.75 [114, 136], earthquake: 124.75 [114, 136]]
+|chat|DEBUG|Best move of goodra (p1): earthquake: 124.75 [114, 136]
+|chat|DEBUG|Best move of magearna (p2): fleurcannon: 128.5 [116, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check torkoal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Torkoal|Torkoal, L86, M|186261
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Torkoal
+|move|p1a: Magearna|Agility|p1a: Magearna
+|-boost|p1a: Magearna|spe|2
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Magearna|100100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix
+|chat|DEBUG|Own moves: lavaplume solarbeam rapidspin stealthrock
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['torkoal', 'claydol', 'landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'torkoal', 'claydol', 'landorustherian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 84 vs 141
+|chat|DEBUG|HP: 186 vs 244
+|chat|DEBUG|Created a new Strategy for torkoal vs magearna:
+|chat|DEBUG|>[lavaplume: 147.875 [134, 162], lavaplume: 147.875 [134, 162], lavaplume: 147.875 [134, 162]]
+|chat|DEBUG|Best move of torkoal (p1): lavaplume: 147.875 [134, 162]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 49.9375 [46, 54]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Magearna|Fleur Cannon|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|105261
+|-unboost|p1a: Magearna|spa|2
+|move|p2a: Torkoal|Lava Plume|p1a: Magearna
+|-supereffective|p1a: Magearna
+|-damage|p1a: Magearna|14100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Magearna|20100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix
+|chat|DEBUG|Own moves: lavaplume solarbeam rapidspin stealthrock
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['thundurustherian', 'torkoal', 'claydol', 'landorustherian']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'torkoal', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 84 vs 141
+|chat|DEBUG|HP: 105 vs 48
+|chat|DEBUG|Best move of torkoal (p1): lavaplume: 147.875 [134, 162]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 25.0 [23, 27]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Salazzle|Salazzle, L82, F|100100
+|-damage|p1a: Salazzle|76100|[from] Stealth Rock
+|move|p2a: Torkoal|Lava Plume|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-damage|p1a: Salazzle|46100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Salazzle|52100|[from] item: Black Sludge
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: lavaplume solarbeam rapidspin stealthrock
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['sharpedo', 'thundurustherian', 'claydol']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 84 vs 239
+|chat|DEBUG|HP: 105 vs 127
+|chat|DEBUG|Created a new Strategy for torkoal vs salazzle:
+|chat|DEBUG|>[lavaplume: 53.375 [49, 58], lavaplume: 53.375 [49, 58], lavaplume: 53.375 [49, 58]]
+|chat|DEBUG|Best move of torkoal (p1): lavaplume: 53.375 [49, 58]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 57.5625 [53, 63]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sharpedo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sharpedo|Sharpedo, L82, F|249249
+|-status|p2a: Sharpedo|tox
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|27100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Salazzle|33100|[from] item: Black Sludge
+|-damage|p2a: Sharpedo|234249 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: hydropump protect closecombat crunch
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['sharpedo', 'thundurustherian', 'claydol']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 203 vs 239
+|chat|DEBUG|HP: 234 vs 81
+|chat|DEBUG|Created a new Strategy for sharpedo vs salazzle:
+|chat|DEBUG|>[hydropump: 379.9375 [351, 413], hydropump: 379.9375 [351, 413], hydropump: 379.9375 [351, 413]]
+|chat|DEBUG|Best move of sharpedo (p1): hydropump: 379.9375 [351, 413]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 86.6875 [80, 94]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Sharpedo
+|-resisted|p2a: Sharpedo
+|-damage|p2a: Sharpedo|100249 tox
+|move|p2a: Sharpedo|Hydro Pump|p1a: Salazzle|[miss]
+|-miss|p2a: Sharpedo|p1a: Salazzle
+|-weather|none
+|-heal|p1a: Salazzle|39100|[from] item: Black Sludge
+|-damage|p2a: Sharpedo|70249 tox|[from] psn
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: hydropump protect closecombat crunch
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['thundurustherian', 'claydol']
+|chat|DEBUG|Counter: ['thundurustherian', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 203 vs 239
+|chat|DEBUG|HP: 70 vs 95
+|chat|DEBUG|Best move of sharpedo (p1): hydropump: 379.9375 [351, 413]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 86.6875 [80, 94]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check thundurustherian
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thundurus|Thundurus-Therian, L80, M|258258
+|move|p1a: Salazzle|Flamethrower|p2a: Thundurus
+|-damage|p2a: Thundurus|143258
+|-heal|p1a: Salazzle|45100|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: psychic voltswitch thunderbolt focusblast
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['thundurustherian', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 208 vs 239
+|chat|DEBUG|HP: 143 vs 110
+|chat|DEBUG|Created a new Strategy for thundurustherian vs salazzle:
+|chat|DEBUG|>[psychic: 217.375 [200, 236], psychic: 217.375 [200, 236], psychic: 217.375 [200, 236]]
+|chat|DEBUG|Best move of thundurustherian (p1): psychic: 217.375 [200, 236]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 112.8125 [103, 123]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Psychic|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|move|p1a: Salazzle|Toxic|p2a: Thundurus
+|-status|p2a: Thundurus|tox
+|-heal|p1a: Salazzle|51100|[from] item: Black Sludge
+|-damage|p2a: Thundurus|127258 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: psychic
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['thundurustherian', 'goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 208 vs 239
+|chat|DEBUG|HP: 127 vs 125
+|chat|DEBUG|Created a new Strategy for thundurustherian vs salazzle:
+|chat|DEBUG|>[psychic: 217.375 [200, 236], psychic: 217.375 [200, 236], psychic: 217.375 [200, 236]]
+|chat|DEBUG|Best move of thundurustherian (p1): psychic: 217.375 [200, 236]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 112.8125 [103, 123]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Protect|p1a: Salazzle
+|-singleturn|p1a: Salazzle|Protect
+|move|p2a: Thundurus|Psychic|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Protect
+|-heal|p1a: Salazzle|57100|[from] item: Black Sludge
+|-damage|p2a: Thundurus|95258 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: psychic
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['goodra', 'claydol', 'landorustherian']
+|chat|DEBUG|Speed: 208 vs 239
+|chat|DEBUG|HP: 95 vs 140
+|chat|DEBUG|Created a new Strategy for thundurustherian vs salazzle:
+|chat|DEBUG|>[psychic: 217.375 [200, 236], psychic: 217.375 [200, 236], psychic: 217.375 [200, 236]]
+|chat|DEBUG|Best move of thundurustherian (p1): psychic: 217.375 [200, 236]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check claydol
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Claydol|Claydol, L86|243243
+|switch|p1a: Gourgeist|Gourgeist, L84, M|100100
+|-damage|p1a: Gourgeist|88100|[from] Stealth Rock
+|-item|p2a: Claydol|Leftovers|[from] ability: Frisk|[of] p1a: Gourgeist|[identify]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "gourgeist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle-gourgeist
+|chat|DEBUG|Own moves: toxic psychic earthquake icebeam
+|chat|DEBUG|Enemy moves: poltergeist powerwhip synthesis willowisp
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['landorustherian']
+|chat|DEBUG|Speed: 178 vs 189
+|chat|DEBUG|HP: 243 vs 216
+|chat|DEBUG|Created a new Strategy for claydol vs gourgeist:
+|chat|DEBUG|>[icebeam: 119.375 [110, 130], icebeam: 119.375 [110, 130], icebeam: 119.375 [110, 130]]
+|chat|DEBUG|Best move of claydol (p1): icebeam: 119.375 [110, 130]
+|chat|DEBUG|Best move of gourgeist (p2): powerwhip: 203.5 [186, 222]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Claydol|Dynamax
+|-heal|p2a: Claydol|486486|[silent]
+|move|p1a: Gourgeist|Poltergeist|p2a: Claydol
+|-activate|p2a: Claydol|move: Poltergeist|Leftovers
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|244486
+|-damage|p1a: Gourgeist|79100|[from] item: Life Orb
+|move|p2a: Claydol|Max Hailstorm|p1a: Gourgeist
+|-supereffective|p1a: Gourgeist
+|-damage|p1a: Gourgeist|9100
+|-weather|Hail
+|-weather|Hail|[upkeep]
+|-damage|p1a: Gourgeist|3100|[from] Hail
+|-damage|p2a: Claydol|229486|[from] Hail
+|-heal|p2a: Claydol|244486|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra claydol landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "gourgeist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-claydol-landorustherian -- magearna-steelix-salazzle-gourgeist
+|chat|DEBUG|Own moves: toxic psychic earthquake icebeam
+|chat|DEBUG|Enemy moves: poltergeist powerwhip shadowsneak synthesis
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'torkoal', 'landorustherian']
+|chat|DEBUG|Speed: 178 vs 189
+|chat|DEBUG|HP: 244 vs 7
+|chat|DEBUG|Best move of claydol (p1): icebeam: 119.375 [110, 130]
+|chat|DEBUG|Best move of gourgeist (p2): powerwhip: 264.5625 [242, 289]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gourgeist|Power Whip|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|2486
+|-damage|p1a: Gourgeist|0 fnt|[from] item: Life Orb
+|faint|p1a: Gourgeist
+|move|p2a: Claydol|Max Hailstorm|p1: Gourgeist|[notarget]
+|-fail|p2a: Claydol
+|-weather|Hail|[upkeep]
+|-damage|p2a: Claydol|0 fnt|[from] Hail
+|faint|p2a: Claydol
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Steelix|Steelix, L84, F|97100
+|switch|p2a: Sharpedo|Sharpedo, L82, F|70249 tox
+|-damage|p1a: Steelix|94100|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "gourgeist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-landorustherian -- magearna-steelix-salazzle-gourgeist
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: poltergeist powerwhip shadowsneak synthesis
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'torkoal', 'landorustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'sharpedo': 70, 'thundurustherian': 95, 'torkoal': 105, 'goodra': 40, 'landorustherian': 247}
+|chat|DEBUG|remaining_hp_team_2={'magearna': 20, 'steelix': 97, 'salazzle': 57, 'gourgeist': 3}
+|chat|DEBUG|battle.available_switches=[sharpedo (pokemon object) [Active: False, Status: TOX], torkoal (pokemon object) [Active: False, Status: None], goodra (pokemon object) [Active: False, Status: None], thundurustherian (pokemon object) [Active: False, Status: TOX], landorustherian (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'sharpedo'
+|chat|DEBUG|>Switching to sharpedo (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Steelix|Dynamax
+|-heal|p1a: Steelix|94100|[silent]
+|move|p2a: Sharpedo|Hydro Pump|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|28100
+|-damage|p2a: Sharpedo|46249 tox|[from] item: Life Orb
+|move|p1a: Steelix|Max Rockfall|p2a: Sharpedo
+|-damage|p2a: Sharpedo|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Sharpedo
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Steelix|31100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, F|40282
+|-status|p2a: Goodra|tox
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo thundurustherian torkoal goodra landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sharpedo" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-thundurustherian-torkoal-goodra-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: hydropump protect closecombat crunch
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['sharpedo', 'thundurustherian', 'landorustherian']
+|chat|DEBUG|Speed: 203 vs 99
+|chat|DEBUG|HP: 70 vs 247
+|chat|DEBUG|Created a new Strategy for sharpedo vs steelix:
+|chat|DEBUG|>[hydropump: 352.25 [322, 382], hydropump: 352.25 [322, 382], hydropump: 352.25 [322, 382]]
+|chat|DEBUG|Best move of sharpedo (p1): hydropump: 352.25 [322, 382]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 165.75 [153, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Fire Blast|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|0 fnt
+|faint|p1a: Steelix
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Goodra|23282 tox|[from] Sandstorm
+|-damage|p2a: Goodra|6282 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Magearna|Magearna, L75|20100
+|-damage|p1a: Magearna|14100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian torkoal goodra landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sharpedo" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-torkoal-goodra-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'landorustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'thundurustherian': 95, 'torkoal': 105, 'goodra': 40, 'landorustherian': 247}
+|chat|DEBUG|remaining_hp_team_2={'magearna': 20, 'steelix': 94, 'salazzle': 57}
+|chat|DEBUG|battle.available_switches=[torkoal (pokemon object) [Active: False, Status: None], goodra (pokemon object) [Active: False, Status: None], thundurustherian (pokemon object) [Active: False, Status: TOX], landorustherian (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'goodra'
+|chat|DEBUG|>Switching to goodra (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Fire Blast|p1a: Magearna
+|-supereffective|p1a: Magearna
+|-damage|p1a: Magearna|0 fnt
+|faint|p1a: Magearna
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Goodra|0 fnt|[from] Sandstorm
+|faint|p2a: Goodra
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Torkoal|Torkoal, L86, M|105261
+|switch|p1a: Salazzle|Salazzle, L82, F|57100
+|-damage|p1a: Salazzle|33100|[from] Stealth Rock
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Torkoal
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian torkoal goodra landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "goodra" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-torkoal-goodra-landorustherian -- magearna-steelix-salazzle
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'goodra', 'landorustherian']
+|chat|DEBUG|Speed: 178 vs 99
+|chat|DEBUG|HP: 40 vs 81
+|chat|DEBUG|Created a new Strategy for goodra vs steelix:
+|chat|DEBUG|>[fireblast: 202.5 [186, 220], fireblast: 202.5 [186, 220], fireblast: 202.5 [186, 220]]
+|chat|DEBUG|Best move of goodra (p1): fireblast: 202.5 [186, 220]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 115.625 [106, 126]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|8100
+|move|p2a: Torkoal|Lava Plume|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Salazzle|14100|[from] item: Black Sludge
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian torkoal goodra landorustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "goodra" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-torkoal-goodra-landorustherian -- magearna-salazzle
+|chat|DEBUG|Own moves: earthquake dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['thundurustherian', 'torkoal', 'goodra', 'landorustherian']
+|chat|DEBUG|Speed: 178 vs 141
+|chat|DEBUG|HP: 6 vs 34
+|chat|DEBUG|Created a new Strategy for goodra vs magearna:
+|chat|DEBUG|>[fireblast: 147.25 [136, 160], fireblast: 147.25 [136, 160], fireblast: 147.25 [136, 160]]
+|chat|DEBUG|Best move of goodra (p1): fireblast: 147.25 [136, 160]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 39.25 [36, 43]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|24261
+|move|p2a: Torkoal|Lava Plume|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-damage|p1a: Salazzle|0 fnt
+|faint|p1a: Salazzle
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>yelloyelloyello<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">sharpedo thundurustherian torkoal goodra claydol landorustherian</h1>

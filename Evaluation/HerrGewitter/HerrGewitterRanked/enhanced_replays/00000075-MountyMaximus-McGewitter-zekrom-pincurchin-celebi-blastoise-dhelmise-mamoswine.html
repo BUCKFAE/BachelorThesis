@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490057863<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490057863|init|battle
+|title|MountyMaximus vs. McGewitter
+|j|☆MountyMaximus
+|j|☆McGewitter
+|gametype|singles
+|player|p1|MountyMaximus|gambler|1214
+|player|p2|McGewitter|265|1219
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Zamazenta|Zamazenta-Crowned, L71|100100
+|switch|p2a: Zekrom|Zekrom, L69|252252
+|-ability|p1a: Zamazenta|Dauntless Shield|boost
+|-boost|p1a: Zamazenta|def|1
+|-ability|p2a: Zekrom|Teravolt
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise dhelmise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "zamazentacrowned"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-dhelmise-mamoswine -- zamazentacrowned
+|chat|DEBUG|Own moves: roost boltstrike dragondance outrage
+|chat|DEBUG|Enemy moves: behemothbash closecombat crunch psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 165 vs 223
+|chat|DEBUG|HP: 252 vs 248
+|chat|DEBUG|Created a new Strategy for zekrom vs zamazentacrowned:
+|chat|DEBUG|>[boltstrike: 71.125 [66, 78], boltstrike: 71.125 [66, 78], boltstrike: 71.125 [66, 78]]
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 71.125 [66, 78]
+|chat|DEBUG|Best move of zamazentacrowned (p2): closecombat: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using boltstrike
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Zamazenta|Crunch|p2a: Zekrom
+|-damage|p2a: Zekrom|204252
+|move|p2a: Zekrom|Bolt Strike|p1a: Zamazenta
+|-damage|p1a: Zamazenta|72100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise dhelmise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "zamazentacrowned"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-dhelmise-mamoswine -- zamazentacrowned
+|chat|DEBUG|Own moves: roost boltstrike dragondance outrage
+|chat|DEBUG|Enemy moves: behemothbash closecombat crunch psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi', 'mamoswine']
+|chat|DEBUG|Speed: 165 vs 223
+|chat|DEBUG|HP: 204 vs 178
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 71.125 [66, 78]
+|chat|DEBUG|Best move of zamazentacrowned (p2): closecombat: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using boltstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zamazenta|Behemoth Bash|p2a: Zekrom
+|-resisted|p2a: Zekrom
+|-damage|p2a: Zekrom|156252
+|move|p2a: Zekrom|Bolt Strike|p1a: Zamazenta
+|-damage|p1a: Zamazenta|44100
+|-status|p1a: Zamazenta|par
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise dhelmise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "zamazentacrowned"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-dhelmise-mamoswine -- zamazentacrowned
+|chat|DEBUG|Own moves: roost boltstrike dragondance outrage
+|chat|DEBUG|Enemy moves: behemothbash closecombat crunch psychicfangs
+|chat|DEBUG|Checks: ['celebi']
+|chat|DEBUG|Counter: ['pincurchin', 'celebi', 'blastoise', 'dhelmise', 'mamoswine']
+|chat|DEBUG|Speed: 165 vs 223
+|chat|DEBUG|HP: 156 vs 109
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 71.125 [66, 78]
+|chat|DEBUG|Best move of zamazentacrowned (p2): closecombat: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check celebi
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Celebi|Celebi, L82|298298
+|switch|p1a: Melmetal|Melmetal, L74|100100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise dhelmise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-dhelmise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: gigadrain recover nastyplot psychic
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['pincurchin', 'blastoise', 'dhelmise', 'mamoswine']
+|chat|DEBUG|Speed: 211 vs 93
+|chat|DEBUG|HP: 298 vs 322
+|chat|DEBUG|Created a new Strategy for celebi vs melmetal:
+|chat|DEBUG|>[psychic: 64.5 [59, 70], psychic: 64.5 [59, 70], psychic: 64.5 [59, 70]]
+|chat|DEBUG|Best move of celebi (p1): psychic: 64.5 [59, 70]
+|chat|DEBUG|Best move of melmetal (p2): doubleironbash: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MountyMaximus has 120 seconds left.
+|inactive|MountyMaximus has 90 seconds left.
+|switch|p2a: Dhelmise|Dhelmise, L86|261261
+|move|p1a: Melmetal|Double Iron Bash|p2a: Dhelmise
+|-damage|p2a: Dhelmise|144261
+|-damage|p2a: Dhelmise|38261
+|-hitcount|p2a: Dhelmise|2
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise dhelmise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-dhelmise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pincurchin', 'blastoise', 'mamoswine']
+|chat|DEBUG|Speed: 118 vs 93
+|chat|DEBUG|HP: 38 vs 322
+|chat|DEBUG|Created a new Strategy for dhelmise vs melmetal:
+|chat|DEBUG|>[poltergeist: 119.75 [109, 130], poltergeist: 119.75 [109, 130], poltergeist: 119.75 [109, 130]]
+|chat|DEBUG|Best move of dhelmise (p1): poltergeist: 119.75 [109, 130]
+|chat|DEBUG|Best move of melmetal (p2): doubleironbash: 72.5625 [67, 79]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MountyMaximus has 90 seconds left.
+|move|p2a: Dhelmise|Poltergeist|p1a: Melmetal
+|-activate|p1a: Melmetal|move: Poltergeist|Choice Band
+|-damage|p1a: Melmetal|63100
+|move|p1a: Melmetal|Double Iron Bash|p2a: Dhelmise
+|-damage|p2a: Dhelmise|0 fnt
+|faint|p2a: Dhelmise
+|-hitcount|p2: Dhelmise|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pincurchin|Pincurchin, L88, M|228228
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p2a: Pincurchin
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pincurchin', 'blastoise', 'mamoswine']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pincurchin (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MountyMaximus has 90 seconds left.
+|-start|p1a: Melmetal|Dynamax
+|-heal|p1a: Melmetal|63100|[silent]
+|move|p1a: Melmetal|Max Quake|p2a: Pincurchin
+|-supereffective|p2a: Pincurchin
+|-enditem|p2a: Pincurchin|Shuca Berry|[eat]
+|-enditem|p2a: Pincurchin|Shuca Berry|[weaken]
+|-damage|p2a: Pincurchin|145228
+|-boost|p1a: Melmetal|spd|1
+|move|p2a: Pincurchin|Toxic Spikes|p1a: Melmetal
+|-sidestart|p1: MountyMaximus|move: Toxic Spikes
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: scald toxicspikes spikes risingvoltage
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['zekrom', 'pincurchin', 'blastoise', 'mamoswine']
+|chat|DEBUG|Counter: ['zekrom', 'pincurchin', 'celebi', 'blastoise', 'mamoswine']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 77 vs 93
+|chat|DEBUG|HP: 228 vs 202
+|chat|DEBUG|Created a new Strategy for pincurchin vs melmetal:
+|chat|DEBUG|>[risingvoltage: 110.25 [102, 120], risingvoltage: 110.25 [102, 120], risingvoltage: 110.25 [102, 120]]
+|chat|DEBUG|Best move of pincurchin (p1): risingvoltage: 110.25 [102, 120]
+|chat|DEBUG|Best move of melmetal (p2): superpower: 81.875 [75, 89]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-spikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MountyMaximus has 90 seconds left.
+|move|p1a: Melmetal|Max Quake|p2a: Pincurchin
+|-supereffective|p2a: Pincurchin
+|-damage|p2a: Pincurchin|0 fnt
+|-boost|p1a: Melmetal|spd|1
+|faint|p2a: Pincurchin
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zekrom|Zekrom, L69|156252
+|-ability|p2a: Zekrom|Teravolt
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom pincurchin celebi blastoise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-pincurchin-celebi-blastoise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: scald toxicspikes spikes risingvoltage
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['zekrom', 'mamoswine']
+|chat|DEBUG|Counter: ['zekrom', 'blastoise', 'mamoswine']
+|chat|DEBUG|Speed: 77 vs 93
+|chat|DEBUG|HP: 145 vs 202
+|chat|DEBUG|Best move of pincurchin (p1): risingvoltage: 110.25 [102, 120]
+|chat|DEBUG|Best move of melmetal (p2): superpower: 81.875 [75, 89]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-spikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Roost|p2a: Zekrom
+|-heal|p2a: Zekrom|252252
+|-singleturn|p2a: Zekrom|move: Roost
+|move|p1a: Melmetal|Max Quake|p2a: Zekrom
+|-supereffective|p2a: Zekrom
+|-damage|p2a: Zekrom|50252
+|-boost|p1a: Melmetal|spd|1
+|-end|p1a: Melmetal|Dynamax
+|-heal|p1a: Melmetal|63100|[silent]
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['zekrom', 'mamoswine']
+|chat|DEBUG|Counter: ['zekrom', 'blastoise', 'mamoswine']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to zekrom (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mamoswine|Mamoswine, L80, F|307307
+|move|p1a: Melmetal|Double Iron Bash|p2a: Mamoswine
+|-supereffective|p2a: Mamoswine
+|-damage|p2a: Mamoswine|25307
+|-supereffective|p2a: Mamoswine
+|-crit|p2a: Mamoswine
+|-damage|p2a: Mamoswine|0 fnt
+|faint|p2a: Mamoswine
+|-hitcount|p2: Mamoswine|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blastoise|Blastoise, L82, M|264264
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: roost boltstrike dragondance outrage
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['zekrom', 'mamoswine']
+|chat|DEBUG|Counter: ['zekrom', 'blastoise', 'mamoswine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 165 vs 93
+|chat|DEBUG|HP: 156 vs 202
+|chat|DEBUG|Created a new Strategy for zekrom vs melmetal:
+|chat|DEBUG|>[boltstrike: 103.25 [94, 112], boltstrike: 103.25 [94, 112], boltstrike: 103.25 [94, 112]]
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 103.25 [94, 112]
+|chat|DEBUG|Best move of melmetal (p2): superpower: 86.5 [79, 94]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blastoise|Earthquake|p1a: Melmetal
+|-supereffective|p1a: Melmetal
+|-damage|p1a: Melmetal|36100
+|move|p1a: Melmetal|Double Iron Bash|p2a: Blastoise
+|-resisted|p2a: Blastoise
+|-damage|p2a: Blastoise|210264
+|-resisted|p2a: Blastoise
+|-crit|p2a: Blastoise
+|-damage|p2a: Blastoise|124264
+|-hitcount|p2a: Blastoise|2
+|-fieldend|move: Electric Terrain
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise mamoswine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise-mamoswine -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: roost boltstrike dragondance outrage
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['mamoswine']
+|chat|DEBUG|Counter: ['blastoise', 'mamoswine']
+|chat|DEBUG|Speed: 165 vs 93
+|chat|DEBUG|HP: 50 vs 202
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 103.25 [94, 112]
+|chat|DEBUG|Best move of melmetal (p2): superpower: 86.5 [79, 94]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mamoswine
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blastoise|Earthquake|p1a: Melmetal
+|-supereffective|p1a: Melmetal
+|-damage|p1a: Melmetal|6100
+|move|p1a: Melmetal|Double Iron Bash|p2a: Blastoise
+|-resisted|p2a: Blastoise
+|-damage|p2a: Blastoise|64264
+|-resisted|p2a: Blastoise
+|-damage|p2a: Blastoise|13264
+|-hitcount|p2a: Blastoise|2
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['blastoise']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to blastoise (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blastoise|Earthquake|p1a: Melmetal
+|-supereffective|p1a: Melmetal
+|-damage|p1a: Melmetal|0 fnt
+|faint|p1a: Melmetal
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, M|100100
+|-sideend|p1: MountyMaximus|move: Toxic Spikes|[of] p1a: Drapion
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blastoise" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: earthquake icebeam hydropump shellsmash
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['blastoise']
+|chat|DEBUG|Speed: 175 vs 93
+|chat|DEBUG|HP: 264 vs 202
+|chat|DEBUG|Created a new Strategy for blastoise vs melmetal:
+|chat|DEBUG|>[earthquake: 92.0 [84, 100], earthquake: 92.0 [84, 100], earthquake: 92.0 [84, 100]]
+|chat|DEBUG|Best move of blastoise (p1): earthquake: 92.0 [84, 100]
+|chat|DEBUG|Best move of melmetal (p2): thunderpunch: 126.75 [116, 138]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Swords Dance|p1a: Drapion
+|-boost|p1a: Drapion|atk|2
+|move|p2a: Blastoise|Hydro Pump|p1a: Drapion
+|-damage|p1a: Drapion|25100
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blastoise" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: earthquake icebeam hydropump shellsmash
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 175 vs 93
+|chat|DEBUG|HP: 124 vs 115
+|chat|DEBUG|Best move of blastoise (p1): earthquake: 92.0 [84, 100]
+|chat|DEBUG|Best move of melmetal (p2): thunderpunch: 126.75 [116, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Knock Off|p2a: Blastoise
+|-damage|p2a: Blastoise|0 fnt
+|-enditem|p2a: Blastoise|White Herb|[from] move: Knock Off|[of] p1a: Drapion
+|faint|p2a: Blastoise
+|-damage|p1a: Drapion|16100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Celebi|Celebi, L82|298298
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blastoise" vs "melmetal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise -- zamazentacrowned-melmetal
+|chat|DEBUG|Own moves: earthquake icebeam hydropump shellsmash
+|chat|DEBUG|Enemy moves: doubleironbash superpower thunderpunch thunderwave
+|chat|DEBUG|Checks: ['celebi']
+|chat|DEBUG|Counter: ['zekrom', 'celebi', 'blastoise']
+|chat|DEBUG|Speed: 175 vs 93
+|chat|DEBUG|HP: 13 vs 19
+|chat|DEBUG|Best move of blastoise (p1): earthquake: 92.0 [84, 100]
+|chat|DEBUG|Best move of melmetal (p2): thunderpunch: 126.75 [116, 138]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Celebi|Giga Drain|p1a: Drapion
+|-resisted|p1a: Drapion
+|-damage|p1a: Drapion|0 fnt
+|faint|p1a: Drapion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Garbodor|Garbodor, L87, F|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blastoise" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise -- zamazentacrowned-drapion
+|chat|DEBUG|Own moves: earthquake icebeam hydropump shellsmash
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 175 vs 203
+|chat|DEBUG|HP: 13 vs 249
+|chat|DEBUG|Created a new Strategy for blastoise vs drapion:
+|chat|DEBUG|>[hydropump: 172.625 [159, 187], hydropump: 172.625 [159, 187], hydropump: 172.625 [159, 187]]
+|chat|DEBUG|Best move of blastoise (p1): hydropump: 172.625 [159, 187]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 110.5 [101, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Celebi|Dynamax
+|-heal|p2a: Celebi|596596|[silent]
+|move|p2a: Celebi|Max Mindstorm|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|2100
+|-fieldstart|move: Psychic Terrain
+|move|p1a: Garbodor|Gunk Shot|p2a: Celebi
+|-supereffective|p2a: Celebi
+|-damage|p2a: Celebi|354596
+|-heal|p2a: Celebi|372596|[from] item: Leftovers
+|-heal|p1a: Garbodor|8100|[from] item: Black Sludge
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi blastoise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blastoise" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi-blastoise -- zamazentacrowned-drapion
+|chat|DEBUG|Own moves: earthquake icebeam hydropump shellsmash
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Speed: 175 vs 203
+|chat|DEBUG|HP: 13 vs 62
+|chat|DEBUG|Best move of blastoise (p1): hydropump: 172.625 [159, 187]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 220.5625 [203, 239]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Celebi|Max Mindstorm|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|0 fnt
+|faint|p1a: Garbodor
+|-heal|p2a: Celebi|390596|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mr. Mime|Mr. Mime-Galar, L86, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blastoise" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi -- zamazentacrowned-drapion
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to celebi (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Celebi|Max Guard|p2a: Celebi
+|-singleturn|p2a: Celebi|Max Guard
+|move|p1a: Mr. Mime|Freeze-Dry|p2a: Celebi
+|-activate|p2a: Celebi|move: Max Guard
+|-heal|p2a: Celebi|408596|[from] item: Leftovers
+|-end|p2a: Celebi|Dynamax
+|-heal|p2a: Celebi|204298|[silent]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi -- zamazentacrowned-drapion
+|chat|DEBUG|Own moves: gigadrain recover nastyplot psychic
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Speed: 211 vs 203
+|chat|DEBUG|HP: 298 vs 39
+|chat|DEBUG|Created a new Strategy for celebi vs drapion:
+|chat|DEBUG|>[gigadrain: 44.375 [41, 48], gigadrain: 44.375 [41, 48], gigadrain: 44.375 [41, 48]]
+|chat|DEBUG|Best move of celebi (p1): gigadrain: 44.375 [41, 48]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 441.1875 [406, 478]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Mime|Freeze-Dry|p2a: Celebi
+|-supereffective|p2a: Celebi
+|-damage|p2a: Celebi|66298
+|move|p2a: Celebi|Giga Drain|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|76100
+|-heal|p2a: Celebi|94298|[from] drain|[of] p1a: Mr. Mime
+|-heal|p2a: Celebi|112298|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi -- zamazentacrowned-garbodor
+|chat|DEBUG|Own moves: gigadrain recover nastyplot psychic
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Speed: 211 vs 180
+|chat|DEBUG|HP: 298 vs 281
+|chat|DEBUG|Created a new Strategy for celebi vs garbodor:
+|chat|DEBUG|>[psychic: 189.75 [174, 206], psychic: 189.75 [174, 206], psychic: 189.75 [174, 206]]
+|chat|DEBUG|Best move of celebi (p1): psychic: 189.75 [174, 206]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 248.125 [228, 270]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Mime|Freeze-Dry|p2a: Celebi
+|-supereffective|p2a: Celebi
+|-damage|p2a: Celebi|0 fnt
+|faint|p2a: Celebi
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zekrom|Zekrom, L69|50252
+|-ability|p2a: Zekrom|Teravolt
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-celebi -- zamazentacrowned-garbodor
+|chat|DEBUG|Own moves: gigadrain recover nastyplot psychic
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['celebi']
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 211 vs 180
+|chat|DEBUG|HP: 372 vs 22
+|chat|DEBUG|Best move of celebi (p1): psychic: 189.75 [174, 206]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 248.125 [228, 270]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Mime|Freeze-Dry|p2a: Zekrom
+|-supereffective|p2a: Zekrom
+|-damage|p2a: Zekrom|0 fnt
+|faint|p2a: Zekrom
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>MountyMaximus<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">zekrom pincurchin celebi blastoise dhelmise mamoswine</h1>

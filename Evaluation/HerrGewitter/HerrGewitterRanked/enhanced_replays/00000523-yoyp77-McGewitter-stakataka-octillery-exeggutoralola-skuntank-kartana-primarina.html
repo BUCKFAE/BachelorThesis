@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490794646<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490794646|init|battle
+|title|yoyp77 vs. McGewitter
+|j|☆yoyp77
+|j|☆McGewitter
+|gametype|singles
+|player|p1|yoyp77|266|1111
+|player|p2|McGewitter|265|1066
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Espeon|Espeon, L82, M|100100
+|switch|p2a: Stakataka|Stakataka, L80|229229
+|-item|p2a: Stakataka|Air Balloon
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stakataka octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>stakataka-octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: stoneedge earthquake stealthrock gyroball
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: ['stakataka', 'skuntank']
+|chat|DEBUG|Counter: ['stakataka', 'octillery', 'skuntank', 'kartana']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 228
+|chat|DEBUG|HP: 229 vs 241
+|chat|DEBUG|Created a new Strategy for stakataka vs espeon:
+|chat|DEBUG|>[gyroball: 249.0 [229, 270], gyroball: 249.0 [229, 270], gyroball: 249.0 [229, 270]]
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 249.0 [229, 270]
+|chat|DEBUG|Best move of espeon (p2): psychic: 53.375 [49, 58]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Espeon|Shadow Ball|p2a: Stakataka
+|-damage|p2a: Stakataka|164229
+|-enditem|p2a: Stakataka|Air Balloon
+|move|p2a: Stakataka|Stealth Rock|p1a: Espeon
+|move|p1a: Espeon|Stealth Rock|p2a: Stakataka
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stakataka octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>stakataka-octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: stoneedge earthquake stealthrock gyroball
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: ['stakataka', 'skuntank']
+|chat|DEBUG|Counter: ['stakataka', 'octillery', 'skuntank', 'kartana']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 228
+|chat|DEBUG|HP: 164 vs 241
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 249.0 [229, 270]
+|chat|DEBUG|Best move of espeon (p2): psychic: 53.375 [49, 58]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Espeon|Calm Mind|p1a: Espeon
+|-boost|p1a: Espeon|spa|1
+|-boost|p1a: Espeon|spd|1
+|move|p2a: Stakataka|Stealth Rock|p1a: Espeon
+|move|p1a: Espeon|Stealth Rock||[from]ability: Magic Bounce|[still]
+|-fail|p1a: Espeon
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stakataka octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>stakataka-octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: stoneedge earthquake stealthrock gyroball
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['stakataka', 'skuntank', 'kartana']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 228
+|chat|DEBUG|HP: 164 vs 241
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 249.0 [229, 270]
+|chat|DEBUG|Best move of espeon (p2): psychic: 79.75 [73, 87]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Espeon|Calm Mind|p1a: Espeon
+|-boost|p1a: Espeon|spa|1
+|-boost|p1a: Espeon|spd|1
+|move|p2a: Stakataka|Stealth Rock|p1a: Espeon
+|move|p1a: Espeon|Stealth Rock||[from]ability: Magic Bounce|[still]
+|-fail|p1a: Espeon
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stakataka octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>stakataka-octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: stoneedge earthquake stealthrock gyroball
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka', 'skuntank']
+|chat|DEBUG|Speed: 25 vs 228
+|chat|DEBUG|HP: 164 vs 241
+|chat|DEBUG|Created a new Strategy for stakataka vs espeon:
+|chat|DEBUG|>[gyroball: 249.0 [229, 270], gyroball: 249.0 [229, 270], gyroball: 249.0 [229, 270]]
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 249.0 [229, 270]
+|chat|DEBUG|Best move of espeon (p2): psychic: 106.75 [98, 116]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Espeon|Shadow Ball|p2a: Stakataka
+|-damage|p2a: Stakataka|28229
+|-unboost|p2a: Stakataka|spd|1
+|move|p2a: Stakataka|Stealth Rock|p1a: Espeon
+|move|p1a: Espeon|Stealth Rock||[from]ability: Magic Bounce|[still]
+|-fail|p1a: Espeon
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stakataka octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>stakataka-octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: stoneedge earthquake stealthrock gyroball
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 25 vs 228
+|chat|DEBUG|HP: 28 vs 241
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 249.0 [229, 270]
+|chat|DEBUG|Best move of espeon (p2): psychic: 160.25 [147, 174]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Espeon|Shadow Ball|p2a: Stakataka
+|-damage|p2a: Stakataka|0 fnt
+|faint|p2a: Stakataka
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skuntank|Skuntank, L85, M|314314
+|-damage|p2a: Skuntank|275314|[from] Stealth Rock
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to skuntank (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Skuntank|Sucker Punch|p1a: Espeon
+|-supereffective|p1a: Espeon
+|-damage|p1a: Espeon|0 fnt
+|faint|p1a: Espeon
+|-damage|p2a: Skuntank|244314|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kangaskhan|Kangaskhan, L84, F|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- espeon
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 192 vs 228
+|chat|DEBUG|HP: 275 vs 241
+|chat|DEBUG|Created a new Strategy for skuntank vs espeon:
+|chat|DEBUG|>[suckerpunch: 261.0 [242, 283], suckerpunch: 261.0 [242, 283], suckerpunch: 261.0 [242, 283]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 261.0 [242, 283]
+|chat|DEBUG|Best move of espeon (p2): dazzlinggleam: 173.4375 [159, 188]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kartana|Kartana, L74|209209
+|-damage|p2a: Kartana|196209|[from] Stealth Rock
+|move|p1a: Kangaskhan|Fake Out|p2a: Kartana
+|-resisted|p2a: Kartana
+|-damage|p2a: Kartana|178209
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- kangaskhan
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['kartana']
+|chat|DEBUG|Counter: ['kartana']
+|chat|DEBUG|Speed: 192 vs 199
+|chat|DEBUG|HP: 244 vs 314
+|chat|DEBUG|Created a new Strategy for skuntank vs kangaskhan:
+|chat|DEBUG|>[poisonjab: 119.375 [109, 130], poisonjab: 119.375 [109, 130], poisonjab: 119.375 [109, 130]]
+|chat|DEBUG|Best move of skuntank (p1): poisonjab: 119.375 [109, 130]
+|chat|DEBUG|Best move of kangaskhan (p2): earthquake: 167.5 [154, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kartana
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Kangaskhan|Dynamax
+|-heal|p1a: Kangaskhan|100100|[silent]
+|move|p2a: Kartana|Sacred Sword|p1a: Kangaskhan
+|-supereffective|p1a: Kangaskhan
+|-damage|p1a: Kangaskhan|55100
+|move|p1a: Kangaskhan|Max Quake|p2a: Kartana
+|-damage|p2a: Kartana|103209
+|-boost|p1a: Kangaskhan|spd|1
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kartana" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- kangaskhan
+|chat|DEBUG|Own moves: smartstrike knockoff leafblade sacredsword
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['kartana']
+|chat|DEBUG|Counter: ['kartana']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 204 vs 199
+|chat|DEBUG|HP: 178 vs 314
+|chat|DEBUG|Created a new Strategy for kartana vs kangaskhan:
+|chat|DEBUG|>[sacredsword: 265.5 [244, 288], sacredsword: 265.5 [244, 288], sacredsword: 265.5 [244, 288]]
+|chat|DEBUG|Best move of kartana (p1): sacredsword: 265.5 [244, 288]
+|chat|DEBUG|Best move of kangaskhan (p2): earthquake: 57.8125 [53, 63]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sacredsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kartana|Sacred Sword|p1a: Kangaskhan
+|-supereffective|p1a: Kangaskhan
+|-damage|p1a: Kangaskhan|16100
+|move|p1a: Kangaskhan|Max Quake|p2a: Kartana
+|-damage|p2a: Kartana|33209
+|-boost|p1a: Kangaskhan|spd|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kartana" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- kangaskhan
+|chat|DEBUG|Own moves: sacredsword
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['kartana']
+|chat|DEBUG|Counter: ['octillery', 'kartana']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 204 vs 199
+|chat|DEBUG|HP: 103 vs 172
+|chat|DEBUG|Created a new Strategy for kartana vs kangaskhan:
+|chat|DEBUG|>[sacredsword: 265.5 [244, 288], sacredsword: 265.5 [244, 288], sacredsword: 265.5 [244, 288]]
+|chat|DEBUG|Best move of kartana (p1): sacredsword: 265.5 [244, 288]
+|chat|DEBUG|Best move of kangaskhan (p2): earthquake: 57.8125 [53, 63]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kartana|Sacred Sword|p1a: Kangaskhan
+|-supereffective|p1a: Kangaskhan
+|-damage|p1a: Kangaskhan|0 fnt
+|faint|p1a: Kangaskhan
+|-ability|p2a: Kartana|Beast Boost|boost
+|-boost|p2a: Kartana|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|switch|p1a: Arcanine|Arcanine, L82, M|100100
+|-ability|p1a: Arcanine|Intimidate|boost
+|-unboost|p2a: Kartana|atk|1
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kartana" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- kangaskhan
+|chat|DEBUG|Own moves: sacredsword
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['octillery']
+|chat|DEBUG|Counter: ['octillery', 'exeggutoralola', 'skuntank', 'kartana', 'primarina']
+|chat|DEBUG|Speed: 204 vs 199
+|chat|DEBUG|HP: 33 vs 50
+|chat|DEBUG|Created a new Strategy for kartana vs kangaskhan:
+|chat|DEBUG|>[sacredsword: 265.5 [244, 288], sacredsword: 265.5 [244, 288], sacredsword: 265.5 [244, 288]]
+|chat|DEBUG|Best move of kartana (p1): sacredsword: 265.5 [244, 288]
+|chat|DEBUG|Best move of kangaskhan (p2): earthquake: 57.8125 [53, 63]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kartana|Sacred Sword|p1a: Arcanine
+|-damage|p1a: Arcanine|54100
+|move|p1a: Arcanine|Flare Blitz|p2a: Kartana
+|-supereffective|p2a: Kartana
+|-damage|p2a: Kartana|0 fnt
+|faint|p2a: Kartana
+|-damage|p1a: Arcanine|50100|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Octillery|Octillery, L86, F|269269
+|-damage|p2a: Octillery|236269|[from] Stealth Rock
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank kartana primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kartana" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-kartana-primarina -- arcanine
+|chat|DEBUG|Own moves: sacredsword
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['octillery', 'exeggutoralola', 'primarina']
+|chat|DEBUG|Speed: 204 vs 203
+|chat|DEBUG|HP: 33 vs 282
+|chat|DEBUG|Created a new Strategy for kartana vs arcanine:
+|chat|DEBUG|>[sacredsword: 91.5 [84, 99], sacredsword: 91.5 [84, 99], sacredsword: 91.5 [84, 99]]
+|chat|DEBUG|Best move of kartana (p1): sacredsword: 91.5 [84, 99]
+|chat|DEBUG|Best move of arcanine (p2): flareblitz: 441.0 [408, 480]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sacredsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Toxic|p2a: Octillery
+|-status|p2a: Octillery|tox
+|move|p2a: Octillery|Hydro Pump|p1a: Arcanine
+|-supereffective|p1a: Arcanine
+|-damage|p1a: Arcanine|0 fnt
+|faint|p1a: Arcanine
+|-heal|p2a: Octillery|252269 tox|[from] item: Leftovers
+|-damage|p2a: Octillery|236269 tox|[from] psn
+|-ability|p2a: Octillery|Moody|boost
+|-boost|p2a: Octillery|atk|2
+|-unboost|p2a: Octillery|spa|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|switch|p1a: Lunala|Lunala, L72|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kartana" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- arcanine
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['octillery', 'exeggutoralola', 'primarina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to octillery (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skuntank|Skuntank, L85, M|244314
+|-damage|p2a: Skuntank|205314|[from] Stealth Rock
+|move|p1a: Lunala|Calm Mind|p1a: Lunala
+|-boost|p1a: Lunala|spa|1
+|-boost|p1a: Lunala|spd|1
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- arcanine
+|chat|DEBUG|Own moves: protect fireblast energyball hydropump
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['octillery', 'exeggutoralola', 'primarina']
+|chat|DEBUG|Speed: 127 vs 203
+|chat|DEBUG|HP: 236 vs 141
+|chat|DEBUG|Created a new Strategy for octillery vs arcanine:
+|chat|DEBUG|>[hydropump: 286.25 [264, 312], hydropump: 286.25 [264, 312], hydropump: 286.25 [264, 312]]
+|chat|DEBUG|Best move of octillery (p1): hydropump: 286.25 [264, 312]
+|chat|DEBUG|Best move of arcanine (p2): wildcharge: 147.25 [136, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|switch|p1a: Regidrago|Regidrago, L78|100100
+|move|p2a: Skuntank|Sucker Punch||[still]
+|-fail|p2a: Skuntank
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala
+|chat|DEBUG|Own moves: protect fireblast energyball hydropump
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 127 vs 182
+|chat|DEBUG|HP: 236 vs 316
+|chat|DEBUG|Created a new Strategy for octillery vs lunala:
+|chat|DEBUG|>[hydropump: 42.9375 [39, 47], hydropump: 42.9375 [39, 47], hydropump: 42.9375 [39, 47]]
+|chat|DEBUG|Best move of octillery (p1): hydropump: 42.9375 [39, 47]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skuntank
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|switch|p2a: Primarina|Primarina, L82, M|265265
+|-damage|p2a: Primarina|232265|[from] Stealth Rock
+|move|p1a: Regidrago|Dragon Dance|p1a: Regidrago
+|-boost|p1a: Regidrago|atk|1
+|-boost|p1a: Regidrago|spe|1
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 192 vs 182
+|chat|DEBUG|HP: 205 vs 316
+|chat|DEBUG|Created a new Strategy for skuntank vs lunala:
+|chat|DEBUG|>[suckerpunch: 224.75 [205, 244], suckerpunch: 224.75 [205, 244], suckerpunch: 224.75 [205, 244]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 224.75 [205, 244]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 98.4375 [90, 107]
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|switch|p1a: Lunala|Lunala, L72|100100
+|move|p2a: Primarina|Moonblast|p1a: Lunala
+|-crit|p1a: Lunala
+|-damage|p1a: Lunala|72100
+|-heal|p1a: Lunala|78100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala-regidrago
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Speed: 192 vs 170
+|chat|DEBUG|HP: 205 vs 440
+|chat|DEBUG|Created a new Strategy for skuntank vs regidrago:
+|chat|DEBUG|>[poisonjab: 176.125 [161, 191], poisonjab: 176.125 [161, 191], poisonjab: 176.125 [161, 191]]
+|chat|DEBUG|Best move of skuntank (p1): poisonjab: 176.125 [161, 191]
+|chat|DEBUG|Best move of regidrago (p2): outrage: 204.5 [187, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check primarina
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|switch|p2a: Skuntank|Skuntank, L85, M|205314
+|-damage|p2a: Skuntank|166314|[from] Stealth Rock
+|move|p1a: Lunala|Calm Mind|p1a: Lunala
+|-boost|p1a: Lunala|spa|1
+|-boost|p1a: Lunala|spd|1
+|-heal|p1a: Lunala|84100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala-regidrago
+|chat|DEBUG|Own moves: hydropump energyball sparklingaria moonblast
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 170
+|chat|DEBUG|HP: 232 vs 440
+|chat|DEBUG|Created a new Strategy for primarina vs regidrago:
+|chat|DEBUG|>[moonblast: 372.75 [342, 404], moonblast: 372.75 [342, 404], moonblast: 372.75 [342, 404]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 372.75 [342, 404]
+|chat|DEBUG|Best move of regidrago (p2): hammerarm: 54.5 [50, 59]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Regidrago|Regidrago, L78|100100
+|move|p2a: Skuntank|Poison Jab|p1a: Regidrago
+|-damage|p1a: Regidrago|59100
+|-damage|p2a: Skuntank|135314|[from] item: Life Orb
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala-regidrago
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['exeggutoralola', 'skuntank']
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 232 vs 246
+|chat|DEBUG|Created a new Strategy for primarina vs lunala:
+|chat|DEBUG|>[moonblast: 117.0 [108, 127], moonblast: 117.0 [108, 127], moonblast: 117.0 [108, 127]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 117.0 [108, 127]
+|chat|DEBUG|Best move of lunala (p2): psyshock: 94.875 [87, 103]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skuntank
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Primarina|Primarina, L82, M|232265
+|-damage|p2a: Primarina|199265|[from] Stealth Rock
+|move|p1a: Regidrago|Dragon Dance|p1a: Regidrago
+|-boost|p1a: Regidrago|atk|1
+|-boost|p1a: Regidrago|spe|1
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala-regidrago
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 192 vs 182
+|chat|DEBUG|HP: 166 vs 265
+|chat|DEBUG|Created a new Strategy for skuntank vs lunala:
+|chat|DEBUG|>[suckerpunch: 449.5 [411, 489], suckerpunch: 449.5 [411, 489], suckerpunch: 449.5 [411, 489]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 449.5 [411, 489]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 98.4375 [90, 107]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['regidrago']
+|chat|DEBUG|Expected enemy: regidrago
+|chat|DEBUG|Using move poisonjab
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regidrago|Hammer Arm|p2a: Primarina
+|-resisted|p2a: Primarina
+|-damage|p2a: Primarina|149265
+|-unboost|p1a: Regidrago|spe|1
+|move|p2a: Primarina|Moonblast|p1a: Regidrago
+|-supereffective|p1a: Regidrago
+|-damage|p1a: Regidrago|0 fnt
+|faint|p1a: Regidrago
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunala|Lunala, L72|84100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala-regidrago
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Speed: 192 vs 170
+|chat|DEBUG|HP: 135 vs 259
+|chat|DEBUG|Created a new Strategy for skuntank vs regidrago:
+|chat|DEBUG|>[poisonjab: 176.125 [161, 191], poisonjab: 176.125 [161, 191], poisonjab: 176.125 [161, 191]]
+|chat|DEBUG|Best move of skuntank (p1): poisonjab: 176.125 [161, 191]
+|chat|DEBUG|Best move of regidrago (p2): outrage: 204.5 [187, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check primarina
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skuntank|Skuntank, L85, M|135314
+|-damage|p2a: Skuntank|96314|[from] Stealth Rock
+|move|p1a: Lunala|Calm Mind|p1a: Lunala
+|-boost|p1a: Lunala|spa|1
+|-boost|p1a: Lunala|spd|1
+|-heal|p1a: Lunala|90100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala-regidrago
+|chat|DEBUG|Own moves: hydropump energyball sparklingaria moonblast
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 170
+|chat|DEBUG|HP: 199 vs 259
+|chat|DEBUG|Created a new Strategy for primarina vs regidrago:
+|chat|DEBUG|>[moonblast: 372.75 [342, 404], moonblast: 372.75 [342, 404], moonblast: 372.75 [342, 404]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 372.75 [342, 404]
+|chat|DEBUG|Best move of regidrago (p2): hammerarm: 54.5 [50, 59]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['lunala']
+|chat|DEBUG|Expected enemy: lunala
+|chat|DEBUG|Using move moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Skuntank|Sucker Punch|p1a: Lunala
+|-supereffective|p1a: Lunala
+|-damage|p1a: Lunala|0 fnt
+|faint|p1a: Lunala
+|-damage|p2a: Skuntank|65314|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Coalossal|Coalossal, L87, F|100100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 149 vs 265
+|chat|DEBUG|Created a new Strategy for primarina vs lunala:
+|chat|DEBUG|>[moonblast: 117.0 [108, 127], moonblast: 117.0 [108, 127], moonblast: 117.0 [108, 127]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 117.0 [108, 127]
+|chat|DEBUG|Best move of lunala (p2): psyshock: 94.875 [87, 103]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skuntank
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Skuntank|Sucker Punch||[still]
+|-fail|p2a: Skuntank
+|move|p1a: Coalossal|Will-O-Wisp|p2a: Skuntank
+|-status|p2a: Skuntank|brn
+|-damage|p2a: Skuntank|46314 brn|[from] brn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- lunala
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 192 vs 182
+|chat|DEBUG|HP: 96 vs 284
+|chat|DEBUG|Created a new Strategy for skuntank vs lunala:
+|chat|DEBUG|>[suckerpunch: 449.5 [411, 489], suckerpunch: 449.5 [411, 489], suckerpunch: 449.5 [411, 489]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 449.5 [411, 489]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 98.4375 [90, 107]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Skuntank|Sucker Punch|p1a: Coalossal
+|-damage|p1a: Coalossal|90100
+|-damage|p2a: Skuntank|15314 brn|[from] item: Life Orb
+|move|p1a: Coalossal|Stone Edge|p2a: Skuntank
+|-damage|p2a: Skuntank|0 fnt
+|faint|p2a: Skuntank
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, F|307307
+|-damage|p2a: Exeggutor|269307|[from] Stealth Rock
+|-item|p1a: Coalossal|Heavy-Duty Boots|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- coalossal
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['octillery', 'primarina']
+|chat|DEBUG|Counter: ['octillery', 'primarina']
+|chat|DEBUG|Speed: 192 vs 102
+|chat|DEBUG|HP: 65 vs 333
+|chat|DEBUG|Created a new Strategy for skuntank vs coalossal:
+|chat|DEBUG|>[suckerpunch: 74.3125 [68, 82], suckerpunch: 74.3125 [68, 82], suckerpunch: 74.3125 [68, 82]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 74.3125 [68, 82]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 117.0 [108, 127]
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Exeggutor|Dynamax
+|-heal|p2a: Exeggutor|538614|[silent]
+|move|p1a: Coalossal|Overheat|p2a: Exeggutor
+|-damage|p2a: Exeggutor|406614
+|-unboost|p1a: Coalossal|spa|2
+|move|p2a: Exeggutor|Max Overgrowth|p1a: Coalossal
+|-damage|p1a: Coalossal|29100
+|-fieldstart|move: Grassy Terrain
+|-damage|p2a: Exeggutor|376614|[from] item: Life Orb
+|-heal|p1a: Coalossal|35100|[from] Grassy Terrain
+|-heal|p2a: Exeggutor|395614|[from] Grassy Terrain
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery exeggutoralola skuntank primarina
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "skuntank" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-exeggutoralola-skuntank-primarina -- coalossal
+|chat|DEBUG|Own moves: fireblast suckerpunch toxic poisonjab
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['octillery', 'primarina']
+|chat|DEBUG|Counter: ['octillery', 'primarina']
+|chat|DEBUG|Speed: 192 vs 102
+|chat|DEBUG|HP: 46 vs 333
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 74.3125 [68, 82]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 117.0 [108, 127]
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|yoyp77 has 120 seconds left.
+|inactive|yoyp77 has 90 seconds left.
+|inactive|yoyp77 has 60 seconds left.
+|inactive|yoyp77 has 30 seconds left.
+|inactive|yoyp77 has 20 seconds left.
+|inactive|yoyp77 has 15 seconds left.
+|inactive|yoyp77 has 10 seconds left.
+|inactive|yoyp77 has 5 seconds left.
+|l|☆yoyp77
+|inactive|yoyp77 disconnected and has a minute to reconnect!
+|player|p1|
+|-message|yoyp77 lost due to inactivity.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>yoyp77<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">stakataka octillery exeggutoralola skuntank kartana primarina</h1>

@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490891041</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490891041|init|battle
+|title|McDonner vs. Nothingcomparesto
+|j|☆McDonner
+|j|☆Nothingcomparesto
+|gametype|singles
+|player|p1|McDonner|265|1195
+|player|p2|Nothingcomparesto|firebreather|1157
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Stoutland|Stoutland, L86, F|286/286
+|switch|p2a: Mienshao|Mienshao, L82, M|100/100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland vileplume slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs mienshao
+|chat|DEBUG|Updating information about mienshao
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: vileplume vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['vileplume', 'articunogalar', 'eternatus']}}
+|chat|DEBUG|Speed: 187 - 219
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['crunch', 'facade', 'playrough', 'superpower']
+|chat|DEBUG|Most likely moves for: mienshao
+|chat|DEBUG|>['closecombat', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('playrough', 197.0)
+|chat|DEBUG|Best enemy move: ('closecombat', 280.25)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: vileplume
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by Nothingcomparesto)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|McDonner also wants the timer to be on.
+|inactive|Nothingcomparesto has 120 seconds left.
+|switch|p1a: Vileplume|Vileplume, L84, M|263/263
+|move|p2a: Mienshao|Poison Jab|p1a: Vileplume
+|-damage|p1a: Vileplume|198/263
+|-heal|p1a: Vileplume|214/263|[from] item: Black Sludge
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland vileplume slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: vileplume vs mienshao
+|chat|DEBUG|Updating information about mienshao
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: vileplume vs. mienshao
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus', 'vileplume']}}
+|chat|DEBUG|Speed: 132 - 219
+|chat|DEBUG|Most likely moves for: vileplume
+|chat|DEBUG|>['strengthsap', 'sleeppowder', 'sludgebomb', 'gigadrain']
+|chat|DEBUG|Most likely moves for: mienshao
+|chat|DEBUG|>['closecombat', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('sludgebomb', 140.125)
+|chat|DEBUG|Best enemy move: ('knockoff', 81.875)
+|chat|DEBUG|Picking the most damaging move from vileplume against mienshao
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan-Galar, L78, F|100/100
+|move|p1a: Vileplume|Sludge Bomb|p2a: Darmanitan
+|-damage|p2a: Darmanitan|51/100
+|-status|p2a: Darmanitan|psn
+|-heal|p1a: Vileplume|230/263|[from] item: Black Sludge
+|-damage|p2a: Darmanitan|39/100 psn|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland vileplume slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: vileplume vs darmanitangalar
+|chat|DEBUG|Updating information about darmanitangalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: salacberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: vileplume vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. darmanitangalar
+|chat|DEBUG|Getting matchup: slowking vs. darmanitangalar
+|chat|DEBUG|Getting matchup: articunogalar vs. darmanitangalar
+|chat|DEBUG|Getting matchup: eternatus vs. darmanitangalar
+|chat|DEBUG|Getting matchup: suicune vs. darmanitangalar
+|chat|DEBUG|Getting matchup: vileplume vs. darmanitangalar
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus', 'vileplume']}, 'darmanitangalar': {'checks': [], 'counter': ['stoutland', 'slowking', 'suicune']}}
+|chat|DEBUG|Speed: 132 - 193
+|chat|DEBUG|Most likely moves for: vileplume
+|chat|DEBUG|>['strengthsap', 'sleeppowder', 'sludgebomb', 'gigadrain']
+|chat|DEBUG|Most likely moves for: darmanitangalar
+|chat|DEBUG|>['bellydrum', 'earthquake', 'iciclecrash', 'substitute']
+|chat|DEBUG|Best own move: ('sludgebomb', 157.3125)
+|chat|DEBUG|Best enemy move: ('iciclecrash', 217.25)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('sludgebomb', 157.3125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Darmanitan|Flare Blitz|p1a: Vileplume
+|-supereffective|p1a: Vileplume
+|-damage|p1a: Vileplume|0 fnt
+|faint|p1a: Vileplume
+|-damage|p2a: Darmanitan|13/100 psn|[from] Recoil
+|-damage|p2a: Darmanitan|0 fnt|[from] psn
+|faint|p2a: Darmanitan
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, M|100/100
+|switch|p1a: Stoutland|Stoutland, L86, F|286/286
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Tyranitar
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: vileplume vs darmanitangalar
+|chat|DEBUG|Updating information about darmanitangalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: salacberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: vileplume vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. darmanitangalar
+|chat|DEBUG|Getting matchup: slowking vs. darmanitangalar
+|chat|DEBUG|Getting matchup: articunogalar vs. darmanitangalar
+|chat|DEBUG|Getting matchup: eternatus vs. darmanitangalar
+|chat|DEBUG|Getting matchup: suicune vs. darmanitangalar
+|chat|DEBUG|Getting matchup: vileplume vs. darmanitangalar
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus', 'vileplume']}, 'darmanitangalar': {'checks': [], 'counter': ['stoutland', 'slowking', 'suicune']}}
+|chat|DEBUG|>>Switching to counter: stoutland
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stoutland|Superpower|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|0 fnt
+|-unboost|p1a: Stoutland|atk|1
+|-unboost|p1a: Stoutland|def|1
+|faint|p2a: Tyranitar
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Stoutland|269/286|[from] Sandstorm
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stonjourner|Stonjourner, L88, F|100/100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs tyranitar
+|chat|DEBUG|Updating information about tyranitar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lumberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. tyranitar
+|chat|DEBUG|Getting matchup: articunogalar vs. tyranitar
+|chat|DEBUG|Getting matchup: eternatus vs. tyranitar
+|chat|DEBUG|Getting matchup: suicune vs. tyranitar
+|chat|DEBUG|Getting matchup: stoutland vs. tyranitar
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'tyranitar': {'checks': [], 'counter': ['suicune', 'stoutland']}}
+|chat|DEBUG|Speed: 187 - 140
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['crunch', 'facade', 'playrough', 'superpower']
+|chat|DEBUG|Most likely moves for: tyranitar
+|chat|DEBUG|>['crunch', 'dragondance', 'firepunch', 'stoneedge']
+|chat|DEBUG|Best own move: ('superpower', 354.0)
+|chat|DEBUG|Best enemy move: ('stoneedge', 115.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('superpower', 354.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowking|Slowking, L86, M|304/304
+|move|p2a: Stonjourner|Rock Polish|p2a: Stonjourner
+|-boost|p2a: Stonjourner|spe|2
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Slowking|285/304|[from] Sandstorm
+|-heal|p1a: Slowking|304/304|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs stonjourner
+|chat|DEBUG|Updating information about stonjourner
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. stonjourner
+|chat|DEBUG|Getting matchup: articunogalar vs. stonjourner
+|chat|DEBUG|Getting matchup: eternatus vs. stonjourner
+|chat|DEBUG|Getting matchup: suicune vs. stonjourner
+|chat|DEBUG|Getting matchup: stoutland vs. stonjourner
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'stonjourner': {'checks': [], 'counter': ['slowking', 'eternatus', 'suicune']}}
+|chat|DEBUG|Speed: 187 - 173
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['superpower']
+|chat|DEBUG|Most likely moves for: stonjourner
+|chat|DEBUG|>['earthquake', 'heatcrash', 'rockpolish', 'stoneedge']
+|chat|DEBUG|Best own move: ('superpower', 134.125)
+|chat|DEBUG|Best enemy move: ('stoneedge', 137.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: slowking
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Stonjourner|Earthquake|p1a: Slowking
+|-damage|p1a: Slowking|171/304
+|-damage|p2a: Stonjourner|91/100|[from] item: Life Orb
+|move|p1a: Slowking|Scald|p2a: Stonjourner
+|-supereffective|p2a: Stonjourner
+|-damage|p2a: Stonjourner|6/100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Slowking|152/304|[from] Sandstorm
+|-heal|p1a: Slowking|171/304|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: slowking vs stonjourner
+|chat|DEBUG|Updating information about stonjourner
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. stonjourner
+|chat|DEBUG|Getting matchup: articunogalar vs. stonjourner
+|chat|DEBUG|Getting matchup: eternatus vs. stonjourner
+|chat|DEBUG|Getting matchup: suicune vs. stonjourner
+|chat|DEBUG|Getting matchup: slowking vs. stonjourner
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'stonjourner': {'checks': [], 'counter': ['eternatus', 'suicune', 'slowking']}}
+|chat|DEBUG|Speed: 101 - 173
+|chat|DEBUG|Most likely moves for: slowking
+|chat|DEBUG|>['fireblast', 'scald', 'teleport', 'slackoff']
+|chat|DEBUG|Most likely moves for: stonjourner
+|chat|DEBUG|>['earthquake', 'heatcrash', 'rockpolish', 'stoneedge']
+|chat|DEBUG|Best own move: ('scald', 416.625)
+|chat|DEBUG|Best enemy move: ('stoneedge', 148.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('scald', 416.625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Stonjourner|Earthquake|p1a: Slowking
+|-damage|p1a: Slowking|51/304
+|-damage|p2a: Stonjourner|0 fnt|[from] item: Life Orb
+|faint|p2a: Stonjourner
+|move|p1a: Slowking|Scald|p2: Stonjourner|[notarget]
+|-fail|p1a: Slowking
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Slowking|32/304|[from] Sandstorm
+|-heal|p1a: Slowking|51/304|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mienshao|Mienshao, L82, M|100/100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: slowking vs stonjourner
+|chat|DEBUG|Updating information about stonjourner
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. stonjourner
+|chat|DEBUG|Getting matchup: articunogalar vs. stonjourner
+|chat|DEBUG|Getting matchup: eternatus vs. stonjourner
+|chat|DEBUG|Getting matchup: suicune vs. stonjourner
+|chat|DEBUG|Getting matchup: slowking vs. stonjourner
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'stonjourner': {'checks': [], 'counter': ['eternatus', 'suicune', 'slowking']}}
+|chat|DEBUG|Speed: 101 - 173
+|chat|DEBUG|Most likely moves for: slowking
+|chat|DEBUG|>['fireblast', 'scald', 'teleport', 'slackoff']
+|chat|DEBUG|Most likely moves for: stonjourner
+|chat|DEBUG|>['earthquake', 'heatcrash', 'rockpolish', 'stoneedge']
+|chat|DEBUG|Best own move: ('scald', 416.625)
+|chat|DEBUG|Best enemy move: ('stoneedge', 148.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('scald', 416.625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Articuno|Articuno-Galar, L80|275/275
+|move|p2a: Mienshao|U-turn|p1a: Articuno
+|-damage|p1a: Articuno|215/275
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mawile|Mawile, L86, F|100/100|[from]move: U-turn
+|-ability|p2a: Mawile|Intimidate|boost
+|-unboost|p1a: Articuno|atk|1
+|-ability|p1a: Articuno|Competitive
+|-boost|p1a: Articuno|spa|2
+|-weather|none
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: slowking vs mienshao
+|chat|DEBUG|Updating information about mienshao
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}}
+|chat|DEBUG|Speed: 101 - 219
+|chat|DEBUG|Most likely moves for: slowking
+|chat|DEBUG|>['fireblast', 'scald', 'teleport', 'slackoff']
+|chat|DEBUG|Most likely moves for: mienshao
+|chat|DEBUG|>['closecombat', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('scald', 122.5625)
+|chat|DEBUG|Best enemy move: ('knockoff', 165.75)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: articunogalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stoutland|Stoutland, L86, F|269/286
+|move|p2a: Mawile|Sucker Punch||[still]
+|-fail|p2a: Mawile
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: articunogalar vs mawile
+|chat|DEBUG|Updating information about mawile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mawile
+|chat|DEBUG|Getting matchup: slowking vs. mawile
+|chat|DEBUG|Getting matchup: eternatus vs. mawile
+|chat|DEBUG|Getting matchup: suicune vs. mawile
+|chat|DEBUG|Getting matchup: articunogalar vs. mawile
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['eternatus', 'articunogalar']}, 'mawile': {'checks': [], 'counter': ['stoutland', 'slowking', 'eternatus', 'suicune']}}
+|chat|DEBUG|Speed: 198 - 135
+|chat|DEBUG|Most likely moves for: articunogalar
+|chat|DEBUG|>['recover', 'freezingglare', 'calmmind', 'airslash']
+|chat|DEBUG|Most likely moves for: mawile
+|chat|DEBUG|>['ironhead', 'playrough', 'suckerpunch', 'swordsdance']
+|chat|DEBUG|Best own move: ('freezingglare', 72.8125)
+|chat|DEBUG|Best enemy move: ('suckerpunch', 102.625)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: stoutland
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Stoutland|Dynamax
+|-heal|p1a: Stoutland|538/572|[silent]
+|move|p1a: Stoutland|Max Knuckle|p2a: Mawile
+|-damage|p2a: Mawile|64/100
+|-boost|p1a: Stoutland|atk|1
+|move|p2a: Mawile|Swords Dance|p2a: Mawile
+|-boost|p2a: Mawile|atk|2
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs mawile
+|chat|DEBUG|Updating information about mawile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mawile
+|chat|DEBUG|Getting matchup: slowking vs. mawile
+|chat|DEBUG|Getting matchup: eternatus vs. mawile
+|chat|DEBUG|Getting matchup: suicune vs. mawile
+|chat|DEBUG|Getting matchup: stoutland vs. mawile
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'mawile': {'checks': [], 'counter': ['slowking', 'eternatus', 'suicune', 'stoutland']}}
+|chat|DEBUG|Speed: 187 - 135
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['crunch', 'facade', 'playrough', 'superpower']
+|chat|DEBUG|Most likely moves for: mawile
+|chat|DEBUG|>['ironhead', 'playrough', 'suckerpunch', 'swordsdance']
+|chat|DEBUG|Best own move: ('superpower', 98.5)
+|chat|DEBUG|Best enemy move: ('playrough', 86.4375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stoutland|Max Knuckle|p2a: Mawile
+|-damage|p2a: Mawile|8/100
+|-boost|p1a: Stoutland|atk|1
+|move|p2a: Mawile|Iron Head|p1a: Stoutland
+|-damage|p1a: Stoutland|331/572
+|-damage|p2a: Mawile|0 fnt|[from] item: Life Orb
+|faint|p2a: Mawile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sharpedo|Sharpedo, L82, F|100/100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs mawile
+|chat|DEBUG|Updating information about mawile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. mawile
+|chat|DEBUG|Getting matchup: slowking vs. mawile
+|chat|DEBUG|Getting matchup: eternatus vs. mawile
+|chat|DEBUG|Getting matchup: suicune vs. mawile
+|chat|DEBUG|Getting matchup: stoutland vs. mawile
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus', 'stoutland']}, 'mawile': {'checks': [], 'counter': ['slowking', 'eternatus', 'suicune', 'stoutland']}}
+|chat|DEBUG|Speed: 187 - 135
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['crunch', 'facade', 'playrough', 'superpower']
+|chat|DEBUG|Most likely moves for: mawile
+|chat|DEBUG|>['ironhead', 'playrough', 'suckerpunch', 'swordsdance']
+|chat|DEBUG|Best own move: ('superpower', 98.5)
+|chat|DEBUG|Best enemy move: ('playrough', 86.4375)
+|chat|DEBUG|Picking the most damaging move from stoutland against mawile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Protect|p2a: Sharpedo
+|-singleturn|p2a: Sharpedo|Protect
+|move|p1a: Stoutland|Max Knuckle|p2a: Sharpedo
+|-supereffective|p2a: Sharpedo
+|-zbroken|p2a: Sharpedo
+|-damage|p2a: Sharpedo|48/100
+|-boost|p1a: Stoutland|atk|1
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|-end|p1a: Stoutland|Dynamax
+|-heal|p1a: Stoutland|166/286|[silent]
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs sharpedo
+|chat|DEBUG|Updating information about sharpedo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. sharpedo
+|chat|DEBUG|Getting matchup: slowking vs. sharpedo
+|chat|DEBUG|Getting matchup: eternatus vs. sharpedo
+|chat|DEBUG|Getting matchup: suicune vs. sharpedo
+|chat|DEBUG|Getting matchup: stoutland vs. sharpedo
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus', 'stoutland']}, 'sharpedo': {'checks': [], 'counter': ['eternatus', 'stoutland']}}
+|chat|DEBUG|Speed: 187 - 203
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['crunch', 'facade', 'playrough', 'superpower']
+|chat|DEBUG|Most likely moves for: sharpedo
+|chat|DEBUG|>['closecombat', 'crunch', 'hydropump', 'protect']
+|chat|DEBUG|Best own move: ('superpower', 337.75)
+|chat|DEBUG|Best enemy move: ('closecombat', 183.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('superpower', 337.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Close Combat|p1a: Stoutland
+|-supereffective|p1a: Stoutland
+|-damage|p1a: Stoutland|0 fnt
+|-unboost|p2a: Sharpedo|def|1
+|-unboost|p2a: Sharpedo|spd|1
+|faint|p1a: Stoutland
+|-damage|p2a: Sharpedo|38/100|[from] item: Life Orb
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eternatus|Eternatus, L69|308/308
+|-ability|p1a: Eternatus|Pressure
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>stoutland slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs sharpedo
+|chat|DEBUG|Updating information about sharpedo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. sharpedo
+|chat|DEBUG|Getting matchup: slowking vs. sharpedo
+|chat|DEBUG|Getting matchup: eternatus vs. sharpedo
+|chat|DEBUG|Getting matchup: suicune vs. sharpedo
+|chat|DEBUG|Getting matchup: stoutland vs. sharpedo
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'sharpedo': {'checks': [], 'counter': ['eternatus', 'stoutland']}}
+|chat|DEBUG|Speed: 187 - 203
+|chat|DEBUG|Most likely moves for: stoutland
+|chat|DEBUG|>['crunch', 'facade', 'playrough', 'superpower']
+|chat|DEBUG|Most likely moves for: sharpedo
+|chat|DEBUG|>['closecombat', 'crunch', 'hydropump', 'protect']
+|chat|DEBUG|Best own move: ('superpower', 337.75)
+|chat|DEBUG|Best enemy move: ('closecombat', 183.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from stoutland against sharpedo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Crunch|p1a: Eternatus
+|-damage|p1a: Eternatus|172/308
+|-damage|p2a: Sharpedo|29/100|[from] item: Life Orb
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Sharpedo
+|-damage|p2a: Sharpedo|0 fnt
+|faint|p2a: Sharpedo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mienshao|Mienshao, L82, M|100/100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: stoutland vs sharpedo
+|chat|DEBUG|Updating information about sharpedo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: stoutland vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. sharpedo
+|chat|DEBUG|Getting matchup: slowking vs. sharpedo
+|chat|DEBUG|Getting matchup: eternatus vs. sharpedo
+|chat|DEBUG|Getting matchup: suicune vs. sharpedo
+|chat|DEBUG|Getting matchup: stoutland vs. sharpedo
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'sharpedo': {'checks': [], 'counter': ['eternatus', 'stoutland']}}
+|chat|DEBUG|>>Switching to counter: eternatus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Mienshao|Dynamax
+|-heal|p2a: Mienshao|100/100|[silent]
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Mienshao
+|-damage|p2a: Mienshao|38/100
+|move|p2a: Mienshao|Max Knuckle|p1a: Eternatus
+|-resisted|p1a: Eternatus
+|-damage|p1a: Eternatus|100/308
+|-boost|p2a: Mienshao|atk|1
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowking articunogalar eternatus suicune
+|chat|DEBUG|Matchup: eternatus vs sharpedo
+|chat|DEBUG|Updating information about sharpedo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: metronome
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: articunogalar vs. mienshao
+|chat|DEBUG|Getting matchup: slowking vs. mienshao
+|chat|DEBUG|Getting matchup: suicune vs. mienshao
+|chat|DEBUG|Getting matchup: eternatus vs. mienshao
+|chat|DEBUG|Getting matchup: articunogalar vs. sharpedo
+|chat|DEBUG|Getting matchup: slowking vs. sharpedo
+|chat|DEBUG|Getting matchup: suicune vs. sharpedo
+|chat|DEBUG|Getting matchup: eternatus vs. sharpedo
+|chat|DEBUG|Checks / Counter: {'mienshao': {'checks': [], 'counter': ['articunogalar', 'eternatus']}, 'sharpedo': {'checks': [], 'counter': ['eternatus']}}
+|chat|DEBUG|Speed: 220 - 203
+|chat|DEBUG|Most likely moves for: eternatus
+|chat|DEBUG|>['sludgewave', 'recover', 'dynamaxcannon', 'flamethrower']
+|chat|DEBUG|Most likely moves for: sharpedo
+|chat|DEBUG|>['closecombat', 'crunch', 'hydropump', 'protect']
+|chat|DEBUG|Best own move: ('dynamaxcannon', 172.625)
+|chat|DEBUG|Best enemy move: ('crunch', 108.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('dynamaxcannon', 172.625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Mienshao
+|-damage|p2a: Mienshao|0 fnt
+|faint|p2a: Mienshao
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McDonner<br>vs<br>Nothingcomparesto</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">stoutland vileplume slowking articunogalar eternatus suicune</h1>

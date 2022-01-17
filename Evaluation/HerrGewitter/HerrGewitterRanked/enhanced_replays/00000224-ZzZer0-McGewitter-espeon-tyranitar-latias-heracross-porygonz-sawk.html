@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490345344<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490345344|init|battle
+|title|ZzZer0 vs. McGewitter
+|j|☆ZzZer0
+|j|☆McGewitter
+|gametype|singles
+|player|p1|ZzZer0|169|1095
+|player|p2|McGewitter|265|1100
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|100100
+|switch|p2a: Espeon|Espeon, L82, F|241241
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon tyranitar latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-tyranitar-latias-heracross-porygonz-sawk -- ferrothorn
+|chat|DEBUG|Own moves: shadowball calmmind morningsun psychic
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['sawk']
+|chat|DEBUG|Counter: ['tyranitar', 'latias', 'heracross', 'sawk']
+|chat|DEBUG|Speed: 228 vs 36
+|chat|DEBUG|HP: 241 vs 244
+|chat|DEBUG|Created a new Strategy for espeon vs ferrothorn:
+|chat|DEBUG|>[shadowball: 58.75 [54, 64], shadowball: 58.75 [54, 64], shadowball: 58.75 [54, 64]]
+|chat|DEBUG|Best move of espeon (p1): shadowball: 58.75 [54, 64]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 182.375 [168, 198]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sawk
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|ZzZer0 also wants the timer to be on.
+|switch|p2a: Sawk|Sawk, L86, M|269269
+|-ability|p2a: Sawk|Mold Breaker
+|move|p1a: Ferrothorn|Knock Off|p2a: Sawk
+|-resisted|p2a: Sawk
+|-damage|p2a: Sawk|236269
+|-enditem|p2a: Sawk|Life Orb|[from] move: Knock Off|[of] p1a: Ferrothorn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon tyranitar latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-tyranitar-latias-heracross-porygonz-sawk -- ferrothorn
+|chat|DEBUG|Own moves: poisonjab stoneedge closecombat bulkup
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['sawk']
+|chat|DEBUG|Counter: ['tyranitar', 'latias', 'heracross', 'sawk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 195 vs 36
+|chat|DEBUG|HP: 236 vs 244
+|chat|DEBUG|Created a new Strategy for sawk vs ferrothorn:
+|chat|DEBUG|>[closecombat: 256.125 [236, 278], closecombat: 256.125 [236, 278], closecombat: 256.125 [236, 278]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 256.125 [236, 278]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 135.5 [124, 147]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sawk|Close Combat|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|4100
+|-unboost|p2a: Sawk|def|1
+|-unboost|p2a: Sawk|spd|1
+|-damage|p2a: Sawk|203269|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|move|p1a: Ferrothorn|Stealth Rock|p2a: Sawk
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-heal|p1a: Ferrothorn|10100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon tyranitar latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-tyranitar-latias-heracross-porygonz-sawk -- ferrothorn
+|chat|DEBUG|Own moves: poisonjab stoneedge closecombat bulkup
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['espeon', 'tyranitar', 'latias', 'heracross', 'porygonz', 'sawk']
+|chat|DEBUG|Counter: ['espeon', 'tyranitar', 'latias', 'heracross', 'porygonz', 'sawk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 195 vs 36
+|chat|DEBUG|HP: 203 vs 24
+|chat|DEBUG|Best move of sawk (p1): closecombat: 256.125 [236, 278]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 201.6875 [186, 219]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sawk|Close Combat|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|0 fnt
+|-unboost|p2a: Sawk|def|1
+|-unboost|p2a: Sawk|spd|1
+|-damage|p2a: Sawk|170269|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|faint|p1a: Ferrothorn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aerodactyl|Aerodactyl, L82, F|100100
+|-ability|p1a: Aerodactyl|Unnerve
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon tyranitar latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-tyranitar-latias-heracross-porygonz-sawk -- aerodactyl
+|chat|DEBUG|Own moves: poisonjab stoneedge closecombat bulkup
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: ['tyranitar']
+|chat|DEBUG|Counter: ['tyranitar', 'porygonz']
+|chat|DEBUG|Speed: 195 vs 260
+|chat|DEBUG|HP: 170 vs 265
+|chat|DEBUG|Created a new Strategy for sawk vs aerodactyl:
+|chat|DEBUG|>[closecombat: 207.5 [190, 225], closecombat: 207.5 [190, 225], closecombat: 207.5 [190, 225]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 207.5 [190, 225]
+|chat|DEBUG|Best move of aerodactyl (p2): dualwingbeat: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tyranitar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, F|284284
+|-damage|p2a: Tyranitar|249284|[from] Stealth Rock
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Tyranitar
+|move|p1a: Aerodactyl|Dual Wingbeat|p2a: Tyranitar
+|-resisted|p2a: Tyranitar
+|-damage|p2a: Tyranitar|230284
+|-resisted|p2a: Tyranitar
+|-damage|p2a: Tyranitar|211284
+|-hitcount|p2a: Tyranitar|2
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon tyranitar latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tyranitar" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-tyranitar-latias-heracross-porygonz-sawk -- aerodactyl
+|chat|DEBUG|Own moves: dragondance stoneedge firepunch crunch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tyranitar', 'porygonz']
+|chat|DEBUG|Speed: 140 vs 260
+|chat|DEBUG|HP: 211 vs 265
+|chat|DEBUG|Created a new Strategy for tyranitar vs aerodactyl:
+|chat|DEBUG|>[stoneedge: 303.25 [278, 330], stoneedge: 303.25 [278, 330], stoneedge: 303.25 [278, 330]]
+|chat|DEBUG|Best move of tyranitar (p1): stoneedge: 303.25 [278, 330]
+|chat|DEBUG|Best move of aerodactyl (p2): earthquake: 128.625 [118, 140]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aerodactyl|Earthquake|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|79284
+|move|p2a: Tyranitar|Stone Edge|p1a: Aerodactyl|[miss]
+|-miss|p2a: Tyranitar|p1a: Aerodactyl
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon tyranitar latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tyranitar" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-tyranitar-latias-heracross-porygonz-sawk -- aerodactyl
+|chat|DEBUG|Own moves: dragondance stoneedge firepunch crunch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['porygonz']
+|chat|DEBUG|Speed: 140 vs 260
+|chat|DEBUG|HP: 79 vs 265
+|chat|DEBUG|Best move of tyranitar (p1): stoneedge: 303.25 [278, 330]
+|chat|DEBUG|Best move of aerodactyl (p2): earthquake: 128.625 [118, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aerodactyl|Earthquake|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|0 fnt
+|faint|p2a: Tyranitar
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon-Z|Porygon-Z, L80|267267
+|-damage|p2a: Porygon-Z|234267|[from] Stealth Rock
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tyranitar" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-porygonz-sawk -- aerodactyl
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['porygonz']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to porygonz (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gurdurr|Gurdurr, L83, F|100100
+|move|p2a: Porygon-Z|Ice Beam|p1a: Gurdurr
+|-damage|p1a: Gurdurr|75100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Porygon-Z|218267|[from] Sandstorm
+|-damage|p1a: Gurdurr|68100|[from] Sandstorm
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-porygonz-sawk -- aerodactyl
+|chat|DEBUG|Own moves: thunderbolt triattack icebeam trick
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 190 vs 260
+|chat|DEBUG|HP: 234 vs 265
+|chat|DEBUG|Created a new Strategy for porygonz vs aerodactyl:
+|chat|DEBUG|>[icebeam: 177.0 [162, 192], icebeam: 177.0 [162, 192], icebeam: 177.0 [162, 192]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 177.0 [162, 192]
+|chat|DEBUG|Best move of aerodactyl (p2): stoneedge: 132.5 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Ice Beam|p1a: Gurdurr
+|-damage|p1a: Gurdurr|43100
+|move|p1a: Gurdurr|Knock Off|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|128267
+|-enditem|p2a: Porygon-Z|Choice Scarf|[from] move: Knock Off|[of] p1a: Gurdurr
+|-weather|none
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-porygonz-sawk -- aerodactyl-gurdurr
+|chat|DEBUG|Own moves: icebeam
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['espeon', 'latias', 'heracross']
+|chat|DEBUG|Counter: ['espeon', 'latias', 'heracross', 'porygonz']
+|chat|DEBUG|Speed: 190 vs 114
+|chat|DEBUG|HP: 218 vs 188
+|chat|DEBUG|Created a new Strategy for porygonz vs gurdurr:
+|chat|DEBUG|>[icebeam: 76.375 [70, 83], icebeam: 76.375 [70, 83], icebeam: 76.375 [70, 83]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 76.375 [70, 83]
+|chat|DEBUG|Best move of gurdurr (p2): drainpunch: 206.5 [188, 224]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Ice Beam|p1a: Gurdurr
+|-damage|p1a: Gurdurr|15100
+|move|p1a: Gurdurr|Drain Punch|p2a: Porygon-Z
+|-supereffective|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|0 fnt
+|-heal|p1a: Gurdurr|38100|[from] drain|[of] p2a: Porygon-Z
+|faint|p2a: Porygon-Z
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Espeon|Espeon, L82, F|241241
+|-damage|p2a: Espeon|211241|[from] Stealth Rock
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross porygonz sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-porygonz-sawk -- aerodactyl-gurdurr
+|chat|DEBUG|Own moves: thunderbolt triattack icebeam trick
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['espeon', 'latias', 'heracross']
+|chat|DEBUG|Counter: ['espeon', 'latias', 'heracross', 'porygonz']
+|chat|DEBUG|Speed: 190 vs 114
+|chat|DEBUG|HP: 128 vs 119
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 76.375 [70, 83]
+|chat|DEBUG|Best move of gurdurr (p2): drainpunch: 206.5 [188, 224]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Espeon|Psychic|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-crit|p1a: Gurdurr
+|-damage|p1a: Gurdurr|0 fnt
+|faint|p1a: Gurdurr
+|-heal|p2a: Espeon|226241|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Krookodile|Krookodile, L78, M|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-gurdurr
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['espeon', 'latias', 'heracross']
+|chat|DEBUG|Counter: ['espeon', 'latias', 'heracross']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to espeon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heracross|Heracross, L82, F|265265
+|-damage|p2a: Heracross|232265|[from] Stealth Rock
+|move|p1a: Krookodile|Knock Off|p2a: Heracross
+|-resisted|p2a: Heracross
+|-damage|p2a: Heracross|176265
+|-enditem|p2a: Heracross|Flame Orb|[from] move: Knock Off|[of] p1a: Krookodile
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-gurdurr
+|chat|DEBUG|Own moves: shadowball calmmind morningsun psychic
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['espeon', 'latias', 'heracross']
+|chat|DEBUG|Counter: ['espeon', 'latias', 'heracross', 'sawk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 228 vs 114
+|chat|DEBUG|HP: 211 vs 105
+|chat|DEBUG|Created a new Strategy for espeon vs gurdurr:
+|chat|DEBUG|>[psychic: 228.625 [210, 248], psychic: 228.625 [210, 248], psychic: 228.625 [210, 248]]
+|chat|DEBUG|Best move of espeon (p1): psychic: 228.625 [210, 248]
+|chat|DEBUG|Best move of gurdurr (p2): knockoff: 193.125 [178, 210]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['aerodactyl']
+|chat|DEBUG|Expected enemy: aerodactyl
+|chat|DEBUG|Using move psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aerodactyl|Aerodactyl, L82, F|100100
+|-ability|p1a: Aerodactyl|Unnerve
+|move|p2a: Heracross|Close Combat|p1a: Aerodactyl
+|-damage|p1a: Aerodactyl|28100
+|-unboost|p2a: Heracross|def|1
+|-unboost|p2a: Heracross|spd|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-krookodile
+|chat|DEBUG|Own moves: shadowball calmmind morningsun psychic
+|chat|DEBUG|Enemy moves: closecombat earthquake knockoff stoneedge
+|chat|DEBUG|Checks: ['heracross']
+|chat|DEBUG|Counter: ['heracross', 'sawk']
+|chat|DEBUG|Speed: 228 vs 189
+|chat|DEBUG|HP: 226 vs 276
+|chat|DEBUG|Created a new Strategy for espeon vs krookodile:
+|chat|DEBUG|>[shadowball: 42.5 [39, 46], shadowball: 42.5 [39, 46], shadowball: 42.5 [39, 46]]
+|chat|DEBUG|Best move of espeon (p1): shadowball: 42.5 [39, 46]
+|chat|DEBUG|Best move of krookodile (p2): knockoff: 277.125 [254, 302]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check heracross
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|259259
+|-damage|p2a: Latias|227259|[from] Stealth Rock
+|move|p1a: Aerodactyl|Dual Wingbeat|p2a: Latias
+|-damage|p2a: Latias|185259
+|-damage|p2a: Latias|140259
+|-hitcount|p2a: Latias|2
+|-heal|p2a: Latias|156259|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-krookodile
+|chat|DEBUG|Own moves: facade closecombat megahorn knockoff
+|chat|DEBUG|Enemy moves: closecombat earthquake knockoff stoneedge
+|chat|DEBUG|Checks: ['heracross']
+|chat|DEBUG|Counter: ['heracross', 'sawk']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 187 vs 189
+|chat|DEBUG|HP: 176 vs 276
+|chat|DEBUG|Created a new Strategy for heracross vs krookodile:
+|chat|DEBUG|>[closecombat: 336.625 [308, 366], closecombat: 336.625 [308, 366], closecombat: 336.625 [308, 366]]
+|chat|DEBUG|Best move of heracross (p1): closecombat: 336.625 [308, 366]
+|chat|DEBUG|Best move of krookodile (p2): stoneedge: 82.875 [76, 90]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Krookodile|Krookodile, L78, M|100100
+|move|p2a: Latias|Psychic|p1a: Krookodile
+|-immune|p1a: Krookodile
+|-heal|p2a: Latias|172259|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-krookodile
+|chat|DEBUG|Own moves: facade closecombat megahorn knockoff
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: ['latias']
+|chat|DEBUG|Counter: ['espeon', 'latias']
+|chat|DEBUG|Speed: 187 vs 260
+|chat|DEBUG|HP: 176 vs 74
+|chat|DEBUG|Created a new Strategy for heracross vs aerodactyl:
+|chat|DEBUG|>[closecombat: 186.375 [171, 202], closecombat: 186.375 [171, 202], closecombat: 186.375 [171, 202]]
+|chat|DEBUG|Best move of heracross (p1): closecombat: 186.375 [171, 202]
+|chat|DEBUG|Best move of aerodactyl (p2): dualwingbeat: 295.75 [268, 324]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check latias
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Krookodile|Earthquake|p2a: Latias
+|-immune|p2a: Latias|[from] ability: Levitate
+|move|p2a: Latias|Draco Meteor|p1a: Krookodile
+|-damage|p1a: Krookodile|34100
+|-unboost|p2a: Latias|spa|2
+|-heal|p2a: Latias|188259|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-krookodile
+|chat|DEBUG|Own moves: mysticalfire dracometeor roost psychic
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['espeon', 'latias']
+|chat|DEBUG|Speed: 222 vs 260
+|chat|DEBUG|HP: 156 vs 74
+|chat|DEBUG|Created a new Strategy for latias vs aerodactyl:
+|chat|DEBUG|>[psychic: 111.4375 [102, 121], psychic: 111.4375 [102, 121], dracometeor: 161.25 [148, 175]]
+|chat|DEBUG|Best move of latias (p1): psychic: 111.4375 [102, 121]
+|chat|DEBUG|Best move of aerodactyl (p2): stoneedge: 110.25 [102, 120]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Krookodile|Earthquake|p2a: Latias
+|-immune|p2a: Latias|[from] ability: Levitate
+|move|p2a: Latias|Draco Meteor|p1a: Krookodile
+|-damage|p1a: Krookodile|1100
+|-unboost|p2a: Latias|spa|2
+|-heal|p2a: Latias|204259|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon latias heracross sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-latias-heracross-sawk -- aerodactyl-krookodile
+|chat|DEBUG|Own moves: mysticalfire dracometeor roost psychic
+|chat|DEBUG|Enemy moves: closecombat earthquake knockoff stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heracross', 'sawk']
+|chat|DEBUG|Speed: 222 vs 189
+|chat|DEBUG|HP: 172 vs 276
+|chat|DEBUG|Created a new Strategy for latias vs krookodile:
+|chat|DEBUG|>[dracometeor: 177.9375 [163, 193], dracometeor: 89.1875 [82, 97], dracometeor: 60.125 [55, 66]]
+|chat|DEBUG|Best move of latias (p1): dracometeor: 177.9375 [163, 193]
+|chat|DEBUG|Best move of krookodile (p2): knockoff: 214.625 [198, 234]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|l|☆ZzZer0
+|inactive|ZzZer0 disconnected and has a minute to reconnect!
+|player|p1|
+|inactive|ZzZer0 has 30 seconds to reconnect!
+|inactive|ZzZer0 has 20 seconds to reconnect!
+|inactive|ZzZer0 has 15 seconds to reconnect!
+|inactive|ZzZer0 has 10 seconds to reconnect!
+|inactive|ZzZer0 has 5 seconds to reconnect!
+|-message|ZzZer0 lost due to inactivity.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>ZzZer0<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">espeon tyranitar latias heracross porygonz sawk</h1>

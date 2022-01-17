@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490246214</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490246214<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Tjediesworld25</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490246214|init|battle
+|title|McGewitter vs. Tjediesworld25
+|j|☆McGewitter
+|j|☆Tjediesworld25
+|gametype|singles
+|player|p1|McGewitter|265|1201
+|player|p2|Tjediesworld25|1|1188
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dragalge|Dragalge, L86, M|252/252
+|switch|p2a: Jynx|Jynx, L86, F|100/100
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Thundurus|Thundurus, L80, M|258/258
+|move|p2a: Jynx|Lovely Kiss|p1a: Thundurus
+|-status|p1a: Thundurus|slp|[from] move: Lovely Kiss
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhyperior|Rhyperior, L82, F|100/100
+|cant|p1a: Thundurus|slp
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p1a: Thundurus|slp|[msg]
+|move|p1a: Thundurus|Knock Off|p2a: Rhyperior
+|-damage|p2a: Rhyperior|83/100
+|-enditem|p2a: Rhyperior|Choice Band|[from] move: Knock Off|[of] p1a: Thundurus
+|move|p2a: Rhyperior|Stone Edge|p1a: Thundurus
+|-supereffective|p1a: Thundurus
+|-damage|p1a: Thundurus|0 fnt
+|faint|p1a: Thundurus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|329/329
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rhyperior|Fire Punch|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|163/329
+|move|p1a: Amoonguss|Giga Drain|p2a: Rhyperior
+|-supereffective|p2a: Rhyperior
+|-damage|p2a: Rhyperior|0 fnt
+|-heal|p1a: Amoonguss|296/329|[from] drain|[of] p2a: Rhyperior
+|faint|p2a: Rhyperior
+|-heal|p1a: Amoonguss|316/329|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jynx|Jynx, L86, F|100/100
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|233/233
+|move|p2a: Jynx|Lovely Kiss|p1a: Chandelure
+|-status|p1a: Chandelure|slp|[from] move: Lovely Kiss
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Chandelure|slp
+|move|p2a: Jynx|Psyshock|p1a: Chandelure
+|-damage|p1a: Chandelure|131/233 slp
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Chandelure|slp
+|move|p2a: Jynx|Psyshock|p1a: Chandelure
+|-damage|p1a: Chandelure|25/233 slp
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Chandelure|slp
+|move|p2a: Jynx|Psyshock|p1a: Chandelure
+|-damage|p1a: Chandelure|0 fnt
+|faint|p1a: Chandelure
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drednaw|Drednaw, L84, M|288/288
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jynx|Lovely Kiss|p1a: Drednaw
+|-status|p1a: Drednaw|slp|[from] move: Lovely Kiss
+|cant|p1a: Drednaw|slp
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jynx|Focus Blast|p1a: Drednaw
+|-supereffective|p1a: Drednaw
+|-damage|p1a: Drednaw|44/288 slp
+|-curestatus|p1a: Drednaw|slp|[msg]
+|move|p1a: Drednaw|Stone Edge|p2a: Jynx
+|-supereffective|p2a: Jynx
+|-enditem|p2a: Jynx|Focus Sash
+|-damage|p2a: Jynx|1/100
+|-damage|p1a: Drednaw|16/288|[from] item: Life Orb
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jynx|Focus Blast|p1a: Drednaw|[miss]
+|-miss|p2a: Jynx|p1a: Drednaw
+|move|p1a: Drednaw|Stone Edge|p2a: Jynx
+|-supereffective|p2a: Jynx
+|-damage|p2a: Jynx|0 fnt
+|faint|p2a: Jynx
+|-damage|p1a: Drednaw|0 fnt|[from] item: Life Orb
+|faint|p1a: Drednaw
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Talonflame|Talonflame, L81, M|100/100
+|switch|p1a: Dragalge|Dragalge, L86, M|252/252
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Talonflame|Swords Dance|p2a: Talonflame
+|-boost|p2a: Talonflame|atk|2
+|move|p1a: Dragalge|Sludge Wave|p2a: Talonflame
+|-damage|p2a: Talonflame|8/100
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Talonflame|Flare Blitz|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|148/252
+|-damage|p2a: Talonflame|0 fnt|[from] Recoil
+|faint|p2a: Talonflame
+|move|p1a: Dragalge|Sludge Wave|p2: Talonflame|[notarget]
+|-fail|p1a: Dragalge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Necrozma|Necrozma-Dawn-Wings, L76|100/100
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Photon Geyser|p1a: Dragalge
+|-supereffective|p1a: Dragalge
+|-damage|p1a: Dragalge|0 fnt
+|faint|p1a: Dragalge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|329/329
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|149/329
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|78/100
+|-heal|p1a: Amoonguss|179/329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|85/100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|199/329|[from] item: Black Sludge
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Amoonguss|[miss]
+|-miss|p2a: Necrozma|p1a: Amoonguss
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|64/100
+|-heal|p1a: Amoonguss|228/329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|70/100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|248/329|[from] item: Black Sludge
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Stealth Rock|p1a: Amoonguss
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|47/100
+|-heal|p1a: Amoonguss|280/329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|53/100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|300/329|[from] item: Black Sludge
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|124/329
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|29/100
+|-heal|p1a: Amoonguss|157/329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|35/100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|177/329|[from] item: Black Sludge
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zekrom|Zekrom, L69|252/252
+|-damage|p1a: Zekrom|221/252|[from] Stealth Rock
+|-ability|p1a: Zekrom|Teravolt
+|move|p2a: Necrozma|Heat Wave|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|176/252
+|-heal|p2a: Necrozma|41/100|[from] item: Leftovers
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Necrozma
+|-damage|p2a: Necrozma|0 fnt
+|faint|p2a: Necrozma
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Barbaracle|Barbaracle, L80, F|100/100
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Barbaracle|Dynamax
+|-heal|p2a: Barbaracle|100/100|[silent]
+|move|p2a: Barbaracle|Max Guard|p2a: Barbaracle
+|-singleturn|p2a: Barbaracle|Max Guard
+|move|p1a: Zekrom|Outrage|p2a: Barbaracle|[from]lockedmove
+|-activate|p2a: Barbaracle|move: Max Guard
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Barbaracle
+|-damage|p2a: Barbaracle|79/100
+|move|p2a: Barbaracle|Max Quake|p1a: Zekrom
+|-supereffective|p1a: Zekrom
+|-damage|p1a: Zekrom|12/252
+|-boost|p2a: Barbaracle|spd|1
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Barbaracle|[from]lockedmove
+|-damage|p2a: Barbaracle|57/100
+|move|p2a: Barbaracle|Max Geyser|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|0 fnt
+|-weather|RainDance
+|faint|p1a: Zekrom
+|-weather|RainDance|[upkeep]
+|-end|p2a: Barbaracle|Dynamax
+|-heal|p2a: Barbaracle|57/100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|286/329
+|-damage|p1a: Amoonguss|245/329|[from] Stealth Rock
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Barbaracle|Shell Smash|p2a: Barbaracle
+|-unboost|p2a: Barbaracle|def|1
+|-unboost|p2a: Barbaracle|spd|1
+|-boost|p2a: Barbaracle|atk|2
+|-boost|p2a: Barbaracle|spa|2
+|-boost|p2a: Barbaracle|spe|2
+|-enditem|p2a: Barbaracle|White Herb
+|-clearnegativeboost|p2a: Barbaracle|[silent]
+|move|p1a: Amoonguss|Giga Drain|p2a: Barbaracle
+|-supereffective|p2a: Barbaracle
+|-damage|p2a: Barbaracle|0 fnt
+|-heal|p1a: Amoonguss|314/329|[from] drain|[of] p2a: Barbaracle
+|faint|p2a: Barbaracle
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Amoonguss|329/329|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos, L78|100/100
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Amoonguss|Dynamax
+|-heal|p1a: Amoonguss|658/658|[silent]
+|move|p2a: Zapdos|Hurricane|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|412/658
+|move|p1a: Amoonguss|Max Ooze|p2a: Zapdos
+|-damage|p2a: Zapdos|66/100
+|-boost|p1a: Amoonguss|spa|1
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Amoonguss|432/658|[from] item: Black Sludge
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|178/658
+|move|p1a: Amoonguss|Max Ooze|p2a: Zapdos
+|-damage|p2a: Zapdos|14/100
+|-boost|p1a: Amoonguss|spa|1
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Amoonguss|198/658|[from] item: Black Sludge
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|0 fnt
+|faint|p1a: Amoonguss
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

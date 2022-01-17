@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491260358<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491260358|init|battle
+|title|McGewitter vs. kitsonator1
+|j|☆McGewitter
+|j|☆kitsonator1
+|gametype|singles
+|player|p1|McGewitter|265|1245
+|player|p2|kitsonator1|clown|1255
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Tentacruel|Tentacruel, L84, M|272272
+|switch|p2a: Avalugg|Avalugg, L86, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "avalugg"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- avalugg
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: avalanche bodypress curse recover
+|chat|DEBUG|Checks: ['tentacruel']
+|chat|DEBUG|Counter: ['tentacruel', 'mienshao']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 97
+|chat|DEBUG|HP: 272 vs 303
+|chat|DEBUG|Created a new Strategy for tentacruel vs avalugg:
+|chat|DEBUG|>[sludgebomb: 126.8125 [117, 138], sludgebomb: 126.8125 [117, 138], sludgebomb: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 126.8125 [117, 138]
+|chat|DEBUG|Best move of avalugg (p2): bodypress: 62.375 [57, 68]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by kitsonator1)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|McGewitter also wants the timer to be on.
+|inactive|kitsonator1 has 120 seconds left.
+|inactive|kitsonator1 has 90 seconds left.
+|move|p1a: Tentacruel|Sludge Bomb|p2a: Avalugg
+|-damage|p2a: Avalugg|61100
+|move|p2a: Avalugg|Curse|p2a: Avalugg
+|-unboost|p2a: Avalugg|spe|1
+|-boost|p2a: Avalugg|atk|1
+|-boost|p2a: Avalugg|def|1
+|-heal|p2a: Avalugg|67100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "avalugg"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- avalugg
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: avalanche bodypress curse recover
+|chat|DEBUG|Checks: ['tentacruel']
+|chat|DEBUG|Counter: ['tentacruel', 'mienshao']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 97
+|chat|DEBUG|HP: 272 vs 203
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 126.8125 [117, 138]
+|chat|DEBUG|Best move of avalugg (p2): bodypress: 93.5 [86, 101]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tentacruel|Sludge Bomb|p2a: Avalugg
+|-damage|p2a: Avalugg|22100
+|move|p2a: Avalugg|Recover|p2a: Avalugg
+|-heal|p2a: Avalugg|72100
+|-heal|p2a: Avalugg|78100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "avalugg"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- avalugg
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: avalanche bodypress curse recover
+|chat|DEBUG|Checks: ['tentacruel']
+|chat|DEBUG|Counter: ['tentacruel', 'mienshao']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 97
+|chat|DEBUG|HP: 272 vs 236
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 126.8125 [117, 138]
+|chat|DEBUG|Best move of avalugg (p2): bodypress: 93.5 [86, 101]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tentacruel|Sludge Bomb|p2a: Avalugg
+|-damage|p2a: Avalugg|35100
+|-status|p2a: Avalugg|psn
+|move|p2a: Avalugg|Recover|p2a: Avalugg
+|-heal|p2a: Avalugg|85100 psn
+|-heal|p2a: Avalugg|91100 psn|[from] item: Leftovers
+|-damage|p2a: Avalugg|79100 psn|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "avalugg"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- avalugg
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: avalanche bodypress curse recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tentacruel', 'mienshao']
+|chat|DEBUG|Speed: 216 vs 97
+|chat|DEBUG|HP: 272 vs 239
+|chat|DEBUG|Created a new Strategy for tentacruel vs avalugg:
+|chat|DEBUG|>[sludgebomb: 126.8125 [117, 138], sludgebomb: 126.8125 [117, 138], sludgebomb: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 126.8125 [117, 138]
+|chat|DEBUG|Best move of avalugg (p2): bodypress: 93.5 [86, 101]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tentacruel|Sludge Bomb|p2a: Avalugg
+|-damage|p2a: Avalugg|38100 psn
+|move|p2a: Avalugg|Body Press|p1a: Tentacruel
+|-resisted|p1a: Tentacruel
+|-damage|p1a: Tentacruel|179272
+|-heal|p1a: Tentacruel|196272|[from] item: Black Sludge
+|-heal|p2a: Avalugg|44100 psn|[from] item: Leftovers
+|-damage|p2a: Avalugg|32100 psn|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "avalugg"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- avalugg
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: avalanche bodypress curse recover
+|chat|DEBUG|Checks: ['tentacruel', 'mienshao']
+|chat|DEBUG|Counter: ['tentacruel', 'sudowoodo', 'mienshao']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 97
+|chat|DEBUG|HP: 196 vs 96
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 126.8125 [117, 138]
+|chat|DEBUG|Best move of avalugg (p2): bodypress: 93.5 [86, 101]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tentacruel|Sludge Bomb|p2a: Avalugg
+|-damage|p2a: Avalugg|0 fnt
+|faint|p2a: Avalugg
+|-heal|p1a: Tentacruel|213272|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['togedemaru', 'cryogonal']
+|chat|DEBUG|Counter: ['togedemaru', 'cryogonal', 'sudowoodo']
+|chat|DEBUG|Speed: 216 vs 222
+|chat|DEBUG|HP: 213 vs 259
+|chat|DEBUG|Created a new Strategy for tentacruel vs latias:
+|chat|DEBUG|>[sludgebomb: 64.25 [58, 70], sludgebomb: 64.25 [58, 70], sludgebomb: 64.25 [58, 70]]
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 64.25 [58, 70]
+|chat|DEBUG|Best move of latias (p2): psychic: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check togedemaru
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, F|252252
+|move|p2a: Latias|Calm Mind|p2a: Latias
+|-boost|p2a: Latias|spa|1
+|-boost|p2a: Latias|spd|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: spikyshield ironhead uturn zingzap
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 214 vs 222
+|chat|DEBUG|HP: 252 vs 259
+|chat|DEBUG|Created a new Strategy for togedemaru vs latias:
+|chat|DEBUG|>[uturn: 108.25 [100, 118], uturn: 108.25 [100, 118], uturn: 108.25 [100, 118]]
+|chat|DEBUG|Best move of togedemaru (p1): uturn: 108.25 [100, 118]
+|chat|DEBUG|Best move of latias (p2): psychic: 81.125 [75, 88]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Calm Mind|p2a: Latias
+|-boost|p2a: Latias|spa|1
+|-boost|p2a: Latias|spd|1
+|move|p1a: Togedemaru|U-turn|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|58100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cryogonal|Cryogonal, L86|278278
+|-heal|p2a: Latias|64100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: cryogonal
+|chat|DEBUG|Early game switch: cryogonal
+|chat|DEBUG|>Switching to cryogonal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|39100
+|move|p2a: Latias|Psychic|p1a: Cryogonal
+|-damage|p1a: Cryogonal|142278
+|-heal|p2a: Latias|45100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: toxic recover rapidspin freezedry
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 230 vs 222
+|chat|DEBUG|HP: 278 vs 165
+|chat|DEBUG|Created a new Strategy for cryogonal vs latias:
+|chat|DEBUG|>[freezedry: 62.0 [56, 68], freezedry: 62.0 [56, 68], freezedry: 62.0 [56, 68]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 62.0 [56, 68]
+|chat|DEBUG|Best move of latias (p2): psychic: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|19100
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|69100
+|-singleturn|p2a: Latias|move: Roost
+|-heal|p2a: Latias|75100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: toxic recover rapidspin freezedry
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru', 'crobat']
+|chat|DEBUG|Speed: 230 vs 222
+|chat|DEBUG|HP: 142 vs 116
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 62.0 [56, 68]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 194.625 [178, 211]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|52100
+|move|p2a: Latias|Psychic|p1a: Cryogonal
+|-damage|p1a: Cryogonal|4278
+|-heal|p2a: Latias|58100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: toxic recover rapidspin freezedry
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 230 vs 222
+|chat|DEBUG|HP: 142 vs 194
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 62.0 [56, 68]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 194.625 [178, 211]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|35100
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|85100
+|-singleturn|p2a: Latias|move: Roost
+|-heal|p2a: Latias|91100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: toxic recover rapidspin freezedry
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 230 vs 222
+|chat|DEBUG|HP: 4 vs 150
+|chat|DEBUG|Created a new Strategy for cryogonal vs latias:
+|chat|DEBUG|>[freezedry: 62.0 [56, 68], freezedry: 62.0 [56, 68], freezedry: 62.0 [56, 68]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 62.0 [56, 68]
+|chat|DEBUG|Best move of latias (p2): psychic: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|68100
+|move|p2a: Latias|Psychic|p1a: Cryogonal
+|-damage|p1a: Cryogonal|0 fnt
+|faint|p1a: Cryogonal
+|-heal|p2a: Latias|74100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tentacruel|Tentacruel, L84, M|213272
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat cryogonal sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-cryogonal-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: toxic recover rapidspin freezedry
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 230 vs 222
+|chat|DEBUG|HP: 4 vs 235
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 62.0 [56, 68]
+|chat|DEBUG|Best move of latias (p2): psychic: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Tentacruel
+|-supereffective|p1a: Tentacruel
+|-damage|p1a: Tentacruel|0 fnt
+|faint|p1a: Tentacruel
+|-heal|p2a: Latias|80100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, F|252252
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: tentacruel
+|chat|DEBUG|>Switching to tentacruel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Calm Mind|p2a: Latias
+|-boost|p2a: Latias|spa|1
+|-boost|p2a: Latias|spd|1
+|move|p1a: Togedemaru|U-turn|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|38100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crobat|Crobat, L82, M|274274
+|-heal|p2a: Latias|44100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tentacruel togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tentacruel-togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: rapidspin sludgebomb haze scald
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 216 vs 222
+|chat|DEBUG|HP: 213 vs 191
+|chat|DEBUG|Created a new Strategy for tentacruel vs latias:
+|chat|DEBUG|>[sludgebomb: 32.375 [30, 36], sludgebomb: 32.375 [30, 36], sludgebomb: 32.375 [30, 36]]
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 32.375 [30, 36]
+|chat|DEBUG|Best move of latias (p2): psychic: 303.25 [278, 330]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Latias
+|-damage|p2a: Latias|2100
+|-damage|p1a: Crobat|238274|[from] Recoil
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|53100
+|-singleturn|p2a: Latias|move: Roost
+|-heal|p2a: Latias|59100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to togedemaru (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Latias
+|-damage|p2a: Latias|15100
+|-damage|p1a: Crobat|200274|[from] Recoil
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|65100
+|-singleturn|p2a: Latias|move: Roost
+|-heal|p2a: Latias|71100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: spikyshield ironhead uturn zingzap
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 214 vs 222
+|chat|DEBUG|HP: 252 vs 207
+|chat|DEBUG|Created a new Strategy for togedemaru vs latias:
+|chat|DEBUG|>[uturn: 108.25 [100, 118], uturn: 108.25 [100, 118], uturn: 108.25 [100, 118]]
+|chat|DEBUG|Best move of togedemaru (p1): uturn: 108.25 [100, 118]
+|chat|DEBUG|Best move of latias (p2): psychic: 108.1875 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Latias
+|-damage|p2a: Latias|27100
+|-damage|p1a: Crobat|162274|[from] Recoil
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|77100
+|-singleturn|p2a: Latias|move: Roost
+|-heal|p2a: Latias|84100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: crobat
+|chat|DEBUG|>Switching to crobat (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Latias
+|-damage|p2a: Latias|41100
+|-damage|p1a: Crobat|126274|[from] Recoil
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|92100
+|-singleturn|p2a: Latias|move: Roost
+|-heal|p2a: Latias|98100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: roost toxic bravebird defog
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['crobat']
+|chat|DEBUG|Speed: 260 vs 222
+|chat|DEBUG|HP: 274 vs 113
+|chat|DEBUG|Created a new Strategy for crobat vs latias:
+|chat|DEBUG|>[bravebird: 117.0 [108, 127], bravebird: 117.0 [108, 127], bravebird: 117.0 [108, 127]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Best move of latias (p2): psychic: 531.375 [488, 576]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Latias
+|-damage|p2a: Latias|51100
+|-damage|p1a: Crobat|86274|[from] Recoil
+|move|p2a: Latias|Psychic|p1a: Crobat
+|-supereffective|p1a: Crobat
+|-damage|p1a: Crobat|0 fnt
+|faint|p1a: Crobat
+|-heal|p2a: Latias|57100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, F|252252
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: roost toxic bravebird defog
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 222
+|chat|DEBUG|HP: 238 vs 152
+|chat|DEBUG|Best move of crobat (p1): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Best move of latias (p2): psychic: 531.375 [488, 576]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|100100
+|-singleturn|p2a: Latias|move: Roost
+|move|p1a: Togedemaru|U-turn|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|61100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mienshao|Mienshao, L82, M|241241
+|-heal|p2a: Latias|67100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: roost toxic bravebird defog
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 222
+|chat|DEBUG|HP: 200 vs 183
+|chat|DEBUG|Best move of crobat (p1): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Best move of latias (p2): psychic: 531.375 [488, 576]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Mienshao
+|-supereffective|p1a: Mienshao
+|-damage|p1a: Mienshao|0 fnt
+|faint|p1a: Mienshao
+|-heal|p2a: Latias|73100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, F|252252
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: roost toxic bravebird defog
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 222
+|chat|DEBUG|HP: 162 vs 217
+|chat|DEBUG|Created a new Strategy for crobat vs latias:
+|chat|DEBUG|>[bravebird: 117.0 [108, 127], bravebird: 117.0 [108, 127], bravebird: 117.0 [108, 127]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Best move of latias (p2): psychic: 531.375 [488, 576]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|100100
+|-singleturn|p2a: Latias|move: Roost
+|move|p1a: Togedemaru|U-turn|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|61100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sudowoodo|Sudowoodo, L86, M|261261
+|-heal|p2a: Latias|67100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru crobat sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-crobat-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: roost toxic bravebird defog
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 222
+|chat|DEBUG|HP: 126 vs 253
+|chat|DEBUG|Best move of crobat (p1): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Best move of latias (p2): psychic: 531.375 [488, 576]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Sudowoodo
+|-damage|p1a: Sudowoodo|0 fnt
+|faint|p1a: Sudowoodo
+|-heal|p2a: Latias|73100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, F|252252
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: togedemaru
+|chat|DEBUG|>Switching to togedemaru (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Togedemaru|Dynamax
+|-heal|p1a: Togedemaru|504504|[silent]
+|move|p2a: Latias|Psychic|p1a: Togedemaru
+|-resisted|p1a: Togedemaru
+|-damage|p1a: Togedemaru|366504
+|move|p1a: Togedemaru|Max Flutterby|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|0 fnt
+|faint|p2a: Latias
+|-heal|p1a: Togedemaru|381504|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hitmonlee|Hitmonlee, L84, M|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: spikyshield ironhead uturn zingzap
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 214 vs 222
+|chat|DEBUG|HP: 252 vs 147
+|chat|DEBUG|Created a new Strategy for togedemaru vs latias:
+|chat|DEBUG|>[uturn: 108.25 [100, 118], uturn: 108.25 [100, 118], uturn: 108.25 [100, 118]]
+|chat|DEBUG|Best move of togedemaru (p1): uturn: 108.25 [100, 118]
+|chat|DEBUG|Best move of latias (p2): psychic: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Hitmonlee|Dynamax
+|-heal|p2a: Hitmonlee|100100|[silent]
+|move|p1a: Togedemaru|Max Lightning|p2a: Hitmonlee
+|-damage|p2a: Hitmonlee|52100
+|-fieldstart|move: Electric Terrain
+|move|p2a: Hitmonlee|Max Knuckle|p1a: Togedemaru
+|-supereffective|p1a: Togedemaru
+|-damage|p1a: Togedemaru|67504
+|-boost|p2a: Hitmonlee|atk|1
+|-heal|p1a: Togedemaru|82504|[from] item: Leftovers
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: mienshao
+|chat|DEBUG|>Switching to mienshao (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Togedemaru|Max Lightning|p2a: Hitmonlee
+|-damage|p2a: Hitmonlee|0 fnt
+|faint|p2a: Hitmonlee
+|-heal|p1a: Togedemaru|97504|[from] item: Leftovers
+|-end|p1a: Togedemaru|Dynamax
+|-heal|p1a: Togedemaru|49252|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dragapult|Dragapult, L78, F|100100
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru sudowoodo mienshao
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-sudowoodo-mienshao -- latias
+|chat|DEBUG|Own moves: poisonjab closecombat knockoff fakeout
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 219 vs 222
+|chat|DEBUG|HP: 241 vs 173
+|chat|DEBUG|Created a new Strategy for mienshao vs latias:
+|chat|DEBUG|>[knockoff: 212.875 [195, 231], knockoff: 212.875 [195, 231], knockoff: 212.875 [195, 231]]
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 212.875 [195, 231]
+|chat|DEBUG|Best move of latias (p2): psychic: 647.125 [594, 702]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dragapult|Shadow Ball|p1a: Togedemaru
+|-damage|p1a: Togedemaru|0 fnt
+|faint|p1a: Togedemaru
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>kitsonator1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">tentacruel togedemaru crobat cryogonal sudowoodo mienshao</h1>

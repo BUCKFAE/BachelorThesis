@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490034543<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490034543|init|battle
+|title|FnaliR vs. McGewitter
+|j|☆FnaliR
+|j|☆McGewitter
+|gametype|singles
+|player|p1|FnaliR|101|1108
+|player|p2|McGewitter|265|1147
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Inteleon|Inteleon, L80, F|100100
+|switch|p2a: Heatran|Heatran, L78, F|270270
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatran" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: protect toxic flashcannon lavaplume
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['pincurchin', 'stunfisk', 'arctovish']
+|chat|DEBUG|Speed: 165 vs 238
+|chat|DEBUG|HP: 270 vs 243
+|chat|DEBUG|Created a new Strategy for heatran vs inteleon:
+|chat|DEBUG|>[lavaplume: 90.875 [84, 99], lavaplume: 90.875 [84, 99], lavaplume: 90.875 [84, 99]]
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 90.875 [84, 99]
+|chat|DEBUG|Best move of inteleon (p2): surf: 200.75 [186, 218]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Arctovish|Arctovish, L86|295295
+|move|p1a: Inteleon|Surf|p2a: Arctovish
+|-immune|p2a: Arctovish|[from] ability: Water Absorb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['pincurchin', 'stunfisk', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 238
+|chat|DEBUG|HP: 295 vs 243
+|chat|DEBUG|Created a new Strategy for arctovish vs inteleon:
+|chat|DEBUG|>[freezedry: 175.875 [162, 192], freezedry: 175.875 [162, 192], freezedry: 175.875 [162, 192]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 175.875 [162, 192]
+|chat|DEBUG|Best move of inteleon (p2): airslash: 39.25 [36, 43]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|FnaliR has 120 seconds left.
+|move|p1a: Inteleon|Air Slash|p2a: Arctovish
+|-damage|p2a: Arctovish|258295
+|cant|p2a: Arctovish|flinch
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['pincurchin', 'stunfisk', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 238
+|chat|DEBUG|HP: 258 vs 243
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 175.875 [162, 192]
+|chat|DEBUG|Best move of inteleon (p2): airslash: 39.25 [36, 43]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Inteleon|Ice Beam|p2a: Arctovish
+|-resisted|p2a: Arctovish
+|-damage|p2a: Arctovish|247295
+|move|p2a: Arctovish|Freeze-Dry|p1a: Inteleon
+|-supereffective|p1a: Inteleon
+|-damage|p1a: Inteleon|24100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['pincurchin', 'stunfisk', 'arctovish']
+|chat|DEBUG|Counter: ['heatran', 'palossand', 'lucario', 'pincurchin', 'stunfisk', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 238
+|chat|DEBUG|HP: 247 vs 58
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 175.875 [162, 192]
+|chat|DEBUG|Best move of inteleon (p2): airslash: 39.25 [36, 43]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hydreigon|Hydreigon, L80, M|100100
+|move|p2a: Arctovish|Freeze-Dry|p1a: Hydreigon
+|-supereffective|p1a: Hydreigon
+|-damage|p1a: Hydreigon|52100
+|-heal|p1a: Hydreigon|58100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "hydreigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon-hydreigon
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: darkpulse dracometeor nastyplot roost
+|chat|DEBUG|Checks: ['heatran', 'lucario', 'stunfisk', 'arctovish']
+|chat|DEBUG|Counter: ['heatran', 'lucario', 'stunfisk', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 203
+|chat|DEBUG|HP: 247 vs 161
+|chat|DEBUG|Created a new Strategy for arctovish vs hydreigon:
+|chat|DEBUG|>[iciclecrash: 183.75 [168, 200], iciclecrash: 183.75 [168, 200], iciclecrash: 183.75 [168, 200]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 183.75 [168, 200]
+|chat|DEBUG|Best move of hydreigon (p2): darkpulse: 61.5625 [57, 67]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hydreigon|Draco Meteor|p2a: Arctovish
+|-damage|p2a: Arctovish|144295
+|-unboost|p1a: Hydreigon|spa|2
+|move|p2a: Arctovish|Icicle Crash|p1a: Hydreigon
+|-supereffective|p1a: Hydreigon
+|-damage|p1a: Hydreigon|0 fnt
+|faint|p1a: Hydreigon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eternatus|Eternatus, L69|100100
+|-ability|p1a: Eternatus|Pressure
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "eternatus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon-eternatus
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: dynamaxcannon flamethrower recover sludgewave
+|chat|DEBUG|Checks: ['heatran', 'stunfisk']
+|chat|DEBUG|Counter: ['heatran', 'palossand', 'stunfisk', 'arctovish']
+|chat|DEBUG|Speed: 144 vs 220
+|chat|DEBUG|HP: 144 vs 308
+|chat|DEBUG|Created a new Strategy for arctovish vs eternatus:
+|chat|DEBUG|>[iciclecrash: 206.5 [188, 224], iciclecrash: 206.5 [188, 224], iciclecrash: 206.5 [188, 224]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 206.5 [188, 224]
+|chat|DEBUG|Best move of eternatus (p2): dynamaxcannon: 64.25 [58, 70]
+|chat|DEBUG|Attacking using iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Arctovish
+|-damage|p2a: Arctovish|74295
+|move|p2a: Arctovish|Icicle Crash|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|36100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "eternatus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon-eternatus
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: dynamaxcannon flamethrower recover sludgewave
+|chat|DEBUG|Checks: ['heatran', 'palossand', 'stunfisk']
+|chat|DEBUG|Counter: ['heatran', 'palossand', 'lucario', 'pincurchin', 'stunfisk', 'arctovish']
+|chat|DEBUG|Speed: 144 vs 220
+|chat|DEBUG|HP: 74 vs 110
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 206.5 [188, 224]
+|chat|DEBUG|Best move of eternatus (p2): dynamaxcannon: 64.25 [58, 70]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Sludge Wave|p2a: Arctovish
+|-damage|p2a: Arctovish|8295
+|move|p2a: Arctovish|Icicle Crash|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|0 fnt
+|faint|p1a: Eternatus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Inteleon|Inteleon, L80, F|24100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: freezedry psychicfangs iciclecrash fishiousrend
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['pincurchin', 'stunfisk']
+|chat|DEBUG|Counter: ['heatran', 'palossand', 'lucario', 'pincurchin', 'stunfisk']
+|chat|DEBUG|Speed: 144 vs 238
+|chat|DEBUG|HP: 8 vs 58
+|chat|DEBUG|Created a new Strategy for arctovish vs inteleon:
+|chat|DEBUG|>[freezedry: 175.875 [162, 192], freezedry: 175.875 [162, 192], freezedry: 175.875 [162, 192]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 175.875 [162, 192]
+|chat|DEBUG|Best move of inteleon (p2): airslash: 39.25 [36, 43]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check pincurchin
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pincurchin|Pincurchin, L88, F|228228
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p2a: Pincurchin
+|move|p1a: Inteleon|Ice Beam|p2a: Pincurchin
+|-damage|p2a: Pincurchin|159228
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: toxicspikes risingvoltage suckerpunch scald
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['stunfisk']
+|chat|DEBUG|Counter: ['heatran', 'palossand', 'lucario', 'pincurchin', 'stunfisk']
+|chat|DEBUG|Speed: 77 vs 238
+|chat|DEBUG|HP: 159 vs 58
+|chat|DEBUG|Created a new Strategy for pincurchin vs inteleon:
+|chat|DEBUG|>[risingvoltage: 203.5 [186, 222], risingvoltage: 203.5 [186, 222], risingvoltage: 203.5 [186, 222]]
+|chat|DEBUG|Best move of pincurchin (p1): risingvoltage: 203.5 [186, 222]
+|chat|DEBUG|Best move of inteleon (p2): surf: 105.875 [97, 115]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tauros|Tauros, L82, M|100100
+|move|p2a: Pincurchin|Rising Voltage|p1a: Tauros
+|-damage|p1a: Tauros|11100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon-tauros
+|chat|DEBUG|Own moves: toxicspikes risingvoltage suckerpunch scald
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: ['stunfisk']
+|chat|DEBUG|Counter: ['heatran', 'palossand', 'pincurchin', 'stunfisk']
+|chat|DEBUG|Speed: 77 vs 228
+|chat|DEBUG|HP: 159 vs 28
+|chat|DEBUG|Created a new Strategy for pincurchin vs tauros:
+|chat|DEBUG|>[risingvoltage: 94.875 [87, 103], risingvoltage: 94.875 [87, 103], risingvoltage: 94.875 [87, 103]]
+|chat|DEBUG|Best move of pincurchin (p1): risingvoltage: 94.875 [87, 103]
+|chat|DEBUG|Best move of tauros (p2): bodyslam: 134.25 [122, 146]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Body Slam|p2a: Pincurchin
+|-damage|p2a: Pincurchin|13228
+|move|p2a: Pincurchin|Rising Voltage|p1a: Tauros
+|-damage|p1a: Tauros|0 fnt
+|faint|p1a: Tauros
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Qwilfish|Qwilfish, L84, F|100100
+|-ability|p1a: Qwilfish|Intimidate|boost
+|-unboost|p2a: Pincurchin|atk|1
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario pincurchin stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-pincurchin-stunfisk-arctovish -- inteleon-qwilfish
+|chat|DEBUG|Own moves: toxicspikes risingvoltage suckerpunch scald
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['palossand', 'arctovish']
+|chat|DEBUG|Counter: ['palossand', 'arctovish']
+|chat|DEBUG|Speed: 77 vs 191
+|chat|DEBUG|HP: 13 vs 246
+|chat|DEBUG|Created a new Strategy for pincurchin vs qwilfish:
+|chat|DEBUG|>[risingvoltage: 217.25 [200, 236], risingvoltage: 217.25 [200, 236], risingvoltage: 217.25 [200, 236]]
+|chat|DEBUG|Best move of pincurchin (p1): risingvoltage: 217.25 [200, 236]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 75.3125 [69, 82]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Qwilfish|Waterfall|p2a: Pincurchin
+|-damage|p2a: Pincurchin|0 fnt
+|faint|p2a: Pincurchin
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Palossand|Palossand, L86, F|286286
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pincurchin" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- inteleon-qwilfish
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['palossand', 'arctovish']
+|chat|DEBUG|Counter: ['palossand', 'arctovish']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to palossand (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Qwilfish|Waterfall|p2a: Palossand
+|-supereffective|p2a: Palossand
+|-damage|p2a: Palossand|136286
+|-ability|p2a: Palossand|Water Compaction|boost
+|-boost|p2a: Palossand|def|2
+|move|p2a: Palossand|Stealth Rock|p1a: Qwilfish
+|-sidestart|p1: FnaliR|move: Stealth Rock
+|-heal|p2a: Palossand|153286|[from] item: Leftovers
+|-fieldend|move: Electric Terrain
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- inteleon-qwilfish
+|chat|DEBUG|Own moves: shadowball earthpower shoreup stealthrock
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['palossand', 'arctovish']
+|chat|DEBUG|Counter: ['palossand', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 109 vs 191
+|chat|DEBUG|HP: 286 vs 246
+|chat|DEBUG|Created a new Strategy for palossand vs qwilfish:
+|chat|DEBUG|>[earthpower: 283.125 [260, 308], earthpower: 283.125 [260, 308], earthpower: 283.125 [260, 308]]
+|chat|DEBUG|Best move of palossand (p1): earthpower: 283.125 [260, 308]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 137.5 [126, 150]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Qwilfish|Waterfall|p2a: Palossand
+|-supereffective|p2a: Palossand
+|-damage|p2a: Palossand|87286
+|-ability|p2a: Palossand|Water Compaction|boost
+|-boost|p2a: Palossand|def|2
+|move|p2a: Palossand|Earth Power|p1a: Qwilfish
+|-supereffective|p1a: Qwilfish
+|-damage|p1a: Qwilfish|0 fnt
+|faint|p1a: Qwilfish
+|-heal|p2a: Palossand|104286|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Inteleon|Inteleon, L80, F|24100
+|-damage|p1a: Inteleon|12100|[from] Stealth Rock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- inteleon-qwilfish
+|chat|DEBUG|Own moves: shadowball earthpower shoreup stealthrock
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['palossand', 'arctovish']
+|chat|DEBUG|Counter: ['palossand', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 109 vs 191
+|chat|DEBUG|HP: 153 vs 246
+|chat|DEBUG|Best move of palossand (p1): earthpower: 283.125 [260, 308]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 70.25 [66, 78]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stunfisk|Stunfisk, L84, M|320320
+|move|p1a: Inteleon|Surf|p2a: Stunfisk
+|-supereffective|p2a: Stunfisk
+|-damage|p2a: Stunfisk|176320
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: shadowball earthpower shoreup stealthrock
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: ['stunfisk']
+|chat|DEBUG|Counter: ['heatran', 'lucario', 'stunfisk']
+|chat|DEBUG|Speed: 109 vs 238
+|chat|DEBUG|HP: 104 vs 29
+|chat|DEBUG|Created a new Strategy for palossand vs inteleon:
+|chat|DEBUG|>[earthpower: 134.0 [123, 145], earthpower: 134.0 [123, 145], earthpower: 134.0 [123, 145]]
+|chat|DEBUG|Best move of palossand (p1): earthpower: 134.0 [123, 145]
+|chat|DEBUG|Best move of inteleon (p2): surf: 236.625 [218, 258]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stunfisk
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Inteleon|Ice Beam|p2a: Stunfisk
+|-supereffective|p2a: Stunfisk
+|-damage|p2a: Stunfisk|86320
+|move|p2a: Stunfisk|Discharge|p1a: Inteleon
+|-supereffective|p1a: Inteleon
+|-damage|p1a: Inteleon|0 fnt
+|faint|p1a: Inteleon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Indeedee|Indeedee, L82, M|100100
+|-damage|p1a: Indeedee|88100|[from] Stealth Rock
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Indeedee
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfisk" vs "inteleon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- inteleon
+|chat|DEBUG|Own moves: earthpower discharge sludgebomb foulplay
+|chat|DEBUG|Enemy moves: airslash focusenergy icebeam surf
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatran', 'lucario', 'stunfisk']
+|chat|DEBUG|Speed: 102 vs 238
+|chat|DEBUG|HP: 176 vs 29
+|chat|DEBUG|Created a new Strategy for stunfisk vs inteleon:
+|chat|DEBUG|>[discharge: 192.375 [176, 210], discharge: 192.375 [176, 210], discharge: 192.375 [176, 210]]
+|chat|DEBUG|Best move of stunfisk (p1): discharge: 192.375 [176, 210]
+|chat|DEBUG|Best move of inteleon (p2): surf: 131.5 [120, 144]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Indeedee|Hyper Voice|p2a: Stunfisk
+|-damage|p2a: Stunfisk|11320
+|-damage|p1a: Indeedee|78100|[from] item: Life Orb
+|move|p2a: Stunfisk|Foul Play|p1a: Indeedee
+|-supereffective|p1a: Indeedee
+|-damage|p1a: Indeedee|35100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "stunfisk" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- indeedee
+|chat|DEBUG|Own moves: earthpower discharge sludgebomb foulplay
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['heatran', 'lucario']
+|chat|DEBUG|Speed: 102 vs 203
+|chat|DEBUG|HP: 86 vs 205
+|chat|DEBUG|Created a new Strategy for stunfisk vs indeedee:
+|chat|DEBUG|>[foulplay: 100.75 [92, 110], foulplay: 100.75 [92, 110], foulplay: 100.75 [92, 110]]
+|chat|DEBUG|Best move of stunfisk (p1): foulplay: 100.75 [92, 110]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 76.0 [70, 83]
+|chat|DEBUG|Attacking using foulplay
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Indeedee|Hyper Voice|p2a: Stunfisk
+|-damage|p2a: Stunfisk|0 fnt
+|faint|p2a: Stunfisk
+|-damage|p1a: Indeedee|25100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lucario|Lucario, L82, F|249249
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatran palossand lucario stunfisk arctovish
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "stunfisk" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatran-palossand-lucario-stunfisk-arctovish -- indeedee
+|chat|DEBUG|Own moves: earthpower discharge sludgebomb foulplay
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['heatran', 'lucario']
+|chat|DEBUG|Speed: 102 vs 203
+|chat|DEBUG|HP: 11 vs 81
+|chat|DEBUG|Best move of stunfisk (p1): foulplay: 100.75 [92, 110]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 76.0 [70, 83]
+|chat|DEBUG|Attacking using foulplay
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Indeedee|Mystical Fire|p2a: Lucario
+|-supereffective|p2a: Lucario
+|-damage|p2a: Lucario|85249
+|-unboost|p2a: Lucario|spa|1
+|-damage|p1a: Indeedee|16100|[from] item: Life Orb
+|move|p2a: Lucario|Close Combat|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|-unboost|p2a: Lucario|def|1
+|-unboost|p2a: Lucario|spd|1
+|faint|p1a: Indeedee
+|-damage|p2a: Lucario|61249|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>FnaliR<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">heatran palossand lucario pincurchin stunfisk arctovish</h1>

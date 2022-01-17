@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491062776<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491062776|init|battle
+|title|kindasustho98 vs. McGewitter
+|j|☆kindasustho98
+|j|☆McGewitter
+|gametype|singles
+|player|p1|kindasustho98|265|1235
+|player|p2|McGewitter|265|1229
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Kommo-o|Kommo-o, L80, M|100100
+|switch|p2a: Togekiss|Togekiss, L80, F|267267
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togekiss" vs "kommoo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- kommoo
+|chat|DEBUG|Own moves: roost thunderwave airslash aurasphere
+|chat|DEBUG|Enemy moves: clangingscales clangoroussoul closecombat poisonjab
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'primarina']
+|chat|DEBUG|Speed: 174 vs 182
+|chat|DEBUG|HP: 267 vs 251
+|chat|DEBUG|Created a new Strategy for togekiss vs kommoo:
+|chat|DEBUG|>[airslash: 159.0 [146, 174], airslash: 159.0 [146, 174], airslash: 159.0 [146, 174]]
+|chat|DEBUG|Best move of togekiss (p1): airslash: 159.0 [146, 174]
+|chat|DEBUG|Best move of kommoo (p2): poisonjab: 113.75 [104, 124]
+|chat|DEBUG|Attacking using airslash
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Kommo-o|Clangorous Soul|p1a: Kommo-o
+|-boost|p1a: Kommo-o|atk|1
+|-boost|p1a: Kommo-o|def|1
+|-boost|p1a: Kommo-o|spa|1
+|-boost|p1a: Kommo-o|spd|1
+|-boost|p1a: Kommo-o|spe|1
+|-damage|p1a: Kommo-o|68100
+|-enditem|p1a: Kommo-o|Throat Spray
+|-boost|p1a: Kommo-o|spa|1|[from] item: Throat Spray
+|move|p2a: Togekiss|Air Slash|p1a: Kommo-o
+|-supereffective|p1a: Kommo-o
+|-damage|p1a: Kommo-o|26100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togekiss" vs "kommoo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- kommoo
+|chat|DEBUG|Own moves: roost thunderwave airslash aurasphere
+|chat|DEBUG|Enemy moves: clangingscales clangoroussoul closecombat poisonjab
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'primarina']
+|chat|DEBUG|Speed: 174 vs 182
+|chat|DEBUG|HP: 267 vs 65
+|chat|DEBUG|Best move of togekiss (p1): airslash: 159.0 [146, 174]
+|chat|DEBUG|Best move of kommoo (p2): poisonjab: 171.125 [158, 186]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kommo-o|Poison Jab|p2a: Togekiss
+|-supereffective|p2a: Togekiss
+|-damage|p2a: Togekiss|105267
+|-status|p2a: Togekiss|psn
+|move|p2a: Togekiss|Air Slash|p1a: Kommo-o
+|-supereffective|p1a: Kommo-o
+|-damage|p1a: Kommo-o|0 fnt
+|faint|p1a: Kommo-o
+|-damage|p2a: Togekiss|72267 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆kindasustho98|oof
+|switch|p1a: Scolipede|Scolipede, L80, F|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togekiss" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- scolipede
+|chat|DEBUG|Own moves: roost thunderwave airslash aurasphere
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['rotomfan']
+|chat|DEBUG|Speed: 174 vs 225
+|chat|DEBUG|HP: 72 vs 227
+|chat|DEBUG|Created a new Strategy for togekiss vs scolipede:
+|chat|DEBUG|>[airslash: 217.25 [200, 236], airslash: 217.25 [200, 236], airslash: 217.25 [200, 236]]
+|chat|DEBUG|Best move of togekiss (p1): airslash: 217.25 [200, 236]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 206.6875 [190, 226]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomfan
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|221221
+|move|p1a: Scolipede|Toxic Spikes|p2a: Rotom
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- scolipede
+|chat|DEBUG|Own moves: nastyplot thunderbolt willowisp airslash
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['rotomfan']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 193 vs 225
+|chat|DEBUG|HP: 221 vs 227
+|chat|DEBUG|Created a new Strategy for rotomfan vs scolipede:
+|chat|DEBUG|>[airslash: 211.75 [194, 230], airslash: 211.75 [194, 230], airslash: 211.75 [194, 230]]
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 211.75 [194, 230]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 90.5 [83, 99]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Megahorn|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|167221
+|move|p2a: Rotom|Air Slash|p1a: Scolipede
+|-supereffective|p1a: Scolipede
+|-damage|p1a: Scolipede|7100
+|-heal|p1a: Scolipede|13100|[from] item: Black Sludge
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- scolipede
+|chat|DEBUG|Own moves: nastyplot thunderbolt willowisp airslash
+|chat|DEBUG|Enemy moves: megahorn poisonjab protect toxicspikes
+|chat|DEBUG|Checks: ['rotomfan', 'zekrom', 'melmetal']
+|chat|DEBUG|Counter: ['rotomfan', 'guzzlord', 'zekrom', 'melmetal', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 193 vs 225
+|chat|DEBUG|HP: 167 vs 29
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 211.75 [194, 230]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 69.5625 [64, 76]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Toxic Spikes|p2a: Rotom
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Rotom|Air Slash|p1a: Scolipede
+|-supereffective|p1a: Scolipede
+|-damage|p1a: Scolipede|0 fnt
+|faint|p1a: Scolipede
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stakataka|Stakataka, L80|100100
+|-item|p1a: Stakataka|Air Balloon
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- stakataka
+|chat|DEBUG|Own moves: nastyplot thunderbolt willowisp airslash
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['melmetal']
+|chat|DEBUG|Counter: ['togekiss', 'melmetal', 'primarina']
+|chat|DEBUG|Speed: 193 vs 25
+|chat|DEBUG|HP: 167 vs 229
+|chat|DEBUG|Created a new Strategy for rotomfan vs stakataka:
+|chat|DEBUG|>[thunderbolt: 96.1875 [88, 105], thunderbolt: 96.1875 [88, 105], thunderbolt: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 96.1875 [88, 105]
+|chat|DEBUG|Best move of stakataka (p2): stoneedge: 214.625 [198, 234]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check melmetal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Melmetal|Melmetal, L74|322322
+|move|p1a: Stakataka|Trick Room|p1a: Stakataka
+|-fieldstart|move: Trick Room|[of] p1a: Stakataka
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "melmetal" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- stakataka
+|chat|DEBUG|Own moves: thunderwave doubleironbash earthquake superpower
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['melmetal']
+|chat|DEBUG|Counter: ['togekiss', 'melmetal', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 93 vs 25
+|chat|DEBUG|HP: 322 vs 229
+|chat|DEBUG|Created a new Strategy for melmetal vs stakataka:
+|chat|DEBUG|>[superpower: 186.25 [172, 204], superpower: 123.5 [112, 136], superpower: 94.25 [88, 104]]
+|chat|DEBUG|Best move of melmetal (p1): superpower: 186.25 [172, 204]
+|chat|DEBUG|Best move of stakataka (p2): earthquake: 128.625 [118, 140]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Body Press|p2a: Melmetal
+|-supereffective|p2a: Melmetal
+|-damage|p2a: Melmetal|160322
+|move|p2a: Melmetal|Superpower|p1a: Stakataka
+|-supereffective|p1a: Stakataka
+|-damage|p1a: Stakataka|15100
+|-unboost|p2a: Melmetal|atk|1
+|-unboost|p2a: Melmetal|def|1
+|-enditem|p1a: Stakataka|Air Balloon
+|-heal|p2a: Melmetal|180322|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom melmetal primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "melmetal" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-melmetal-primarina -- stakataka
+|chat|DEBUG|Own moves: thunderwave doubleironbash earthquake superpower
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['guzzlord', 'zekrom', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'guzzlord', 'zekrom', 'melmetal', 'primarina']
+|chat|DEBUG|Speed: 93 vs 25
+|chat|DEBUG|HP: 180 vs 34
+|chat|DEBUG|Best move of melmetal (p1): superpower: 123.5 [112, 136]
+|chat|DEBUG|Best move of stakataka (p2): earthquake: 191.125 [176, 208]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Body Press|p2a: Melmetal
+|-supereffective|p2a: Melmetal
+|-damage|p2a: Melmetal|0 fnt
+|faint|p2a: Melmetal
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|512512
+|-status|p2a: Guzzlord|tox
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "melmetal" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-primarina -- stakataka
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['guzzlord', 'zekrom', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'guzzlord', 'zekrom', 'primarina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to guzzlord (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Body Press|p2a: Guzzlord
+|-supereffective|p2a: Guzzlord
+|-damage|p2a: Guzzlord|118512 tox
+|move|p2a: Guzzlord|Fire Blast|p1a: Stakataka|[miss]
+|-miss|p2a: Guzzlord|p1a: Stakataka
+|-damage|p2a: Guzzlord|86512 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-primarina -- stakataka
+|chat|DEBUG|Own moves: sludgebomb dracometeor fireblast knockoff
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['guzzlord', 'zekrom', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'guzzlord', 'zekrom', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 120 vs 25
+|chat|DEBUG|HP: 512 vs 34
+|chat|DEBUG|Created a new Strategy for guzzlord vs stakataka:
+|chat|DEBUG|>[fireblast: 73.625 [68, 80], fireblast: 73.625 [68, 80], fireblast: 73.625 [68, 80]]
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 73.625 [68, 80]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 212.6875 [195, 231]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Body Press|p2a: Guzzlord
+|-supereffective|p2a: Guzzlord
+|-damage|p2a: Guzzlord|0 fnt
+|faint|p2a: Guzzlord
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|-fieldend|move: Trick Room
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zekrom|Zekrom, L69|252252
+|-status|p2a: Zekrom|tox
+|-enditem|p2a: Zekrom|Lum Berry|[eat]
+|-curestatus|p2a: Zekrom|tox|[msg]
+|-ability|p2a: Zekrom|Teravolt
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan guzzlord zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-guzzlord-zekrom-primarina -- stakataka
+|chat|DEBUG|Own moves: sludgebomb dracometeor fireblast knockoff
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['zekrom', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'guzzlord', 'zekrom', 'primarina']
+|chat|DEBUG|Speed: 120 vs 25
+|chat|DEBUG|HP: 86 vs 34
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 73.625 [68, 80]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 212.6875 [195, 231]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Bolt Strike|p1a: Stakataka|[miss]
+|-miss|p2a: Zekrom|p1a: Stakataka
+|move|p1a: Stakataka|Stone Edge|p2a: Zekrom
+|-damage|p2a: Zekrom|134252
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-zekrom-primarina -- stakataka
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['zekrom', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'zekrom', 'primarina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to zekrom (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Bolt Strike|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|faint|p1a: Stakataka
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragalge|Dragalge, L86, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-zekrom-primarina -- stakataka
+|chat|DEBUG|Own moves: dragondance boltstrike outrage roost
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['zekrom', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'zekrom', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 165 vs 25
+|chat|DEBUG|HP: 252 vs 34
+|chat|DEBUG|Created a new Strategy for zekrom vs stakataka:
+|chat|DEBUG|>[boltstrike: 35.125 [33, 39], boltstrike: 35.125 [33, 39], boltstrike: 35.125 [33, 39]]
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 35.125 [33, 39]
+|chat|DEBUG|Best move of stakataka (p2): earthquake: 158.125 [146, 172]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using boltstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Outrage|p1a: Dragalge
+|-supereffective|p1a: Dragalge
+|-damage|p1a: Dragalge|2100
+|move|p1a: Dragalge|Draco Meteor|p2a: Zekrom
+|-supereffective|p2a: Zekrom
+|-damage|p2a: Zekrom|0 fnt
+|-unboost|p1a: Dragalge|spa|2
+|faint|p2a: Zekrom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|167221
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-zekrom-primarina -- stakataka
+|chat|DEBUG|Own moves: dragondance boltstrike outrage roost
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'zekrom', 'primarina']
+|chat|DEBUG|Speed: 165 vs 25
+|chat|DEBUG|HP: 134 vs 34
+|chat|DEBUG|Best move of zekrom (p1): boltstrike: 35.125 [33, 39]
+|chat|DEBUG|Best move of stakataka (p2): earthquake: 158.125 [146, 172]
+|chat|DEBUG|Attacking using boltstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Air Slash|p1a: Dragalge
+|-damage|p1a: Dragalge|0 fnt
+|faint|p1a: Dragalge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Type: Null|Type: Null, L86|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan zekrom primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-zekrom-primarina -- dragalge
+|chat|DEBUG|Own moves: dragondance boltstrike outrage roost
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 165 vs 125
+|chat|DEBUG|HP: 134 vs 252
+|chat|DEBUG|Created a new Strategy for zekrom vs dragalge:
+|chat|DEBUG|>[outrage: 236.625 [218, 258], outrage: 236.625 [218, 258], outrage: 236.625 [218, 258]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 236.625 [218, 258]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 156.375 [144, 170]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Type: Null
+|-damage|p1a: Type: Null|78100
+|move|p1a: Type: Null|Swords Dance|p1a: Type: Null
+|-boost|p1a: Type: Null|atk|2
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-primarina -- dragalge
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: rotomfan
+|chat|DEBUG|>Switching to rotomfan (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Type: Null|Dynamax
+|-heal|p1a: Type: Null|78100|[silent]
+|move|p2a: Rotom|Thunderbolt|p1a: Type: Null
+|-damage|p1a: Type: Null|67100
+|-status|p1a: Type: Null|par
+|move|p1a: Type: Null|Max Strike|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Primarina|Primarina, L82, F|265265
+|-status|p2a: Primarina|tox
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-primarina -- dragalge
+|chat|DEBUG|Own moves: nastyplot thunderbolt willowisp airslash
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: ['rotomfan', 'primarina']
+|chat|DEBUG|Counter: ['togekiss', 'rotomfan', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 193 vs 125
+|chat|DEBUG|HP: 167 vs 5
+|chat|DEBUG|Created a new Strategy for rotomfan vs dragalge:
+|chat|DEBUG|>[airslash: 64.25 [58, 70], airslash: 64.25 [58, 70], airslash: 64.25 [58, 70]]
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 64.25 [58, 70]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 61.75 [56, 68]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Primarina|Dynamax
+|-heal|p2a: Primarina|530530 tox|[silent]
+|move|p2a: Primarina|Max Starfall|p1a: Type: Null
+|-damage|p1a: Type: Null|50100 par
+|-fieldstart|move: Misty Terrain
+|cant|p1a: Type: Null|par
+|-damage|p2a: Primarina|514530 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-primarina -- typenull
+|chat|DEBUG|Own moves: nastyplot thunderbolt willowisp airslash
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 193 vs 151
+|chat|DEBUG|HP: 167 vs 304
+|chat|DEBUG|Created a new Strategy for rotomfan vs typenull:
+|chat|DEBUG|>[thunderbolt: 62.9375 [58, 69], thunderbolt: 62.9375 [58, 69], thunderbolt: 62.9375 [58, 69]]
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 62.9375 [58, 69]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 71.125 [66, 78]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Max Starfall|p1a: Type: Null
+|-damage|p1a: Type: Null|34100 par
+|move|p1a: Type: Null|Max Strike|p2a: Primarina
+|-damage|p2a: Primarina|213530 tox
+|-unboost|p2a: Primarina|spe|1
+|-damage|p2a: Primarina|181530 tox|[from] psn
+|-end|p1a: Type: Null|Dynamax
+|-heal|p1a: Type: Null|34100 par|[silent]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss rotomfan primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-rotomfan-primarina -- typenull
+|chat|DEBUG|Own moves: nastyplot thunderbolt willowisp airslash
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 193 vs 151
+|chat|DEBUG|HP: 167 vs 237
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 62.9375 [58, 69]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 140.125 [129, 153]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Max Starfall|p1a: Type: Null
+|-damage|p1a: Type: Null|0 fnt
+|faint|p1a: Type: Null
+|-damage|p2a: Primarina|133530 tox|[from] psn
+|-end|p2a: Primarina|Dynamax
+|-heal|p2a: Primarina|67265 tox|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wailord|Wailord, L90, M|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-primarina -- typenull
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: primarina
+|chat|DEBUG|>Switching to primarina (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Wailord|Water Spout|p2a: Primarina
+|-resisted|p2a: Primarina
+|-damage|p2a: Primarina|0 fnt
+|faint|p2a: Primarina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Togekiss|Togekiss, L80, F|72267 psn
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togekiss primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togekiss-primarina -- typenull
+|chat|DEBUG|Own moves: energyball moonblast hydropump sparklingaria
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 151
+|chat|DEBUG|HP: 265 vs 203
+|chat|DEBUG|Created a new Strategy for primarina vs typenull:
+|chat|DEBUG|>[moonblast: 72.5625 [67, 79], moonblast: 72.5625 [67, 79], moonblast: 72.5625 [67, 79]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 72.5625 [67, 79]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 190.5625 [175, 207]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Togekiss|Air Slash|p1a: Wailord
+|-damage|p1a: Wailord|73100
+|move|p1a: Wailord|Water Spout|p2a: Togekiss
+|-damage|p2a: Togekiss|0 fnt
+|faint|p2a: Togekiss
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>kindasustho98<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">togekiss rotomfan guzzlord zekrom melmetal primarina</h1>

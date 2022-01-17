@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491704544<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491704544|init|battle
+|title|Carebearslay3r vs. McGewitter
+|j|☆Carebearslay3r
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Carebearslay3r|roughneck-gen4|1268
+|player|p2|McGewitter|265|1265
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Chansey|Chansey, L84, F|100100
+|switch|p2a: Gourgeist|Gourgeist-Small, L84, F|230230
+|-item|p1a: Chansey|Eviolite|[from] ability: Frisk|[of] p2a: Gourgeist|[identify]
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['gourgeistsmall', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 132
+|chat|DEBUG|HP: 230 vs 557
+|chat|DEBUG|Created a new Strategy for gourgeistsmall vs chansey:
+|chat|DEBUG|>[powerwhip: 262.875 [241, 285], powerwhip: 262.875 [241, 285], powerwhip: 262.875 [241, 285]]
+|chat|DEBUG|Best move of gourgeistsmall (p1): powerwhip: 262.875 [241, 285]
+|chat|DEBUG|Best move of chansey (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Gourgeist|Power Whip|p1a: Chansey
+|-damage|p1a: Chansey|54100
+|move|p1a: Chansey|Toxic|p2a: Gourgeist
+|-status|p2a: Gourgeist|tox
+|-damage|p2a: Gourgeist|216230 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 132
+|chat|DEBUG|HP: 216 vs 300
+|chat|DEBUG|Best move of gourgeistsmall (p1): powerwhip: 262.875 [241, 285]
+|chat|DEBUG|Best move of chansey (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gourgeist|Power Whip|p1a: Chansey|[miss]
+|-miss|p2a: Gourgeist|p1a: Chansey
+|move|p1a: Chansey|Soft-Boiled|p1a: Chansey
+|-heal|p1a: Chansey|100100
+|-heal|p2a: Gourgeist|230230 tox|[from] item: Leftovers
+|-damage|p2a: Gourgeist|202230 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['gourgeistsmall', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 132
+|chat|DEBUG|HP: 202 vs 557
+|chat|DEBUG|Best move of gourgeistsmall (p1): powerwhip: 262.875 [241, 285]
+|chat|DEBUG|Best move of chansey (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Necrozma|Necrozma-Dawn-Wings, L76|100100
+|move|p2a: Gourgeist|Power Whip|p1a: Necrozma
+|-damage|p1a: Necrozma|62100
+|-heal|p2a: Gourgeist|216230 tox|[from] item: Leftovers
+|-heal|p1a: Necrozma|68100|[from] item: Leftovers
+|-damage|p2a: Gourgeist|174230 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gourgeistsmall', 'lycanrocdusk']
+|chat|DEBUG|Speed: 215 vs 161
+|chat|DEBUG|HP: 174 vs 184
+|chat|DEBUG|Created a new Strategy for gourgeistsmall vs necrozmadawnwings:
+|chat|DEBUG|>[poltergeist: 296.8125 [273, 324], poltergeist: 296.8125 [273, 324], poltergeist: 296.8125 [273, 324]]
+|chat|DEBUG|Best move of gourgeistsmall (p1): poltergeist: 296.8125 [273, 324]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): moongeistbeam: 292.25 [270, 318]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chansey|Chansey, L84, F|100100
+|move|p2a: Gourgeist|Poltergeist|p1a: Chansey
+|-immune|p1a: Chansey
+|-heal|p2a: Gourgeist|188230 tox|[from] item: Leftovers
+|-damage|p2a: Gourgeist|132230 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['gourgeistsmall', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 132
+|chat|DEBUG|HP: 132 vs 557
+|chat|DEBUG|Created a new Strategy for gourgeistsmall vs chansey:
+|chat|DEBUG|>[powerwhip: 262.875 [241, 285], powerwhip: 262.875 [241, 285], powerwhip: 262.875 [241, 285]]
+|chat|DEBUG|Best move of gourgeistsmall (p1): powerwhip: 262.875 [241, 285]
+|chat|DEBUG|Best move of chansey (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gourgeist|Power Whip|p1a: Chansey
+|-damage|p1a: Chansey|51100
+|move|p1a: Chansey|Soft-Boiled|p1a: Chansey
+|-heal|p1a: Chansey|100100
+|-heal|p2a: Gourgeist|146230 tox|[from] item: Leftovers
+|-damage|p2a: Gourgeist|76230 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['gourgeistsmall', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 132
+|chat|DEBUG|HP: 76 vs 557
+|chat|DEBUG|Best move of gourgeistsmall (p1): powerwhip: 262.875 [241, 285]
+|chat|DEBUG|Best move of chansey (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gourgeist|Power Whip|p1a: Chansey
+|-damage|p1a: Chansey|57100
+|move|p1a: Chansey|Soft-Boiled|p1a: Chansey
+|-heal|p1a: Chansey|100100
+|-heal|p2a: Gourgeist|90230 tox|[from] item: Leftovers
+|-damage|p2a: Gourgeist|6230 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistsmall blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistsmall-blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: powerwhip substitute leechseed poltergeist
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['gourgeistsmall', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['gourgeistsmall', 'coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 215 vs 132
+|chat|DEBUG|HP: 6 vs 557
+|chat|DEBUG|Best move of gourgeistsmall (p1): powerwhip: 262.875 [241, 285]
+|chat|DEBUG|Best move of chansey (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gourgeist|Power Whip|p1a: Chansey
+|-damage|p1a: Chansey|52100
+|move|p1a: Chansey|Soft-Boiled|p1a: Chansey
+|-heal|p1a: Chansey|100100
+|-heal|p2a: Gourgeist|20230 tox|[from] item: Leftovers
+|-damage|p2a: Gourgeist|0 fnt|[from] psn
+|faint|p2a: Gourgeist
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latios|Latios, L78, M|253253
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistsmall" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to latios (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latios|Psyshock|p1a: Chansey
+|-damage|p1a: Chansey|51100
+|-damage|p2a: Latios|228253|[from] item: Life Orb
+|move|p1a: Chansey|Toxic|p2a: Latios
+|-status|p2a: Latios|tox
+|-damage|p2a: Latios|213253 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: roost mysticalfire psyshock dracometeor
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['latios', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 217 vs 132
+|chat|DEBUG|HP: 253 vs 557
+|chat|DEBUG|Created a new Strategy for latios vs chansey:
+|chat|DEBUG|>[psyshock: 280.0625 [257, 304], psyshock: 280.0625 [257, 304], psyshock: 280.0625 [257, 304]]
+|chat|DEBUG|Best move of latios (p1): psyshock: 280.0625 [257, 304]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latios|Psyshock|p1a: Chansey
+|-damage|p1a: Chansey|2100
+|-damage|p2a: Latios|188253 tox|[from] item: Life Orb
+|move|p1a: Chansey|Soft-Boiled|p1a: Chansey
+|-heal|p1a: Chansey|52100
+|-damage|p2a: Latios|158253 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: roost mysticalfire psyshock dracometeor
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['coalossal', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Speed: 217 vs 132
+|chat|DEBUG|HP: 213 vs 284
+|chat|DEBUG|Best move of latios (p1): psyshock: 280.0625 [257, 304]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latios|Psyshock|p1a: Chansey
+|-damage|p1a: Chansey|0 fnt
+|faint|p1a: Chansey
+|-damage|p2a: Latios|133253 tox|[from] item: Life Orb
+|-damage|p2a: Latios|88253 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Necrozma|Necrozma-Dawn-Wings, L76|68100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-latios-lycanrocdusk -- chansey-necrozmadawnwings
+|chat|DEBUG|Own moves: roost mysticalfire psyshock dracometeor
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['coalossal', 'lycanrocdusk']
+|chat|DEBUG|Counter: ['coalossal', 'latios', 'lycanrocdusk']
+|chat|DEBUG|Speed: 217 vs 132
+|chat|DEBUG|HP: 158 vs 289
+|chat|DEBUG|Best move of latios (p1): psyshock: 280.0625 [257, 304]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latios|Draco Meteor|p1a: Necrozma
+|-damage|p1a: Necrozma|12100
+|-unboost|p2a: Latios|spa|2
+|-damage|p2a: Latios|63253 tox|[from] item: Life Orb
+|move|p1a: Necrozma|Calm Mind|p1a: Necrozma
+|-boost|p1a: Necrozma|spa|1
+|-boost|p1a: Necrozma|spd|1
+|-heal|p1a: Necrozma|18100|[from] item: Leftovers
+|-damage|p2a: Latios|3253 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-latios-lycanrocdusk -- necrozmadawnwings
+|chat|DEBUG|Own moves: roost mysticalfire psyshock dracometeor
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lycanrocdusk']
+|chat|DEBUG|Speed: 217 vs 161
+|chat|DEBUG|HP: 88 vs 184
+|chat|DEBUG|Created a new Strategy for latios vs necrozmadawnwings:
+|chat|DEBUG|>[dracometeor: 162.9375 [149, 177], dracometeor: 81.75 [75, 90], dracometeor: 54.75 [51, 60]]
+|chat|DEBUG|Best move of latios (p1): dracometeor: 162.9375 [149, 177]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): moongeistbeam: 234.0 [216, 254]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latios|Draco Meteor|p1a: Necrozma
+|-damage|p1a: Necrozma|0 fnt
+|-unboost|p2a: Latios|spa|2
+|faint|p1a: Necrozma
+|-damage|p2a: Latios|0 fnt|[from] item: Life Orb
+|faint|p2a: Latios
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Noivern|Noivern, L82, F|274274
+|switch|p1a: Diggersby|Diggersby, L80, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern latios lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-latios-lycanrocdusk -- necrozmadawnwings
+|chat|DEBUG|Own moves: roost mysticalfire psyshock dracometeor
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: ['noivern']
+|chat|DEBUG|Counter: ['blastoise', 'coalossal', 'noivern', 'lycanrocdusk']
+|chat|DEBUG|Speed: 217 vs 161
+|chat|DEBUG|HP: 3 vs 48
+|chat|DEBUG|Best move of latios (p1): dracometeor: 81.75 [75, 90]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): moongeistbeam: 350.375 [320, 380]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Draco Meteor|p1a: Diggersby|[miss]
+|-miss|p2a: Noivern|p1a: Diggersby
+|move|p1a: Diggersby|U-turn|p2a: Noivern
+|-resisted|p2a: Noivern
+|-damage|p2a: Noivern|221274
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stonjourner|Stonjourner, L88, F|100100|[from]move: U-turn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-lycanrocdusk -- necrozmadawnwings
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: ['noivern']
+|chat|DEBUG|Counter: ['blastoise', 'coalossal', 'noivern', 'lycanrocdusk']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to noivern (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Draco Meteor|p1a: Stonjourner
+|-damage|p1a: Stonjourner|2100
+|-unboost|p2a: Noivern|spa|2
+|move|p1a: Stonjourner|Stone Edge|p2a: Noivern|[miss]
+|-miss|p1a: Stonjourner|p2a: Noivern
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noivern" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-lycanrocdusk -- diggersby
+|chat|DEBUG|Own moves: hurricane defog roost dracometeor
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['blastoise', 'noivern', 'lycanrocdusk']
+|chat|DEBUG|Speed: 249 vs 171
+|chat|DEBUG|HP: 274 vs 267
+|chat|DEBUG|Created a new Strategy for noivern vs diggersby:
+|chat|DEBUG|>[dracometeor: 150.1875 [138, 163], dracometeor: 75.3125 [69, 82], dracometeor: 50.375 [46, 55]]
+|chat|DEBUG|Best move of noivern (p1): dracometeor: 150.1875 [138, 163]
+|chat|DEBUG|Best move of diggersby (p2): bodyslam: 161.1875 [148, 175]
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Draco Meteor|p1a: Stonjourner
+|-damage|p1a: Stonjourner|0 fnt
+|-unboost|p2a: Noivern|spa|2
+|faint|p1a: Stonjourner
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctovish|Arctovish, L86|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noivern" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-lycanrocdusk -- diggersby-stonjourner
+|chat|DEBUG|Own moves: hurricane defog roost dracometeor
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: ['blastoise']
+|chat|DEBUG|Counter: ['blastoise', 'noivern']
+|chat|DEBUG|Speed: 249 vs 173
+|chat|DEBUG|HP: 221 vs 319
+|chat|DEBUG|Created a new Strategy for noivern vs stonjourner:
+|chat|DEBUG|>[dracometeor: 298.6875 [274, 324], dracometeor: 150.1875 [138, 163], dracometeor: 98.9375 [91, 108]]
+|chat|DEBUG|Best move of noivern (p1): dracometeor: 298.6875 [274, 324]
+|chat|DEBUG|Best move of stonjourner (p2): stoneedge: 409.0625 [374, 445]
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Draco Meteor|p1a: Arctovish
+|-damage|p1a: Arctovish|86100
+|-unboost|p2a: Noivern|spa|2
+|move|p1a: Arctovish|Icicle Crash|p2a: Noivern|[miss]
+|-miss|p1a: Arctovish|p2a: Noivern
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noivern" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-lycanrocdusk -- diggersby-stonjourner
+|chat|DEBUG|Own moves: hurricane defog roost dracometeor
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: ['blastoise']
+|chat|DEBUG|Counter: ['blastoise', 'noivern', 'lycanrocdusk']
+|chat|DEBUG|Speed: 249 vs 173
+|chat|DEBUG|HP: 221 vs 6
+|chat|DEBUG|Best move of noivern (p1): dracometeor: 150.1875 [138, 163]
+|chat|DEBUG|Best move of stonjourner (p2): stoneedge: 409.0625 [374, 445]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Draco Meteor|p1a: Arctovish
+|-damage|p1a: Arctovish|76100
+|move|p1a: Arctovish|Icicle Crash|p2a: Noivern
+|-supereffective|p2a: Noivern
+|-damage|p2a: Noivern|0 fnt
+|faint|p2a: Noivern
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lycanroc|Lycanroc-Dusk, L80, M|251251
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noivern" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-lycanrocdusk -- diggersby-arctovish
+|chat|DEBUG|Own moves: hurricane defog roost dracometeor
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lycanrocdusk']
+|chat|DEBUG|Speed: 249 vs 144
+|chat|DEBUG|HP: 221 vs 295
+|chat|DEBUG|Created a new Strategy for noivern vs arctovish:
+|chat|DEBUG|>[dracometeor: 42.0625 [39, 46], dracometeor: 32.375 [30, 36], dracometeor: 32.375 [30, 36]]
+|chat|DEBUG|Best move of noivern (p1): dracometeor: 42.0625 [39, 46]
+|chat|DEBUG|Best move of arctovish (p2): iciclecrash: 590.0 [540, 640]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lycanroc|Close Combat|p1a: Arctovish
+|-supereffective|p1a: Arctovish
+|-damage|p1a: Arctovish|0 fnt
+|-unboost|p2a: Lycanroc|def|1
+|-unboost|p2a: Lycanroc|spd|1
+|faint|p1a: Arctovish
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mienshao|Mienshao, L82, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal noivern lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noivern" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-noivern-lycanrocdusk -- diggersby-arctovish
+|chat|DEBUG|Own moves: hurricane defog roost dracometeor
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lycanrocdusk']
+|chat|DEBUG|Speed: 249 vs 144
+|chat|DEBUG|HP: 221 vs 253
+|chat|DEBUG|Best move of noivern (p1): dracometeor: 32.375 [30, 36]
+|chat|DEBUG|Best move of arctovish (p2): iciclecrash: 590.0 [540, 640]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Lycanroc|Dynamax
+|-heal|p2a: Lycanroc|502502|[silent]
+|move|p2a: Lycanroc|Max Knuckle|p1a: Mienshao
+|-damage|p1a: Mienshao|60100
+|-boost|p2a: Lycanroc|atk|1
+|move|p1a: Mienshao|Close Combat|p2a: Lycanroc
+|-supereffective|p2a: Lycanroc
+|-damage|p2a: Lycanroc|0 fnt
+|-unboost|p1a: Mienshao|def|1
+|-unboost|p1a: Mienshao|spd|1
+|faint|p2a: Lycanroc
+|-damage|p1a: Mienshao|50100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blastoise|Blastoise, L82, M|264264
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noivern" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-lycanrocdusk -- diggersby-arctovish
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lycanrocdusk']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lycanrocdusk (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Knock Off|p2a: Blastoise
+|-damage|p2a: Blastoise|165264
+|-enditem|p2a: Blastoise|Leftovers|[from] move: Knock Off|[of] p1a: Mienshao
+|-damage|p1a: Mienshao|40100|[from] item: Life Orb
+|move|p2a: Blastoise|Scald|p1a: Mienshao
+|-damage|p1a: Mienshao|0 fnt
+|faint|p1a: Mienshao
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal lycanrocdusk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanrocdusk" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-lycanrocdusk -- diggersby-arctovish
+|chat|DEBUG|Own moves: closecombat stoneedge accelerock psychicfangs
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lycanrocdusk']
+|chat|DEBUG|Speed: 222 vs 144
+|chat|DEBUG|HP: 251 vs 224
+|chat|DEBUG|Created a new Strategy for lycanrocdusk vs arctovish:
+|chat|DEBUG|>[closecombat: 311.75 [286, 338], closecombat: 311.75 [286, 338], closecombat: 311.75 [286, 338]]
+|chat|DEBUG|Best move of lycanrocdusk (p1): closecombat: 311.75 [286, 338]
+|chat|DEBUG|Best move of arctovish (p2): fishiousrend: 347.75 [320, 378]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Diggersby|Dynamax
+|-heal|p1a: Diggersby|100100|[silent]
+|move|p2a: Blastoise|Scald|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|70100
+|-status|p1a: Diggersby|brn
+|move|p1a: Diggersby|Max Quake|p2a: Blastoise
+|-damage|p2a: Blastoise|86264
+|-boost|p1a: Diggersby|spd|1
+|-damage|p1a: Diggersby|67100 brn|[from] brn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal lycanrocdusk
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lycanrocdusk" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal-lycanrocdusk -- diggersby-mienshao
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lycanrocdusk']
+|chat|DEBUG|Speed: 222 vs 219
+|chat|DEBUG|HP: 251 vs 241
+|chat|DEBUG|Created a new Strategy for lycanrocdusk vs mienshao:
+|chat|DEBUG|>[closecombat: 235.375 [216, 255], closecombat: 235.375 [216, 255], closecombat: 235.375 [216, 255]]
+|chat|DEBUG|Best move of lycanrocdusk (p1): closecombat: 235.375 [216, 255]
+|chat|DEBUG|Best move of mienshao (p2): closecombat: 744.5625 [681, 806]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blastoise|Scald|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|35100 brn
+|move|p1a: Diggersby|Max Quake|p2a: Blastoise
+|-damage|p2a: Blastoise|0 fnt
+|-boost|p1a: Diggersby|spd|1
+|faint|p2a: Blastoise
+|-damage|p1a: Diggersby|32100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|333333
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lycanrocdusk" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal -- diggersby-mienshao
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'blastoise': 264, 'coalossal': 333}
+|chat|DEBUG|remaining_hp_team_2={'diggersby': 100, 'mienshao': 100}
+|chat|DEBUG|battle.available_switches=[blastoise (pokemon object) [Active: False, Status: None], coalossal (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'blastoise'
+|chat|DEBUG|>Switching to blastoise (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Max Quake|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|75333
+|-boost|p1a: Diggersby|spd|1
+|move|p2a: Coalossal|Stone Edge|p1a: Diggersby
+|-resisted|p1a: Diggersby
+|-crit|p1a: Diggersby
+|-damage|p1a: Diggersby|16100 brn
+|-damage|p1a: Diggersby|13100 brn|[from] brn
+|-end|p1a: Diggersby|Dynamax
+|-heal|p1a: Diggersby|13100 brn|[silent]
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise coalossal
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "blastoise" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-coalossal -- diggersby-mienshao
+|chat|DEBUG|Own moves: scald protect toxic rapidspin
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['blastoise', 'coalossal']
+|chat|DEBUG|Speed: 175 vs 219
+|chat|DEBUG|HP: 264 vs 120
+|chat|DEBUG|Created a new Strategy for blastoise vs mienshao:
+|chat|DEBUG|>[scald: 146.125 [135, 159], scald: 146.125 [135, 159], scald: 146.125 [135, 159]]
+|chat|DEBUG|Best move of blastoise (p1): scald: 146.125 [135, 159]
+|chat|DEBUG|Best move of mienshao (p2): closecombat: 178.0625 [164, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Earthquake|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|faint|p2a: Coalossal
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Carebearslay3r<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">gourgeistsmall blastoise coalossal noivern latios lycanrocdusk</h1>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492296165<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492296165|init|battle
+|title|CECEro vs. McGewitter
+|j|☆CECEro
+|j|☆McGewitter
+|gametype|singles
+|player|p1|CECEro|lady|1196
+|player|p2|McGewitter|265|1243
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Celebi|Celebi, L82|100100
+|switch|p2a: Naganadel|Naganadel, L74|230230
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel obstagoon primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "naganadel" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-obstagoon-primarina-zeraora-turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: nastyplot dracometeor sludgewave fireblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['obstagoon']
+|chat|DEBUG|Counter: ['obstagoon', 'turtonator', 'zacian']
+|chat|DEBUG|Speed: 222 vs 211
+|chat|DEBUG|HP: 230 vs 298
+|chat|DEBUG|Created a new Strategy for naganadel vs celebi:
+|chat|DEBUG|>[sludgewave: 236.25 [218, 257], sludgewave: 236.25 [218, 257], sludgewave: 236.25 [218, 257]]
+|chat|DEBUG|Best move of naganadel (p1): sludgewave: 236.25 [218, 257]
+|chat|DEBUG|Best move of celebi (p2): psychic: 239.5 [218, 260]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check obstagoon
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Obstagoon|Obstagoon, L80, F|280280
+|move|p1a: Celebi|Psychic|p2a: Obstagoon
+|-immune|p2a: Obstagoon
+|-status|p2a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel obstagoon primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "obstagoon" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-obstagoon-primarina-zeraora-turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: facade bulkup knockoff closecombat
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['obstagoon']
+|chat|DEBUG|Counter: ['obstagoon', 'turtonator', 'zacian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 211
+|chat|DEBUG|HP: 280 vs 298
+|chat|DEBUG|Created a new Strategy for obstagoon vs celebi:
+|chat|DEBUG|>[knockoff: 167.25 [152, 182], knockoff: 167.25 [152, 182], knockoff: 167.25 [152, 182]]
+|chat|DEBUG|Best move of obstagoon (p1): knockoff: 167.25 [152, 182]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 86.4375 [79, 94]
+|chat|DEBUG|Boost Moves: [bulkup (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tauros|Tauros, L82, M|100100
+|move|p2a: Obstagoon|Bulk Up|p2a: Obstagoon
+|-boost|p2a: Obstagoon|atk|1
+|-boost|p2a: Obstagoon|def|1
+|-damage|p2a: Obstagoon|263280 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel obstagoon primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "obstagoon" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-obstagoon-primarina-zeraora-turtonator-zacian -- celebi-tauros
+|chat|DEBUG|Own moves: facade bulkup knockoff closecombat
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora']
+|chat|DEBUG|Speed: 198 vs 228
+|chat|DEBUG|HP: 263 vs 257
+|chat|DEBUG|Created a new Strategy for obstagoon vs tauros:
+|chat|DEBUG|>[closecombat: 213.625 [196, 232], closecombat: 213.625 [196, 232], closecombat: 213.625 [196, 232]]
+|chat|DEBUG|Best move of obstagoon (p1): closecombat: 213.625 [196, 232]
+|chat|DEBUG|Best move of tauros (p2): closecombat: 272.0625 [250, 296]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Close Combat|p2a: Obstagoon
+|-supereffective|p2a: Obstagoon
+|-damage|p2a: Obstagoon|0 fnt
+|-unboost|p1a: Tauros|def|1
+|-unboost|p1a: Tauros|spd|1
+|faint|p2a: Obstagoon
+|-damage|p1a: Tauros|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|259259
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "obstagoon" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-zeraora-turtonator-zacian -- celebi-tauros
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zeraora (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Close Combat|p1a: Tauros
+|-supereffective|p1a: Tauros
+|-damage|p1a: Tauros|0 fnt
+|-unboost|p2a: Zeraora|def|1
+|-unboost|p2a: Zeraora|spd|1
+|faint|p1a: Tauros
+|-damage|p2a: Zeraora|234259|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mr. Mime|Mr. Mime-Galar, L86, M|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-zeraora-turtonator-zacian -- celebi-tauros
+|chat|DEBUG|Own moves: closecombat bulkup blazekick plasmafists
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: ['zeraora']
+|chat|DEBUG|Counter: ['naganadel', 'primarina', 'zeraora', 'zacian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 261 vs 228
+|chat|DEBUG|HP: 259 vs 233
+|chat|DEBUG|Created a new Strategy for zeraora vs tauros:
+|chat|DEBUG|>[closecombat: 294.625 [270, 320], closecombat: 294.625 [270, 320], closecombat: 294.625 [270, 320]]
+|chat|DEBUG|Best move of zeraora (p1): closecombat: 294.625 [270, 320]
+|chat|DEBUG|Best move of tauros (p2): bodyslam: 182.125 [168, 199]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Blaze Kick|p1a: Mr. Mime
+|-supereffective|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|52100
+|-damage|p2a: Zeraora|209259|[from] item: Life Orb
+|move|p1a: Mr. Mime|Psychic|p2a: Zeraora
+|-damage|p2a: Zeraora|41259
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-zeraora-turtonator-zacian -- celebi-mrmimegalar
+|chat|DEBUG|Own moves: closecombat bulkup blazekick plasmafists
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora', 'turtonator', 'zacian']
+|chat|DEBUG|Speed: 261 vs 221
+|chat|DEBUG|HP: 234 vs 226
+|chat|DEBUG|Created a new Strategy for zeraora vs mrmimegalar:
+|chat|DEBUG|>[blazekick: 119.5625 [109, 130], blazekick: 119.5625 [109, 130], blazekick: 119.5625 [109, 130]]
+|chat|DEBUG|Best move of zeraora (p1): blazekick: 119.5625 [109, 130]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 168.3125 [154, 183]
+|chat|DEBUG|Attacking using blazekick
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Blaze Kick|p1a: Mr. Mime
+|-supereffective|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|2100
+|-damage|p2a: Zeraora|16259|[from] item: Life Orb
+|move|p1a: Mr. Mime|Psychic|p2a: Zeraora
+|-damage|p2a: Zeraora|0 fnt
+|faint|p2a: Zeraora
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Turtonator|Turtonator, L84, F|238238
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina zeraora turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-zeraora-turtonator-zacian -- celebi-mrmimegalar
+|chat|DEBUG|Own moves: closecombat bulkup blazekick plasmafists
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['turtonator', 'zacian']
+|chat|DEBUG|Counter: ['naganadel', 'primarina', 'zeraora', 'turtonator', 'zacian']
+|chat|DEBUG|Speed: 261 vs 221
+|chat|DEBUG|HP: 41 vs 117
+|chat|DEBUG|Best move of zeraora (p1): blazekick: 119.5625 [109, 130]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 168.3125 [154, 183]
+|chat|DEBUG|Attacking using blazekick
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Mime|Freeze-Dry|p2a: Turtonator
+|-damage|p2a: Turtonator|163238
+|move|p2a: Turtonator|Fire Blast|p1a: Mr. Mime
+|-supereffective|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|0 fnt
+|faint|p1a: Mr. Mime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Octillery|Octillery, L86, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-turtonator-zacian -- celebi-mrmimegalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['turtonator', 'zacian']
+|chat|DEBUG|Counter: ['naganadel', 'primarina', 'turtonator', 'zacian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to turtonator (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Naganadel|Naganadel, L74|230230
+|move|p1a: Octillery|Hydro Pump|p2a: Naganadel
+|-resisted|p2a: Naganadel
+|-damage|p2a: Naganadel|151230
+|-ability|p1a: Octillery|Moody|boost
+|-boost|p1a: Octillery|atk|2
+|-unboost|p1a: Octillery|spe|1
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "turtonator" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-turtonator-zacian -- celebi-mrmimegalar
+|chat|DEBUG|Own moves: shellsmash fireblast dracometeor earthquake
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['primarina', 'turtonator', 'zacian']
+|chat|DEBUG|Counter: ['naganadel', 'primarina', 'turtonator', 'zacian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 109 vs 221
+|chat|DEBUG|HP: 238 vs 4
+|chat|DEBUG|Created a new Strategy for turtonator vs mrmimegalar:
+|chat|DEBUG|>[fireblast: 142.25 [132, 156], fireblast: 142.25 [132, 156], fireblast: 142.25 [132, 156]]
+|chat|DEBUG|Best move of turtonator (p1): fireblast: 142.25 [132, 156]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 97.625 [90, 106]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Naganadel|Sludge Wave|p1a: Octillery
+|-damage|p1a: Octillery|44100
+|-damage|p2a: Naganadel|128230|[from] item: Life Orb
+|move|p1a: Octillery|Hydro Pump|p2a: Naganadel
+|-resisted|p2a: Naganadel
+|-crit|p2a: Naganadel
+|-damage|p2a: Naganadel|0 fnt
+|faint|p2a: Naganadel
+|-heal|p1a: Octillery|50100|[from] item: Leftovers
+|-ability|p1a: Octillery|Moody|boost
+|-boost|p1a: Octillery|atk|2
+|-unboost|p1a: Octillery|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Primarina|Primarina, L82, F|265265
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "turtonator" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-turtonator-zacian -- celebi-octillery
+|chat|DEBUG|Own moves: shellsmash fireblast dracometeor earthquake
+|chat|DEBUG|Enemy moves: energyball fireblast hydropump protect
+|chat|DEBUG|Checks: ['naganadel']
+|chat|DEBUG|Counter: ['naganadel', 'primarina']
+|chat|DEBUG|Speed: 109 vs 127
+|chat|DEBUG|HP: 163 vs 269
+|chat|DEBUG|Created a new Strategy for turtonator vs octillery:
+|chat|DEBUG|>[dracometeor: 143.125 [132, 156], earthquake: 66.125 [61, 72], earthquake: 66.125 [61, 72]]
+|chat|DEBUG|Best move of turtonator (p1): dracometeor: 143.125 [132, 156]
+|chat|DEBUG|Best move of octillery (p2): hydropump: 134.0 [123, 145]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check naganadel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Moonblast|p1a: Octillery
+|-damage|p1a: Octillery|4100
+|-unboost|p1a: Octillery|spa|1
+|move|p1a: Octillery|Energy Ball|p2a: Primarina
+|-supereffective|p2a: Primarina
+|-damage|p2a: Primarina|187265
+|-heal|p1a: Octillery|10100|[from] item: Leftovers
+|-ability|p1a: Octillery|Moody|boost
+|-boost|p1a: Octillery|def|2
+|-unboost|p1a: Octillery|atk|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>naganadel primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "naganadel" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>naganadel-primarina-turtonator-zacian -- celebi-octillery
+|chat|DEBUG|Own moves: nastyplot dracometeor sludgewave fireblast
+|chat|DEBUG|Enemy moves: energyball fireblast hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['naganadel', 'primarina']
+|chat|DEBUG|Speed: 222 vs 127
+|chat|DEBUG|HP: 151 vs 269
+|chat|DEBUG|Created a new Strategy for naganadel vs octillery:
+|chat|DEBUG|>[sludgewave: 139.4375 [129, 152], sludgewave: 139.4375 [129, 152], dracometeor: 189.875 [175, 207]]
+|chat|DEBUG|Best move of naganadel (p1): sludgewave: 139.4375 [129, 152]
+|chat|DEBUG|Best move of octillery (p2): hydropump: 83.9375 [77, 91]
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Moonblast|p1a: Octillery
+|-damage|p1a: Octillery|0 fnt
+|faint|p1a: Octillery
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Celebi|Celebi, L82|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "naganadel" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-turtonator-zacian -- celebi-octillery
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball fireblast hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['primarina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to primarina (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Moonblast|p1a: Celebi
+|-crit|p1a: Celebi
+|-damage|p1a: Celebi|47100
+|move|p1a: Celebi|Nasty Plot|p1a: Celebi
+|-boost|p1a: Celebi|spa|2
+|-heal|p1a: Celebi|53100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-turtonator-zacian -- celebi-octillery
+|chat|DEBUG|Own moves: sparklingaria psychic hydropump moonblast
+|chat|DEBUG|Enemy moves: energyball fireblast hydropump protect
+|chat|DEBUG|Checks: ['primarina', 'zacian']
+|chat|DEBUG|Counter: ['primarina', 'zacian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 127
+|chat|DEBUG|HP: 265 vs 134
+|chat|DEBUG|Created a new Strategy for primarina vs octillery:
+|chat|DEBUG|>[moonblast: 129.5 [118, 141], moonblast: 129.5 [118, 141], moonblast: 129.5 [118, 141]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 129.5 [118, 141]
+|chat|DEBUG|Best move of octillery (p2): energyball: 117.5 [108, 128]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Moonblast|p1a: Celebi
+|-damage|p1a: Celebi|14100
+|-unboost|p1a: Celebi|spa|1
+|move|p1a: Celebi|Giga Drain|p2a: Primarina
+|-supereffective|p2a: Primarina
+|-damage|p2a: Primarina|0 fnt
+|-heal|p1a: Celebi|45100|[from] drain|[of] p2a: Primarina
+|faint|p2a: Primarina
+|-heal|p1a: Celebi|51100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zacian|Zacian, L68|238238
+|-ability|p2a: Zacian|Intrepid Sword|boost
+|-boost|p2a: Zacian|atk|1
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-turtonator-zacian -- celebi-octillery
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: energyball fireblast hydropump protect
+|chat|DEBUG|Checks: ['primarina', 'zacian']
+|chat|DEBUG|Counter: ['primarina', 'turtonator', 'zacian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 127
+|chat|DEBUG|HP: 187 vs 26
+|chat|DEBUG|Created a new Strategy for primarina vs octillery:
+|chat|DEBUG|>[moonblast: 129.5 [118, 141], moonblast: 129.5 [118, 141], moonblast: 129.5 [118, 141]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 129.5 [118, 141]
+|chat|DEBUG|Best move of octillery (p2): energyball: 78.5 [72, 86]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zacian|Play Rough|p1a: Celebi
+|-damage|p1a: Celebi|15100
+|move|p1a: Celebi|Psychic|p2a: Zacian
+|-damage|p2a: Zacian|105238
+|-heal|p1a: Celebi|21100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zacian']
+|chat|DEBUG|Speed: 146 vs 211
+|chat|DEBUG|HP: 187 vs 298
+|chat|DEBUG|Created a new Strategy for primarina vs celebi:
+|chat|DEBUG|>[moonblast: 108.625 [100, 118], moonblast: 108.625 [100, 118], moonblast: 108.625 [100, 118]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 108.625 [100, 118]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 128.5 [116, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zacian|Play Rough|p1a: Celebi
+|-damage|p1a: Celebi|0 fnt
+|faint|p1a: Celebi
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ho-Oh|Ho-Oh, L72|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>primarina turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>primarina-turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zacian']
+|chat|DEBUG|Speed: 146 vs 211
+|chat|DEBUG|HP: 187 vs 157
+|chat|DEBUG|Created a new Strategy for primarina vs celebi:
+|chat|DEBUG|>[moonblast: 108.625 [100, 118], moonblast: 108.625 [100, 118], moonblast: 108.625 [100, 118]]
+|chat|DEBUG|Best move of primarina (p1): moonblast: 108.625 [100, 118]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 253.625 [234, 276]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zacian|Psychic Fangs|p1a: Ho-Oh
+|-damage|p1a: Ho-Oh|70100
+|move|p1a: Ho-Oh|Sacred Fire|p2a: Zacian
+|-damage|p2a: Zacian|6238
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zacian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zacian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zacian|Psychic Fangs|p1a: Ho-Oh
+|-damage|p1a: Ho-Oh|41100
+|move|p1a: Ho-Oh|Toxic|p2a: Zacian
+|-status|p2a: Zacian|tox
+|-enditem|p2a: Zacian|Lum Berry|[eat]
+|-curestatus|p2a: Zacian|tox|[msg]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zacian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: closecombat psychicfangs swordsdance playrough
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['turtonator', 'zacian']
+|chat|DEBUG|Speed: 228 vs 211
+|chat|DEBUG|HP: 238 vs 151
+|chat|DEBUG|Created a new Strategy for zacian vs celebi:
+|chat|DEBUG|>[playrough: 150.1875 [138, 163], playrough: 150.1875 [138, 163], playrough: 150.1875 [138, 163]]
+|chat|DEBUG|Best move of zacian (p1): playrough: 150.1875 [138, 163]
+|chat|DEBUG|Best move of celebi (p2): psychic: 138.5 [127, 150]
+|chat|DEBUG|Attacking using playrough
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zacian|Psychic Fangs|p1a: Ho-Oh
+|-damage|p1a: Ho-Oh|9100
+|move|p1a: Ho-Oh|Toxic|p2a: Zacian
+|-status|p2a: Zacian|tox
+|-damage|p2a: Zacian|0 fnt|[from] psn
+|faint|p2a: Zacian
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Turtonator|Turtonator, L84, F|163238
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zacian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>turtonator-zacian -- celebi
+|chat|DEBUG|Own moves: closecombat psychicfangs swordsdance playrough
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['turtonator', 'zacian']
+|chat|DEBUG|Speed: 228 vs 211
+|chat|DEBUG|HP: 105 vs 62
+|chat|DEBUG|Best move of zacian (p1): playrough: 150.1875 [138, 163]
+|chat|DEBUG|Best move of celebi (p2): psychic: 138.5 [127, 150]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ho-Oh|Brave Bird|p2a: Turtonator
+|-damage|p2a: Turtonator|79238
+|-damage|p1a: Ho-Oh|0 fnt|[from] Recoil
+|faint|p1a: Ho-Oh
+|move|p2a: Turtonator|Fire Blast|p1: Ho-Oh|[notarget]
+|-fail|p2a: Turtonator
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>turtonator zacian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zacian" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>turtonator-zacian -- hooh
+|chat|DEBUG|Own moves: closecombat psychicfangs swordsdance playrough
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 228 vs 172
+|chat|DEBUG|HP: 105 vs 272
+|chat|DEBUG|Created a new Strategy for zacian vs hooh:
+|chat|DEBUG|>[psychicfangs: 116.0625 [107, 126], psychicfangs: 116.0625 [107, 126], psychicfangs: 116.0625 [107, 126]]
+|chat|DEBUG|Best move of zacian (p1): psychicfangs: 116.0625 [107, 126]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 118.3125 [109, 129]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychicfangs
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Hurricane|p2a: Turtonator
+|-damage|p2a: Turtonator|0 fnt
+|faint|p2a: Turtonator
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>CECEro<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">naganadel obstagoon primarina zeraora turtonator zacian</h1>

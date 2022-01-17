@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490823079<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490823079|init|battle
+|title|McGewitter vs. actionkamenZ
+|j|☆McGewitter
+|j|☆actionkamenZ
+|gametype|singles
+|player|p1|McGewitter|265|1080
+|player|p2|actionkamenZ|1|1081
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Zapdos|Zapdos, L78|268268
+|switch|p2a: Espeon|Espeon, L82, M|100100
+|-ability|p1a: Zapdos|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- espeon
+|chat|DEBUG|Own moves: hurricane roost defog discharge
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish', 'moltresgalar']
+|chat|DEBUG|Speed: 201 vs 228
+|chat|DEBUG|HP: 268 vs 241
+|chat|DEBUG|Created a new Strategy for zapdos vs espeon:
+|chat|DEBUG|>[discharge: 87.9375 [81, 96], discharge: 87.9375 [81, 96], discharge: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 87.9375 [81, 96]
+|chat|DEBUG|Best move of espeon (p2): psychic: 121.1875 [111, 132]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using discharge
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Espeon|Psychic|p1a: Zapdos
+|-damage|p1a: Zapdos|96268
+|-damage|p2a: Espeon|91100|[from] item: Life Orb
+|move|p1a: Zapdos|Discharge|p2a: Espeon
+|-damage|p2a: Espeon|53100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- espeon
+|chat|DEBUG|Own moves: hurricane roost defog discharge
+|chat|DEBUG|Enemy moves: dazzlinggleam morningsun psychic shadowball
+|chat|DEBUG|Checks: ['raichu', 'arctovish']
+|chat|DEBUG|Counter: ['raichu', 'arctovish', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Speed: 201 vs 228
+|chat|DEBUG|HP: 96 vs 127
+|chat|DEBUG|Best move of zapdos (p1): discharge: 87.9375 [81, 96]
+|chat|DEBUG|Best move of espeon (p2): psychic: 157.5 [144, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raichu
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raichu|Raichu, L86, F|243243
+|move|p2a: Espeon|Psychic|p1a: Raichu
+|-damage|p1a: Raichu|91243
+|-damage|p2a: Espeon|43100|[from] item: Life Orb
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- espeon
+|chat|DEBUG|Own moves: surf focusblast nastyplot thunderbolt
+|chat|DEBUG|Enemy moves: dazzlinggleam morningsun psychic shadowball
+|chat|DEBUG|Checks: ['arctovish', 'alcremie']
+|chat|DEBUG|Counter: ['raichu', 'arctovish', 'alcremie', 'cobalion', 'moltresgalar']
+|chat|DEBUG|Speed: 238 vs 228
+|chat|DEBUG|HP: 91 vs 103
+|chat|DEBUG|Created a new Strategy for raichu vs espeon:
+|chat|DEBUG|>[thunderbolt: 119.375 [109, 130], thunderbolt: 119.375 [109, 130], thunderbolt: 119.375 [109, 130]]
+|chat|DEBUG|Best move of raichu (p1): thunderbolt: 119.375 [109, 130]
+|chat|DEBUG|Best move of espeon (p2): psychic: 155.625 [142, 169]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raichu|Thunderbolt|p2a: Espeon
+|-damage|p2a: Espeon|0 fnt
+|faint|p2a: Espeon
+|-damage|p1a: Raichu|67243|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie
+|chat|DEBUG|Own moves: surf focusblast nastyplot thunderbolt
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['arctovish', 'cobalion']
+|chat|DEBUG|Speed: 238 vs 159
+|chat|DEBUG|HP: 67 vs 252
+|chat|DEBUG|Created a new Strategy for raichu vs alcremie:
+|chat|DEBUG|>[thunderbolt: 94.375 [87, 103], thunderbolt: 94.375 [87, 103], thunderbolt: 94.375 [87, 103]]
+|chat|DEBUG|Best move of raichu (p1): thunderbolt: 94.375 [87, 103]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 103.25 [94, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctovish|Arctovish, L86|295295
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Arctovish
+|-damage|p1a: Arctovish|192295
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie
+|chat|DEBUG|Own moves: fishiousrend psychicfangs iciclecrash bodyslam
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish', 'cobalion']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 192 vs 252
+|chat|DEBUG|Created a new Strategy for arctovish vs alcremie:
+|chat|DEBUG|>[fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 147.5 [135, 160]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 94.875 [87, 103]
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Wash, L82|100100
+|move|p1a: Arctovish|Fishious Rend|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|46100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['alcremie', 'cobalion']
+|chat|DEBUG|Counter: ['raichu', 'alcremie', 'cobalion']
+|chat|DEBUG|Speed: 144 vs 188
+|chat|DEBUG|HP: 192 vs 99
+|chat|DEBUG|Created a new Strategy for arctovish vs rotomwash:
+|chat|DEBUG|>[fishiousrend: 58.25 [54, 63], fishiousrend: 58.25 [54, 63], fishiousrend: 58.25 [54, 63]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 58.25 [54, 63]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 183.75 [168, 200]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check alcremie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Alcremie|Alcremie, L86, F|252252
+|move|p2a: Rotom|Thunderbolt|p1a: Alcremie
+|-damage|p1a: Alcremie|173252
+|-heal|p1a: Alcremie|188252|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash
+|chat|DEBUG|Own moves: psychic calmmind recover dazzlinggleam
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['cobalion']
+|chat|DEBUG|Counter: ['raichu', 'alcremie', 'cobalion']
+|chat|DEBUG|Speed: 159 vs 188
+|chat|DEBUG|HP: 188 vs 99
+|chat|DEBUG|Created a new Strategy for alcremie vs rotomwash:
+|chat|DEBUG|>[dazzlinggleam: 86.4375 [79, 94], dazzlinggleam: 86.4375 [79, 94], dazzlinggleam: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 86.4375 [79, 94]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 73.9375 [67, 81]
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|actionkamenZ has 120 seconds left.
+|switch|p2a: Golduck|Golduck, L86, F|100100
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Golduck
+|-damage|p2a: Golduck|60100
+|-heal|p1a: Alcremie|203252|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "golduck"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-golduck
+|chat|DEBUG|Own moves: psychic calmmind recover dazzlinggleam
+|chat|DEBUG|Enemy moves: calmmind focusblast scald substitute
+|chat|DEBUG|Checks: ['zapdos', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'alcremie', 'cobalion', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 195
+|chat|DEBUG|HP: 203 vs 166
+|chat|DEBUG|Created a new Strategy for alcremie vs golduck:
+|chat|DEBUG|>[dazzlinggleam: 103.25 [94, 112], dazzlinggleam: 103.25 [94, 112], dazzlinggleam: 103.25 [94, 112]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 103.25 [94, 112]
+|chat|DEBUG|Best move of golduck (p2): scald: 67.25 [61, 73]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golduck|Ice Beam|p1a: Alcremie
+|-damage|p1a: Alcremie|130252
+|move|p1a: Alcremie|Calm Mind|p1a: Alcremie
+|-boost|p1a: Alcremie|spa|1
+|-boost|p1a: Alcremie|spd|1
+|-heal|p1a: Alcremie|145252|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "golduck"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-golduck
+|chat|DEBUG|Own moves: psychic calmmind recover dazzlinggleam
+|chat|DEBUG|Enemy moves: calmmind focusblast scald substitute
+|chat|DEBUG|Checks: ['zapdos', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'alcremie', 'cobalion', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 195
+|chat|DEBUG|HP: 145 vs 166
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 103.25 [94, 112]
+|chat|DEBUG|Best move of golduck (p2): scald: 45.0625 [42, 49]
+|chat|DEBUG|Healing using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golduck|Ice Beam|p1a: Alcremie
+|-damage|p1a: Alcremie|95252
+|move|p1a: Alcremie|Recover|p1a: Alcremie
+|-heal|p1a: Alcremie|221252
+|-heal|p1a: Alcremie|236252|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "golduck"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-golduck
+|chat|DEBUG|Own moves: psychic calmmind recover dazzlinggleam
+|chat|DEBUG|Enemy moves: calmmind focusblast scald substitute
+|chat|DEBUG|Checks: ['zapdos', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'alcremie', 'cobalion', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 195
+|chat|DEBUG|HP: 236 vs 166
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 103.25 [94, 112]
+|chat|DEBUG|Best move of golduck (p2): scald: 45.0625 [42, 49]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golduck|Ice Beam|p1a: Alcremie
+|-damage|p1a: Alcremie|189252
+|move|p1a: Alcremie|Calm Mind|p1a: Alcremie
+|-boost|p1a: Alcremie|spa|1
+|-boost|p1a: Alcremie|spd|1
+|-heal|p1a: Alcremie|204252|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "golduck"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-golduck
+|chat|DEBUG|Own moves: psychic calmmind recover dazzlinggleam
+|chat|DEBUG|Enemy moves: calmmind focusblast scald substitute
+|chat|DEBUG|Checks: ['zapdos', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'alcremie', 'cobalion', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 195
+|chat|DEBUG|HP: 204 vs 166
+|chat|DEBUG|Created a new Strategy for alcremie vs golduck:
+|chat|DEBUG|>[dazzlinggleam: 204.5 [187, 222], dazzlinggleam: 204.5 [187, 222], dazzlinggleam: 204.5 [187, 222]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 204.5 [187, 222]
+|chat|DEBUG|Best move of golduck (p2): scald: 33.875 [31, 37]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golduck|Ice Beam|p1a: Alcremie
+|-damage|p1a: Alcremie|162252
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Golduck
+|-damage|p2a: Golduck|0 fnt
+|faint|p2a: Golduck
+|-heal|p1a: Alcremie|177252|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-registeel
+|chat|DEBUG|Own moves: psychic calmmind recover dazzlinggleam
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: ['cobalion']
+|chat|DEBUG|Counter: ['arctovish', 'cobalion']
+|chat|DEBUG|Speed: 159 vs 131
+|chat|DEBUG|HP: 177 vs 268
+|chat|DEBUG|Created a new Strategy for alcremie vs registeel:
+|chat|DEBUG|>[dazzlinggleam: 64.5 [59, 70], dazzlinggleam: 64.5 [59, 70], dazzlinggleam: 64.5 [59, 70]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 64.5 [59, 70]
+|chat|DEBUG|Best move of registeel (p2): ironhead: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cobalion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cobalion|Cobalion, L78|270270
+|move|p2a: Registeel|Toxic|p1a: Cobalion
+|-immune|p1a: Cobalion
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cobalion" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-registeel
+|chat|DEBUG|Own moves: closecombat ironhead stealthrock stoneedge
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: ['cobalion']
+|chat|DEBUG|Counter: ['arctovish', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 131
+|chat|DEBUG|HP: 270 vs 268
+|chat|DEBUG|Created a new Strategy for cobalion vs registeel:
+|chat|DEBUG|>[closecombat: 139.125 [128, 152], closecombat: 139.125 [128, 152], closecombat: 139.125 [128, 152]]
+|chat|DEBUG|Best move of cobalion (p1): closecombat: 139.125 [128, 152]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 126.75 [116, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cobalion|Stealth Rock|p2a: Registeel
+|-sidestart|p2: actionkamenZ|move: Stealth Rock
+|move|p2a: Registeel|Body Press|p1a: Cobalion
+|-supereffective|p1a: Cobalion
+|-damage|p1a: Cobalion|142270
+|-heal|p1a: Cobalion|158270|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie cobalion moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cobalion" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-cobalion-moltresgalar -- alcremie-rotomwash-registeel
+|chat|DEBUG|Own moves: closecombat ironhead stealthrock stoneedge
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish', 'cobalion']
+|chat|DEBUG|Speed: 214 vs 131
+|chat|DEBUG|HP: 158 vs 268
+|chat|DEBUG|Best move of cobalion (p1): closecombat: 139.125 [128, 152]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 126.75 [116, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cobalion|Close Combat|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|46100
+|-unboost|p1a: Cobalion|def|1
+|-unboost|p1a: Cobalion|spd|1
+|move|p2a: Registeel|Body Press|p1a: Cobalion
+|-supereffective|p1a: Cobalion
+|-damage|p1a: Cobalion|0 fnt
+|faint|p1a: Cobalion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctovish|Arctovish, L86|192295
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cobalion" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-moltresgalar -- alcremie-rotomwash-registeel
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to arctovish (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Wash, L82|46100
+|-damage|p2a: Rotom|34100|[from] Stealth Rock
+|move|p1a: Arctovish|Fishious Rend|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|actionkamenZ has 90 seconds left.
+|switch|p2a: Registeel|Registeel, L83|46100
+|-damage|p2a: Registeel|40100|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-moltresgalar -- alcremie-rotomwash-registeel
+|chat|DEBUG|Own moves: fishiousrend psychicfangs iciclecrash bodyslam
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'arctovish', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 144 vs 131
+|chat|DEBUG|HP: 192 vs 123
+|chat|DEBUG|Created a new Strategy for arctovish vs registeel:
+|chat|DEBUG|>[fishiousrend: 176.6875 [162, 192], fishiousrend: 176.6875 [162, 192], fishiousrend: 176.6875 [162, 192]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 176.6875 [162, 192]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 141.5 [130, 154]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|actionkamenZ has 90 seconds left.
+|move|p1a: Arctovish|Fishious Rend|p2a: Registeel
+|-damage|p2a: Registeel|0 fnt
+|faint|p2a: Registeel
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|actionkamenZ has 90 seconds left.
+|switch|p2a: Alcremie|Alcremie, L86, F|100100
+|-damage|p2a: Alcremie|88100|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-moltresgalar -- alcremie-registeel
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: ['zapdos', 'arctovish']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'arctovish', 'alcremie', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 131
+|chat|DEBUG|HP: 192 vs 107
+|chat|DEBUG|Created a new Strategy for arctovish vs registeel:
+|chat|DEBUG|>[fishiousrend: 176.6875 [162, 192], fishiousrend: 176.6875 [162, 192], fishiousrend: 176.6875 [162, 192]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 176.6875 [162, 192]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 141.5 [130, 154]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Arctovish
+|-damage|p1a: Arctovish|99295
+|move|p1a: Arctovish|Fishious Rend|p2a: Alcremie
+|-damage|p2a: Alcremie|25100
+|-heal|p2a: Alcremie|31100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-moltresgalar -- alcremie
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 192 vs 221
+|chat|DEBUG|Created a new Strategy for arctovish vs alcremie:
+|chat|DEBUG|>[fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 147.5 [135, 160]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 94.875 [87, 103]
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|81100
+|move|p1a: Arctovish|Fishious Rend|p2a: Alcremie
+|-damage|p2a: Alcremie|21100
+|-heal|p2a: Alcremie|27100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-moltresgalar -- alcremie
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raichu', 'arctovish', 'moltresgalar']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 99 vs 78
+|chat|DEBUG|Created a new Strategy for arctovish vs alcremie:
+|chat|DEBUG|>[fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 147.5 [135, 160]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 94.875 [87, 103]
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|77100
+|move|p1a: Arctovish|Fishious Rend|p2a: Alcremie
+|-crit|p2a: Alcremie
+|-damage|p2a: Alcremie|0 fnt
+|faint|p2a: Alcremie
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blacephalon|Blacephalon, L80|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos raichu arctovish alcremie moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-raichu-arctovish-alcremie-moltresgalar -- alcremie
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['zapdos', 'raichu', 'arctovish', 'moltresgalar']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 99 vs 68
+|chat|DEBUG|Created a new Strategy for arctovish vs alcremie:
+|chat|DEBUG|>[fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160], fishiousrend: 147.5 [135, 160]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 147.5 [135, 160]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 94.875 [87, 103]
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blacephalon|Psyshock|p1a: Arctovish
+|-damage|p1a: Arctovish|33295
+|move|p1a: Arctovish|Fishious Rend|p2a: Blacephalon
+|-supereffective|p2a: Blacephalon
+|-damage|p2a: Blacephalon|0 fnt
+|faint|p2a: Blacephalon
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>actionkamenZ</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">zapdos raichu arctovish alcremie cobalion moltresgalar</h1>

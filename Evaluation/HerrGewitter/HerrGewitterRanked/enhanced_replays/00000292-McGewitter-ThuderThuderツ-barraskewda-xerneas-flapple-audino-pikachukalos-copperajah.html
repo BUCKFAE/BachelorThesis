@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490448108<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490448108|init|battle
+|title|McGewitter vs. Thuder Thuder ツ
+|j|☆McGewitter
+|j|☆Thuder Thuder ツ
+|gametype|singles
+|player|p1|McGewitter|265|1196
+|player|p2|Thuder Thuder ツ|yellow|1152
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Barraskewda|Barraskewda, L80, F|229229
+|switch|p2a: Nihilego|Nihilego, L80|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>barraskewda xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "barraskewda" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>barraskewda-xerneas-flapple-audino-pikachukalos-copperajah -- nihilego
+|chat|DEBUG|Own moves: liquidation psychicfangs poisonjab closecombat
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['barraskewda', 'copperajah']
+|chat|DEBUG|Counter: ['barraskewda', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 264 vs 211
+|chat|DEBUG|HP: 229 vs 306
+|chat|DEBUG|Created a new Strategy for barraskewda vs nihilego:
+|chat|DEBUG|>[liquidation: 484.0 [444, 524], liquidation: 484.0 [444, 524], liquidation: 484.0 [444, 524]]
+|chat|DEBUG|Best move of barraskewda (p1): liquidation: 484.0 [444, 524]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 177.9375 [163, 193]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Barraskewda|Liquidation|p2a: Nihilego
+|-supereffective|p2a: Nihilego
+|-crit|p2a: Nihilego
+|-damage|p2a: Nihilego|0 fnt
+|faint|p2a: Nihilego
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|100100
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Kyogre
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>barraskewda xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "barraskewda" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>barraskewda-xerneas-flapple-audino-pikachukalos-copperajah -- kyogre
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 264 vs 172
+|chat|DEBUG|HP: 229 vs 263
+|chat|DEBUG|Created a new Strategy for barraskewda vs kyogre:
+|chat|DEBUG|>[liquidation: 85.3125 [78, 93], liquidation: 85.3125 [78, 93], liquidation: 85.3125 [78, 93]]
+|chat|DEBUG|Best move of barraskewda (p1): liquidation: 85.3125 [78, 93]
+|chat|DEBUG|Best move of kyogre (p2): thunder: 252.5 [232, 274]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Barraskewda|Liquidation|p2a: Kyogre
+|-resisted|p2a: Kyogre
+|-damage|p2a: Kyogre|55100
+|move|p2a: Kyogre|Thunder|p1a: Barraskewda
+|-supereffective|p1a: Barraskewda
+|-damage|p1a: Barraskewda|0 fnt
+|faint|p1a: Barraskewda
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pikachu|Pikachu-Kalos, L92, M|214214
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "barraskewda" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pikachukalos', 'copperajah']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pikachukalos (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Flapple|Flapple, L84, M|100100
+|move|p1a: Pikachu|Volt Tackle|p2a: Flapple
+|-resisted|p2a: Flapple
+|-damage|p2a: Flapple|80100
+|-damage|p1a: Pikachu|197214|[from] Recoil
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachukalos" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre
+|chat|DEBUG|Own moves: voltswitch volttackle irontail knockoff
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['copperajah']
+|chat|DEBUG|Counter: ['xerneas', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 218 vs 172
+|chat|DEBUG|HP: 214 vs 144
+|chat|DEBUG|Created a new Strategy for pikachukalos vs kyogre:
+|chat|DEBUG|>[volttackle: 456.0 [420, 494], volttackle: 456.0 [420, 494], volttackle: 456.0 [420, 494]]
+|chat|DEBUG|Best move of pikachukalos (p1): volttackle: 456.0 [420, 494]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 165.75 [153, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xerneas|Xerneas, L67|280280
+|-ability|p1a: Xerneas|Fairy Aura
+|move|p2a: Flapple|Dragon Dance|p2a: Flapple
+|-boost|p2a: Flapple|atk|1
+|-boost|p2a: Flapple|spe|1
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachukalos" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-flapple
+|chat|DEBUG|Own moves: voltswitch volttackle irontail knockoff
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: ['xerneas', 'copperajah']
+|chat|DEBUG|Counter: ['xerneas', 'copperajah']
+|chat|DEBUG|Speed: 218 vs 166
+|chat|DEBUG|HP: 197 vs 204
+|chat|DEBUG|Created a new Strategy for pikachukalos vs flapple:
+|chat|DEBUG|>[knockoff: 116.0625 [107, 126], knockoff: 116.0625 [107, 126], knockoff: 116.0625 [107, 126]]
+|chat|DEBUG|Best move of pikachukalos (p1): knockoff: 116.0625 [107, 126]
+|chat|DEBUG|Best move of flapple (p2): outrage: 420.5625 [386, 456]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check xerneas
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xerneas|Moonblast|p2a: Flapple
+|-supereffective|p2a: Flapple
+|-damage|p2a: Flapple|0 fnt
+|faint|p2a: Flapple
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|55100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xerneas" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-flapple
+|chat|DEBUG|Own moves: focusblast psyshock moonblast thunderbolt
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xerneas', 'copperajah']
+|chat|DEBUG|Speed: 172 vs 166
+|chat|DEBUG|HP: 280 vs 204
+|chat|DEBUG|Created a new Strategy for xerneas vs flapple:
+|chat|DEBUG|>[moonblast: 283.125 [260, 308], moonblast: 283.125 [260, 308], moonblast: 283.125 [260, 308]]
+|chat|DEBUG|Best move of xerneas (p1): moonblast: 283.125 [260, 308]
+|chat|DEBUG|Best move of flapple (p2): gravapple: 317.9375 [292, 344]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyogre|Origin Pulse|p1a: Xerneas
+|-damage|p1a: Xerneas|69280
+|move|p1a: Xerneas|Moonblast|p2a: Kyogre
+|-crit|p2a: Kyogre
+|-damage|p2a: Kyogre|4100
+|-unboost|p2a: Kyogre|spa|1
+|-weather|none
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xerneas" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['copperajah']
+|chat|DEBUG|Counter: ['xerneas', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 172 vs 172
+|chat|DEBUG|HP: 280 vs 144
+|chat|DEBUG|Created a new Strategy for xerneas vs kyogre:
+|chat|DEBUG|>[moonblast: 87.9375 [81, 96], moonblast: 87.9375 [81, 96], moonblast: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of xerneas (p1): moonblast: 87.9375 [81, 96]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 138.5625 [127, 151]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, M|332332
+|move|p2a: Kyogre|Origin Pulse|p1a: Audino
+|-damage|p1a: Audino|254332
+|-heal|p1a: Audino|274332|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xerneas" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre
+|chat|DEBUG|Own moves: moonblast
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['audino', 'copperajah']
+|chat|DEBUG|Counter: ['flapple', 'audino', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 172 vs 172
+|chat|DEBUG|HP: 69 vs 10
+|chat|DEBUG|Created a new Strategy for xerneas vs kyogre:
+|chat|DEBUG|>[moonblast: 87.9375 [81, 96], moonblast: 87.9375 [81, 96], moonblast: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of xerneas (p1): moonblast: 87.9375 [81, 96]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 93.25 [85, 102]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check audino
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|100100
+|move|p1a: Audino|Knock Off|p2a: Charizard
+|-damage|p2a: Charizard|77100
+|-enditem|p2a: Charizard|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|294332|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['audino', 'copperajah']
+|chat|DEBUG|Counter: ['flapple', 'audino', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 141 vs 172
+|chat|DEBUG|HP: 274 vs 10
+|chat|DEBUG|Created a new Strategy for audino vs kyogre:
+|chat|DEBUG|>[knockoff: 64.3125 [59, 70], knockoff: 64.3125 [59, 70], knockoff: 64.3125 [59, 70]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 64.3125 [59, 70]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 78.1875 [72, 85]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Audino
+|-damage|p1a: Audino|238332
+|move|p1a: Audino|Knock Off|p2a: Charizard
+|-damage|p2a: Charizard|60100
+|-heal|p1a: Audino|258332|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 141 vs 211
+|chat|DEBUG|HP: 294 vs 201
+|chat|DEBUG|Created a new Strategy for audino vs charizard:
+|chat|DEBUG|>[knockoff: 42.125 [39, 46], knockoff: 42.125 [39, 46], knockoff: 42.125 [39, 46]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 42.125 [39, 46]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|100100
+|move|p1a: Audino|Knock Off|p2a: Tornadus
+|-damage|p2a: Tornadus|74100
+|-enditem|p2a: Tornadus|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|278332|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 141 vs 211
+|chat|DEBUG|HP: 258 vs 157
+|chat|DEBUG|Best move of audino (p1): knockoff: 42.125 [39, 46]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Copperajah|Copperajah, L84, F|342342
+|move|p2a: Tornadus|Superpower|p1a: Copperajah
+|-supereffective|p1a: Copperajah
+|-damage|p1a: Copperajah|158342
+|-unboost|p2a: Tornadus|atk|1
+|-unboost|p2a: Tornadus|def|1
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: ['copperajah']
+|chat|DEBUG|Counter: ['copperajah']
+|chat|DEBUG|Speed: 141 vs 234
+|chat|DEBUG|HP: 278 vs 185
+|chat|DEBUG|Created a new Strategy for audino vs tornadustherian:
+|chat|DEBUG|>[knockoff: 44.0 [40, 48], knockoff: 44.0 [40, 48], knockoff: 44.0 [40, 48]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 44.0 [40, 48]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 145.25 [134, 158]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|140342
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|60100|[from]move: U-turn
+|move|p1a: Copperajah|Heavy Slam|p2a: Charizard
+|-resisted|p2a: Charizard
+|-damage|p2a: Charizard|13100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "copperajah" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: earthquake stoneedge heatcrash heavyslam
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['audino', 'copperajah']
+|chat|DEBUG|Speed: 99 vs 234
+|chat|DEBUG|HP: 158 vs 185
+|chat|DEBUG|Created a new Strategy for copperajah vs tornadustherian:
+|chat|DEBUG|>[heavyslam: 414.5 [381, 448], heavyslam: 414.5 [381, 448], heavyslam: 414.5 [381, 448]]
+|chat|DEBUG|Best move of copperajah (p1): heavyslam: 414.5 [381, 448]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 121.375 [112, 132]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, M|332332
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|63100
+|-singleturn|p2a: Charizard|move: Roost
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "copperajah" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: heavyslam
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['flapple', 'audino', 'pikachukalos']
+|chat|DEBUG|Speed: 99 vs 211
+|chat|DEBUG|HP: 140 vs 34
+|chat|DEBUG|Created a new Strategy for copperajah vs charizard:
+|chat|DEBUG|>[heavyslam: 134.0 [123, 145], heavyslam: 134.0 [123, 145], heavyslam: 134.0 [123, 145]]
+|chat|DEBUG|Best move of copperajah (p1): heavyslam: 134.0 [123, 145]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 289.125 [266, 314]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check audino
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Charizard
+|-damage|p2a: Charizard|83100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple', 'pikachukalos']
+|chat|DEBUG|Speed: 141 vs 211
+|chat|DEBUG|HP: 332 vs 165
+|chat|DEBUG|Created a new Strategy for audino vs charizard:
+|chat|DEBUG|>[knockoff: 42.125 [39, 46], knockoff: 42.125 [39, 46], knockoff: 42.125 [39, 46]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 42.125 [39, 46]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|100100
+|move|p1a: Audino|Knock Off|p2a: Tornadus
+|-damage|p2a: Tornadus|83100
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple', 'pikachukalos']
+|chat|DEBUG|Speed: 141 vs 211
+|chat|DEBUG|HP: 332 vs 217
+|chat|DEBUG|Best move of audino (p1): knockoff: 42.125 [39, 46]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Superpower|p1a: Audino
+|-supereffective|p1a: Audino
+|-damage|p1a: Audino|184332
+|-unboost|p2a: Tornadus|atk|1
+|-unboost|p2a: Tornadus|def|1
+|move|p1a: Audino|Knock Off|p2a: Tornadus
+|-damage|p2a: Tornadus|56100
+|-heal|p1a: Audino|204332|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 141 vs 234
+|chat|DEBUG|HP: 332 vs 208
+|chat|DEBUG|Created a new Strategy for audino vs tornadustherian:
+|chat|DEBUG|>[knockoff: 44.0 [40, 48], knockoff: 44.0 [40, 48], knockoff: 44.0 [40, 48]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 44.0 [40, 48]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 145.25 [134, 158]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Audino
+|-damage|p1a: Audino|175332
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sylveon|Sylveon, L84, F|100100|[from]move: U-turn
+|move|p1a: Audino|Knock Off|p2a: Sylveon
+|-resisted|p2a: Sylveon
+|-damage|p2a: Sylveon|89100
+|-enditem|p2a: Sylveon|Leftovers|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|195332|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['copperajah']
+|chat|DEBUG|Speed: 141 vs 234
+|chat|DEBUG|HP: 204 vs 140
+|chat|DEBUG|Best move of audino (p1): knockoff: 44.0 [40, 48]
+|chat|DEBUG|Best move of tornadustherian (p2): hurricane: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xerneas|Xerneas, L67|69280
+|-ability|p1a: Xerneas|Fairy Aura
+|move|p2a: Sylveon|Calm Mind|p2a: Sylveon
+|-boost|p2a: Sylveon|spa|1
+|-boost|p2a: Sylveon|spd|1
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "audino" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian-sylveon
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['copperajah']
+|chat|DEBUG|Speed: 141 vs 149
+|chat|DEBUG|HP: 195 vs 264
+|chat|DEBUG|Created a new Strategy for audino vs sylveon:
+|chat|DEBUG|>[protect: 0.0 [0, 0], knockoff: 23.5625 [22, 26], knockoff: 23.5625 [22, 26]]
+|chat|DEBUG|Best move of audino (p1): protect: 0.0 [0, 0]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 119.75 [109, 130]
+|chat|DEBUG|Switching to xerneas as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xerneas|Psyshock|p2a: Sylveon
+|-damage|p2a: Sylveon|70100
+|move|p2a: Sylveon|Mystical Fire|p1a: Xerneas
+|-damage|p1a: Xerneas|0 fnt
+|faint|p1a: Xerneas
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pikachu|Pikachu-Kalos, L92, M|197214
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xerneas" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian-sylveon
+|chat|DEBUG|Own moves: focusblast psyshock moonblast thunderbolt
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['copperajah']
+|chat|DEBUG|Speed: 172 vs 149
+|chat|DEBUG|HP: 69 vs 264
+|chat|DEBUG|Created a new Strategy for xerneas vs sylveon:
+|chat|DEBUG|>[psyshock: 57.8125 [53, 63], psyshock: 57.8125 [53, 63], psyshock: 57.8125 [53, 63]]
+|chat|DEBUG|Best move of xerneas (p1): psyshock: 57.8125 [53, 63]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 286.4375 [262, 310]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pikachu|Volt Tackle|p2a: Sylveon
+|-damage|p2a: Sylveon|0 fnt
+|faint|p2a: Sylveon
+|-damage|p1a: Pikachu|129214|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|4100
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Kyogre
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xerneas" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian-sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['copperajah']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'flapple': 255, 'audino': 305, 'pikachukalos': 197, 'copperajah': 140}
+|chat|DEBUG|remaining_hp_team_2={'kyogre': 4, 'charizard': 83, 'tornadustherian': 56, 'sylveon': 89}
+|chat|DEBUG|battle.available_switches=[pikachukalos (pokemon object) [Active: False, Status: None], flapple (pokemon object) [Active: False, Status: None], audino (pokemon object) [Active: False, Status: None], copperajah (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'pikachukalos'
+|chat|DEBUG|>Switching to pikachukalos (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyogre|Origin Pulse|p1a: Pikachu
+|-damage|p1a: Pikachu|0 fnt
+|faint|p1a: Pikachu
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, M|305332
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pikachukalos" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian-sylveon
+|chat|DEBUG|Own moves: voltswitch volttackle irontail knockoff
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple', 'pikachukalos', 'copperajah']
+|chat|DEBUG|Speed: 218 vs 149
+|chat|DEBUG|HP: 197 vs 207
+|chat|DEBUG|Created a new Strategy for pikachukalos vs sylveon:
+|chat|DEBUG|>[volttackle: 249.0 [229, 270], volttackle: 249.0 [229, 270], volttackle: 249.0 [229, 270]]
+|chat|DEBUG|Best move of pikachukalos (p1): volttackle: 249.0 [229, 270]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 255.75 [235, 277]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Kyogre|Dynamax
+|-heal|p2a: Kyogre|4100|[silent]
+|move|p2a: Kyogre|Max Geyser|p1a: Audino
+|-damage|p1a: Audino|73332
+|move|p1a: Audino|Knock Off|p2a: Kyogre
+|-damage|p2a: Kyogre|0 fnt
+|-enditem|p2a: Kyogre|Choice Scarf|[from] move: Knock Off|[of] p1a: Audino
+|faint|p2a: Kyogre
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Audino|93332|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|89100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flapple audino pikachukalos copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pikachukalos" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flapple-audino-pikachukalos-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: voltswitch volttackle irontail knockoff
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['audino', 'pikachukalos']
+|chat|DEBUG|Speed: 218 vs 172
+|chat|DEBUG|HP: 129 vs 10
+|chat|DEBUG|Created a new Strategy for pikachukalos vs kyogre:
+|chat|DEBUG|>[volttackle: 456.0 [420, 494], volttackle: 456.0 [420, 494], volttackle: 456.0 [420, 494]]
+|chat|DEBUG|Best move of pikachukalos (p1): volttackle: 456.0 [420, 494]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 165.75 [153, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Hurricane|p1a: Audino
+|-damage|p1a: Audino|0 fnt
+|faint|p1a: Audino
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Flapple|Flapple, L84, M|255255
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flapple audino copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pikachukalos" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flapple-audino-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['audino']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'flapple': 255, 'audino': 305, 'copperajah': 140}
+|chat|DEBUG|remaining_hp_team_2={'kyogre': 4, 'charizard': 83, 'tornadustherian': 56}
+|chat|DEBUG|battle.available_switches=[flapple (pokemon object) [Active: False, Status: None], audino (pokemon object) [Active: False, Status: None], copperajah (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'audino'
+|chat|DEBUG|>Switching to audino (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Flapple|Dynamax
+|-heal|p1a: Flapple|510510|[silent]
+|move|p2a: Tornadus|Hurricane|p1a: Flapple
+|-supereffective|p1a: Flapple
+|-damage|p1a: Flapple|234510
+|move|p1a: Flapple|Max Wyrmwind|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|faint|p2a: Tornadus
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|83100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flapple audino copperajah
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "audino" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flapple-audino-copperajah -- kyogre-charizard-tornadustherian
+|chat|DEBUG|Own moves: knockoff toxic wish protect
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['audino']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 141 vs 172
+|chat|DEBUG|HP: 305 vs 10
+|chat|DEBUG|Created a new Strategy for audino vs kyogre:
+|chat|DEBUG|>[knockoff: 64.3125 [59, 70], knockoff: 64.3125 [59, 70], knockoff: 64.3125 [59, 70]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 64.3125 [59, 70]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 115.625 [106, 126]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Flapple
+|-supereffective|p1a: Flapple
+|-damage|p1a: Flapple|10510
+|move|p1a: Flapple|Max Wyrmwind|p2a: Charizard
+|-damage|p2a: Charizard|0 fnt
+|faint|p2a: Charizard
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Thuder Thuder ツ</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">barraskewda xerneas flapple audino pikachukalos copperajah</h1>

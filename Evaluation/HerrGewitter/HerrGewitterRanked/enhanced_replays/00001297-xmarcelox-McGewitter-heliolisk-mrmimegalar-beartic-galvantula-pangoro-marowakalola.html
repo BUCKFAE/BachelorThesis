@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492022373<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492022373|init|battle
+|title|xmarcelox vs. McGewitter
+|j|☆xmarcelox
+|j|☆McGewitter
+|gametype|singles
+|player|p1|xmarcelox|170|1221
+|player|p2|McGewitter|265|1245
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Wobbuffet|Wobbuffet, L92, F|100100
+|switch|p2a: Heliolisk|Heliolisk, L82, F|236236
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heliolisk mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heliolisk" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heliolisk-mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 226 vs 113
+|chat|DEBUG|HP: 236 vs 499
+|chat|DEBUG|Created a new Strategy for heliolisk vs wobbuffet:
+|chat|DEBUG|>[thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of heliolisk (p1): thunderbolt: 121.1875 [111, 132]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|xmarcelox has 120 seconds left.
+|move|p2a: Heliolisk|Thunderbolt|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|77100
+|-status|p1a: Wobbuffet|par
+|move|p1a: Wobbuffet|Encore|p2a: Heliolisk
+|-start|p2a: Heliolisk|Encore
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heliolisk mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heliolisk" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heliolisk-mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 226 vs 113
+|chat|DEBUG|HP: 236 vs 384
+|chat|DEBUG|Created a new Strategy for heliolisk vs wobbuffet:
+|chat|DEBUG|>[thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of heliolisk (p1): thunderbolt: 121.1875 [111, 132]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|52100 par
+|cant|p1a: Wobbuffet|par
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heliolisk mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heliolisk" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heliolisk-mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 226 vs 113
+|chat|DEBUG|HP: 236 vs 259
+|chat|DEBUG|Created a new Strategy for heliolisk vs wobbuffet:
+|chat|DEBUG|>[thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of heliolisk (p1): thunderbolt: 121.1875 [111, 132]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|26100 par
+|-enditem|p1a: Wobbuffet|Sitrus Berry|[eat]
+|-heal|p1a: Wobbuffet|51100 par|[from] item: Sitrus Berry
+|move|p1a: Wobbuffet|Mirror Coat|p2a: Heliolisk
+|-enditem|p2a: Heliolisk|Focus Sash
+|-damage|p2a: Heliolisk|1236
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heliolisk mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heliolisk" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heliolisk-mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 226 vs 113
+|chat|DEBUG|HP: 1 vs 254
+|chat|DEBUG|Created a new Strategy for heliolisk vs wobbuffet:
+|chat|DEBUG|>[thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132], thunderbolt: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of heliolisk (p1): thunderbolt: 121.1875 [111, 132]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|28100 par
+|cant|p1a: Wobbuffet|par
+|-end|p2a: Heliolisk|Encore
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heliolisk mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heliolisk" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heliolisk-mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['heliolisk', 'mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 226 vs 113
+|chat|DEBUG|HP: 1 vs 139
+|chat|DEBUG|Best move of heliolisk (p1): thunderbolt: 121.1875 [111, 132]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|2100 par
+|move|p1a: Wobbuffet|Mirror Coat|p2a: Heliolisk
+|-damage|p2a: Heliolisk|0 fnt
+|faint|p2a: Heliolisk
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, F|226226
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heliolisk" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to mrmimegalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Freeze-Dry|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|0 fnt
+|faint|p1a: Wobbuffet
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stoutland|Stoutland, L86, F|100100
+|-ability|p1a: Stoutland|Intimidate|boost
+|-unboost|p2a: Mr. Mime|atk|1
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mrmimegalar-beartic-galvantula-pangoro-marowakalola -- wobbuffet
+|chat|DEBUG|Own moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Counter: ['mrmimegalar', 'beartic', 'galvantula', 'pangoro', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 113
+|chat|DEBUG|HP: 226 vs 9
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs wobbuffet:
+|chat|DEBUG|>[freezedry: 90.875 [84, 99], freezedry: 90.875 [84, 99], freezedry: 90.875 [84, 99]]
+|chat|DEBUG|Best move of mrmimegalar (p1): freezedry: 90.875 [84, 99]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stoutland|Crunch|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|128226
+|move|p2a: Mr. Mime|Focus Blast|p1a: Stoutland|[miss]
+|-miss|p2a: Mr. Mime|p1a: Stoutland
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mrmimegalar-beartic-galvantula-pangoro-marowakalola -- stoutland
+|chat|DEBUG|Own moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: ['mrmimegalar']
+|chat|DEBUG|Counter: ['mrmimegalar', 'galvantula', 'pangoro']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 187
+|chat|DEBUG|HP: 226 vs 286
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs stoutland:
+|chat|DEBUG|>[focusblast: 161.875 [148, 176], focusblast: 161.875 [148, 176], focusblast: 161.875 [148, 176]]
+|chat|DEBUG|Best move of mrmimegalar (p1): focusblast: 161.875 [148, 176]
+|chat|DEBUG|Best move of stoutland (p2): crunch: 106.375 [98, 116]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stoutland|Crunch|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-crit|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Galvantula|Galvantula, L82, M|249249
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mrmimegalar beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mrmimegalar-beartic-galvantula-pangoro-marowakalola -- stoutland
+|chat|DEBUG|Own moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmimegalar', 'galvantula', 'pangoro']
+|chat|DEBUG|Speed: 221 vs 187
+|chat|DEBUG|HP: 128 vs 286
+|chat|DEBUG|Best move of mrmimegalar (p1): focusblast: 161.875 [148, 176]
+|chat|DEBUG|Best move of stoutland (p2): crunch: 106.375 [98, 116]
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|xmarcelox has 120 seconds left.
+|switch|p1a: Blaziken|Blaziken, L76, M|100100
+|move|p2a: Galvantula|Sticky Web|p1a: Blaziken
+|-sidestart|p1: xmarcelox|move: Sticky Web
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-galvantula-pangoro-marowakalola -- stoutland
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['galvantula', 'pangoro']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to galvantula (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Thunder|p1a: Blaziken
+|-damage|p1a: Blaziken|47100
+|move|p1a: Blaziken|Flare Blitz|p2a: Galvantula
+|-supereffective|p2a: Galvantula
+|-damage|p2a: Galvantula|0 fnt
+|faint|p2a: Galvantula
+|-damage|p1a: Blaziken|14100|[from] Recoil
+|-damage|p1a: Blaziken|4100|[from] item: Life Orb
+|-ability|p1a: Blaziken|Speed Boost|boost
+|-boost|p1a: Blaziken|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Marowak|Marowak-Alola, L84, M|238238
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-galvantula-pangoro-marowakalola -- stoutland
+|chat|DEBUG|Own moves: voltswitch thunder gigadrain stickyweb
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['galvantula', 'pangoro']
+|chat|DEBUG|Speed: 224 vs 187
+|chat|DEBUG|HP: 249 vs 286
+|chat|DEBUG|Created a new Strategy for galvantula vs stoutland:
+|chat|DEBUG|>[thunder: 105.875 [97, 115], thunder: 105.875 [97, 115], thunder: 105.875 [97, 115]]
+|chat|DEBUG|Best move of galvantula (p1): thunder: 105.875 [97, 115]
+|chat|DEBUG|Best move of stoutland (p2): facade: 115.625 [106, 126]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Setting Sticky web
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blaziken|Knock Off|p2a: Marowak
+|-supereffective|p2a: Marowak
+|-damage|p2a: Marowak|92238
+|-enditem|p2a: Marowak|Thick Club|[from] move: Knock Off|[of] p1a: Blaziken
+|-damage|p1a: Blaziken|0 fnt|[from] item: Life Orb
+|faint|p1a: Blaziken
+|move|p2a: Marowak|Earthquake|p1: Blaziken|[notarget]
+|-fail|p2a: Marowak
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stoutland|Stoutland, L86, F|100100
+|-activate|p1a: Stoutland|move: Sticky Web
+|-unboost|p1a: Stoutland|spe|1
+|-ability|p1a: Stoutland|Intimidate|boost
+|-unboost|p2a: Marowak|atk|1
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic galvantula pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "blaziken"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-galvantula-pangoro-marowakalola -- stoutland-blaziken
+|chat|DEBUG|Own moves: voltswitch thunder gigadrain stickyweb
+|chat|DEBUG|Enemy moves: closecombat flareblitz stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['galvantula']
+|chat|DEBUG|Speed: 224 vs 166
+|chat|DEBUG|HP: 249 vs 247
+|chat|DEBUG|Created a new Strategy for galvantula vs blaziken:
+|chat|DEBUG|>[thunder: 143.125 [132, 156], thunder: 143.125 [132, 156], thunder: 143.125 [132, 156]]
+|chat|DEBUG|Best move of galvantula (p1): thunder: 143.125 [132, 156]
+|chat|DEBUG|Best move of blaziken (p2): flareblitz: 430.9375 [398, 468]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Attacking using thunder
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stoutland|Crunch|p2a: Marowak
+|-supereffective|p2a: Marowak
+|-damage|p2a: Marowak|0 fnt
+|faint|p2a: Marowak
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pangoro|Pangoro, L84, F|297297
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "blaziken"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro-marowakalola -- stoutland-blaziken
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat flareblitz stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: marowakalola
+|chat|DEBUG|>Switching to marowakalola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raichu|Raichu-Alola, L84, F|100100
+|-activate|p1a: Raichu|move: Sticky Web
+|-unboost|p1a: Raichu|spe|1
+|move|p2a: Pangoro|Close Combat|p1a: Raichu
+|-resisted|p1a: Raichu
+|-damage|p1a: Raichu|30100
+|-unboost|p2a: Pangoro|def|1
+|-unboost|p2a: Pangoro|spd|1
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "blaziken"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro-marowakalola -- stoutland-blaziken
+|chat|DEBUG|Own moves: flamecharge poltergeist earthquake flareblitz
+|chat|DEBUG|Enemy moves: closecombat flareblitz stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Speed: 124 vs 166
+|chat|DEBUG|HP: 238 vs 9
+|chat|DEBUG|Created a new Strategy for marowakalola vs blaziken:
+|chat|DEBUG|>[earthquake: 160.0 [146, 174], earthquake: 160.0 [146, 174], earthquake: 160.0 [146, 174]]
+|chat|DEBUG|Best move of marowakalola (p1): earthquake: 160.0 [146, 174]
+|chat|DEBUG|Best move of blaziken (p2): stoneedge: 152.75 [140, 166]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raichu|Grass Knot|p2a: Pangoro
+|-damage|p2a: Pangoro|145297
+|-damage|p1a: Raichu|20100|[from] item: Life Orb
+|move|p2a: Pangoro|Close Combat|p1a: Raichu
+|-resisted|p1a: Raichu
+|-damage|p1a: Raichu|0 fnt
+|-unboost|p2a: Pangoro|def|1
+|-unboost|p2a: Pangoro|spd|1
+|faint|p1a: Raichu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tornadus|Tornadus, L80, M|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro-marowakalola -- stoutland
+|chat|DEBUG|Own moves: flamecharge poltergeist earthquake flareblitz
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pangoro']
+|chat|DEBUG|Speed: 124 vs 187
+|chat|DEBUG|HP: 92 vs 286
+|chat|DEBUG|Created a new Strategy for marowakalola vs stoutland:
+|chat|DEBUG|>[flareblitz: 53.125 [49, 58], flareblitz: 53.125 [49, 58], flareblitz: 53.125 [49, 58]]
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 53.125 [49, 58]
+|chat|DEBUG|Best move of stoutland (p2): crunch: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Nasty Plot|p1a: Tornadus
+|-boost|p1a: Tornadus|spa|2
+|move|p2a: Pangoro|Close Combat|p1a: Tornadus
+|-resisted|p1a: Tornadus
+|-damage|p1a: Tornadus|50100
+|-unboost|p2a: Pangoro|def|1
+|-unboost|p2a: Pangoro|spd|1
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro -- stoutland
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pangoro']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pangoro (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Grass Knot|p2a: Pangoro
+|-damage|p2a: Pangoro|0 fnt
+|faint|p2a: Pangoro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Beartic|Beartic, L86, M|303303
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "stoutland"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro -- stoutland
+|chat|DEBUG|Own moves: knockoff gunkshot partingshot closecombat
+|chat|DEBUG|Enemy moves: crunch facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pangoro']
+|chat|DEBUG|Speed: 146 vs 187
+|chat|DEBUG|HP: 297 vs 286
+|chat|DEBUG|Created a new Strategy for pangoro vs stoutland:
+|chat|DEBUG|>[closecombat: 442.5 [408, 480], closecombat: 442.5 [408, 480], closecombat: 442.5 [408, 480]]
+|chat|DEBUG|Best move of pangoro (p1): closecombat: 442.5 [408, 480]
+|chat|DEBUG|Best move of stoutland (p2): superpower: 213.625 [196, 232]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Beartic|Dynamax
+|-heal|p2a: Beartic|606606|[silent]
+|move|p1a: Tornadus|Heat Wave|p2a: Beartic|[miss]
+|-miss|p1a: Tornadus|p2a: Beartic
+|move|p2a: Beartic|Max Hailstorm|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|-weather|Hail
+|faint|p1a: Tornadus
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stoutland|Stoutland, L86, F|100100
+|-activate|p1a: Stoutland|move: Sticky Web
+|-unboost|p1a: Stoutland|spe|1
+|-ability|p1a: Stoutland|Intimidate|boost
+|-unboost|p2a: Beartic|atk|1
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "raichualola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro -- stoutland-raichualola
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: focusblast nastyplot psyshock thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['beartic']
+|chat|DEBUG|Speed: 146 vs 233
+|chat|DEBUG|HP: 297 vs 71
+|chat|DEBUG|Created a new Strategy for pangoro vs raichualola:
+|chat|DEBUG|>[closecombat: 170.625 [156, 185], closecombat: 170.625 [156, 185], closecombat: 170.625 [156, 185]]
+|chat|DEBUG|Best move of pangoro (p1): closecombat: 170.625 [156, 185]
+|chat|DEBUG|Best move of raichualola (p2): focusblast: 381.1875 [351, 413]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Beartic|Max Knuckle|p1a: Stoutland
+|-supereffective|p1a: Stoutland
+|-damage|p1a: Stoutland|63100
+|-boost|p2a: Beartic|atk|1
+|move|p1a: Stoutland|Superpower|p2a: Beartic
+|-supereffective|p2a: Beartic
+|-damage|p2a: Beartic|402606
+|-unboost|p1a: Stoutland|atk|1
+|-unboost|p1a: Stoutland|def|1
+|-weather|Hail|[upkeep]
+|-damage|p1a: Stoutland|57100|[from] Hail
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "tornadus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro -- stoutland-tornadus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: grassknot heatwave hurricane nastyplot
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['beartic']
+|chat|DEBUG|Speed: 146 vs 224
+|chat|DEBUG|HP: 145 vs 258
+|chat|DEBUG|Created a new Strategy for pangoro vs tornadus:
+|chat|DEBUG|>[closecombat: 142.0625 [131, 154], closecombat: 142.0625 [131, 154], closecombat: 142.0625 [131, 154]]
+|chat|DEBUG|Best move of pangoro (p1): closecombat: 142.0625 [131, 154]
+|chat|DEBUG|Best move of tornadus (p2): hurricane: 617.0 [566, 668]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Beartic|Max Knuckle|p1a: Stoutland
+|-supereffective|p1a: Stoutland
+|-damage|p1a: Stoutland|0 fnt
+|-boost|p2a: Beartic|atk|1
+|faint|p1a: Stoutland
+|-weather|Hail|[upkeep]
+|-end|p2a: Beartic|Dynamax
+|-heal|p2a: Beartic|201303|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xerneas|Xerneas, L67|100100
+|-activate|p1a: Xerneas|move: Sticky Web
+|-unboost|p1a: Xerneas|spe|1
+|-ability|p1a: Xerneas|Fairy Aura
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic pangoro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "tornadus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-pangoro -- stoutland-tornadus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: grassknot heatwave hurricane nastyplot
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 224
+|chat|DEBUG|HP: 145 vs 129
+|chat|DEBUG|Created a new Strategy for pangoro vs tornadus:
+|chat|DEBUG|>[closecombat: 142.0625 [131, 154], closecombat: 142.0625 [131, 154], closecombat: 142.0625 [131, 154]]
+|chat|DEBUG|Best move of pangoro (p1): closecombat: 142.0625 [131, 154]
+|chat|DEBUG|Best move of tornadus (p2): hurricane: 1549.25 [1424, 1676]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Xerneas|Dynamax
+|-heal|p1a: Xerneas|100100|[silent]
+|move|p2a: Beartic|Icicle Crash|p1a: Xerneas
+|-damage|p1a: Xerneas|43100
+|move|p1a: Xerneas|Max Knuckle|p2a: Beartic
+|-supereffective|p2a: Beartic
+|-damage|p2a: Beartic|87303
+|-boost|p1a: Xerneas|atk|1
+|-weather|Hail|[upkeep]
+|-damage|p1a: Xerneas|40100|[from] Hail
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "tornadus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic -- stoutland-tornadus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: grassknot heatwave hurricane nastyplot
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: beartic
+|chat|DEBUG|>Switching to beartic (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Beartic|Icicle Crash|p1a: Xerneas
+|-damage|p1a: Xerneas|0 fnt
+|faint|p1a: Xerneas
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>xmarcelox<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">heliolisk mrmimegalar beartic galvantula pangoro marowakalola</h1>

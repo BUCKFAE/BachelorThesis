@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490330737<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490330737|init|battle
+|title|faoxherez vs. McGewitter
+|j|☆faoxherez
+|j|☆McGewitter
+|gametype|singles
+|player|p1|faoxherez|cynthia-gen4|1162
+|player|p2|McGewitter|265|1167
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Abomasnow|Abomasnow, L82, F|100100
+|switch|p2a: Exploud|Exploud, L84, M|312312
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Abomasnow
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exploud" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow
+|chat|DEBUG|Own moves: boomburst focusblast surf fireblast
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['exploud', 'reshiram', 'kommoo']
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight', 'kommoo', 'rotomfan']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 162 vs 146
+|chat|DEBUG|HP: 312 vs 282
+|chat|DEBUG|Created a new Strategy for exploud vs abomasnow:
+|chat|DEBUG|>[fireblast: 461.0 [424, 500], fireblast: 461.0 [424, 500], fireblast: 461.0 [424, 500]]
+|chat|DEBUG|Best move of exploud (p1): fireblast: 461.0 [424, 500]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 146.125 [135, 159]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Exploud|Fire Blast|p1a: Abomasnow|[miss]
+|-miss|p2a: Exploud|p1a: Abomasnow
+|move|p1a: Abomasnow|Blizzard|p2a: Exploud
+|-damage|p2a: Exploud|198312
+|-weather|Hail|[upkeep]
+|-damage|p2a: Exploud|179312|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exploud" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['exploud', 'reshiram', 'kommoo']
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight', 'kommoo', 'rotomfan']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 162 vs 146
+|chat|DEBUG|HP: 179 vs 282
+|chat|DEBUG|Created a new Strategy for exploud vs abomasnow:
+|chat|DEBUG|>[fireblast: 461.0 [424, 500], fireblast: 461.0 [424, 500], fireblast: 461.0 [424, 500]]
+|chat|DEBUG|Best move of exploud (p1): fireblast: 461.0 [424, 500]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 146.125 [135, 159]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|100100
+|-ability|p1a: Palkia|Pressure
+|move|p2a: Exploud|Fire Blast|p1a: Palkia
+|-resisted|p1a: Palkia
+|-damage|p1a: Palkia|91100
+|-weather|Hail|[upkeep]
+|-damage|p1a: Palkia|85100|[from] Hail
+|-damage|p2a: Exploud|160312|[from] Hail
+|-heal|p1a: Palkia|91100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exploud" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['reshiram', 'arctovish']
+|chat|DEBUG|Speed: 162 vs 191
+|chat|DEBUG|HP: 160 vs 232
+|chat|DEBUG|Created a new Strategy for exploud vs palkia:
+|chat|DEBUG|>[fireblast: 24.0 [22, 26], fireblast: 24.0 [22, 26], fireblast: 24.0 [22, 26]]
+|chat|DEBUG|Best move of exploud (p1): fireblast: 24.0 [22, 26]
+|chat|DEBUG|Best move of palkia (p2): hydropump: 147.5 [135, 160]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arctovish|Arctovish, L86|295295
+|move|p1a: Palkia|Spacial Rend|p2a: Arctovish
+|-damage|p2a: Arctovish|222295
+|-weather|Hail|[upkeep]
+|-damage|p1a: Palkia|85100|[from] Hail
+|-heal|p1a: Palkia|91100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: fishiousrend freezedry bodyslam iciclecrash
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['reshiram', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 191
+|chat|DEBUG|HP: 222 vs 232
+|chat|DEBUG|Created a new Strategy for arctovish vs palkia:
+|chat|DEBUG|>[freezedry: 240.5 [220, 264], freezedry: 240.5 [220, 264], freezedry: 240.5 [220, 264]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 240.5 [220, 264]
+|chat|DEBUG|Best move of palkia (p2): fireblast: 55.9375 [51, 61]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Abomasnow|Abomasnow, L82, F|100100
+|move|p2a: Arctovish|Freeze-Dry|p1a: Abomasnow
+|-damage|p1a: Abomasnow|84100
+|-weather|Hail|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: fishiousrend freezedry bodyslam iciclecrash
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['exploud', 'reshiram', 'kommoo']
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight', 'kommoo', 'rotomfan']
+|chat|DEBUG|Speed: 144 vs 146
+|chat|DEBUG|HP: 222 vs 236
+|chat|DEBUG|Created a new Strategy for arctovish vs abomasnow:
+|chat|DEBUG|>[iciclecrash: 103.25 [94, 112], iciclecrash: 103.25 [94, 112], iciclecrash: 103.25 [94, 112]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 103.25 [94, 112]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check exploud
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exploud|Exploud, L84, M|160312
+|move|p1a: Abomasnow|Earthquake|p2a: Exploud
+|-damage|p2a: Exploud|81312
+|-weather|none
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exploud" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: boomburst focusblast surf fireblast
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['reshiram', 'kommoo']
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight', 'kommoo', 'rotomfan']
+|chat|DEBUG|Speed: 162 vs 146
+|chat|DEBUG|HP: 81 vs 236
+|chat|DEBUG|Created a new Strategy for exploud vs abomasnow:
+|chat|DEBUG|>[fireblast: 461.0 [424, 500], fireblast: 461.0 [424, 500], fireblast: 461.0 [424, 500]]
+|chat|DEBUG|Best move of exploud (p1): fireblast: 461.0 [424, 500]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 146.125 [135, 159]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|91100
+|-ability|p1a: Palkia|Pressure
+|move|p2a: Exploud|Fire Blast|p1a: Palkia
+|-resisted|p1a: Palkia
+|-damage|p1a: Palkia|81100
+|-heal|p1a: Palkia|87100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exploud" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['reshiram', 'arctovish']
+|chat|DEBUG|Speed: 162 vs 191
+|chat|DEBUG|HP: 81 vs 221
+|chat|DEBUG|Created a new Strategy for exploud vs palkia:
+|chat|DEBUG|>[fireblast: 24.0 [22, 26], fireblast: 24.0 [22, 26], fireblast: 24.0 [22, 26]]
+|chat|DEBUG|Best move of exploud (p1): fireblast: 24.0 [22, 26]
+|chat|DEBUG|Best move of palkia (p2): hydropump: 147.5 [135, 160]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arctovish|Arctovish, L86|222295
+|move|p1a: Palkia|Spacial Rend|p2a: Arctovish
+|-damage|p2a: Arctovish|143295
+|-heal|p1a: Palkia|93100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: fishiousrend freezedry bodyslam iciclecrash
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['reshiram', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 191
+|chat|DEBUG|HP: 143 vs 237
+|chat|DEBUG|Created a new Strategy for arctovish vs palkia:
+|chat|DEBUG|>[freezedry: 240.5 [220, 264], freezedry: 240.5 [220, 264], freezedry: 240.5 [220, 264]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 240.5 [220, 264]
+|chat|DEBUG|Best move of palkia (p2): fireblast: 55.9375 [51, 61]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['abomasnow']
+|chat|DEBUG|Expected enemy: abomasnow
+|chat|DEBUG|Using move iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Abomasnow|Abomasnow, L82, F|84100
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Abomasnow
+|move|p2a: Arctovish|Icicle Crash|p1a: Abomasnow
+|-damage|p1a: Abomasnow|48100
+|-weather|Hail|[upkeep]
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: fishiousrend freezedry bodyslam iciclecrash
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['reshiram', 'kommoo', 'rotomfan']
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight', 'kommoo', 'rotomfan']
+|chat|DEBUG|Speed: 144 vs 146
+|chat|DEBUG|HP: 143 vs 135
+|chat|DEBUG|Created a new Strategy for arctovish vs abomasnow:
+|chat|DEBUG|>[iciclecrash: 103.25 [94, 112], iciclecrash: 103.25 [94, 112], iciclecrash: 103.25 [94, 112]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 103.25 [94, 112]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check reshiram
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Reshiram|Reshiram, L74|270270
+|-ability|p2a: Reshiram|Turboblaze
+|move|p1a: Abomasnow|Earthquake|p2a: Reshiram
+|-supereffective|p2a: Reshiram
+|-damage|p2a: Reshiram|126270
+|-weather|Hail|[upkeep]
+|-damage|p2a: Reshiram|110270|[from] Hail
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- abomasnow-palkia
+|chat|DEBUG|Own moves: roost toxic dracometeor blueflare
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['reshiram', 'kommoo', 'rotomfan']
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight', 'kommoo', 'rotomfan']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 146
+|chat|DEBUG|HP: 110 vs 135
+|chat|DEBUG|Created a new Strategy for reshiram vs abomasnow:
+|chat|DEBUG|>[blueflare: 640.0 [588, 696], blueflare: 640.0 [588, 696], blueflare: 640.0 [588, 696]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 640.0 [588, 696]
+|chat|DEBUG|Best move of abomasnow (p2): blizzard: 94.875 [87, 103]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Reshiram|Blue Flare|p1a: Abomasnow
+|-supereffective|p1a: Abomasnow
+|-crit|p1a: Abomasnow
+|-damage|p1a: Abomasnow|0 fnt
+|faint|p1a: Abomasnow
+|-weather|Hail|[upkeep]
+|-damage|p2a: Reshiram|94270|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|93100
+|-ability|p1a: Palkia|Pressure
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- palkia
+|chat|DEBUG|Own moves: roost toxic dracometeor blueflare
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Speed: 176 vs 191
+|chat|DEBUG|HP: 94 vs 237
+|chat|DEBUG|Created a new Strategy for reshiram vs palkia:
+|chat|DEBUG|>[dracometeor: 271.0 [248, 294], dracometeor: 137.5 [126, 150], dracometeor: 92.125 [84, 102]]
+|chat|DEBUG|Best move of reshiram (p1): dracometeor: 271.0 [248, 294]
+|chat|DEBUG|Best move of palkia (p2): dracometeor: 271.0 [248, 294]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arctovish|Arctovish, L86|143295
+|move|p1a: Palkia|Spacial Rend|p2a: Arctovish
+|-crit|p2a: Arctovish
+|-damage|p2a: Arctovish|37295
+|-weather|Hail|[upkeep]
+|-damage|p1a: Palkia|87100|[from] Hail
+|-heal|p1a: Palkia|93100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo arctovish rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-arctovish-rotomfan -- palkia
+|chat|DEBUG|Own moves: fishiousrend freezedry bodyslam iciclecrash
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 144 vs 191
+|chat|DEBUG|HP: 37 vs 237
+|chat|DEBUG|Created a new Strategy for arctovish vs palkia:
+|chat|DEBUG|>[freezedry: 240.5 [220, 264], freezedry: 240.5 [220, 264], freezedry: 240.5 [220, 264]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 240.5 [220, 264]
+|chat|DEBUG|Best move of palkia (p2): fireblast: 55.9375 [51, 61]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Palkia|Spacial Rend|p2a: Arctovish
+|-damage|p2a: Arctovish|0 fnt
+|faint|p2a: Arctovish
+|-weather|none
+|-heal|p1a: Palkia|99100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|221221
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-rotomfan -- palkia
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: rotomfan
+|chat|DEBUG|>Switching to rotomfan (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Palkia
+|-damage|p1a: Palkia|62100
+|move|p1a: Palkia|Spacial Rend|p2a: Rotom
+|-damage|p2a: Rotom|125221
+|-heal|p1a: Palkia|68100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-rotomfan -- palkia
+|chat|DEBUG|Own moves: airslash thunderbolt willowisp voltswitch
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 193 vs 191
+|chat|DEBUG|HP: 221 vs 252
+|chat|DEBUG|Created a new Strategy for rotomfan vs palkia:
+|chat|DEBUG|>[thunderbolt: 90.875 [84, 99], thunderbolt: 90.875 [84, 99], thunderbolt: 90.875 [84, 99]]
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 90.875 [84, 99]
+|chat|DEBUG|Best move of palkia (p2): hydropump: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dugtrio|Dugtrio-Alola, L82, M|100100
+|move|p2a: Rotom|Thunderbolt|p1a: Dugtrio
+|-immune|p1a: Dugtrio
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-rotomfan -- palkia
+|chat|DEBUG|Own moves: airslash thunderbolt willowisp voltswitch
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 193 vs 191
+|chat|DEBUG|HP: 125 vs 173
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 90.875 [84, 99]
+|chat|DEBUG|Best move of palkia (p2): hydropump: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, F|251251
+|move|p1a: Dugtrio|Stealth Rock|p2a: Kommo-o
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "dugtrioalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-rotomfan -- palkia-dugtrioalola
+|chat|DEBUG|Own moves: airslash thunderbolt willowisp voltswitch
+|chat|DEBUG|Enemy moves: earthquake ironhead stoneedge suckerpunch
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 193 vs 228
+|chat|DEBUG|HP: 125 vs 192
+|chat|DEBUG|Created a new Strategy for rotomfan vs dugtrioalola:
+|chat|DEBUG|>[airslash: 50.625 [46, 55], airslash: 50.625 [46, 55], airslash: 50.625 [46, 55]]
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 50.625 [46, 55]
+|chat|DEBUG|Best move of dugtrioalola (p2): stoneedge: 177.0 [162, 192]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kommoo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dugtrio|Iron Head|p2a: Kommo-o
+|-damage|p2a: Kommo-o|164251
+|-damage|p1a: Dugtrio|91100|[from] item: Life Orb
+|move|p2a: Kommo-o|Close Combat|p1a: Dugtrio
+|-supereffective|p1a: Dugtrio
+|-damage|p1a: Dugtrio|0 fnt
+|-unboost|p2a: Kommo-o|def|1
+|-unboost|p2a: Kommo-o|spd|1
+|-ability|p1a: Dugtrio|Tangling Hair
+|-unboost|p2a: Kommo-o|spe|1
+|faint|p1a: Dugtrio
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|68100
+|-ability|p1a: Palkia|Pressure
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "dugtrioalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-rotomfan -- palkia-dugtrioalola
+|chat|DEBUG|Own moves: clangingscales clangoroussoul closecombat poisonjab
+|chat|DEBUG|Enemy moves: earthquake ironhead stoneedge suckerpunch
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 228
+|chat|DEBUG|HP: 251 vs 192
+|chat|DEBUG|Created a new Strategy for kommoo vs dugtrioalola:
+|chat|DEBUG|>[closecombat: 347.75 [320, 378], closecombat: 347.75 [320, 378], closecombat: 347.75 [320, 378]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 347.75 [320, 378]
+|chat|DEBUG|Best move of dugtrioalola (p2): earthquake: 122.5625 [112, 133]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Palkia|Spacial Rend|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-damage|p2a: Kommo-o|0 fnt
+|faint|p2a: Kommo-o
+|-heal|p1a: Palkia|74100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|125221
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight kommoo rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-kommoo-rotomfan -- palkia
+|chat|DEBUG|Own moves: clangingscales clangoroussoul closecombat poisonjab
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 182 vs 191
+|chat|DEBUG|HP: 164 vs 173
+|chat|DEBUG|Created a new Strategy for kommoo vs palkia:
+|chat|DEBUG|>[clangingscales: 195.25 [180, 212], clangingscales: 195.25 [180, 212], clangingscales: 195.25 [180, 212]]
+|chat|DEBUG|Best move of kommoo (p1): clangingscales: 195.25 [180, 212]
+|chat|DEBUG|Best move of palkia (p2): dracometeor: 419.75 [386, 456]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using clangingscales
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Glastrier|Glastrier, L82|100100
+|move|p2a: Rotom|Thunderbolt|p1a: Glastrier
+|-damage|p1a: Glastrier|73100
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-rotomfan -- palkia
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: rotomfan
+|chat|DEBUG|>Switching to rotomfan (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Glastrier
+|-damage|p1a: Glastrier|41100
+|move|p1a: Glastrier|High Horsepower|p2a: Rotom
+|-immune|p2a: Rotom
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "palkia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-rotomfan -- palkia
+|chat|DEBUG|Own moves: airslash thunderbolt willowisp voltswitch
+|chat|DEBUG|Enemy moves: dracometeor fireblast hydropump thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 193 vs 191
+|chat|DEBUG|HP: 125 vs 188
+|chat|DEBUG|Created a new Strategy for rotomfan vs palkia:
+|chat|DEBUG|>[thunderbolt: 90.875 [84, 99], thunderbolt: 90.875 [84, 99], thunderbolt: 90.875 [84, 99]]
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 90.875 [84, 99]
+|chat|DEBUG|Best move of palkia (p2): hydropump: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Glastrier
+|-damage|p1a: Glastrier|13100
+|move|p1a: Glastrier|Icicle Crash|p2a: Rotom
+|-supereffective|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|-ability|p1a: Glastrier|Chilling Neigh|boost
+|-boost|p1a: Glastrier|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exploud|Exploud, L84, M|81312
+|-damage|p2a: Exploud|42312|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-rotomfan -- palkia-glastrier
+|chat|DEBUG|Own moves: airslash thunderbolt willowisp voltswitch
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Speed: 193 vs 96
+|chat|DEBUG|HP: 125 vs 217
+|chat|DEBUG|Created a new Strategy for rotomfan vs glastrier:
+|chat|DEBUG|>[thunderbolt: 87.9375 [81, 96], thunderbolt: 87.9375 [81, 96], thunderbolt: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 87.9375 [81, 96]
+|chat|DEBUG|Best move of glastrier (p2): iciclecrash: 203.5 [186, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exploud|Boomburst|p1a: Glastrier
+|-damage|p1a: Glastrier|0 fnt
+|faint|p1a: Glastrier
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|74100
+|-ability|p1a: Palkia|Pressure
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight rotomfan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight-rotomfan -- palkia-glastrier
+|chat|DEBUG|Own moves: airslash thunderbolt willowisp voltswitch
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight']
+|chat|DEBUG|Speed: 193 vs 96
+|chat|DEBUG|HP: 125 vs 122
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 87.9375 [81, 96]
+|chat|DEBUG|Best move of glastrier (p2): iciclecrash: 203.5 [186, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Palkia|Dynamax
+|-heal|p1a: Palkia|74100|[silent]
+|move|p1a: Palkia|Max Geyser|p2a: Exploud
+|-damage|p2a: Exploud|0 fnt
+|-weather|RainDance
+|faint|p2a: Exploud
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Palkia|77100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lycanroc|Lycanroc-Midnight, L82, F|274274
+|-damage|p2a: Lycanroc|240274|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight -- palkia-glastrier
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to exploud (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Palkia|Max Geyser|p2a: Lycanroc
+|-supereffective|p2a: Lycanroc
+|-damage|p2a: Lycanroc|0 fnt
+|faint|p2a: Lycanroc
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Palkia|80100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Reshiram|Reshiram, L74|94270
+|-ability|p2a: Reshiram|Turboblaze
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exploud reshiram lycanrocmidnight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exploud" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exploud-reshiram-lycanrocmidnight -- palkia-glastrier
+|chat|DEBUG|Own moves: boomburst focusblast surf fireblast
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exploud', 'reshiram', 'lycanrocmidnight']
+|chat|DEBUG|Speed: 162 vs 96
+|chat|DEBUG|HP: 42 vs 38
+|chat|DEBUG|Created a new Strategy for exploud vs glastrier:
+|chat|DEBUG|>[boomburst: 180.6875 [166, 196], boomburst: 180.6875 [166, 196], boomburst: 180.6875 [166, 196]]
+|chat|DEBUG|Best move of exploud (p1): boomburst: 180.6875 [166, 196]
+|chat|DEBUG|Best move of glastrier (p2): closecombat: 420.875 [386, 456]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Palkia|Max Wyrmwind|p2a: Reshiram
+|-supereffective|p2a: Reshiram
+|-damage|p2a: Reshiram|0 fnt
+|faint|p2a: Reshiram
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>faoxherez<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">exploud reshiram lycanrocmidnight kommoo arctovish rotomfan</h1>

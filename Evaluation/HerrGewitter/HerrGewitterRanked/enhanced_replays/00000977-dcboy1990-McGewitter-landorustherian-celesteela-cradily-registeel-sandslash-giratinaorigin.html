@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491572973<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491572973|init|battle
+|title|dcboy1990 vs. McGewitter
+|j|☆dcboy1990
+|j|☆McGewitter
+|gametype|singles
+|player|p1|dcboy1990|266|1294
+|player|p2|McGewitter|265|1335
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dracozolt|Dracozolt, L78|100100
+|switch|p2a: Landorus|Landorus-Therian, L72, M|247247
+|-ability|p2a: Landorus|Intimidate|boost
+|-unboost|p1a: Dracozolt|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorustherian celesteela cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorustherian-celesteela-cradily-registeel-sandslash-giratinaorigin -- dracozolt
+|chat|DEBUG|Own moves: uturn stealthrock fly earthquake
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: ['landorustherian']
+|chat|DEBUG|Counter: ['landorustherian', 'sandslash', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 162
+|chat|DEBUG|HP: 247 vs 268
+|chat|DEBUG|Created a new Strategy for landorustherian vs dracozolt:
+|chat|DEBUG|>[earthquake: 228.625 [210, 248], earthquake: 228.625 [210, 248], earthquake: 228.625 [210, 248]]
+|chat|DEBUG|Best move of landorustherian (p1): earthquake: 228.625 [210, 248]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 97.625 [90, 106]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Rhyperior|Rhyperior, L82, F|100100
+|move|p2a: Landorus|Stealth Rock|p1a: Rhyperior
+|-sidestart|p1: dcboy1990|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorustherian celesteela cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorustherian-celesteela-cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: uturn stealthrock fly earthquake
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['celesteela']
+|chat|DEBUG|Counter: ['landorustherian', 'celesteela', 'cradily', 'sandslash']
+|chat|DEBUG|Speed: 173 vs 113
+|chat|DEBUG|HP: 247 vs 323
+|chat|DEBUG|Created a new Strategy for landorustherian vs rhyperior:
+|chat|DEBUG|>[earthquake: 121.125 [112, 132], earthquake: 121.125 [112, 132], earthquake: 121.125 [112, 132]]
+|chat|DEBUG|Best move of landorustherian (p1): earthquake: 121.125 [112, 132]
+|chat|DEBUG|Best move of rhyperior (p2): stoneedge: 101.75 [93, 111]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Earthquake|p1a: Rhyperior
+|-supereffective|p1a: Rhyperior
+|-damage|p1a: Rhyperior|66100
+|-enditem|p1a: Rhyperior|Weakness Policy
+|-boost|p1a: Rhyperior|atk|2|[from] item: Weakness Policy
+|-boost|p1a: Rhyperior|spa|2|[from] item: Weakness Policy
+|move|p1a: Rhyperior|Rock Polish|p1a: Rhyperior
+|-boost|p1a: Rhyperior|spe|2
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorustherian celesteela cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorustherian-celesteela-cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: uturn stealthrock fly earthquake
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'celesteela', 'cradily', 'sandslash']
+|chat|DEBUG|Speed: 173 vs 113
+|chat|DEBUG|HP: 247 vs 213
+|chat|DEBUG|Best move of landorustherian (p1): earthquake: 121.125 [112, 132]
+|chat|DEBUG|Best move of rhyperior (p2): stoneedge: 229.5625 [211, 249]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Stone Edge|p2a: Landorus
+|-damage|p2a: Landorus|0 fnt
+|faint|p2a: Landorus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Celesteela|Celesteela, L77|276276
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>celesteela cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>celesteela-cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celesteela', 'cradily', 'sandslash']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to celesteela (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Stone Edge|p2a: Celesteela|[miss]
+|-miss|p1a: Rhyperior|p2a: Celesteela
+|move|p2a: Celesteela|Flash Cannon|p1a: Rhyperior
+|-supereffective|p1a: Rhyperior
+|-damage|p1a: Rhyperior|12100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>celesteela cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>celesteela-cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: airslash fireblast flashcannon earthquake
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celesteela', 'cradily', 'sandslash']
+|chat|DEBUG|Speed: 138 vs 113
+|chat|DEBUG|HP: 276 vs 213
+|chat|DEBUG|Created a new Strategy for celesteela vs rhyperior:
+|chat|DEBUG|>[flashcannon: 165.1875 [153, 180], flashcannon: 165.1875 [153, 180], flashcannon: 165.1875 [153, 180]]
+|chat|DEBUG|Best move of celesteela (p1): flashcannon: 165.1875 [153, 180]
+|chat|DEBUG|Best move of rhyperior (p2): stoneedge: 258.5 [237, 280]
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Stone Edge|p2a: Celesteela
+|-crit|p2a: Celesteela
+|-damage|p2a: Celesteela|0 fnt
+|faint|p2a: Celesteela
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sandslash|Sandslash, L86, M|269269
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>celesteela cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>celesteela-cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: airslash fireblast flashcannon earthquake
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['celesteela', 'sandslash', 'giratinaorigin']
+|chat|DEBUG|Counter: ['celesteela', 'cradily', 'registeel', 'sandslash', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 138 vs 113
+|chat|DEBUG|HP: 276 vs 38
+|chat|DEBUG|Best move of celesteela (p1): flashcannon: 165.1875 [153, 180]
+|chat|DEBUG|Best move of rhyperior (p2): stoneedge: 258.5 [237, 280]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Earthquake|p2a: Sandslash
+|-damage|p2a: Sandslash|29269
+|move|p2a: Sandslash|Earthquake|p1a: Rhyperior
+|-supereffective|p1a: Rhyperior
+|-damage|p1a: Rhyperior|0 fnt
+|faint|p1a: Rhyperior
+|-heal|p2a: Sandslash|45269|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lurantis|Lurantis, L86, F|100100
+|-damage|p1a: Lurantis|88100|[from] Stealth Rock
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['sandslash', 'giratinaorigin']
+|chat|DEBUG|Counter: ['cradily', 'registeel', 'sandslash', 'giratinaorigin']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to sandslash (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Stone Edge|p1a: Lurantis
+|-damage|p1a: Lurantis|61100
+|move|p1a: Lurantis|Leaf Storm|p2a: Sandslash|[miss]
+|-miss|p1a: Lurantis|p2a: Sandslash
+|-heal|p2a: Sandslash|61269|[from] item: Leftovers
+|-heal|p1a: Lurantis|68100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandslash" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt-rhyperior
+|chat|DEBUG|Own moves: rapidspin swordsdance earthquake stoneedge
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['sandslash', 'giratinaorigin']
+|chat|DEBUG|Counter: ['cradily', 'registeel', 'sandslash', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 161 vs 113
+|chat|DEBUG|HP: 269 vs 38
+|chat|DEBUG|Created a new Strategy for sandslash vs rhyperior:
+|chat|DEBUG|>[earthquake: 129.375 [118, 141], earthquake: 129.375 [118, 141], earthquake: 129.375 [118, 141]]
+|chat|DEBUG|Best move of sandslash (p1): earthquake: 129.375 [118, 141]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 221.25 [204, 240]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina-Origin, L74|344344
+|move|p1a: Lurantis|Leaf Storm|p2a: Giratina
+|-resisted|p2a: Giratina
+|-damage|p2a: Giratina|281344
+|-boost|p1a: Lurantis|spa|2
+|-heal|p1a: Lurantis|74100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandslash" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt-lurantis
+|chat|DEBUG|Own moves: rapidspin swordsdance earthquake stoneedge
+|chat|DEBUG|Enemy moves: knockoff leafstorm superpower synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'giratinaorigin']
+|chat|DEBUG|Speed: 161 vs 127
+|chat|DEBUG|HP: 45 vs 229
+|chat|DEBUG|Created a new Strategy for sandslash vs lurantis:
+|chat|DEBUG|>[stoneedge: 73.625 [68, 80], stoneedge: 73.625 [68, 80], stoneedge: 73.625 [68, 80]]
+|chat|DEBUG|Best move of sandslash (p1): stoneedge: 73.625 [68, 80]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 441.1875 [406, 478]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Giratina|Hone Claws|p2a: Giratina
+|-boost|p2a: Giratina|atk|1
+|-boost|p2a: Giratina|accuracy|1
+|move|p1a: Lurantis|Knock Off|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|177344
+|-heal|p1a: Lurantis|80100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandslash" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt-lurantis
+|chat|DEBUG|Own moves: rapidspin swordsdance earthquake stoneedge
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['giratinaorigin']
+|chat|DEBUG|Counter: ['registeel', 'giratinaorigin']
+|chat|DEBUG|Speed: 161 vs 127
+|chat|DEBUG|HP: 61 vs 177
+|chat|DEBUG|Best move of sandslash (p1): stoneedge: 73.625 [68, 80]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 339.375 [312, 368]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check giratinaorigin
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Giratina|Outrage|p1a: Lurantis
+|-crit|p1a: Lurantis
+|-damage|p1a: Lurantis|0 fnt
+|faint|p1a: Lurantis
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dracozolt|Dracozolt, L78|100100
+|-damage|p1a: Dracozolt|88100|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt-lurantis
+|chat|DEBUG|Own moves: honeclaws dualwingbeat outrage poltergeist
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['giratinaorigin']
+|chat|DEBUG|Counter: ['registeel', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 127
+|chat|DEBUG|HP: 281 vs 193
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs lurantis:
+|chat|DEBUG|>[outrage: 112.8125 [103, 123], outrage: 112.8125 [103, 123], outrage: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 112.8125 [103, 123]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 127.625 [117, 138]
+|chat|DEBUG|Boost Moves: [honeclaws (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Outrage|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-crit|p2a: Giratina
+|-damage|p2a: Giratina|0 fnt
+|faint|p2a: Giratina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268268
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt-lurantis
+|chat|DEBUG|Own moves: honeclaws dualwingbeat outrage poltergeist
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel', 'giratinaorigin']
+|chat|DEBUG|Speed: 176 vs 127
+|chat|DEBUG|HP: 177 vs 208
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 112.8125 [103, 123]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 127.625 [117, 138]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Outrage|p2a: Registeel|[from]lockedmove
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|208268
+|move|p2a: Registeel|Body Press|p1a: Dracozolt
+|-damage|p1a: Dracozolt|58100
+|-heal|p2a: Registeel|224268|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash giratinaorigin
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash-giratinaorigin -- dracozolt
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['giratinaorigin']
+|chat|DEBUG|Speed: 176 vs 162
+|chat|DEBUG|HP: 177 vs 235
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs dracozolt:
+|chat|DEBUG|>[outrage: 372.75 [342, 404], outrage: 372.75 [342, 404], outrage: 372.75 [342, 404]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 372.75 [342, 404]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 347.75 [320, 378]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Outrage|p2a: Registeel|[from]lockedmove
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|168268
+|-start|p1a: Dracozolt|confusion|[fatigue]
+|move|p2a: Registeel|Body Press|p1a: Dracozolt
+|-damage|p1a: Dracozolt|27100
+|-heal|p2a: Registeel|184268|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: registeel
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eternatus|Eternatus, L69|100100
+|-damage|p1a: Eternatus|88100|[from] Stealth Rock
+|-ability|p1a: Eternatus|Pressure
+|move|p2a: Registeel|Body Press|p1a: Eternatus
+|-resisted|p1a: Eternatus
+|-damage|p1a: Eternatus|72100
+|-heal|p2a: Registeel|200268|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt
+|chat|DEBUG|Own moves: bodypress ironhead rest sleeptalk
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 131 vs 162
+|chat|DEBUG|HP: 268 vs 235
+|chat|DEBUG|Created a new Strategy for registeel vs dracozolt:
+|chat|DEBUG|>[bodypress: 83.75 [77, 91], bodypress: 83.75 [77, 91], bodypress: 83.75 [77, 91]]
+|chat|DEBUG|Best move of registeel (p1): bodypress: 83.75 [77, 91]
+|chat|DEBUG|Best move of dracozolt (p2): boltbeak: 158.5625 [145, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cradily|Cradily, L86, F|288288
+|move|p1a: Eternatus|Flamethrower|p2a: Cradily
+|-damage|p2a: Cradily|237288
+|-heal|p2a: Cradily|255288|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt
+|chat|DEBUG|Own moves: bodypress ironhead rest sleeptalk
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 131 vs 162
+|chat|DEBUG|HP: 224 vs 155
+|chat|DEBUG|Best move of registeel (p1): bodypress: 83.75 [77, 91]
+|chat|DEBUG|Best move of dracozolt (p2): boltbeak: 158.5625 [145, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonlee|Hitmonlee, L84, M|100100
+|-damage|p1a: Hitmonlee|95100|[from] Stealth Rock
+|move|p2a: Cradily|Stone Edge|p1a: Hitmonlee
+|-resisted|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|66100
+|-heal|p2a: Cradily|273288|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt
+|chat|DEBUG|Own moves: bodypress ironhead rest sleeptalk
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cradily', 'registeel']
+|chat|DEBUG|Speed: 131 vs 162
+|chat|DEBUG|HP: 184 vs 72
+|chat|DEBUG|Best move of registeel (p1): bodypress: 83.75 [77, 91]
+|chat|DEBUG|Best move of dracozolt (p2): boltbeak: 158.5625 [145, 172]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonlee|Close Combat|p2a: Cradily
+|-supereffective|p2a: Cradily
+|-damage|p2a: Cradily|15288
+|-unboost|p1a: Hitmonlee|def|1
+|-unboost|p1a: Hitmonlee|spd|1
+|-enditem|p1a: Hitmonlee|White Herb
+|-clearnegativeboost|p1a: Hitmonlee|[silent]
+|move|p2a: Cradily|Power Whip|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|0 fnt
+|faint|p1a: Hitmonlee
+|-heal|p2a: Cradily|33288|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, M|100100
+|-damage|p1a: Linoone|88100|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "eternatus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt-eternatus
+|chat|DEBUG|Own moves: bodypress ironhead rest sleeptalk
+|chat|DEBUG|Enemy moves: dynamaxcannon flamethrower recover sludgewave
+|chat|DEBUG|Checks: ['cradily']
+|chat|DEBUG|Counter: ['cradily']
+|chat|DEBUG|Speed: 131 vs 220
+|chat|DEBUG|HP: 200 vs 221
+|chat|DEBUG|Created a new Strategy for registeel vs eternatus:
+|chat|DEBUG|>[ironhead: 79.5 [73, 87], ironhead: 79.5 [73, 87], ironhead: 79.5 [73, 87]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 79.5 [73, 87]
+|chat|DEBUG|Best move of eternatus (p2): flamethrower: 80.5 [74, 88]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cradily
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Extreme Speed|p2a: Cradily
+|-resisted|p2a: Cradily
+|-damage|p2a: Cradily|5288
+|move|p2a: Cradily|Power Whip|p1a: Linoone|[miss]
+|-miss|p2a: Cradily|p1a: Linoone
+|-heal|p2a: Cradily|23288|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cradily" vs "eternatus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt-eternatus
+|chat|DEBUG|Own moves: toxic powerwhip recover stoneedge
+|chat|DEBUG|Enemy moves: dynamaxcannon flamethrower recover sludgewave
+|chat|DEBUG|Checks: ['cradily']
+|chat|DEBUG|Counter: ['cradily']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 123 vs 220
+|chat|DEBUG|HP: 255 vs 221
+|chat|DEBUG|Created a new Strategy for cradily vs eternatus:
+|chat|DEBUG|>[stoneedge: 111.4375 [102, 121], stoneedge: 111.4375 [102, 121], stoneedge: 111.4375 [102, 121]]
+|chat|DEBUG|Best move of cradily (p1): stoneedge: 111.4375 [102, 121]
+|chat|DEBUG|Best move of eternatus (p2): dynamaxcannon: 83.625 [76, 91]
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Extreme Speed|p2a: Cradily
+|-resisted|p2a: Cradily
+|-damage|p2a: Cradily|0 fnt
+|faint|p2a: Cradily
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|200268
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cradily" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt-eternatus-hitmonlee
+|chat|DEBUG|Own moves: toxic powerwhip recover stoneedge
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 123 vs 194
+|chat|DEBUG|HP: 273 vs 145
+|chat|DEBUG|Created a new Strategy for cradily vs hitmonlee:
+|chat|DEBUG|>[powerwhip: 166.9375 [153, 181], powerwhip: 166.9375 [153, 181], powerwhip: 166.9375 [153, 181]]
+|chat|DEBUG|Best move of cradily (p1): powerwhip: 166.9375 [153, 181]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 274.0 [252, 296]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Registeel|Dynamax
+|-heal|p2a: Registeel|400536|[silent]
+|move|p1a: Linoone|Stomping Tantrum|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|348536
+|move|p2a: Registeel|Max Knuckle|p1a: Linoone
+|-supereffective|p1a: Linoone
+|-damage|p1a: Linoone|38100
+|-boost|p2a: Registeel|atk|1
+|-enditem|p1a: Linoone|Wiki Berry|[eat]
+|-heal|p1a: Linoone|71100|[from] item: Wiki Berry
+|-heal|p2a: Registeel|364536|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cradily" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt-eternatus-linoone
+|chat|DEBUG|Own moves: toxic powerwhip recover stoneedge
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|Speed: 123 vs 216
+|chat|DEBUG|HP: 33 vs 235
+|chat|DEBUG|Created a new Strategy for cradily vs linoone:
+|chat|DEBUG|>[powerwhip: 151.625 [139, 165], powerwhip: 151.625 [139, 165], powerwhip: 151.625 [139, 165]]
+|chat|DEBUG|Best move of cradily (p1): powerwhip: 151.625 [139, 165]
+|chat|DEBUG|Best move of linoone (p2): throatchop: 41.1875 [38, 45]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eternatus|Eternatus, L69|72100
+|-damage|p1a: Eternatus|60100|[from] Stealth Rock
+|-ability|p1a: Eternatus|Pressure
+|move|p2a: Registeel|Max Knuckle|p1a: Eternatus
+|-resisted|p1a: Eternatus
+|-damage|p1a: Eternatus|45100
+|-boost|p2a: Registeel|atk|1
+|-heal|p2a: Registeel|380536|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cradily registeel sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cradily" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cradily-registeel-sandslash -- dracozolt-eternatus-linoone
+|chat|DEBUG|Own moves: toxic powerwhip recover stoneedge
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|Speed: 123 vs 216
+|chat|DEBUG|HP: 23 vs 235
+|chat|DEBUG|Best move of cradily (p1): powerwhip: 151.625 [139, 165]
+|chat|DEBUG|Best move of linoone (p2): throatchop: 41.1875 [38, 45]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Registeel
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|312536
+|move|p2a: Registeel|Max Steelspike|p1a: Eternatus
+|-damage|p1a: Eternatus|0 fnt
+|-boost|p2a: Registeel|def|1
+|faint|p1a: Eternatus
+|-heal|p2a: Registeel|328536|[from] item: Leftovers
+|-end|p2a: Registeel|Dynamax
+|-heal|p2a: Registeel|164268|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dracozolt|Dracozolt, L78|27100
+|-damage|p1a: Dracozolt|14100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cradily" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-sandslash -- dracozolt-eternatus-linoone
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'registeel': 200, 'sandslash': 61}
+|chat|DEBUG|remaining_hp_team_2={'dracozolt': 27, 'eternatus': 72, 'linoone': 88}
+|chat|DEBUG|battle.available_switches=[registeel (pokemon object) [Active: False, Status: None], sandslash (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'registeel'
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Low Kick|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|70268
+|move|p2a: Registeel|Body Press|p1a: Dracozolt
+|-damage|p1a: Dracozolt|0 fnt
+|faint|p1a: Dracozolt
+|-heal|p2a: Registeel|86268|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, M|71100
+|-damage|p1a: Linoone|59100|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel-sandslash -- dracozolt-eternatus-linoone
+|chat|DEBUG|Own moves: bodypress ironhead rest sleeptalk
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 131 vs 216
+|chat|DEBUG|HP: 200 vs 235
+|chat|DEBUG|Created a new Strategy for registeel vs linoone:
+|chat|DEBUG|>[bodypress: 206.25 [190, 224], bodypress: 206.25 [190, 224], bodypress: 206.25 [190, 224]]
+|chat|DEBUG|Best move of registeel (p1): bodypress: 206.25 [190, 224]
+|chat|DEBUG|Best move of linoone (p2): stompingtantrum: 56.375 [52, 62]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Linoone|Dynamax
+|-heal|p1a: Linoone|59100|[silent]
+|move|p1a: Linoone|Max Darkness|p2a: Registeel
+|-crit|p2a: Registeel
+|-damage|p2a: Registeel|10268
+|-fail|p2a: Registeel|unboost|[from] ability: Clear Body|[of] p2a: Registeel
+|move|p2a: Registeel|Body Press|p1a: Linoone
+|-supereffective|p1a: Linoone
+|-damage|p1a: Linoone|0 fnt
+|faint|p1a: Linoone
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>dcboy1990<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">landorustherian celesteela cradily registeel sandslash giratinaorigin</h1>

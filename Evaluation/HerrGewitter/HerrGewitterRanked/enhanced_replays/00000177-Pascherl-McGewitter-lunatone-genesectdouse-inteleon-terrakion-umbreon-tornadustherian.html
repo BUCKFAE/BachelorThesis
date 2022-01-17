@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490263355<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490263355|init|battle
+|title|Pascherl vs. McGewitter
+|j|☆Pascherl
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Pascherl|misty|1292
+|player|p2|McGewitter|265|1319
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Sudowoodo|Sudowoodo, L86, F|100100
+|switch|p2a: Lunatone|Lunatone, L86|295295
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunatone" vs "sudowoodo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- sudowoodo
+|chat|DEBUG|Own moves: earthpower psychic powergem nastyplot
+|chat|DEBUG|Enemy moves: earthquake headsmash suckerpunch woodhammer
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunatone', 'genesectdouse', 'inteleon', 'terrakion', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 295 vs 261
+|chat|DEBUG|Created a new Strategy for lunatone vs sudowoodo:
+|chat|DEBUG|>[earthpower: 208.0 [190, 226], earthpower: 208.0 [190, 226], earthpower: 208.0 [190, 226]]
+|chat|DEBUG|Best move of lunatone (p1): earthpower: 208.0 [190, 226]
+|chat|DEBUG|Best move of sudowoodo (p2): woodhammer: 330.25 [304, 358]
+|chat|DEBUG|Attacking using earthpower
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Lunatone|Earth Power|p1a: Sudowoodo
+|-supereffective|p1a: Sudowoodo
+|-damage|p1a: Sudowoodo|27100
+|-damage|p2a: Lunatone|266295|[from] item: Life Orb
+|move|p1a: Sudowoodo|Stealth Rock|p2a: Lunatone
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-heal|p1a: Sudowoodo|33100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunatone" vs "sudowoodo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- sudowoodo
+|chat|DEBUG|Own moves: earthpower psychic powergem nastyplot
+|chat|DEBUG|Enemy moves: headsmash stealthrock suckerpunch woodhammer
+|chat|DEBUG|Checks: ['lunatone', 'genesectdouse', 'inteleon', 'terrakion', 'umbreon']
+|chat|DEBUG|Counter: ['lunatone', 'genesectdouse', 'inteleon', 'terrakion', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 266 vs 86
+|chat|DEBUG|Best move of lunatone (p1): earthpower: 208.0 [190, 226]
+|chat|DEBUG|Best move of sudowoodo (p2): woodhammer: 221.25 [204, 240]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sudowoodo|Sucker Punch|p2a: Lunatone
+|-supereffective|p2a: Lunatone
+|-damage|p2a: Lunatone|126295
+|move|p2a: Lunatone|Earth Power|p1a: Sudowoodo
+|-supereffective|p1a: Sudowoodo
+|-damage|p1a: Sudowoodo|0 fnt
+|faint|p1a: Sudowoodo
+|-damage|p2a: Lunatone|97295|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Snorlax|Snorlax, L82, M|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunatone" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- snorlax
+|chat|DEBUG|Own moves: earthpower psychic powergem nastyplot
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat earthquake
+|chat|DEBUG|Checks: ['terrakion', 'umbreon']
+|chat|DEBUG|Counter: ['genesectdouse', 'terrakion', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Speed: 170 vs 96
+|chat|DEBUG|HP: 97 vs 397
+|chat|DEBUG|Created a new Strategy for lunatone vs snorlax:
+|chat|DEBUG|>[psychic: 110.5 [101, 121], psychic: 110.5 [101, 121], psychic: 110.5 [101, 121]]
+|chat|DEBUG|Best move of lunatone (p1): psychic: 110.5 [101, 121]
+|chat|DEBUG|Best move of snorlax (p2): darkestlariat: 152.75 [140, 166]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check terrakion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Terrakion|Terrakion, L78|270270
+|-damage|p2a: Terrakion|254270|[from] Stealth Rock
+|move|p1a: Snorlax|Darkest Lariat|p2a: Terrakion
+|-resisted|p2a: Terrakion
+|-damage|p2a: Terrakion|203270
+|-ability|p2a: Terrakion|Justified|boost
+|-boost|p2a: Terrakion|atk|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- snorlax
+|chat|DEBUG|Own moves: swordsdance closecombat stoneedge earthquake
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat earthquake
+|chat|DEBUG|Checks: ['terrakion', 'umbreon']
+|chat|DEBUG|Counter: ['genesectdouse', 'terrakion', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 214 vs 96
+|chat|DEBUG|HP: 203 vs 397
+|chat|DEBUG|Created a new Strategy for terrakion vs snorlax:
+|chat|DEBUG|>[closecombat: 686.25 [632, 743], closecombat: 686.25 [632, 743], closecombat: 686.25 [632, 743]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 686.25 [632, 743]
+|chat|DEBUG|Best move of snorlax (p2): earthquake: 156.375 [144, 170]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowking|Slowking-Galar, L84, F|100100
+|move|p2a: Terrakion|Close Combat|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|75100
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|-damage|p2a: Terrakion|176270|[from] item: Life Orb
+|-heal|p1a: Slowking|81100|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- snorlax-slowkinggalar
+|chat|DEBUG|Own moves: swordsdance closecombat stoneedge earthquake
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['umbreon', 'tornadustherian']
+|chat|DEBUG|Counter: ['lunatone', 'terrakion', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Speed: 214 vs 99
+|chat|DEBUG|HP: 176 vs 240
+|chat|DEBUG|Created a new Strategy for terrakion vs slowkinggalar:
+|chat|DEBUG|>[earthquake: 323.375 [296, 351], earthquake: 323.375 [296, 351], earthquake: 323.375 [296, 351]]
+|chat|DEBUG|Best move of terrakion (p1): earthquake: 323.375 [296, 351]
+|chat|DEBUG|Best move of slowkinggalar (p2): psyshock: 297.625 [272, 324]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Earthquake|p1a: Slowking
+|-supereffective|p1a: Slowking
+|-damage|p1a: Slowking|0 fnt
+|faint|p1a: Slowking
+|-damage|p2a: Terrakion|149270|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Snorlax|Snorlax, L82, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- snorlax
+|chat|DEBUG|Own moves: swordsdance closecombat stoneedge earthquake
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat earthquake
+|chat|DEBUG|Checks: ['umbreon']
+|chat|DEBUG|Counter: ['genesectdouse', 'terrakion', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Speed: 214 vs 96
+|chat|DEBUG|HP: 149 vs 397
+|chat|DEBUG|Created a new Strategy for terrakion vs snorlax:
+|chat|DEBUG|>[closecombat: 686.25 [632, 743], closecombat: 686.25 [632, 743], closecombat: 686.25 [632, 743]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 686.25 [632, 743]
+|chat|DEBUG|Best move of snorlax (p2): earthquake: 235.875 [216, 256]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Close Combat|p1a: Snorlax
+|-supereffective|p1a: Snorlax
+|-damage|p1a: Snorlax|0 fnt
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|faint|p1a: Snorlax
+|-damage|p2a: Terrakion|122270|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Pascherl has 120 seconds left.
+|switch|p1a: Lucario|Lucario, L82, M|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "lucario"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- lucario
+|chat|DEBUG|Own moves: swordsdance closecombat stoneedge earthquake
+|chat|DEBUG|Enemy moves: closecombat extremespeed meteormash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['inteleon', 'terrakion', 'tornadustherian']
+|chat|DEBUG|Speed: 214 vs 195
+|chat|DEBUG|HP: 122 vs 249
+|chat|DEBUG|Created a new Strategy for terrakion vs lucario:
+|chat|DEBUG|>[closecombat: 654.125 [601, 710], closecombat: 654.125 [601, 710], closecombat: 654.125 [601, 710]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 654.125 [601, 710]
+|chat|DEBUG|Best move of lucario (p2): closecombat: 732.0 [673, 795]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lucario|Extreme Speed|p2a: Terrakion
+|-resisted|p2a: Terrakion
+|-damage|p2a: Terrakion|38270
+|-damage|p1a: Lucario|91100|[from] item: Life Orb
+|move|p2a: Terrakion|Close Combat|p1a: Lucario
+|-supereffective|p1a: Lucario
+|-damage|p1a: Lucario|0 fnt
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|faint|p1a: Lucario
+|-damage|p2a: Terrakion|11270|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Pascherl has 120 seconds left.
+|switch|p1a: Entei|Entei, L78|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon terrakion umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "entei"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-terrakion-umbreon-tornadustherian -- entei
+|chat|DEBUG|Own moves: swordsdance closecombat stoneedge earthquake
+|chat|DEBUG|Enemy moves: extremespeed sacredfire stompingtantrum stoneedge
+|chat|DEBUG|Checks: ['inteleon']
+|chat|DEBUG|Counter: ['inteleon', 'terrakion']
+|chat|DEBUG|Speed: 214 vs 201
+|chat|DEBUG|HP: 11 vs 307
+|chat|DEBUG|Created a new Strategy for terrakion vs entei:
+|chat|DEBUG|>[stoneedge: 495.4375 [455, 538], stoneedge: 495.4375 [455, 538], stoneedge: 495.4375 [455, 538]]
+|chat|DEBUG|Best move of terrakion (p1): stoneedge: 495.4375 [455, 538]
+|chat|DEBUG|Best move of entei (p2): stompingtantrum: 417.125 [384, 452]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Extreme Speed|p2a: Terrakion
+|-resisted|p2a: Terrakion
+|-crit|p2a: Terrakion
+|-damage|p2a: Terrakion|0 fnt
+|faint|p2a: Terrakion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Inteleon|Inteleon, L80, F|243243
+|-damage|p2a: Inteleon|213243|[from] Stealth Rock
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "entei"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-umbreon-tornadustherian -- entei
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: extremespeed sacredfire stompingtantrum stoneedge
+|chat|DEBUG|Checks: ['inteleon']
+|chat|DEBUG|Counter: ['inteleon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to inteleon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|move|p2a: Inteleon|Surf|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|44100
+|-heal|p1a: Nihilego|50100|[from] item: Black Sludge
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon umbreon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "entei"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-umbreon-tornadustherian -- entei
+|chat|DEBUG|Own moves: airslash icebeam focusenergy surf
+|chat|DEBUG|Enemy moves: extremespeed sacredfire stompingtantrum stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['inteleon']
+|chat|DEBUG|Speed: 238 vs 201
+|chat|DEBUG|HP: 213 vs 307
+|chat|DEBUG|Created a new Strategy for inteleon vs entei:
+|chat|DEBUG|>[surf: 259.0 [236, 282], surf: 259.0 [236, 282], surf: 259.0 [236, 282]]
+|chat|DEBUG|Best move of inteleon (p1): surf: 259.0 [236, 282]
+|chat|DEBUG|Best move of entei (p2): extremespeed: 110.625 [102, 120]
+|chat|DEBUG|Attacking using surf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Nihilego|Dynamax
+|-heal|p1a: Nihilego|50100|[silent]
+|move|p2a: Inteleon|Surf|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|20100
+|move|p1a: Nihilego|Max Lightning|p2a: Inteleon
+|-supereffective|p2a: Inteleon
+|-damage|p2a: Inteleon|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Inteleon
+|-ability|p1a: Nihilego|Beast Boost|boost
+|-boost|p1a: Nihilego|spa|1
+|-heal|p1a: Nihilego|23100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|-damage|p2a: Tornadus|189251|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse inteleon umbreon tornadustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "inteleon" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-inteleon-umbreon-tornadustherian -- entei-nihilego
+|chat|DEBUG|Own moves: airslash icebeam focusenergy surf
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['genesectdouse', 'inteleon']
+|chat|DEBUG|Counter: ['genesectdouse', 'inteleon', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 238 vs 211
+|chat|DEBUG|HP: 213 vs 153
+|chat|DEBUG|Created a new Strategy for inteleon vs nihilego:
+|chat|DEBUG|>[surf: 170.125 [156, 186], surf: 170.125 [156, 186], surf: 170.125 [156, 186]]
+|chat|DEBUG|Best move of inteleon (p1): surf: 170.125 [156, 186]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 150.1875 [138, 163]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Knock Off|p1a: Nihilego
+|-damage|p1a: Nihilego|8100
+|-enditem|p1a: Nihilego|Black Sludge|[from] move: Knock Off|[of] p2a: Tornadus
+|move|p1a: Nihilego|Max Rockfall|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Tornadus
+|-ability|p1a: Nihilego|Beast Boost|boost
+|-boost|p1a: Nihilego|spa|1
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Genesect|Genesect-Douse, L74|227227
+|-damage|p2a: Genesect|199227|[from] Stealth Rock
+|-ability|p2a: Genesect|Download|boost
+|-boost|p2a: Genesect|atk|1
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse umbreon tornadustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "inteleon" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-umbreon-tornadustherian -- entei-nihilego
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['genesectdouse']
+|chat|DEBUG|Counter: ['genesectdouse', 'umbreon', 'tornadustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'lunatone': 97, 'genesectdouse': 227, 'umbreon': 290, 'tornadustherian': 251}
+|chat|DEBUG|remaining_hp_team_2={'entei': 100, 'nihilego': 50}
+|chat|DEBUG|battle.available_switches=[genesectdouse (pokemon object) [Active: False, Status: None], lunatone (pokemon object) [Active: False, Status: None], umbreon (pokemon object) [Active: False, Status: None], tornadustherian (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'tornadustherian'
+|chat|DEBUG|>Switching to tornadustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Genesect|Dynamax
+|-heal|p2a: Genesect|398454|[silent]
+|move|p1a: Nihilego|Max Lightning|p2a: Genesect
+|-damage|p2a: Genesect|85454
+|move|p2a: Genesect|Max Steelspike|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|0 fnt
+|-boost|p2a: Genesect|def|1
+|faint|p1a: Nihilego
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Pascherl has 120 seconds left.
+|switch|p1a: Entei|Entei, L78|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse umbreon tornadustherian
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "tornadustherian" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-umbreon-tornadustherian -- entei-nihilego
+|chat|DEBUG|Own moves: uturn hurricane knockoff superpower
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['genesectdouse', 'umbreon', 'tornadustherian']
+|chat|DEBUG|Speed: 234 vs 211
+|chat|DEBUG|HP: 189 vs 70
+|chat|DEBUG|Created a new Strategy for tornadustherian vs nihilego:
+|chat|DEBUG|>[knockoff: 99.375 [91, 108], knockoff: 99.375 [91, 108], superpower: 122.6875 [113, 133]]
+|chat|DEBUG|Best move of tornadustherian (p1): knockoff: 99.375 [91, 108]
+|chat|DEBUG|Best move of nihilego (p2): powergem: 206.5 [188, 224]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Flare Blitz|p2a: Genesect
+|-supereffective|p2a: Genesect
+|-damage|p2a: Genesect|0 fnt
+|faint|p2a: Genesect
+|-damage|p1a: Entei|91100|[from] Recoil
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Entei|85100|[from] Sandstorm
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lunatone|Lunatone, L86|97295
+|-damage|p2a: Lunatone|61295|[from] Stealth Rock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse umbreon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "tornadustherian" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-umbreon -- entei-nihilego
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['genesectdouse', 'umbreon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'lunatone': 97, 'genesectdouse': 227, 'umbreon': 290}
+|chat|DEBUG|remaining_hp_team_2={'entei': 100, 'nihilego': 23}
+|chat|DEBUG|battle.available_switches=[genesectdouse (pokemon object) [Active: False, Status: None], lunatone (pokemon object) [Active: False, Status: None], umbreon (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'genesectdouse'
+|chat|DEBUG|>Switching to genesectdouse (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Flare Blitz|p2a: Lunatone
+|-resisted|p2a: Lunatone
+|-damage|p2a: Lunatone|0 fnt
+|faint|p2a: Lunatone
+|-damage|p1a: Entei|79100|[from] Recoil
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Entei|72100|[from] Sandstorm
+|-fieldend|move: Electric Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Umbreon|Umbreon, L82, M|290290
+|-damage|p2a: Umbreon|254290|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse umbreon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "genesectdouse" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-umbreon -- entei-nihilego
+|chat|DEBUG|Own moves: technoblast extremespeed flamethrower ironhead
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['umbreon']
+|chat|DEBUG|Speed: 190 vs 211
+|chat|DEBUG|HP: 199 vs 24
+|chat|DEBUG|Created a new Strategy for genesectdouse vs nihilego:
+|chat|DEBUG|>[ironhead: 506.0 [464, 548], ironhead: 506.0 [464, 548], ironhead: 506.0 [464, 548]]
+|chat|DEBUG|Best move of genesectdouse (p1): ironhead: 506.0 [464, 548]
+|chat|DEBUG|Best move of nihilego (p2): powergem: 206.0 [189, 223]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Flare Blitz|p2a: Umbreon
+|-damage|p2a: Umbreon|100290
+|-status|p2a: Umbreon|brn
+|-activate|p2a: Umbreon|ability: Synchronize
+|-immune|p1a: Entei
+|-damage|p1a: Entei|56100|[from] Recoil
+|move|p2a: Umbreon|Foul Play|p1a: Entei
+|-damage|p1a: Entei|38100
+|-weather|none
+|-heal|p2a: Umbreon|118290 brn|[from] item: Leftovers
+|-damage|p2a: Umbreon|100290 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone genesectdouse umbreon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "genesectdouse" vs "entei"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-genesectdouse-umbreon -- entei
+|chat|DEBUG|Own moves: technoblast extremespeed flamethrower ironhead
+|chat|DEBUG|Enemy moves: extremespeed sacredfire stompingtantrum stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 190 vs 201
+|chat|DEBUG|HP: 85 vs 307
+|chat|DEBUG|Created a new Strategy for genesectdouse vs entei:
+|chat|DEBUG|>[technoblast: 283.875 [260, 308], technoblast: 283.875 [260, 308], technoblast: 283.875 [260, 308]]
+|chat|DEBUG|Best move of genesectdouse (p1): technoblast: 283.875 [260, 308]
+|chat|DEBUG|Best move of entei (p2): sacredfire: 451.25 [412, 492]
+|chat|DEBUG|Attacking using technoblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Flare Blitz|p2a: Umbreon
+|-damage|p2a: Umbreon|0 fnt
+|faint|p2a: Umbreon
+|-damage|p1a: Entei|27100|[from] Recoil
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Pascherl<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lunatone genesectdouse inteleon terrakion umbreon tornadustherian</h1>

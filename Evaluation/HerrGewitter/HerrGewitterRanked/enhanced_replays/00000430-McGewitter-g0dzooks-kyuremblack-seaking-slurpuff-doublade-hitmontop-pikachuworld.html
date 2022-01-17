@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490632817<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490632817|init|battle
+|title|McGewitter vs. g0dzooks
+|j|☆McGewitter
+|j|☆g0dzooks
+|gametype|singles
+|player|p1|McGewitter|265|1237
+|player|p2|g0dzooks|swimmer-gen4dp|1226
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Kyurem|Kyurem-Black, L73|303303
+|switch|p2a: Venusaur|Venusaur, L82, M|100100
+|-ability|p1a: Kyurem|Teravolt
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: outrage dragondance fusionbolt iciclespear
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['kyuremblack', 'doublade']
+|chat|DEBUG|Counter: ['kyuremblack', 'doublade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 181 vs 178
+|chat|DEBUG|HP: 303 vs 265
+|chat|DEBUG|Created a new Strategy for kyuremblack vs venusaur:
+|chat|DEBUG|>[outrage: 165.75 [153, 180], outrage: 165.75 [153, 180], outrage: 165.75 [153, 180]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 165.75 [153, 180]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 104.5 [96, 114]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by g0dzooks)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|McGewitter also wants the timer to be on.
+|switch|p2a: Lickilicky|Lickilicky, L86, M|100100
+|move|p1a: Kyurem|Outrage|p2a: Lickilicky
+|-damage|p2a: Lickilicky|59100
+|-heal|p2a: Lickilicky|65100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-lickilicky
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['kyuremblack', 'doublade', 'hitmontop']
+|chat|DEBUG|Counter: ['kyuremblack', 'seaking', 'slurpuff', 'doublade', 'hitmontop']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 181 vs 135
+|chat|DEBUG|HP: 303 vs 213
+|chat|DEBUG|Created a new Strategy for kyuremblack vs lickilicky:
+|chat|DEBUG|>[outrage: 141.5625 [130, 154], outrage: 141.5625 [130, 154], outrage: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 141.5625 [130, 154]
+|chat|DEBUG|Best move of lickilicky (p2): bodyslam: 89.1875 [82, 97]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Outrage|p2a: Lickilicky|[from]lockedmove
+|-crit|p2a: Lickilicky
+|-damage|p2a: Lickilicky|0 fnt
+|faint|p2a: Lickilicky
+|-start|p1a: Kyurem|confusion|[fatigue]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Spectrier|Spectrier, L74|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-spectrier
+|chat|DEBUG|Own moves: outrage dragondance fusionbolt iciclespear
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: ['seaking']
+|chat|DEBUG|Counter: ['kyuremblack', 'seaking', 'hitmontop', 'pikachuworld']
+|chat|DEBUG|Speed: 181 vs 235
+|chat|DEBUG|HP: 303 vs 270
+|chat|DEBUG|Created a new Strategy for kyuremblack vs spectrier:
+|chat|DEBUG|>[outrage: 229.5625 [211, 249], outrage: 229.5625 [211, 249], outrage: 229.5625 [211, 249]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 229.5625 [211, 249]
+|chat|DEBUG|Best move of spectrier (p2): shadowball: 103.25 [94, 112]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Spectrier|Nasty Plot|p2a: Spectrier
+|-boost|p2a: Spectrier|spa|2
+|-activate|p1a: Kyurem|confusion
+|move|p1a: Kyurem|Outrage|p2a: Spectrier
+|-damage|p2a: Spectrier|16100
+|-heal|p2a: Spectrier|22100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-spectrier
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyuremblack', 'seaking', 'slurpuff', 'hitmontop']
+|chat|DEBUG|Speed: 181 vs 235
+|chat|DEBUG|HP: 303 vs 59
+|chat|DEBUG|Created a new Strategy for kyuremblack vs spectrier:
+|chat|DEBUG|>[outrage: 229.5625 [211, 249], outrage: 229.5625 [211, 249], outrage: 229.5625 [211, 249]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 229.5625 [211, 249]
+|chat|DEBUG|Best move of spectrier (p2): shadowball: 206.0 [189, 223]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Spectrier|Dark Pulse|p1a: Kyurem
+|-damage|p1a: Kyurem|160303
+|-activate|p1a: Kyurem|confusion
+|move|p1a: Kyurem|Outrage|p2a: Spectrier|[from]lockedmove
+|-damage|p2a: Spectrier|0 fnt
+|faint|p2a: Spectrier
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-goodra
+|chat|DEBUG|Own moves: outrage dragondance fusionbolt iciclespear
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyuremblack', 'slurpuff', 'hitmontop']
+|chat|DEBUG|Speed: 181 vs 178
+|chat|DEBUG|HP: 160 vs 282
+|chat|DEBUG|Created a new Strategy for kyuremblack vs goodra:
+|chat|DEBUG|>[outrage: 372.75 [342, 404], outrage: 372.75 [342, 404], outrage: 372.75 [342, 404]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 372.75 [342, 404]
+|chat|DEBUG|Best move of goodra (p2): dracometeor: 322.5 [296, 350]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p1a: Kyurem|confusion
+|move|p1a: Kyurem|Outrage|p2a: Goodra
+|-supereffective|p2a: Goodra
+|-crit|p2a: Goodra
+|-damage|p2a: Goodra|0 fnt
+|faint|p2a: Goodra
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Galvantula|Galvantula, L82, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-galvantula
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 181 vs 224
+|chat|DEBUG|HP: 160 vs 249
+|chat|DEBUG|Created a new Strategy for kyuremblack vs galvantula:
+|chat|DEBUG|>[outrage: 207.5 [190, 225], outrage: 207.5 [190, 225], outrage: 207.5 [190, 225]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 207.5 [190, 225]
+|chat|DEBUG|Best move of galvantula (p2): bugbuzz: 101.75 [93, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Thunder|p1a: Kyurem
+|-resisted|p1a: Kyurem
+|-damage|p1a: Kyurem|100303
+|-activate|p1a: Kyurem|confusion
+|move|p1a: Kyurem|Outrage|p2a: Galvantula|[from]lockedmove
+|-damage|p2a: Galvantula|21100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-galvantula
+|chat|DEBUG|Own moves: outrage dragondance fusionbolt iciclespear
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: ['slurpuff', 'doublade']
+|chat|DEBUG|Counter: ['seaking', 'slurpuff', 'doublade', 'hitmontop', 'pikachuworld']
+|chat|DEBUG|Speed: 181 vs 224
+|chat|DEBUG|HP: 100 vs 52
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 207.5 [190, 225]
+|chat|DEBUG|Best move of galvantula (p2): bugbuzz: 101.75 [93, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check slurpuff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slurpuff|Slurpuff, L80, M|262262
+|move|p2a: Galvantula|Thunder|p1a: Slurpuff
+|-damage|p1a: Slurpuff|123262
+|-enditem|p1a: Slurpuff|Sitrus Berry|[eat]
+|-heal|p1a: Slurpuff|188262|[from] item: Sitrus Berry
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur-galvantula
+|chat|DEBUG|Own moves: drainpunch facade bellydrum playrough
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['seaking', 'slurpuff', 'doublade', 'hitmontop', 'pikachuworld']
+|chat|DEBUG|Speed: 161 vs 224
+|chat|DEBUG|HP: 188 vs 52
+|chat|DEBUG|Created a new Strategy for slurpuff vs galvantula:
+|chat|DEBUG|>[playrough: 101.75 [93, 111], playrough: 101.75 [93, 111], playrough: 101.75 [93, 111]]
+|chat|DEBUG|Best move of slurpuff (p1): playrough: 101.75 [93, 111]
+|chat|DEBUG|Best move of galvantula (p2): thunder: 129.5 [118, 141]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Slurpuff|Play Rough|p2a: Galvantula
+|-crit|p2a: Galvantula
+|-damage|p2a: Galvantula|0 fnt
+|faint|p2a: Galvantula
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Venusaur|Venusaur, L82, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: drainpunch facade bellydrum playrough
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Speed: 161 vs 178
+|chat|DEBUG|HP: 188 vs 265
+|chat|DEBUG|Created a new Strategy for slurpuff vs venusaur:
+|chat|DEBUG|>[facade: 43.0 [39, 47], facade: 43.0 [39, 47], facade: 43.0 [39, 47]]
+|chat|DEBUG|Best move of slurpuff (p1): facade: 43.0 [39, 47]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 217.25 [200, 236]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check doublade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Doublade|Doublade, L82, F|231231
+|move|p2a: Venusaur|Sludge Bomb|p1a: Doublade
+|-immune|p1a: Doublade
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 231 vs 265
+|chat|DEBUG|Created a new Strategy for doublade vs venusaur:
+|chat|DEBUG|>[ironhead: 94.875 [87, 103], ironhead: 94.875 [87, 103], ironhead: 94.875 [87, 103]]
+|chat|DEBUG|Best move of doublade (p1): ironhead: 94.875 [87, 103]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sleep Powder|p1a: Doublade
+|-status|p1a: Doublade|slp|[from] move: Sleep Powder
+|cant|p1a: Doublade|slp
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 231 vs 265
+|chat|DEBUG|Best move of doublade (p1): ironhead: 94.875 [87, 103]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Leech Seed|p1a: Doublade
+|-start|p1a: Doublade|move: Leech Seed
+|cant|p1a: Doublade|slp
+|-damage|p1a: Doublade|203231 slp|[from] Leech Seed|[of] p2a: Venusaur
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 203 vs 265
+|chat|DEBUG|Best move of doublade (p1): ironhead: 94.875 [87, 103]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Substitute|p2a: Venusaur
+|-start|p2a: Venusaur|Substitute
+|-damage|p2a: Venusaur|76100
+|-curestatus|p1a: Doublade|slp|[msg]
+|move|p1a: Doublade|Swords Dance|p1a: Doublade
+|-boost|p1a: Doublade|atk|2
+|-heal|p2a: Venusaur|82100|[from] item: Black Sludge
+|-damage|p1a: Doublade|175231|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|92100|[silent]
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 175 vs 243
+|chat|DEBUG|Created a new Strategy for doublade vs venusaur:
+|chat|DEBUG|>[ironhead: 189.125 [174, 205], ironhead: 189.125 [174, 205], ironhead: 189.125 [174, 205]]
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sleep Powder|p1a: Doublade
+|-status|p1a: Doublade|slp|[from] move: Sleep Powder
+|cant|p1a: Doublade|slp
+|-heal|p2a: Venusaur|98100|[from] item: Black Sludge
+|-damage|p1a: Doublade|147231 slp|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|100100|[silent]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: ['doublade']
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 147 vs 265
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Leech Seed||[still]
+|-fail|p2a: Venusaur
+|cant|p1a: Doublade|slp
+|-damage|p1a: Doublade|119231 slp|[from] Leech Seed|[of] p2a: Venusaur
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 119 vs 265
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Leech Seed||[still]
+|-fail|p2a: Venusaur
+|-curestatus|p1a: Doublade|slp|[msg]
+|move|p1a: Doublade|Iron Head|p2a: Venusaur
+|-end|p2a: Venusaur|Substitute
+|-damage|p1a: Doublade|91231|[from] Leech Seed|[of] p2a: Venusaur
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['doublade']
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 91 vs 265
+|chat|DEBUG|Created a new Strategy for doublade vs venusaur:
+|chat|DEBUG|>[ironhead: 189.125 [174, 205], ironhead: 189.125 [174, 205], ironhead: 189.125 [174, 205]]
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sleep Powder|p1a: Doublade
+|-status|p1a: Doublade|slp|[from] move: Sleep Powder
+|cant|p1a: Doublade|slp
+|-damage|p1a: Doublade|63231 slp|[from] Leech Seed|[of] p2a: Venusaur
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 63 vs 265
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Substitute|p2a: Venusaur
+|-start|p2a: Venusaur|Substitute
+|-damage|p2a: Venusaur|76100
+|cant|p1a: Doublade|slp
+|-heal|p2a: Venusaur|82100|[from] item: Black Sludge
+|-damage|p1a: Doublade|35231 slp|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|92100|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 35 vs 243
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sludge Bomb|p1a: Doublade
+|-immune|p1a: Doublade
+|-curestatus|p1a: Doublade|slp|[msg]
+|move|p1a: Doublade|Iron Head|p2a: Venusaur
+|-end|p2a: Venusaur|Substitute
+|-heal|p2a: Venusaur|98100|[from] item: Black Sludge
+|-damage|p1a: Doublade|7231|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|100100|[silent]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff doublade hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-doublade-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: swordsdance closecombat shadowsneak ironhead
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 7 vs 265
+|chat|DEBUG|Created a new Strategy for doublade vs venusaur:
+|chat|DEBUG|>[ironhead: 189.125 [174, 205], ironhead: 189.125 [174, 205], ironhead: 189.125 [174, 205]]
+|chat|DEBUG|Best move of doublade (p1): ironhead: 189.125 [174, 205]
+|chat|DEBUG|Best move of venusaur (p2): gigadrain: 39.5 [36, 43]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Substitute|p2a: Venusaur
+|-start|p2a: Venusaur|Substitute
+|-damage|p2a: Venusaur|76100
+|move|p1a: Doublade|Iron Head|p2a: Venusaur
+|-end|p2a: Venusaur|Substitute
+|-heal|p2a: Venusaur|82100|[from] item: Black Sludge
+|-damage|p1a: Doublade|0 fnt|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|84100|[silent]
+|faint|p1a: Doublade
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slurpuff|Slurpuff, L80, M|188262
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "doublade" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: slurpuff
+|chat|DEBUG|>Switching to slurpuff (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Leech Seed|p1a: Slurpuff
+|-start|p1a: Slurpuff|move: Leech Seed
+|move|p1a: Slurpuff|Facade|p2a: Venusaur
+|-damage|p2a: Venusaur|70100
+|-heal|p2a: Venusaur|76100|[from] item: Black Sludge
+|-damage|p1a: Slurpuff|156262|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|88100|[silent]
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: drainpunch facade bellydrum playrough
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop', 'pikachuworld']
+|chat|DEBUG|Speed: 161 vs 178
+|chat|DEBUG|HP: 188 vs 222
+|chat|DEBUG|Created a new Strategy for slurpuff vs venusaur:
+|chat|DEBUG|>[facade: 43.0 [39, 47], facade: 43.0 [39, 47], facade: 43.0 [39, 47]]
+|chat|DEBUG|Best move of slurpuff (p1): facade: 43.0 [39, 47]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 217.25 [200, 236]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sludge Bomb|p1a: Slurpuff
+|-supereffective|p1a: Slurpuff
+|-damage|p1a: Slurpuff|0 fnt
+|faint|p1a: Slurpuff
+|-heal|p2a: Venusaur|94100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmontop|Hitmontop, L85, M|224224
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking slurpuff hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-slurpuff-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: drainpunch facade bellydrum playrough
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|Speed: 161 vs 178
+|chat|DEBUG|HP: 156 vs 233
+|chat|DEBUG|Best move of slurpuff (p1): facade: 43.0 [39, 47]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 217.25 [200, 236]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sleep Powder|p1a: Hitmontop
+|-status|p1a: Hitmontop|slp|[from] move: Sleep Powder
+|cant|p1a: Hitmontop|slp
+|-heal|p2a: Venusaur|99100|[from] item: Black Sludge
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hitmontop (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Leech Seed|p1a: Hitmontop
+|-start|p1a: Hitmontop|move: Leech Seed
+|cant|p1a: Hitmontop|slp
+|-heal|p2a: Venusaur|100100|[from] item: Black Sludge
+|-damage|p1a: Hitmontop|196224 slp|[from] Leech Seed|[of] p2a: Venusaur
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: toxic earthquake closecombat tripleaxel
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 168 vs 178
+|chat|DEBUG|HP: 224 vs 249
+|chat|DEBUG|Created a new Strategy for hitmontop vs venusaur:
+|chat|DEBUG|>[tripleaxel: 121.0625 [112, 133], tripleaxel: 121.0625 [112, 133], tripleaxel: 121.0625 [112, 133]]
+|chat|DEBUG|Best move of hitmontop (p1): tripleaxel: 121.0625 [112, 133]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using tripleaxel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Substitute|p2a: Venusaur
+|-start|p2a: Venusaur|Substitute
+|-damage|p2a: Venusaur|76100
+|-curestatus|p1a: Hitmontop|slp|[msg]
+|move|p1a: Hitmontop|Triple Axel|p2a: Venusaur
+|-supereffective|p2a: Venusaur
+|-activate|p2a: Venusaur|move: Substitute|[damage]
+|-supereffective|p2a: Venusaur
+|-end|p2a: Venusaur|Substitute
+|-hitcount|p2a: Venusaur|2
+|-damage|p1a: Hitmontop|174224|[from] item: Life Orb
+|-heal|p2a: Venusaur|82100|[from] item: Black Sludge
+|-damage|p1a: Hitmontop|146224|[from] Leech Seed|[of] p2a: Venusaur
+|-heal|p2a: Venusaur|92100|[silent]
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: toxic earthquake closecombat tripleaxel
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 168 vs 178
+|chat|DEBUG|HP: 224 vs 262
+|chat|DEBUG|Best move of hitmontop (p1): tripleaxel: 121.0625 [112, 133]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using tripleaxel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Sludge Bomb|p1a: Hitmontop
+|-damage|p1a: Hitmontop|71224
+|move|p1a: Hitmontop|Triple Axel|p2a: Venusaur
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|70100
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|24100
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|0 fnt
+|faint|p2a: Venusaur
+|-hitcount|p2: Venusaur|3
+|-damage|p1a: Hitmontop|49224|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hippowdon|Hippowdon, L80, F|100100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Hippowdon
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: toxic earthquake closecombat tripleaxel
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 168 vs 178
+|chat|DEBUG|HP: 196 vs 265
+|chat|DEBUG|Best move of hitmontop (p1): tripleaxel: 121.0625 [112, 133]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using tripleaxel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmontop|Close Combat|p2a: Hippowdon
+|-damage|p2a: Hippowdon|58100
+|-unboost|p1a: Hitmontop|def|1
+|-unboost|p1a: Hitmontop|spd|1
+|-damage|p1a: Hitmontop|27224|[from] item: Life Orb
+|move|p2a: Hippowdon|Earthquake|p1a: Hitmontop
+|-damage|p1a: Hitmontop|0 fnt
+|faint|p1a: Hitmontop
+|-weather|Sandstorm|[upkeep]
+|-heal|p2a: Hippowdon|64100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Seaking|Seaking, L88, F, shiny|284284
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyuremblack seaking hitmontop pikachuworld
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "venusaur"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyuremblack-seaking-hitmontop-pikachuworld -- venusaur
+|chat|DEBUG|Own moves: toxic earthquake closecombat tripleaxel
+|chat|DEBUG|Enemy moves: gigadrain leechseed sludgebomb substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 168 vs 178
+|chat|DEBUG|HP: 146 vs 243
+|chat|DEBUG|Created a new Strategy for hitmontop vs venusaur:
+|chat|DEBUG|>[tripleaxel: 121.0625 [112, 133], tripleaxel: 121.0625 [112, 133], tripleaxel: 121.0625 [112, 133]]
+|chat|DEBUG|Best move of hitmontop (p1): tripleaxel: 121.0625 [112, 133]
+|chat|DEBUG|Best move of venusaur (p2): sludgebomb: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using tripleaxel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Seaking|Dynamax
+|-heal|p1a: Seaking|568568|[silent]
+|move|p1a: Seaking|Max Geyser|p2a: Hippowdon
+|-supereffective|p2a: Hippowdon
+|-damage|p2a: Hippowdon|0 fnt
+|-weather|RainDance
+|faint|p2a: Hippowdon
+|-damage|p1a: Seaking|540568|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>g0dzooks</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">kyuremblack seaking slurpuff doublade hitmontop pikachuworld</h1>

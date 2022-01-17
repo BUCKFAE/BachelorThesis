@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491337724<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491337724|init|battle
+|title|Promesus vs. McGewitter
+|j|☆Promesus
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Promesus|hilbert-wonderlauncher|1114
+|player|p2|McGewitter|265|1080
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Zeraora|Zeraora, L76|100100
+|switch|p2a: Xurkitree|Xurkitree, L76|251251
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree leafeon lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-leafeon-lanturn-magearnaoriginal-ninetalesalola-butterfree -- zeraora
+|chat|DEBUG|Own moves: thunderbolt energyball dazzlinggleam hypnosis
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn']
+|chat|DEBUG|Speed: 170 vs 261
+|chat|DEBUG|HP: 251 vs 259
+|chat|DEBUG|Created a new Strategy for xurkitree vs zeraora:
+|chat|DEBUG|>[energyball: 99.375 [91, 108], energyball: 99.375 [91, 108], energyball: 99.375 [91, 108]]
+|chat|DEBUG|Best move of xurkitree (p1): energyball: 99.375 [91, 108]
+|chat|DEBUG|Best move of zeraora (p2): closecombat: 131.5625 [121, 143]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using energyball
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Promesus also wants the timer to be on.
+|move|p1a: Zeraora|Bulk Up|p1a: Zeraora
+|-boost|p1a: Zeraora|atk|1
+|-boost|p1a: Zeraora|def|1
+|move|p2a: Xurkitree|Energy Ball|p1a: Zeraora
+|-damage|p1a: Zeraora|62100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree leafeon lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-leafeon-lanturn-magearnaoriginal-ninetalesalola-butterfree -- zeraora
+|chat|DEBUG|Own moves: thunderbolt energyball dazzlinggleam hypnosis
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['magearnaoriginal']
+|chat|DEBUG|Speed: 170 vs 261
+|chat|DEBUG|HP: 251 vs 160
+|chat|DEBUG|Best move of xurkitree (p1): energyball: 99.375 [91, 108]
+|chat|DEBUG|Best move of zeraora (p2): closecombat: 196.625 [181, 213]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Play Rough|p2a: Xurkitree
+|-damage|p2a: Xurkitree|116251
+|-damage|p1a: Zeraora|53100|[from] item: Life Orb
+|move|p2a: Xurkitree|Energy Ball|p1a: Zeraora
+|-damage|p1a: Zeraora|17100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree leafeon lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-leafeon-lanturn-magearnaoriginal-ninetalesalola-butterfree -- zeraora
+|chat|DEBUG|Own moves: thunderbolt energyball dazzlinggleam hypnosis
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['leafeon', 'lanturn', 'magearnaoriginal']
+|chat|DEBUG|Speed: 170 vs 261
+|chat|DEBUG|HP: 116 vs 44
+|chat|DEBUG|Best move of xurkitree (p1): energyball: 99.375 [91, 108]
+|chat|DEBUG|Best move of zeraora (p2): closecombat: 196.625 [181, 213]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Play Rough|p2a: Xurkitree
+|-damage|p2a: Xurkitree|0 fnt
+|faint|p2a: Xurkitree
+|-damage|p1a: Zeraora|7100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Leafeon|Leafeon, L86, M|252252
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>leafeon-lanturn-magearnaoriginal-ninetalesalola-butterfree -- zeraora
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['leafeon', 'lanturn', 'magearnaoriginal']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to leafeon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Blaze Kick|p2a: Leafeon
+|-supereffective|p2a: Leafeon
+|-damage|p2a: Leafeon|104252
+|-status|p2a: Leafeon|brn
+|-damage|p1a: Zeraora|0 fnt|[from] item: Life Orb
+|faint|p1a: Zeraora
+|move|p2a: Leafeon|Leaf Blade|p1: Zeraora|[notarget]
+|-fail|p2a: Leafeon
+|-damage|p2a: Leafeon|89252 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lurantis|Lurantis, L86, M|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "leafeon" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>leafeon-lanturn-magearnaoriginal-ninetalesalola-butterfree -- zeraora
+|chat|DEBUG|Own moves: synthesis knockoff doubleedge leafblade
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['leafeon', 'lanturn', 'magearnaoriginal']
+|chat|DEBUG|Speed: 213 vs 261
+|chat|DEBUG|HP: 252 vs 18
+|chat|DEBUG|Created a new Strategy for leafeon vs zeraora:
+|chat|DEBUG|>[leafblade: 119.375 [109, 130], leafblade: 119.375 [109, 130], leafblade: 119.375 [109, 130]]
+|chat|DEBUG|Best move of leafeon (p1): leafblade: 119.375 [109, 130]
+|chat|DEBUG|Best move of zeraora (p2): blazekick: 155.1875 [143, 169]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Double-Edge|p1a: Lurantis
+|-damage|p1a: Lurantis|79100
+|-damage|p2a: Leafeon|71252 brn|[from] Recoil
+|-damage|p2a: Leafeon|46252 brn|[from] item: Life Orb
+|move|p1a: Lurantis|Superpower|p2a: Leafeon
+|-damage|p2a: Leafeon|0 fnt
+|-boost|p1a: Lurantis|atk|1
+|-boost|p1a: Lurantis|def|1
+|faint|p2a: Leafeon
+|-heal|p1a: Lurantis|85100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lanturn|Lanturn, L86, F|355355
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "leafeon" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>leafeon-lanturn-magearnaoriginal-ninetalesalola-butterfree -- lurantis
+|chat|DEBUG|Own moves: synthesis knockoff doubleedge leafblade
+|chat|DEBUG|Enemy moves: knockoff leafstorm superpower synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'magearnaoriginal', 'ninetalesalola', 'butterfree']
+|chat|DEBUG|Speed: 213 vs 127
+|chat|DEBUG|HP: 89 vs 261
+|chat|DEBUG|Created a new Strategy for leafeon vs lurantis:
+|chat|DEBUG|>[doubleedge: 121.625 [112, 133], doubleedge: 121.625 [112, 133], doubleedge: 121.625 [112, 133]]
+|chat|DEBUG|Best move of leafeon (p1): doubleedge: 121.625 [112, 133]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 98.1875 [90, 107]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using doubleedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lanturn|Ice Beam|p1a: Lurantis
+|-supereffective|p1a: Lurantis
+|-damage|p1a: Lurantis|32100
+|-status|p1a: Lurantis|frz
+|-damage|p2a: Lanturn|320355|[from] item: Life Orb
+|cant|p1a: Lurantis|frz
+|-heal|p1a: Lurantis|38100 frz|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "leafeon" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- lurantis
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff leafstorm superpower synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'magearnaoriginal', 'ninetalesalola', 'butterfree']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lanturn (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lanturn|Ice Beam|p1a: Lurantis
+|-supereffective|p1a: Lurantis
+|-damage|p1a: Lurantis|0 fnt
+|faint|p1a: Lurantis
+|-damage|p2a: Lanturn|285355|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|100100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Tapu Bulu
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- lurantis
+|chat|DEBUG|Own moves: toxic thunderbolt icebeam scald
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['butterfree']
+|chat|DEBUG|Counter: ['lanturn', 'magearnaoriginal', 'ninetalesalola', 'butterfree']
+|chat|DEBUG|Speed: 164 vs 127
+|chat|DEBUG|HP: 355 vs 221
+|chat|DEBUG|Created a new Strategy for lanturn vs lurantis:
+|chat|DEBUG|>[icebeam: 140.75 [130, 153], icebeam: 140.75 [130, 153], icebeam: 140.75 [130, 153]]
+|chat|DEBUG|Best move of lanturn (p1): icebeam: 140.75 [130, 153]
+|chat|DEBUG|Best move of lurantis (p2): superpower: 186.0625 [171, 202]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magearna|Magearna-Original, L76|247247
+|move|p1a: Tapu Bulu|Horn Leech|p2a: Magearna
+|-resisted|p2a: Magearna
+|-damage|p2a: Magearna|174247
+|-damage|p1a: Tapu Bulu|91100|[from] item: Life Orb
+|-heal|p1a: Tapu Bulu|97100|[from] Grassy Terrain
+|-heal|p2a: Magearna|189247|[from] Grassy Terrain
+|-heal|p2a: Magearna|204247|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- lurantis
+|chat|DEBUG|Own moves: toxic thunderbolt icebeam scald
+|chat|DEBUG|Enemy moves: defog leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['lanturn', 'magearnaoriginal', 'ninetalesalola', 'butterfree']
+|chat|DEBUG|Counter: ['lanturn', 'magearnaoriginal', 'ninetalesalola', 'butterfree']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 127
+|chat|DEBUG|HP: 320 vs 99
+|chat|DEBUG|Best move of lanturn (p1): icebeam: 140.75 [130, 153]
+|chat|DEBUG|Best move of lurantis (p2): superpower: 186.0625 [171, 202]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Uxie|Uxie, L82|100100
+|move|p2a: Magearna|Agility|p2a: Magearna
+|-boost|p2a: Magearna|spe|2
+|-heal|p2a: Magearna|219247|[from] Grassy Terrain
+|-heal|p2a: Magearna|234247|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- tapubulu
+|chat|DEBUG|Own moves: toxic thunderbolt icebeam scald
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['magearnaoriginal']
+|chat|DEBUG|Counter: ['magearnaoriginal']
+|chat|DEBUG|Speed: 164 vs 170
+|chat|DEBUG|HP: 285 vs 249
+|chat|DEBUG|Created a new Strategy for lanturn vs tapubulu:
+|chat|DEBUG|>[icebeam: 140.75 [130, 153], icebeam: 140.75 [130, 153], icebeam: 140.75 [130, 153]]
+|chat|DEBUG|Best move of lanturn (p1): icebeam: 140.75 [130, 153]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 322.5625 [296, 351]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check magearnaoriginal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magearna|Flash Cannon|p1a: Uxie
+|-damage|p1a: Uxie|74100
+|move|p1a: Uxie|Yawn|p2a: Magearna
+|-start|p2a: Magearna|move: Yawn|[of] p1a: Uxie
+|-heal|p2a: Magearna|247247|[from] Grassy Terrain
+|-heal|p1a: Uxie|81100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearnaoriginal" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- tapubulu
+|chat|DEBUG|Own moves: fleurcannon agility flashcannon calmmind
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['magearnaoriginal']
+|chat|DEBUG|Counter: ['magearnaoriginal']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 143 vs 170
+|chat|DEBUG|HP: 204 vs 241
+|chat|DEBUG|Created a new Strategy for magearnaoriginal vs tapubulu:
+|chat|DEBUG|>[flashcannon: 172.875 [158, 188], flashcannon: 172.875 [158, 188], flashcannon: 172.875 [158, 188]]
+|chat|DEBUG|Best move of magearnaoriginal (p1): flashcannon: 172.875 [158, 188]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 54.9375 [51, 60]
+|chat|DEBUG|Boost Moves: [agility (Move object), calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magearna|Flash Cannon|p1a: Uxie
+|-damage|p1a: Uxie|56100
+|move|p1a: Uxie|U-turn|p2a: Magearna
+|-resisted|p2a: Magearna
+|-damage|p2a: Magearna|239247
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, M|100100|[from]move: U-turn
+|-heal|p2a: Magearna|247247|[from] Grassy Terrain
+|-end|p2a: Magearna|move: Yawn|[silent]
+|-status|p2a: Magearna|slp
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearnaoriginal" vs "uxie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- tapubulu-uxie
+|chat|DEBUG|Own moves: fleurcannon agility flashcannon calmmind
+|chat|DEBUG|Enemy moves: knockoff psychic uturn yawn
+|chat|DEBUG|Checks: ['magearnaoriginal', 'butterfree']
+|chat|DEBUG|Counter: ['magearnaoriginal', 'butterfree']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 143 vs 203
+|chat|DEBUG|HP: 234 vs 257
+|chat|DEBUG|Created a new Strategy for magearnaoriginal vs uxie:
+|chat|DEBUG|>[flashcannon: 67.25 [61, 73], flashcannon: 67.25 [61, 73], fleurcannon: 108.625 [100, 118]]
+|chat|DEBUG|Best move of magearnaoriginal (p1): flashcannon: 67.25 [61, 73]
+|chat|DEBUG|Best move of uxie (p2): psychic: 33.375 [30, 36]
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Magearna|slp
+|move|p1a: Linoone|Belly Drum|p1a: Linoone
+|-damage|p1a: Linoone|50100
+|-setboost|p1a: Linoone|atk|6|[from] move: Belly Drum
+|-enditem|p1a: Linoone|Mago Berry|[eat]
+|-heal|p1a: Linoone|83100|[from] item: Mago Berry
+|-heal|p1a: Linoone|89100|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearnaoriginal" vs "uxie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- tapubulu-uxie
+|chat|DEBUG|Own moves: fleurcannon agility flashcannon calmmind
+|chat|DEBUG|Enemy moves: knockoff psychic uturn yawn
+|chat|DEBUG|Checks: ['magearnaoriginal', 'butterfree']
+|chat|DEBUG|Counter: ['magearnaoriginal', 'ninetalesalola', 'butterfree']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 143 vs 203
+|chat|DEBUG|HP: 247 vs 208
+|chat|DEBUG|Best move of magearnaoriginal (p1): flashcannon: 67.25 [61, 73]
+|chat|DEBUG|Best move of uxie (p2): psychic: 33.375 [30, 36]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p2a: Magearna|slp|[msg]
+|move|p2a: Magearna|Flash Cannon|p1a: Linoone
+|-damage|p1a: Linoone|45100
+|move|p1a: Linoone|Stomping Tantrum|p2a: Magearna
+|-supereffective|p2a: Magearna
+|-damage|p2a: Magearna|0 fnt
+|faint|p2a: Magearna
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ninetales|Ninetales-Alola, L79, M|245245
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Ninetales
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearnaoriginal" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: fleurcannon agility flashcannon calmmind
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: ['ninetalesalola']
+|chat|DEBUG|Counter: ['magearnaoriginal', 'ninetalesalola']
+|chat|DEBUG|Speed: 143 vs 216
+|chat|DEBUG|HP: 247 vs 268
+|chat|DEBUG|Created a new Strategy for magearnaoriginal vs linoone:
+|chat|DEBUG|>[flashcannon: 115.625 [106, 126], flashcannon: 115.625 [106, 126], fleurcannon: 186.375 [171, 202]]
+|chat|DEBUG|Best move of magearnaoriginal (p1): flashcannon: 115.625 [106, 126]
+|chat|DEBUG|Best move of linoone (p2): stompingtantrum: 74.875 [68, 82]
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Extreme Speed|p2a: Ninetales
+|-damage|p2a: Ninetales|0 fnt
+|faint|p2a: Ninetales
+|-weather|Hail|[upkeep]
+|-damage|p1a: Linoone|39100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lanturn|Lanturn, L86, F|285355
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn magearnaoriginal ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearnaoriginal" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-magearnaoriginal-ninetalesalola-butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: fleurcannon agility flashcannon calmmind
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 143 vs 216
+|chat|DEBUG|HP: 247 vs 238
+|chat|DEBUG|Best move of magearnaoriginal (p1): flashcannon: 115.625 [106, 126]
+|chat|DEBUG|Best move of linoone (p2): stompingtantrum: 296.875 [272, 322]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Stomping Tantrum|p2a: Lanturn
+|-supereffective|p2a: Lanturn
+|-damage|p2a: Lanturn|0 fnt
+|faint|p2a: Lanturn
+|-weather|Hail|[upkeep]
+|-damage|p1a: Linoone|33100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Butterfree|Butterfree, L87, F|246246
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearnaoriginal" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-ninetalesalola-butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: ninetalesalola
+|chat|DEBUG|>Switching to ninetalesalola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Butterfree|Dynamax
+|-formechange|p2a: Butterfree|Butterfree-Gmax
+|-heal|p2a: Butterfree|492492|[silent]
+|move|p1a: Linoone|Extreme Speed|p2a: Butterfree
+|-damage|p2a: Butterfree|83492
+|move|p2a: Butterfree|G-Max Befuddle|p1a: Linoone
+|-damage|p1a: Linoone|0 fnt
+|faint|p1a: Linoone
+|-weather|Hail|[upkeep]
+|-damage|p2a: Butterfree|68492|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Uxie|Uxie, L82|56100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn ninetalesalola butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetalesalola" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-ninetalesalola-butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: nastyplot blizzard moonblast auroraveil
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 218 vs 216
+|chat|DEBUG|HP: 245 vs 120
+|chat|DEBUG|Created a new Strategy for ninetalesalola vs linoone:
+|chat|DEBUG|>[moonblast: 101.75 [93, 111], moonblast: 101.75 [93, 111], moonblast: 101.75 [93, 111]]
+|chat|DEBUG|Best move of ninetalesalola (p1): moonblast: 101.75 [93, 111]
+|chat|DEBUG|Best move of linoone (p2): extremespeed: 315.4375 [289, 342]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|auroraveil
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Uxie|Yawn|p2a: Butterfree
+|-start|p2a: Butterfree|move: Yawn|[of] p1a: Uxie
+|move|p2a: Butterfree|G-Max Befuddle|p1a: Uxie
+|-supereffective|p1a: Uxie
+|-damage|p1a: Uxie|0 fnt
+|faint|p1a: Uxie
+|-weather|Hail|[upkeep]
+|-damage|p2a: Butterfree|53492|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Alcremie|Alcremie, L86, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetalesalola" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: lanturn
+|chat|DEBUG|>Switching to lanturn (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Butterfree|G-Max Befuddle|p1a: Alcremie
+|-resisted|p1a: Alcremie
+|-damage|p1a: Alcremie|62100
+|-status|p1a: Alcremie|slp
+|cant|p1a: Alcremie|slp
+|-weather|none
+|-heal|p1a: Alcremie|68100 slp|[from] item: Leftovers
+|-end|p2a: Butterfree|move: Yawn|[silent]
+|-status|p2a: Butterfree|slp
+|-end|p2a: Butterfree|Dynamax
+|-formechange|p2a: Butterfree|Butterfree
+|-heal|p2a: Butterfree|27246 slp|[silent]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lanturn butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lanturn-butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: toxic thunderbolt icebeam scald
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 164 vs 216
+|chat|DEBUG|HP: 285 vs 104
+|chat|DEBUG|Created a new Strategy for lanturn vs linoone:
+|chat|DEBUG|>[thunderbolt: 141.1875 [130, 153], thunderbolt: 141.1875 [130, 153], thunderbolt: 141.1875 [130, 153]]
+|chat|DEBUG|Best move of lanturn (p1): thunderbolt: 141.1875 [130, 153]
+|chat|DEBUG|Best move of linoone (p2): stompingtantrum: 433.75 [398, 470]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Promesus has 120 seconds left.
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|97100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Tapu Bulu
+|cant|p2a: Butterfree|slp
+|-heal|p1a: Tapu Bulu|100100|[from] Grassy Terrain
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "linoone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree -- tapubulu-uxie-linoone
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum extremespeed stompingtantrum throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: butterfree
+|chat|DEBUG|>Switching to butterfree (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Promesus has 120 seconds left.
+|-start|p1a: Tapu Bulu|Dynamax
+|-heal|p1a: Tapu Bulu|100100|[silent]
+|cant|p2a: Butterfree|slp
+|move|p1a: Tapu Bulu|Max Overgrowth|p2a: Butterfree
+|-resisted|p2a: Butterfree
+|-damage|p2a: Butterfree|0 fnt
+|faint|p2a: Butterfree
+|-damage|p1a: Tapu Bulu|96100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Promesus<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">xurkitree leafeon lanturn magearnaoriginal ninetalesalola butterfree</h1>

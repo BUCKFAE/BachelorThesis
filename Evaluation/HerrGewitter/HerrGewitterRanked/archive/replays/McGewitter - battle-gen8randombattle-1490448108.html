@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490448108</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490448108<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Thuder Thuder ツ</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490448108|init|battle
+|title|McGewitter vs. Thuder Thuder ツ
+|j|☆McGewitter
+|j|☆Thuder Thuder ツ
+|gametype|singles
+|player|p1|McGewitter|265|1196
+|player|p2|Thuder Thuder ツ|yellow|1152
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Barraskewda|Barraskewda, L80, F|229/229
+|switch|p2a: Nihilego|Nihilego, L80|100/100
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Barraskewda|Liquidation|p2a: Nihilego
+|-supereffective|p2a: Nihilego
+|-crit|p2a: Nihilego
+|-damage|p2a: Nihilego|0 fnt
+|faint|p2a: Nihilego
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Kyogre
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Barraskewda|Liquidation|p2a: Kyogre
+|-resisted|p2a: Kyogre
+|-damage|p2a: Kyogre|55/100
+|move|p2a: Kyogre|Thunder|p1a: Barraskewda
+|-supereffective|p1a: Barraskewda
+|-damage|p1a: Barraskewda|0 fnt
+|faint|p1a: Barraskewda
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pikachu|Pikachu-Kalos, L92, M|214/214
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Flapple|Flapple, L84, M|100/100
+|move|p1a: Pikachu|Volt Tackle|p2a: Flapple
+|-resisted|p2a: Flapple
+|-damage|p2a: Flapple|80/100
+|-damage|p1a: Pikachu|197/214|[from] Recoil
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xerneas|Xerneas, L67|280/280
+|-ability|p1a: Xerneas|Fairy Aura
+|move|p2a: Flapple|Dragon Dance|p2a: Flapple
+|-boost|p2a: Flapple|atk|1
+|-boost|p2a: Flapple|spe|1
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xerneas|Moonblast|p2a: Flapple
+|-supereffective|p2a: Flapple
+|-damage|p2a: Flapple|0 fnt
+|faint|p2a: Flapple
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|55/100
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyogre|Origin Pulse|p1a: Xerneas
+|-damage|p1a: Xerneas|69/280
+|move|p1a: Xerneas|Moonblast|p2a: Kyogre
+|-crit|p2a: Kyogre
+|-damage|p2a: Kyogre|4/100
+|-unboost|p2a: Kyogre|spa|1
+|-weather|none
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, M|332/332
+|move|p2a: Kyogre|Origin Pulse|p1a: Audino
+|-damage|p1a: Audino|254/332
+|-heal|p1a: Audino|274/332|[from] item: Leftovers
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|100/100
+|move|p1a: Audino|Knock Off|p2a: Charizard
+|-damage|p2a: Charizard|77/100
+|-enditem|p2a: Charizard|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|294/332|[from] item: Leftovers
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Audino
+|-damage|p1a: Audino|238/332
+|move|p1a: Audino|Knock Off|p2a: Charizard
+|-damage|p2a: Charizard|60/100
+|-heal|p1a: Audino|258/332|[from] item: Leftovers
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|100/100
+|move|p1a: Audino|Knock Off|p2a: Tornadus
+|-damage|p2a: Tornadus|74/100
+|-enditem|p2a: Tornadus|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|278/332|[from] item: Leftovers
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Copperajah|Copperajah, L84, F|342/342
+|move|p2a: Tornadus|Superpower|p1a: Copperajah
+|-supereffective|p1a: Copperajah
+|-damage|p1a: Copperajah|158/342
+|-unboost|p2a: Tornadus|atk|1
+|-unboost|p2a: Tornadus|def|1
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|140/342
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|60/100|[from]move: U-turn
+|move|p1a: Copperajah|Heavy Slam|p2a: Charizard
+|-resisted|p2a: Charizard
+|-damage|p2a: Charizard|13/100
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, M|332/332
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|63/100
+|-singleturn|p2a: Charizard|move: Roost
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Charizard
+|-damage|p2a: Charizard|83/100
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|100/100
+|move|p1a: Audino|Knock Off|p2a: Tornadus
+|-damage|p2a: Tornadus|83/100
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Superpower|p1a: Audino
+|-supereffective|p1a: Audino
+|-damage|p1a: Audino|184/332
+|-unboost|p2a: Tornadus|atk|1
+|-unboost|p2a: Tornadus|def|1
+|move|p1a: Audino|Knock Off|p2a: Tornadus
+|-damage|p2a: Tornadus|56/100
+|-heal|p1a: Audino|204/332|[from] item: Leftovers
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Audino
+|-damage|p1a: Audino|175/332
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sylveon|Sylveon, L84, F|100/100|[from]move: U-turn
+|move|p1a: Audino|Knock Off|p2a: Sylveon
+|-resisted|p2a: Sylveon
+|-damage|p2a: Sylveon|89/100
+|-enditem|p2a: Sylveon|Leftovers|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|195/332|[from] item: Leftovers
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xerneas|Xerneas, L67|69/280
+|-ability|p1a: Xerneas|Fairy Aura
+|move|p2a: Sylveon|Calm Mind|p2a: Sylveon
+|-boost|p2a: Sylveon|spa|1
+|-boost|p2a: Sylveon|spd|1
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xerneas|Psyshock|p2a: Sylveon
+|-damage|p2a: Sylveon|70/100
+|move|p2a: Sylveon|Mystical Fire|p1a: Xerneas
+|-damage|p1a: Xerneas|0 fnt
+|faint|p1a: Xerneas
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pikachu|Pikachu-Kalos, L92, M|197/214
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pikachu|Volt Tackle|p2a: Sylveon
+|-damage|p2a: Sylveon|0 fnt
+|faint|p2a: Sylveon
+|-damage|p1a: Pikachu|129/214|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|4/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Kyogre
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyogre|Origin Pulse|p1a: Pikachu
+|-damage|p1a: Pikachu|0 fnt
+|faint|p1a: Pikachu
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, M|305/332
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Kyogre|Dynamax
+|-heal|p2a: Kyogre|4/100|[silent]
+|move|p2a: Kyogre|Max Geyser|p1a: Audino
+|-damage|p1a: Audino|73/332
+|move|p1a: Audino|Knock Off|p2a: Kyogre
+|-damage|p2a: Kyogre|0 fnt
+|-enditem|p2a: Kyogre|Choice Scarf|[from] move: Knock Off|[of] p1a: Audino
+|faint|p2a: Kyogre
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Audino|93/332|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|89/100
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Hurricane|p1a: Audino
+|-damage|p1a: Audino|0 fnt
+|faint|p1a: Audino
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Flapple|Flapple, L84, M|255/255
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Flapple|Dynamax
+|-heal|p1a: Flapple|510/510|[silent]
+|move|p2a: Tornadus|Hurricane|p1a: Flapple
+|-supereffective|p1a: Flapple
+|-damage|p1a: Flapple|234/510
+|move|p1a: Flapple|Max Wyrmwind|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|faint|p2a: Tornadus
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|83/100
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Flapple
+|-supereffective|p1a: Flapple
+|-damage|p1a: Flapple|10/510
+|move|p1a: Flapple|Max Wyrmwind|p2a: Charizard
+|-damage|p2a: Charizard|0 fnt
+|faint|p2a: Charizard
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

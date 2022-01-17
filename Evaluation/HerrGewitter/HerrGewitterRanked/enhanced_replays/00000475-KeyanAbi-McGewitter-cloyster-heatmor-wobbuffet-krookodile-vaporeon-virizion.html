@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490693351<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490693351|init|battle
+|title|KeyanAbi vs. McGewitter
+|j|☆KeyanAbi
+|j|☆McGewitter
+|gametype|singles
+|player|p1|KeyanAbi|blue|1122
+|player|p2|McGewitter|265|1166
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Ninjask|Ninjask, L86, M|100100
+|switch|p2a: Cloyster|Cloyster, L80, F|211211
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask
+|chat|DEBUG|Own moves: shellsmash iciclespear rockblast hydropump
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['cloyster', 'heatmor']
+|chat|DEBUG|Counter: ['cloyster', 'heatmor', 'vaporeon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 158 vs 324
+|chat|DEBUG|HP: 211 vs 245
+|chat|DEBUG|Created a new Strategy for cloyster vs ninjask:
+|chat|DEBUG|>[hydropump: 140.125 [129, 153], hydropump: 140.125 [129, 153], hydropump: 140.125 [129, 153]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 140.125 [129, 153]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 68.75 [63, 75]
+|chat|DEBUG|Boost Moves: [shellsmash (Move object)]
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Ninjask|U-turn|p2a: Cloyster
+|-damage|p2a: Cloyster|168211
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Turtonator|Turtonator, L84, F|100100|[from]move: U-turn
+|move|p2a: Cloyster|Shell Smash|p2a: Cloyster
+|-unboost|p2a: Cloyster|def|1
+|-unboost|p2a: Cloyster|spd|1
+|-boost|p2a: Cloyster|atk|2
+|-boost|p2a: Cloyster|spa|2
+|-boost|p2a: Cloyster|spe|2
+|-enditem|p2a: Cloyster|White Herb
+|-clearnegativeboost|p2a: Cloyster|[silent]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator
+|chat|DEBUG|Own moves: shellsmash iciclespear rockblast hydropump
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['vaporeon']
+|chat|DEBUG|Counter: ['krookodile', 'vaporeon']
+|chat|DEBUG|Speed: 158 vs 109
+|chat|DEBUG|HP: 168 vs 238
+|chat|DEBUG|Created a new Strategy for cloyster vs turtonator:
+|chat|DEBUG|>[hydropump: 198.875 [183, 216], hydropump: 198.875 [183, 216], hydropump: 198.875 [183, 216]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 198.875 [183, 216]
+|chat|DEBUG|Best move of turtonator (p2): dracometeor: 216.9375 [199, 235]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check vaporeon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vaporeon|Vaporeon, L84, M|356356
+|move|p1a: Turtonator|Fire Blast|p2a: Vaporeon|[miss]
+|-miss|p1a: Turtonator|p2a: Vaporeon
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vaporeon" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator
+|chat|DEBUG|Own moves: scald wish toxic icebeam
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['vaporeon']
+|chat|DEBUG|Counter: ['krookodile', 'vaporeon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 157 vs 109
+|chat|DEBUG|HP: 356 vs 238
+|chat|DEBUG|Created a new Strategy for vaporeon vs turtonator:
+|chat|DEBUG|>[scald: 96.1875 [88, 105], scald: 96.1875 [88, 105], scald: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of vaporeon (p1): scald: 96.1875 [88, 105]
+|chat|DEBUG|Best move of turtonator (p2): earthquake: 79.0625 [73, 86]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|100100
+|move|p2a: Vaporeon|Scald|p1a: Ferrothorn
+|-resisted|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|85100
+|-status|p1a: Ferrothorn|brn
+|-heal|p1a: Ferrothorn|91100 brn|[from] item: Leftovers
+|-damage|p1a: Ferrothorn|85100 brn|[from] brn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vaporeon" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn
+|chat|DEBUG|Own moves: scald wish toxic icebeam
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['heatmor', 'krookodile', 'virizion']
+|chat|DEBUG|Speed: 157 vs 36
+|chat|DEBUG|HP: 356 vs 207
+|chat|DEBUG|Created a new Strategy for vaporeon vs ferrothorn:
+|chat|DEBUG|>[icebeam: 60.6875 [56, 66], icebeam: 60.6875 [56, 66], icebeam: 60.6875 [56, 66]]
+|chat|DEBUG|Best move of vaporeon (p1): icebeam: 60.6875 [56, 66]
+|chat|DEBUG|Best move of ferrothorn (p2): powerwhip: 286.25 [264, 312]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check heatmor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heatmor|Heatmor, L90, M|299299
+|move|p1a: Ferrothorn|Leech Seed|p2a: Heatmor
+|-start|p2a: Heatmor|move: Leech Seed
+|-heal|p1a: Ferrothorn|91100 brn|[from] item: Leftovers
+|-damage|p2a: Heatmor|262299|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|100100 brn|[silent]
+|-damage|p1a: Ferrothorn|94100 brn|[from] brn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn
+|chat|DEBUG|Own moves: firelash substitute knockoff gigadrain
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['heatmor', 'krookodile', 'virizion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 168 vs 36
+|chat|DEBUG|HP: 262 vs 229
+|chat|DEBUG|Created a new Strategy for heatmor vs ferrothorn:
+|chat|DEBUG|>[firelash: 462.5 [424, 504], firelash: 462.5 [424, 504], firelash: 462.5 [424, 504]]
+|chat|DEBUG|Best move of heatmor (p1): firelash: 462.5 [424, 504]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 60.375 [55, 66]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Omastar|Omastar, L82, M|100100
+|move|p2a: Heatmor|Fire Lash|p1a: Omastar
+|-resisted|p1a: Omastar
+|-damage|p1a: Omastar|93100
+|-unboost|p1a: Omastar|def|1
+|-enditem|p1a: Omastar|White Herb
+|-clearnegativeboost|p1a: Omastar|[silent]
+|-damage|p2a: Heatmor|225299|[from] Leech Seed|[of] p1a: Omastar
+|-heal|p1a: Omastar|100100|[silent]
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-omastar
+|chat|DEBUG|Own moves: firelash substitute knockoff gigadrain
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['vaporeon', 'virizion']
+|chat|DEBUG|Counter: ['cloyster', 'heatmor', 'vaporeon', 'virizion']
+|chat|DEBUG|Speed: 168 vs 137
+|chat|DEBUG|HP: 225 vs 249
+|chat|DEBUG|Created a new Strategy for heatmor vs omastar:
+|chat|DEBUG|>[gigadrain: 316.25 [292, 344], gigadrain: 316.25 [292, 344], gigadrain: 316.25 [292, 344]]
+|chat|DEBUG|Best move of heatmor (p1): gigadrain: 316.25 [292, 344]
+|chat|DEBUG|Best move of omastar (p2): hydropump: 289.125 [266, 314]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatmor|Giga Drain|p1a: Omastar
+|-supereffective|p1a: Omastar
+|-damage|p1a: Omastar|0 fnt
+|-heal|p2a: Heatmor|299299|[from] drain|[of] p1a: Omastar
+|faint|p1a: Omastar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|100100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: firelash substitute knockoff gigadrain
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['cloyster']
+|chat|DEBUG|Counter: ['cloyster', 'krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Speed: 168 vs 174
+|chat|DEBUG|HP: 299 vs 266
+|chat|DEBUG|Created a new Strategy for heatmor vs groudon:
+|chat|DEBUG|>[gigadrain: 147.25 [136, 160], gigadrain: 147.25 [136, 160], gigadrain: 147.25 [136, 160]]
+|chat|DEBUG|Best move of heatmor (p1): gigadrain: 147.25 [136, 160]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 320.0 [294, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cloyster
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cloyster|Cloyster, L80, F|168211
+|move|p1a: Groudon|Precipice Blades|p2a: Cloyster
+|-damage|p2a: Cloyster|83211
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: shellsmash iciclespear rockblast hydropump
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Speed: 158 vs 174
+|chat|DEBUG|HP: 83 vs 266
+|chat|DEBUG|Created a new Strategy for cloyster vs groudon:
+|chat|DEBUG|>[hydropump: 220.5 [204, 240], hydropump: 220.5 [204, 240], hydropump: 220.5 [204, 240]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 220.5 [204, 240]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 82.4375 [76, 90]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Stone Edge|p2a: Cloyster|[miss]
+|-miss|p1a: Groudon|p2a: Cloyster
+|move|p2a: Cloyster|Hydro Pump|p1a: Groudon
+|-supereffective|p1a: Groudon
+|-damage|p1a: Groudon|58100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|64100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: shellsmash iciclespear rockblast hydropump
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['krookodile', 'vaporeon']
+|chat|DEBUG|Counter: ['cloyster', 'krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Speed: 158 vs 174
+|chat|DEBUG|HP: 83 vs 170
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 220.5 [204, 240]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Stone Edge|p2a: Cloyster
+|-supereffective|p2a: Cloyster
+|-crit|p2a: Cloyster
+|-damage|p2a: Cloyster|0 fnt
+|faint|p2a: Cloyster
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|70100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Krookodile|Krookodile, L78, M|276276
+|-ability|p2a: Krookodile|Intimidate|boost
+|-unboost|p1a: Groudon|atk|1
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['krookodile', 'vaporeon']
+|chat|DEBUG|Counter: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to krookodile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Krookodile|Stealth Rock|p1a: Groudon
+|-sidestart|p1: KeyanAbi|move: Stealth Rock
+|move|p1a: Groudon|Stealth Rock|p2a: Krookodile
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|76100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: closecombat stealthrock earthquake knockoff
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Counter: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 189 vs 174
+|chat|DEBUG|HP: 276 vs 186
+|chat|DEBUG|Created a new Strategy for krookodile vs groudon:
+|chat|DEBUG|>[earthquake: 110.5 [101, 121], earthquake: 110.5 [101, 121], earthquake: 110.5 [101, 121]]
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 110.5 [101, 121]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 79.5 [73, 87]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Krookodile|Earthquake|p1a: Groudon
+|-damage|p1a: Groudon|32100
+|-damage|p2a: Krookodile|249276|[from] item: Life Orb
+|move|p1a: Groudon|Heavy Slam|p2a: Krookodile
+|-damage|p2a: Krookodile|182276
+|-weather|none
+|-heal|p1a: Groudon|38100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: closecombat stealthrock earthquake knockoff
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Counter: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 189 vs 174
+|chat|DEBUG|HP: 276 vs 202
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 110.5 [101, 121]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 79.5 [73, 87]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninjask|Ninjask, L86, M|100100
+|-damage|p1a: Ninjask|51100|[from] Stealth Rock
+|move|p2a: Krookodile|Earthquake|p1a: Ninjask
+|-immune|p1a: Ninjask
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: closecombat stealthrock earthquake knockoff
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Counter: ['heatmor', 'krookodile', 'vaporeon', 'virizion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 189 vs 174
+|chat|DEBUG|HP: 182 vs 101
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 110.5 [101, 121]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 79.5 [73, 87]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Leech Life|p2a: Krookodile
+|-supereffective|p2a: Krookodile
+|-damage|p2a: Krookodile|0 fnt
+|-heal|p1a: Ninjask|88100|[from] drain|[of] p2a: Krookodile
+|faint|p2a: Krookodile
+|-ability|p1a: Ninjask|Speed Boost|boost
+|-boost|p1a: Ninjask|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heatmor|Heatmor, L90, M|299299
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet krookodile vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-krookodile-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: closecombat stealthrock earthquake knockoff
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['heatmor', 'vaporeon']
+|chat|DEBUG|Counter: ['heatmor', 'krookodile', 'vaporeon']
+|chat|DEBUG|Speed: 189 vs 324
+|chat|DEBUG|HP: 182 vs 124
+|chat|DEBUG|Created a new Strategy for krookodile vs ninjask:
+|chat|DEBUG|>[knockoff: 141.1875 [130, 153], knockoff: 141.1875 [130, 153], knockoff: 141.1875 [130, 153]]
+|chat|DEBUG|Best move of krookodile (p1): knockoff: 141.1875 [130, 153]
+|chat|DEBUG|Best move of ninjask (p2): leechlife: 131.5 [120, 144]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|U-turn|p2a: Heatmor
+|-resisted|p2a: Heatmor
+|-damage|p2a: Heatmor|260299
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|38100|[from]move: U-turn
+|-damage|p1a: Groudon|32100|[from] Stealth Rock
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|move|p2a: Heatmor|Knock Off|p1a: Groudon
+|-damage|p1a: Groudon|6100
+|-enditem|p1a: Groudon|Leftovers|[from] move: Knock Off|[of] p2a: Heatmor
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['heatmor', 'vaporeon']
+|chat|DEBUG|Counter: ['heatmor', 'vaporeon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to heatmor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vaporeon|Vaporeon, L84, M|356356
+|-damage|p2a: Vaporeon|312356|[from] Stealth Rock
+|move|p1a: Groudon|Precipice Blades|p2a: Vaporeon
+|-damage|p2a: Vaporeon|126356
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Vaporeon|148356|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: firelash substitute knockoff gigadrain
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['heatmor', 'vaporeon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 168 vs 324
+|chat|DEBUG|HP: 299 vs 215
+|chat|DEBUG|Created a new Strategy for heatmor vs ninjask:
+|chat|DEBUG|>[firelash: 453.25 [416, 492], firelash: 453.25 [416, 492], firelash: 453.25 [416, 492]]
+|chat|DEBUG|Best move of heatmor (p1): firelash: 453.25 [416, 492]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 134.0 [123, 145]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['turtonator']
+|chat|DEBUG|Expected enemy: turtonator
+|chat|DEBUG|Using move knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Virizion|Virizion, L82|283283
+|-damage|p2a: Virizion|266283|[from] Stealth Rock
+|move|p1a: Groudon|Precipice Blades|p2a: Virizion
+|-resisted|p2a: Virizion
+|-damage|p2a: Virizion|188283
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: firelash substitute knockoff gigadrain
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['vaporeon', 'virizion']
+|chat|DEBUG|Counter: ['vaporeon', 'virizion']
+|chat|DEBUG|Speed: 168 vs 174
+|chat|DEBUG|HP: 260 vs 15
+|chat|DEBUG|Created a new Strategy for heatmor vs groudon:
+|chat|DEBUG|>[gigadrain: 147.25 [136, 160], gigadrain: 147.25 [136, 160], gigadrain: 147.25 [136, 160]]
+|chat|DEBUG|Best move of heatmor (p1): gigadrain: 147.25 [136, 160]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 320.0 [294, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check vaporeon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Leaf Blade|p1a: Groudon
+|-supereffective|p1a: Groudon
+|-crit|p1a: Groudon
+|-damage|p1a: Groudon|0 fnt
+|faint|p1a: Groudon
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Turtonator|Turtonator, L84, F|100100
+|-damage|p1a: Turtonator|76100|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vaporeon" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: scald wish toxic icebeam
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['virizion']
+|chat|DEBUG|Counter: ['virizion']
+|chat|DEBUG|Speed: 157 vs 174
+|chat|DEBUG|HP: 148 vs 15
+|chat|DEBUG|Created a new Strategy for vaporeon vs groudon:
+|chat|DEBUG|>[scald: 209.0 [192, 228], scald: 209.0 [192, 228], scald: 209.0 [192, 228]]
+|chat|DEBUG|Best move of vaporeon (p1): scald: 209.0 [192, 228]
+|chat|DEBUG|Best move of groudon (p2): precipiceblades: 182.375 [168, 198]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check virizion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Close Combat|p1a: Turtonator
+|-damage|p1a: Turtonator|44100
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|move|p1a: Turtonator|Fire Blast|p2a: Virizion|[miss]
+|-miss|p1a: Turtonator|p2a: Virizion
+|-weather|none
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "groudon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn-groudon
+|chat|DEBUG|Own moves: swordsdance stoneedge leafblade closecombat
+|chat|DEBUG|Enemy moves: heatcrash heavyslam precipiceblades swordsdance
+|chat|DEBUG|Checks: ['virizion']
+|chat|DEBUG|Counter: ['virizion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 224 vs 174
+|chat|DEBUG|HP: 188 vs 15
+|chat|DEBUG|Created a new Strategy for virizion vs groudon:
+|chat|DEBUG|>[leafblade: 137.5 [126, 150], leafblade: 137.5 [126, 150], leafblade: 137.5 [126, 150]]
+|chat|DEBUG|Best move of virizion (p1): leafblade: 137.5 [126, 150]
+|chat|DEBUG|Best move of groudon (p2): heatcrash: 185.0 [170, 200]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Close Combat|p1a: Turtonator
+|-damage|p1a: Turtonator|8100
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|move|p1a: Turtonator|Fire Blast|p2a: Virizion|[miss]
+|-miss|p1a: Turtonator|p2a: Virizion
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn
+|chat|DEBUG|Own moves: swordsdance stoneedge leafblade closecombat
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vaporeon']
+|chat|DEBUG|Speed: 224 vs 109
+|chat|DEBUG|HP: 188 vs 180
+|chat|DEBUG|Created a new Strategy for virizion vs turtonator:
+|chat|DEBUG|>[closecombat: 80.9375 [75, 88], closecombat: 80.9375 [75, 88], closecombat: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of virizion (p1): closecombat: 80.9375 [75, 88]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 167.25 [152, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Close Combat|p1a: Turtonator
+|-damage|p1a: Turtonator|0 fnt
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|faint|p1a: Turtonator
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninjask|Ninjask, L86, M|88100
+|-damage|p1a: Ninjask|38100|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn
+|chat|DEBUG|Own moves: swordsdance stoneedge leafblade closecombat
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatmor', 'vaporeon']
+|chat|DEBUG|Speed: 224 vs 109
+|chat|DEBUG|HP: 188 vs 104
+|chat|DEBUG|Best move of virizion (p1): closecombat: 80.9375 [75, 88]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Leech Life|p2a: Virizion
+|-damage|p2a: Virizion|0 fnt
+|-heal|p1a: Ninjask|76100|[from] drain|[of] p2a: Virizion
+|faint|p2a: Virizion
+|-ability|p1a: Ninjask|Speed Boost|boost
+|-boost|p1a: Ninjask|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heatmor|Heatmor, L90, M|260299
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-turtonator-ferrothorn
+|chat|DEBUG|Own moves: swordsdance stoneedge leafblade closecombat
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['heatmor', 'vaporeon']
+|chat|DEBUG|Counter: ['heatmor', 'vaporeon', 'virizion']
+|chat|DEBUG|Speed: 224 vs 109
+|chat|DEBUG|HP: 188 vs 19
+|chat|DEBUG|Best move of virizion (p1): closecombat: 80.9375 [75, 88]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 333.875 [306, 362]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|U-turn|p2a: Heatmor
+|-resisted|p2a: Heatmor
+|-damage|p2a: Heatmor|216299
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chansey|Chansey, L84, F|100100|[from]move: U-turn
+|-damage|p1a: Chansey|88100|[from] Stealth Rock
+|move|p2a: Heatmor|Fire Lash|p1a: Chansey
+|-damage|p1a: Chansey|51100
+|-unboost|p1a: Chansey|def|1
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon virizion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon-virizion -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: swordsdance stoneedge leafblade closecombat
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatmor']
+|chat|DEBUG|Speed: 224 vs 324
+|chat|DEBUG|HP: 188 vs 93
+|chat|DEBUG|Created a new Strategy for virizion vs ninjask:
+|chat|DEBUG|>[stoneedge: 390.25 [360, 424], stoneedge: 390.25 [360, 424], stoneedge: 390.25 [360, 424]]
+|chat|DEBUG|Best move of virizion (p1): stoneedge: 390.25 [360, 424]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 1361.75 [1252, 1476]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatmor|Fire Lash|p1a: Chansey
+|-damage|p1a: Chansey|0 fnt
+|faint|p1a: Chansey
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninjask|Ninjask, L86, M|76100
+|-damage|p1a: Ninjask|27100|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor wobbuffet vaporeon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-wobbuffet-vaporeon -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatmor']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to heatmor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Acrobatics|p2a: Heatmor
+|-damage|p2a: Heatmor|87299
+|move|p2a: Heatmor|Fire Lash|p1a: Ninjask
+|-supereffective|p1a: Ninjask
+|-damage|p1a: Ninjask|0 fnt
+|faint|p1a: Ninjask
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|l|☆KeyanAbi
+|inactive|KeyanAbi disconnected and has a minute to reconnect!
+|player|p1|
+|inactive|KeyanAbi has 30 seconds to reconnect!
+|inactive|KeyanAbi has 20 seconds to reconnect!
+|inactive|KeyanAbi has 15 seconds to reconnect!
+|inactive|KeyanAbi has 10 seconds to reconnect!
+|inactive|KeyanAbi has 5 seconds to reconnect!
+|-message|KeyanAbi lost due to inactivity.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>KeyanAbi<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">cloyster heatmor wobbuffet krookodile vaporeon virizion</h1>

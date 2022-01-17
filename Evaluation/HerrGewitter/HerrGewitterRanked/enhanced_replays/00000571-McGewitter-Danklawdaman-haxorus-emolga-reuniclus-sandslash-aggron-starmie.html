@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490910196<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490910196|init|battle
+|title|McGewitter vs. Danklaw da man
+|j|☆McGewitter
+|j|☆Danklaw da man
+|gametype|singles
+|player|p1|McGewitter|265|1284
+|player|p2|Danklaw da man|ghetsis-gen5bw|1312
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Haxorus|Haxorus, L77, M|244244
+|switch|p2a: Umbreon|Umbreon, L82, M|100100
+|-ability|p1a: Haxorus|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- umbreon
+|chat|DEBUG|Own moves: outrage dragondance poisonjab closecombat
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['haxorus', 'reuniclus', 'sandslash', 'aggron']
+|chat|DEBUG|Speed: 194 vs 154
+|chat|DEBUG|HP: 244 vs 290
+|chat|DEBUG|Created a new Strategy for haxorus vs umbreon:
+|chat|DEBUG|>[closecombat: 222.4375 [205, 242], closecombat: 222.4375 [205, 242], closecombat: 222.4375 [205, 242]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 222.4375 [205, 242]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 134.0 [123, 145]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Haxorus|Close Combat|p2a: Umbreon
+|-supereffective|p2a: Umbreon
+|-damage|p2a: Umbreon|23100
+|-unboost|p1a: Haxorus|def|1
+|-unboost|p1a: Haxorus|spd|1
+|-damage|p1a: Haxorus|220244|[from] item: Life Orb
+|move|p2a: Umbreon|Toxic|p1a: Haxorus
+|-status|p1a: Haxorus|tox
+|-heal|p2a: Umbreon|29100|[from] item: Leftovers
+|-damage|p1a: Haxorus|205244 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- umbreon
+|chat|DEBUG|Own moves: outrage dragondance poisonjab closecombat
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['emolga', 'reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Speed: 194 vs 154
+|chat|DEBUG|HP: 205 vs 84
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 222.4375 [205, 242]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 200.25 [184, 217]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Umbreon|Protect|p2a: Umbreon
+|-singleturn|p2a: Umbreon|Protect
+|move|p1a: Haxorus|Close Combat|p2a: Umbreon
+|-activate|p2a: Umbreon|move: Protect
+|-heal|p2a: Umbreon|36100|[from] item: Leftovers
+|-damage|p1a: Haxorus|175244 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- umbreon
+|chat|DEBUG|Own moves: outrage dragondance poisonjab closecombat
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['emolga', 'reuniclus', 'sandslash', 'aggron']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Speed: 194 vs 154
+|chat|DEBUG|HP: 175 vs 104
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 222.4375 [205, 242]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 200.25 [184, 217]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Close Combat|p2a: Umbreon
+|-supereffective|p2a: Umbreon
+|-damage|p2a: Umbreon|0 fnt
+|-unboost|p1a: Haxorus|def|1
+|-unboost|p1a: Haxorus|spd|1
+|faint|p2a: Umbreon
+|-damage|p1a: Haxorus|151244 tox|[from] item: Life Orb
+|-damage|p1a: Haxorus|106244 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carbink|Carbink, L86|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink
+|chat|DEBUG|Own moves: outrage dragondance poisonjab closecombat
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['reuniclus', 'sandslash', 'starmie']
+|chat|DEBUG|Counter: ['reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Speed: 194 vs 135
+|chat|DEBUG|HP: 106 vs 226
+|chat|DEBUG|Created a new Strategy for haxorus vs carbink:
+|chat|DEBUG|>[closecombat: 82.375 [75, 90], closecombat: 82.375 [75, 90], closecombat: 82.375 [75, 90]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 82.375 [75, 90]
+|chat|DEBUG|Best move of carbink (p2): moonblast: 339.375 [312, 368]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check reuniclus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|322322
+|move|p2a: Carbink|Reflect|p2a: Carbink
+|-sidestart|p2: Danklaw da man|Reflect
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink
+|chat|DEBUG|Own moves: recover shadowball psychic focusblast
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['reuniclus', 'sandslash', 'starmie']
+|chat|DEBUG|Counter: ['reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 135
+|chat|DEBUG|HP: 322 vs 226
+|chat|DEBUG|Created a new Strategy for reuniclus vs carbink:
+|chat|DEBUG|>[psychic: 96.125 [87, 105], psychic: 96.125 [87, 105], psychic: 96.125 [87, 105]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 96.125 [87, 105]
+|chat|DEBUG|Best move of carbink (p2): moonblast: 68.75 [63, 75]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Carbink|Light Screen|p2a: Carbink
+|-sidestart|p2: Danklaw da man|move: Light Screen
+|move|p1a: Reuniclus|Psychic|p2a: Carbink
+|-damage|p2a: Carbink|81100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink
+|chat|DEBUG|Own moves: recover shadowball psychic focusblast
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['reuniclus', 'sandslash', 'starmie']
+|chat|DEBUG|Counter: ['reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 135
+|chat|DEBUG|HP: 322 vs 183
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 96.125 [87, 105]
+|chat|DEBUG|Best move of carbink (p2): moonblast: 68.75 [63, 75]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Carbink|Stealth Rock|p1a: Reuniclus
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|move|p1a: Reuniclus|Psychic|p2a: Carbink
+|-damage|p2a: Carbink|59100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink
+|chat|DEBUG|Own moves: recover shadowball psychic focusblast
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['reuniclus', 'sandslash', 'starmie']
+|chat|DEBUG|Counter: ['emolga', 'reuniclus', 'sandslash', 'aggron', 'starmie']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 135
+|chat|DEBUG|HP: 322 vs 133
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 96.125 [87, 105]
+|chat|DEBUG|Best move of carbink (p2): moonblast: 68.75 [63, 75]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|100100
+|-item|p2a: Aggron|Air Balloon
+|move|p1a: Reuniclus|Psychic|p2a: Aggron
+|-resisted|p2a: Aggron
+|-damage|p2a: Aggron|82100
+|-enditem|p2a: Aggron|Air Balloon
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink-aggron
+|chat|DEBUG|Own moves: recover shadowball psychic focusblast
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sandslash', 'starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'reuniclus', 'sandslash', 'starmie']
+|chat|DEBUG|Speed: 99 vs 134
+|chat|DEBUG|HP: 322 vs 211
+|chat|DEBUG|Created a new Strategy for reuniclus vs aggron:
+|chat|DEBUG|>[focusblast: 695.0625 [640, 754], focusblast: 695.0625 [640, 754], focusblast: 695.0625 [640, 754]]
+|chat|DEBUG|Best move of reuniclus (p1): focusblast: 695.0625 [640, 754]
+|chat|DEBUG|Best move of aggron (p2): heavyslam: 164.125 [151, 178]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aggron|Rock Polish|p2a: Aggron
+|-boost|p2a: Aggron|spe|2
+|move|p1a: Reuniclus|Focus Blast|p2a: Aggron|[miss]
+|-miss|p1a: Reuniclus|p2a: Aggron
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink-aggron
+|chat|DEBUG|Own moves: recover shadowball psychic focusblast
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sandslash', 'starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'reuniclus', 'sandslash', 'starmie']
+|chat|DEBUG|Speed: 99 vs 134
+|chat|DEBUG|HP: 322 vs 211
+|chat|DEBUG|Best move of reuniclus (p1): focusblast: 695.0625 [640, 754]
+|chat|DEBUG|Best move of aggron (p2): heavyslam: 164.125 [151, 178]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aggron|Heavy Slam|p1a: Reuniclus
+|-damage|p1a: Reuniclus|147322
+|move|p1a: Reuniclus|Focus Blast|p2a: Aggron|[miss]
+|-miss|p1a: Reuniclus|p2a: Aggron
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink-aggron
+|chat|DEBUG|Own moves: recover shadowball psychic focusblast
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sandslash', 'starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'sandslash', 'starmie']
+|chat|DEBUG|Speed: 99 vs 134
+|chat|DEBUG|HP: 147 vs 211
+|chat|DEBUG|Best move of reuniclus (p1): focusblast: 695.0625 [640, 754]
+|chat|DEBUG|Best move of aggron (p2): heavyslam: 164.125 [151, 178]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sandslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sandslash|Sandslash, L86, M|269269
+|-damage|p1a: Sandslash|253269|[from] Stealth Rock
+|move|p2a: Aggron|Heavy Slam|p1a: Sandslash
+|-damage|p1a: Sandslash|123269
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus sandslash aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandslash" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-sandslash-aggron-starmie -- carbink-aggron
+|chat|DEBUG|Own moves: knockoff toxic stoneedge earthquake
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'sandslash', 'starmie']
+|chat|DEBUG|Speed: 161 vs 134
+|chat|DEBUG|HP: 123 vs 211
+|chat|DEBUG|Created a new Strategy for sandslash vs aggron:
+|chat|DEBUG|>[earthquake: 327.3125 [302, 359], earthquake: 327.3125 [302, 359], earthquake: 327.3125 [302, 359]]
+|chat|DEBUG|Best move of sandslash (p1): earthquake: 327.3125 [302, 359]
+|chat|DEBUG|Best move of aggron (p2): heavyslam: 119.75 [109, 130]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aggron|Heavy Slam|p1a: Sandslash
+|-damage|p1a: Sandslash|14269
+|move|p1a: Sandslash|Earthquake|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|24100
+|-damage|p1a: Sandslash|0 fnt|[from] item: Life Orb
+|faint|p1a: Sandslash
+|-sideend|p2: Danklaw da man|Reflect
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Starmie|Starmie, L84|238238
+|-damage|p1a: Starmie|209238|[from] Stealth Rock
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandslash" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- carbink-aggron
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'starmie']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to starmie (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aggron|Head Smash|p1a: Starmie
+|-damage|p1a: Starmie|11238
+|move|p1a: Starmie|Scald|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|0 fnt
+|faint|p2a: Aggron
+|-sideend|p2: Danklaw da man|move: Light Screen
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carbink|Carbink, L86|59100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- carbink-aggron
+|chat|DEBUG|Own moves: icebeam thunderbolt psyshock scald
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['haxorus', 'emolga', 'starmie']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 241 vs 134
+|chat|DEBUG|HP: 209 vs 61
+|chat|DEBUG|Created a new Strategy for starmie vs aggron:
+|chat|DEBUG|>[scald: 336.625 [308, 366], scald: 336.625 [308, 366], scald: 336.625 [308, 366]]
+|chat|DEBUG|Best move of starmie (p1): scald: 336.625 [308, 366]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 186.375 [171, 202]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Starmie|Scald|p2a: Carbink
+|-supereffective|p2a: Carbink
+|-damage|p2a: Carbink|0 fnt
+|faint|p2a: Carbink
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regieleki|Regieleki, L78|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- carbink
+|chat|DEBUG|Own moves: scald
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['emolga', 'aggron', 'starmie']
+|chat|DEBUG|Speed: 241 vs 135
+|chat|DEBUG|HP: 11 vs 133
+|chat|DEBUG|Created a new Strategy for starmie vs carbink:
+|chat|DEBUG|>[scald: 167.25 [152, 182], scald: 167.25 [152, 182], scald: 167.25 [152, 182]]
+|chat|DEBUG|Best move of starmie (p1): scald: 167.25 [152, 182]
+|chat|DEBUG|Best move of carbink (p2): moonblast: 68.75 [63, 75]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Emolga|Emolga, L88, M|240240
+|move|p2a: Regieleki|Thunderbolt|p1a: Emolga
+|-ability|p1a: Emolga|Motor Drive|boost
+|-boost|p1a: Emolga|spe|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- regieleki
+|chat|DEBUG|Own moves: scald
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: ['emolga']
+|chat|DEBUG|Counter: ['emolga']
+|chat|DEBUG|Speed: 241 vs 357
+|chat|DEBUG|HP: 11 vs 253
+|chat|DEBUG|Created a new Strategy for starmie vs regieleki:
+|chat|DEBUG|>[scald: 206.0 [189, 223], scald: 206.0 [189, 223], scald: 206.0 [189, 223]]
+|chat|DEBUG|Best move of starmie (p1): scald: 206.0 [189, 223]
+|chat|DEBUG|Best move of regieleki (p2): thunderbolt: 314.625 [288, 342]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check emolga
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Silvally|Silvally-Ground, L84|100100
+|move|p1a: Emolga|Thunderbolt|p2a: Silvally
+|-immune|p2a: Silvally
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "emolga" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- regieleki
+|chat|DEBUG|Own moves: airslash roost toxic thunderbolt
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: ['emolga']
+|chat|DEBUG|Counter: ['emolga']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 232 vs 357
+|chat|DEBUG|HP: 240 vs 253
+|chat|DEBUG|Created a new Strategy for emolga vs regieleki:
+|chat|DEBUG|>[thunderbolt: 69.0 [63, 75], thunderbolt: 69.0 [63, 75], thunderbolt: 69.0 [63, 75]]
+|chat|DEBUG|Best move of emolga (p1): thunderbolt: 69.0 [63, 75]
+|chat|DEBUG|Best move of regieleki (p2): voltswitch: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Emolga|Air Slash|p2a: Silvally
+|-damage|p2a: Silvally|79100
+|cant|p2a: Silvally|flinch
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "emolga" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- regieleki-silvallyground
+|chat|DEBUG|Own moves: airslash roost toxic thunderbolt
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 232 vs 208
+|chat|DEBUG|HP: 240 vs 297
+|chat|DEBUG|Created a new Strategy for emolga vs silvallyground:
+|chat|DEBUG|>[airslash: 68.75 [63, 75], airslash: 68.75 [63, 75], airslash: 68.75 [63, 75]]
+|chat|DEBUG|Best move of emolga (p1): airslash: 68.75 [63, 75]
+|chat|DEBUG|Best move of silvallyground (p2): icebeam: 158.125 [146, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Emolga|Air Slash|p2a: Silvally
+|-damage|p2a: Silvally|56100
+|move|p2a: Silvally|Ice Beam|p1a: Emolga
+|-supereffective|p1a: Emolga
+|-crit|p1a: Emolga
+|-damage|p1a: Emolga|8240
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "emolga" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- regieleki-silvallyground
+|chat|DEBUG|Own moves: airslash roost toxic thunderbolt
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aggron', 'starmie']
+|chat|DEBUG|Speed: 232 vs 208
+|chat|DEBUG|HP: 240 vs 234
+|chat|DEBUG|Best move of emolga (p1): airslash: 68.75 [63, 75]
+|chat|DEBUG|Best move of silvallyground (p2): icebeam: 158.125 [146, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aggron|Aggron, L85, F|258258
+|-damage|p1a: Aggron|242258|[from] Stealth Rock
+|-item|p1a: Aggron|Air Balloon
+|move|p2a: Silvally|Ice Beam|p1a: Aggron
+|-resisted|p1a: Aggron
+|-damage|p1a: Aggron|202258
+|-status|p1a: Aggron|frz
+|-enditem|p1a: Aggron|Air Balloon
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "emolga" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- regieleki-silvallyground
+|chat|DEBUG|Own moves: airslash roost toxic thunderbolt
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['aggron', 'starmie']
+|chat|DEBUG|Speed: 232 vs 208
+|chat|DEBUG|HP: 8 vs 166
+|chat|DEBUG|Best move of emolga (p1): airslash: 68.75 [63, 75]
+|chat|DEBUG|Best move of silvallyground (p2): icebeam: 158.125 [146, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check aggron
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Silvally|Multi-Attack|p1a: Aggron
+|-supereffective|p1a: Aggron
+|-damage|p1a: Aggron|0 fnt
+|faint|p1a: Aggron
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Starmie|Starmie, L84|11238
+|-damage|p1a: Starmie|0 fnt|[from] Stealth Rock
+|faint|p1a: Starmie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Emolga|Emolga, L88, M|8240
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus aggron starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-aggron-starmie -- regieleki-silvallyground
+|chat|DEBUG|Own moves: stealthrock heavyslam headsmash bodypress
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['starmie']
+|chat|DEBUG|Speed: 134 vs 208
+|chat|DEBUG|HP: 202 vs 166
+|chat|DEBUG|Created a new Strategy for aggron vs silvallyground:
+|chat|DEBUG|>[bodypress: 92.5 [85, 100], bodypress: 92.5 [85, 100], bodypress: 92.5 [85, 100]]
+|chat|DEBUG|Best move of aggron (p1): bodypress: 92.5 [85, 100]
+|chat|DEBUG|Best move of silvallyground (p2): multiattack: 278.25 [256, 304]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Emolga|Air Slash|p2a: Silvally
+|-damage|p2a: Silvally|33100
+|move|p2a: Silvally|Ice Beam|p1a: Emolga
+|-supereffective|p1a: Emolga
+|-crit|p1a: Emolga
+|-damage|p1a: Emolga|0 fnt
+|faint|p1a: Emolga
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|147322
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus starmie
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus-starmie -- regieleki-silvallyground
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['starmie']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to starmie (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Silvally|Multi-Attack|p1a: Reuniclus
+|-damage|p1a: Reuniclus|17322
+|move|p1a: Reuniclus|Psychic|p2a: Silvally
+|-damage|p2a: Silvally|0 fnt
+|faint|p2a: Silvally
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regieleki|Regieleki, L78|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus -- regieleki-silvallyground
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: emolga
+|chat|DEBUG|>Switching to emolga (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regieleki|Thunderbolt|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|faint|p1a: Reuniclus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Haxorus|Haxorus, L77, M|106244 tox
+|-damage|p1a: Haxorus|76244 tox|[from] Stealth Rock
+|-ability|p1a: Haxorus|Mold Breaker
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus emolga reuniclus
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "emolga" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-emolga-reuniclus -- regieleki-silvallyground
+|chat|DEBUG|Own moves: airslash roost toxic thunderbolt
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 232 vs 208
+|chat|DEBUG|HP: 8 vs 166
+|chat|DEBUG|Created a new Strategy for emolga vs silvallyground:
+|chat|DEBUG|>[airslash: 68.75 [63, 75], airslash: 68.75 [63, 75], airslash: 68.75 [63, 75]]
+|chat|DEBUG|Best move of emolga (p1): airslash: 68.75 [63, 75]
+|chat|DEBUG|Best move of silvallyground (p2): icebeam: 158.125 [146, 172]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regieleki|Explosion|p1a: Haxorus
+|-damage|p1a: Haxorus|0 fnt
+|faint|p2a: Regieleki
+|faint|p1a: Haxorus
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Danklaw da man</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">haxorus emolga reuniclus sandslash aggron starmie</h1>

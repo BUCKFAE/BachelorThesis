@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490169353<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490169353|init|battle
+|title|Shulan233 vs. McGewitter
+|j|☆Shulan233
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Shulan233|veteran|1206
+|player|p2|McGewitter|265|1227
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Slowbro|Slowbro-Galar, L86, M|100100
+|switch|p2a: Whiscash|Whiscash, L86, F|329329
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whiscash" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar
+|chat|DEBUG|Own moves: earthquake dragondance liquidation stoneedge
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['clawitzer', 'porygonz']
+|chat|DEBUG|Counter: ['whiscash', 'clawitzer', 'porygonz']
+|chat|DEBUG|Speed: 152 vs 56
+|chat|DEBUG|HP: 329 vs 304
+|chat|DEBUG|Created a new Strategy for whiscash vs slowbrogalar:
+|chat|DEBUG|>[earthquake: 224.75 [205, 244], earthquake: 224.75 [205, 244], earthquake: 224.75 [205, 244]]
+|chat|DEBUG|Best move of whiscash (p1): earthquake: 224.75 [205, 244]
+|chat|DEBUG|Best move of slowbrogalar (p2): psychic: 152.0 [140, 165]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Lugia|Lugia, L74|100100
+|move|p2a: Whiscash|Earthquake|p1a: Lugia
+|-immune|p1a: Lugia
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whiscash" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-lugia
+|chat|DEBUG|Own moves: earthquake dragondance liquidation stoneedge
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['clawitzer', 'registeel']
+|chat|DEBUG|Counter: ['clawitzer', 'registeel']
+|chat|DEBUG|Speed: 152 vs 206
+|chat|DEBUG|HP: 329 vs 279
+|chat|DEBUG|Created a new Strategy for whiscash vs lugia:
+|chat|DEBUG|>[stoneedge: 69.125 [64, 75], stoneedge: 69.125 [64, 75], stoneedge: 69.125 [64, 75]]
+|chat|DEBUG|Best move of whiscash (p1): stoneedge: 69.125 [64, 75]
+|chat|DEBUG|Best move of lugia (p2): airslash: 67.25 [61, 73]
+|chat|DEBUG|Boost Moves: [dragondance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Toxic|p2a: Whiscash
+|-status|p2a: Whiscash|tox
+|move|p2a: Whiscash|Dragon Dance|p2a: Whiscash
+|-boost|p2a: Whiscash|atk|1
+|-boost|p2a: Whiscash|spe|1
+|-damage|p2a: Whiscash|309329 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whiscash" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-lugia
+|chat|DEBUG|Own moves: earthquake dragondance liquidation stoneedge
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['whiscash', 'clawitzer', 'registeel']
+|chat|DEBUG|Counter: ['whiscash', 'clawitzer', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 152 vs 206
+|chat|DEBUG|HP: 309 vs 279
+|chat|DEBUG|Best move of whiscash (p1): stoneedge: 69.125 [64, 75]
+|chat|DEBUG|Best move of lugia (p2): airslash: 67.25 [61, 73]
+|chat|DEBUG|Boost Moves: [dragondance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Whiscash|Dragon Dance|p2a: Whiscash
+|-boost|p2a: Whiscash|atk|1
+|-boost|p2a: Whiscash|spe|1
+|move|p1a: Lugia|Air Slash|p2a: Whiscash
+|-damage|p2a: Whiscash|240329 tox
+|-damage|p2a: Whiscash|200329 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whiscash" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-lugia
+|chat|DEBUG|Own moves: earthquake dragondance liquidation stoneedge
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['clawitzer', 'registeel']
+|chat|DEBUG|Counter: ['clawitzer', 'registeel']
+|chat|DEBUG|Speed: 152 vs 206
+|chat|DEBUG|HP: 200 vs 279
+|chat|DEBUG|Best move of whiscash (p1): stoneedge: 69.125 [64, 75]
+|chat|DEBUG|Best move of lugia (p2): airslash: 67.25 [61, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check clawitzer
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Clawitzer|Clawitzer, L84, M|256256
+|move|p1a: Lugia|Substitute|p1a: Lugia
+|-start|p1a: Lugia|Substitute
+|-damage|p1a: Lugia|76100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-lugia
+|chat|DEBUG|Own moves: uturn darkpulse scald aurasphere
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['whiscash', 'clawitzer', 'registeel']
+|chat|DEBUG|Counter: ['whiscash', 'clawitzer', 'porygonz', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 147 vs 206
+|chat|DEBUG|HP: 256 vs 212
+|chat|DEBUG|Created a new Strategy for clawitzer vs lugia:
+|chat|DEBUG|>[darkpulse: 217.375 [200, 236], darkpulse: 217.375 [200, 236], darkpulse: 217.375 [200, 236]]
+|chat|DEBUG|Best move of clawitzer (p1): darkpulse: 217.375 [200, 236]
+|chat|DEBUG|Best move of lugia (p2): airslash: 58.625 [54, 64]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Toxic|p2a: Clawitzer
+|-status|p2a: Clawitzer|tox
+|move|p2a: Clawitzer|Dark Pulse|p1a: Lugia
+|-supereffective|p1a: Lugia
+|-end|p1a: Lugia|Substitute
+|-damage|p2a: Clawitzer|240256 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-lugia
+|chat|DEBUG|Own moves: darkpulse
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['whiscash', 'clawitzer', 'registeel']
+|chat|DEBUG|Counter: ['whiscash', 'clawitzer', 'porygonz', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 147 vs 206
+|chat|DEBUG|HP: 240 vs 212
+|chat|DEBUG|Created a new Strategy for clawitzer vs lugia:
+|chat|DEBUG|>[darkpulse: 217.375 [200, 236], darkpulse: 217.375 [200, 236], darkpulse: 217.375 [200, 236]]
+|chat|DEBUG|Best move of clawitzer (p1): darkpulse: 217.375 [200, 236]
+|chat|DEBUG|Best move of lugia (p2): airslash: 58.625 [54, 64]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Air Slash|p2a: Clawitzer
+|-damage|p2a: Clawitzer|182256 tox
+|move|p2a: Clawitzer|Dark Pulse|p1a: Lugia
+|-supereffective|p1a: Lugia
+|-damage|p1a: Lugia|0 fnt
+|faint|p1a: Lugia
+|-damage|p2a: Clawitzer|150256 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Luxray|Luxray, L84, F|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-luxray
+|chat|DEBUG|Own moves: darkpulse
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: ['amoonguss']
+|chat|DEBUG|Counter: ['whiscash', 'amoonguss', 'porygonz']
+|chat|DEBUG|Speed: 147 vs 166
+|chat|DEBUG|HP: 150 vs 272
+|chat|DEBUG|Created a new Strategy for clawitzer vs luxray:
+|chat|DEBUG|>[darkpulse: 162.3125 [149, 176], darkpulse: 162.3125 [149, 176], darkpulse: 162.3125 [149, 176]]
+|chat|DEBUG|Best move of clawitzer (p1): darkpulse: 162.3125 [149, 176]
+|chat|DEBUG|Best move of luxray (p2): wildcharge: 225.625 [206, 246]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check amoonguss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Amoonguss|Amoonguss, L84, M|329329
+|move|p1a: Luxray|Crunch|p2a: Amoonguss
+|-damage|p2a: Amoonguss|255329
+|-heal|p2a: Amoonguss|275329|[from] item: Black Sludge
+|-status|p1a: Luxray|brn|[from] item: Flame Orb
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-luxray
+|chat|DEBUG|Own moves: spore gigadrain sludgebomb toxic
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['whiscash', 'amoonguss', 'porygonz']
+|chat|DEBUG|Speed: 99 vs 166
+|chat|DEBUG|HP: 275 vs 272
+|chat|DEBUG|Created a new Strategy for amoonguss vs luxray:
+|chat|DEBUG|>[sludgebomb: 93.25 [85, 102], sludgebomb: 93.25 [85, 102], sludgebomb: 93.25 [85, 102]]
+|chat|DEBUG|Best move of amoonguss (p1): sludgebomb: 93.25 [85, 102]
+|chat|DEBUG|Best move of luxray (p2): facade: 69.0 [63, 75]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Luxray|Facade|p2a: Amoonguss
+|-damage|p2a: Amoonguss|66329
+|move|p2a: Amoonguss|Sludge Bomb|p1a: Luxray
+|-damage|p1a: Luxray|65100 brn
+|-heal|p2a: Amoonguss|86329|[from] item: Black Sludge
+|-damage|p1a: Luxray|59100 brn|[from] brn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-luxray
+|chat|DEBUG|Own moves: spore gigadrain sludgebomb toxic
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: ['porygonz']
+|chat|DEBUG|Counter: ['whiscash', 'bellossom', 'porygonz']
+|chat|DEBUG|Speed: 99 vs 166
+|chat|DEBUG|HP: 86 vs 160
+|chat|DEBUG|Best move of amoonguss (p1): sludgebomb: 93.25 [85, 102]
+|chat|DEBUG|Best move of luxray (p2): facade: 69.0 [63, 75]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygonz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon-Z|Porygon-Z, L80|267267
+|-ability|p2a: Porygon-Z|Download|boost
+|-boost|p2a: Porygon-Z|spa|1
+|move|p1a: Luxray|Facade|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|43267
+|-damage|p1a: Luxray|53100 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar-luxray
+|chat|DEBUG|Own moves: darkpulse nastyplot triattack thunderbolt
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: ['bellossom']
+|chat|DEBUG|Counter: ['whiscash', 'bellossom', 'amoonguss', 'porygonz']
+|chat|DEBUG|Speed: 190 vs 166
+|chat|DEBUG|HP: 43 vs 144
+|chat|DEBUG|Created a new Strategy for porygonz vs luxray:
+|chat|DEBUG|>[triattack: 285.4375 [263, 309], triattack: 285.4375 [263, 309], triattack: 285.4375 [263, 309]]
+|chat|DEBUG|Best move of porygonz (p1): triattack: 285.4375 [263, 309]
+|chat|DEBUG|Best move of luxray (p2): wildcharge: 138.5625 [127, 151]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Tri Attack|p1a: Luxray
+|-damage|p1a: Luxray|0 fnt
+|faint|p1a: Luxray
+|-damage|p2a: Porygon-Z|17267|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowbro|Slowbro-Galar, L86, M|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer porygonz registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-porygonz-registeel -- slowbrogalar
+|chat|DEBUG|Own moves: darkpulse nastyplot triattack thunderbolt
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['whiscash', 'clawitzer']
+|chat|DEBUG|Counter: ['whiscash', 'clawitzer', 'porygonz']
+|chat|DEBUG|Speed: 190 vs 56
+|chat|DEBUG|HP: 17 vs 304
+|chat|DEBUG|Created a new Strategy for porygonz vs slowbrogalar:
+|chat|DEBUG|>[darkpulse: 405.25 [372, 439], darkpulse: 405.25 [372, 439], darkpulse: 405.25 [372, 439]]
+|chat|DEBUG|Best move of porygonz (p1): darkpulse: 405.25 [372, 439]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 164.8125 [152, 179]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Dark Pulse|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|faint|p1a: Slowbro
+|-damage|p2a: Porygon-Z|0 fnt|[from] item: Life Orb
+|faint|p2a: Porygon-Z
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whiscash|Whiscash, L86, F|200329 tox
+|switch|p1a: Polteageist|Polteageist, L78|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-registeel -- slowbrogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['whiscash', 'clawitzer']
+|chat|DEBUG|Counter: ['whiscash', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to whiscash (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268268
+|move|p1a: Polteageist|Giga Drain|p2a: Registeel
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|249268
+|-heal|p2a: Registeel|265268|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whiscash" vs "polteageist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-registeel -- polteageist
+|chat|DEBUG|Own moves: earthquake dragondance liquidation stoneedge
+|chat|DEBUG|Enemy moves: gigadrain shadowball shellsmash strengthsap
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['clawitzer', 'registeel']
+|chat|DEBUG|Speed: 152 vs 154
+|chat|DEBUG|HP: 200 vs 222
+|chat|DEBUG|Created a new Strategy for whiscash vs polteageist:
+|chat|DEBUG|>[earthquake: 164.8125 [152, 179], earthquake: 164.8125 [152, 179], earthquake: 164.8125 [152, 179]]
+|chat|DEBUG|Best move of whiscash (p1): earthquake: 164.8125 [152, 179]
+|chat|DEBUG|Best move of polteageist (p2): gigadrain: 276.0 [252, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check registeel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Shell Smash|p1a: Polteageist
+|-unboost|p1a: Polteageist|def|1
+|-unboost|p1a: Polteageist|spd|1
+|-boost|p1a: Polteageist|atk|2
+|-boost|p1a: Polteageist|spa|2
+|-boost|p1a: Polteageist|spe|2
+|-enditem|p1a: Polteageist|White Herb
+|-clearnegativeboost|p1a: Polteageist|[silent]
+|move|p2a: Registeel|Iron Head|p1a: Polteageist
+|-damage|p1a: Polteageist|59100
+|-heal|p2a: Registeel|268268|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "polteageist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-registeel -- polteageist
+|chat|DEBUG|Own moves: rest curse sleeptalk ironhead
+|chat|DEBUG|Enemy moves: gigadrain shadowball shellsmash strengthsap
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['clawitzer', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 131 vs 154
+|chat|DEBUG|HP: 265 vs 222
+|chat|DEBUG|Created a new Strategy for registeel vs polteageist:
+|chat|DEBUG|>[ironhead: 91.875 [84, 100], ironhead: 91.875 [84, 100], ironhead: 91.875 [84, 100]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 91.875 [84, 100]
+|chat|DEBUG|Best move of polteageist (p2): shadowball: 64.25 [58, 70]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Giga Drain|p2a: Registeel
+|-resisted|p2a: Registeel
+|-damage|p2a: Registeel|226268
+|-heal|p1a: Polteageist|68100|[from] drain|[of] p2a: Registeel
+|move|p2a: Registeel|Iron Head|p1a: Polteageist
+|-crit|p1a: Polteageist
+|-damage|p1a: Polteageist|9100
+|-heal|p2a: Registeel|242268|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "polteageist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-registeel -- polteageist
+|chat|DEBUG|Own moves: rest curse sleeptalk ironhead
+|chat|DEBUG|Enemy moves: gigadrain shadowball shellsmash strengthsap
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|Speed: 131 vs 154
+|chat|DEBUG|HP: 268 vs 130
+|chat|DEBUG|Best move of registeel (p1): ironhead: 91.875 [84, 100]
+|chat|DEBUG|Best move of polteageist (p2): shadowball: 126.8125 [117, 138]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Shadow Ball|p2a: Registeel
+|-damage|p2a: Registeel|109268
+|move|p2a: Registeel|Iron Head|p1a: Polteageist
+|-damage|p1a: Polteageist|0 fnt
+|faint|p1a: Polteageist
+|-heal|p2a: Registeel|125268|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Haxorus|Haxorus, L77, F|100100
+|-ability|p1a: Haxorus|Mold Breaker
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "polteageist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-registeel -- polteageist
+|chat|DEBUG|Own moves: rest curse sleeptalk ironhead
+|chat|DEBUG|Enemy moves: gigadrain shadowball shellsmash strengthsap
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['bellossom', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 131 vs 154
+|chat|DEBUG|HP: 242 vs 19
+|chat|DEBUG|Best move of registeel (p1): ironhead: 91.875 [84, 100]
+|chat|DEBUG|Best move of polteageist (p2): shadowball: 126.8125 [117, 138]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Haxorus|Dynamax
+|-heal|p1a: Haxorus|100100|[silent]
+|move|p1a: Haxorus|Max Knuckle|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|0 fnt
+|-boost|p1a: Haxorus|atk|1
+|faint|p2a: Registeel
+|-damage|p1a: Haxorus|96100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bellossom|Bellossom, L82, F|257257
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer-registeel -- haxorus
+|chat|DEBUG|Own moves: rest curse sleeptalk ironhead
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 131 vs 194
+|chat|DEBUG|HP: 125 vs 244
+|chat|DEBUG|Created a new Strategy for registeel vs haxorus:
+|chat|DEBUG|>[ironhead: 73.9375 [67, 81], ironhead: 73.9375 [67, 81], ironhead: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 73.9375 [67, 81]
+|chat|DEBUG|Best move of haxorus (p2): closecombat: 171.9375 [159, 187]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Bellossom|Dynamax
+|-heal|p2a: Bellossom|514514|[silent]
+|move|p1a: Haxorus|Max Wyrmwind|p2a: Bellossom
+|-damage|p2a: Bellossom|173514
+|-unboost|p2a: Bellossom|atk|1
+|-damage|p1a: Haxorus|91100|[from] item: Life Orb
+|move|p2a: Bellossom|Max Overgrowth|p1a: Haxorus
+|-resisted|p1a: Haxorus
+|-damage|p1a: Haxorus|75100
+|-fieldstart|move: Grassy Terrain
+|-heal|p1a: Haxorus|78100|[from] Grassy Terrain
+|-heal|p2a: Bellossom|189514|[from] Grassy Terrain
+|-heal|p2a: Bellossom|205514|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer -- haxorus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: bellossom
+|chat|DEBUG|>Switching to bellossom (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Max Wyrmwind|p2a: Bellossom
+|-damage|p2a: Bellossom|0 fnt
+|faint|p2a: Bellossom
+|-damage|p1a: Haxorus|73100|[from] item: Life Orb
+|-heal|p1a: Haxorus|76100|[from] Grassy Terrain
+|-end|p1a: Haxorus|Dynamax
+|-heal|p1a: Haxorus|76100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Amoonguss|Amoonguss, L84, M|195329
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bellossom" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer -- haxorus
+|chat|DEBUG|Own moves: gigadrain strengthsap sleeppowder quiverdance
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 129 vs 194
+|chat|DEBUG|HP: 257 vs 234
+|chat|DEBUG|Created a new Strategy for bellossom vs haxorus:
+|chat|DEBUG|>[gigadrain: 45.6875 [42, 50], gigadrain: 45.6875 [42, 50], gigadrain: 45.6875 [42, 50]]
+|chat|DEBUG|Best move of bellossom (p1): gigadrain: 45.6875 [42, 50]
+|chat|DEBUG|Best move of haxorus (p2): outrage: 278.1875 [255, 302]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Earthquake|p2a: Amoonguss
+|-damage|p2a: Amoonguss|101329
+|-damage|p1a: Haxorus|66100|[from] item: Life Orb
+|move|p2a: Amoonguss|Sludge Bomb|p1a: Haxorus
+|-damage|p1a: Haxorus|17100
+|-heal|p1a: Haxorus|23100|[from] Grassy Terrain
+|-heal|p2a: Amoonguss|121329|[from] Grassy Terrain
+|-heal|p2a: Amoonguss|141329|[from] item: Black Sludge
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash bellossom amoonguss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bellossom" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-bellossom-amoonguss-clawitzer -- haxorus
+|chat|DEBUG|Own moves: gigadrain strengthsap sleeppowder quiverdance
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 129 vs 194
+|chat|DEBUG|HP: 205 vs 190
+|chat|DEBUG|Best move of bellossom (p1): gigadrain: 45.6875 [42, 50]
+|chat|DEBUG|Best move of haxorus (p2): outrage: 278.1875 [255, 302]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Earthquake|p2a: Amoonguss
+|-damage|p2a: Amoonguss|51329
+|-damage|p1a: Haxorus|14100|[from] item: Life Orb
+|move|p2a: Amoonguss|Sludge Bomb|p1a: Haxorus
+|-damage|p1a: Haxorus|0 fnt
+|faint|p1a: Haxorus
+|-heal|p2a: Amoonguss|71329|[from] Grassy Terrain
+|-heal|p2a: Amoonguss|91329|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diancie|Diancie, L82|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whiscash amoonguss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bellossom" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whiscash-amoonguss-clawitzer -- haxorus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: amoonguss
+|chat|DEBUG|>Switching to amoonguss (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-message|Shulan233 forfeited.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Shulan233<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">whiscash bellossom amoonguss clawitzer porygonz registeel</h1>

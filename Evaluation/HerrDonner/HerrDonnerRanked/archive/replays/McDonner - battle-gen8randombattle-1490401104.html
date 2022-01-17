@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490401104</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490401104<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McDonner</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">aesxrdctfvgbhnj</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490401104|init|battle
+|title|aesxrdctfvgbhnj vs. McDonner
+|j|☆aesxrdctfvgbhnj
+|j|☆McDonner
+|gametype|singles
+|player|p1|aesxrdctfvgbhnj|101|1040
+|player|p2|McDonner|265|1091
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Bewear|Bewear, L82, M|100/100
+|switch|p2a: Zeraora|Zeraora, L76|259/259
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Magmortar|Magmortar, L86, F|269/269
+|move|p1a: Bewear|Ice Punch|p2a: Magmortar
+|-resisted|p2a: Magmortar
+|-damage|p2a: Magmortar|212/269
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Toxapex|Toxapex, L82, M|100/100
+|move|p2a: Magmortar|Focus Blast|p1a: Toxapex|[miss]
+|-miss|p2a: Magmortar|p1a: Toxapex
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magmortar|Psychic|p1a: Toxapex
+|-supereffective|p1a: Toxapex
+|-damage|p1a: Toxapex|50/100
+|move|p1a: Toxapex|Scald|p2a: Magmortar
+|-supereffective|p2a: Magmortar
+|-damage|p2a: Magmortar|114/269
+|-heal|p1a: Toxapex|57/100|[from] item: Black Sludge
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxapex|Baneful Bunker|p1a: Toxapex
+|-singleturn|p1a: Toxapex|move: Protect
+|move|p2a: Magmortar|Psychic|p1a: Toxapex
+|-activate|p1a: Toxapex|move: Protect
+|-heal|p1a: Toxapex|63/100|[from] item: Black Sludge
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magmortar|Psychic|p1a: Toxapex
+|-supereffective|p1a: Toxapex
+|-damage|p1a: Toxapex|10/100
+|move|p1a: Toxapex|Scald|p2a: Magmortar
+|-supereffective|p2a: Magmortar
+|-damage|p2a: Magmortar|18/269
+|-heal|p1a: Toxapex|16/100|[from] item: Black Sludge
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magmortar|Psychic|p1a: Toxapex
+|-supereffective|p1a: Toxapex
+|-damage|p1a: Toxapex|0 fnt
+|faint|p1a: Toxapex
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Bewear|Bewear, L82, M|100/100
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magmortar|Focus Blast|p1a: Bewear
+|-supereffective|p1a: Bewear
+|-damage|p1a: Bewear|18/100
+|move|p1a: Bewear|Double-Edge|p2a: Magmortar
+|-damage|p2a: Magmortar|0 fnt
+|faint|p2a: Magmortar
+|-damage|p1a: Bewear|16/100|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regice|Regice, L84|271/271
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Bewear|Double-Edge|p2a: Regice
+|-damage|p2a: Regice|82/271
+|-damage|p1a: Bewear|0 fnt|[from] Recoil
+|faint|p1a: Bewear
+|move|p2a: Regice|Ice Beam|p1: Bewear|[notarget]
+|-fail|p2a: Regice
+|-heal|p2a: Regice|98/271|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|aesxrdctfvgbhnj has 120 seconds left.
+|switch|p1a: Crawdaunt|Crawdaunt, L84, F|100/100
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crawdaunt|Dragon Dance|p1a: Crawdaunt
+|-boost|p1a: Crawdaunt|atk|1
+|-boost|p1a: Crawdaunt|spe|1
+|move|p2a: Regice|Thunderbolt|p1a: Crawdaunt
+|-supereffective|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|30/100
+|-heal|p2a: Regice|114/271|[from] item: Leftovers
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crawdaunt|Knock Off|p2a: Regice
+|-damage|p2a: Regice|0 fnt
+|-enditem|p2a: Regice|Leftovers|[from] move: Knock Off|[of] p1a: Crawdaunt
+|faint|p2a: Regice
+|-damage|p1a: Crawdaunt|20/100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|259/259
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Plasma Fists|p1a: Crawdaunt
+|-supereffective|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|0 fnt
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|faint|p1a: Crawdaunt
+|-damage|p2a: Zeraora|234/259|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cradily|Cradily, L86, F|100/100
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|aesxrdctfvgbhnj has 120 seconds left.
+|move|p2a: Zeraora|Knock Off|p1a: Cradily
+|-damage|p1a: Cradily|77/100
+|-enditem|p1a: Cradily|Leftovers|[from] move: Knock Off|[of] p2a: Zeraora
+|-damage|p2a: Zeraora|209/259|[from] item: Life Orb
+|move|p1a: Cradily|Swords Dance|p1a: Cradily
+|-boost|p1a: Cradily|atk|2
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|aesxrdctfvgbhnj has 120 seconds left.
+|move|p2a: Zeraora|Knock Off|p1a: Cradily
+|-damage|p1a: Cradily|58/100
+|-damage|p2a: Zeraora|184/259|[from] item: Life Orb
+|move|p1a: Cradily|Power Whip|p2a: Zeraora|[miss]
+|-miss|p1a: Cradily|p2a: Zeraora
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Knock Off|p1a: Cradily
+|-damage|p1a: Cradily|42/100
+|-damage|p2a: Zeraora|159/259|[from] item: Life Orb
+|move|p1a: Cradily|Power Whip|p2a: Zeraora
+|-damage|p2a: Zeraora|0 fnt
+|faint|p2a: Zeraora
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vileplume|Vileplume, L84, M|263/263
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Sludge Bomb|p1a: Cradily
+|-damage|p1a: Cradily|14/100
+|-status|p1a: Cradily|psn
+|move|p1a: Cradily|Recover|p1a: Cradily
+|-heal|p1a: Cradily|64/100 psn
+|-damage|p1a: Cradily|51/100 psn|[from] psn
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Sludge Bomb|p1a: Cradily
+|-damage|p1a: Cradily|21/100 psn
+|move|p1a: Cradily|Recover|p1a: Cradily
+|-heal|p1a: Cradily|71/100 psn
+|-damage|p1a: Cradily|58/100 psn|[from] psn
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Sludge Bomb|p1a: Cradily
+|-damage|p1a: Cradily|27/100 psn
+|move|p1a: Cradily|Stone Edge|p2a: Vileplume
+|-crit|p2a: Vileplume
+|-damage|p2a: Vileplume|0 fnt
+|faint|p2a: Vileplume
+|-damage|p1a: Cradily|14/100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Incineroar|Incineroar, L80, F|283/283
+|-ability|p2a: Incineroar|Intimidate|boost
+|-unboost|p1a: Cradily|atk|1
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Incineroar|Flare Blitz|p1a: Cradily
+|-damage|p1a: Cradily|0 fnt
+|faint|p1a: Cradily
+|-damage|p2a: Incineroar|270/283|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Weezing|Weezing-Galar, L86, M|100/100
+|-ability|p1a: Weezing|Neutralizing Gas
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Incineroar|Dynamax
+|-heal|p2a: Incineroar|540/566|[silent]
+|move|p1a: Weezing|Strange Steam|p2a: Incineroar
+|-damage|p2a: Incineroar|452/566
+|move|p2a: Incineroar|Max Flare|p1a: Weezing
+|-damage|p1a: Weezing|54/100
+|-weather|SunnyDay
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Weezing|60/100|[from] item: Black Sludge
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Weezing|Dynamax
+|-heal|p1a: Weezing|60/100|[silent]
+|move|p1a: Weezing|Max Starfall|p2a: Incineroar
+|-damage|p2a: Incineroar|323/566
+|-fieldstart|move: Misty Terrain
+|move|p2a: Incineroar|Max Flare|p1a: Weezing
+|-damage|p1a: Weezing|26/100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Weezing|29/100|[from] item: Black Sludge
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Weezing|Max Guard|p1a: Weezing
+|-singleturn|p1a: Weezing|Max Guard
+|move|p2a: Incineroar|Max Flare|p1a: Weezing
+|-activate|p1a: Weezing|move: Max Guard
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Weezing|32/100|[from] item: Black Sludge
+|-end|p2a: Incineroar|Dynamax
+|-heal|p2a: Incineroar|162/283|[silent]
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Weezing|Max Starfall|p2a: Incineroar
+|-damage|p2a: Incineroar|18/283
+|move|p2a: Incineroar|Flare Blitz|p1a: Weezing
+|-damage|p1a: Weezing|2/100
+|-damage|p2a: Incineroar|0 fnt|[from] Recoil
+|faint|p2a: Incineroar
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Weezing|5/100|[from] item: Black Sludge
+|-end|p1a: Weezing|Dynamax
+|-heal|p1a: Weezing|5/100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Salamence|Salamence, L76, F|269/269
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Salamence|Earthquake|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|0 fnt
+|faint|p1a: Weezing
+|-end|p1a: Weezing|ability: Neutralizing Gas
+|-ability|p2a: Salamence|Moxie|boost
+|-boost|p2a: Salamence|atk|1
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jynx|Jynx, L86, F|100/100
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jynx|Ice Beam|p2a: Salamence
+|-supereffective|p2a: Salamence
+|-damage|p2a: Salamence|0 fnt
+|faint|p2a: Salamence
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

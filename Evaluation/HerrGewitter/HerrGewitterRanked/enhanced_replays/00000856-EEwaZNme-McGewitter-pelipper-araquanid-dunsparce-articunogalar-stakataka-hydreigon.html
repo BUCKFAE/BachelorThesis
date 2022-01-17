@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491344850<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491344850|init|battle
+|title|EEwaZNme vs. McGewitter
+|j|☆EEwaZNme
+|j|☆McGewitter
+|gametype|singles
+|player|p1|EEwaZNme|101|1109
+|player|p2|McGewitter|265|1115
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Luxray|Luxray, L84, F|100100
+|switch|p2a: Pelipper|Pelipper, L86, F|243243
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid dunsparce articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-dunsparce-articunogalar-stakataka-hydreigon -- luxray
+|chat|DEBUG|Own moves: roost defog hydropump uturn
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dunsparce', 'articunogalar']
+|chat|DEBUG|Speed: 161 vs 166
+|chat|DEBUG|HP: 243 vs 272
+|chat|DEBUG|Created a new Strategy for pelipper vs luxray:
+|chat|DEBUG|>[hydropump: 131.0 [120, 142], hydropump: 131.0 [120, 142], hydropump: 131.0 [120, 142]]
+|chat|DEBUG|Best move of pelipper (p1): hydropump: 131.0 [120, 142]
+|chat|DEBUG|Best move of luxray (p2): wildcharge: 401.5 [372, 436]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Luxray|Superpower|p2a: Pelipper
+|-resisted|p2a: Pelipper
+|-damage|p2a: Pelipper|199243
+|-unboost|p1a: Luxray|atk|1
+|-unboost|p1a: Luxray|def|1
+|move|p2a: Pelipper|Hydro Pump|p1a: Luxray
+|-damage|p1a: Luxray|23100
+|-weather|RainDance|[upkeep]
+|-status|p1a: Luxray|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid dunsparce articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-dunsparce-articunogalar-stakataka-hydreigon -- luxray
+|chat|DEBUG|Own moves: roost defog hydropump uturn
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: ['dunsparce', 'articunogalar', 'hydreigon']
+|chat|DEBUG|Counter: ['araquanid', 'dunsparce', 'articunogalar', 'stakataka', 'hydreigon']
+|chat|DEBUG|Speed: 161 vs 166
+|chat|DEBUG|HP: 199 vs 62
+|chat|DEBUG|Best move of pelipper (p1): hydropump: 131.0 [120, 142]
+|chat|DEBUG|Best move of luxray (p2): wildcharge: 269.0 [244, 292]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dunsparce
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dunsparce|Dunsparce, L90, F|326326
+|move|p1a: Luxray|Wild Charge|p2a: Dunsparce
+|-damage|p2a: Dunsparce|196326
+|-damage|p1a: Luxray|11100 brn|[from] Recoil
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Dunsparce|216326|[from] item: Leftovers
+|-damage|p1a: Luxray|5100 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid dunsparce articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dunsparce" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-dunsparce-articunogalar-stakataka-hydreigon -- luxray
+|chat|DEBUG|Own moves: bodyslam earthquake coil roost
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: ['articunogalar', 'hydreigon']
+|chat|DEBUG|Counter: ['araquanid', 'dunsparce', 'articunogalar', 'stakataka', 'hydreigon']
+|chat|DEBUG|Speed: 132 vs 166
+|chat|DEBUG|HP: 216 vs 13
+|chat|DEBUG|Created a new Strategy for dunsparce vs luxray:
+|chat|DEBUG|>[earthquake: 210.0 [192, 228], earthquake: 210.0 [192, 228], earthquake: 210.0 [192, 228]]
+|chat|DEBUG|Best move of dunsparce (p1): earthquake: 210.0 [192, 228]
+|chat|DEBUG|Best move of luxray (p2): superpower: 147.25 [136, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Luxray|Superpower|p2a: Dunsparce
+|-supereffective|p2a: Dunsparce
+|-damage|p2a: Dunsparce|0 fnt
+|-unboost|p1a: Luxray|atk|1
+|-unboost|p1a: Luxray|def|1
+|faint|p2a: Dunsparce
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Luxray|0 fnt|[from] brn
+|faint|p1a: Luxray
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Grimmsnarl|Grimmsnarl, L82, M|100100
+|switch|p2a: Articuno|Articuno-Galar, L80|275275
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dunsparce" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-stakataka-hydreigon -- luxray
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: agility facade superpower wildcharge
+|chat|DEBUG|Checks: ['articunogalar', 'hydreigon']
+|chat|DEBUG|Counter: ['araquanid', 'articunogalar', 'stakataka', 'hydreigon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to articunogalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stakataka|Stakataka, L80|229229
+|-item|p2a: Stakataka|Air Balloon
+|move|p1a: Grimmsnarl|Reflect|p1a: Grimmsnarl
+|-sidestart|p1: EEwaZNme|Reflect
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-stakataka-hydreigon -- grimmsnarl
+|chat|DEBUG|Own moves: airslash freezingglare calmmind recover
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'stakataka']
+|chat|DEBUG|Speed: 198 vs 146
+|chat|DEBUG|HP: 275 vs 290
+|chat|DEBUG|Created a new Strategy for articunogalar vs grimmsnarl:
+|chat|DEBUG|>[airslash: 103.25 [94, 112], airslash: 103.25 [94, 112], airslash: 103.25 [94, 112]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 103.25 [94, 112]
+|chat|DEBUG|Best move of grimmsnarl (p2): darkestlariat: 217.25 [200, 236]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stakataka
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Grimmsnarl|Light Screen|p1a: Grimmsnarl
+|-sidestart|p1: EEwaZNme|move: Light Screen
+|move|p2a: Stakataka|Stealth Rock|p1a: Grimmsnarl
+|-sidestart|p1: EEwaZNme|move: Stealth Rock
+|-weather|none
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-stakataka-hydreigon -- grimmsnarl
+|chat|DEBUG|Own moves: bodypress stoneedge gyroball stealthrock
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 146
+|chat|DEBUG|HP: 229 vs 290
+|chat|DEBUG|Created a new Strategy for stakataka vs grimmsnarl:
+|chat|DEBUG|>[gyroball: 461.0 [422, 500], gyroball: 461.0 [422, 500], gyroball: 461.0 [422, 500]]
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 461.0 [422, 500]
+|chat|DEBUG|Best move of grimmsnarl (p2): darkestlariat: 51.8125 [48, 57]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Grimmsnarl|Taunt|p2a: Stakataka
+|-start|p2a: Stakataka|move: Taunt
+|move|p2a: Stakataka|Gyro Ball|p1a: Grimmsnarl
+|-supereffective|p1a: Grimmsnarl
+|-damage|p1a: Grimmsnarl|22100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-stakataka-hydreigon -- grimmsnarl
+|chat|DEBUG|Own moves: bodypress stoneedge gyroball stealthrock
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 146
+|chat|DEBUG|HP: 229 vs 290
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 461.0 [422, 500]
+|chat|DEBUG|Best move of grimmsnarl (p2): darkestlariat: 51.8125 [48, 57]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Grimmsnarl|Spirit Break|p2a: Stakataka
+|-resisted|p2a: Stakataka
+|-damage|p2a: Stakataka|208229
+|-unboost|p2a: Stakataka|spa|1
+|-enditem|p2a: Stakataka|Air Balloon
+|move|p2a: Stakataka|Gyro Ball|p1a: Grimmsnarl
+|-supereffective|p1a: Grimmsnarl
+|-damage|p1a: Grimmsnarl|0 fnt
+|faint|p1a: Grimmsnarl
+|-ability|p2a: Stakataka|Beast Boost|boost
+|-boost|p2a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Charizard|Charizard, L82, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-stakataka-hydreigon -- grimmsnarl
+|chat|DEBUG|Own moves: bodypress stoneedge gyroball
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['pelipper', 'araquanid', 'articunogalar', 'stakataka']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'articunogalar', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 146
+|chat|DEBUG|HP: 229 vs 63
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 461.0 [422, 500]
+|chat|DEBUG|Best move of grimmsnarl (p2): darkestlariat: 51.8125 [48, 57]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Charizard|Focus Blast|p2a: Stakataka
+|-supereffective|p2a: Stakataka
+|-damage|p2a: Stakataka|0 fnt
+|faint|p2a: Stakataka
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Araquanid|Araquanid, L80, F|239239
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar stakataka hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-stakataka-hydreigon -- charizard
+|chat|DEBUG|Own moves: bodypress stoneedge gyroball
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['araquanid']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'stakataka', 'hydreigon']
+|chat|DEBUG|Speed: 25 vs 211
+|chat|DEBUG|HP: 208 vs 262
+|chat|DEBUG|Created a new Strategy for stakataka vs charizard:
+|chat|DEBUG|>[stoneedge: 554.25 [508, 604], stoneedge: 554.25 [508, 604], stoneedge: 554.25 [508, 604]]
+|chat|DEBUG|Best move of stakataka (p1): stoneedge: 554.25 [508, 604]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 114.3125 [105, 124]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dhelmise|Dhelmise, L86|100100
+|-damage|p1a: Dhelmise|88100|[from] Stealth Rock
+|move|p2a: Araquanid|Liquidation|p1a: Dhelmise
+|-resisted|p1a: Dhelmise
+|-damage|p1a: Dhelmise|77100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['araquanid']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'hydreigon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to araquanid (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dhelmise|Power Whip|p2a: Araquanid
+|-damage|p2a: Araquanid|55239
+|move|p2a: Araquanid|Sticky Web|p1a: Dhelmise
+|-sidestart|p1: EEwaZNme|move: Sticky Web
+|-heal|p2a: Araquanid|69239|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "araquanid" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard
+|chat|DEBUG|Own moves: stickyweb leechlife toxic liquidation
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['araquanid']
+|chat|DEBUG|Counter: ['pelipper', 'araquanid', 'hydreigon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 113 vs 211
+|chat|DEBUG|HP: 239 vs 262
+|chat|DEBUG|Created a new Strategy for araquanid vs charizard:
+|chat|DEBUG|>[liquidation: 292.25 [270, 318], liquidation: 292.25 [270, 318], liquidation: 292.25 [270, 318]]
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 292.25 [270, 318]
+|chat|DEBUG|Best move of charizard (p2): airslash: 125.875 [116, 138]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hydreigon|Hydreigon, L80, M|278278
+|move|p1a: Dhelmise|Power Whip|p2a: Hydreigon
+|-resisted|p2a: Hydreigon
+|-damage|p2a: Hydreigon|194278
+|-heal|p2a: Hydreigon|211278|[from] item: Leftovers
+|-sideend|p1: EEwaZNme|Reflect
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "araquanid" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-dhelmise
+|chat|DEBUG|Own moves: stickyweb leechlife toxic liquidation
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: ['hydreigon']
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 113 vs 118
+|chat|DEBUG|HP: 239 vs 200
+|chat|DEBUG|Created a new Strategy for araquanid vs dhelmise:
+|chat|DEBUG|>[liquidation: 57.5625 [53, 63], liquidation: 57.5625 [53, 63], liquidation: 57.5625 [53, 63]]
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 57.5625 [53, 63]
+|chat|DEBUG|Best move of dhelmise (p2): powerwhip: 172.625 [159, 187]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Setting Sticky web
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Dark Pulse|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|42100
+|move|p1a: Dhelmise|Anchor Shot|p2a: Hydreigon
+|-damage|p2a: Hydreigon|92278
+|-activate|p2a: Hydreigon|trapped
+|-heal|p2a: Hydreigon|109278|[from] item: Leftovers
+|-sideend|p1: EEwaZNme|move: Light Screen
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "araquanid" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-dhelmise
+|chat|DEBUG|Own moves: stickyweb leechlife toxic liquidation
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: ['hydreigon']
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 113 vs 118
+|chat|DEBUG|HP: 69 vs 200
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 57.5625 [53, 63]
+|chat|DEBUG|Best move of dhelmise (p2): powerwhip: 172.625 [159, 187]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check hydreigon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Dark Pulse|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|faint|p1a: Dhelmise
+|-heal|p2a: Hydreigon|126278|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Thundurus|Thundurus, L80, M|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-dhelmise
+|chat|DEBUG|Own moves: dracometeor roost nastyplot darkpulse
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 203 vs 118
+|chat|DEBUG|HP: 211 vs 200
+|chat|DEBUG|Created a new Strategy for hydreigon vs dhelmise:
+|chat|DEBUG|>[darkpulse: 183.75 [168, 200], darkpulse: 183.75 [168, 200], darkpulse: 183.75 [168, 200]]
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 183.75 [168, 200]
+|chat|DEBUG|Best move of dhelmise (p2): anchorshot: 116.0625 [107, 126]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Knock Off|p2a: Hydreigon
+|-resisted|p2a: Hydreigon
+|-damage|p2a: Hydreigon|87278
+|-enditem|p2a: Hydreigon|Leftovers|[from] move: Knock Off|[of] p1a: Thundurus
+|move|p2a: Hydreigon|Dark Pulse|p1a: Thundurus
+|-damage|p1a: Thundurus|57100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-dhelmise
+|chat|DEBUG|Own moves: dracometeor roost nastyplot darkpulse
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pelipper', 'articunogalar', 'hydreigon']
+|chat|DEBUG|Speed: 203 vs 118
+|chat|DEBUG|HP: 109 vs 109
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 183.75 [168, 200]
+|chat|DEBUG|Best move of dhelmise (p2): anchorshot: 116.0625 [107, 126]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Thunderbolt|p2a: Hydreigon
+|-resisted|p2a: Hydreigon
+|-damage|p2a: Hydreigon|36278
+|move|p2a: Hydreigon|Dark Pulse|p1a: Thundurus
+|-damage|p1a: Thundurus|18100
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "thundurus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-thundurus
+|chat|DEBUG|Own moves: dracometeor roost nastyplot darkpulse
+|chat|DEBUG|Enemy moves: grassknot nastyplot sludgewave thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 203 vs 224
+|chat|DEBUG|HP: 126 vs 258
+|chat|DEBUG|Created a new Strategy for hydreigon vs thundurus:
+|chat|DEBUG|>[darkpulse: 107.3125 [99, 117], darkpulse: 107.3125 [99, 117], dracometeor: 173.875 [160, 189]]
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 107.3125 [99, 117]
+|chat|DEBUG|Best move of thundurus (p2): sludgewave: 78.1875 [72, 85]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Thunderbolt|p2a: Hydreigon
+|-resisted|p2a: Hydreigon
+|-damage|p2a: Hydreigon|0 fnt
+|faint|p2a: Hydreigon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno-Galar, L80|275275
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "thundurus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-thundurus
+|chat|DEBUG|Own moves: dracometeor roost nastyplot darkpulse
+|chat|DEBUG|Enemy moves: grassknot nastyplot sludgewave thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 203 vs 224
+|chat|DEBUG|HP: 87 vs 147
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 107.3125 [99, 117]
+|chat|DEBUG|Best move of thundurus (p2): sludgewave: 78.1875 [72, 85]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Knock Off|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|113275
+|-enditem|p2a: Articuno|Leftovers|[from] move: Knock Off|[of] p1a: Thundurus
+|move|p2a: Articuno|Freezing Glare|p1a: Thundurus
+|-damage|p1a: Thundurus|0 fnt
+|faint|p1a: Thundurus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Charizard|Charizard, L82, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "thundurus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar-hydreigon -- charizard-thundurus
+|chat|DEBUG|Own moves: dracometeor roost nastyplot darkpulse
+|chat|DEBUG|Enemy moves: grassknot nastyplot sludgewave thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Speed: 203 vs 224
+|chat|DEBUG|HP: 36 vs 46
+|chat|DEBUG|Best move of hydreigon (p1): dracometeor: 173.875 [160, 189]
+|chat|DEBUG|Best move of thundurus (p2): sludgewave: 78.1875 [72, 85]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|EEwaZNme has 120 seconds left.
+|move|p1a: Charizard|Air Slash|p2a: Articuno
+|-damage|p2a: Articuno|40275
+|move|p2a: Articuno|Freezing Glare|p1a: Charizard
+|-damage|p1a: Charizard|59100
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "thundurus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar -- charizard-thundurus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: grassknot nastyplot sludgewave thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to articunogalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pelipper|Pelipper, L86, F|199243
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|move|p1a: Charizard|Air Slash|p2a: Pelipper
+|-damage|p2a: Pelipper|97243
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "thundurus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar -- charizard-thundurus
+|chat|DEBUG|Own moves: airslash freezingglare calmmind recover
+|chat|DEBUG|Enemy moves: grassknot nastyplot sludgewave thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Speed: 198 vs 224
+|chat|DEBUG|HP: 275 vs 46
+|chat|DEBUG|Created a new Strategy for articunogalar vs thundurus:
+|chat|DEBUG|>[freezingglare: 121.1875 [111, 132], freezingglare: 121.1875 [111, 132], freezingglare: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of articunogalar (p1): freezingglare: 121.1875 [111, 132]
+|chat|DEBUG|Best move of thundurus (p2): thunderbolt: 206.5 [188, 224]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Charizard|Air Slash|p2a: Pelipper
+|-damage|p2a: Pelipper|0 fnt
+|faint|p2a: Pelipper
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno-Galar, L80|40275
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar -- charizard
+|chat|DEBUG|Own moves: airslash freezingglare calmmind recover
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|Speed: 198 vs 211
+|chat|DEBUG|HP: 113 vs 262
+|chat|DEBUG|Created a new Strategy for articunogalar vs charizard:
+|chat|DEBUG|>[freezingglare: 112.8125 [103, 123], freezingglare: 112.8125 [103, 123], freezingglare: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of articunogalar (p1): freezingglare: 112.8125 [103, 123]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezingglare
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Charizard|Air Slash|p2a: Articuno
+|-crit|p2a: Articuno
+|-damage|p2a: Articuno|0 fnt
+|faint|p2a: Articuno
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Araquanid|Araquanid, L80, F|69239
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar -- charizard
+|chat|DEBUG|Own moves: airslash freezingglare calmmind recover
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|Speed: 198 vs 211
+|chat|DEBUG|HP: 40 vs 154
+|chat|DEBUG|Best move of articunogalar (p1): freezingglare: 112.8125 [103, 123]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check pelipper
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Charizard|Fire Blast|p2a: Araquanid
+|-damage|p2a: Araquanid|47239
+|move|p2a: Araquanid|Liquidation|p1a: Charizard
+|-supereffective|p1a: Charizard
+|-damage|p1a: Charizard|0 fnt
+|faint|p1a: Charizard
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Araquanid|61239|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Machamp|Machamp, L82, F|100100
+|-activate|p1a: Machamp|move: Sticky Web
+|-unboost|p1a: Machamp|spe|1
+|-damage|p1a: Machamp|94100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pelipper araquanid articunogalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pelipper-araquanid-articunogalar -- charizard
+|chat|DEBUG|Own moves: roost defog hydropump uturn
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|Speed: 161 vs 211
+|chat|DEBUG|HP: 97 vs 154
+|chat|DEBUG|Created a new Strategy for pelipper vs charizard:
+|chat|DEBUG|>[hydropump: 253.625 [234, 276], hydropump: 253.625 [234, 276], hydropump: 253.625 [234, 276]]
+|chat|DEBUG|Best move of pelipper (p1): hydropump: 253.625 [234, 276]
+|chat|DEBUG|Best move of charizard (p2): airslash: 94.875 [87, 103]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Araquanid|Liquidation|p1a: Machamp
+|-damage|p1a: Machamp|24100
+|-unboost|p1a: Machamp|def|1
+|move|p1a: Machamp|Close Combat|p2a: Araquanid
+|-resisted|p2a: Araquanid
+|-damage|p2a: Araquanid|0 fnt
+|-unboost|p1a: Machamp|def|1
+|-unboost|p1a: Machamp|spd|1
+|faint|p2a: Araquanid
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>EEwaZNme<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">pelipper araquanid dunsparce articunogalar stakataka hydreigon</h1>

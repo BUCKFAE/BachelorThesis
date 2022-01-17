@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490657288<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490657288|init|battle
+|title|BigOreo26 vs. McGewitter
+|j|☆BigOreo26
+|j|☆McGewitter
+|gametype|singles
+|player|p1|BigOreo26|swimmer-gen4|1135
+|player|p2|McGewitter|265|1191
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Arctozolt|Arctozolt, L86|100100
+|switch|p2a: Gourgeist|Gourgeist-Large, L84, F|263263
+|-item|p1a: Arctozolt|Heavy-Duty Boots|[from] ability: Frisk|[of] p2a: Gourgeist|[identify]
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking clawitzer urshifu obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistlarge" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-clawitzer-urshifu-obstagoon-tornadustherian -- arctozolt
+|chat|DEBUG|Own moves: willowisp poltergeist shadowsneak synthesis
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['clawitzer', 'urshifu']
+|chat|DEBUG|Counter: ['clawitzer', 'urshifu', 'obstagoon']
+|chat|DEBUG|Speed: 164 vs 144
+|chat|DEBUG|HP: 263 vs 295
+|chat|DEBUG|Created a new Strategy for gourgeistlarge vs arctozolt:
+|chat|DEBUG|>[poltergeist: 110.25 [102, 120], poltergeist: 110.25 [102, 120], poltergeist: 110.25 [102, 120]]
+|chat|DEBUG|Best move of gourgeistlarge (p1): poltergeist: 110.25 [102, 120]
+|chat|DEBUG|Best move of arctozolt (p2): freezedry: 167.25 [152, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check clawitzer
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Clawitzer|Clawitzer, L84, M|256256
+|move|p1a: Arctozolt|Icicle Crash|p2a: Clawitzer
+|-resisted|p2a: Clawitzer
+|-damage|p2a: Clawitzer|205256
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking clawitzer urshifu obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-clawitzer-urshifu-obstagoon-tornadustherian -- arctozolt
+|chat|DEBUG|Own moves: scald aurasphere uturn darkpulse
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['clawitzer', 'urshifu']
+|chat|DEBUG|Counter: ['clawitzer', 'urshifu', 'obstagoon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 147 vs 144
+|chat|DEBUG|HP: 205 vs 295
+|chat|DEBUG|Created a new Strategy for clawitzer vs arctozolt:
+|chat|DEBUG|>[aurasphere: 313.625 [288, 340], aurasphere: 313.625 [288, 340], aurasphere: 313.625 [288, 340]]
+|chat|DEBUG|Best move of clawitzer (p1): aurasphere: 313.625 [288, 340]
+|chat|DEBUG|Best move of arctozolt (p2): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using aurasphere
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Clawitzer|Aura Sphere|p1a: Arctozolt
+|-supereffective|p1a: Arctozolt
+|-damage|p1a: Arctozolt|0 fnt
+|faint|p1a: Arctozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|100100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Tapu Bulu
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking clawitzer urshifu obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-clawitzer-urshifu-obstagoon-tornadustherian -- tapubulu
+|chat|DEBUG|Own moves: aurasphere
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu']
+|chat|DEBUG|Speed: 147 vs 170
+|chat|DEBUG|HP: 205 vs 249
+|chat|DEBUG|Created a new Strategy for clawitzer vs tapubulu:
+|chat|DEBUG|>[aurasphere: 72.125 [66, 78], aurasphere: 72.125 [66, 78], aurasphere: 72.125 [66, 78]]
+|chat|DEBUG|Best move of clawitzer (p1): aurasphere: 72.125 [66, 78]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 246.6875 [226, 268]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using aurasphere
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Bulu|Wood Hammer|p2a: Clawitzer
+|-supereffective|p2a: Clawitzer
+|-damage|p2a: Clawitzer|0 fnt
+|faint|p2a: Clawitzer
+|-damage|p1a: Tapu Bulu|73100|[from] Recoil
+|-heal|p1a: Tapu Bulu|79100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu, L76, F|277277
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking urshifu obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-urshifu-obstagoon-tornadustherian -- tapubulu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to urshifu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Urshifu|Iron Head|p1a: Tapu Bulu
+|-supereffective|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|37100
+|move|p1a: Tapu Bulu|Wood Hammer|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|faint|p2a: Urshifu
+|-damage|p1a: Tapu Bulu|1100|[from] Recoil
+|-heal|p1a: Tapu Bulu|7100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gourgeist|Gourgeist-Large, L84, F|263263
+|-item|p1a: Tapu Bulu|Choice Band|[from] ability: Frisk|[of] p2a: Gourgeist|[identify]
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking urshifu obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-urshifu-obstagoon-tornadustherian -- tapubulu
+|chat|DEBUG|Own moves: closecombat wickedblow ironhead uturn
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['urshifu']
+|chat|DEBUG|Counter: ['gourgeistlarge', 'urshifu', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 191 vs 170
+|chat|DEBUG|HP: 277 vs 196
+|chat|DEBUG|Created a new Strategy for urshifu vs tapubulu:
+|chat|DEBUG|>[ironhead: 98.875 [90, 108], ironhead: 98.875 [90, 108], ironhead: 98.875 [90, 108]]
+|chat|DEBUG|Best move of urshifu (p1): ironhead: 98.875 [90, 108]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 123.375 [113, 134]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Bulu|Wood Hammer|p2a: Gourgeist
+|-resisted|p2a: Gourgeist
+|-damage|p2a: Gourgeist|149263
+|-damage|p1a: Tapu Bulu|0 fnt|[from] Recoil
+|faint|p1a: Tapu Bulu
+|move|p2a: Gourgeist|Poltergeist|p1: Tapu Bulu|[notarget]
+|-fail|p2a: Gourgeist
+|-heal|p2a: Gourgeist|165263|[from] Grassy Terrain
+|-heal|p2a: Gourgeist|181263|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Walrein|Walrein, L86, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- tapubulu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gourgeistlarge', 'tornadustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to gourgeistlarge (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowking|Slowking, L86, F|304304
+|move|p1a: Walrein|Ice Beam|p2a: Slowking
+|-resisted|p2a: Slowking
+|-damage|p2a: Slowking|267304
+|-status|p2a: Slowking|frz
+|-heal|p2a: Slowking|286304 frz|[from] Grassy Terrain
+|-heal|p2a: Slowking|304304 frz|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistlarge" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- tapubulu
+|chat|DEBUG|Own moves: willowisp poltergeist shadowsneak synthesis
+|chat|DEBUG|Enemy moves: closecombat hornleech megahorn woodhammer
+|chat|DEBUG|Checks: ['gourgeistlarge', 'tornadustherian']
+|chat|DEBUG|Counter: ['gourgeistlarge', 'obstagoon', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 164 vs 170
+|chat|DEBUG|HP: 263 vs 17
+|chat|DEBUG|Created a new Strategy for gourgeistlarge vs tapubulu:
+|chat|DEBUG|>[poltergeist: 94.875 [87, 103], poltergeist: 94.875 [87, 103], poltergeist: 94.875 [87, 103]]
+|chat|DEBUG|Best move of gourgeistlarge (p1): poltergeist: 94.875 [87, 103]
+|chat|DEBUG|Best move of tapubulu (p2): megahorn: 117.0 [107, 127]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Toxic||[still]
+|-fail|p1a: Walrein
+|cant|p2a: Slowking|frz
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistlarge" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- walrein
+|chat|DEBUG|Own moves: willowisp poltergeist shadowsneak synthesis
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['slowking', 'obstagoon']
+|chat|DEBUG|Speed: 164 vs 161
+|chat|DEBUG|HP: 181 vs 329
+|chat|DEBUG|Created a new Strategy for gourgeistlarge vs walrein:
+|chat|DEBUG|>[poltergeist: 110.25 [102, 120], poltergeist: 110.25 [102, 120], poltergeist: 110.25 [102, 120]]
+|chat|DEBUG|Best move of gourgeistlarge (p1): poltergeist: 110.25 [102, 120]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 222.875 [204, 242]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check slowking
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Buzzwole|Buzzwole, L77|100100
+|-curestatus|p2a: Slowking|frz|[msg]
+|move|p2a: Slowking|Psyshock|p1a: Buzzwole
+|-supereffective|p1a: Buzzwole
+|-damage|p1a: Buzzwole|51100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- walrein
+|chat|DEBUG|Own moves: teleport toxic scald psyshock
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['slowking', 'obstagoon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 101 vs 161
+|chat|DEBUG|HP: 304 vs 329
+|chat|DEBUG|Created a new Strategy for slowking vs walrein:
+|chat|DEBUG|>[psyshock: 87.9375 [81, 96], psyshock: 87.9375 [81, 96], psyshock: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of slowking (p1): psyshock: 87.9375 [81, 96]
+|chat|DEBUG|Best move of walrein (p2): surf: 40.1875 [37, 44]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Leech Life|p2a: Slowking
+|-supereffective|p2a: Slowking
+|-damage|p2a: Slowking|2304
+|-heal|p1a: Buzzwole|100100|[from] drain|[of] p2a: Slowking
+|move|p2a: Slowking|Scald|p1a: Buzzwole
+|-damage|p1a: Buzzwole|52100
+|-heal|p2a: Slowking|21304|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- walrein
+|chat|DEBUG|Own moves: teleport toxic scald psyshock
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['slowking', 'obstagoon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 101 vs 161
+|chat|DEBUG|HP: 304 vs 329
+|chat|DEBUG|Best move of slowking (p1): psyshock: 87.9375 [81, 96]
+|chat|DEBUG|Best move of walrein (p2): surf: 40.1875 [37, 44]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Leech Life|p2a: Slowking
+|-supereffective|p2a: Slowking
+|-crit|p2a: Slowking
+|-damage|p2a: Slowking|0 fnt
+|-heal|p1a: Buzzwole|56100|[from] drain|[of] p2a: Slowking
+|faint|p2a: Slowking
+|-ability|p1a: Buzzwole|Beast Boost|boost
+|-boost|p1a: Buzzwole|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- walrein-buzzwole
+|chat|DEBUG|Own moves: teleport toxic scald psyshock
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 101 vs 166
+|chat|DEBUG|HP: 304 vs 148
+|chat|DEBUG|Created a new Strategy for slowking vs buzzwole:
+|chat|DEBUG|>[scald: 141.5625 [130, 154], scald: 141.5625 [130, 154], scald: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of slowking (p1): scald: 141.5625 [130, 154]
+|chat|DEBUG|Best move of buzzwole (p2): leechlife: 297.625 [272, 324]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Relicanth|Relicanth, L86, F|100100
+|move|p2a: Tornadus|Hurricane|p1a: Relicanth|[miss]
+|-miss|p2a: Tornadus|p1a: Relicanth
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge slowking obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-slowking-obstagoon-tornadustherian -- walrein-buzzwole
+|chat|DEBUG|Own moves: teleport toxic scald psyshock
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 101 vs 166
+|chat|DEBUG|HP: 21 vs 151
+|chat|DEBUG|Best move of slowking (p1): scald: 141.5625 [130, 154]
+|chat|DEBUG|Best move of buzzwole (p2): leechlife: 297.625 [272, 324]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Superpower|p1a: Relicanth
+|-supereffective|p1a: Relicanth
+|-damage|p1a: Relicanth|67100
+|-unboost|p2a: Tornadus|atk|1
+|-unboost|p2a: Tornadus|def|1
+|move|p1a: Relicanth|Head Smash|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|faint|p2a: Tornadus
+|-heal|p1a: Relicanth|73100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gourgeist|Gourgeist-Large, L84, F|181263
+|-item|p1a: Relicanth|Leftovers|[from] ability: Frisk|[of] p2a: Gourgeist|[identify]
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-obstagoon-tornadustherian -- walrein-buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tornadustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gourgeist|Poltergeist|p1a: Relicanth
+|-activate|p1a: Relicanth|move: Poltergeist|Leftovers
+|-damage|p1a: Relicanth|47100
+|move|p1a: Relicanth|Head Smash|p2a: Gourgeist
+|-damage|p2a: Gourgeist|55263
+|-heal|p2a: Gourgeist|71263|[from] item: Leftovers
+|-heal|p1a: Relicanth|53100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-obstagoon-tornadustherian -- walrein-buzzwole
+|chat|DEBUG|Own moves: superpower defog uturn hurricane
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 234 vs 166
+|chat|DEBUG|HP: 251 vs 162
+|chat|DEBUG|Created a new Strategy for tornadustherian vs buzzwole:
+|chat|DEBUG|>[hurricane: 700.75 [640, 760], hurricane: 700.75 [640, 760], hurricane: 700.75 [640, 760]]
+|chat|DEBUG|Best move of tornadustherian (p1): hurricane: 700.75 [640, 760]
+|chat|DEBUG|Best move of buzzwole (p2): stoneedge: 407.875 [374, 442]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gourgeist|Poltergeist|p1a: Relicanth
+|-activate|p1a: Relicanth|move: Poltergeist|Leftovers
+|-damage|p1a: Relicanth|28100
+|move|p1a: Relicanth|Head Smash|p2a: Gourgeist
+|-damage|p2a: Gourgeist|0 fnt
+|faint|p2a: Gourgeist
+|-heal|p1a: Relicanth|34100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Obstagoon|Obstagoon, L80, M|280280
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge obstagoon tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-obstagoon-tornadustherian -- walrein-buzzwole-relicanth
+|chat|DEBUG|Own moves: superpower defog uturn hurricane
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 234 vs 144
+|chat|DEBUG|HP: 251 vs 312
+|chat|DEBUG|Created a new Strategy for tornadustherian vs relicanth:
+|chat|DEBUG|>[superpower: 110.25 [102, 120], superpower: 73.25 [68, 80], superpower: 56.375 [52, 62]]
+|chat|DEBUG|Best move of tornadustherian (p1): superpower: 110.25 [102, 120]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 543.0 [498, 588]
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Obstagoon|Dynamax
+|-heal|p2a: Obstagoon|560560|[silent]
+|move|p2a: Obstagoon|Max Knuckle|p1a: Relicanth
+|-supereffective|p1a: Relicanth
+|-damage|p1a: Relicanth|8100
+|-boost|p2a: Obstagoon|atk|1
+|move|p1a: Relicanth|Yawn|p2a: Obstagoon
+|-start|p2a: Obstagoon|move: Yawn|[of] p1a: Relicanth
+|-heal|p1a: Relicanth|14100|[from] item: Leftovers
+|-status|p2a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge obstagoon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-obstagoon -- walrein-buzzwole-relicanth
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: gourgeistlarge
+|chat|DEBUG|>Switching to gourgeistlarge (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Obstagoon|Max Knuckle|p1a: Relicanth
+|-supereffective|p1a: Relicanth
+|-damage|p1a: Relicanth|0 fnt
+|-boost|p2a: Obstagoon|atk|1
+|faint|p1a: Relicanth
+|-damage|p2a: Obstagoon|543560 brn|[from] brn
+|-end|p2a: Obstagoon|move: Yawn|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Buzzwole|Buzzwole, L77|56100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge obstagoon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistlarge" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-obstagoon -- walrein-buzzwole-relicanth
+|chat|DEBUG|Own moves: willowisp poltergeist shadowsneak synthesis
+|chat|DEBUG|Enemy moves: bodypress headsmash liquidation stealthrock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gourgeistlarge']
+|chat|DEBUG|Speed: 164 vs 144
+|chat|DEBUG|HP: 181 vs 227
+|chat|DEBUG|Created a new Strategy for gourgeistlarge vs relicanth:
+|chat|DEBUG|>[poltergeist: 82.4375 [76, 90], poltergeist: 82.4375 [76, 90], poltergeist: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of gourgeistlarge (p1): poltergeist: 82.4375 [76, 90]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 122.5625 [112, 133]
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Obstagoon|Max Strike|p1a: Buzzwole
+|-damage|p1a: Buzzwole|0 fnt
+|faint|p1a: Buzzwole
+|-damage|p2a: Obstagoon|526560 brn|[from] brn
+|-end|p2a: Obstagoon|Dynamax
+|-heal|p2a: Obstagoon|263280 brn|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Duraludon|Duraludon, L84, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gourgeistlarge obstagoon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistlarge" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gourgeistlarge-obstagoon -- walrein-buzzwole-relicanth
+|chat|DEBUG|Own moves: willowisp poltergeist shadowsneak synthesis
+|chat|DEBUG|Enemy moves: bodypress headsmash liquidation stealthrock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 164 vs 144
+|chat|DEBUG|HP: 71 vs 165
+|chat|DEBUG|Best move of gourgeistlarge (p1): poltergeist: 82.4375 [76, 90]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 122.5625 [112, 133]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Obstagoon|Close Combat|p1a: Duraludon
+|-supereffective|p1a: Duraludon
+|-damage|p1a: Duraludon|0 fnt
+|-unboost|p2a: Obstagoon|def|1
+|-unboost|p2a: Obstagoon|spd|1
+|faint|p1a: Duraludon
+|-damage|p2a: Obstagoon|246280 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Walrein|Walrein, L86, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>obstagoon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gourgeistlarge" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>obstagoon -- walrein-buzzwole-relicanth
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress headsmash liquidation stealthrock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: obstagoon
+|chat|DEBUG|>Switching to obstagoon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Walrein|Dynamax
+|-heal|p1a: Walrein|100100|[silent]
+|move|p2a: Obstagoon|Close Combat|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|39100
+|-unboost|p2a: Obstagoon|def|1
+|-unboost|p2a: Obstagoon|spd|1
+|move|p1a: Walrein|Max Geyser|p2a: Obstagoon
+|-damage|p2a: Obstagoon|0 fnt
+|-weather|RainDance
+|faint|p2a: Obstagoon
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>BigOreo26<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">gourgeistlarge slowking clawitzer urshifu obstagoon tornadustherian</h1>

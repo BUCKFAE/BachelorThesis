@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491416529</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1491416529<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McDonner</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Tree mon3690</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1491416529|init|battle
+|title|McDonner vs. Tree mon3690
+|j|☆McDonner
+|j|☆Tree mon3690
+|gametype|singles
+|player|p1|McDonner|265|1121
+|player|p2|Tree mon3690|265|1159
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Blacephalon|Blacephalon, L80|215/215
+|switch|p2a: Necrozma|Necrozma-Dawn-Wings, L76|100/100
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Goodra|Goodra, L82, M|100/100
+|move|p1a: Blacephalon|Shadow Ball|p2a: Goodra
+|-damage|p2a: Goodra|83/100
+|-unboost|p2a: Goodra|spd|1
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blacephalon|Psyshock|p2a: Goodra
+|-damage|p2a: Goodra|54/100
+|move|p2a: Goodra|Draco Meteor|p1a: Blacephalon
+|-damage|p1a: Blacephalon|62/215
+|-unboost|p2a: Goodra|spa|2
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blacephalon|Psyshock|p2a: Goodra
+|-damage|p2a: Goodra|19/100
+|move|p2a: Goodra|Draco Meteor|p1a: Blacephalon
+|-damage|p1a: Blacephalon|0 fnt
+|-unboost|p2a: Goodra|spa|2
+|faint|p1a: Blacephalon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tsareena|Tsareena, L84, F|258/258
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Fire Blast|p1a: Tsareena
+|-supereffective|p1a: Tsareena
+|-damage|p1a: Tsareena|204/258
+|move|p1a: Tsareena|High Jump Kick|p2a: Goodra
+|-damage|p2a: Goodra|0 fnt
+|faint|p2a: Goodra
+|-damage|p1a: Tsareena|179/258|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|100/100
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Giratina|Giratina, L74|344/344
+|-ability|p1a: Giratina|Pressure
+|move|p2a: Charizard|Fire Blast|p1a: Giratina|[miss]
+|-miss|p2a: Charizard|p1a: Giratina
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Morpeko|Morpeko, L86, F|100/100
+|move|p1a: Giratina|Hex|p2a: Morpeko
+|-resisted|p2a: Morpeko
+|-damage|p2a: Morpeko|85/100
+|-formechange|p2a: Morpeko|Morpeko-Hangry||[from] ability: Hunger Switch
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Tree mon3690 has 120 seconds left.
+|switch|p1a: Dugtrio|Dugtrio-Alola, L82, F|192/192
+|move|p2a: Morpeko|Foul Play|p1a: Dugtrio
+|-damage|p1a: Dugtrio|0 fnt
+|-ability|p1a: Dugtrio|Tangling Hair
+|-unboost|p2a: Morpeko|spe|1
+|faint|p1a: Dugtrio
+|-formechange|p2a: Morpeko|Morpeko||[from] ability: Hunger Switch
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tsareena|Tsareena, L84, F|179/258
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Tree mon3690 has 120 seconds left.
+|move|p1a: Tsareena|High Jump Kick|p2a: Morpeko
+|-supereffective|p2a: Morpeko
+|-damage|p2a: Morpeko|0 fnt
+|faint|p2a: Morpeko
+|-damage|p1a: Tsareena|154/258|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Tree mon3690 has 120 seconds left.
+|switch|p2a: Charizard|Charizard, L82, F|100/100
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Giratina|Giratina, L74|344/344
+|-ability|p1a: Giratina|Pressure
+|move|p2a: Charizard|Fire Blast|p1a: Giratina|[miss]
+|-miss|p2a: Charizard|p1a: Giratina
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-crit|p1a: Giratina
+|-damage|p1a: Giratina|264/344
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|76/100
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|78/100
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|77/100
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|208/344
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|55/100
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|77/100
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|156/344
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|57/100
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|78/100
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|80/344
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|57/100
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|80/100
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|25/344
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|56/100
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|76/100
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|76/100
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|76/100
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|79/100
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Hex|p2a: Charizard
+|-damage|p2a: Charizard|80/100
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|100/100
+|-singleturn|p2a: Charizard|move: Roost
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|-enditem|p1a: Giratina|Chesto Berry|[eat]
+|-curestatus|p1a: Giratina|slp|[msg]
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|291/344
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost||[still]
+|-fail|p2a: Charizard|heal
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|291/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|213/344 slp
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|263/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|187/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|111/344 slp
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|33
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|268/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|34
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|193/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|35
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|115/344 slp
+|-curestatus|p1a: Giratina|slp|[msg]
+|cant|p1a: Giratina|flinch
+|upkeep
+|turn|36
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|37/344
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|37
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|272/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|38
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Fire Blast|p1a: Giratina|[miss]
+|-miss|p2a: Charizard|p1a: Giratina
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|39
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Fire Blast|p1a: Giratina
+|-resisted|p1a: Giratina
+|-damage|p1a: Giratina|220/344 slp
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|40
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|272/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|41
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Air Slash|p1a: Giratina
+|-damage|p1a: Giratina|196/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|42
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|145/344 slp
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|43
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Earthquake|p1a: Giratina
+|-damage|p1a: Giratina|291/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|44
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost||[still]
+|-fail|p2a: Charizard|heal
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|45
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost||[still]
+|-fail|p2a: Charizard|heal
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|46
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost||[still]
+|-fail|p2a: Charizard|heal
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|47
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Roost||[still]
+|-fail|p2a: Charizard|heal
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|48
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Charizard|move: Struggle
+|move|p2a: Charizard|Struggle|p1a: Giratina
+|-damage|p1a: Giratina|319/344 slp
+|-damage|p2a: Charizard|75/100|[from] recoil
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|49
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Charizard|move: Struggle
+|move|p2a: Charizard|Struggle|p1a: Giratina
+|-damage|p1a: Giratina|316/344 slp
+|-damage|p2a: Charizard|50/100|[from] recoil
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|50
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Charizard|move: Struggle
+|move|p2a: Charizard|Struggle|p1a: Giratina
+|-damage|p1a: Giratina|290/344 slp
+|-damage|p2a: Charizard|25/100|[from] recoil
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|51
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Charizard|move: Struggle
+|move|p2a: Charizard|Struggle|p1a: Giratina
+|-damage|p1a: Giratina|264/344 slp
+|-damage|p2a: Charizard|0 fnt|[from] recoil
+|faint|p2a: Charizard
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mew|Mew, L80|100/100
+|turn|52
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Giratina|Dynamax
+|-heal|p1a: Giratina|688/688 slp|[silent]
+|cant|p1a: Giratina|slp
+|move|p2a: Mew|Psychic Fangs|p1a: Giratina
+|-damage|p1a: Giratina|612/688 slp
+|upkeep
+|turn|53
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Giratina|slp
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|1
+|-boost|p2a: Mew|spe|1
+|upkeep
+|turn|54
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Max Guard|p1a: Giratina
+|-singleturn|p1a: Giratina|Max Guard
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|1
+|-boost|p2a: Mew|spe|1
+|-end|p1a: Giratina|Dynamax
+|-heal|p1a: Giratina|306/344|[silent]
+|upkeep
+|turn|55
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|1
+|-boost|p2a: Mew|spe|1
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|56
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|1
+|-boost|p2a: Mew|spe|1
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|57
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|1
+|-boost|p2a: Mew|spe|1
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|58
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|1
+|-boost|p2a: Mew|spe|1
+|-curestatus|p1a: Giratina|slp|[msg]
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-fail|p1a: Giratina|heal
+|upkeep
+|turn|59
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Dragon Dance|p2a: Mew
+|-boost|p2a: Mew|atk|0
+|-boost|p2a: Mew|spe|0
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-fail|p1a: Giratina|heal
+|upkeep
+|turn|60
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Close Combat|p1a: Giratina
+|-immune|p1a: Giratina
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-fail|p1a: Giratina|heal
+|upkeep
+|turn|61
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Giratina
+|-damage|p1a: Giratina|49/344
+|move|p1a: Giratina|Rest|p1a: Giratina
+|-status|p1a: Giratina|slp|[from] move: Rest
+|-heal|p1a: Giratina|344/344 slp|[silent]
+|upkeep
+|turn|62
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Giratina
+|-damage|p1a: Giratina|29/344 slp
+|cant|p1a: Giratina|slp
+|upkeep
+|turn|63
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Giratina
+|-damage|p1a: Giratina|0 fnt
+|faint|p1a: Giratina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lapras|Lapras, L86, M|363/363
+|turn|64
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Flare Blitz|p1a: Lapras
+|-damage|p1a: Lapras|17/363
+|-damage|p2a: Mew|61/100|[from] Recoil
+|move|p1a: Lapras|Ice Beam|p2a: Mew
+|-damage|p2a: Mew|16/100
+|upkeep
+|turn|65
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Lapras
+|-damage|p1a: Lapras|0 fnt
+|faint|p1a: Lapras
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Type: Null|Type: Null, L86|304/304
+|turn|66
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Close Combat|p1a: Type: Null
+|-supereffective|p1a: Type: Null
+|-damage|p1a: Type: Null|0 fnt
+|-unboost|p2a: Mew|def|1
+|-unboost|p2a: Mew|spd|1
+|faint|p1a: Type: Null
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tsareena|Tsareena, L84, F|154/258
+|turn|67
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Flare Blitz|p1a: Tsareena
+|-supereffective|p1a: Tsareena
+|-damage|p1a: Tsareena|0 fnt
+|faint|p1a: Tsareena
+|-damage|p2a: Mew|0 fnt|[from] Recoil
+|faint|p2a: Mew
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

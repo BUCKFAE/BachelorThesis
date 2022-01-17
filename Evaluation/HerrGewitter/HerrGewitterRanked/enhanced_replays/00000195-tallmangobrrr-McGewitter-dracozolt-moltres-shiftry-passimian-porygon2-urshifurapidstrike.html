@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490294170<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490294170|init|battle
+|title|tallmangobrrr vs. McGewitter
+|j|☆tallmangobrrr
+|j|☆McGewitter
+|gametype|singles
+|player|p1|tallmangobrrr|red|1195
+|player|p2|McGewitter|265|1229
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Clefable|Clefable, L82, M|100100
+|switch|p2a: Dracozolt|Dracozolt, L78|268268
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracozolt moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracozolt-moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: aerialace boltbeak outrage lowkick
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['dracozolt', 'moltres', 'passimian', 'porygon2']
+|chat|DEBUG|Speed: 162 vs 146
+|chat|DEBUG|HP: 268 vs 290
+|chat|DEBUG|Created a new Strategy for dracozolt vs clefable:
+|chat|DEBUG|>[boltbeak: 422.0625 [388, 457], boltbeak: 422.0625 [388, 457], boltbeak: 422.0625 [388, 457]]
+|chat|DEBUG|Best move of dracozolt (p1): boltbeak: 422.0625 [388, 457]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 311.3125 [283, 338]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Dracozolt|Bolt Beak|p1a: Clefable|[miss]
+|-miss|p2a: Dracozolt|p1a: Clefable
+|move|p1a: Clefable|Calm Mind|p1a: Clefable
+|-boost|p1a: Clefable|spa|1
+|-boost|p1a: Clefable|spd|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracozolt moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracozolt-moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: boltbeak
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dracozolt', 'moltres', 'passimian']
+|chat|DEBUG|Speed: 162 vs 146
+|chat|DEBUG|HP: 268 vs 290
+|chat|DEBUG|Created a new Strategy for dracozolt vs clefable:
+|chat|DEBUG|>[boltbeak: 422.0625 [388, 457], boltbeak: 422.0625 [388, 457], boltbeak: 422.0625 [388, 457]]
+|chat|DEBUG|Best move of dracozolt (p1): boltbeak: 422.0625 [388, 457]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 462.625 [424, 502]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dracozolt|Bolt Beak|p1a: Clefable|[miss]
+|-miss|p2a: Dracozolt|p1a: Clefable
+|move|p1a: Clefable|Moonblast|p2a: Dracozolt
+|-supereffective|p2a: Dracozolt
+|-damage|p2a: Dracozolt|0 fnt
+|faint|p2a: Dracozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Moltres|Moltres, L80|275275
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres', 'passimian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to moltres (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|72100
+|move|p1a: Clefable|Calm Mind|p1a: Clefable
+|-boost|p1a: Clefable|spa|1
+|-boost|p1a: Clefable|spd|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres', 'passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 290
+|chat|DEBUG|Created a new Strategy for moltres vs clefable:
+|chat|DEBUG|>[fireblast: 89.1875 [82, 97], fireblast: 89.1875 [82, 97], fireblast: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 89.1875 [82, 97]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 97.1875 [90, 105]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|47100
+|move|p1a: Clefable|Soft-Boiled|p1a: Clefable
+|-heal|p1a: Clefable|97100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres', 'passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 208
+|chat|DEBUG|Best move of moltres (p1): fireblast: 89.1875 [82, 97]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 130.75 [121, 142]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|74100
+|move|p1a: Clefable|Calm Mind|p1a: Clefable
+|-boost|p1a: Clefable|spa|1
+|-boost|p1a: Clefable|spd|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres', 'passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 281
+|chat|DEBUG|Best move of moltres (p1): fireblast: 89.1875 [82, 97]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 130.75 [121, 142]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|56100
+|move|p1a: Clefable|Soft-Boiled|p1a: Clefable
+|-heal|p1a: Clefable|100100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 214
+|chat|DEBUG|Created a new Strategy for moltres vs clefable:
+|chat|DEBUG|>[fireblast: 53.125 [49, 58], fireblast: 53.125 [49, 58], fireblast: 53.125 [49, 58]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 53.125 [49, 58]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 162.125 [148, 175]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|84100
+|move|p1a: Clefable|Calm Mind|p1a: Clefable
+|-boost|p1a: Clefable|spa|1
+|-boost|p1a: Clefable|spd|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 290
+|chat|DEBUG|Best move of moltres (p1): fireblast: 53.125 [49, 58]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 162.125 [148, 175]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|69100
+|move|p1a: Clefable|Calm Mind|p1a: Clefable
+|-boost|p1a: Clefable|spa|1
+|-boost|p1a: Clefable|spd|1
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 243
+|chat|DEBUG|Best move of moltres (p1): fireblast: 53.125 [49, 58]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 195.5 [179, 212]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|56100
+|move|p1a: Clefable|Soft-Boiled|p1a: Clefable
+|-heal|p1a: Clefable|100100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 200
+|chat|DEBUG|Created a new Strategy for moltres vs clefable:
+|chat|DEBUG|>[fireblast: 37.9375 [34, 42], fireblast: 37.9375 [34, 42], fireblast: 37.9375 [34, 42]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 37.9375 [34, 42]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 228.0625 [209, 247]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Clefable
+|-damage|p1a: Clefable|87100
+|move|p1a: Clefable|Calm Mind|p1a: Clefable
+|-boost|p1a: Clefable|spa|1
+|-boost|p1a: Clefable|spd|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog fireblast roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 290
+|chat|DEBUG|Best move of moltres (p1): fireblast: 37.9375 [34, 42]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 228.0625 [209, 247]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Air Slash|p1a: Clefable
+|-damage|p1a: Clefable|79100
+|move|p1a: Clefable|Soft-Boiled|p1a: Clefable
+|-heal|p1a: Clefable|100100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 252
+|chat|DEBUG|Created a new Strategy for moltres vs clefable:
+|chat|DEBUG|>[airslash: 24.0 [22, 27], airslash: 24.0 [22, 27], airslash: 24.0 [22, 27]]
+|chat|DEBUG|Best move of moltres (p1): airslash: 24.0 [22, 27]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 260.5625 [239, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Air Slash|p1a: Clefable
+|-damage|p1a: Clefable|92100
+|cant|p1a: Clefable|flinch
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 290
+|chat|DEBUG|Best move of moltres (p1): airslash: 24.0 [22, 27]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 260.5625 [239, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Air Slash|p1a: Clefable
+|-damage|p1a: Clefable|84100
+|move|p1a: Clefable|Moonblast|p2a: Moltres
+|-resisted|p2a: Moltres
+|-damage|p2a: Moltres|14275
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 275 vs 266
+|chat|DEBUG|Best move of moltres (p1): airslash: 24.0 [22, 27]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 260.5625 [239, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Air Slash|p1a: Clefable
+|-damage|p1a: Clefable|76100
+|move|p1a: Clefable|Moonblast|p2a: Moltres
+|-resisted|p2a: Moltres
+|-damage|p2a: Moltres|0 fnt
+|faint|p2a: Moltres
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Passimian|Passimian, L82, M|298298
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: defog roost airslash
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 14 vs 243
+|chat|DEBUG|Created a new Strategy for moltres vs clefable:
+|chat|DEBUG|>[airslash: 24.0 [22, 27], airslash: 24.0 [22, 27], airslash: 24.0 [22, 27]]
+|chat|DEBUG|Best move of moltres (p1): airslash: 24.0 [22, 27]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 260.5625 [239, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Passimian|Gunk Shot|p1a: Clefable
+|-supereffective|p1a: Clefable
+|-damage|p1a: Clefable|0 fnt
+|faint|p1a: Clefable
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cresselia|Cresselia, L80, F|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to passimian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon2|Porygon2, L82|274274
+|-ability|p2a: Porygon2|Levitate|[from] ability: Trace|[of] p1a: Cresselia
+|move|p1a: Cresselia|Calm Mind|p1a: Cresselia
+|-boost|p1a: Cresselia|spa|1
+|-boost|p1a: Cresselia|spd|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "passimian" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- clefable
+|chat|DEBUG|Own moves: gunkshot rockslide earthquake closecombat
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['passimian']
+|chat|DEBUG|Speed: 178 vs 146
+|chat|DEBUG|HP: 298 vs 220
+|chat|DEBUG|Created a new Strategy for passimian vs clefable:
+|chat|DEBUG|>[gunkshot: 332.25 [306, 360], gunkshot: 332.25 [306, 360], gunkshot: 332.25 [306, 360]]
+|chat|DEBUG|Best move of passimian (p1): gunkshot: 332.25 [306, 360]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 1299.625 [1193, 1406]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Calm Mind|p1a: Cresselia
+|-boost|p1a: Cresselia|spa|1
+|-boost|p1a: Cresselia|spd|1
+|move|p2a: Porygon2|Tri Attack|p1a: Cresselia
+|-damage|p1a: Cresselia|91100
+|-heal|p1a: Cresselia|97100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "passimian" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: gunkshot
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: ['porygon2']
+|chat|DEBUG|Counter: ['shiftry', 'porygon2']
+|chat|DEBUG|Speed: 178 vs 182
+|chat|DEBUG|HP: 298 vs 323
+|chat|DEBUG|Created a new Strategy for passimian vs cresselia:
+|chat|DEBUG|>[gunkshot: 117.0 [107, 127], gunkshot: 117.0 [107, 127], gunkshot: 117.0 [107, 127]]
+|chat|DEBUG|Best move of passimian (p1): gunkshot: 117.0 [107, 127]
+|chat|DEBUG|Best move of cresselia (p2): moonblast: 138.0 [126, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygon2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Calm Mind|p1a: Cresselia
+|-boost|p1a: Cresselia|spa|1
+|-boost|p1a: Cresselia|spd|1
+|move|p2a: Porygon2|Tri Attack|p1a: Cresselia
+|-damage|p1a: Cresselia|88100
+|-heal|p1a: Cresselia|95100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 274 vs 323
+|chat|DEBUG|Created a new Strategy for porygon2 vs cresselia:
+|chat|DEBUG|>[triattack: 45.0625 [42, 49], triattack: 45.0625 [42, 49], triattack: 45.0625 [42, 49]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 45.0625 [42, 49]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 65.75 [60, 72]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Calm Mind|p1a: Cresselia
+|-boost|p1a: Cresselia|spa|1
+|-boost|p1a: Cresselia|spd|1
+|move|p2a: Porygon2|Tri Attack|p1a: Cresselia
+|-crit|p1a: Cresselia
+|-damage|p1a: Cresselia|66100
+|-status|p1a: Cresselia|brn
+|-heal|p1a: Cresselia|73100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|66100 brn|[from] brn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 274 vs 313
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 45.0625 [42, 49]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 86.4375 [79, 94]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonlight|p1a: Cresselia
+|-heal|p1a: Cresselia|100100 brn
+|move|p2a: Porygon2|Tri Attack|p1a: Cresselia
+|-damage|p1a: Cresselia|94100 brn
+|-heal|p1a: Cresselia|99100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|94100 brn|[from] brn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 274 vs 306
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 45.0625 [42, 49]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 108.625 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Psyshock|p2a: Porygon2
+|-damage|p2a: Porygon2|147274
+|move|p2a: Porygon2|Tri Attack|p1a: Cresselia
+|-damage|p1a: Cresselia|87100 brn
+|-heal|p1a: Cresselia|93100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|87100 brn|[from] brn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 274 vs 213
+|chat|DEBUG|Created a new Strategy for porygon2 vs cresselia:
+|chat|DEBUG|>[triattack: 22.5625 [21, 25], triattack: 22.5625 [21, 25], triattack: 22.5625 [21, 25]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 22.5625 [21, 25]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 129.5 [118, 141]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Porygon2
+|-damage|p2a: Porygon2|48274
+|move|p2a: Porygon2|Tri Attack|p1a: Cresselia
+|-damage|p1a: Cresselia|80100 brn
+|-heal|p1a: Cresselia|86100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|80100 brn|[from] brn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 274 vs 303
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 22.5625 [21, 25]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 129.5 [118, 141]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Porygon2
+|-damage|p2a: Porygon2|0 fnt
+|faint|p2a: Porygon2
+|-heal|p1a: Cresselia|86100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|80100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shiftry|Shiftry, L86, F|295295
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 147 vs 281
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 22.5625 [21, 25]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 129.5 [118, 141]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Shiftry|Dark Pulse|p1a: Cresselia
+|-supereffective|p1a: Cresselia
+|-damage|p1a: Cresselia|62100 brn
+|-damage|p2a: Shiftry|266295|[from] item: Life Orb
+|move|p1a: Cresselia|Moonblast|p2a: Shiftry
+|-supereffective|p2a: Shiftry
+|-damage|p2a: Shiftry|0 fnt
+|faint|p2a: Shiftry
+|-heal|p1a: Cresselia|69100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|62100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, M|284284
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian porygon2 urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-porygon2-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: toxic icebeam triattack recover
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 182
+|chat|DEBUG|HP: 48 vs 258
+|chat|DEBUG|Created a new Strategy for porygon2 vs cresselia:
+|chat|DEBUG|>[triattack: 22.5625 [21, 25], triattack: 22.5625 [21, 25], triattack: 22.5625 [21, 25]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 22.5625 [21, 25]
+|chat|DEBUG|Best move of cresselia (p2): psyshock: 129.5 [118, 141]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Urshifu|U-turn|p1a: Cresselia
+|-supereffective|p1a: Cresselia
+|-damage|p1a: Cresselia|36100 brn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Passimian|Passimian, L82, M|298298
+|move|p1a: Cresselia|Moonblast|p2a: Passimian
+|-supereffective|p2a: Passimian
+|-damage|p2a: Passimian|0 fnt
+|faint|p2a: Passimian
+|-heal|p1a: Cresselia|43100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|36100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, M|284284
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: shiftry
+|chat|DEBUG|>Switching to shiftry (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Urshifu|Dynamax
+|-formechange|p2a: Urshifu|Urshifu-Rapid-Strike-Gmax
+|-heal|p2a: Urshifu|568568|[silent]
+|move|p2a: Urshifu|Max Flutterby|p1a: Cresselia
+|-supereffective|p1a: Cresselia
+|-damage|p1a: Cresselia|0 fnt
+|faint|p1a: Cresselia
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Fan, L84|100100
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry passimian urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shiftry" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-passimian-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: leafstorm heatwave nastyplot darkpulse
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 187 vs 182
+|chat|DEBUG|HP: 295 vs 258
+|chat|DEBUG|Created a new Strategy for shiftry vs cresselia:
+|chat|DEBUG|>[darkpulse: 58.5625 [55, 65], darkpulse: 58.5625 [55, 65], darkpulse: 58.5625 [55, 65]]
+|chat|DEBUG|Best move of shiftry (p1): darkpulse: 58.5625 [55, 65]
+|chat|DEBUG|Best move of cresselia (p2): moonblast: 393.125 [362, 426]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Rotom|Dynamax
+|-heal|p1a: Rotom|100100|[silent]
+|move|p2a: Urshifu|Max Hailstorm|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|63100
+|-weather|Hail
+|move|p1a: Rotom|Max Airstream|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|164568
+|-boost|p1a: Rotom|spe|1
+|-weather|Hail|[upkeep]
+|-damage|p1a: Rotom|60100|[from] Hail
+|-damage|p2a: Urshifu|147568|[from] Hail
+|upkeep
+|turn|28
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>passimian urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shiftry" vs "cresselia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>passimian-urshifurapidstrike -- cresselia
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moonblast moonlight psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: urshifurapidstrike
+|chat|DEBUG|>Switching to urshifurapidstrike (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Max Lightning|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Urshifu
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>tallmangobrrr<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dracozolt moltres shiftry passimian porygon2 urshifurapidstrike</h1>

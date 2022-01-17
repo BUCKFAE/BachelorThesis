@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1489972576<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1489972576|init|battle
+|title|T_meless vs. McGewitter
+|j|☆T_meless
+|j|☆McGewitter
+|gametype|singles
+|player|p1|T_meless|101|1080
+|player|p2|McGewitter|265|1134
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Poliwrath|Poliwrath, L84, F|100100
+|switch|p2a: Krookodile|Krookodile, L78, M|276276
+|-ability|p2a: Krookodile|Intimidate|boost
+|-unboost|p1a: Poliwrath|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile garbodor corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "poliwrath"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-garbodor-corsola-suicune-zapdosgalar-dhelmise -- poliwrath
+|chat|DEBUG|Own moves: knockoff stoneedge stealthrock earthquake
+|chat|DEBUG|Enemy moves: closecombat darkestlariat liquidation raindance
+|chat|DEBUG|Checks: ['garbodor', 'suicune', 'dhelmise']
+|chat|DEBUG|Counter: ['garbodor', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Speed: 189 vs 166
+|chat|DEBUG|HP: 276 vs 288
+|chat|DEBUG|Created a new Strategy for krookodile vs poliwrath:
+|chat|DEBUG|>[earthquake: 101.75 [93, 111], earthquake: 101.75 [93, 111], earthquake: 101.75 [93, 111]]
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 101.75 [93, 111]
+|chat|DEBUG|Best move of poliwrath (p2): closecombat: 188.625 [174, 205]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Krookodile|Stealth Rock|p1a: Poliwrath
+|-sidestart|p1: T_meless|move: Stealth Rock
+|move|p1a: Poliwrath|Rain Dance|p1a: Poliwrath
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile garbodor corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "poliwrath"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-garbodor-corsola-suicune-zapdosgalar-dhelmise -- poliwrath
+|chat|DEBUG|Own moves: knockoff stoneedge stealthrock earthquake
+|chat|DEBUG|Enemy moves: closecombat darkestlariat liquidation raindance
+|chat|DEBUG|Checks: ['garbodor', 'suicune', 'dhelmise']
+|chat|DEBUG|Counter: ['garbodor', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Speed: 189 vs 166
+|chat|DEBUG|HP: 276 vs 288
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 101.75 [93, 111]
+|chat|DEBUG|Best move of poliwrath (p2): closecombat: 188.625 [174, 205]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check garbodor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, F|281281
+|move|p1a: Poliwrath|Liquidation|p2a: Garbodor
+|-damage|p2a: Garbodor|160281
+|-damage|p1a: Poliwrath|91100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Garbodor|177281|[from] item: Black Sludge
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile garbodor corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "poliwrath"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-garbodor-corsola-suicune-zapdosgalar-dhelmise -- poliwrath
+|chat|DEBUG|Own moves: gunkshot toxicspikes painsplit spikes
+|chat|DEBUG|Enemy moves: closecombat darkestlariat liquidation raindance
+|chat|DEBUG|Checks: ['garbodor', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Counter: ['garbodor', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 180 vs 166
+|chat|DEBUG|HP: 177 vs 262
+|chat|DEBUG|Created a new Strategy for garbodor vs poliwrath:
+|chat|DEBUG|>[gunkshot: 125.375 [115, 136], gunkshot: 125.375 [115, 136], gunkshot: 125.375 [115, 136]]
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 125.375 [115, 136]
+|chat|DEBUG|Best move of poliwrath (p2): liquidation: 78.0 [71, 86]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-spikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Poliwrath|Close Combat|p2a: Garbodor
+|-resisted|p2a: Garbodor
+|-damage|p2a: Garbodor|122281
+|-unboost|p1a: Poliwrath|def|1
+|-unboost|p1a: Poliwrath|spd|1
+|-damage|p1a: Poliwrath|81100|[from] item: Life Orb
+|move|p2a: Garbodor|Toxic Spikes|p1a: Poliwrath
+|-sidestart|p1: T_meless|move: Toxic Spikes
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Garbodor|139281|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile garbodor corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "poliwrath"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-garbodor-corsola-suicune-zapdosgalar-dhelmise -- poliwrath
+|chat|DEBUG|Own moves: gunkshot toxicspikes painsplit spikes
+|chat|DEBUG|Enemy moves: closecombat darkestlariat liquidation raindance
+|chat|DEBUG|Checks: ['suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'garbodor', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Speed: 180 vs 166
+|chat|DEBUG|HP: 139 vs 233
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 125.375 [115, 136]
+|chat|DEBUG|Best move of poliwrath (p2): liquidation: 78.0 [71, 86]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-spikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus, L76, M|100100
+|-damage|p1a: Landorus|88100|[from] Stealth Rock
+|move|p2a: Garbodor|Toxic Spikes|p1a: Landorus
+|-sidestart|p1: T_meless|move: Toxic Spikes
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Garbodor|156281|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile garbodor corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-garbodor-corsola-suicune-zapdosgalar-dhelmise -- poliwrath-landorus
+|chat|DEBUG|Own moves: gunkshot toxicspikes painsplit spikes
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: ['suicune']
+|chat|DEBUG|Counter: ['suicune']
+|chat|DEBUG|Speed: 180 vs 198
+|chat|DEBUG|HP: 156 vs 228
+|chat|DEBUG|Created a new Strategy for garbodor vs landorus:
+|chat|DEBUG|>[gunkshot: 71.3125 [66, 78], gunkshot: 71.3125 [66, 78], gunkshot: 71.3125 [66, 78]]
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 71.3125 [66, 78]
+|chat|DEBUG|Best move of landorus (p2): earthpower: 311.3125 [283, 338]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Earth Power|p2a: Garbodor
+|-supereffective|p2a: Garbodor
+|-damage|p2a: Garbodor|0 fnt
+|faint|p2a: Garbodor
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Suicune|Suicune, L80|291291
+|-ability|p2a: Suicune|Pressure
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- poliwrath-landorus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: ['suicune']
+|chat|DEBUG|Counter: ['suicune']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to suicune (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Poliwrath|Poliwrath, L84, F|81100
+|-status|p1a: Poliwrath|tox
+|-damage|p1a: Poliwrath|75100 tox|[from] Stealth Rock
+|move|p2a: Suicune|Ice Beam|p1a: Poliwrath
+|-resisted|p1a: Poliwrath
+|-damage|p1a: Poliwrath|66100 tox
+|-damage|p1a: Poliwrath|60100 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- poliwrath-landorus
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: ['suicune']
+|chat|DEBUG|Counter: ['suicune']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 198
+|chat|DEBUG|HP: 291 vs 228
+|chat|DEBUG|Created a new Strategy for suicune vs landorus:
+|chat|DEBUG|>[icebeam: 264.5 [244, 288], icebeam: 264.5 [244, 288], icebeam: 264.5 [244, 288]]
+|chat|DEBUG|Best move of suicune (p1): icebeam: 264.5 [244, 288]
+|chat|DEBUG|Best move of landorus (p2): earthpower: 130.5 [121, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Suicune|Air Slash|p1a: Poliwrath
+|-supereffective|p1a: Poliwrath
+|-damage|p1a: Poliwrath|29100 tox
+|move|p1a: Poliwrath|Darkest Lariat|p2a: Suicune
+|-damage|p2a: Suicune|230291
+|-damage|p1a: Poliwrath|19100 tox|[from] item: Life Orb
+|-heal|p2a: Suicune|248291|[from] item: Leftovers
+|-damage|p1a: Poliwrath|7100 tox|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "poliwrath"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- poliwrath-landorus
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: closecombat darkestlariat liquidation raindance
+|chat|DEBUG|Checks: ['suicune', 'zapdosgalar']
+|chat|DEBUG|Counter: ['krookodile', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 166
+|chat|DEBUG|HP: 291 vs 172
+|chat|DEBUG|Created a new Strategy for suicune vs poliwrath:
+|chat|DEBUG|>[airslash: 92.0 [84, 100], airslash: 92.0 [84, 100], airslash: 92.0 [84, 100]]
+|chat|DEBUG|Best move of suicune (p1): airslash: 92.0 [84, 100]
+|chat|DEBUG|Best move of poliwrath (p2): closecombat: 137.625 [126, 149]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Suicune|Air Slash|p1a: Poliwrath
+|-supereffective|p1a: Poliwrath
+|-damage|p1a: Poliwrath|0 fnt
+|faint|p1a: Poliwrath
+|-heal|p2a: Suicune|266291|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, M|100100
+|-status|p1a: Reuniclus|tox
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "poliwrath"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- poliwrath-landorus
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: closecombat darkestlariat liquidation raindance
+|chat|DEBUG|Checks: ['krookodile', 'suicune', 'zapdosgalar']
+|chat|DEBUG|Counter: ['krookodile', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 166
+|chat|DEBUG|HP: 248 vs 20
+|chat|DEBUG|Best move of suicune (p1): airslash: 92.0 [84, 100]
+|chat|DEBUG|Best move of poliwrath (p2): closecombat: 137.625 [126, 149]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Suicune|Scald|p1a: Reuniclus
+|-damage|p1a: Reuniclus|77100 tox
+|move|p1a: Reuniclus|Trick Room|p1a: Reuniclus
+|-fieldstart|move: Trick Room|[of] p1a: Reuniclus
+|-heal|p2a: Suicune|284291|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['suicune', 'dhelmise']
+|chat|DEBUG|Speed: 182 vs 99
+|chat|DEBUG|HP: 266 vs 322
+|chat|DEBUG|Created a new Strategy for suicune vs reuniclus:
+|chat|DEBUG|>[scald: 76.75 [70, 84], scald: 76.75 [70, 84], scald: 76.75 [70, 84]]
+|chat|DEBUG|Best move of suicune (p1): scald: 76.75 [70, 84]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 128.625 [118, 140]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Reuniclus|Focus Blast|p2a: Suicune
+|-damage|p2a: Suicune|164291
+|-unboost|p2a: Suicune|spd|1
+|move|p2a: Suicune|Scald|p1a: Reuniclus
+|-damage|p1a: Reuniclus|52100 tox
+|-heal|p2a: Suicune|182291|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'suicune', 'dhelmise']
+|chat|DEBUG|Speed: 182 vs 99
+|chat|DEBUG|HP: 284 vs 247
+|chat|DEBUG|Best move of suicune (p1): scald: 76.75 [70, 84]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 128.625 [118, 140]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dhelmise|Dhelmise, L86|261261
+|move|p1a: Reuniclus|Focus Blast|p2a: Dhelmise
+|-immune|p2a: Dhelmise
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Speed: 182 vs 99
+|chat|DEBUG|HP: 182 vs 167
+|chat|DEBUG|Best move of suicune (p1): scald: 76.75 [70, 84]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 193.4375 [177, 211]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Barbaracle|Barbaracle, L80, M|100100
+|-status|p1a: Barbaracle|tox
+|-damage|p1a: Barbaracle|88100 tox|[from] Stealth Rock
+|move|p2a: Dhelmise|Poltergeist|p1a: Barbaracle
+|-activate|p1a: Barbaracle|move: Poltergeist|White Herb
+|-damage|p1a: Barbaracle|31100 tox
+|-damage|p1a: Barbaracle|25100 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 99
+|chat|DEBUG|HP: 261 vs 167
+|chat|DEBUG|Created a new Strategy for dhelmise vs reuniclus:
+|chat|DEBUG|>[poltergeist: 350.375 [320, 380], poltergeist: 350.375 [320, 380], poltergeist: 350.375 [320, 380]]
+|chat|DEBUG|Best move of dhelmise (p1): poltergeist: 350.375 [320, 380]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 144.75 [133, 157]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dhelmise|Power Whip|p1a: Barbaracle
+|-supereffective|p1a: Barbaracle
+|-damage|p1a: Barbaracle|0 fnt
+|faint|p1a: Barbaracle
+|-fieldend|move: Trick Room
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowking|Slowking-Galar, L84, F|100100
+|-damage|p1a: Slowking|88100|[from] Stealth Rock
+|-sideend|p1: T_meless|move: Toxic Spikes|[of] p1a: Slowking
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus-barbaracle
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 155
+|chat|DEBUG|HP: 261 vs 61
+|chat|DEBUG|Created a new Strategy for dhelmise vs barbaracle:
+|chat|DEBUG|>[powerwhip: 578.25 [532, 628], powerwhip: 578.25 [532, 628], powerwhip: 578.25 [532, 628]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 578.25 [532, 628]
+|chat|DEBUG|Best move of barbaracle (p2): stoneedge: 91.875 [84, 100]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dhelmise|Poltergeist|p1a: Slowking
+|-activate|p1a: Slowking|move: Poltergeist|Choice Specs
+|-supereffective|p1a: Slowking
+|-damage|p1a: Slowking|0 fnt
+|faint|p1a: Slowking
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mandibuzz|Mandibuzz, L82, F|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus-slowkinggalar
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['krookodile', 'dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 99
+|chat|DEBUG|HP: 261 vs 261
+|chat|DEBUG|Created a new Strategy for dhelmise vs slowkinggalar:
+|chat|DEBUG|>[poltergeist: 333.875 [306, 362], poltergeist: 333.875 [306, 362], poltergeist: 333.875 [306, 362]]
+|chat|DEBUG|Best move of dhelmise (p1): poltergeist: 333.875 [306, 362]
+|chat|DEBUG|Best move of slowkinggalar (p2): fireblast: 163.75 [150, 178]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Dhelmise|Dynamax
+|-heal|p2a: Dhelmise|522522|[silent]
+|move|p1a: Mandibuzz|Toxic|p2a: Dhelmise
+|-status|p2a: Dhelmise|tox
+|-enditem|p2a: Dhelmise|Lum Berry|[eat]
+|-curestatus|p2a: Dhelmise|tox|[msg]
+|move|p2a: Dhelmise|Max Steelspike|p1a: Mandibuzz
+|-damage|p1a: Mandibuzz|47100
+|-boost|p2a: Dhelmise|def|1
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "mandibuzz"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus-mandibuzz
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: bravebird foulplay roost toxic
+|chat|DEBUG|Checks: ['krookodile', 'corsola']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'suicune', 'zapdosgalar']
+|chat|DEBUG|Speed: 118 vs 178
+|chat|DEBUG|HP: 261 vs 315
+|chat|DEBUG|Created a new Strategy for dhelmise vs mandibuzz:
+|chat|DEBUG|>[anchorshot: 101.25 [93, 110], anchorshot: 101.25 [93, 110], anchorshot: 101.25 [93, 110]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 101.25 [93, 110]
+|chat|DEBUG|Best move of mandibuzz (p2): foulplay: 225.625 [206, 246]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dhelmise|Max Guard|p2a: Dhelmise
+|-singleturn|p2a: Dhelmise|Max Guard
+|move|p1a: Mandibuzz|Brave Bird|p2a: Dhelmise
+|-activate|p2a: Dhelmise|move: Max Guard
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "mandibuzz"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus-mandibuzz
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: bravebird foulplay roost toxic
+|chat|DEBUG|Checks: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 118 vs 178
+|chat|DEBUG|HP: 522 vs 148
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 101.25 [93, 110]
+|chat|DEBUG|Best move of mandibuzz (p2): foulplay: 150.625 [138, 164]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mandibuzz|Foul Play|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|370522
+|move|p2a: Dhelmise|Max Phantasm|p1a: Mandibuzz
+|-resisted|p1a: Mandibuzz
+|-damage|p1a: Mandibuzz|17100
+|-unboost|p1a: Mandibuzz|def|1
+|-end|p2a: Dhelmise|Dynamax
+|-heal|p2a: Dhelmise|185261|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "mandibuzz"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus-mandibuzz
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: bravebird foulplay roost toxic
+|chat|DEBUG|Checks: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 178
+|chat|DEBUG|HP: 522 vs 148
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 101.25 [93, 110]
+|chat|DEBUG|Best move of mandibuzz (p2): foulplay: 150.625 [138, 164]
+|chat|DEBUG|Boost Moves: [poltergeist (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mandibuzz|Brave Bird|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|87261
+|-damage|p1a: Mandibuzz|7100|[from] Recoil
+|move|p2a: Dhelmise|Anchor Shot|p1a: Mandibuzz
+|-damage|p1a: Mandibuzz|0 fnt
+|faint|p1a: Mandibuzz
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus, L76, M|88100
+|-damage|p1a: Landorus|76100|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "mandibuzz"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus-mandibuzz
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: bravebird foulplay roost toxic
+|chat|DEBUG|Checks: ['krookodile', 'corsola', 'suicune', 'zapdosgalar']
+|chat|DEBUG|Counter: ['krookodile', 'corsola', 'suicune', 'zapdosgalar', 'dhelmise']
+|chat|DEBUG|Speed: 118 vs 178
+|chat|DEBUG|HP: 185 vs 53
+|chat|DEBUG|Created a new Strategy for dhelmise vs mandibuzz:
+|chat|DEBUG|>[anchorshot: 151.25 [139, 164], anchorshot: 151.25 [139, 164], anchorshot: 151.25 [139, 164]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 151.25 [139, 164]
+|chat|DEBUG|Best move of mandibuzz (p2): foulplay: 150.625 [138, 164]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Knock Off|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|9261
+|-damage|p1a: Landorus|66100|[from] item: Life Orb
+|move|p2a: Dhelmise|Power Whip|p1a: Landorus|[miss]
+|-miss|p2a: Dhelmise|p1a: Landorus
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsola']
+|chat|DEBUG|Speed: 118 vs 198
+|chat|DEBUG|HP: 87 vs 197
+|chat|DEBUG|Created a new Strategy for dhelmise vs landorus:
+|chat|DEBUG|>[powerwhip: 183.6875 [169, 199], powerwhip: 183.6875 [169, 199], powerwhip: 183.6875 [169, 199]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 183.6875 [169, 199]
+|chat|DEBUG|Best move of landorus (p2): sludgewave: 103.9375 [95, 113]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Knock Off|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|0 fnt
+|faint|p2a: Dhelmise
+|-damage|p1a: Landorus|56100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Krookodile|Krookodile, L78, M|276276
+|-ability|p2a: Krookodile|Intimidate|boost
+|-unboost|p1a: Landorus|atk|1
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar dhelmise
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar-dhelmise -- landorus-reuniclus
+|chat|DEBUG|Own moves: poltergeist swordsdance powerwhip anchorshot
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsola']
+|chat|DEBUG|Speed: 118 vs 198
+|chat|DEBUG|HP: 9 vs 171
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 183.6875 [169, 199]
+|chat|DEBUG|Best move of landorus (p2): sludgewave: 103.9375 [95, 113]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Landorus|Dynamax
+|-heal|p1a: Landorus|56100|[silent]
+|move|p1a: Landorus|Max Ooze|p2a: Krookodile
+|-resisted|p2a: Krookodile
+|-damage|p2a: Krookodile|229276
+|-boost|p1a: Landorus|spa|1
+|-damage|p1a: Landorus|51100|[from] item: Life Orb
+|move|p2a: Krookodile|Knock Off|p1a: Landorus
+|-damage|p1a: Landorus|27100
+|-enditem|p1a: Landorus|Life Orb|[from] move: Knock Off|[of] p2a: Krookodile
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar -- landorus-reuniclus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'krookodile': 276, 'corsola': 272, 'suicune': 182, 'zapdosgalar': 262}
+|chat|DEBUG|remaining_hp_team_2={'landorus': 66, 'reuniclus': 52}
+|chat|DEBUG|battle.available_switches=[krookodile (pokemon object) [Active: False, Status: None], corsola (pokemon object) [Active: False, Status: None], zapdosgalar (pokemon object) [Active: False, Status: None], suicune (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'krookodile'
+|chat|DEBUG|>Switching to krookodile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Max Quake|p2a: Krookodile
+|-damage|p2a: Krookodile|0 fnt
+|-boost|p1a: Landorus|spd|1
+|faint|p2a: Krookodile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos-Galar, L76|262262
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "krookodile" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar -- landorus-reuniclus
+|chat|DEBUG|Own moves: knockoff stoneedge stealthrock earthquake
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsola', 'zapdosgalar']
+|chat|DEBUG|Speed: 189 vs 198
+|chat|DEBUG|HP: 276 vs 145
+|chat|DEBUG|Created a new Strategy for krookodile vs landorus:
+|chat|DEBUG|>[knockoff: 112.8125 [103, 123], knockoff: 112.8125 [103, 123], knockoff: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of krookodile (p1): knockoff: 112.8125 [103, 123]
+|chat|DEBUG|Best move of landorus (p2): earthpower: 193.4375 [177, 211]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Brave Bird|p1a: Landorus
+|-damage|p1a: Landorus|2100
+|-damage|p2a: Zapdos|218262|[from] Recoil
+|move|p1a: Landorus|Max Ooze|p2a: Zapdos
+|-damage|p2a: Zapdos|128262
+|-boost|p1a: Landorus|spa|1
+|-end|p1a: Landorus|Dynamax
+|-heal|p1a: Landorus|2100|[silent]
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile corsola suicune zapdosgalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "krookodile" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-corsola-suicune-zapdosgalar -- landorus-reuniclus
+|chat|DEBUG|Own moves: knockoff stoneedge stealthrock earthquake
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['krookodile', 'zapdosgalar']
+|chat|DEBUG|Speed: 189 vs 198
+|chat|DEBUG|HP: 229 vs 70
+|chat|DEBUG|Best move of krookodile (p1): knockoff: 112.8125 [103, 123]
+|chat|DEBUG|Best move of landorus (p2): earthpower: 222.4375 [204, 241]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Brave Bird|p1a: Landorus
+|-crit|p1a: Landorus
+|-damage|p1a: Landorus|0 fnt
+|faint|p1a: Landorus
+|-damage|p2a: Zapdos|127262|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, M|52100 tox
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola suicune zapdosgalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "krookodile" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-suicune-zapdosgalar -- landorus-reuniclus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdosgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'corsola': 272, 'suicune': 182, 'zapdosgalar': 262}
+|chat|DEBUG|remaining_hp_team_2={'landorus': 27, 'reuniclus': 52}
+|chat|DEBUG|battle.available_switches=[corsola (pokemon object) [Active: False, Status: None], zapdosgalar (pokemon object) [Active: False, Status: None], suicune (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'zapdosgalar'
+|chat|DEBUG|>Switching to zapdosgalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Brave Bird|p1a: Reuniclus
+|-damage|p1a: Reuniclus|9100 tox
+|-damage|p2a: Zapdos|81262|[from] Recoil
+|move|p1a: Reuniclus|Psychic|p2a: Zapdos
+|-supereffective|p2a: Zapdos
+|-damage|p2a: Zapdos|0 fnt
+|faint|p2a: Zapdos
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corsola|Corsola, L93, F|272272
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola suicune zapdosgalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "zapdosgalar" vs "landorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-suicune-zapdosgalar -- landorus-reuniclus
+|chat|DEBUG|Own moves: throatchop closecombat uturn bravebird
+|chat|DEBUG|Enemy moves: earthpower knockoff rockpolish sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdosgalar']
+|chat|DEBUG|Speed: 196 vs 198
+|chat|DEBUG|HP: 262 vs 70
+|chat|DEBUG|Created a new Strategy for zapdosgalar vs landorus:
+|chat|DEBUG|>[bravebird: 138.5625 [127, 151], bravebird: 138.5625 [127, 151], bravebird: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of zapdosgalar (p1): bravebird: 138.5625 [127, 151]
+|chat|DEBUG|Best move of landorus (p2): sludgewave: 133.6875 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Corsola|Power Gem|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|faint|p1a: Reuniclus
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>T_meless<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">krookodile garbodor corsola suicune zapdosgalar dhelmise</h1>

@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492157199</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1492157199|init|battle
+|title|McDonner vs. LoafOfKevs
+|j|☆McDonner
+|j|☆LoafOfKevs
+|gametype|singles
+|player|p1|McDonner|265|1249
+|player|p2|LoafOfKevs|flint|1226
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Rotom|Rotom-Wash, L82|216/216
+|switch|p2a: Politoed|Politoed, L86, M|100/100
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Politoed
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant braviary hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: rotomwash vs politoed
+|chat|DEBUG|Updating information about politoed
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: braviary vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['braviary', 'rotomwash']}}
+|chat|DEBUG|Speed: 188 - 170
+|chat|DEBUG|Most likely moves for: rotomwash
+|chat|DEBUG|>['thunderbolt', 'voltswitch', 'hydropump', 'trick']
+|chat|DEBUG|Most likely moves for: politoed
+|chat|DEBUG|>['icebeam', 'protect', 'scald', 'toxic']
+|chat|DEBUG|Best own move: ('thunderbolt', 170.125)
+|chat|DEBUG|Best enemy move: ('scald', 36.6875)
+|chat|DEBUG|Picking the most damaging move from rotomwash against politoed
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Zygarde|Zygarde, L70|100/100
+|move|p1a: Rotom|Thunderbolt|p2a: Zygarde
+|-immune|p2a: Zygarde
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant braviary hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: rotomwash vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: braviary vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Getting matchup: braviary vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['braviary', 'rotomwash']}, 'zygarde': {'checks': [], 'counter': ['braviary']}}
+|chat|DEBUG|Speed: 188 - 174
+|chat|DEBUG|Most likely moves for: rotomwash
+|chat|DEBUG|>['thunderbolt']
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['dragondance', 'outrage', 'substitute', 'thousandarrows']
+|chat|DEBUG|Best own move: ('thunderbolt', 0.0)
+|chat|DEBUG|Best enemy move: ('thousandarrows', 123.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: braviary
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Braviary|Braviary, L82, M|298/298
+|move|p2a: Zygarde|Substitute|p2a: Zygarde
+|-start|p2a: Zygarde|Substitute
+|-damage|p2a: Zygarde|76/100
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Zygarde|82/100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant braviary hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: braviary vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: braviary vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: braviary vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash', 'braviary']}, 'zygarde': {'checks': [], 'counter': ['braviary']}}
+|chat|DEBUG|Speed: 178 - 174
+|chat|DEBUG|Most likely moves for: braviary
+|chat|DEBUG|>['retaliate', 'closecombat', 'bravebird', 'uturn']
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['dragondance', 'outrage', 'substitute', 'thousandarrows']
+|chat|DEBUG|Best own move: ('bravebird', 135.5)
+|chat|DEBUG|Best enemy move: ('outrage', 107.3125)
+|chat|DEBUG|Picking the most damaging move from braviary against zygarde
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Braviary|Brave Bird|p2a: Zygarde
+|-end|p2a: Zygarde|Substitute
+|-damage|p1a: Braviary|276/298|[from] Recoil|[of] p2a: Zygarde
+|move|p2a: Zygarde|Dragon Dance|p2a: Zygarde
+|-boost|p2a: Zygarde|atk|1
+|-boost|p2a: Zygarde|spe|1
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Zygarde|88/100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant braviary hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: braviary vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: braviary vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: braviary vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash', 'braviary']}, 'zygarde': {'checks': [], 'counter': ['braviary']}}
+|chat|DEBUG|Speed: 178 - 174
+|chat|DEBUG|Most likely moves for: braviary
+|chat|DEBUG|>['bravebird']
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['dragondance', 'outrage', 'substitute', 'thousandarrows']
+|chat|DEBUG|Best own move: ('bravebird', 135.5)
+|chat|DEBUG|Best enemy move: ('outrage', 107.3125)
+|chat|DEBUG|Picking the most damaging move from braviary against zygarde
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Braviary|Brave Bird|p2a: Zygarde
+|-damage|p2a: Zygarde|37/100
+|-damage|p1a: Braviary|231/298|[from] Recoil
+|move|p2a: Zygarde|Outrage|p1a: Braviary
+|-damage|p1a: Braviary|68/298
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Zygarde|43/100|[from] item: Leftovers
+|-activate|p2a: Zygarde|ability: Power Construct
+|detailschange|p2a: Zygarde|Zygarde-Complete, L70
+|-heal|p2a: Zygarde|64/100|[silent]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant braviary hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: braviary vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: braviary vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: braviary vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash', 'braviary']}, 'zygarde': {'checks': [], 'counter': ['braviary']}}
+|chat|DEBUG|Speed: 178 - 174
+|chat|DEBUG|Most likely moves for: braviary
+|chat|DEBUG|>['bravebird']
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['dragondance', 'outrage', 'substitute', 'thousandarrows']
+|chat|DEBUG|Best own move: ('bravebird', 135.5)
+|chat|DEBUG|Best enemy move: ('outrage', 107.3125)
+|chat|DEBUG|Picking the most damaging move from braviary against zygarde
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Braviary|Brave Bird|p2a: Zygarde
+|-damage|p2a: Zygarde|33/100
+|-damage|p1a: Braviary|26/298|[from] Recoil
+|move|p2a: Zygarde|Outrage|p1a: Braviary|[from]lockedmove
+|-damage|p1a: Braviary|0 fnt
+|faint|p1a: Braviary
+|-start|p2a: Zygarde|confusion|[fatigue]
+|-weather|none
+|-heal|p2a: Zygarde|39/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lilligant|Lilligant, L84, F|255/255
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: braviary vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: braviary vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: braviary vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash', 'braviary']}, 'zygarde': {'checks': [], 'counter': ['braviary']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Zygarde|confusion
+|move|p2a: Zygarde|Outrage|p1a: Lilligant
+|-damage|p1a: Lilligant|93/255
+|move|p1a: Lilligant|Giga Drain|p2a: Zygarde
+|-damage|p2a: Zygarde|16/100
+|-heal|p1a: Lilligant|142/255|[from] drain|[of] p2a: Zygarde
+|-heal|p2a: Zygarde|23/100|[from] item: Leftovers
+|-heal|p1a: Lilligant|157/255|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: lilligant vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash']}, 'zygarde': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 199 - 174
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['gigadrain', 'sleeppowder', 'pollenpuff', 'quiverdance']
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['dragondance', 'outrage', 'substitute', 'thousandarrows']
+|chat|DEBUG|Best own move: ('gigadrain', 98.9375)
+|chat|DEBUG|Best enemy move: ('outrage', 104.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat zygarde with lilligant
+|chat|DEBUG|Picking the most damaging move from lilligant against zygarde
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Zygarde|confusion
+|move|p2a: Zygarde|Outrage|p1a: Lilligant|[from]lockedmove
+|-damage|p1a: Lilligant|7/255
+|move|p1a: Lilligant|Giga Drain|p2a: Zygarde
+|-damage|p2a: Zygarde|0 fnt
+|-heal|p1a: Lilligant|53/255|[from] drain|[of] p2a: Zygarde
+|faint|p2a: Zygarde
+|-heal|p1a: Lilligant|68/255|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bisharp|Bisharp, L80, F|100/100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: lilligant vs zygarde
+|chat|DEBUG|Updating information about zygarde
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. zygarde
+|chat|DEBUG|Getting matchup: hawlucha vs. zygarde
+|chat|DEBUG|Getting matchup: indeedee vs. zygarde
+|chat|DEBUG|Getting matchup: shuckle vs. zygarde
+|chat|DEBUG|Getting matchup: lilligant vs. zygarde
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash']}, 'zygarde': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 199 - 174
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['gigadrain', 'sleeppowder', 'pollenpuff', 'quiverdance']
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['dragondance', 'outrage', 'substitute', 'thousandarrows']
+|chat|DEBUG|Best own move: ('gigadrain', 98.9375)
+|chat|DEBUG|Best enemy move: ('outrage', 104.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('gigadrain', 98.9375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|216/216
+|move|p2a: Bisharp|Swords Dance|p2a: Bisharp
+|-boost|p2a: Bisharp|atk|2
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: lilligant vs bisharp
+|chat|DEBUG|Updating information about bisharp
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. bisharp
+|chat|DEBUG|Getting matchup: hawlucha vs. bisharp
+|chat|DEBUG|Getting matchup: indeedee vs. bisharp
+|chat|DEBUG|Getting matchup: shuckle vs. bisharp
+|chat|DEBUG|Getting matchup: lilligant vs. bisharp
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash']}, 'bisharp': {'checks': [], 'counter': ['rotomwash', 'hawlucha']}}
+|chat|DEBUG|Speed: 199 - 158
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['gigadrain', 'sleeppowder', 'pollenpuff', 'quiverdance']
+|chat|DEBUG|Most likely moves for: bisharp
+|chat|DEBUG|>['ironhead', 'knockoff', 'suckerpunch', 'swordsdance']
+|chat|DEBUG|Best own move: ('pollenpuff', 86.5)
+|chat|DEBUG|Best enemy move: ('knockoff', 131.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: rotomwash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Hydro Pump|p2a: Bisharp
+|-damage|p2a: Bisharp|38/100
+|move|p2a: Bisharp|Knock Off|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|-enditem|p1a: Rotom|Choice Scarf|[from] move: Knock Off|[of] p2a: Bisharp
+|faint|p1a: Rotom
+|-damage|p2a: Bisharp|28/100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hawlucha|Hawlucha, L80, F|256/256
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: rotomwash vs bisharp
+|chat|DEBUG|Updating information about bisharp
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. bisharp
+|chat|DEBUG|Getting matchup: hawlucha vs. bisharp
+|chat|DEBUG|Getting matchup: indeedee vs. bisharp
+|chat|DEBUG|Getting matchup: shuckle vs. bisharp
+|chat|DEBUG|Getting matchup: rotomwash vs. bisharp
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash']}, 'bisharp': {'checks': [], 'counter': ['hawlucha', 'rotomwash']}}
+|chat|DEBUG|Speed: 188 - 158
+|chat|DEBUG|Most likely moves for: rotomwash
+|chat|DEBUG|>['thunderbolt', 'voltswitch', 'hydropump', 'trick']
+|chat|DEBUG|Most likely moves for: bisharp
+|chat|DEBUG|>['ironhead', 'knockoff', 'suckerpunch', 'swordsdance']
+|chat|DEBUG|Best own move: ('hydropump', 144.5625)
+|chat|DEBUG|Best enemy move: ('knockoff', 101.75)
+|chat|DEBUG|Picking the most damaging move from rotomwash against bisharp
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Bisharp|Sucker Punch|p1a: Hawlucha
+|-resisted|p1a: Hawlucha
+|-damage|p1a: Hawlucha|138/256
+|-damage|p2a: Bisharp|18/100|[from] item: Life Orb
+|move|p1a: Hawlucha|Close Combat|p2a: Bisharp
+|-supereffective|p2a: Bisharp
+|-damage|p2a: Bisharp|0 fnt
+|-unboost|p1a: Hawlucha|def|1
+|-unboost|p1a: Hawlucha|spd|1
+|-enditem|p1a: Hawlucha|White Herb
+|-clearnegativeboost|p1a: Hawlucha|[silent]
+|faint|p2a: Bisharp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thundurus|Thundurus, L80, M|100/100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: rotomwash vs bisharp
+|chat|DEBUG|Updating information about bisharp
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: rotomwash vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. bisharp
+|chat|DEBUG|Getting matchup: hawlucha vs. bisharp
+|chat|DEBUG|Getting matchup: indeedee vs. bisharp
+|chat|DEBUG|Getting matchup: shuckle vs. bisharp
+|chat|DEBUG|Getting matchup: rotomwash vs. bisharp
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': ['rotomwash']}, 'bisharp': {'checks': [], 'counter': ['hawlucha', 'rotomwash']}}
+|chat|DEBUG|>>Switching to counter: hawlucha
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hawlucha|Brave Bird|p2a: Thundurus
+|-resisted|p2a: Thundurus
+|-damage|p2a: Thundurus|76/100
+|-damage|p1a: Hawlucha|117/256|[from] Recoil
+|move|p2a: Thundurus|Thunderbolt|p1a: Hawlucha
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|0 fnt
+|faint|p1a: Hawlucha
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Indeedee|Indeedee, L82, M|233/233
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Indeedee
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: hawlucha vs bisharp
+|chat|DEBUG|Updating information about bisharp
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: whiteherb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. bisharp
+|chat|DEBUG|Getting matchup: indeedee vs. bisharp
+|chat|DEBUG|Getting matchup: shuckle vs. bisharp
+|chat|DEBUG|Getting matchup: hawlucha vs. bisharp
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'bisharp': {'checks': [], 'counter': ['hawlucha']}}
+|chat|DEBUG|Speed: 235 - 158
+|chat|DEBUG|Most likely moves for: hawlucha
+|chat|DEBUG|>['throatchop', 'closecombat', 'bravebird', 'swordsdance']
+|chat|DEBUG|Most likely moves for: bisharp
+|chat|DEBUG|>['ironhead', 'knockoff', 'suckerpunch', 'swordsdance']
+|chat|DEBUG|Best own move: ('closecombat', 429.25)
+|chat|DEBUG|Best enemy move: ('ironhead', 112.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('closecombat', 429.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Knock Off|p1a: Indeedee
+|-supereffective|p1a: Indeedee
+|-damage|p1a: Indeedee|41/233
+|-enditem|p1a: Indeedee|Life Orb|[from] move: Knock Off|[of] p2a: Thundurus
+|move|p1a: Indeedee|Hyper Voice|p2a: Thundurus
+|-damage|p2a: Thundurus|31/100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant hawlucha indeedee shuckle
+|chat|DEBUG|Matchup: hawlucha vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Getting matchup: indeedee vs. thundurus
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: hawlucha vs. thundurus
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 235 - 224
+|chat|DEBUG|Most likely moves for: hawlucha
+|chat|DEBUG|>['throatchop', 'closecombat', 'bravebird', 'swordsdance']
+|chat|DEBUG|Most likely moves for: thundurus
+|chat|DEBUG|>['grassknot', 'nastyplot', 'sludgewave', 'thunderbolt']
+|chat|DEBUG|Best own move: ('bravebird', 69.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 286.25)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat thundurus with hawlucha
+|chat|DEBUG|Picking the most damaging move from hawlucha against thundurus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Knock Off|p1a: Indeedee
+|-supereffective|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|faint|p1a: Indeedee
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lilligant|Lilligant, L84, F|68/255
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant indeedee shuckle
+|chat|DEBUG|Matchup: hawlucha vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: hawlucha vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Getting matchup: indeedee vs. thundurus
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: hawlucha vs. thundurus
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Knock Off|p1a: Lilligant
+|-damage|p1a: Lilligant|0 fnt
+|-enditem|p1a: Lilligant|Leftovers|[from] move: Knock Off|[of] p2a: Thundurus
+|faint|p1a: Lilligant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Shuckle|Shuckle, L86, M|175/175
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant indeedee shuckle
+|chat|DEBUG|Matchup: indeedee vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: indeedee vs. thundurus
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 203 - 224
+|chat|DEBUG|Most likely moves for: indeedee
+|chat|DEBUG|>['hypervoice', 'calmmind', 'expandingforce', 'mysticalfire']
+|chat|DEBUG|Most likely moves for: thundurus
+|chat|DEBUG|>['grassknot', 'nastyplot', 'sludgewave', 'thunderbolt']
+|chat|DEBUG|Best own move: ('hypervoice', 108.625)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 104.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat thundurus with indeedee
+|chat|DEBUG|Picking the most damaging move from indeedee against thundurus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Shuckle
+|-damage|p1a: Shuckle|132/175
+|move|p1a: Shuckle|Knock Off|p2a: Thundurus
+|-damage|p2a: Thundurus|20/100
+|-enditem|p2a: Thundurus|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Shuckle
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant indeedee shuckle
+|chat|DEBUG|Matchup: indeedee vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: indeedee vs. thundurus
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 203 - 224
+|chat|DEBUG|Most likely moves for: indeedee
+|chat|DEBUG|>['hypervoice', 'calmmind', 'expandingforce', 'mysticalfire']
+|chat|DEBUG|Most likely moves for: thundurus
+|chat|DEBUG|>['grassknot', 'nastyplot', 'sludgewave', 'thunderbolt']
+|chat|DEBUG|Best own move: ('hypervoice', 108.625)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 104.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat thundurus with indeedee
+|chat|DEBUG|Picking the most damaging move from indeedee against thundurus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Shuckle
+|-damage|p1a: Shuckle|87/175
+|move|p1a: Shuckle|Knock Off|p2a: Thundurus
+|-damage|p2a: Thundurus|14/100
+|-fieldend|move: Psychic Terrain
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant shuckle
+|chat|DEBUG|Matchup: indeedee vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: indeedee vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: indeedee vs. thundurus
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Shuckle
+|-damage|p1a: Shuckle|44/175
+|-status|p1a: Shuckle|par
+|move|p1a: Shuckle|Knock Off|p2a: Thundurus
+|-damage|p2a: Thundurus|6/100
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant shuckle
+|chat|DEBUG|Matchup: lilligant vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 199 - 224
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['gigadrain', 'sleeppowder', 'pollenpuff', 'quiverdance']
+|chat|DEBUG|Most likely moves for: thundurus
+|chat|DEBUG|>['grassknot', 'nastyplot', 'sludgewave', 'thunderbolt']
+|chat|DEBUG|Best own move: ('gigadrain', 49.1875)
+|chat|DEBUG|Best enemy move: ('sludgewave', 171.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat thundurus with lilligant
+|chat|DEBUG|Picking the most damaging move from lilligant against thundurus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Shuckle
+|-damage|p1a: Shuckle|1/175 par
+|cant|p1a: Shuckle|par
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shuckle
+|chat|DEBUG|Matchup: lilligant vs thundurus
+|chat|DEBUG|Updating information about thundurus
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: shuckle vs. politoed
+|chat|DEBUG|Getting matchup: lilligant vs. politoed
+|chat|DEBUG|Getting matchup: shuckle vs. thundurus
+|chat|DEBUG|Getting matchup: lilligant vs. thundurus
+|chat|DEBUG|Checks / Counter: {'politoed': {'checks': [], 'counter': []}, 'thundurus': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Shuckle
+|-damage|p1a: Shuckle|0 fnt
+|faint|p1a: Shuckle
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McDonner<br>vs<br>LoafOfKevs</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">rotomwash lilligant braviary hawlucha indeedee shuckle</h1>

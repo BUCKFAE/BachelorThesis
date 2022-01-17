@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490451470<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490451470|init|battle
+|title|Pcdelquimico vs. McGewitter
+|j|☆Pcdelquimico
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Pcdelquimico|alder|1222
+|player|p2|McGewitter|265|1245
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Umbreon|Umbreon, L82, F|100100
+|switch|p2a: Groudon|Groudon, L73|266266
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Groudon
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon
+|chat|DEBUG|Own moves: swordsdance precipiceblades heavyslam heatcrash
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Speed: 174 vs 154
+|chat|DEBUG|HP: 266 vs 290
+|chat|DEBUG|Created a new Strategy for groudon vs umbreon:
+|chat|DEBUG|>[precipiceblades: 119.75 [109, 130], precipiceblades: 119.75 [109, 130], precipiceblades: 119.75 [109, 130]]
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 119.75 [109, 130]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 96.1875 [88, 105]
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Pcdelquimico also wants the timer to be on.
+|move|p2a: Groudon|Precipice Blades|p1a: Umbreon|[miss]
+|-miss|p2a: Groudon|p1a: Umbreon
+|move|p1a: Umbreon|Toxic|p2a: Groudon
+|-status|p2a: Groudon|tox
+|-weather|SunnyDay|[upkeep]
+|-damage|p2a: Groudon|250266 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon
+|chat|DEBUG|Own moves: swordsdance precipiceblades heavyslam heatcrash
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Speed: 174 vs 154
+|chat|DEBUG|HP: 250 vs 290
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 119.75 [109, 130]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 96.1875 [88, 105]
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Umbreon|Protect|p1a: Umbreon
+|-singleturn|p1a: Umbreon|Protect
+|move|p2a: Groudon|Precipice Blades|p1a: Umbreon
+|-activate|p1a: Umbreon|move: Protect
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Groudon|266266 tox|[from] item: Leftovers
+|-damage|p2a: Groudon|234266 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon
+|chat|DEBUG|Own moves: swordsdance precipiceblades heavyslam heatcrash
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Speed: 174 vs 154
+|chat|DEBUG|HP: 234 vs 290
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 119.75 [109, 130]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 96.1875 [88, 105]
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Flygon|Flygon, L80, M|100100
+|move|p2a: Groudon|Precipice Blades|p1a: Flygon
+|-immune|p1a: Flygon|[from] ability: Levitate
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Groudon|250266 tox|[from] item: Leftovers
+|-damage|p2a: Groudon|202266 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "flygon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon
+|chat|DEBUG|Own moves: swordsdance precipiceblades heavyslam heatcrash
+|chat|DEBUG|Enemy moves: dragondance earthquake firepunch outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eiscue', 'claydol', 'keldeoresolute']
+|chat|DEBUG|Speed: 174 vs 206
+|chat|DEBUG|HP: 202 vs 259
+|chat|DEBUG|Created a new Strategy for groudon vs flygon:
+|chat|DEBUG|>[heavyslam: 104.0625 [96, 113], heavyslam: 104.0625 [96, 113], heavyslam: 104.0625 [96, 113]]
+|chat|DEBUG|Best move of groudon (p1): heavyslam: 104.0625 [96, 113]
+|chat|DEBUG|Best move of flygon (p2): outrage: 125.0 [114, 136]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Flygon|U-turn|p2a: Groudon
+|-damage|p2a: Groudon|167266 tox
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Umbreon|Umbreon, L82, F|100100|[from]move: U-turn
+|move|p2a: Groudon|Heavy Slam|p1a: Umbreon
+|-damage|p1a: Umbreon|74100
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Groudon|183266 tox|[from] item: Leftovers
+|-heal|p1a: Umbreon|80100|[from] item: Leftovers
+|-damage|p2a: Groudon|119266 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon
+|chat|DEBUG|Own moves: swordsdance precipiceblades heavyslam heatcrash
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Counter: ['alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Speed: 174 vs 154
+|chat|DEBUG|HP: 119 vs 232
+|chat|DEBUG|Created a new Strategy for groudon vs umbreon:
+|chat|DEBUG|>[precipiceblades: 119.75 [109, 130], precipiceblades: 119.75 [109, 130], precipiceblades: 119.75 [109, 130]]
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 119.75 [109, 130]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 96.1875 [88, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check alcremie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|252252
+|move|p1a: Umbreon|Wish|p1a: Umbreon
+|-weather|none
+|-heal|p1a: Umbreon|87100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 154
+|chat|DEBUG|HP: 252 vs 252
+|chat|DEBUG|Created a new Strategy for alcremie vs umbreon:
+|chat|DEBUG|>[dazzlinggleam: 147.875 [134, 162], dazzlinggleam: 147.875 [134, 162], dazzlinggleam: 147.875 [134, 162]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 147.875 [134, 162]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 27.75 [25, 30]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Calm Mind|p2a: Alcremie
+|-boost|p2a: Alcremie|spa|1
+|-boost|p2a: Alcremie|spd|1
+|move|p1a: Umbreon|Toxic|p2a: Alcremie
+|-status|p2a: Alcremie|tox
+|-heal|p1a: Umbreon|100100|[from] move: Wish|[wisher] Umbreon
+|-damage|p2a: Alcremie|237252 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 154
+|chat|DEBUG|HP: 237 vs 290
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 147.875 [134, 162]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 27.75 [25, 30]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wigglytuff|Wigglytuff, L90, F|100100
+|-item|p2a: Alcremie|Leftovers|[from] ability: Frisk|[of] p1a: Wigglytuff|[identify]
+|move|p2a: Alcremie|Calm Mind|p2a: Alcremie
+|-boost|p2a: Alcremie|spa|1
+|-boost|p2a: Alcremie|spd|1
+|-heal|p2a: Alcremie|252252 tox|[from] item: Leftovers
+|-damage|p2a: Alcremie|222252 tox|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "wigglytuff"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-wigglytuff
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast lightscreen reflect
+|chat|DEBUG|Checks: ['alcremie', 'heatmor']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'claydol', 'heatmor']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 132
+|chat|DEBUG|HP: 222 vs 398
+|chat|DEBUG|Created a new Strategy for alcremie vs wigglytuff:
+|chat|DEBUG|>[dazzlinggleam: 271.5 [249, 294], dazzlinggleam: 271.5 [249, 294], dazzlinggleam: 271.5 [249, 294]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 271.5 [249, 294]
+|chat|DEBUG|Best move of wigglytuff (p2): dazzlinggleam: 35.125 [33, 39]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Wigglytuff
+|-crit|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|1100
+|move|p1a: Wigglytuff|Light Screen|p1a: Wigglytuff
+|-sidestart|p1: Pcdelquimico|move: Light Screen
+|-heal|p2a: Alcremie|237252 tox|[from] item: Leftovers
+|-damage|p2a: Alcremie|192252 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "wigglytuff"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-wigglytuff
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast lightscreen reflect
+|chat|DEBUG|Checks: ['groudon', 'alcremie', 'claydol', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'eiscue', 'claydol', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 132
+|chat|DEBUG|HP: 192 vs 3
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 271.5 [249, 294]
+|chat|DEBUG|Best move of wigglytuff (p2): dazzlinggleam: 35.125 [33, 39]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|0 fnt
+|faint|p1a: Wigglytuff
+|-heal|p2a: Alcremie|207252 tox|[from] item: Leftovers
+|-damage|p2a: Alcremie|147252 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Umbreon|Umbreon, L82, F|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['alcremie', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 154
+|chat|DEBUG|HP: 147 vs 290
+|chat|DEBUG|Created a new Strategy for alcremie vs umbreon:
+|chat|DEBUG|>[dazzlinggleam: 295.0 [270, 320], dazzlinggleam: 295.0 [270, 320], dazzlinggleam: 295.0 [270, 320]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 295.0 [270, 320]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 27.75 [25, 30]
+|chat|DEBUG|Healing using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Magearna|Magearna, L75|100100
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|252252 tox
+|-damage|p2a: Alcremie|177252 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['claydol', 'heatmor']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'claydol', 'heatmor']
+|chat|DEBUG|Speed: 159 vs 141
+|chat|DEBUG|HP: 177 vs 244
+|chat|DEBUG|Created a new Strategy for alcremie vs magearna:
+|chat|DEBUG|>[dazzlinggleam: 88.125 [81, 96], dazzlinggleam: 88.125 [81, 96], dazzlinggleam: 88.125 [81, 96]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 88.125 [81, 96]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 67.75 [62, 74]
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Magearna
+|-resisted|p1a: Magearna
+|-damage|p1a: Magearna|83100
+|move|p1a: Magearna|Calm Mind|p1a: Magearna
+|-boost|p1a: Magearna|spa|1
+|-boost|p1a: Magearna|spd|1
+|-heal|p2a: Alcremie|192252 tox|[from] item: Leftovers
+|-heal|p1a: Magearna|89100|[from] item: Leftovers
+|-damage|p2a: Alcremie|102252 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['groudon', 'claydol', 'heatmor']
+|chat|DEBUG|Speed: 159 vs 141
+|chat|DEBUG|HP: 102 vs 217
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 88.125 [81, 96]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 100.75 [92, 110]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check heatmor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|l|☆Pcdelquimico
+|inactive|Pcdelquimico disconnected and has a minute to reconnect!
+|player|p1|
+|j|☆Pcdelquimico
+|inactive|Pcdelquimico reconnected and has 130 seconds left.
+|player|p1|Pcdelquimico|alder
+|switch|p2a: Heatmor|Heatmor, L90, F|299299
+|move|p1a: Magearna|Calm Mind|p1a: Magearna
+|-boost|p1a: Magearna|spa|1
+|-boost|p1a: Magearna|spd|1
+|-heal|p1a: Magearna|96100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: substitute knockoff firelash gigadrain
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['groudon', 'claydol', 'heatmor']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 168 vs 141
+|chat|DEBUG|HP: 299 vs 234
+|chat|DEBUG|Created a new Strategy for heatmor vs magearna:
+|chat|DEBUG|>[firelash: 268.0 [246, 290], firelash: 268.0 [246, 290], firelash: 268.0 [246, 290]]
+|chat|DEBUG|Best move of heatmor (p1): firelash: 268.0 [246, 290]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 99.875 [92, 108]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['flygon']
+|chat|DEBUG|Expected enemy: flygon
+|chat|DEBUG|Using move knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Clawitzer|Clawitzer, L84, F|100100
+|move|p2a: Heatmor|Knock Off|p1a: Clawitzer
+|-damage|p1a: Clawitzer|68100
+|-enditem|p1a: Clawitzer|Choice Specs|[from] move: Knock Off|[of] p2a: Heatmor
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-magearna-clawitzer
+|chat|DEBUG|Own moves: substitute knockoff firelash gigadrain
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['alcremie', 'claydol', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Speed: 168 vs 147
+|chat|DEBUG|HP: 299 vs 174
+|chat|DEBUG|Created a new Strategy for heatmor vs clawitzer:
+|chat|DEBUG|>[gigadrain: 130.5 [120, 142], gigadrain: 130.5 [120, 142], gigadrain: 130.5 [120, 142]]
+|chat|DEBUG|Best move of heatmor (p1): gigadrain: 130.5 [120, 142]
+|chat|DEBUG|Best move of clawitzer (p2): waterpulse: 259.0 [236, 282]
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatmor|Giga Drain|p1a: Clawitzer
+|-supereffective|p1a: Clawitzer
+|-damage|p1a: Clawitzer|44100
+|move|p1a: Clawitzer|Water Pulse|p2a: Heatmor
+|-supereffective|p2a: Heatmor
+|-damage|p2a: Heatmor|21299
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol heatmor keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-heatmor-keldeoresolute -- umbreon-flygon-magearna-clawitzer
+|chat|DEBUG|Own moves: substitute knockoff firelash gigadrain
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'claydol', 'heatmor', 'keldeoresolute']
+|chat|DEBUG|Speed: 168 vs 147
+|chat|DEBUG|HP: 21 vs 112
+|chat|DEBUG|Best move of heatmor (p1): gigadrain: 130.5 [120, 142]
+|chat|DEBUG|Best move of clawitzer (p2): waterpulse: 259.0 [236, 282]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatmor|Giga Drain|p1a: Clawitzer
+|-supereffective|p1a: Clawitzer
+|-damage|p1a: Clawitzer|20100
+|-heal|p2a: Heatmor|52299|[from] drain|[of] p1a: Clawitzer
+|move|p1a: Clawitzer|Water Pulse|p2a: Heatmor
+|-supereffective|p2a: Heatmor
+|-damage|p2a: Heatmor|0 fnt
+|faint|p2a: Heatmor
+|-sideend|p1: Pcdelquimico|move: Light Screen
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|102252 tox
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-keldeoresolute -- umbreon-flygon-magearna-clawitzer
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: ['alcremie', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'claydol', 'keldeoresolute']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to alcremie (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Clawitzer
+|-damage|p1a: Clawitzer|0 fnt
+|faint|p1a: Clawitzer
+|-heal|p2a: Alcremie|117252 tox|[from] item: Leftovers
+|-damage|p2a: Alcremie|102252 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Magearna|Magearna, L75|96100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-keldeoresolute -- umbreon-flygon-magearna-clawitzer
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: ['alcremie', 'claydol', 'keldeoresolute']
+|chat|DEBUG|Counter: ['groudon', 'alcremie', 'claydol', 'keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 159 vs 147
+|chat|DEBUG|HP: 102 vs 51
+|chat|DEBUG|Created a new Strategy for alcremie vs clawitzer:
+|chat|DEBUG|>[dazzlinggleam: 97.625 [90, 106], dazzlinggleam: 97.625 [90, 106], dazzlinggleam: 97.625 [90, 106]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 97.625 [90, 106]
+|chat|DEBUG|Best move of clawitzer (p2): waterpulse: 86.4375 [79, 94]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Claydol|Claydol, L86|243243
+|move|p1a: Magearna|Calm Mind|p1a: Magearna
+|-boost|p1a: Magearna|spa|1
+|-boost|p1a: Magearna|spd|1
+|-heal|p1a: Magearna|100100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: calmmind recover psychic dazzlinggleam
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['groudon', 'claydol']
+|chat|DEBUG|Speed: 159 vs 141
+|chat|DEBUG|HP: 102 vs 234
+|chat|DEBUG|Created a new Strategy for alcremie vs magearna:
+|chat|DEBUG|>[dazzlinggleam: 44.375 [41, 48], dazzlinggleam: 44.375 [41, 48], dazzlinggleam: 44.375 [41, 48]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 44.375 [41, 48]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check claydol
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Magearna|Dynamax
+|-heal|p1a: Magearna|100100|[silent]
+|move|p2a: Claydol|Stealth Rock|p1a: Magearna
+|-sidestart|p1: Pcdelquimico|move: Stealth Rock
+|move|p1a: Magearna|Max Steelspike|p2a: Claydol
+|-damage|p2a: Claydol|72243
+|-boost|p1a: Magearna|def|1
+|-heal|p2a: Claydol|87243|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "claydol" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: icebeam earthquake psychic stealthrock
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon', 'claydol']
+|chat|DEBUG|Speed: 178 vs 141
+|chat|DEBUG|HP: 243 vs 244
+|chat|DEBUG|Created a new Strategy for claydol vs magearna:
+|chat|DEBUG|>[earthquake: 159.0 [146, 174], earthquake: 159.0 [146, 174], earthquake: 159.0 [146, 174]]
+|chat|DEBUG|Best move of claydol (p1): earthquake: 159.0 [146, 174]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 100.375 [93, 109]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Claydol|Earthquake|p1a: Magearna
+|-supereffective|p1a: Magearna
+|-damage|p1a: Magearna|78100
+|move|p1a: Magearna|Max Steelspike|p2a: Claydol
+|-damage|p2a: Claydol|0 fnt
+|-boost|p1a: Magearna|def|1
+|faint|p2a: Claydol
+|-ability|p1a: Magearna|Soul-Heart|boost
+|-boost|p1a: Magearna|spa|1
+|-heal|p1a: Magearna|81100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Groudon|Groudon, L73|119266 tox
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Groudon
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue claydol keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "claydol" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-claydol-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: icebeam earthquake psychic stealthrock
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 178 vs 141
+|chat|DEBUG|HP: 87 vs 244
+|chat|DEBUG|Best move of claydol (p1): earthquake: 159.0 [146, 174]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 100.375 [93, 109]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Groudon|Precipice Blades|p1a: Magearna
+|-supereffective|p1a: Magearna
+|-damage|p1a: Magearna|54100
+|move|p1a: Magearna|Max Steelspike|p2a: Groudon
+|-damage|p2a: Groudon|0 fnt
+|-boost|p1a: Magearna|def|1
+|faint|p2a: Groudon
+|-ability|p1a: Magearna|Soul-Heart|boost
+|-boost|p1a: Magearna|spa|1
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Magearna|57100|[from] item: Leftovers
+|-end|p1a: Magearna|Dynamax
+|-heal|p1a: Magearna|57100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Keldeo|Keldeo-Resolute, L79|273273
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "claydol" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: groudon
+|chat|DEBUG|>Switching to groudon (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Hydro Pump|p1a: Magearna
+|-damage|p1a: Magearna|42100
+|move|p1a: Magearna|Fleur Cannon|p2a: Keldeo
+|-supereffective|p2a: Keldeo
+|-damage|p2a: Keldeo|0 fnt
+|-unboost|p1a: Magearna|spa|2
+|faint|p2a: Keldeo
+|-ability|p1a: Magearna|Soul-Heart|boost
+|-boost|p1a: Magearna|spa|1
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Magearna|48100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Eiscue|Eiscue, L82, F|256256
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>groudon alcremie eiscue keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>groudon-alcremie-eiscue-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: swordsdance precipiceblades heavyslam heatcrash
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 174 vs 141
+|chat|DEBUG|HP: 119 vs 197
+|chat|DEBUG|Created a new Strategy for groudon vs magearna:
+|chat|DEBUG|>[precipiceblades: 125.875 [116, 138], precipiceblades: 125.875 [116, 138], precipiceblades: 125.875 [116, 138]]
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 125.875 [116, 138]
+|chat|DEBUG|Best move of magearna (p2): flashcannon: 196.125 [180, 213]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Eiscue|Dynamax
+|-heal|p2a: Eiscue|512512|[silent]
+|move|p1a: Magearna|Flash Cannon|p2a: Eiscue
+|-supereffective|p2a: Eiscue
+|-crit|p2a: Eiscue
+|-damage|p2a: Eiscue|0 fnt
+|faint|p2a: Eiscue
+|-ability|p1a: Magearna|Soul-Heart|boost
+|-boost|p1a: Magearna|spa|1
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Magearna|54100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|102252 tox
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie eiscue keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "magearna"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-eiscue-keldeoresolute -- umbreon-flygon-magearna
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: keldeoresolute
+|chat|DEBUG|>Switching to keldeoresolute (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Magearna
+|-resisted|p1a: Magearna
+|-damage|p1a: Magearna|41100
+|move|p1a: Magearna|Flash Cannon|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-crit|p2a: Alcremie
+|-damage|p2a: Alcremie|0 fnt
+|faint|p2a: Alcremie
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Pcdelquimico<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">groudon alcremie eiscue claydol heatmor keldeoresolute</h1>

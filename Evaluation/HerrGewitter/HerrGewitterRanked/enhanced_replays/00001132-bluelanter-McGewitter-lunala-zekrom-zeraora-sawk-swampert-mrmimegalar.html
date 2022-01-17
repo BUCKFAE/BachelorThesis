@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491827460<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491827460|init|battle
+|title|bluelanter vs. McGewitter
+|j|☆bluelanter
+|j|☆McGewitter
+|gametype|singles
+|player|p1|bluelanter|ethan|1063
+|player|p2|McGewitter|265|1090
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Sandslash|Sandslash, L86, M|100100
+|switch|p2a: Lunala|Lunala, L72|316316
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunala zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunala-zekrom-zeraora-sawk-swampert-mrmimegalar -- sandslash
+|chat|DEBUG|Own moves: moonblast psyshock moongeistbeam calmmind
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunala', 'sawk', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Speed: 182 vs 161
+|chat|DEBUG|HP: 316 vs 269
+|chat|DEBUG|Created a new Strategy for lunala vs sandslash:
+|chat|DEBUG|>[moongeistbeam: 138.5625 [127, 151], moongeistbeam: 138.5625 [127, 151], moongeistbeam: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of lunala (p1): moongeistbeam: 138.5625 [127, 151]
+|chat|DEBUG|Best move of sandslash (p2): knockoff: 220.1875 [203, 239]
+|chat|DEBUG|Attacking using moongeistbeam
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Lunala|Moongeist Beam|p1a: Sandslash
+|-damage|p1a: Sandslash|47100
+|move|p1a: Sandslash|Knock Off|p2a: Lunala
+|-supereffective|p2a: Lunala
+|-damage|p2a: Lunala|156316
+|-enditem|p2a: Lunala|Leftovers|[from] move: Knock Off|[of] p1a: Sandslash
+|-heal|p1a: Sandslash|53100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunala zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunala-zekrom-zeraora-sawk-swampert-mrmimegalar -- sandslash
+|chat|DEBUG|Own moves: moonblast psyshock moongeistbeam calmmind
+|chat|DEBUG|Enemy moves: earthquake knockoff rapidspin swordsdance
+|chat|DEBUG|Checks: ['sawk', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'sawk', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Speed: 182 vs 161
+|chat|DEBUG|HP: 156 vs 142
+|chat|DEBUG|Best move of lunala (p1): moongeistbeam: 138.5625 [127, 151]
+|chat|DEBUG|Best move of sandslash (p2): knockoff: 227.5 [208, 248]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sawk
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sawk|Sawk, L86, M|269269
+|-ability|p2a: Sawk|Mold Breaker
+|move|p1a: Sandslash|Knock Off|p2a: Sawk
+|-resisted|p2a: Sawk
+|-damage|p2a: Sawk|232269
+|-enditem|p2a: Sawk|Life Orb|[from] move: Knock Off|[of] p1a: Sandslash
+|-heal|p1a: Sandslash|59100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunala zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunala-zekrom-zeraora-sawk-swampert-mrmimegalar -- sandslash
+|chat|DEBUG|Own moves: stoneedge poisonjab bulkup closecombat
+|chat|DEBUG|Enemy moves: earthquake knockoff rapidspin swordsdance
+|chat|DEBUG|Checks: ['swampert', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'sawk', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Speed: 195 vs 161
+|chat|DEBUG|HP: 232 vs 158
+|chat|DEBUG|Created a new Strategy for sawk vs sandslash:
+|chat|DEBUG|>[closecombat: 134.0 [123, 145], closecombat: 134.0 [123, 145], closecombat: 134.0 [123, 145]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 134.0 [123, 145]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 125.375 [115, 136]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sawk|Close Combat|p1a: Sandslash
+|-damage|p1a: Sandslash|9100
+|-unboost|p2a: Sawk|def|1
+|-unboost|p2a: Sawk|spd|1
+|move|p1a: Sandslash|Swords Dance|p1a: Sandslash
+|-boost|p1a: Sandslash|atk|2
+|-heal|p1a: Sandslash|15100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunala zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunala-zekrom-zeraora-sawk-swampert-mrmimegalar -- sandslash
+|chat|DEBUG|Own moves: stoneedge poisonjab bulkup closecombat
+|chat|DEBUG|Enemy moves: earthquake knockoff rapidspin swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunala', 'zekrom', 'zeraora', 'sawk', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Speed: 195 vs 161
+|chat|DEBUG|HP: 232 vs 40
+|chat|DEBUG|Best move of sawk (p1): closecombat: 134.0 [123, 145]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 375.125 [345, 406]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sawk|Close Combat|p1a: Sandslash
+|-damage|p1a: Sandslash|0 fnt
+|-unboost|p2a: Sawk|def|1
+|-unboost|p2a: Sawk|spd|1
+|faint|p1a: Sandslash
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Vileplume|Vileplume, L84, M|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunala zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunala-zekrom-zeraora-sawk-swampert-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: stoneedge poisonjab bulkup closecombat
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['lunala', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Counter: ['lunala', 'zekrom', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Speed: 195 vs 132
+|chat|DEBUG|HP: 232 vs 263
+|chat|DEBUG|Created a new Strategy for sawk vs vileplume:
+|chat|DEBUG|>[closecombat: 83.1875 [76, 90], closecombat: 83.1875 [76, 90], closecombat: 83.1875 [76, 90]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 83.1875 [76, 90]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 229.5625 [211, 249]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lunala
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lunala|Lunala, L72|156316
+|move|p1a: Vileplume|Sludge Bomb|p2a: Lunala
+|-resisted|p2a: Lunala
+|-damage|p2a: Lunala|104316
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunala zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunala-zekrom-zeraora-sawk-swampert-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: moonblast psyshock moongeistbeam calmmind
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['swampert', 'mrmimegalar']
+|chat|DEBUG|Counter: ['lunala', 'zekrom', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Speed: 182 vs 132
+|chat|DEBUG|HP: 104 vs 263
+|chat|DEBUG|Created a new Strategy for lunala vs vileplume:
+|chat|DEBUG|>[psyshock: 170.125 [156, 186], psyshock: 170.125 [156, 186], psyshock: 170.125 [156, 186]]
+|chat|DEBUG|Best move of lunala (p1): psyshock: 170.125 [156, 186]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 52.0 [48, 57]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lunala|Psyshock|p1a: Vileplume
+|-supereffective|p1a: Vileplume
+|-damage|p1a: Vileplume|40100
+|move|p1a: Vileplume|Sludge Bomb|p2a: Lunala
+|-resisted|p2a: Lunala
+|-crit|p2a: Lunala
+|-damage|p2a: Lunala|22316
+|-status|p2a: Lunala|psn
+|-heal|p1a: Vileplume|47100|[from] item: Black Sludge
+|-damage|p2a: Lunala|0 fnt|[from] psn
+|faint|p2a: Lunala
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Swampert|Swampert, L80, M|291291
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-swampert-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['swampert', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'swampert', 'mrmimegalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to swampert (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Swampert|Earthquake|p1a: Vileplume
+|-damage|p1a: Vileplume|3100
+|move|p1a: Vileplume|Giga Drain|p2a: Swampert
+|-supereffective|p2a: Swampert
+|-damage|p2a: Swampert|0 fnt
+|-heal|p1a: Vileplume|58100|[from] drain|[of] p2a: Swampert
+|faint|p2a: Swampert
+|-heal|p1a: Vileplume|64100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zekrom|Zekrom, L69|252252
+|-ability|p2a: Zekrom|Teravolt
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk swampert mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swampert" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-swampert-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: toxic earthquake protect scald
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['zekrom', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'zeraora', 'sawk', 'swampert', 'mrmimegalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 132
+|chat|DEBUG|HP: 291 vs 123
+|chat|DEBUG|Created a new Strategy for swampert vs vileplume:
+|chat|DEBUG|>[earthquake: 111.4375 [102, 121], earthquake: 111.4375 [102, 121], earthquake: 111.4375 [102, 121]]
+|chat|DEBUG|Best move of swampert (p1): earthquake: 111.4375 [102, 121]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 54.125 [50, 59]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Outrage|p1a: Vileplume
+|-damage|p1a: Vileplume|17100
+|-status|p2a: Zekrom|psn|[from] ability: Effect Spore|[of] p1a: Vileplume
+|-enditem|p2a: Zekrom|Lum Berry|[eat]
+|-curestatus|p2a: Zekrom|psn|[msg]
+|move|p1a: Vileplume|Sludge Bomb|p2a: Zekrom
+|-damage|p2a: Zekrom|143252
+|-heal|p1a: Vileplume|23100|[from] item: Black Sludge
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swampert" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['zekrom', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'zeraora', 'sawk', 'mrmimegalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to zekrom (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Outrage|p1a: Vileplume|[from]lockedmove
+|-damage|p1a: Vileplume|0 fnt
+|-status|p2a: Zekrom|slp|[from] ability: Effect Spore|[of] p1a: Vileplume
+|faint|p1a: Vileplume
+|-start|p2a: Zekrom|confusion|[fatigue]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, F|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: outrage boltstrike dragondance roost
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['zekrom', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'zeraora', 'mrmimegalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 165 vs 132
+|chat|DEBUG|HP: 252 vs 168
+|chat|DEBUG|Created a new Strategy for zekrom vs vileplume:
+|chat|DEBUG|>[outrage: 126.8125 [117, 138], outrage: 126.8125 [117, 138], outrage: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 126.8125 [117, 138]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 115.625 [106, 126]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Swords Dance|p1a: Diggersby
+|-boost|p1a: Diggersby|atk|2
+|cant|p2a: Zekrom|slp
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-mrmimegalar -- vileplume
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['zekrom', 'zeraora', 'sawk', 'mrmimegalar']
+|chat|DEBUG|Counter: ['zekrom', 'zeraora', 'sawk', 'mrmimegalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 165 vs 132
+|chat|DEBUG|HP: 143 vs 60
+|chat|DEBUG|Created a new Strategy for zekrom vs vileplume:
+|chat|DEBUG|>[outrage: 126.8125 [117, 138], outrage: 126.8125 [117, 138], outrage: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 126.8125 [117, 138]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 115.625 [106, 126]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Earthquake|p2a: Zekrom
+|-supereffective|p2a: Zekrom
+|-damage|p2a: Zekrom|0 fnt
+|faint|p2a: Zekrom
+|-damage|p1a: Diggersby|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sawk|Sawk, L86, M|232269
+|-ability|p2a: Sawk|Mold Breaker
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-mrmimegalar -- diggersby
+|chat|DEBUG|Own moves: outrage boltstrike dragondance roost
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sawk', 'mrmimegalar']
+|chat|DEBUG|Speed: 165 vs 171
+|chat|DEBUG|HP: 143 vs 267
+|chat|DEBUG|Created a new Strategy for zekrom vs diggersby:
+|chat|DEBUG|>[outrage: 141.5625 [130, 154], outrage: 141.5625 [130, 154], outrage: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 141.5625 [130, 154]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 326.0 [299, 354]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sawk|Close Combat|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|-unboost|p2a: Sawk|def|1
+|-unboost|p2a: Sawk|spd|1
+|faint|p1a: Diggersby
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Toxtricity|Toxtricity-Low-Key, L82, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-zeraora-sawk-mrmimegalar -- diggersby
+|chat|DEBUG|Own moves: outrage boltstrike dragondance roost
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sawk']
+|chat|DEBUG|Speed: 165 vs 171
+|chat|DEBUG|HP: 143 vs 267
+|chat|DEBUG|Best move of zekrom (p1): outrage: 141.5625 [130, 154]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 650.0625 [595, 704]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, M|226226
+|move|p1a: Toxtricity|Sludge Wave|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|151226
+|-status|p2a: Mr. Mime|psn
+|-damage|p2a: Mr. Mime|123226 psn|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk-mrmimegalar -- diggersby
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sawk']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to sawk (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxtricity|Sludge Wave|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|48226 psn
+|move|p2a: Mr. Mime|Psychic|p1a: Toxtricity
+|-supereffective|p1a: Toxtricity
+|-damage|p1a: Toxtricity|16100
+|-damage|p2a: Mr. Mime|20226 psn|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk-mrmimegalar -- diggersby
+|chat|DEBUG|Own moves: stoneedge poisonjab bulkup closecombat
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora', 'sawk']
+|chat|DEBUG|Speed: 195 vs 171
+|chat|DEBUG|HP: 232 vs 242
+|chat|DEBUG|Created a new Strategy for sawk vs diggersby:
+|chat|DEBUG|>[closecombat: 375.375 [344, 408], closecombat: 375.375 [344, 408], closecombat: 375.375 [344, 408]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 375.375 [344, 408]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 375.6875 [344, 407]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxtricity|Sludge Wave|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|259259
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk-mrmimegalar -- toxtricitylowkey
+|chat|DEBUG|Own moves: stoneedge poisonjab bulkup closecombat
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['mrmimegalar']
+|chat|DEBUG|Counter: ['mrmimegalar']
+|chat|DEBUG|Speed: 195 vs 170
+|chat|DEBUG|HP: 232 vs 257
+|chat|DEBUG|Created a new Strategy for sawk vs toxtricitylowkey:
+|chat|DEBUG|>[closecombat: 97.8125 [90, 106], closecombat: 97.8125 [90, 106], closecombat: 97.8125 [90, 106]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 97.8125 [90, 106]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): boomburst: 228.0 [209, 247]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrmimegalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Knock Off|p1a: Toxtricity
+|-damage|p1a: Toxtricity|0 fnt
+|-enditem|p1a: Toxtricity|Choice Scarf|[from] move: Knock Off|[of] p2a: Zeraora
+|faint|p1a: Toxtricity
+|-damage|p2a: Zeraora|234259|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blaziken|Blaziken, L76, F|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk-mrmimegalar -- toxtricitylowkey
+|chat|DEBUG|Own moves: nastyplot focusblast psychic freezedry
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmimegalar']
+|chat|DEBUG|Speed: 221 vs 170
+|chat|DEBUG|HP: 123 vs 257
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs toxtricitylowkey:
+|chat|DEBUG|>[psychic: 228.625 [210, 248], psychic: 228.625 [210, 248], psychic: 228.625 [210, 248]]
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 228.625 [210, 248]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): boomburst: 88.4375 [81, 96]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Plasma Fists|p1a: Blaziken
+|-damage|p1a: Blaziken|32100
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|-damage|p2a: Zeraora|209259|[from] item: Life Orb
+|move|p1a: Blaziken|Stone Edge|p2a: Zeraora
+|-damage|p2a: Zeraora|104259
+|-damage|p1a: Blaziken|22100|[from] item: Life Orb
+|-ability|p1a: Blaziken|Speed Boost|boost
+|-boost|p1a: Blaziken|spe|1
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk mrmimegalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk-mrmimegalar -- toxtricitylowkey
+|chat|DEBUG|Own moves: nastyplot focusblast psychic freezedry
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['zeraora', 'sawk']
+|chat|DEBUG|Counter: ['zeraora', 'sawk', 'mrmimegalar']
+|chat|DEBUG|Speed: 221 vs 170
+|chat|DEBUG|HP: 20 vs 41
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 228.625 [210, 248]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): boomburst: 88.4375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Plasma Fists|p1a: Blaziken
+|-damage|p1a: Blaziken|0 fnt
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|faint|p1a: Blaziken
+|-damage|p2a: Zeraora|79259|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Calyrex|Calyrex, L88|100100
+|-ability|p1a: Calyrex|Unnerve
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk -- toxtricitylowkey
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['zeraora', 'sawk']
+|chat|DEBUG|Counter: ['zeraora', 'sawk']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to zeraora (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Calyrex|Dynamax
+|-heal|p1a: Calyrex|100100|[silent]
+|move|p2a: Zeraora|Knock Off|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|74100
+|-enditem|p1a: Calyrex|Leftovers|[from] move: Knock Off|[of] p2a: Zeraora
+|-damage|p2a: Zeraora|54259|[from] item: Life Orb
+|move|p1a: Calyrex|Max Mindstorm|p2a: Zeraora
+|-damage|p2a: Zeraora|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p2a: Zeraora
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sawk|Sawk, L86, M|232269
+|-ability|p2a: Sawk|Mold Breaker
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zeraora sawk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zeraora-sawk -- toxtricitylowkey
+|chat|DEBUG|Own moves: bulkup plasmafists closecombat knockoff
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['zeraora', 'sawk']
+|chat|DEBUG|Counter: ['zeraora', 'sawk']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 261 vs 170
+|chat|DEBUG|HP: 259 vs 41
+|chat|DEBUG|Created a new Strategy for zeraora vs toxtricitylowkey:
+|chat|DEBUG|>[knockoff: 100.375 [92, 109], knockoff: 100.375 [92, 109], knockoff: 100.375 [92, 109]]
+|chat|DEBUG|Best move of zeraora (p1): knockoff: 100.375 [92, 109]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): boomburst: 163.0 [150, 177]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Sawk|Dynamax
+|-heal|p2a: Sawk|464538|[silent]
+|move|p2a: Sawk|Max Ooze|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|46100
+|-boost|p2a: Sawk|spa|1
+|move|p1a: Calyrex|Max Mindstorm|p2a: Sawk
+|-supereffective|p2a: Sawk
+|-crit|p2a: Sawk
+|-damage|p2a: Sawk|0 fnt
+|faint|p2a: Sawk
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>bluelanter<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lunala zekrom zeraora sawk swampert mrmimegalar</h1>

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491198594<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491198594|init|battle
+|title|tsa.intel vs. McGewitter
+|j|☆tsa.intel
+|j|☆McGewitter
+|gametype|singles
+|player|p1|tsa.intel|benga|1167
+|player|p2|McGewitter|265|1168
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Greedent|Greedent, L84, M|100100
+|switch|p2a: Mienshao|Mienshao, L82, M|241241
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mienshao giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "greedent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mienshao-giratina-noivern-garbodor-rotommow-lanturn -- greedent
+|chat|DEBUG|Own moves: knockoff closecombat uturn poisonjab
+|chat|DEBUG|Enemy moves: bodyslam earthquake firefang swordsdance
+|chat|DEBUG|Checks: ['mienshao', 'rotommow']
+|chat|DEBUG|Counter: ['mienshao', 'rotommow']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 219 vs 82
+|chat|DEBUG|HP: 241 vs 339
+|chat|DEBUG|Created a new Strategy for mienshao vs greedent:
+|chat|DEBUG|>[closecombat: 277.0 [254, 300], closecombat: 277.0 [254, 300], closecombat: 277.0 [254, 300]]
+|chat|DEBUG|Best move of mienshao (p1): closecombat: 277.0 [254, 300]
+|chat|DEBUG|Best move of greedent (p2): bodyslam: 118.3125 [109, 129]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|tsa.intel also wants the timer to be on.
+|move|p2a: Mienshao|Close Combat|p1a: Greedent
+|-supereffective|p1a: Greedent
+|-damage|p1a: Greedent|24100
+|-unboost|p2a: Mienshao|def|1
+|-unboost|p2a: Mienshao|spd|1
+|-enditem|p1a: Greedent|Sitrus Berry|[eat]
+|-heal|p1a: Greedent|49100|[from] item: Sitrus Berry
+|-heal|p1a: Greedent|83100|[from] ability: Cheek Pouch
+|move|p1a: Greedent|Swords Dance|p1a: Greedent
+|-boost|p1a: Greedent|atk|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mienshao giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "greedent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mienshao-giratina-noivern-garbodor-rotommow-lanturn -- greedent
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodyslam earthquake firefang swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 219 vs 82
+|chat|DEBUG|HP: 241 vs 281
+|chat|DEBUG|Created a new Strategy for mienshao vs greedent:
+|chat|DEBUG|>[closecombat: 277.0 [254, 300], closecombat: 277.0 [254, 300], closecombat: 277.0 [254, 300]]
+|chat|DEBUG|Best move of mienshao (p1): closecombat: 277.0 [254, 300]
+|chat|DEBUG|Best move of greedent (p2): bodyslam: 355.6875 [327, 385]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Close Combat|p1a: Greedent
+|-supereffective|p1a: Greedent
+|-damage|p1a: Greedent|0 fnt
+|-unboost|p2a: Mienshao|def|1
+|-unboost|p2a: Mienshao|spd|1
+|faint|p1a: Greedent
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aerodactyl|Aerodactyl, L82, M|100100
+|-ability|p1a: Aerodactyl|Unnerve
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mienshao giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mienshao-giratina-noivern-garbodor-rotommow-lanturn -- aerodactyl
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotommow']
+|chat|DEBUG|Speed: 219 vs 260
+|chat|DEBUG|HP: 241 vs 265
+|chat|DEBUG|Created a new Strategy for mienshao vs aerodactyl:
+|chat|DEBUG|>[closecombat: 186.375 [171, 202], closecombat: 186.375 [171, 202], closecombat: 186.375 [171, 202]]
+|chat|DEBUG|Best move of mienshao (p1): closecombat: 186.375 [171, 202]
+|chat|DEBUG|Best move of aerodactyl (p2): dualwingbeat: 228.625 [210, 248]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Close Combat|p1a: Aerodactyl
+|-damage|p1a: Aerodactyl|28100
+|-unboost|p2a: Mienshao|def|1
+|-unboost|p2a: Mienshao|spd|1
+|move|p1a: Aerodactyl|Dual Wingbeat|p2a: Mienshao
+|-supereffective|p2a: Mienshao
+|-damage|p2a: Mienshao|0 fnt
+|faint|p2a: Mienshao
+|-hitcount|p2: Mienshao|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Mow, L86|226226
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- aerodactyl
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotommow']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to rotommow (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Aerodactyl
+|-supereffective|p1a: Aerodactyl
+|-damage|p1a: Aerodactyl|0 fnt
+|faint|p1a: Aerodactyl
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Coalossal|Coalossal, L87, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotommow" vs "aerodactyl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- aerodactyl
+|chat|DEBUG|Own moves: leafstorm trick thunderbolt voltswitch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake honeclaws stoneedge
+|chat|DEBUG|Checks: ['giratina', 'rotommow']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'garbodor', 'rotommow', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 197 vs 260
+|chat|DEBUG|HP: 226 vs 74
+|chat|DEBUG|Created a new Strategy for rotommow vs aerodactyl:
+|chat|DEBUG|>[thunderbolt: 245.125 [224, 266], thunderbolt: 245.125 [224, 266], thunderbolt: 245.125 [224, 266]]
+|chat|DEBUG|Best move of rotommow (p1): thunderbolt: 245.125 [224, 266]
+|chat|DEBUG|Best move of aerodactyl (p2): stoneedge: 89.1875 [82, 97]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, M|281281
+|move|p1a: Coalossal|Stealth Rock|p2a: Garbodor
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotommow" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['garbodor', 'lanturn']
+|chat|DEBUG|Counter: ['garbodor', 'lanturn']
+|chat|DEBUG|Speed: 197 vs 102
+|chat|DEBUG|HP: 226 vs 333
+|chat|DEBUG|Created a new Strategy for rotommow vs coalossal:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of rotommow (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 82.4375 [76, 90]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check garbodor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Toxic Spikes|p1a: Coalossal
+|-sidestart|p1: tsa.intel|move: Toxic Spikes
+|move|p1a: Coalossal|Spikes|p2a: Garbodor
+|-sidestart|p2: McGewitter|Spikes
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['garbodor', 'lanturn']
+|chat|DEBUG|Counter: ['garbodor', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 180 vs 102
+|chat|DEBUG|HP: 281 vs 333
+|chat|DEBUG|Created a new Strategy for garbodor vs coalossal:
+|chat|DEBUG|>[stompingtantrum: 168.5 [156, 184], stompingtantrum: 168.5 [156, 184], stompingtantrum: 168.5 [156, 184]]
+|chat|DEBUG|Best move of garbodor (p1): stompingtantrum: 168.5 [156, 184]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 98.9375 [91, 108]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Toxic Spikes|p1a: Coalossal
+|-sidestart|p1: tsa.intel|move: Toxic Spikes
+|move|p1a: Coalossal|Spikes|p2a: Garbodor
+|-sidestart|p2: McGewitter|Spikes
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['garbodor', 'lanturn']
+|chat|DEBUG|Counter: ['garbodor', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 180 vs 102
+|chat|DEBUG|HP: 281 vs 333
+|chat|DEBUG|Best move of garbodor (p1): stompingtantrum: 168.5 [156, 184]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 98.9375 [91, 108]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Stomping Tantrum|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|51100
+|-status|p2a: Garbodor|brn|[from] ability: Flame Body|[of] p1a: Coalossal
+|move|p1a: Coalossal|Overheat|p2a: Garbodor
+|-damage|p2a: Garbodor|142281 brn
+|-unboost|p1a: Coalossal|spa|2
+|-heal|p2a: Garbodor|159281 brn|[from] item: Black Sludge
+|-damage|p2a: Garbodor|142281 brn|[from] brn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['garbodor', 'lanturn']
+|chat|DEBUG|Counter: ['garbodor', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 180 vs 102
+|chat|DEBUG|HP: 281 vs 333
+|chat|DEBUG|Best move of garbodor (p1): stompingtantrum: 168.5 [156, 184]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 98.9375 [91, 108]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using stompingtantrum
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Stomping Tantrum|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|28100
+|move|p1a: Coalossal|Overheat|p2a: Garbodor
+|-damage|p2a: Garbodor|73281 brn
+|-unboost|p1a: Coalossal|spa|2
+|-heal|p2a: Garbodor|90281 brn|[from] item: Black Sludge
+|-damage|p2a: Garbodor|73281 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'garbodor', 'rotommow', 'lanturn']
+|chat|DEBUG|Speed: 180 vs 102
+|chat|DEBUG|HP: 142 vs 169
+|chat|DEBUG|Created a new Strategy for garbodor vs coalossal:
+|chat|DEBUG|>[stompingtantrum: 168.5 [156, 184], stompingtantrum: 168.5 [156, 184], stompingtantrum: 168.5 [156, 184]]
+|chat|DEBUG|Best move of garbodor (p1): stompingtantrum: 168.5 [156, 184]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 98.9375 [91, 108]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Attacking using stompingtantrum
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Stomping Tantrum|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|4100
+|move|p1a: Coalossal|Overheat|p2a: Garbodor
+|-damage|p2a: Garbodor|33281 brn
+|-unboost|p1a: Coalossal|spa|2
+|-heal|p2a: Garbodor|50281 brn|[from] item: Black Sludge
+|-damage|p2a: Garbodor|33281 brn|[from] brn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['giratina', 'noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'garbodor', 'rotommow', 'lanturn']
+|chat|DEBUG|Speed: 180 vs 102
+|chat|DEBUG|HP: 73 vs 93
+|chat|DEBUG|Best move of garbodor (p1): stompingtantrum: 168.5 [156, 184]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Stomping Tantrum|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|0 fnt
+|faint|p1a: Coalossal
+|-heal|p2a: Garbodor|50281 brn|[from] item: Black Sludge
+|-damage|p2a: Garbodor|33281 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- coalossal
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: overheat rapidspin stoneedge willowisp
+|chat|DEBUG|Checks: ['giratina', 'noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'garbodor', 'rotommow', 'lanturn']
+|chat|DEBUG|Speed: 180 vs 102
+|chat|DEBUG|HP: 33 vs 13
+|chat|DEBUG|Best move of garbodor (p1): stompingtantrum: 168.5 [156, 184]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina, L74|344344
+|-damage|p2a: Giratina|301344|[from] Stealth Rock
+|-damage|p2a: Giratina|244344|[from] Spikes
+|-ability|p2a: Giratina|Pressure
+|move|p1a: Rotom|Thunderbolt|p2a: Giratina
+|-resisted|p2a: Giratina
+|-damage|p2a: Giratina|203344
+|-heal|p2a: Giratina|224344|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash
+|chat|DEBUG|Own moves: painsplit gunkshot toxicspikes stompingtantrum
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['giratina', 'rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'rotommow', 'lanturn']
+|chat|DEBUG|Speed: 180 vs 188
+|chat|DEBUG|HP: 33 vs 216
+|chat|DEBUG|Created a new Strategy for garbodor vs rotomwash:
+|chat|DEBUG|>[gunkshot: 117.0 [108, 127], gunkshot: 117.0 [108, 127], gunkshot: 117.0 [108, 127]]
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 117.0 [108, 127]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 97.625 [90, 106]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check giratina
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Will-O-Wisp|p2a: Giratina
+|-status|p2a: Giratina|brn
+|move|p2a: Giratina|Will-O-Wisp|p1a: Rotom
+|-status|p1a: Rotom|brn
+|-heal|p2a: Giratina|245344 brn|[from] item: Leftovers
+|-damage|p1a: Rotom|94100 brn|[from] brn
+|-damage|p2a: Giratina|224344 brn|[from] brn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash
+|chat|DEBUG|Own moves: sleeptalk willowisp hex rest
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['giratina', 'rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'rotommow', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 188
+|chat|DEBUG|HP: 224 vs 216
+|chat|DEBUG|Created a new Strategy for giratina vs rotomwash:
+|chat|DEBUG|>[willowisp: 0.0 [0, 0], hex: 97.625 [90, 106], hex: 97.625 [90, 106]]
+|chat|DEBUG|Best move of giratina (p1): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 42.25 [39, 46]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using willowisp
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Volt Switch|p2a: Giratina
+|-resisted|p2a: Giratina
+|-damage|p2a: Giratina|191344 brn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kingler|Kingler, L84, F|100100|[from]move: Volt Switch
+|-status|p1a: Kingler|tox
+|move|p2a: Giratina|Hex|p1a: Kingler
+|-damage|p1a: Kingler|24100 tox
+|-heal|p2a: Giratina|212344 brn|[from] item: Leftovers
+|-damage|p1a: Kingler|17100 tox|[from] psn
+|-damage|p2a: Giratina|191344 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash
+|chat|DEBUG|Own moves: sleeptalk willowisp hex rest
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['giratina', 'rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 188
+|chat|DEBUG|HP: 224 vs 203
+|chat|DEBUG|Best move of giratina (p1): hex: 97.625 [90, 106]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 42.25 [39, 46]
+|chat|DEBUG|Attacking using hex
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Giratina|Hex|p1a: Kingler
+|-damage|p1a: Kingler|0 fnt
+|faint|p1a: Kingler
+|-heal|p2a: Giratina|212344 brn|[from] item: Leftovers
+|-damage|p2a: Giratina|191344 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|94100 brn
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash-kingler
+|chat|DEBUG|Own moves: sleeptalk willowisp hex rest
+|chat|DEBUG|Enemy moves: agility liquidation swordsdance xscissor
+|chat|DEBUG|Checks: ['giratina', 'noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'garbodor', 'rotommow', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 174
+|chat|DEBUG|HP: 191 vs 39
+|chat|DEBUG|Created a new Strategy for giratina vs kingler:
+|chat|DEBUG|>[hex: 82.4375 [76, 90], hex: 82.4375 [76, 90], hex: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of giratina (p1): hex: 82.4375 [76, 90]
+|chat|DEBUG|Best move of kingler (p2): liquidation: 84.8125 [78, 92]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Hydro Pump|p2a: Giratina
+|-resisted|p2a: Giratina
+|-damage|p2a: Giratina|143344 brn
+|move|p2a: Giratina|Will-O-Wisp|p1a: Rotom
+|-fail|p1a: Rotom|brn
+|-heal|p1a: Rotom|100100 brn|[from] item: Leftovers
+|-heal|p2a: Giratina|164344 brn|[from] item: Leftovers
+|-damage|p1a: Rotom|94100 brn|[from] brn
+|-damage|p2a: Giratina|143344 brn|[from] brn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash
+|chat|DEBUG|Own moves: sleeptalk willowisp hex rest
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['giratina', 'noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Speed: 176 vs 188
+|chat|DEBUG|HP: 191 vs 203
+|chat|DEBUG|Created a new Strategy for giratina vs rotomwash:
+|chat|DEBUG|>[willowisp: 0.0 [0, 0], hex: 97.625 [90, 106], hex: 97.625 [90, 106]]
+|chat|DEBUG|Best move of giratina (p1): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 42.25 [39, 46]
+|chat|DEBUG|Attacking using willowisp
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Mow, L86|226226
+|-damage|p2a: Rotom|198226|[from] Stealth Rock
+|move|p1a: Rotom|Hydro Pump|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|150226
+|-heal|p1a: Rotom|100100 brn|[from] item: Leftovers
+|-damage|p1a: Rotom|94100 brn|[from] brn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash
+|chat|DEBUG|Own moves: sleeptalk willowisp hex rest
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Speed: 176 vs 188
+|chat|DEBUG|HP: 143 vs 203
+|chat|DEBUG|Best move of giratina (p1): hex: 97.625 [90, 106]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 42.25 [39, 46]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotommow
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Leaf Storm|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|-unboost|p2a: Rotom|spa|2
+|faint|p1a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eternatus|Eternatus, L69|100100
+|-sideend|p1: tsa.intel|move: Toxic Spikes|[of] p1a: Eternatus
+|-ability|p1a: Eternatus|Pressure
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotommow" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- rotomwash
+|chat|DEBUG|Own moves: leafstorm trick thunderbolt voltswitch
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['rotommow', 'lanturn']
+|chat|DEBUG|Counter: ['noivern', 'rotommow', 'lanturn']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 197 vs 188
+|chat|DEBUG|HP: 150 vs 203
+|chat|DEBUG|Created a new Strategy for rotommow vs rotomwash:
+|chat|DEBUG|>[leafstorm: 271.0 [248, 294], leafstorm: 137.5 [126, 150], leafstorm: 90.125 [84, 98]]
+|chat|DEBUG|Best move of rotommow (p1): leafstorm: 271.0 [248, 294]
+|chat|DEBUG|Best move of rotomwash (p2): hydropump: 49.1875 [45, 54]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Leaf Storm|p1a: Eternatus
+|-resisted|p1a: Eternatus
+|-damage|p1a: Eternatus|93100
+|-unboost|p2a: Rotom|spa|2
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Rotom
+|-damage|p2a: Rotom|71226
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotommow" vs "eternatus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- eternatus
+|chat|DEBUG|Own moves: leafstorm
+|chat|DEBUG|Enemy moves: dynamaxcannon flamethrower recover sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['noivern', 'lanturn']
+|chat|DEBUG|Speed: 197 vs 220
+|chat|DEBUG|HP: 150 vs 308
+|chat|DEBUG|Created a new Strategy for rotommow vs eternatus:
+|chat|DEBUG|>[leafstorm: 21.625 [20, 24], leafstorm: 14.25 [13, 16], leafstorm: 10.875 [10, 12]]
+|chat|DEBUG|Best move of rotommow (p1): leafstorm: 21.625 [20, 24]
+|chat|DEBUG|Best move of eternatus (p2): sludgewave: 159.0 [146, 174]
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina, L74|143344 brn
+|-damage|p2a: Giratina|86344 brn|[from] Spikes
+|-damage|p2a: Giratina|43344 brn|[from] Stealth Rock
+|-ability|p2a: Giratina|Pressure
+|move|p1a: Eternatus|Sludge Wave|p2a: Giratina
+|-resisted|p2a: Giratina
+|-crit|p2a: Giratina
+|-damage|p2a: Giratina|0 fnt
+|faint|p2a: Giratina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, M|33281 brn
+|-damage|p2a: Garbodor|0 fnt|[from] Stealth Rock
+|faint|p2a: Garbodor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Noivern|Noivern, L82, F|274274
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>giratina noivern garbodor rotommow lanturn
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotommow" vs "eternatus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>giratina-noivern-garbodor-rotommow-lanturn -- eternatus
+|chat|DEBUG|Own moves: leafstorm
+|chat|DEBUG|Enemy moves: dynamaxcannon flamethrower recover sludgewave
+|chat|DEBUG|Checks: ['noivern']
+|chat|DEBUG|Counter: ['noivern', 'lanturn']
+|chat|DEBUG|Speed: 197 vs 220
+|chat|DEBUG|HP: 71 vs 286
+|chat|DEBUG|Created a new Strategy for rotommow vs eternatus:
+|chat|DEBUG|>[leafstorm: 14.25 [13, 16], leafstorm: 10.875 [10, 12], leafstorm: 10.875 [10, 12]]
+|chat|DEBUG|Best move of rotommow (p1): leafstorm: 14.25 [13, 16]
+|chat|DEBUG|Best move of eternatus (p2): sludgewave: 159.0 [146, 174]
+|chat|DEBUG|Switching to giratina as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Noivern|Dynamax
+|-heal|p2a: Noivern|548548|[silent]
+|move|p2a: Noivern|Max Wyrmwind|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|0 fnt
+|faint|p1a: Eternatus
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>tsa.intel<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mienshao giratina noivern garbodor rotommow lanturn</h1>

@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490378571<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490378571|init|battle
+|title|ET_Otero vs. McGewitter
+|j|☆ET_Otero
+|j|☆McGewitter
+|gametype|singles
+|player|p1|ET_Otero|sailor|1212
+|player|p2|McGewitter|265|1166
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Altaria|Altaria, L90, F|100100
+|switch|p2a: Polteageist|Polteageist, L78|222222
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "altaria"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria
+|chat|DEBUG|Own moves: strengthsap storedpower shadowball shellsmash
+|chat|DEBUG|Enemy moves: dracometeor fireblast roost toxic
+|chat|DEBUG|Checks: ['arctovish', 'regirock']
+|chat|DEBUG|Counter: ['arctovish', 'regirock']
+|chat|DEBUG|Speed: 154 vs 195
+|chat|DEBUG|HP: 222 vs 281
+|chat|DEBUG|Created a new Strategy for polteageist vs altaria:
+|chat|DEBUG|>[shadowball: 78.1875 [72, 85], shadowball: 78.1875 [72, 85], shadowball: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 78.1875 [72, 85]
+|chat|DEBUG|Best move of altaria (p2): fireblast: 62.375 [57, 68]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|ET_Otero has 120 seconds left.
+|switch|p2a: Arctovish|Arctovish, L86|295295
+|move|p1a: Altaria|Toxic|p2a: Arctovish
+|-status|p2a: Arctovish|tox
+|-damage|p2a: Arctovish|277295 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "altaria"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria
+|chat|DEBUG|Own moves: bodyslam freezedry fishiousrend iciclecrash
+|chat|DEBUG|Enemy moves: dracometeor fireblast roost toxic
+|chat|DEBUG|Checks: ['arctovish', 'regirock']
+|chat|DEBUG|Counter: ['arctovish', 'regirock']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 195
+|chat|DEBUG|HP: 277 vs 281
+|chat|DEBUG|Created a new Strategy for arctovish vs altaria:
+|chat|DEBUG|>[iciclecrash: 329.75 [304, 360], iciclecrash: 329.75 [304, 360], iciclecrash: 329.75 [304, 360]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 329.75 [304, 360]
+|chat|DEBUG|Best move of altaria (p2): fireblast: 46.0 [42, 50]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|switch|p1a: Alcremie|Alcremie, L86, F|100100
+|move|p2a: Arctovish|Icicle Crash|p1a: Alcremie
+|-damage|p1a: Alcremie|64100
+|-heal|p1a: Alcremie|70100|[from] item: Leftovers
+|-damage|p2a: Arctovish|241295 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie
+|chat|DEBUG|Own moves: bodyslam freezedry fishiousrend iciclecrash
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['arctovish', 'regirock']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon', 'arctovish', 'rillaboom', 'regirock']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 241 vs 176
+|chat|DEBUG|Created a new Strategy for arctovish vs alcremie:
+|chat|DEBUG|>[fishiousrend: 98.9375 [91, 108], fishiousrend: 98.9375 [91, 108], fishiousrend: 98.9375 [91, 108]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 98.9375 [91, 108]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 62.9375 [58, 69]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|move|p1a: Alcremie|Recover|p1a: Alcremie
+|-heal|p1a: Alcremie|100100
+|move|p2a: Arctovish|Fishious Rend|p1a: Alcremie
+|-damage|p1a: Alcremie|64100
+|-heal|p1a: Alcremie|70100|[from] item: Leftovers
+|-damage|p2a: Arctovish|187295 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie
+|chat|DEBUG|Own moves: bodyslam freezedry fishiousrend iciclecrash
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['regirock']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon', 'arctovish', 'rillaboom', 'regirock']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 187 vs 176
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 98.9375 [91, 108]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 62.9375 [58, 69]
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|move|p1a: Alcremie|Recover|p1a: Alcremie
+|-heal|p1a: Alcremie|100100
+|move|p2a: Arctovish|Fishious Rend|p1a: Alcremie
+|-damage|p1a: Alcremie|61100
+|-heal|p1a: Alcremie|67100|[from] item: Leftovers
+|-damage|p2a: Arctovish|115295 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie
+|chat|DEBUG|Own moves: bodyslam freezedry fishiousrend iciclecrash
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['regirock']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon', 'rillaboom', 'regirock']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 115 vs 168
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 98.9375 [91, 108]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 62.9375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check regirock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|switch|p2a: Regirock|Regirock, L85|275275
+|move|p1a: Alcremie|Recover|p1a: Alcremie
+|-heal|p1a: Alcremie|100100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie
+|chat|DEBUG|Own moves: explosion bodypress earthquake stoneedge
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['regirock']
+|chat|DEBUG|Counter: ['regirock']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 134 vs 159
+|chat|DEBUG|HP: 275 vs 252
+|chat|DEBUG|Created a new Strategy for regirock vs alcremie:
+|chat|DEBUG|>[stoneedge: 184.75 [169, 201], stoneedge: 184.75 [169, 201], stoneedge: 184.75 [169, 201]]
+|chat|DEBUG|Best move of regirock (p1): stoneedge: 184.75 [169, 201]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 87.9375 [81, 96]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|switch|p1a: Tsareena|Tsareena, L84, F|100100
+|move|p2a: Regirock|Stone Edge|p1a: Tsareena
+|-damage|p1a: Tsareena|39100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: stoneedge
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['rillaboom']
+|chat|DEBUG|Counter: ['flapple', 'rillaboom', 'regirock']
+|chat|DEBUG|Speed: 134 vs 169
+|chat|DEBUG|HP: 275 vs 100
+|chat|DEBUG|Created a new Strategy for regirock vs tsareena:
+|chat|DEBUG|>[stoneedge: 154.4375 [142, 168], stoneedge: 154.4375 [142, 168], stoneedge: 154.4375 [142, 168]]
+|chat|DEBUG|Best move of regirock (p1): stoneedge: 154.4375 [142, 168]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 195.8125 [179, 213]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|move|p1a: Tsareena|Power Whip|p2a: Regirock
+|-supereffective|p2a: Regirock
+|-damage|p2a: Regirock|77275
+|-damage|p1a: Tsareena|29100|[from] item: Life Orb
+|move|p2a: Regirock|Stone Edge|p1a: Tsareena|[miss]
+|-miss|p2a: Regirock|p1a: Tsareena
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: stoneedge
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['rillaboom']
+|chat|DEBUG|Counter: ['flapple', 'rillaboom']
+|chat|DEBUG|Speed: 134 vs 169
+|chat|DEBUG|HP: 77 vs 74
+|chat|DEBUG|Created a new Strategy for regirock vs tsareena:
+|chat|DEBUG|>[stoneedge: 154.4375 [142, 168], stoneedge: 154.4375 [142, 168], stoneedge: 154.4375 [142, 168]]
+|chat|DEBUG|Best move of regirock (p1): stoneedge: 154.4375 [142, 168]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 195.8125 [179, 213]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rillaboom
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rillaboom|Rillaboom, L78, M|284284
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Rillaboom
+|move|p1a: Tsareena|Synthesis|p1a: Tsareena
+|-heal|p1a: Tsareena|79100
+|-heal|p1a: Tsareena|85100|[from] Grassy Terrain
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rillaboom" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: grassyglide highhorsepower knockoff swordsdance
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple', 'rillaboom']
+|chat|DEBUG|Speed: 178 vs 169
+|chat|DEBUG|HP: 284 vs 219
+|chat|DEBUG|Created a new Strategy for rillaboom vs tsareena:
+|chat|DEBUG|>[knockoff: 88.3125 [81, 96], knockoff: 88.3125 [81, 96], knockoff: 88.3125 [81, 96]]
+|chat|DEBUG|Best move of rillaboom (p1): knockoff: 88.3125 [81, 96]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 148.5 [136, 161]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 120 seconds left.
+|move|p2a: Rillaboom|Knock Off|p1a: Tsareena
+|-damage|p1a: Tsareena|54100
+|-enditem|p1a: Tsareena|Life Orb|[from] move: Knock Off|[of] p2a: Rillaboom
+|-damage|p2a: Rillaboom|256284|[from] item: Life Orb
+|move|p1a: Tsareena|Knock Off|p2a: Rillaboom
+|-damage|p2a: Rillaboom|163284
+|-enditem|p2a: Rillaboom|Life Orb|[from] move: Knock Off|[of] p1a: Tsareena
+|-heal|p2a: Rillaboom|180284|[from] Grassy Terrain
+|-heal|p1a: Tsareena|60100|[from] Grassy Terrain
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rillaboom" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: grassyglide highhorsepower knockoff swordsdance
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple']
+|chat|DEBUG|Speed: 178 vs 169
+|chat|DEBUG|HP: 180 vs 154
+|chat|DEBUG|Best move of rillaboom (p1): knockoff: 88.3125 [81, 96]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 114.25 [105, 124]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rillaboom|Knock Off|p1a: Tsareena
+|-damage|p1a: Tsareena|42100
+|move|p1a: Tsareena|Synthesis|p1a: Tsareena
+|-heal|p1a: Tsareena|92100
+|-heal|p2a: Rillaboom|197284|[from] Grassy Terrain
+|-heal|p1a: Tsareena|98100|[from] Grassy Terrain
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rillaboom" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: grassyglide highhorsepower knockoff swordsdance
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 178 vs 169
+|chat|DEBUG|HP: 197 vs 252
+|chat|DEBUG|Best move of rillaboom (p1): knockoff: 88.3125 [81, 96]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 114.25 [105, 124]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 90 seconds left.
+|switch|p1a: Drapion|Drapion, L82, F|100100
+|move|p2a: Rillaboom|Knock Off|p1a: Drapion
+|-resisted|p1a: Drapion
+|-damage|p1a: Drapion|88100
+|-enditem|p1a: Drapion|Life Orb|[from] move: Knock Off|[of] p2a: Rillaboom
+|-heal|p1a: Drapion|94100|[from] Grassy Terrain
+|-heal|p2a: Rillaboom|214284|[from] Grassy Terrain
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rillaboom" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena-drapion
+|chat|DEBUG|Own moves: grassyglide highhorsepower knockoff swordsdance
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['hippowdon']
+|chat|DEBUG|Counter: ['hippowdon']
+|chat|DEBUG|Speed: 178 vs 203
+|chat|DEBUG|HP: 214 vs 234
+|chat|DEBUG|Created a new Strategy for rillaboom vs drapion:
+|chat|DEBUG|>[highhorsepower: 124.75 [114, 136], highhorsepower: 124.75 [114, 136], highhorsepower: 124.75 [114, 136]]
+|chat|DEBUG|Best move of rillaboom (p1): highhorsepower: 124.75 [114, 136]
+|chat|DEBUG|Best move of drapion (p2): poisonjab: 161.875 [150, 176]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check hippowdon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 90 seconds left.
+|switch|p2a: Hippowdon|Hippowdon, L80, F|304304
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Hippowdon
+|move|p1a: Drapion|Poison Jab|p2a: Hippowdon
+|-resisted|p2a: Hippowdon
+|-damage|p2a: Hippowdon|271304
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Drapion|88100|[from] Sandstorm
+|-heal|p1a: Drapion|94100|[from] Grassy Terrain
+|-heal|p2a: Hippowdon|290304|[from] Grassy Terrain
+|-heal|p2a: Hippowdon|304304|[from] item: Leftovers
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena-drapion
+|chat|DEBUG|Own moves: earthquake stoneedge stealthrock slackoff
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['hippowdon']
+|chat|DEBUG|Counter: ['hippowdon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 121 vs 203
+|chat|DEBUG|HP: 304 vs 234
+|chat|DEBUG|Created a new Strategy for hippowdon vs drapion:
+|chat|DEBUG|>[earthquake: 189.75 [174, 206], earthquake: 189.75 [174, 206], earthquake: 189.75 [174, 206]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 189.75 [174, 206]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 76.75 [70, 84]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 90 seconds left.
+|move|p1a: Drapion|Knock Off|p2a: Hippowdon
+|-damage|p2a: Hippowdon|232304
+|-enditem|p2a: Hippowdon|Leftovers|[from] move: Knock Off|[of] p1a: Drapion
+|move|p2a: Hippowdon|Stealth Rock|p1a: Drapion
+|-sidestart|p1: ET_Otero|move: Stealth Rock
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Drapion|88100|[from] Sandstorm
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena-drapion
+|chat|DEBUG|Own moves: earthquake stoneedge stealthrock slackoff
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['hippowdon']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 121 vs 203
+|chat|DEBUG|HP: 232 vs 219
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 189.75 [174, 206]
+|chat|DEBUG|Best move of drapion (p2): earthquake: 53.1875 [49, 58]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 90 seconds left.
+|inactive|ET_Otero has 60 seconds left.
+|-start|p1a: Drapion|Dynamax
+|-heal|p1a: Drapion|88100|[silent]
+|move|p1a: Drapion|Max Darkness|p2a: Hippowdon
+|-damage|p2a: Hippowdon|138304
+|-unboost|p2a: Hippowdon|spd|1
+|move|p2a: Hippowdon|Earthquake|p1a: Drapion
+|-supereffective|p1a: Drapion
+|-damage|p1a: Drapion|49100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Drapion|46100|[from] Sandstorm
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena-drapion
+|chat|DEBUG|Own moves: earthquake stoneedge stealthrock slackoff
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['hippowdon']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon', 'rillaboom', 'regirock']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 121 vs 203
+|chat|DEBUG|HP: 138 vs 114
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 189.75 [174, 206]
+|chat|DEBUG|Best move of drapion (p2): earthquake: 53.1875 [49, 58]
+|chat|DEBUG|Healing using slackoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 60 seconds left.
+|move|p1a: Drapion|Max Darkness|p2a: Hippowdon
+|-damage|p2a: Hippowdon|48304
+|-unboost|p2a: Hippowdon|spd|1
+|move|p2a: Hippowdon|Slack Off|p2a: Hippowdon
+|-heal|p2a: Hippowdon|200304
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Drapion|43100|[from] Sandstorm
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena-drapion
+|chat|DEBUG|Own moves: earthquake stoneedge stealthrock slackoff
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['hippowdon']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon', 'rillaboom', 'regirock']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 121 vs 203
+|chat|DEBUG|HP: 200 vs 107
+|chat|DEBUG|Created a new Strategy for hippowdon vs drapion:
+|chat|DEBUG|>[earthquake: 189.75 [174, 206], earthquake: 189.75 [174, 206], earthquake: 189.75 [174, 206]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 189.75 [174, 206]
+|chat|DEBUG|Best move of drapion (p2): earthquake: 53.1875 [49, 58]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Max Darkness|p2a: Hippowdon
+|-damage|p2a: Hippowdon|107304
+|-unboost|p2a: Hippowdon|spd|1
+|move|p2a: Hippowdon|Earthquake|p1a: Drapion
+|-supereffective|p1a: Drapion
+|-damage|p1a: Drapion|4100
+|-weather|none
+|-end|p1a: Drapion|Dynamax
+|-heal|p1a: Drapion|4100|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena-drapion
+|chat|DEBUG|Own moves: earthquake stoneedge stealthrock slackoff
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['hippowdon']
+|chat|DEBUG|Counter: ['flapple', 'hippowdon', 'arctovish', 'rillaboom', 'regirock']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 121 vs 203
+|chat|DEBUG|HP: 107 vs 9
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 189.75 [174, 206]
+|chat|DEBUG|Best move of drapion (p2): earthquake: 53.1875 [49, 58]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|move|p1a: Drapion|Earthquake|p2a: Hippowdon
+|-damage|p2a: Hippowdon|51304
+|move|p2a: Hippowdon|Earthquake|p1a: Drapion
+|-supereffective|p1a: Drapion
+|-damage|p1a: Drapion|0 fnt
+|faint|p1a: Drapion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|inactive|ET_Otero has 20 seconds left.
+|switch|p1a: Tsareena|Tsareena, L84, F|98100
+|-damage|p1a: Tsareena|85100|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple hippowdon arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-hippowdon-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: earthquake stoneedge stealthrock slackoff
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple']
+|chat|DEBUG|Speed: 121 vs 169
+|chat|DEBUG|HP: 51 vs 219
+|chat|DEBUG|Created a new Strategy for hippowdon vs tsareena:
+|chat|DEBUG|>[stoneedge: 67.0625 [62, 73], stoneedge: 67.0625 [62, 73], stoneedge: 67.0625 [62, 73]]
+|chat|DEBUG|Best move of hippowdon (p1): stoneedge: 67.0625 [62, 73]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 250.75 [230, 272]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left this turn.
+|move|p1a: Tsareena|Power Whip|p2a: Hippowdon
+|-supereffective|p2a: Hippowdon
+|-damage|p2a: Hippowdon|0 fnt
+|faint|p2a: Hippowdon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left this turn.
+|switch|p2a: Flapple|Flapple, L84, F|255255
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to flapple (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|move|p1a: Tsareena|Knock Off|p2a: Flapple
+|-damage|p2a: Flapple|174255
+|-enditem|p2a: Flapple|Life Orb|[from] move: Knock Off|[of] p1a: Tsareena
+|move|p2a: Flapple|Outrage|p1a: Tsareena
+|-damage|p1a: Tsareena|11100
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flapple" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: outrage dragondance suckerpunch gravapple
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flapple']
+|chat|DEBUG|Speed: 166 vs 169
+|chat|DEBUG|HP: 255 vs 219
+|chat|DEBUG|Created a new Strategy for flapple vs tsareena:
+|chat|DEBUG|>[outrage: 249.375 [230, 270], outrage: 249.375 [230, 270], outrage: 249.375 [230, 270]]
+|chat|DEBUG|Best move of flapple (p1): outrage: 249.375 [230, 270]
+|chat|DEBUG|Best move of tsareena (p2): tripleaxel: 146.5 [136, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|switch|p1a: Alcremie|Alcremie, L86, F|100100
+|-damage|p1a: Alcremie|88100|[from] Stealth Rock
+|move|p2a: Flapple|Outrage|p1a: Alcremie|[from]lockedmove
+|-immune|p1a: Alcremie
+|-heal|p1a: Alcremie|94100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flapple" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['rillaboom']
+|chat|DEBUG|Counter: ['polteageist', 'flapple', 'rillaboom']
+|chat|DEBUG|Speed: 166 vs 169
+|chat|DEBUG|HP: 174 vs 28
+|chat|DEBUG|Created a new Strategy for flapple vs tsareena:
+|chat|DEBUG|>[outrage: 191.9375 [177, 208], outrage: 191.9375 [177, 208], outrage: 191.9375 [177, 208]]
+|chat|DEBUG|Best move of flapple (p1): outrage: 191.9375 [177, 208]
+|chat|DEBUG|Best move of tsareena (p2): tripleaxel: 146.5 [136, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|move|p2a: Flapple|Grav Apple|p1a: Alcremie
+|-damage|p1a: Alcremie|33100
+|-unboost|p1a: Alcremie|def|1
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Flapple
+|-supereffective|p2a: Flapple
+|-damage|p2a: Flapple|0 fnt
+|faint|p2a: Flapple
+|-heal|p1a: Alcremie|39100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rillaboom|Rillaboom, L78, M|214284
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Rillaboom
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist flapple arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flapple" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-flapple-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: outrage dragondance suckerpunch gravapple
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 166 vs 159
+|chat|DEBUG|HP: 174 vs 236
+|chat|DEBUG|Created a new Strategy for flapple vs alcremie:
+|chat|DEBUG|>[gravapple: 153.0 [141, 166], gravapple: 153.0 [141, 166], gravapple: 153.0 [141, 166]]
+|chat|DEBUG|Best move of flapple (p1): gravapple: 153.0 [141, 166]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 259.0 [236, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gravapple
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|switch|p1a: Altaria|Altaria, L90, F|100100
+|move|p2a: Rillaboom|Knock Off|p1a: Altaria
+|-damage|p1a: Altaria|74100
+|-enditem|p1a: Altaria|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Rillaboom
+|-heal|p2a: Rillaboom|231284|[from] Grassy Terrain
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flapple" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: rillaboom
+|chat|DEBUG|>Switching to rillaboom (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|switch|p2a: Arctovish|Arctovish, L86|115295 tox
+|move|p1a: Altaria|Toxic|p2a: Arctovish|[miss]
+|-miss|p1a: Altaria|p2a: Arctovish
+|-heal|p2a: Arctovish|133295 tox|[from] Grassy Terrain
+|-damage|p2a: Arctovish|115295 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist arctovish rillaboom regirock
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rillaboom" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-arctovish-rillaboom-regirock -- altaria-alcremie-tsareena
+|chat|DEBUG|Own moves: grassyglide highhorsepower knockoff swordsdance
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['rillaboom']
+|chat|DEBUG|Counter: ['polteageist', 'arctovish', 'rillaboom']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 159
+|chat|DEBUG|HP: 214 vs 98
+|chat|DEBUG|Created a new Strategy for rillaboom vs alcremie:
+|chat|DEBUG|>[grassyglide: 131.0 [120, 142], grassyglide: 131.0 [120, 142], grassyglide: 131.0 [120, 142]]
+|chat|DEBUG|Best move of rillaboom (p1): grassyglide: 131.0 [120, 142]
+|chat|DEBUG|Best move of alcremie (p2): mysticalfire: 156.375 [144, 170]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['altaria']
+|chat|DEBUG|Expected enemy: altaria
+|chat|DEBUG|Using move knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left.
+|move|p1a: Altaria|Draco Meteor|p2a: Arctovish
+|-damage|p2a: Arctovish|36295 tox
+|-unboost|p1a: Altaria|spa|2
+|move|p2a: Arctovish|Icicle Crash|p1a: Altaria
+|-supereffective|p1a: Altaria
+|-damage|p1a: Altaria|0 fnt
+|faint|p1a: Altaria
+|-heal|p2a: Arctovish|54295 tox|[from] Grassy Terrain
+|-damage|p2a: Arctovish|18295 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ET_Otero has 30 seconds left this turn.
+|inactive|ET_Otero has 20 seconds left.
+|inactive|ET_Otero has 15 seconds left.
+|inactive|ET_Otero has 10 seconds left.
+|inactive|ET_Otero has 5 seconds left.
+|-message|ET_Otero lost due to inactivity.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>ET_Otero<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">polteageist flapple hippowdon arctovish rillaboom regirock</h1>

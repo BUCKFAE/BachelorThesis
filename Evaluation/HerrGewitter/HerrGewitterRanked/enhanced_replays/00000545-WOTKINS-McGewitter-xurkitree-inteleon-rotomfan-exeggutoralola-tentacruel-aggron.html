@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490847735<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490847735|init|battle
+|title|WOTKINS vs. McGewitter
+|j|☆WOTKINS
+|j|☆McGewitter
+|gametype|singles
+|player|p1|WOTKINS|dancer|1241
+|player|p2|McGewitter|265|1235
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Urshifu|Urshifu, L76, M|100100
+|switch|p2a: Xurkitree|Xurkitree, L76|251251
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola tentacruel aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "urshifu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-tentacruel-aggron -- urshifu
+|chat|DEBUG|Own moves: voltswitch energyball thunderbolt dazzlinggleam
+|chat|DEBUG|Enemy moves: bulkup drainpunch substitute wickedblow
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'inteleon', 'rotomfan', 'aggron']
+|chat|DEBUG|Speed: 170 vs 191
+|chat|DEBUG|HP: 251 vs 277
+|chat|DEBUG|Created a new Strategy for xurkitree vs urshifu:
+|chat|DEBUG|>[dazzlinggleam: 649.25 [596, 704], dazzlinggleam: 649.25 [596, 704], dazzlinggleam: 649.25 [596, 704]]
+|chat|DEBUG|Best move of xurkitree (p1): dazzlinggleam: 649.25 [596, 704]
+|chat|DEBUG|Best move of urshifu (p2): wickedblow: 171.125 [157, 186]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Urshifu|Substitute|p1a: Urshifu
+|-start|p1a: Urshifu|Substitute
+|-damage|p1a: Urshifu|76100
+|move|p2a: Xurkitree|Dazzling Gleam|p1a: Urshifu
+|-supereffective|p1a: Urshifu
+|-end|p1a: Urshifu|Substitute
+|-heal|p1a: Urshifu|82100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola tentacruel aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "urshifu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-tentacruel-aggron -- urshifu
+|chat|DEBUG|Own moves: dazzlinggleam
+|chat|DEBUG|Enemy moves: bulkup drainpunch substitute wickedblow
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['xurkitree', 'inteleon', 'rotomfan', 'aggron']
+|chat|DEBUG|Speed: 170 vs 191
+|chat|DEBUG|HP: 251 vs 227
+|chat|DEBUG|Created a new Strategy for xurkitree vs urshifu:
+|chat|DEBUG|>[dazzlinggleam: 649.25 [596, 704], dazzlinggleam: 649.25 [596, 704], dazzlinggleam: 649.25 [596, 704]]
+|chat|DEBUG|Best move of xurkitree (p1): dazzlinggleam: 649.25 [596, 704]
+|chat|DEBUG|Best move of urshifu (p2): wickedblow: 171.125 [157, 186]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|100100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Tapu Bulu
+|move|p2a: Xurkitree|Dazzling Gleam|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|54100
+|-heal|p1a: Tapu Bulu|60100|[from] Grassy Terrain
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola tentacruel aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-tentacruel-aggron -- urshifu-tapubulu
+|chat|DEBUG|Own moves: dazzlinggleam
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['rotomfan', 'tentacruel', 'aggron']
+|chat|DEBUG|Counter: ['inteleon', 'rotomfan', 'exeggutoralola', 'tentacruel', 'aggron']
+|chat|DEBUG|Speed: 170 vs 170
+|chat|DEBUG|HP: 251 vs 149
+|chat|DEBUG|Created a new Strategy for xurkitree vs tapubulu:
+|chat|DEBUG|>[dazzlinggleam: 108.6875 [100, 118], dazzlinggleam: 108.6875 [100, 118], dazzlinggleam: 108.6875 [100, 118]]
+|chat|DEBUG|Best move of xurkitree (p1): dazzlinggleam: 108.6875 [100, 118]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 159.3125 [146, 173]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomfan
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|221221
+|move|p1a: Tapu Bulu|Horn Leech|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|147221
+|-heal|p1a: Tapu Bulu|75100|[from] drain|[of] p2a: Rotom
+|-damage|p1a: Tapu Bulu|66100|[from] item: Life Orb
+|-heal|p1a: Tapu Bulu|72100|[from] Grassy Terrain
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola tentacruel aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-tentacruel-aggron -- urshifu-tapubulu
+|chat|DEBUG|Own moves: voltswitch thunderbolt airslash willowisp
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['tentacruel', 'aggron']
+|chat|DEBUG|Counter: ['rotomfan', 'exeggutoralola', 'tentacruel', 'aggron']
+|chat|DEBUG|Speed: 193 vs 170
+|chat|DEBUG|HP: 147 vs 179
+|chat|DEBUG|Created a new Strategy for rotomfan vs tapubulu:
+|chat|DEBUG|>[airslash: 164.875 [152, 180], airslash: 164.875 [152, 180], airslash: 164.875 [152, 180]]
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 164.875 [152, 180]
+|chat|DEBUG|Best move of tapubulu (p2): stoneedge: 188.8125 [174, 205]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Air Slash|p1a: Tapu Bulu|[miss]
+|-miss|p2a: Rotom|p1a: Tapu Bulu
+|move|p1a: Tapu Bulu|Stone Edge|p2a: Rotom|[miss]
+|-miss|p1a: Tapu Bulu|p2a: Rotom
+|-heal|p1a: Tapu Bulu|78100|[from] Grassy Terrain
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola tentacruel aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-tentacruel-aggron -- urshifu-tapubulu
+|chat|DEBUG|Own moves: voltswitch thunderbolt airslash willowisp
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['tentacruel', 'aggron']
+|chat|DEBUG|Counter: ['exeggutoralola', 'tentacruel', 'aggron']
+|chat|DEBUG|Speed: 193 vs 170
+|chat|DEBUG|HP: 147 vs 194
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 164.875 [152, 180]
+|chat|DEBUG|Best move of tapubulu (p2): stoneedge: 188.8125 [174, 205]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tentacruel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tentacruel|Tentacruel, L84, M|272272
+|move|p1a: Tapu Bulu|Stone Edge|p2a: Tentacruel
+|-damage|p2a: Tentacruel|142272
+|-damage|p1a: Tapu Bulu|68100|[from] item: Life Orb
+|-heal|p2a: Tentacruel|159272|[from] Grassy Terrain
+|-heal|p2a: Tentacruel|176272|[from] item: Black Sludge
+|-heal|p1a: Tapu Bulu|74100|[from] Grassy Terrain
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola tentacruel aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-tentacruel-aggron -- urshifu-tapubulu
+|chat|DEBUG|Own moves: haze sludgebomb toxicspikes scald
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['tentacruel', 'aggron']
+|chat|DEBUG|Counter: ['rotomfan', 'exeggutoralola', 'tentacruel', 'aggron']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 170
+|chat|DEBUG|HP: 176 vs 184
+|chat|DEBUG|Created a new Strategy for tentacruel vs tapubulu:
+|chat|DEBUG|>[sludgebomb: 318.0 [292, 348], sludgebomb: 318.0 [292, 348], sludgebomb: 318.0 [292, 348]]
+|chat|DEBUG|Best move of tentacruel (p1): sludgebomb: 318.0 [292, 348]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 153.75 [142, 168]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tentacruel|Toxic Spikes|p1a: Tapu Bulu
+|-sidestart|p1: WOTKINS|move: Toxic Spikes
+|move|p1a: Tapu Bulu|Horn Leech|p2a: Tentacruel
+|-crit|p2a: Tentacruel
+|-damage|p2a: Tentacruel|0 fnt
+|-heal|p1a: Tapu Bulu|100100|[from] drain|[of] p2a: Tentacruel
+|faint|p2a: Tentacruel
+|-damage|p1a: Tapu Bulu|91100|[from] item: Life Orb
+|-heal|p1a: Tapu Bulu|97100|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|258258
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tentacruel" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-tapubulu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['rotomfan', 'exeggutoralola', 'aggron']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to aggron (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Bulu|Swords Dance|p1a: Tapu Bulu
+|-boost|p1a: Tapu Bulu|atk|2
+|move|p2a: Aggron|Heavy Slam|p1a: Tapu Bulu
+|-supereffective|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|0 fnt
+|faint|p1a: Tapu Bulu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mantine|Mantine, L86, M|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-tapubulu
+|chat|DEBUG|Own moves: bodypress heavyslam earthquake headsmash
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['aggron']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 134 vs 170
+|chat|DEBUG|HP: 258 vs 241
+|chat|DEBUG|Created a new Strategy for aggron vs tapubulu:
+|chat|DEBUG|>[heavyslam: 361.375 [332, 392], heavyslam: 361.375 [332, 392], heavyslam: 361.375 [332, 392]]
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 361.375 [332, 392]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 69.0 [64, 75]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Xurkitree|Xurkitree, L76|251251
+|move|p1a: Mantine|Scald|p2a: Xurkitree
+|-damage|p2a: Xurkitree|148251
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: heavyslam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['xurkitree', 'rotomfan']
+|chat|DEBUG|Counter: ['xurkitree', 'rotomfan']
+|chat|DEBUG|Speed: 134 vs 170
+|chat|DEBUG|HP: 258 vs 286
+|chat|DEBUG|Created a new Strategy for aggron vs mantine:
+|chat|DEBUG|>[heavyslam: 41.5625 [38, 45], heavyslam: 41.5625 [38, 45], heavyslam: 41.5625 [38, 45]]
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 41.5625 [38, 45]
+|chat|DEBUG|Best move of mantine (p2): scald: 200.75 [186, 218]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check xurkitree
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Marowak|Marowak, L86, F|100100
+|-status|p1a: Marowak|psn
+|move|p2a: Xurkitree|Thunderbolt|p1a: Marowak
+|-immune|p1a: Marowak
+|-damage|p1a: Marowak|88100 psn|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: voltswitch energyball thunderbolt dazzlinggleam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['xurkitree', 'rotomfan']
+|chat|DEBUG|Speed: 170 vs 170
+|chat|DEBUG|HP: 148 vs 286
+|chat|DEBUG|Created a new Strategy for xurkitree vs mantine:
+|chat|DEBUG|>[thunderbolt: 512.25 [472, 556], thunderbolt: 512.25 [472, 556], thunderbolt: 512.25 [472, 556]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 512.25 [472, 556]
+|chat|DEBUG|Best move of mantine (p2): scald: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Marowak
+|-immune|p1a: Marowak
+|move|p1a: Marowak|Swords Dance|p1a: Marowak
+|-boost|p1a: Marowak|atk|2
+|-damage|p1a: Marowak|76100 psn|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "marowak"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine-marowak
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: doubleedge earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'inteleon', 'rotomfan', 'exeggutoralola']
+|chat|DEBUG|Speed: 170 vs 127
+|chat|DEBUG|HP: 148 vs 213
+|chat|DEBUG|Created a new Strategy for xurkitree vs marowak:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of marowak (p2): earthquake: 494.75 [456, 536]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Marowak
+|-immune|p1a: Marowak
+|move|p1a: Marowak|Swords Dance|p1a: Marowak
+|-boost|p1a: Marowak|atk|2
+|-damage|p1a: Marowak|63100 psn|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "marowak"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine-marowak
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: doubleedge earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'inteleon']
+|chat|DEBUG|Speed: 170 vs 127
+|chat|DEBUG|HP: 148 vs 184
+|chat|DEBUG|Created a new Strategy for xurkitree vs marowak:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of marowak (p2): earthquake: 986.0 [906, 1068]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Marowak
+|-immune|p1a: Marowak
+|move|p1a: Marowak|Earthquake|p2a: Xurkitree
+|-supereffective|p2a: Xurkitree
+|-crit|p2a: Xurkitree
+|-damage|p2a: Xurkitree|0 fnt
+|faint|p2a: Xurkitree
+|-damage|p1a: Marowak|51100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Inteleon|Inteleon, L80, M|243243
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "marowak"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine-marowak
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: doubleedge earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'inteleon', 'rotomfan', 'aggron']
+|chat|DEBUG|Speed: 170 vs 127
+|chat|DEBUG|HP: 148 vs 153
+|chat|DEBUG|Created a new Strategy for xurkitree vs marowak:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of marowak (p2): earthquake: 1477.375 [1358, 1598]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Inteleon|Surf|p1a: Marowak
+|-supereffective|p1a: Marowak
+|-damage|p1a: Marowak|0 fnt
+|faint|p1a: Marowak
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mantine|Mantine, L86, M|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "marowak"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine-marowak
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleedge earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['inteleon', 'rotomfan', 'aggron']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to inteleon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|147221
+|move|p1a: Mantine|Toxic|p2a: Rotom
+|-status|p2a: Rotom|tox
+|-damage|p2a: Rotom|134221 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "marowak"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine-marowak
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: doubleedge earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['inteleon', 'rotomfan', 'aggron']
+|chat|DEBUG|Speed: 238 vs 127
+|chat|DEBUG|HP: 243 vs 123
+|chat|DEBUG|Created a new Strategy for inteleon vs marowak:
+|chat|DEBUG|>[surf: 225.625 [206, 246], surf: 225.625 [206, 246], surf: 225.625 [206, 246]]
+|chat|DEBUG|Best move of inteleon (p1): surf: 225.625 [206, 246]
+|chat|DEBUG|Best move of marowak (p2): earthquake: 748.4375 [688, 810]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heracross|Heracross, L82, M|100100
+|-status|p1a: Heracross|psn
+|move|p2a: Rotom|Thunderbolt|p1a: Heracross
+|-damage|p1a: Heracross|64100 psn
+|-damage|p2a: Rotom|108221 tox|[from] psn
+|-damage|p1a: Heracross|51100 psn|[from] psn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['rotomfan']
+|chat|DEBUG|Counter: ['rotomfan']
+|chat|DEBUG|Speed: 238 vs 170
+|chat|DEBUG|HP: 243 vs 286
+|chat|DEBUG|Created a new Strategy for inteleon vs mantine:
+|chat|DEBUG|>[icebeam: 48.5625 [45, 53], icebeam: 48.5625 [45, 53], icebeam: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of inteleon (p1): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomfan
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Air Slash|p1a: Heracross|[miss]
+|-miss|p2a: Rotom|p1a: Heracross
+|move|p1a: Heracross|Facade|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|-damage|p1a: Heracross|39100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Inteleon|Inteleon, L80, M|243243
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: voltswitch thunderbolt airslash willowisp
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomfan']
+|chat|DEBUG|Speed: 193 vs 170
+|chat|DEBUG|HP: 134 vs 286
+|chat|DEBUG|Created a new Strategy for rotomfan vs mantine:
+|chat|DEBUG|>[thunderbolt: 275.0 [252, 300], thunderbolt: 275.0 [252, 300], thunderbolt: 275.0 [252, 300]]
+|chat|DEBUG|Best move of rotomfan (p1): thunderbolt: 275.0 [252, 300]
+|chat|DEBUG|Best move of mantine (p2): scald: 67.25 [61, 73]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Inteleon|Air Slash|p1a: Heracross
+|-supereffective|p1a: Heracross
+|-damage|p1a: Heracross|0 fnt
+|faint|p1a: Heracross
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mantine|Mantine, L86, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon rotomfan exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "heracross"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-rotomfan-exeggutoralola-aggron -- urshifu-mantine-heracross
+|chat|DEBUG|Own moves: voltswitch thunderbolt airslash willowisp
+|chat|DEBUG|Enemy moves: closecombat facade knockoff megahorn
+|chat|DEBUG|Checks: ['inteleon', 'rotomfan']
+|chat|DEBUG|Counter: ['inteleon', 'rotomfan']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 193 vs 187
+|chat|DEBUG|HP: 108 vs 135
+|chat|DEBUG|Created a new Strategy for rotomfan vs heracross:
+|chat|DEBUG|>[airslash: 329.75 [304, 360], airslash: 329.75 [304, 360], airslash: 329.75 [304, 360]]
+|chat|DEBUG|Best move of rotomfan (p1): airslash: 329.75 [304, 360]
+|chat|DEBUG|Best move of heracross (p2): knockoff: 68.0 [62, 74]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Inteleon|Ice Beam|p1a: Mantine
+|-damage|p1a: Mantine|83100
+|move|p1a: Mantine|Hurricane|p2a: Inteleon
+|-damage|p2a: Inteleon|99243
+|-start|p2a: Inteleon|confusion
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomfan" vs "heracross"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine-heracross
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat facade knockoff megahorn
+|chat|DEBUG|Checks: ['inteleon']
+|chat|DEBUG|Counter: ['inteleon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to inteleon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Inteleon|confusion
+|move|p2a: Inteleon|Ice Beam|p1a: Mantine
+|-damage|p1a: Mantine|67100
+|move|p1a: Mantine|Scald|p2a: Inteleon
+|-resisted|p2a: Inteleon
+|-damage|p2a: Inteleon|48243
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "heracross"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine-heracross
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: closecombat facade knockoff megahorn
+|chat|DEBUG|Checks: ['inteleon']
+|chat|DEBUG|Counter: ['inteleon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 238 vs 187
+|chat|DEBUG|HP: 243 vs 103
+|chat|DEBUG|Created a new Strategy for inteleon vs heracross:
+|chat|DEBUG|>[airslash: 231.25 [212, 252], airslash: 231.25 [212, 252], airslash: 231.25 [212, 252]]
+|chat|DEBUG|Best move of inteleon (p1): airslash: 231.25 [212, 252]
+|chat|DEBUG|Best move of heracross (p2): closecombat: 191.9375 [177, 208]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-end|p2a: Inteleon|confusion
+|move|p2a: Inteleon|Ice Beam|p1a: Mantine
+|-damage|p1a: Mantine|51100
+|move|p1a: Mantine|Roost|p1a: Mantine
+|-heal|p1a: Mantine|100100
+|-singleturn|p1a: Mantine|move: Roost
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 238 vs 170
+|chat|DEBUG|HP: 243 vs 286
+|chat|DEBUG|Created a new Strategy for inteleon vs mantine:
+|chat|DEBUG|>[icebeam: 48.5625 [45, 53], icebeam: 48.5625 [45, 53], icebeam: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of inteleon (p1): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Inteleon|Ice Beam|p1a: Mantine
+|-damage|p1a: Mantine|84100
+|move|p1a: Mantine|Hurricane|p2a: Inteleon|[miss]
+|-miss|p1a: Mantine|p2a: Inteleon
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 238 vs 170
+|chat|DEBUG|HP: 99 vs 237
+|chat|DEBUG|Best move of inteleon (p1): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Inteleon|Ice Beam|p1a: Mantine
+|-damage|p1a: Mantine|66100
+|move|p1a: Mantine|Hurricane|p2a: Inteleon
+|-damage|p2a: Inteleon|0 fnt
+|faint|p2a: Inteleon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|307307
+|-item|p1a: Mantine|Heavy-Duty Boots|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 238 vs 170
+|chat|DEBUG|HP: 48 vs 191
+|chat|DEBUG|Best move of inteleon (p1): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mantine|Roost|p1a: Mantine
+|-heal|p1a: Mantine|100100
+|-singleturn|p1a: Mantine|move: Roost
+|move|p2a: Exeggutor|Leaf Storm|p1a: Mantine
+|-supereffective|p1a: Mantine
+|-damage|p1a: Mantine|0 fnt
+|-unboost|p2a: Exeggutor|spa|2
+|faint|p1a: Mantine
+|-damage|p2a: Exeggutor|277307|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-status|p1a: Tapu Fini|psn
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 238 vs 170
+|chat|DEBUG|HP: 48 vs 286
+|chat|DEBUG|Created a new Strategy for inteleon vs mantine:
+|chat|DEBUG|>[icebeam: 48.5625 [45, 53], icebeam: 48.5625 [45, 53], icebeam: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of inteleon (p1): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Exeggutor|Dynamax
+|-heal|p2a: Exeggutor|554614|[silent]
+|move|p1a: Tapu Fini|Moonblast|p2a: Exeggutor
+|-supereffective|p2a: Exeggutor
+|-damage|p2a: Exeggutor|350614
+|move|p2a: Exeggutor|Max Overgrowth|p1a: Tapu Fini
+|-supereffective|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|15100 psn
+|-fieldstart|move: Grassy Terrain
+|-damage|p2a: Exeggutor|320614|[from] item: Life Orb
+|-heal|p1a: Tapu Fini|21100 psn|[from] Grassy Terrain
+|-heal|p1a: Tapu Fini|27100 psn|[from] item: Leftovers
+|-heal|p2a: Exeggutor|339614|[from] Grassy Terrain
+|-damage|p1a: Tapu Fini|14100 psn|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: focusenergy surf airslash icebeam
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 238 vs 170
+|chat|DEBUG|HP: 48 vs 240
+|chat|DEBUG|Best move of inteleon (p1): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Fini|Moonblast|p2a: Exeggutor
+|-supereffective|p2a: Exeggutor
+|-damage|p2a: Exeggutor|159614
+|-unboost|p2a: Exeggutor|spa|1
+|move|p2a: Exeggutor|Max Overgrowth|p1a: Tapu Fini
+|-supereffective|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|0 fnt
+|faint|p1a: Tapu Fini
+|-damage|p2a: Exeggutor|129614|[from] item: Life Orb
+|-heal|p2a: Exeggutor|148614|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Urshifu|Urshifu, L76, M|82100
+|-status|p1a: Urshifu|psn
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: exeggutoralola
+|chat|DEBUG|>Switching to exeggutoralola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Wicked Blow|p2a: Exeggutor
+|-crit|p2a: Exeggutor
+|-damage|p2a: Exeggutor|4614
+|move|p2a: Exeggutor|Max Overgrowth|p1a: Urshifu
+|-damage|p1a: Urshifu|8100 psn
+|-damage|p2a: Exeggutor|0 fnt|[from] item: Life Orb
+|faint|p2a: Exeggutor
+|-heal|p1a: Urshifu|15100 psn|[from] Grassy Terrain
+|-heal|p1a: Urshifu|21100 psn|[from] item: Leftovers
+|-damage|p1a: Urshifu|8100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|258258
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>exeggutoralola aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>exeggutoralola-aggron -- urshifu-mantine
+|chat|DEBUG|Own moves: flamethrower dracometeor leafstorm trickroom
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 83 vs 170
+|chat|DEBUG|HP: 307 vs 188
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs mantine:
+|chat|DEBUG|>[leafstorm: 157.5 [144, 172], leafstorm: 78.0 [71, 86], leafstorm: 53.0 [48, 58]]
+|chat|DEBUG|Best move of exeggutoralola (p1): leafstorm: 157.5 [144, 172]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 231.25 [212, 252]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Drain Punch|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|86258
+|-heal|p1a: Urshifu|39100 psn|[from] drain|[of] p2a: Aggron
+|move|p2a: Aggron|Body Press|p1a: Urshifu
+|-supereffective|p1a: Urshifu
+|-damage|p1a: Urshifu|0 fnt
+|faint|p1a: Urshifu
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>WOTKINS<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">xurkitree inteleon rotomfan exeggutoralola tentacruel aggron</h1>

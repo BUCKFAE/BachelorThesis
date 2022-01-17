@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490393155<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490393155|init|battle
+|title|McGewitter vs. surfer329
+|j|☆McGewitter
+|j|☆surfer329
+|gametype|singles
+|player|p1|McGewitter|265|1190
+|player|p2|surfer329|266|1245
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Walrein|Walrein, L86, F|329329
+|switch|p2a: Type: Null|Type: Null, L86|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela marowakalola ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-marowakalola-ribombee -- typenull
+|chat|DEBUG|Own moves: icebeam protect surf toxic
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['walrein', 'mienshao', 'marowakalola']
+|chat|DEBUG|Speed: 161 vs 151
+|chat|DEBUG|HP: 329 vs 304
+|chat|DEBUG|Created a new Strategy for walrein vs typenull:
+|chat|DEBUG|>[surf: 61.5625 [57, 67], surf: 61.5625 [57, 67], surf: 61.5625 [57, 67]]
+|chat|DEBUG|Best move of walrein (p1): surf: 61.5625 [57, 67]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 79.5 [73, 87]
+|chat|DEBUG|Attacking using surf
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Walrein|Surf|p2a: Type: Null
+|-damage|p2a: Type: Null|80100
+|move|p2a: Type: Null|Swords Dance|p2a: Type: Null
+|-boost|p2a: Type: Null|atk|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela marowakalola ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-marowakalola-ribombee -- typenull
+|chat|DEBUG|Own moves: icebeam protect surf toxic
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Speed: 161 vs 151
+|chat|DEBUG|HP: 329 vs 243
+|chat|DEBUG|Best move of walrein (p1): surf: 61.5625 [57, 67]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 157.3125 [144, 171]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check marowakalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Marowak|Marowak-Alola, L84, F|238238
+|move|p2a: Type: Null|Crush Claw|p1a: Marowak
+|-immune|p1a: Marowak
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela marowakalola ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-marowakalola-ribombee -- typenull
+|chat|DEBUG|Own moves: flamecharge poltergeist flareblitz stoneedge
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 124 vs 151
+|chat|DEBUG|HP: 238 vs 243
+|chat|DEBUG|Created a new Strategy for marowakalola vs typenull:
+|chat|DEBUG|>[flareblitz: 68.75 [63, 75], flareblitz: 68.75 [63, 75], flareblitz: 68.75 [63, 75]]
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 68.75 [63, 75]
+|chat|DEBUG|Best move of typenull (p2): sleeptalk: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Type: Null|Payback|p1a: Marowak
+|-supereffective|p1a: Marowak
+|-damage|p1a: Marowak|118238
+|move|p1a: Marowak|Flare Blitz|p2a: Type: Null
+|-damage|p2a: Type: Null|36100
+|-damage|p1a: Marowak|74238|[from] Recoil
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela marowakalola ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-marowakalola-ribombee -- typenull
+|chat|DEBUG|Own moves: flamecharge poltergeist flareblitz stoneedge
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['walrein', 'marowakalola']
+|chat|DEBUG|Counter: ['walrein', 'mienshao', 'zapdos', 'celesteela', 'marowakalola', 'ribombee']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 124 vs 151
+|chat|DEBUG|HP: 74 vs 109
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 68.75 [63, 75]
+|chat|DEBUG|Best move of typenull (p2): sleeptalk: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Type: Null|Payback|p1a: Marowak
+|-supereffective|p1a: Marowak
+|-damage|p1a: Marowak|0 fnt
+|faint|p1a: Marowak
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Walrein|Walrein, L86, F|329329
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- typenull
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['walrein', 'mienshao', 'zapdos', 'celesteela', 'ribombee']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to walrein (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Surf|p2a: Type: Null
+|-damage|p2a: Type: Null|14100
+|move|p2a: Type: Null|Payback|p1a: Walrein
+|-damage|p1a: Walrein|191329
+|-heal|p1a: Walrein|211329|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- typenull
+|chat|DEBUG|Own moves: icebeam protect surf toxic
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['walrein', 'mienshao', 'zapdos', 'celesteela', 'ribombee']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 151
+|chat|DEBUG|HP: 329 vs 109
+|chat|DEBUG|Created a new Strategy for walrein vs typenull:
+|chat|DEBUG|>[surf: 61.5625 [57, 67], surf: 61.5625 [57, 67], surf: 61.5625 [57, 67]]
+|chat|DEBUG|Best move of walrein (p1): surf: 61.5625 [57, 67]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 157.3125 [144, 171]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using surf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Surf|p2a: Type: Null
+|-damage|p2a: Type: Null|0 fnt
+|faint|p2a: Type: Null
+|-heal|p1a: Walrein|231329|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heliolisk|Heliolisk, L82, F|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- typenull
+|chat|DEBUG|Own moves: icebeam protect surf toxic
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['walrein', 'zapdos', 'celesteela', 'ribombee']
+|chat|DEBUG|Counter: ['walrein', 'mienshao', 'zapdos', 'celesteela', 'ribombee']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 151
+|chat|DEBUG|HP: 211 vs 42
+|chat|DEBUG|Best move of walrein (p1): surf: 61.5625 [57, 67]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 157.3125 [144, 171]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Volt Switch|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|33329
+|-damage|p2a: Heliolisk|91100|[from] item: Life Orb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magearna|Magearna-Original, L76|100100|[from]move: Volt Switch
+|move|p1a: Walrein|Ice Beam|p2a: Magearna
+|-resisted|p2a: Magearna
+|-damage|p2a: Magearna|84100
+|-heal|p1a: Walrein|53329|[from] item: Leftovers
+|-heal|p2a: Magearna|90100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- heliolisk
+|chat|DEBUG|Own moves: icebeam protect surf toxic
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao']
+|chat|DEBUG|Speed: 161 vs 226
+|chat|DEBUG|HP: 231 vs 236
+|chat|DEBUG|Created a new Strategy for walrein vs heliolisk:
+|chat|DEBUG|>[icebeam: 96.1875 [88, 105], icebeam: 96.1875 [88, 105], icebeam: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of walrein (p1): icebeam: 96.1875 [88, 105]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 246.6875 [226, 268]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zapdos|Zapdos, L78|268268
+|move|p2a: Magearna|Calm Mind|p2a: Magearna
+|-boost|p2a: Magearna|spa|1
+|-boost|p2a: Magearna|spd|1
+|-heal|p2a: Magearna|96100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "magearnaoriginal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- heliolisk-magearnaoriginal
+|chat|DEBUG|Own moves: icebeam protect surf toxic
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['zapdos', 'celesteela']
+|chat|DEBUG|Counter: ['zapdos', 'celesteela']
+|chat|DEBUG|Speed: 161 vs 143
+|chat|DEBUG|HP: 53 vs 222
+|chat|DEBUG|Created a new Strategy for walrein vs magearnaoriginal:
+|chat|DEBUG|>[surf: 89.1875 [82, 97], surf: 89.1875 [82, 97], surf: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of walrein (p1): surf: 89.1875 [82, 97]
+|chat|DEBUG|Best move of magearnaoriginal (p2): flashcannon: 85.0625 [78, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zapdos
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Celesteela|Celesteela, L77|276276
+|move|p2a: Magearna|Fleur Cannon|p1a: Celesteela
+|-resisted|p1a: Celesteela
+|-damage|p1a: Celesteela|209276
+|-unboost|p2a: Magearna|spa|2
+|-heal|p2a: Magearna|100100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "magearnaoriginal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- heliolisk-magearnaoriginal
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['celesteela']
+|chat|DEBUG|Counter: ['celesteela']
+|chat|DEBUG|Speed: 201 vs 143
+|chat|DEBUG|HP: 268 vs 237
+|chat|DEBUG|Created a new Strategy for zapdos vs magearnaoriginal:
+|chat|DEBUG|>[heatwave: 86.0 [78, 94], heatwave: 86.0 [78, 94], heatwave: 86.0 [78, 94]]
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 86.0 [78, 94]
+|chat|DEBUG|Best move of magearnaoriginal (p2): flashcannon: 69.8125 [64, 76]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check celesteela
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|100100
+|move|p1a: Celesteela|Earthquake|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|61100
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "magearnaoriginal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- heliolisk-magearnaoriginal
+|chat|DEBUG|Own moves: airslash fireblast earthquake flashcannon
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['zapdos', 'celesteela']
+|chat|DEBUG|Counter: ['zapdos', 'celesteela']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 138 vs 143
+|chat|DEBUG|HP: 209 vs 247
+|chat|DEBUG|Created a new Strategy for celesteela vs magearnaoriginal:
+|chat|DEBUG|>[earthquake: 110.25 [102, 120], earthquake: 110.25 [102, 120], earthquake: 110.25 [102, 120]]
+|chat|DEBUG|Best move of celesteela (p1): earthquake: 110.25 [102, 120]
+|chat|DEBUG|Best move of magearnaoriginal (p2): flashcannon: 19.375 [18, 21]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|Bolt Strike|p1a: Celesteela
+|-supereffective|p1a: Celesteela
+|-damage|p1a: Celesteela|51276
+|move|p1a: Celesteela|Earthquake|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|17100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "victini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- heliolisk-magearnaoriginal-victini
+|chat|DEBUG|Own moves: airslash fireblast earthquake flashcannon
+|chat|DEBUG|Enemy moves: energyball glaciate uturn vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao']
+|chat|DEBUG|Speed: 138 vs 201
+|chat|DEBUG|HP: 209 vs 172
+|chat|DEBUG|Created a new Strategy for celesteela vs victini:
+|chat|DEBUG|>[earthquake: 119.375 [110, 130], earthquake: 119.375 [110, 130], earthquake: 119.375 [110, 130]]
+|chat|DEBUG|Best move of celesteela (p1): earthquake: 119.375 [110, 130]
+|chat|DEBUG|Best move of victini (p2): vcreate: 328.25 [302, 356]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|Bolt Strike|p1a: Celesteela
+|-supereffective|p1a: Celesteela
+|-damage|p1a: Celesteela|0 fnt
+|faint|p1a: Celesteela
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mienshao|Mienshao, L82, F|241241
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos celesteela ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "victini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-celesteela-ribombee -- heliolisk-magearnaoriginal-victini
+|chat|DEBUG|Own moves: airslash fireblast earthquake flashcannon
+|chat|DEBUG|Enemy moves: energyball glaciate uturn vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'zapdos']
+|chat|DEBUG|Speed: 138 vs 201
+|chat|DEBUG|HP: 51 vs 48
+|chat|DEBUG|Best move of celesteela (p1): earthquake: 119.375 [110, 130]
+|chat|DEBUG|Best move of victini (p2): vcreate: 328.25 [302, 356]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Knock Off|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|0 fnt
+|-enditem|p2a: Victini|Assault Vest|[from] move: Knock Off|[of] p1a: Mienshao
+|faint|p2a: Victini
+|-damage|p1a: Mienshao|217241|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magearna|Magearna-Original, L76|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celesteela" vs "victini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-ribombee -- heliolisk-magearnaoriginal-victini
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball glaciate uturn vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'zapdos']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to mienshao (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Close Combat|p2a: Magearna
+|-damage|p2a: Magearna|28100
+|-unboost|p1a: Mienshao|def|1
+|-unboost|p1a: Mienshao|spd|1
+|-damage|p1a: Mienshao|193241|[from] item: Life Orb
+|move|p2a: Magearna|Fleur Cannon|p1a: Mienshao
+|-supereffective|p1a: Mienshao
+|-damage|p1a: Mienshao|0 fnt
+|-unboost|p2a: Magearna|spa|2
+|faint|p1a: Mienshao
+|-ability|p2a: Magearna|Soul-Heart|boost
+|-boost|p2a: Magearna|spa|1
+|-heal|p2a: Magearna|34100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zapdos|Zapdos, L78|268268
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "victini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-ribombee -- heliolisk-magearnaoriginal-victini
+|chat|DEBUG|Own moves: swordsdance knockoff closecombat poisonjab
+|chat|DEBUG|Enemy moves: energyball glaciate uturn vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'zapdos']
+|chat|DEBUG|Speed: 219 vs 201
+|chat|DEBUG|HP: 241 vs 48
+|chat|DEBUG|Created a new Strategy for mienshao vs victini:
+|chat|DEBUG|>[knockoff: 200.875 [185, 218], knockoff: 200.875 [185, 218], knockoff: 200.875 [185, 218]]
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 200.875 [185, 218]
+|chat|DEBUG|Best move of victini (p2): vcreate: 228.0 [210, 247]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Heat Wave|p2a: Magearna
+|-supereffective|p2a: Magearna
+|-damage|p2a: Magearna|0 fnt
+|faint|p2a: Magearna
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, M|100100
+|-item|p2a: Aggron|Air Balloon
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein mienshao zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "magearnaoriginal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-mienshao-zapdos-ribombee -- heliolisk-magearnaoriginal
+|chat|DEBUG|Own moves: swordsdance knockoff closecombat poisonjab
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos']
+|chat|DEBUG|Speed: 219 vs 143
+|chat|DEBUG|HP: 217 vs 247
+|chat|DEBUG|Created a new Strategy for mienshao vs magearnaoriginal:
+|chat|DEBUG|>[closecombat: 170.3125 [156, 185], closecombat: 170.3125 [156, 185], closecombat: 170.3125 [156, 185]]
+|chat|DEBUG|Best move of mienshao (p1): closecombat: 170.3125 [156, 185]
+|chat|DEBUG|Best move of magearnaoriginal (p2): fleurcannon: 383.875 [354, 416]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Discharge|p2a: Aggron
+|-damage|p2a: Aggron|59100
+|-status|p2a: Aggron|par
+|-enditem|p2a: Aggron|Air Balloon
+|move|p2a: Aggron|Head Smash|p1a: Zapdos|[miss]
+|-miss|p2a: Aggron|p1a: Zapdos
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "magearnaoriginal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-magearnaoriginal
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zapdos (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Discharge|p2a: Aggron
+|-damage|p2a: Aggron|11100 par
+|move|p2a: Aggron|Rock Polish|p2a: Aggron
+|-boost|p2a: Aggron|spe|2
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "magearnaoriginal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-magearnaoriginal
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: agility calmmind flashcannon fleurcannon
+|chat|DEBUG|Checks: ['zapdos']
+|chat|DEBUG|Counter: ['walrein', 'zapdos']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 201 vs 143
+|chat|DEBUG|HP: 268 vs 83
+|chat|DEBUG|Created a new Strategy for zapdos vs magearnaoriginal:
+|chat|DEBUG|>[heatwave: 128.625 [118, 140], heatwave: 128.625 [118, 140], heatwave: 128.625 [118, 140]]
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 128.625 [118, 140]
+|chat|DEBUG|Best move of magearnaoriginal (p2): fleurcannon: 101.75 [93, 111]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Discharge|p2a: Aggron
+|-damage|p2a: Aggron|0 fnt
+|faint|p2a: Aggron
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skuntank|Skuntank, L85, F|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-aggron
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: earthquake headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['walrein', 'zapdos']
+|chat|DEBUG|Speed: 201 vs 134
+|chat|DEBUG|HP: 268 vs 258
+|chat|DEBUG|Created a new Strategy for zapdos vs aggron:
+|chat|DEBUG|>[discharge: 117.0 [108, 127], discharge: 117.0 [108, 127], discharge: 117.0 [108, 127]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 117.0 [108, 127]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 400.5 [368, 434]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Zapdos|Dynamax
+|-heal|p1a: Zapdos|536536|[silent]
+|move|p1a: Zapdos|Max Lightning|p2a: Skuntank
+|-damage|p2a: Skuntank|38100
+|-fieldstart|move: Electric Terrain
+|move|p2a: Skuntank|Crunch|p1a: Zapdos
+|-damage|p1a: Zapdos|439536
+|-heal|p2a: Skuntank|44100|[from] item: Black Sludge
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-aggron
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: earthquake headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['walrein', 'zapdos']
+|chat|DEBUG|Speed: 201 vs 134
+|chat|DEBUG|HP: 268 vs 152
+|chat|DEBUG|Best move of zapdos (p1): discharge: 117.0 [108, 127]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 400.5 [368, 434]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Max Lightning|p2a: Skuntank
+|-damage|p2a: Skuntank|0 fnt
+|faint|p2a: Skuntank
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heliolisk|Heliolisk, L82, F|91100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-aggron
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: earthquake headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['walrein', 'zapdos', 'ribombee']
+|chat|DEBUG|Speed: 201 vs 134
+|chat|DEBUG|HP: 268 vs 28
+|chat|DEBUG|Best move of zapdos (p1): discharge: 117.0 [108, 127]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 400.5 [368, 434]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Heliolisk|Dynamax
+|-heal|p2a: Heliolisk|91100|[silent]
+|move|p2a: Heliolisk|Max Lightning|p1a: Zapdos
+|-damage|p1a: Zapdos|182536
+|-damage|p2a: Heliolisk|86100|[from] item: Life Orb
+|move|p1a: Zapdos|Max Flutterby|p2a: Heliolisk
+|-damage|p2a: Heliolisk|66100
+|-unboost|p2a: Heliolisk|spa|1
+|-end|p1a: Zapdos|Dynamax
+|-heal|p1a: Zapdos|91268|[silent]
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "zapdos" vs "skuntank"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-skuntank
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: fireblast poisonjab suckerpunch toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos']
+|chat|DEBUG|Speed: 201 vs 192
+|chat|DEBUG|HP: 268 vs 314
+|chat|DEBUG|Created a new Strategy for zapdos vs skuntank:
+|chat|DEBUG|>[discharge: 117.0 [108, 127], discharge: 117.0 [108, 127], discharge: 117.0 [108, 127]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 117.0 [108, 127]
+|chat|DEBUG|Best move of skuntank (p2): poisonjab: 121.125 [110, 133]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Max Lightning|p1a: Zapdos
+|-damage|p1a: Zapdos|0 fnt
+|faint|p1a: Zapdos
+|-damage|p2a: Heliolisk|61100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Walrein|Walrein, L86, F|53329
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "zapdos" vs "skuntank"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk-skuntank
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: crunch poisonjab taunt toxic
+|chat|DEBUG|Checks: ['zapdos']
+|chat|DEBUG|Counter: ['zapdos', 'ribombee']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 192
+|chat|DEBUG|HP: 439 vs 138
+|chat|DEBUG|Best move of zapdos (p1): discharge: 117.0 [108, 127]
+|chat|DEBUG|Best move of skuntank (p2): poisonjab: 93.25 [85, 102]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Max Lightning|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|0 fnt
+|faint|p1a: Walrein
+|-damage|p2a: Heliolisk|56100|[from] item: Life Orb
+|-fieldend|move: Electric Terrain
+|-end|p2a: Heliolisk|Dynamax
+|-heal|p2a: Heliolisk|56100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ribombee|Ribombee, L82, M|233233
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "zapdos" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: ['zapdos']
+|chat|DEBUG|Counter: ['zapdos', 'ribombee']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 226
+|chat|DEBUG|HP: 439 vs 214
+|chat|DEBUG|Created a new Strategy for zapdos vs heliolisk:
+|chat|DEBUG|>[heatwave: 87.5 [80, 95], heatwave: 87.5 [80, 95], heatwave: 87.5 [80, 95]]
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 87.5 [80, 95]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 135.875 [125, 148]
+|chat|DEBUG|Boost Moves: [uturn (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ribombee|Moonblast|p2a: Heliolisk
+|-damage|p2a: Heliolisk|19100
+|-unboost|p2a: Heliolisk|spa|1
+|move|p2a: Heliolisk|Glare|p1a: Ribombee
+|-status|p1a: Ribombee|par
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>walrein zapdos ribombee
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "zapdos" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>walrein-zapdos-ribombee -- heliolisk
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: ['ribombee']
+|chat|DEBUG|Counter: ['ribombee']
+|chat|DEBUG|Speed: 201 vs 226
+|chat|DEBUG|HP: 91 vs 155
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 87.5 [80, 95]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 90.5 [83, 99]
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Ribombee
+|-damage|p1a: Ribombee|162233 par
+|-damage|p2a: Heliolisk|9100|[from] item: Life Orb
+|move|p1a: Ribombee|Moonblast|p2a: Heliolisk
+|-damage|p2a: Heliolisk|0 fnt
+|faint|p2a: Heliolisk
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>surfer329</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">walrein mienshao zapdos celesteela marowakalola ribombee</h1>

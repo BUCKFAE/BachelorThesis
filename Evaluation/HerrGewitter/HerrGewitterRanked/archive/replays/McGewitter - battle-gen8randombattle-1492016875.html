@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492016875</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1492016875<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Faresdz13</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1492016875|init|battle
+|title|Faresdz13 vs. McGewitter
+|j|☆Faresdz13
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Faresdz13|pokemaniac|1214
+|player|p2|McGewitter|265|1217
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Articuno|Articuno, L84|100/100
+|switch|p2a: Lycanroc|Lycanroc-Dusk, L80, F|251/251
+|-ability|p1a: Articuno|Pressure
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Lycanroc|Stone Edge|p1a: Articuno|[miss]
+|-miss|p2a: Lycanroc|p1a: Articuno
+|move|p1a: Articuno|Toxic|p2a: Lycanroc
+|-status|p2a: Lycanroc|tox
+|-damage|p2a: Lycanroc|236/251 tox|[from] psn
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gigalith|Gigalith, L82, F|100/100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Gigalith
+|move|p2a: Lycanroc|Stone Edge|p1a: Gigalith
+|-damage|p1a: Gigalith|68/100
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Gigalith|75/100|[from] item: Leftovers
+|-damage|p2a: Lycanroc|206/251 tox|[from] psn
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|512/512
+|move|p1a: Gigalith|Stealth Rock|p2a: Guzzlord
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Guzzlord|480/512|[from] Sandstorm
+|-heal|p1a: Gigalith|81/100|[from] item: Leftovers
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Guzzlord|Dark Pulse|p1a: Gigalith
+|-damage|p1a: Gigalith|45/100
+|cant|p1a: Gigalith|flinch
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Guzzlord|448/512|[from] Sandstorm
+|-heal|p1a: Gigalith|52/100|[from] item: Leftovers
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Guzzlord|Dark Pulse|p1a: Gigalith
+|-damage|p1a: Gigalith|17/100
+|move|p1a: Gigalith|Earthquake|p2a: Guzzlord
+|-damage|p2a: Guzzlord|323/512
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Guzzlord|291/512|[from] Sandstorm
+|-heal|p1a: Gigalith|23/100|[from] item: Leftovers
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sylveon|Sylveon, L84, F|100/100
+|move|p2a: Guzzlord|Dark Pulse|p1a: Sylveon
+|-resisted|p1a: Sylveon
+|-damage|p1a: Sylveon|85/100
+|-weather|none
+|-heal|p1a: Sylveon|91/100|[from] item: Leftovers
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Entei|Entei, L78|307/307
+|-damage|p2a: Entei|231/307|[from] Stealth Rock
+|move|p1a: Sylveon|Hyper Voice|p2a: Entei
+|-resisted|p2a: Entei
+|-damage|p2a: Entei|157/307
+|-heal|p1a: Sylveon|97/100|[from] item: Leftovers
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sharpedo|Sharpedo, L82, M|100/100
+|move|p2a: Entei|Sacred Fire|p1a: Sharpedo
+|-resisted|p1a: Sharpedo
+|-damage|p1a: Sharpedo|45/100
+|-status|p1a: Sharpedo|brn
+|-damage|p1a: Sharpedo|39/100 brn|[from] brn
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|221/221
+|move|p1a: Sharpedo|Protect||[still]
+|-fail|p1a: Sharpedo
+|-damage|p1a: Sharpedo|33/100 brn|[from] brn
+|-ability|p1a: Sharpedo|Speed Boost|boost
+|-boost|p1a: Sharpedo|spe|1
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sharpedo|Protect|p1a: Sharpedo
+|-singleturn|p1a: Sharpedo|Protect
+|move|p2a: Rotom|Thunderbolt|p1a: Sharpedo
+|-activate|p1a: Sharpedo|move: Protect
+|-damage|p1a: Sharpedo|27/100 brn|[from] brn
+|-ability|p1a: Sharpedo|Speed Boost|boost
+|-boost|p1a: Sharpedo|spe|1
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sharpedo|Crunch|p2a: Rotom
+|-damage|p2a: Rotom|170/221
+|-damage|p1a: Sharpedo|17/100 brn|[from] item: Life Orb
+|move|p2a: Rotom|Thunderbolt|p1a: Sharpedo
+|-supereffective|p1a: Sharpedo
+|-damage|p1a: Sharpedo|0 fnt
+|faint|p1a: Sharpedo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gigalith|Gigalith, L82, F|23/100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Gigalith
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Gigalith
+|-damage|p1a: Gigalith|0 fnt
+|faint|p1a: Gigalith
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Rotom|157/221|[from] Sandstorm
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rillaboom|Rillaboom, L78, F|100/100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Rillaboom
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Air Slash|p1a: Rillaboom
+|-supereffective|p1a: Rillaboom
+|-damage|p1a: Rillaboom|18/100
+|move|p1a: Rillaboom|Knock Off|p2a: Rotom
+|-damage|p2a: Rotom|56/221
+|-enditem|p2a: Rotom|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Rillaboom
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Rotom|43/221|[from] Sandstorm
+|-damage|p1a: Rillaboom|12/100|[from] Sandstorm
+|-heal|p1a: Rillaboom|18/100|[from] Grassy Terrain
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sylveon|Sylveon, L84, F|97/100
+|move|p2a: Rotom|Air Slash|p1a: Sylveon
+|-damage|p1a: Sylveon|77/100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Rotom|30/221|[from] Sandstorm
+|-damage|p1a: Sylveon|71/100|[from] Sandstorm
+|-heal|p1a: Sylveon|77/100|[from] Grassy Terrain
+|-heal|p1a: Sylveon|83/100|[from] item: Leftovers
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Entei|Entei, L78|157/307
+|-damage|p2a: Entei|81/307|[from] Stealth Rock
+|move|p1a: Sylveon|Calm Mind|p1a: Sylveon
+|-boost|p1a: Sylveon|spa|1
+|-boost|p1a: Sylveon|spd|1
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Entei|62/307|[from] Sandstorm
+|-damage|p1a: Sylveon|77/100|[from] Sandstorm
+|-heal|p2a: Entei|81/307|[from] Grassy Terrain
+|-heal|p1a: Sylveon|83/100|[from] Grassy Terrain
+|-heal|p1a: Sylveon|89/100|[from] item: Leftovers
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, M|281/281
+|-damage|p2a: Garbodor|246/281|[from] Stealth Rock
+|move|p1a: Sylveon|Protect||[still]
+|-fail|p1a: Sylveon
+|-weather|none
+|-heal|p2a: Garbodor|263/281|[from] Grassy Terrain
+|-heal|p2a: Garbodor|280/281|[from] item: Black Sludge
+|-heal|p1a: Sylveon|95/100|[from] Grassy Terrain
+|-heal|p1a: Sylveon|100/100|[from] item: Leftovers
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Gunk Shot|p1a: Sylveon
+|-supereffective|p1a: Sylveon
+|-damage|p1a: Sylveon|0 fnt
+|faint|p1a: Sylveon
+|-heal|p2a: Garbodor|281/281|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Articuno|Articuno, L84|100/100
+|-ability|p1a: Articuno|Pressure
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Articuno|Toxic|p2a: Garbodor
+|-immune|p2a: Garbodor
+|move|p2a: Garbodor|Toxic Spikes|p1a: Articuno
+|-sidestart|p1: Faresdz13|move: Toxic Spikes
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Articuno|Freeze-Dry|p2a: Garbodor
+|-damage|p2a: Garbodor|199/281
+|-status|p2a: Garbodor|frz
+|cant|p2a: Garbodor|frz
+|-heal|p2a: Garbodor|216/281 frz|[from] item: Black Sludge
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Articuno|Freeze-Dry|p2a: Garbodor
+|-damage|p2a: Garbodor|146/281 frz
+|-curestatus|p2a: Garbodor|frz|[msg]
+|move|p2a: Garbodor|Toxic Spikes|p1a: Articuno
+|-sidestart|p1: Faresdz13|move: Toxic Spikes
+|-heal|p2a: Garbodor|163/281|[from] item: Black Sludge
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lycanroc|Lycanroc-Dusk, L80, F|206/251 tox
+|-damage|p2a: Lycanroc|175/251 tox|[from] Stealth Rock
+|move|p1a: Articuno|Freeze-Dry|p2a: Lycanroc
+|-damage|p2a: Lycanroc|75/251 tox
+|-damage|p2a: Lycanroc|60/251 tox|[from] psn
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lycanroc|Stone Edge|p1a: Articuno|[miss]
+|-miss|p2a: Lycanroc|p1a: Articuno
+|move|p1a: Articuno|Freeze-Dry|p2a: Lycanroc
+|-damage|p2a: Lycanroc|0 fnt
+|faint|p2a: Lycanroc
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Entei|Entei, L78|81/307
+|-damage|p2a: Entei|5/307|[from] Stealth Rock
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Entei|Stone Edge|p1a: Articuno
+|-supereffective|p1a: Articuno
+|-damage|p1a: Articuno|0 fnt
+|faint|p1a: Articuno
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rillaboom|Rillaboom, L78, F|18/100
+|-status|p1a: Rillaboom|tox
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Rillaboom
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rillaboom|Grassy Glide|p2a: Entei
+|-resisted|p2a: Entei
+|-damage|p2a: Entei|0 fnt
+|faint|p2a: Entei
+|-heal|p1a: Rillaboom|24/100 tox|[from] Grassy Terrain
+|-damage|p1a: Rillaboom|18/100 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|291/512
+|-damage|p2a: Guzzlord|227/512|[from] Stealth Rock
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rillaboom|Grassy Glide|p2a: Guzzlord
+|-resisted|p2a: Guzzlord
+|-damage|p2a: Guzzlord|124/512
+|move|p2a: Guzzlord|Fire Blast|p1a: Rillaboom
+|-supereffective|p1a: Rillaboom
+|-damage|p1a: Rillaboom|0 fnt
+|faint|p1a: Rillaboom
+|-ability|p2a: Guzzlord|Beast Boost|boost
+|-boost|p2a: Guzzlord|spa|1
+|-heal|p2a: Guzzlord|156/512|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Regidrago|Regidrago, L78|100/100
+|-status|p1a: Regidrago|tox
+|-enditem|p1a: Regidrago|Lum Berry|[eat]
+|-curestatus|p1a: Regidrago|tox|[msg]
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regidrago|Hammer Arm|p2a: Guzzlord
+|-supereffective|p2a: Guzzlord
+|-damage|p2a: Guzzlord|0 fnt
+|-unboost|p1a: Regidrago|spe|1
+|faint|p2a: Guzzlord
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, M|163/281
+|-damage|p2a: Garbodor|128/281|[from] Stealth Rock
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Gunk Shot|p1a: Regidrago
+|-damage|p1a: Regidrago|49/100
+|move|p1a: Regidrago|Dragon Dance|p1a: Regidrago
+|-boost|p1a: Regidrago|atk|1
+|-boost|p1a: Regidrago|spe|1
+|-heal|p2a: Garbodor|145/281|[from] Grassy Terrain
+|-heal|p2a: Garbodor|162/281|[from] item: Black Sludge
+|-heal|p1a: Regidrago|55/100|[from] Grassy Terrain
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Regidrago|Dynamax
+|-heal|p1a: Regidrago|55/100|[silent]
+|move|p2a: Garbodor|Gunk Shot|p1a: Regidrago
+|-damage|p1a: Regidrago|33/100
+|move|p1a: Regidrago|Max Wyrmwind|p2a: Garbodor
+|-damage|p2a: Garbodor|0 fnt
+|faint|p2a: Garbodor
+|-heal|p1a: Regidrago|36/100|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Fan, L84|30/221
+|-damage|p2a: Rotom|0 fnt|[from] Stealth Rock
+|faint|p2a: Rotom
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gastrodon|Gastrodon, L84, F|324/324
+|-damage|p2a: Gastrodon|304/324|[from] Stealth Rock
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Gastrodon|Dynamax
+|-heal|p2a: Gastrodon|608/648|[silent]
+|move|p1a: Regidrago|Max Wyrmwind|p2a: Gastrodon
+|-damage|p2a: Gastrodon|251/648
+|-unboost|p2a: Gastrodon|atk|1
+|move|p2a: Gastrodon|Max Quake|p1a: Regidrago
+|-damage|p1a: Regidrago|21/100
+|-boost|p2a: Gastrodon|spd|1
+|-heal|p2a: Gastrodon|271/648|[from] item: Leftovers
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regidrago|Max Wyrmwind|p2a: Gastrodon
+|-damage|p2a: Gastrodon|0 fnt
+|faint|p2a: Gastrodon
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

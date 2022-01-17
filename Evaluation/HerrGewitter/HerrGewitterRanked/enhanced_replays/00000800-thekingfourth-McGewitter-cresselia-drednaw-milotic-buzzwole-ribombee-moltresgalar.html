@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491271469<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491271469|init|battle
+|title|thekingfourth vs. McGewitter
+|j|☆thekingfourth
+|j|☆McGewitter
+|gametype|singles
+|player|p1|thekingfourth|ghetsis|1130
+|player|p2|McGewitter|265|1143
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Arcanine|Arcanine, L82, M|100100
+|switch|p2a: Cresselia|Cresselia, L80, F|323323
+|-ability|p1a: Arcanine|Intimidate|boost
+|-unboost|p2a: Cresselia|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic']
+|chat|DEBUG|Speed: 182 vs 203
+|chat|DEBUG|HP: 323 vs 282
+|chat|DEBUG|Created a new Strategy for cresselia vs arcanine:
+|chat|DEBUG|>[psyshock: 71.125 [66, 78], psyshock: 71.125 [66, 78], psyshock: 71.125 [66, 78]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 71.125 [66, 78]
+|chat|DEBUG|Best move of arcanine (p2): flareblitz: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Solgaleo|Solgaleo, L72|100100
+|move|p2a: Cresselia|Psyshock|p1a: Solgaleo
+|-resisted|p1a: Solgaleo
+|-damage|p1a: Solgaleo|95100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['buzzwole', 'moltresgalar']
+|chat|DEBUG|Speed: 182 vs 182
+|chat|DEBUG|HP: 323 vs 300
+|chat|DEBUG|Created a new Strategy for cresselia vs solgaleo:
+|chat|DEBUG|>[moonblast: 29.5 [27, 32], moonblast: 29.5 [27, 32], moonblast: 29.5 [27, 32]]
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 29.5 [27, 32]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 85.0625 [78, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Solgaleo|Knock Off|p2a: Cresselia
+|-supereffective|p2a: Cresselia
+|-damage|p2a: Cresselia|213323
+|-enditem|p2a: Cresselia|Leftovers|[from] move: Knock Off|[of] p1a: Solgaleo
+|move|p2a: Cresselia|Moonblast|p1a: Solgaleo
+|-resisted|p1a: Solgaleo
+|-damage|p1a: Solgaleo|86100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic', 'buzzwole', 'moltresgalar']
+|chat|DEBUG|Speed: 182 vs 182
+|chat|DEBUG|HP: 213 vs 271
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 29.5 [27, 32]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 85.0625 [78, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Solgaleo|Knock Off|p2a: Cresselia
+|-supereffective|p2a: Cresselia
+|-damage|p2a: Cresselia|139323
+|move|p2a: Cresselia|Moonblast|p1a: Solgaleo
+|-resisted|p1a: Solgaleo
+|-damage|p1a: Solgaleo|76100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic', 'buzzwole', 'moltresgalar']
+|chat|DEBUG|Speed: 182 vs 182
+|chat|DEBUG|HP: 139 vs 240
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 29.5 [27, 32]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 85.0625 [78, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Solgaleo|Knock Off|p2a: Cresselia
+|-supereffective|p2a: Cresselia
+|-damage|p2a: Cresselia|59323
+|move|p2a: Cresselia|Moonblast|p1a: Solgaleo
+|-resisted|p1a: Solgaleo
+|-damage|p1a: Solgaleo|67100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['buzzwole']
+|chat|DEBUG|Counter: ['milotic', 'buzzwole', 'moltresgalar']
+|chat|DEBUG|Speed: 182 vs 182
+|chat|DEBUG|HP: 59 vs 211
+|chat|DEBUG|Created a new Strategy for cresselia vs solgaleo:
+|chat|DEBUG|>[moonblast: 29.5 [27, 32], moonblast: 29.5 [27, 32], moonblast: 29.5 [27, 32]]
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 29.5 [27, 32]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 85.0625 [78, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check buzzwole
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Buzzwole|Buzzwole, L77|291291
+|move|p1a: Solgaleo|Knock Off|p2a: Buzzwole
+|-resisted|p2a: Buzzwole
+|-damage|p2a: Buzzwole|267291
+|-enditem|p2a: Buzzwole|Choice Band|[from] move: Knock Off|[of] p1a: Solgaleo
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo
+|chat|DEBUG|Own moves: dualwingbeat stoneedge closecombat ironhead
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic', 'moltresgalar']
+|chat|DEBUG|Speed: 166 vs 182
+|chat|DEBUG|HP: 267 vs 211
+|chat|DEBUG|Created a new Strategy for buzzwole vs solgaleo:
+|chat|DEBUG|>[closecombat: 141.5625 [130, 154], closecombat: 141.5625 [130, 154], closecombat: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of buzzwole (p1): closecombat: 141.5625 [130, 154]
+|chat|DEBUG|Best move of solgaleo (p2): psychicfangs: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|100100
+|move|p2a: Buzzwole|Close Combat|p1a: Chandelure
+|-immune|p1a: Chandelure
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo-chandelure
+|chat|DEBUG|Own moves: dualwingbeat stoneedge closecombat ironhead
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['milotic']
+|chat|DEBUG|Counter: ['drednaw', 'milotic', 'moltresgalar']
+|chat|DEBUG|Speed: 166 vs 178
+|chat|DEBUG|HP: 267 vs 233
+|chat|DEBUG|Created a new Strategy for buzzwole vs chandelure:
+|chat|DEBUG|>[stoneedge: 160.0 [146, 174], stoneedge: 160.0 [146, 174], stoneedge: 160.0 [146, 174]]
+|chat|DEBUG|Best move of buzzwole (p1): stoneedge: 160.0 [146, 174]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 705.625 [648, 764]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check milotic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Milotic|Milotic, L82, F|290290
+|move|p1a: Chandelure|Fire Blast|p2a: Milotic
+|-resisted|p2a: Milotic
+|-damage|p2a: Milotic|235290
+|-heal|p2a: Milotic|253290|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo-chandelure
+|chat|DEBUG|Own moves: icebeam scald recover haze
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['milotic']
+|chat|DEBUG|Counter: ['drednaw', 'milotic', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 180 vs 178
+|chat|DEBUG|HP: 253 vs 233
+|chat|DEBUG|Created a new Strategy for milotic vs chandelure:
+|chat|DEBUG|>[scald: 164.875 [152, 180], scald: 164.875 [152, 180], scald: 164.875 [152, 180]]
+|chat|DEBUG|Best move of milotic (p1): scald: 164.875 [152, 180]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 86.4375 [79, 94]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pincurchin|Pincurchin, L88, F|100100
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p1a: Pincurchin
+|move|p2a: Milotic|Scald|p1a: Pincurchin
+|-damage|p1a: Pincurchin|62100
+|-heal|p2a: Milotic|271290|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw milotic buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-milotic-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: icebeam scald recover haze
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: ['milotic', 'buzzwole', 'ribombee']
+|chat|DEBUG|Counter: ['drednaw', 'milotic', 'buzzwole', 'ribombee', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 180 vs 77
+|chat|DEBUG|HP: 271 vs 141
+|chat|DEBUG|Created a new Strategy for milotic vs pincurchin:
+|chat|DEBUG|>[scald: 80.9375 [75, 88], scald: 80.9375 [75, 88], scald: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of milotic (p1): scald: 80.9375 [75, 88]
+|chat|DEBUG|Best move of pincurchin (p2): risingvoltage: 123.125 [114, 134]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Milotic|Scald|p1a: Pincurchin
+|-damage|p1a: Pincurchin|23100
+|move|p1a: Pincurchin|Rising Voltage|p2a: Milotic
+|-supereffective|p2a: Milotic
+|-damage|p2a: Milotic|0 fnt
+|faint|p2a: Milotic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Buzzwole|Buzzwole, L77|267291
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: ['buzzwole', 'ribombee']
+|chat|DEBUG|Counter: ['drednaw', 'buzzwole', 'ribombee', 'moltresgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to buzzwole (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|100100
+|move|p2a: Buzzwole|Close Combat|p1a: Chandelure
+|-immune|p1a: Chandelure
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: dualwingbeat stoneedge closecombat ironhead
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: ['drednaw', 'buzzwole', 'ribombee', 'moltresgalar']
+|chat|DEBUG|Counter: ['cresselia', 'drednaw', 'buzzwole', 'ribombee', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 166 vs 77
+|chat|DEBUG|HP: 267 vs 52
+|chat|DEBUG|Created a new Strategy for buzzwole vs pincurchin:
+|chat|DEBUG|>[closecombat: 128.0625 [118, 139], closecombat: 128.0625 [118, 139], closecombat: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of buzzwole (p1): closecombat: 128.0625 [118, 139]
+|chat|DEBUG|Best move of pincurchin (p2): risingvoltage: 121.1875 [111, 132]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Chandelure|Fire Blast|p2a: Buzzwole
+|-supereffective|p2a: Buzzwole
+|-damage|p2a: Buzzwole|0 fnt
+|faint|p2a: Buzzwole
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Drednaw|Drednaw, L84, F|288288
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw buzzwole ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-buzzwole-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: dualwingbeat stoneedge closecombat ironhead
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw', 'moltresgalar']
+|chat|DEBUG|Speed: 166 vs 178
+|chat|DEBUG|HP: 267 vs 233
+|chat|DEBUG|Created a new Strategy for buzzwole vs chandelure:
+|chat|DEBUG|>[stoneedge: 160.0 [146, 174], stoneedge: 160.0 [146, 174], stoneedge: 160.0 [146, 174]]
+|chat|DEBUG|Best move of buzzwole (p1): stoneedge: 160.0 [146, 174]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 705.625 [648, 764]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Solgaleo|Solgaleo, L72|67100
+|move|p2a: Drednaw|Liquidation|p1a: Solgaleo
+|-damage|p1a: Solgaleo|21100
+|-damage|p2a: Drednaw|260288|[from] item: Life Orb
+|-fieldend|move: Electric Terrain
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw', 'moltresgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to drednaw (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Solgaleo|Close Combat|p2a: Drednaw
+|-supereffective|p2a: Drednaw
+|-damage|p2a: Drednaw|112288
+|-unboost|p1a: Solgaleo|def|1
+|-unboost|p1a: Solgaleo|spd|1
+|move|p2a: Drednaw|Liquidation|p1a: Solgaleo
+|-damage|p1a: Solgaleo|0 fnt
+|faint|p1a: Solgaleo
+|-damage|p2a: Drednaw|84288|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zygarde|Zygarde-10%, L82|100100
+|-ability|p1a: Zygarde|Aura Break
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: superpower stoneedge swordsdance liquidation
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw', 'moltresgalar']
+|chat|DEBUG|Speed: 173 vs 178
+|chat|DEBUG|HP: 288 vs 233
+|chat|DEBUG|Created a new Strategy for drednaw vs chandelure:
+|chat|DEBUG|>[liquidation: 268.4375 [244, 291], liquidation: 268.4375 [244, 291], liquidation: 268.4375 [244, 291]]
+|chat|DEBUG|Best move of drednaw (p1): liquidation: 268.4375 [244, 291]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 134.0 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zygarde|Thousand Arrows|p2a: Drednaw
+|-supereffective|p2a: Drednaw
+|-damage|p2a: Drednaw|0 fnt
+|faint|p2a: Drednaw
+|-damage|p1a: Zygarde|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cresselia|Cresselia, L80, F|59323
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-ribombee-moltresgalar -- arcanine-solgaleo-chandelure-pincurchin
+|chat|DEBUG|Own moves: superpower stoneedge swordsdance liquidation
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['drednaw', 'moltresgalar']
+|chat|DEBUG|Speed: 173 vs 182
+|chat|DEBUG|HP: 260 vs 66
+|chat|DEBUG|Created a new Strategy for drednaw vs solgaleo:
+|chat|DEBUG|>[liquidation: 134.25 [122, 146], liquidation: 134.25 [122, 146], liquidation: 134.25 [122, 146]]
+|chat|DEBUG|Best move of drednaw (p1): liquidation: 134.25 [122, 146]
+|chat|DEBUG|Best move of solgaleo (p2): closecombat: 161.875 [148, 176]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zygarde|Extreme Speed|p2a: Cresselia
+|-damage|p2a: Cresselia|0 fnt
+|faint|p2a: Cresselia
+|-damage|p1a: Zygarde|81100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ribombee|Ribombee, L82, F|233233
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia drednaw ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-drednaw-ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: superpower stoneedge swordsdance liquidation
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 173 vs 236
+|chat|DEBUG|HP: 84 vs 223
+|chat|DEBUG|Created a new Strategy for drednaw vs zygarde10:
+|chat|DEBUG|>[liquidation: 159.3125 [146, 173], liquidation: 159.3125 [146, 173], liquidation: 159.3125 [146, 173]]
+|chat|DEBUG|Best move of drednaw (p1): liquidation: 159.3125 [146, 173]
+|chat|DEBUG|Best move of zygarde10 (p2): thousandarrows: 236.25 [218, 257]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|100100
+|move|p2a: Ribombee|Moonblast|p1a: Chandelure
+|-resisted|p1a: Chandelure
+|-damage|p1a: Chandelure|79100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: cresselia
+|chat|DEBUG|>Switching to cresselia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ribombee|Sticky Web|p1a: Chandelure
+|-sidestart|p1: thekingfourth|move: Sticky Web
+|move|p1a: Chandelure|Fire Blast|p2a: Ribombee|[miss]
+|-miss|p1a: Chandelure|p2a: Ribombee
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia-ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ribombee']
+|chat|DEBUG|Speed: 182 vs 236
+|chat|DEBUG|HP: 59 vs 202
+|chat|DEBUG|Created a new Strategy for cresselia vs zygarde10:
+|chat|DEBUG|>[moonblast: 108.25 [100, 118], moonblast: 108.25 [100, 118], moonblast: 108.25 [100, 118]]
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 108.25 [100, 118]
+|chat|DEBUG|Best move of zygarde10 (p2): outrage: 132.3125 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ribombee|Psychic|p1a: Chandelure
+|-damage|p1a: Chandelure|55100
+|move|p1a: Chandelure|Fire Blast|p2a: Ribombee
+|-supereffective|p2a: Ribombee
+|-damage|p2a: Ribombee|0 fnt
+|faint|p2a: Ribombee
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Moltres|Moltres-Galar, L75|259259
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ribombee']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to ribombee (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zygarde|Zygarde-10%, L82|81100
+|-activate|p1a: Zygarde|move: Sticky Web
+|-unboost|p1a: Zygarde|spe|1
+|-ability|p1a: Zygarde|Aura Break
+|move|p2a: Moltres|Fiery Wrath|p1a: Zygarde
+|-damage|p1a: Zygarde|46100
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ribombee" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: uturn moonblast psychic stickyweb
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ribombee']
+|chat|DEBUG|Speed: 251 vs 236
+|chat|DEBUG|HP: 233 vs 180
+|chat|DEBUG|Created a new Strategy for ribombee vs zygarde10:
+|chat|DEBUG|>[moonblast: 197.875 [182, 216], moonblast: 197.875 [182, 216], moonblast: 197.875 [182, 216]]
+|chat|DEBUG|Best move of ribombee (p1): moonblast: 197.875 [182, 216]
+|chat|DEBUG|Best move of zygarde10 (p2): irontail: 240.5 [221, 260]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Moltres|Dynamax
+|-heal|p2a: Moltres|518518|[silent]
+|move|p2a: Moltres|Max Darkness|p1a: Zygarde
+|-damage|p1a: Zygarde|0 fnt
+|faint|p1a: Zygarde
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|thekingfourth has 120 seconds left.
+|switch|p1a: Arcanine|Arcanine, L82, M|100100
+|-ability|p1a: Arcanine|Intimidate|boost
+|-unboost|p2a: Moltres|atk|1
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ribombee" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: uturn moonblast psychic stickyweb
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 251 vs 178
+|chat|DEBUG|HP: 233 vs 184
+|chat|DEBUG|Created a new Strategy for ribombee vs chandelure:
+|chat|DEBUG|>[psychic: 59.6875 [55, 65], psychic: 59.6875 [55, 65], psychic: 59.6875 [55, 65]]
+|chat|DEBUG|Best move of ribombee (p1): psychic: 59.6875 [55, 65]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 551.0 [506, 596]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Setting Sticky web
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|55100
+|move|p2a: Moltres|Max Darkness|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-damage|p1a: Chandelure|0 fnt
+|faint|p1a: Chandelure
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arcanine|Arcanine, L82, M|100100
+|-ability|p1a: Arcanine|Intimidate|boost
+|-unboost|p2a: Moltres|atk|1
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ribombee moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ribombee" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ribombee-moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: uturn moonblast psychic stickyweb
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 251 vs 178
+|chat|DEBUG|HP: 233 vs 184
+|chat|DEBUG|Best move of ribombee (p1): psychic: 59.6875 [55, 65]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 551.0 [506, 596]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Will-O-Wisp|p2a: Moltres
+|-status|p2a: Moltres|brn
+|move|p2a: Moltres|Max Darkness|p1a: Arcanine
+|-damage|p1a: Arcanine|57100
+|-unboost|p1a: Arcanine|spd|1
+|-damage|p2a: Moltres|502518 brn|[from] brn
+|-end|p2a: Moltres|Dynamax
+|-heal|p2a: Moltres|251259 brn|[silent]
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ribombee" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to moltresgalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Morning Sun|p1a: Arcanine
+|-heal|p1a: Arcanine|100100
+|move|p2a: Moltres|Fiery Wrath|p1a: Arcanine
+|-damage|p1a: Arcanine|55100
+|-damage|p2a: Moltres|235259 brn|[from] brn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: nastyplot fierywrath rest hurricane
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 179 vs 178
+|chat|DEBUG|HP: 259 vs 128
+|chat|DEBUG|Created a new Strategy for moltresgalar vs chandelure:
+|chat|DEBUG|>[fierywrath: 161.875 [150, 176], fierywrath: 161.875 [150, 176], fierywrath: 161.875 [150, 176]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 161.875 [150, 176]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 193.4375 [178, 210]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Close Combat|p2a: Moltres
+|-damage|p2a: Moltres|146259 brn
+|-unboost|p1a: Arcanine|def|1
+|-unboost|p1a: Arcanine|spd|1
+|move|p2a: Moltres|Fiery Wrath|p1a: Arcanine
+|-damage|p1a: Arcanine|0 fnt
+|faint|p1a: Arcanine
+|-damage|p2a: Moltres|130259 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pincurchin|Pincurchin, L88, F|23100
+|-activate|p1a: Pincurchin|move: Sticky Web
+|-unboost|p1a: Pincurchin|spe|1
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p1a: Pincurchin
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltresgalar -- arcanine-chandelure-pincurchin-zygarde10
+|chat|DEBUG|Own moves: nastyplot fierywrath rest hurricane
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 179 vs 236
+|chat|DEBUG|HP: 259 vs 102
+|chat|DEBUG|Created a new Strategy for moltresgalar vs zygarde10:
+|chat|DEBUG|>[fierywrath: 83.625 [76, 91], fierywrath: 83.625 [76, 91], fierywrath: 83.625 [76, 91]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 83.625 [76, 91]
+|chat|DEBUG|Best move of zygarde10 (p2): outrage: 176.125 [161, 191]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fiery Wrath|p1a: Pincurchin
+|-damage|p1a: Pincurchin|0 fnt
+|faint|p1a: Pincurchin
+|-damage|p2a: Moltres|114259 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowking|Slowking-Galar, L84, F|100100
+|-activate|p1a: Slowking|move: Sticky Web
+|-unboost|p1a: Slowking|spe|1
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltresgalar -- arcanine-chandelure-pincurchin
+|chat|DEBUG|Own moves: nastyplot fierywrath rest hurricane
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 179 vs 203
+|chat|DEBUG|HP: 518 vs 282
+|chat|DEBUG|Created a new Strategy for moltresgalar vs arcanine:
+|chat|DEBUG|>[fierywrath: 87.9375 [81, 96], fierywrath: 87.9375 [81, 96], fierywrath: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 87.9375 [81, 96]
+|chat|DEBUG|Best move of arcanine (p2): wildcharge: 145.25 [134, 158]
+|chat|DEBUG|Boost Moves: [fierywrath (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Slowking|Dynamax
+|-heal|p1a: Slowking|100100|[silent]
+|move|p2a: Moltres|Fiery Wrath|p1a: Slowking
+|-supereffective|p1a: Slowking
+|-damage|p1a: Slowking|78100
+|move|p1a: Slowking|Max Flare|p2a: Moltres
+|-damage|p2a: Moltres|22259 brn
+|-weather|SunnyDay
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Slowking|81100|[from] item: Black Sludge
+|-damage|p2a: Moltres|6259 brn|[from] brn
+|upkeep
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltresgalar -- arcanine-pincurchin
+|chat|DEBUG|Own moves: nastyplot fierywrath rest hurricane
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 179 vs 203
+|chat|DEBUG|HP: 518 vs 282
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 87.9375 [81, 96]
+|chat|DEBUG|Best move of arcanine (p2): wildcharge: 145.25 [134, 158]
+|chat|DEBUG|Boost Moves: [fierywrath (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fiery Wrath|p1a: Slowking
+|-supereffective|p1a: Slowking
+|-damage|p1a: Slowking|59100
+|move|p1a: Slowking|Max Flare|p2a: Moltres
+|-damage|p2a: Moltres|0 fnt
+|faint|p2a: Moltres
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>thekingfourth<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">cresselia drednaw milotic buzzwole ribombee moltresgalar</h1>

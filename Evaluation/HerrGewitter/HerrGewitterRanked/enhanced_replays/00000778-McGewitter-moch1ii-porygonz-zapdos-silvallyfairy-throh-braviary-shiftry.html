@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491243645<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491243645|init|battle
+|title|McGewitter vs. moch1ii
+|j|☆McGewitter
+|j|☆moch1ii
+|gametype|singles
+|player|p1|McGewitter|265|1150
+|player|p2|moch1ii|266|1175
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Porygon-Z|Porygon-Z, L80|267267
+|switch|p2a: Aurorus|Aurorus, L84, M|100100
+|-ability|p1a: Porygon-Z|Download|boost
+|-boost|p1a: Porygon-Z|atk|1
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Aurorus
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>porygonz zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "aurorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>porygonz-zapdos-silvallyfairy-throh-braviary-shiftry -- aurorus
+|chat|DEBUG|Own moves: nastyplot thunderbolt triattack darkpulse
+|chat|DEBUG|Enemy moves: ancientpower blizzard earthpower freezedry
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['braviary', 'shiftry']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 267 vs 343
+|chat|DEBUG|Created a new Strategy for porygonz vs aurorus:
+|chat|DEBUG|>[thunderbolt: 95.6875 [88, 104], thunderbolt: 95.6875 [88, 104], thunderbolt: 95.6875 [88, 104]]
+|chat|DEBUG|Best move of porygonz (p1): thunderbolt: 95.6875 [88, 104]
+|chat|DEBUG|Best move of aurorus (p2): blizzard: 208.3125 [192, 226]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Porygon-Z|Thunderbolt|p2a: Aurorus
+|-damage|p2a: Aurorus|74100
+|-damage|p1a: Porygon-Z|241267|[from] item: Life Orb
+|move|p2a: Aurorus|Thunder Wave|p1a: Porygon-Z
+|-status|p1a: Porygon-Z|par
+|-weather|Hail|[upkeep]
+|-damage|p1a: Porygon-Z|225267 par|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>porygonz zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "aurorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>porygonz-zapdos-silvallyfairy-throh-braviary-shiftry -- aurorus
+|chat|DEBUG|Own moves: nastyplot thunderbolt triattack darkpulse
+|chat|DEBUG|Enemy moves: ancientpower blizzard earthpower freezedry
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 225 vs 253
+|chat|DEBUG|Best move of porygonz (p1): thunderbolt: 95.6875 [88, 104]
+|chat|DEBUG|Best move of aurorus (p2): blizzard: 208.3125 [192, 226]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aurorus|Stealth Rock|p1a: Porygon-Z
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|move|p1a: Porygon-Z|Thunderbolt|p2a: Aurorus
+|-damage|p2a: Aurorus|47100
+|-damage|p1a: Porygon-Z|199267 par|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p1a: Porygon-Z|183267 par|[from] Hail
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>porygonz zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "aurorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>porygonz-zapdos-silvallyfairy-throh-braviary-shiftry -- aurorus
+|chat|DEBUG|Own moves: nastyplot thunderbolt triattack darkpulse
+|chat|DEBUG|Enemy moves: ancientpower blizzard earthpower freezedry
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 183 vs 161
+|chat|DEBUG|Best move of porygonz (p1): thunderbolt: 95.6875 [88, 104]
+|chat|DEBUG|Best move of aurorus (p2): blizzard: 208.3125 [192, 226]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aurorus|Blizzard|p1a: Porygon-Z
+|-damage|p1a: Porygon-Z|56267 par
+|move|p1a: Porygon-Z|Thunderbolt|p2a: Aurorus
+|-damage|p2a: Aurorus|16100
+|-damage|p1a: Porygon-Z|30267 par|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p1a: Porygon-Z|14267 par|[from] Hail
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>porygonz zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "aurorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>porygonz-zapdos-silvallyfairy-throh-braviary-shiftry -- aurorus
+|chat|DEBUG|Own moves: nastyplot thunderbolt triattack darkpulse
+|chat|DEBUG|Enemy moves: ancientpower blizzard earthpower freezedry
+|chat|DEBUG|Checks: ['silvallyfairy']
+|chat|DEBUG|Counter: ['porygonz', 'zapdos', 'silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 190 vs 146
+|chat|DEBUG|HP: 14 vs 54
+|chat|DEBUG|Created a new Strategy for porygonz vs aurorus:
+|chat|DEBUG|>[thunderbolt: 95.6875 [88, 104], thunderbolt: 95.6875 [88, 104], thunderbolt: 95.6875 [88, 104]]
+|chat|DEBUG|Best move of porygonz (p1): thunderbolt: 95.6875 [88, 104]
+|chat|DEBUG|Best move of aurorus (p2): blizzard: 208.3125 [192, 226]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aurorus|Blizzard|p1a: Porygon-Z
+|-damage|p1a: Porygon-Z|0 fnt
+|faint|p1a: Porygon-Z
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Silvally|Silvally-Fairy, L84|297297
+|-damage|p1a: Silvally|260297|[from] Stealth Rock
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "aurorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- aurorus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ancientpower blizzard earthpower freezedry
+|chat|DEBUG|Checks: ['silvallyfairy']
+|chat|DEBUG|Counter: ['zapdos', 'silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to silvallyfairy (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Silvally|Multi-Attack|p2a: Aurorus
+|-damage|p2a: Aurorus|0 fnt
+|faint|p2a: Aurorus
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 120 seconds left.
+|switch|p2a: Grimmsnarl|Grimmsnarl, L82, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "aurorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- aurorus
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: ancientpower blizzard earthpower freezedry
+|chat|DEBUG|Checks: ['silvallyfairy']
+|chat|DEBUG|Counter: ['zapdos', 'silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 146
+|chat|DEBUG|HP: 260 vs 54
+|chat|DEBUG|Created a new Strategy for silvallyfairy vs aurorus:
+|chat|DEBUG|>[multiattack: 144.5625 [133, 157], multiattack: 144.5625 [133, 157], multiattack: 144.5625 [133, 157]]
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 144.5625 [133, 157]
+|chat|DEBUG|Best move of aurorus (p2): blizzard: 166.9375 [153, 181]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 90 seconds left.
+|move|p2a: Grimmsnarl|Reflect|p2a: Grimmsnarl
+|-sidestart|p2: moch1ii|Reflect
+|move|p1a: Silvally|Multi-Attack|p2a: Grimmsnarl
+|-supereffective|p2a: Grimmsnarl
+|-damage|p2a: Grimmsnarl|48100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- grimmsnarl
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['silvallyfairy']
+|chat|DEBUG|Counter: ['zapdos', 'silvallyfairy', 'braviary']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 146
+|chat|DEBUG|HP: 260 vs 290
+|chat|DEBUG|Created a new Strategy for silvallyfairy vs grimmsnarl:
+|chat|DEBUG|>[multiattack: 317.125 [290, 344], multiattack: 317.125 [290, 344], multiattack: 317.125 [290, 344]]
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 317.125 [290, 344]
+|chat|DEBUG|Best move of grimmsnarl (p2): playrough: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Grimmsnarl|Thunder Wave|p1a: Silvally
+|-status|p1a: Silvally|par
+|cant|p1a: Silvally|par
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- grimmsnarl
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['zapdos', 'silvallyfairy', 'braviary']
+|chat|DEBUG|Counter: ['zapdos', 'silvallyfairy', 'braviary']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 146
+|chat|DEBUG|HP: 260 vs 139
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 317.125 [290, 344]
+|chat|DEBUG|Best move of grimmsnarl (p2): playrough: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Grimmsnarl|Light Screen|p2a: Grimmsnarl
+|-sidestart|p2: moch1ii|move: Light Screen
+|move|p1a: Silvally|Multi-Attack|p2a: Grimmsnarl
+|-supereffective|p2a: Grimmsnarl
+|-damage|p2a: Grimmsnarl|0 fnt
+|faint|p2a: Grimmsnarl
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tangrowth|Tangrowth, L84, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "grimmsnarl"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- grimmsnarl
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: bulkup darkestlariat playrough rest
+|chat|DEBUG|Checks: ['zapdos', 'silvallyfairy', 'braviary']
+|chat|DEBUG|Counter: ['zapdos', 'silvallyfairy', 'braviary']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 146
+|chat|DEBUG|HP: 260 vs 139
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 317.125 [290, 344]
+|chat|DEBUG|Best move of grimmsnarl (p2): playrough: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 90 seconds left.
+|switch|p1a: Zapdos|Zapdos, L78|268268
+|-ability|p1a: Zapdos|Pressure
+|move|p2a: Tangrowth|Leech Seed|p1a: Zapdos
+|-start|p1a: Zapdos|move: Leech Seed
+|-damage|p1a: Zapdos|235268|[from] Leech Seed|[of] p2a: Tangrowth
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- tangrowth
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: gigadrain knockoff leechseed sludgebomb
+|chat|DEBUG|Checks: ['zapdos', 'braviary']
+|chat|DEBUG|Counter: ['zapdos', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 208 vs 132
+|chat|DEBUG|HP: 260 vs 305
+|chat|DEBUG|Created a new Strategy for silvallyfairy vs tangrowth:
+|chat|DEBUG|>[multiattack: 94.875 [87, 103], multiattack: 94.875 [87, 103], multiattack: 94.875 [87, 103]]
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 94.875 [87, 103]
+|chat|DEBUG|Best move of tangrowth (p2): sludgebomb: 132.25 [122, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zapdos
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 90 seconds left.
+|move|p1a: Zapdos|Heat Wave|p2a: Tangrowth
+|-supereffective|p2a: Tangrowth
+|-damage|p2a: Tangrowth|64100
+|move|p2a: Tangrowth|Knock Off|p1a: Zapdos
+|-damage|p1a: Zapdos|164268
+|-enditem|p1a: Zapdos|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Tangrowth
+|-damage|p1a: Zapdos|131268|[from] Leech Seed|[of] p2a: Tangrowth
+|-heal|p2a: Tangrowth|75100|[silent]
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- tangrowth
+|chat|DEBUG|Own moves: roost heatwave discharge defog
+|chat|DEBUG|Enemy moves: gigadrain knockoff leechseed sludgebomb
+|chat|DEBUG|Checks: ['zapdos', 'braviary']
+|chat|DEBUG|Counter: ['zapdos', 'braviary', 'shiftry']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 201 vs 132
+|chat|DEBUG|HP: 235 vs 305
+|chat|DEBUG|Created a new Strategy for zapdos vs tangrowth:
+|chat|DEBUG|>[heatwave: 213.625 [196, 232], heatwave: 213.625 [196, 232], heatwave: 213.625 [196, 232]]
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 213.625 [196, 232]
+|chat|DEBUG|Best move of tangrowth (p2): knockoff: 77.25 [71, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Heat Wave|p2a: Tangrowth
+|-supereffective|p2a: Tangrowth
+|-damage|p2a: Tangrowth|38100
+|move|p2a: Tangrowth|Knock Off|p1a: Zapdos
+|-damage|p1a: Zapdos|74268
+|-damage|p1a: Zapdos|41268|[from] Leech Seed|[of] p2a: Tangrowth
+|-heal|p2a: Tangrowth|49100|[silent]
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- tangrowth
+|chat|DEBUG|Own moves: roost heatwave discharge defog
+|chat|DEBUG|Enemy moves: gigadrain knockoff leechseed sludgebomb
+|chat|DEBUG|Checks: ['braviary', 'shiftry']
+|chat|DEBUG|Counter: ['zapdos', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 201 vs 132
+|chat|DEBUG|HP: 131 vs 228
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 213.625 [196, 232]
+|chat|DEBUG|Best move of tangrowth (p2): sludgebomb: 74.4375 [68, 81]
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Heat Wave|p2a: Tangrowth
+|-supereffective|p2a: Tangrowth
+|-damage|p2a: Tangrowth|12100
+|move|p2a: Tangrowth|Knock Off|p1a: Zapdos
+|-damage|p1a: Zapdos|0 fnt
+|faint|p1a: Zapdos
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Throh|Throh, L86, M|347347
+|-damage|p1a: Throh|326347|[from] Stealth Rock
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zapdos silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zapdos-silvallyfairy-throh-braviary-shiftry -- tangrowth
+|chat|DEBUG|Own moves: roost heatwave discharge defog
+|chat|DEBUG|Enemy moves: gigadrain knockoff leechseed sludgebomb
+|chat|DEBUG|Checks: ['throh', 'braviary', 'shiftry']
+|chat|DEBUG|Counter: ['zapdos', 'silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 201 vs 132
+|chat|DEBUG|HP: 41 vs 149
+|chat|DEBUG|Best move of zapdos (p1): heatwave: 213.625 [196, 232]
+|chat|DEBUG|Best move of tangrowth (p2): sludgebomb: 74.4375 [68, 81]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tangrowth|Leech Seed|p1a: Throh
+|-start|p1a: Throh|move: Leech Seed
+|move|p1a: Throh|Ice Punch|p2a: Tangrowth
+|-supereffective|p2a: Tangrowth
+|-damage|p2a: Tangrowth|0 fnt
+|-damage|p1a: Throh|269347|[from] item: Rocky Helmet|[of] p2a: Tangrowth
+|faint|p2a: Tangrowth
+|-sideend|p2: moch1ii|Reflect
+|-status|p1a: Throh|brn|[from] item: Flame Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ho-Oh|Ho-Oh, L72|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-throh-braviary-shiftry -- tangrowth
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain knockoff leechseed sludgebomb
+|chat|DEBUG|Checks: ['throh', 'braviary', 'shiftry']
+|chat|DEBUG|Counter: ['silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to throh (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Brave Bird|p1a: Throh
+|-supereffective|p1a: Throh
+|-damage|p1a: Throh|47347 brn
+|-damage|p2a: Ho-Oh|74100|[from] Recoil
+|move|p1a: Throh|Knock Off|p2a: Ho-Oh
+|-damage|p2a: Ho-Oh|29100
+|-enditem|p2a: Ho-Oh|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Throh
+|-damage|p1a: Throh|4347 brn|[from] Leech Seed|[of] p2a: Ho-Oh
+|-heal|p2a: Ho-Oh|45100|[silent]
+|-damage|p1a: Throh|0 fnt|[from] brn
+|faint|p1a: Throh
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Silvally|Silvally-Fairy, L84|260297 par
+|-damage|p1a: Silvally|223297 par|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "throh" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-throh-braviary-shiftry -- tangrowth
+|chat|DEBUG|Own moves: bulkup circlethrow knockoff icepunch
+|chat|DEBUG|Enemy moves: gigadrain knockoff leechseed sludgebomb
+|chat|DEBUG|Checks: ['silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Counter: ['silvallyfairy', 'throh', 'braviary', 'shiftry']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 127 vs 132
+|chat|DEBUG|HP: 326 vs 36
+|chat|DEBUG|Created a new Strategy for throh vs tangrowth:
+|chat|DEBUG|>[icepunch: 88.0 [80, 96], icepunch: 88.0 [80, 96], icepunch: 88.0 [80, 96]]
+|chat|DEBUG|Best move of throh (p1): icepunch: 88.0 [80, 96]
+|chat|DEBUG|Best move of tangrowth (p2): gigadrain: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 120 seconds left.
+|inactive|moch1ii has 90 seconds left.
+|inactive|moch1ii has 60 seconds left.
+|move|p2a: Ho-Oh|Brave Bird|p1a: Silvally
+|-damage|p1a: Silvally|111297 par
+|-damage|p2a: Ho-Oh|31100|[from] Recoil
+|cant|p1a: Silvally|par
+|-sideend|p2: moch1ii|move: Light Screen
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy throh braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "throh" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-throh-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: bulkup circlethrow knockoff icepunch
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyfairy', 'braviary']
+|chat|DEBUG|Speed: 127 vs 172
+|chat|DEBUG|HP: 269 vs 272
+|chat|DEBUG|Created a new Strategy for throh vs hooh:
+|chat|DEBUG|>[knockoff: 83.75 [77, 91], knockoff: 83.75 [77, 91], knockoff: 83.75 [77, 91]]
+|chat|DEBUG|Best move of throh (p1): knockoff: 83.75 [77, 91]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 236.625 [218, 258]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Roost|p2a: Ho-Oh
+|-heal|p2a: Ho-Oh|81100
+|-singleturn|p2a: Ho-Oh|move: Roost
+|move|p1a: Silvally|Multi-Attack|p2a: Ho-Oh
+|-resisted|p2a: Ho-Oh
+|-damage|p2a: Ho-Oh|55100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "throh" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyfairy', 'braviary']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to silvallyfairy (pokemon object) [Active: False, Status: PAR]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Braviary|Braviary, L82, M|298298
+|-damage|p1a: Braviary|224298|[from] Stealth Rock
+|move|p2a: Ho-Oh|Roost|p2a: Ho-Oh
+|-heal|p2a: Ho-Oh|100100
+|-singleturn|p2a: Ho-Oh|move: Roost
+|-heal|p1a: Braviary|242298|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: ['silvallyfairy', 'braviary']
+|chat|DEBUG|Counter: ['silvallyfairy', 'braviary', 'shiftry']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 172
+|chat|DEBUG|HP: 223 vs 122
+|chat|DEBUG|Created a new Strategy for silvallyfairy vs hooh:
+|chat|DEBUG|>[multiattack: 70.5625 [65, 77], multiattack: 70.5625 [65, 77], multiattack: 70.5625 [65, 77]]
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 70.5625 [65, 77]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 111.4375 [102, 121]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Braviary|Brave Bird|p2a: Ho-Oh
+|-damage|p2a: Ho-Oh|43100
+|-damage|p1a: Braviary|190298|[from] Recoil
+|move|p2a: Ho-Oh|Sacred Fire|p1a: Braviary
+|-damage|p1a: Braviary|85298
+|-heal|p1a: Braviary|103298|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: ['braviary']
+|chat|DEBUG|Counter: ['silvallyfairy', 'braviary', 'shiftry']
+|chat|DEBUG|Speed: 208 vs 172
+|chat|DEBUG|HP: 111 vs 84
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 70.5625 [65, 77]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 111.4375 [102, 121]
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Braviary|Brave Bird|p2a: Ho-Oh
+|-damage|p2a: Ho-Oh|0 fnt
+|faint|p2a: Ho-Oh
+|-damage|p1a: Braviary|65298|[from] Recoil
+|-heal|p1a: Braviary|83298|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 30 seconds left.
+|switch|p2a: Mesprit|Mesprit, L84|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfairy" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: multiattack psychicfangs flamecharge swordsdance
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: ['braviary']
+|chat|DEBUG|Counter: ['braviary', 'shiftry']
+|chat|DEBUG|Speed: 208 vs 172
+|chat|DEBUG|HP: 111 vs 149
+|chat|DEBUG|Best move of silvallyfairy (p1): multiattack: 70.5625 [65, 77]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check braviary
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|moch1ii has 30 seconds left.
+|move|p2a: Mesprit|Psychic|p1a: Braviary
+|-damage|p1a: Braviary|0 fnt
+|faint|p1a: Braviary
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Shiftry|Shiftry, L86, M|295295
+|-damage|p1a: Shiftry|259295|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: roost bulkup closecombat bravebird
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['braviary']
+|chat|DEBUG|Speed: 178 vs 172
+|chat|DEBUG|HP: 242 vs 272
+|chat|DEBUG|Created a new Strategy for braviary vs hooh:
+|chat|DEBUG|>[bravebird: 165.75 [153, 180], bravebird: 165.75 [153, 180], bravebird: 165.75 [153, 180]]
+|chat|DEBUG|Best move of braviary (p1): bravebird: 165.75 [153, 180]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 135.5 [124, 147]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Shiftry|Dark Pulse|p2a: Mesprit
+|-supereffective|p2a: Mesprit
+|-damage|p2a: Mesprit|31100
+|-damage|p1a: Shiftry|230295|[from] item: Life Orb
+|cant|p2a: Mesprit|flinch
+|-heal|p2a: Mesprit|37100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "hooh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- hooh
+|chat|DEBUG|Own moves: roost bulkup closecombat bravebird
+|chat|DEBUG|Enemy moves: bravebird roost sacredfire toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['braviary', 'shiftry']
+|chat|DEBUG|Speed: 178 vs 172
+|chat|DEBUG|HP: 103 vs 116
+|chat|DEBUG|Best move of braviary (p1): bravebird: 165.75 [153, 180]
+|chat|DEBUG|Best move of hooh (p2): bravebird: 135.5 [124, 147]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pangoro|Pangoro, L84, M|100100
+|move|p1a: Shiftry|Dark Pulse|p2a: Pangoro
+|-resisted|p2a: Pangoro
+|-damage|p2a: Pangoro|90100
+|-damage|p1a: Shiftry|201295|[from] item: Life Orb
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy braviary shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-braviary-shiftry -- mesprit
+|chat|DEBUG|Own moves: roost bulkup closecombat bravebird
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry']
+|chat|DEBUG|Speed: 178 vs 183
+|chat|DEBUG|HP: 83 vs 272
+|chat|DEBUG|Created a new Strategy for braviary vs mesprit:
+|chat|DEBUG|>[bravebird: 126.8125 [117, 138], bravebird: 126.8125 [117, 138], bravebird: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of braviary (p1): bravebird: 126.8125 [117, 138]
+|chat|DEBUG|Best move of mesprit (p2): icebeam: 156.375 [144, 170]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Shiftry|Heat Wave|p2a: Pangoro
+|-damage|p2a: Pangoro|58100
+|-damage|p1a: Shiftry|172295|[from] item: Life Orb
+|move|p2a: Pangoro|Ice Punch|p1a: Shiftry
+|-supereffective|p1a: Shiftry
+|-damage|p1a: Shiftry|0 fnt
+|faint|p1a: Shiftry
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Silvally|Silvally-Fairy, L84|111297 par
+|-damage|p1a: Silvally|74297 par|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfairy shiftry
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfairy-shiftry -- mesprit
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to shiftry (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pangoro|Ice Punch|p1a: Silvally
+|-damage|p1a: Silvally|0 fnt
+|faint|p1a: Silvally
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>moch1ii</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">porygonz zapdos silvallyfairy throh braviary shiftry</h1>

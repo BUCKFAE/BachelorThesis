@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491044086<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491044086|init|battle
+|title|SysMod vs. McGewitter
+|j|☆SysMod
+|j|☆McGewitter
+|gametype|singles
+|player|p1|SysMod|265|1424
+|player|p2|McGewitter|265|1373
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Rapidash|Rapidash, L84, F|100100
+|switch|p2a: Jolteon|Jolteon, L82, F|241241
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rapidash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- rapidash
+|chat|DEBUG|Own moves: thunderbolt hypervoice voltswitch shadowball
+|chat|DEBUG|Enemy moves: flareblitz morningsun swordsdance wildcharge
+|chat|DEBUG|Checks: ['tyranitar']
+|chat|DEBUG|Counter: ['jolteon', 'nidoqueen', 'tyranitar']
+|chat|DEBUG|Speed: 260 vs 225
+|chat|DEBUG|HP: 241 vs 246
+|chat|DEBUG|Created a new Strategy for jolteon vs rapidash:
+|chat|DEBUG|>[thunderbolt: 160.0 [147, 174], thunderbolt: 160.0 [147, 174], thunderbolt: 160.0 [147, 174]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 160.0 [147, 174]
+|chat|DEBUG|Best move of rapidash (p2): flareblitz: 259.9375 [238, 282]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Jolteon|Thunderbolt|p1a: Rapidash
+|-damage|p1a: Rapidash|40100
+|move|p1a: Rapidash|Flare Blitz|p2a: Jolteon
+|-damage|p2a: Jolteon|78241
+|-damage|p1a: Rapidash|18100|[from] Recoil
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rapidash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- rapidash
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: flareblitz morningsun swordsdance wildcharge
+|chat|DEBUG|Checks: ['tyranitar']
+|chat|DEBUG|Counter: ['jolteon', 'nidoqueen', 'dunsparce', 'yveltal', 'tyranitar']
+|chat|DEBUG|Speed: 260 vs 225
+|chat|DEBUG|HP: 78 vs 44
+|chat|DEBUG|Created a new Strategy for jolteon vs rapidash:
+|chat|DEBUG|>[thunderbolt: 160.0 [147, 174], thunderbolt: 160.0 [147, 174], thunderbolt: 160.0 [147, 174]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 160.0 [147, 174]
+|chat|DEBUG|Best move of rapidash (p2): flareblitz: 259.9375 [238, 282]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jolteon|Thunderbolt|p1a: Rapidash
+|-damage|p1a: Rapidash|0 fnt
+|faint|p1a: Rapidash
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- nihilego
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['nidoqueen', 'dunsparce']
+|chat|DEBUG|Counter: ['nidoqueen', 'dunsparce', 'tyranitar']
+|chat|DEBUG|Speed: 260 vs 211
+|chat|DEBUG|HP: 78 vs 306
+|chat|DEBUG|Created a new Strategy for jolteon vs nihilego:
+|chat|DEBUG|>[thunderbolt: 118.3125 [109, 129], thunderbolt: 118.3125 [109, 129], thunderbolt: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 118.3125 [109, 129]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check nidoqueen
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Nidoqueen|Nidoqueen, L84, F|288288
+|move|p1a: Nihilego|Sludge Wave|p2a: Nidoqueen
+|-resisted|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|258288
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- nihilego
+|chat|DEBUG|Own moves: sludgewave toxicspikes stealthrock earthpower
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['nidoqueen', 'dunsparce']
+|chat|DEBUG|Counter: ['nidoqueen', 'dunsparce', 'tyranitar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 211
+|chat|DEBUG|HP: 258 vs 306
+|chat|DEBUG|Created a new Strategy for nidoqueen vs nihilego:
+|chat|DEBUG|>[earthpower: 420.875 [390, 458], earthpower: 420.875 [390, 458], earthpower: 420.875 [390, 458]]
+|chat|DEBUG|Best move of nidoqueen (p1): earthpower: 420.875 [390, 458]
+|chat|DEBUG|Best move of nihilego (p2): grassknot: 66.125 [61, 72]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-stealthrock
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gengar|Gengar, L80, M|100100
+|move|p2a: Nidoqueen|Toxic Spikes|p1a: Gengar
+|-sidestart|p1: SysMod|move: Toxic Spikes
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- nihilego-gengar
+|chat|DEBUG|Own moves: sludgewave toxicspikes stealthrock earthpower
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon', 'nidoqueen', 'yveltal']
+|chat|DEBUG|Speed: 176 vs 222
+|chat|DEBUG|HP: 258 vs 227
+|chat|DEBUG|Created a new Strategy for nidoqueen vs gengar:
+|chat|DEBUG|>[earthpower: 311.3125 [283, 338], earthpower: 311.3125 [283, 338], earthpower: 311.3125 [283, 338]]
+|chat|DEBUG|Best move of nidoqueen (p1): earthpower: 311.3125 [283, 338]
+|chat|DEBUG|Best move of gengar (p2): shadowball: 132.3125 [121, 144]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|SysMod has 120 seconds left.
+|move|p1a: Gengar|Shadow Ball|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|133288
+|-damage|p1a: Gengar|91100|[from] item: Life Orb
+|move|p2a: Nidoqueen|Earth Power|p1a: Gengar
+|-supereffective|p1a: Gengar
+|-damage|p1a: Gengar|0 fnt
+|faint|p1a: Gengar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|-sideend|p1: SysMod|move: Toxic Spikes|[of] p1a: Nihilego
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- nihilego
+|chat|DEBUG|Own moves: sludgewave toxicspikes stealthrock earthpower
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['dunsparce']
+|chat|DEBUG|Counter: ['nidoqueen', 'dunsparce', 'tyranitar']
+|chat|DEBUG|Speed: 176 vs 211
+|chat|DEBUG|HP: 133 vs 306
+|chat|DEBUG|Created a new Strategy for nidoqueen vs nihilego:
+|chat|DEBUG|>[earthpower: 420.875 [390, 458], earthpower: 420.875 [390, 458], earthpower: 420.875 [390, 458]]
+|chat|DEBUG|Best move of nidoqueen (p1): earthpower: 420.875 [390, 458]
+|chat|DEBUG|Best move of nihilego (p2): grassknot: 66.125 [61, 72]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Nihilego|Dynamax
+|-heal|p1a: Nihilego|100100|[silent]
+|move|p1a: Nihilego|Max Rockfall|p2a: Nidoqueen
+|-resisted|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|59288
+|-weather|Sandstorm
+|move|p2a: Nidoqueen|Earth Power|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|54100
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon nidoqueen dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-nidoqueen-dunsparce-eiscue-yveltal-tyranitar -- nihilego
+|chat|DEBUG|Own moves: sludgewave toxicspikes stealthrock earthpower
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['dunsparce']
+|chat|DEBUG|Counter: ['dunsparce', 'tyranitar']
+|chat|DEBUG|Speed: 176 vs 211
+|chat|DEBUG|HP: 59 vs 165
+|chat|DEBUG|Best move of nidoqueen (p1): earthpower: 420.875 [390, 458]
+|chat|DEBUG|Best move of nihilego (p2): grassknot: 66.125 [61, 72]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes-stealthrock
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Nihilego|Max Rockfall|p2a: Nidoqueen
+|-resisted|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|0 fnt
+|faint|p2a: Nidoqueen
+|-ability|p1a: Nihilego|Beast Boost|boost
+|-boost|p1a: Nihilego|spa|1
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dunsparce|Dunsparce, L90, F|326326
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-dunsparce-eiscue-yveltal-tyranitar -- nihilego
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['dunsparce']
+|chat|DEBUG|Counter: ['dunsparce', 'tyranitar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to dunsparce (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Nihilego|Max Ooze|p2a: Dunsparce
+|-damage|p2a: Dunsparce|137326
+|-boost|p1a: Nihilego|spa|1
+|move|p2a: Dunsparce|Earthquake|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|0 fnt
+|faint|p1a: Nihilego
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Dunsparce|117326|[from] Sandstorm
+|-heal|p2a: Dunsparce|137326|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Absol|Absol, L84, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dunsparce" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-dunsparce-eiscue-yveltal-tyranitar -- nihilego
+|chat|DEBUG|Own moves: earthquake roost bodyslam coil
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dunsparce', 'tyranitar']
+|chat|DEBUG|Speed: 132 vs 211
+|chat|DEBUG|HP: 326 vs 165
+|chat|DEBUG|Created a new Strategy for dunsparce vs nihilego:
+|chat|DEBUG|>[earthquake: 416.25 [384, 452], earthquake: 416.25 [384, 452], earthquake: 416.25 [384, 452]]
+|chat|DEBUG|Best move of dunsparce (p1): earthquake: 416.25 [384, 452]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 200.25 [184, 217]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Absol|Swords Dance|p1a: Absol
+|-boost|p1a: Absol|atk|2
+|move|p2a: Dunsparce|Body Slam|p1a: Absol
+|-damage|p1a: Absol|55100
+|-status|p1a: Absol|par
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Dunsparce|117326|[from] Sandstorm
+|-damage|p1a: Absol|49100 par|[from] Sandstorm
+|-heal|p2a: Dunsparce|137326|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dunsparce" vs "absol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-dunsparce-eiscue-yveltal-tyranitar -- absol
+|chat|DEBUG|Own moves: earthquake roost bodyslam coil
+|chat|DEBUG|Enemy moves: knockoff playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 132 vs 174
+|chat|DEBUG|HP: 137 vs 246
+|chat|DEBUG|Created a new Strategy for dunsparce vs absol:
+|chat|DEBUG|>[bodyslam: 107.3125 [99, 117], bodyslam: 107.3125 [99, 117], bodyslam: 107.3125 [99, 117]]
+|chat|DEBUG|Best move of dunsparce (p1): bodyslam: 107.3125 [99, 117]
+|chat|DEBUG|Best move of absol (p2): knockoff: 186.0 [172, 203]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Absol|Sucker Punch|p2a: Dunsparce
+|-damage|p2a: Dunsparce|0 fnt
+|faint|p2a: Dunsparce
+|-damage|p1a: Absol|39100 par|[from] item: Life Orb
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jolteon|Jolteon, L82, F|78241
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon dunsparce eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dunsparce" vs "absol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-dunsparce-eiscue-yveltal-tyranitar -- absol
+|chat|DEBUG|Own moves: earthquake roost bodyslam coil
+|chat|DEBUG|Enemy moves: knockoff playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon']
+|chat|DEBUG|Speed: 132 vs 174
+|chat|DEBUG|HP: 137 vs 120
+|chat|DEBUG|Best move of dunsparce (p1): bodyslam: 107.3125 [99, 117]
+|chat|DEBUG|Best move of absol (p2): knockoff: 369.9375 [341, 402]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Absol|par
+|move|p2a: Jolteon|Thunderbolt|p1a: Absol
+|-damage|p1a: Absol|0 fnt
+|faint|p1a: Absol
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Copperajah|Copperajah, L84, M|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dunsparce" vs "absol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-eiscue-yveltal-tyranitar -- absol
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to jolteon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jolteon|Thunderbolt|p1a: Copperajah
+|-damage|p1a: Copperajah|50100
+|move|p1a: Copperajah|Earthquake|p2a: Jolteon
+|-supereffective|p2a: Jolteon
+|-damage|p2a: Jolteon|0 fnt
+|faint|p2a: Jolteon
+|-damage|p1a: Copperajah|41100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Eiscue|Eiscue, L82, M|256256
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "absol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-eiscue-yveltal-tyranitar -- absol
+|chat|DEBUG|Own moves: thunderbolt hypervoice voltswitch shadowball
+|chat|DEBUG|Enemy moves: knockoff playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon', 'yveltal']
+|chat|DEBUG|Speed: 260 vs 174
+|chat|DEBUG|HP: 78 vs 95
+|chat|DEBUG|Created a new Strategy for jolteon vs absol:
+|chat|DEBUG|>[thunderbolt: 196.125 [180, 213], thunderbolt: 196.125 [180, 213], thunderbolt: 196.125 [180, 213]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 196.125 [180, 213]
+|chat|DEBUG|Best move of absol (p2): knockoff: 450.0 [413, 487]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Eiscue|Liquidation|p1a: Copperajah
+|-damage|p1a: Copperajah|24100
+|move|p1a: Copperajah|Iron Head|p2a: Eiscue
+|-activate|p2a: Eiscue|ability: Ice Face
+|-damage|p2a: Eiscue|256256
+|detailschange|p2a: Eiscue|Eiscue-Noice, L82, M
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-eiscue-yveltal-tyranitar -- copperajah
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: heatcrash heavyslam powerwhip stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 99
+|chat|DEBUG|HP: 78 vs 342
+|chat|DEBUG|Created a new Strategy for jolteon vs copperajah:
+|chat|DEBUG|>[thunderbolt: 177.9375 [163, 193], thunderbolt: 177.9375 [163, 193], thunderbolt: 177.9375 [163, 193]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 177.9375 [163, 193]
+|chat|DEBUG|Best move of copperajah (p2): heatcrash: 214.1875 [197, 232]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Eiscue|Liquidation|p1a: Copperajah
+|-damage|p1a: Copperajah|8100
+|-unboost|p1a: Copperajah|def|1
+|move|p1a: Copperajah|Iron Head|p2a: Eiscue
+|-supereffective|p2a: Eiscue
+|-damage|p2a: Eiscue|0 fnt
+|faint|p2a: Eiscue
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Yveltal|Yveltal, L69|288288
+|-ability|p2a: Yveltal|Dark Aura
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-yveltal-tyranitar -- copperajah
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatcrash heavyslam powerwhip stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: eiscue
+|chat|DEBUG|>Switching to eiscue (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Sucker Punch|p1a: Copperajah
+|-damage|p1a: Copperajah|0 fnt
+|faint|p1a: Copperajah
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Primarina|Primarina, L82, M|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eiscue" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-yveltal-tyranitar -- copperajah
+|chat|DEBUG|Own moves: bellydrum substitute iciclecrash liquidation
+|chat|DEBUG|Enemy moves: earthquake ironhead playrough rockslide
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['yveltal', 'tyranitar']
+|chat|DEBUG|Speed: 129 vs 99
+|chat|DEBUG|HP: 256 vs 140
+|chat|DEBUG|Created a new Strategy for eiscue vs copperajah:
+|chat|DEBUG|>[liquidation: 58.75 [54, 64], liquidation: 58.75 [54, 64], liquidation: 58.75 [54, 64]]
+|chat|DEBUG|Best move of eiscue (p1): liquidation: 58.75 [54, 64]
+|chat|DEBUG|Best move of copperajah (p2): ironhead: 311.3125 [283, 338]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Yveltal|Dynamax
+|-heal|p2a: Yveltal|576576|[silent]
+|move|p2a: Yveltal|Max Airstream|p1a: Primarina
+|-damage|p1a: Primarina|61100
+|-boost|p2a: Yveltal|spe|1
+|move|p1a: Primarina|Moonblast|p2a: Yveltal
+|-supereffective|p2a: Yveltal
+|-damage|p2a: Yveltal|204576
+|-unboost|p2a: Yveltal|spa|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscuenoice yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eiscuenoice" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscuenoice-yveltal-tyranitar -- copperajah
+|chat|DEBUG|Own moves: bellydrum substitute iciclecrash liquidation
+|chat|DEBUG|Enemy moves: earthquake ironhead playrough rockslide
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eiscuenoice', 'yveltal', 'tyranitar']
+|chat|DEBUG|Speed: 260 vs 99
+|chat|DEBUG|HP: 256 vs 82
+|chat|DEBUG|Created a new Strategy for eiscuenoice vs copperajah:
+|chat|DEBUG|>[liquidation: 58.75 [54, 64], liquidation: 58.75 [54, 64], liquidation: 58.75 [54, 64]]
+|chat|DEBUG|Best move of eiscuenoice (p1): liquidation: 58.75 [54, 64]
+|chat|DEBUG|Best move of copperajah (p2): ironhead: 311.3125 [283, 338]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Max Airstream|p1a: Primarina
+|-crit|p1a: Primarina
+|-damage|p1a: Primarina|7100
+|-boost|p2a: Yveltal|spe|1
+|move|p1a: Primarina|Moonblast|p2a: Yveltal
+|-supereffective|p2a: Yveltal
+|-damage|p2a: Yveltal|0 fnt
+|faint|p2a: Yveltal
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, F|284284
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Tyranitar
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>yveltal tyranitar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eiscuenoice" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>yveltal-tyranitar -- copperajah
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake ironhead playrough rockslide
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['yveltal', 'tyranitar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to yveltal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tyranitar|Stone Edge|p1a: Primarina
+|-crit|p1a: Primarina
+|-damage|p1a: Primarina|0 fnt
+|faint|p1a: Primarina
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>SysMod<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">jolteon nidoqueen dunsparce eiscue yveltal tyranitar</h1>

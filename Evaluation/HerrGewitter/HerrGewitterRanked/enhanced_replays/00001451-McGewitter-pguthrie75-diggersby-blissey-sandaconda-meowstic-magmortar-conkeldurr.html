@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492289077<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492289077|init|battle
+|title|McGewitter vs. pguthrie75
+|j|☆McGewitter
+|j|☆pguthrie75
+|gametype|singles
+|player|p1|McGewitter|265|1262
+|player|p2|pguthrie75|266|1291
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Diggersby|Diggersby, L80, M|267267
+|switch|p2a: Thundurus|Thundurus-Therian, L80, M|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diggersby" vs "thundurustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian
+|chat|DEBUG|Own moves: swordsdance earthquake quickattack bodyslam
+|chat|DEBUG|Enemy moves: grassknot nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: ['blissey', 'magmortar']
+|chat|DEBUG|Counter: ['blissey', 'meowstic', 'magmortar']
+|chat|DEBUG|Speed: 171 vs 208
+|chat|DEBUG|HP: 267 vs 258
+|chat|DEBUG|Created a new Strategy for diggersby vs thundurustherian:
+|chat|DEBUG|>[bodyslam: 180.0625 [165, 196], bodyslam: 180.0625 [165, 196], bodyslam: 180.0625 [165, 196]]
+|chat|DEBUG|Best move of diggersby (p1): bodyslam: 180.0625 [165, 196]
+|chat|DEBUG|Best move of thundurustherian (p2): grassknot: 126.75 [116, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check blissey
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Vileplume|Vileplume, L84, M|100100
+|switch|p1a: Blissey|Blissey, L83, F|559559
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['diggersby', 'blissey', 'sandaconda', 'meowstic', 'magmortar']
+|chat|DEBUG|Counter: ['diggersby', 'blissey', 'sandaconda', 'meowstic', 'magmortar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 139 vs 132
+|chat|DEBUG|HP: 559 vs 263
+|chat|DEBUG|Created a new Strategy for blissey vs vileplume:
+|chat|DEBUG|>[seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83]]
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 75.3125 [69, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blissey|Seismic Toss|p2a: Vileplume
+|-damage|p2a: Vileplume|69100
+|-status|p1a: Blissey|par|[from] ability: Effect Spore|[of] p2a: Vileplume
+|move|p2a: Vileplume|Sleep Powder||[still]
+|-fail|p2a: Vileplume
+|-heal|p2a: Vileplume|75100|[from] item: Black Sludge
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['diggersby', 'blissey', 'sandaconda', 'meowstic', 'magmortar']
+|chat|DEBUG|Counter: ['diggersby', 'blissey', 'sandaconda', 'meowstic', 'magmortar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 139 vs 132
+|chat|DEBUG|HP: 559 vs 197
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 75.3125 [69, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arctovish|Arctovish, L86|100100
+|move|p1a: Blissey|Seismic Toss|p2a: Arctovish
+|-damage|p2a: Arctovish|72100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sandaconda', 'conkeldurr']
+|chat|DEBUG|Speed: 139 vs 144
+|chat|DEBUG|HP: 559 vs 212
+|chat|DEBUG|Created a new Strategy for blissey vs arctovish:
+|chat|DEBUG|>[seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83]]
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of arctovish (p2): fishiousrend: 813.5 [747, 880]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Arctovish|Fishious Rend|p1a: Blissey
+|-damage|p1a: Blissey|48559 par
+|move|p1a: Blissey|Seismic Toss|p2a: Arctovish
+|-damage|p2a: Arctovish|44100
+|-heal|p1a: Blissey|82559 par|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: ['sandaconda']
+|chat|DEBUG|Counter: ['diggersby', 'sandaconda', 'meowstic', 'magmortar', 'conkeldurr']
+|chat|DEBUG|Speed: 139 vs 144
+|chat|DEBUG|HP: 82 vs 129
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of arctovish (p2): fishiousrend: 813.5 [747, 880]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sandaconda
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p1a: Blissey|par|[from] ability: Natural Cure
+|switch|p1a: Sandaconda|Sandaconda, L84, M|258258
+|move|p2a: Arctovish|Fishious Rend|p1a: Sandaconda
+|-supereffective|p1a: Sandaconda
+|-damage|p1a: Sandaconda|10258
+|-heal|p1a: Sandaconda|26258|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandaconda" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: coil earthquake stoneedge rest
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby', 'sandaconda', 'meowstic', 'magmortar', 'conkeldurr']
+|chat|DEBUG|Speed: 167 vs 144
+|chat|DEBUG|HP: 26 vs 129
+|chat|DEBUG|Created a new Strategy for sandaconda vs arctovish:
+|chat|DEBUG|>[stoneedge: 136.0 [124, 148], stoneedge: 136.0 [124, 148], stoneedge: 136.0 [124, 148]]
+|chat|DEBUG|Best move of sandaconda (p1): stoneedge: 136.0 [124, 148]
+|chat|DEBUG|Best move of arctovish (p2): fishiousrend: 203.5 [186, 222]
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vileplume|Vileplume, L84, M|75100
+|move|p1a: Sandaconda|Stone Edge|p2a: Vileplume
+|-damage|p2a: Vileplume|46100
+|-heal|p1a: Sandaconda|42258|[from] item: Leftovers
+|-heal|p2a: Vileplume|52100|[from] item: Black Sludge
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandaconda" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: coil earthquake stoneedge rest
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['diggersby', 'meowstic', 'magmortar']
+|chat|DEBUG|Counter: ['diggersby', 'blissey', 'meowstic', 'magmortar', 'conkeldurr']
+|chat|DEBUG|Speed: 167 vs 132
+|chat|DEBUG|HP: 42 vs 136
+|chat|DEBUG|Created a new Strategy for sandaconda vs vileplume:
+|chat|DEBUG|>[earthquake: 117.0 [108, 127], earthquake: 117.0 [108, 127], earthquake: 117.0 [108, 127]]
+|chat|DEBUG|Best move of sandaconda (p1): earthquake: 117.0 [108, 127]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 61.75 [57, 67]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check diggersby
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, M|267267
+|move|p2a: Vileplume|Giga Drain|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|61267
+|-heal|p2a: Vileplume|91100|[from] drain|[of] p1a: Diggersby
+|-heal|p2a: Vileplume|97100|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diggersby" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: swordsdance earthquake quickattack bodyslam
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['meowstic', 'magmortar']
+|chat|DEBUG|Counter: ['meowstic', 'magmortar']
+|chat|DEBUG|Speed: 171 vs 132
+|chat|DEBUG|HP: 61 vs 255
+|chat|DEBUG|Created a new Strategy for diggersby vs vileplume:
+|chat|DEBUG|>[earthquake: 176.125 [161, 191], earthquake: 176.125 [161, 191], earthquake: 176.125 [161, 191]]
+|chat|DEBUG|Best move of diggersby (p1): earthquake: 176.125 [161, 191]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 60.375 [55, 66]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check meowstic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Meowstic|Meowstic, L84, M|262262
+|move|p2a: Vileplume|Giga Drain|p1a: Meowstic
+|-damage|p1a: Meowstic|160262
+|-heal|p2a: Vileplume|100100|[from] drain|[of] p1a: Meowstic
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: psychic reflect yawn lightscreen
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['magmortar']
+|chat|DEBUG|Counter: ['meowstic', 'magmortar']
+|chat|DEBUG|Speed: 223 vs 132
+|chat|DEBUG|HP: 160 vs 263
+|chat|DEBUG|Created a new Strategy for meowstic vs vileplume:
+|chat|DEBUG|>[psychic: 167.25 [152, 182], psychic: 167.25 [152, 182], psychic: 167.25 [152, 182]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 167.25 [152, 182]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 111.4375 [102, 121]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wailord|Wailord, L90, F|100100
+|move|p1a: Meowstic|Reflect|p1a: Meowstic
+|-sidestart|p1: McGewitter|Reflect
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: psychic reflect yawn lightscreen
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 223 vs 159
+|chat|DEBUG|HP: 160 vs 452
+|chat|DEBUG|Created a new Strategy for meowstic vs wailord:
+|chat|DEBUG|>[psychic: 125.375 [115, 136], psychic: 125.375 [115, 136], psychic: 125.375 [115, 136]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 125.375 [115, 136]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 275.5 [253, 298]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Light Screen|p1a: Meowstic
+|-sidestart|p1: McGewitter|move: Light Screen
+|move|p2a: Wailord|Water Spout|p1a: Meowstic
+|-damage|p1a: Meowstic|17262
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda meowstic magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-meowstic-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: psychic reflect yawn lightscreen
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 223 vs 159
+|chat|DEBUG|HP: 17 vs 452
+|chat|DEBUG|Best move of meowstic (p1): psychic: 125.375 [115, 136]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 275.5 [253, 298]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Psychic|p2a: Wailord
+|-damage|p2a: Wailord|71100
+|move|p2a: Wailord|Water Spout|p1a: Meowstic
+|-damage|p1a: Meowstic|0 fnt
+|faint|p1a: Meowstic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blissey|Blissey, L83, F|82559
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: blissey
+|chat|DEBUG|>Switching to blissey (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Wailord|Water Spout|p1a: Blissey
+|-damage|p1a: Blissey|22559
+|move|p1a: Blissey|Seismic Toss|p2a: Wailord
+|-damage|p2a: Wailord|53100
+|-heal|p1a: Blissey|56559|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 139 vs 159
+|chat|DEBUG|HP: 82 vs 320
+|chat|DEBUG|Created a new Strategy for blissey vs wailord:
+|chat|DEBUG|>[seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83]]
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 132.5 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Wailord|Water Spout|p1a: Blissey
+|-damage|p1a: Blissey|7559
+|move|p1a: Blissey|Seismic Toss|p2a: Wailord
+|-damage|p2a: Wailord|34100
+|-heal|p1a: Blissey|41559|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby', 'magmortar']
+|chat|DEBUG|Speed: 139 vs 159
+|chat|DEBUG|HP: 56 vs 239
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vileplume|Vileplume, L84, M|100100
+|move|p1a: Blissey|Seismic Toss|p2a: Vileplume
+|-damage|p2a: Vileplume|69100
+|-heal|p1a: Blissey|75559|[from] item: Leftovers
+|-heal|p2a: Vileplume|75100|[from] item: Black Sludge
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby', 'sandaconda', 'magmortar', 'conkeldurr']
+|chat|DEBUG|Speed: 139 vs 159
+|chat|DEBUG|HP: 41 vs 153
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Magmortar|Magmortar, L86, F|269269
+|move|p2a: Vileplume|Giga Drain|p1a: Magmortar
+|-resisted|p1a: Magmortar
+|-damage|p1a: Magmortar|256269
+|-heal|p2a: Vileplume|78100|[from] drain|[of] p1a: Magmortar
+|-heal|p2a: Vileplume|84100|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['magmortar']
+|chat|DEBUG|Counter: ['magmortar']
+|chat|DEBUG|Speed: 139 vs 132
+|chat|DEBUG|HP: 75 vs 197
+|chat|DEBUG|Created a new Strategy for blissey vs vileplume:
+|chat|DEBUG|>[seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83]]
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check magmortar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wailord|Wailord, L90, F|34100
+|move|p1a: Magmortar|Fire Blast|p2a: Wailord
+|-resisted|p2a: Wailord
+|-damage|p2a: Wailord|8100
+|-sideend|p1: McGewitter|Reflect
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: fireblast focusblast earthquake psychic
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['magmortar']
+|chat|DEBUG|Counter: ['magmortar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 192 vs 132
+|chat|DEBUG|HP: 256 vs 220
+|chat|DEBUG|Created a new Strategy for magmortar vs vileplume:
+|chat|DEBUG|>[fireblast: 295.0 [270, 320], fireblast: 295.0 [270, 320], fireblast: 295.0 [270, 320]]
+|chat|DEBUG|Best move of magmortar (p1): fireblast: 295.0 [270, 320]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 65.75 [60, 72]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Magmortar|Psychic|p2a: Wailord
+|-damage|p2a: Wailord|0 fnt
+|faint|p2a: Wailord
+|-sideend|p1: McGewitter|move: Light Screen
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thundurus|Thundurus-Therian, L80, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish-wailord
+|chat|DEBUG|Own moves: fireblast focusblast earthquake psychic
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['magmortar']
+|chat|DEBUG|Counter: ['diggersby', 'sandaconda', 'magmortar', 'conkeldurr']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 192 vs 159
+|chat|DEBUG|HP: 256 vs 36
+|chat|DEBUG|Created a new Strategy for magmortar vs wailord:
+|chat|DEBUG|>[psychic: 120.6875 [111, 131], psychic: 120.6875 [111, 131], psychic: 120.6875 [111, 131]]
+|chat|DEBUG|Best move of magmortar (p1): psychic: 120.6875 [111, 131]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 234.0 [216, 254]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Magmortar
+|-damage|p1a: Magmortar|180269
+|move|p1a: Magmortar|Fire Blast|p2a: Thundurus
+|-damage|p2a: Thundurus|40100
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "thundurustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: fireblast focusblast earthquake psychic
+|chat|DEBUG|Enemy moves: grassknot nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: ['magmortar']
+|chat|DEBUG|Counter: ['magmortar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 192 vs 208
+|chat|DEBUG|HP: 256 vs 258
+|chat|DEBUG|Created a new Strategy for magmortar vs thundurustherian:
+|chat|DEBUG|>[fireblast: 168.3125 [154, 183], fireblast: 168.3125 [154, 183], fireblast: 168.3125 [154, 183]]
+|chat|DEBUG|Best move of magmortar (p1): fireblast: 168.3125 [154, 183]
+|chat|DEBUG|Best move of thundurustherian (p2): thunderbolt: 75.3125 [69, 82]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Thunderbolt|p1a: Magmortar
+|-damage|p1a: Magmortar|102269
+|move|p1a: Magmortar|Fire Blast|p2a: Thundurus
+|-damage|p2a: Thundurus|0 fnt
+|faint|p2a: Thundurus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Noivern|Noivern, L82, M|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "thundurustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- thundurustherian-vileplume-arctovish
+|chat|DEBUG|Own moves: fireblast focusblast earthquake psychic
+|chat|DEBUG|Enemy moves: grassknot nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: ['magmortar']
+|chat|DEBUG|Counter: ['magmortar', 'conkeldurr']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 192 vs 208
+|chat|DEBUG|HP: 180 vs 103
+|chat|DEBUG|Best move of magmortar (p1): fireblast: 168.3125 [154, 183]
+|chat|DEBUG|Best move of thundurustherian (p2): thunderbolt: 75.3125 [69, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Hurricane|p1a: Magmortar
+|-damage|p1a: Magmortar|36269
+|-start|p1a: Magmortar|confusion
+|-activate|p1a: Magmortar|confusion
+|move|p1a: Magmortar|Psychic|p2a: Noivern
+|-damage|p2a: Noivern|65100
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: fireblast focusblast earthquake psychic
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 192 vs 249
+|chat|DEBUG|HP: 102 vs 274
+|chat|DEBUG|Created a new Strategy for magmortar vs noivern:
+|chat|DEBUG|>[psychic: 90.5 [83, 98], psychic: 90.5 [83, 98], psychic: 90.5 [83, 98]]
+|chat|DEBUG|Best move of magmortar (p1): psychic: 90.5 [83, 98]
+|chat|DEBUG|Best move of noivern (p2): hurricane: 68.75 [63, 75]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Hurricane|p1a: Magmortar
+|-damage|p1a: Magmortar|0 fnt
+|faint|p1a: Magmortar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blissey|Blissey, L83, F|75559
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda magmortar conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-magmortar-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: fireblast focusblast earthquake psychic
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 192 vs 249
+|chat|DEBUG|HP: 36 vs 178
+|chat|DEBUG|Best move of magmortar (p1): psychic: 90.5 [83, 98]
+|chat|DEBUG|Best move of noivern (p2): hurricane: 68.75 [63, 75]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Draco Meteor|p1a: Blissey
+|-damage|p1a: Blissey|0 fnt
+|-unboost|p2a: Noivern|spa|2
+|faint|p1a: Blissey
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sandaconda|Sandaconda, L84, M|42258
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magmortar" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: blissey
+|chat|DEBUG|>Switching to blissey (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Flamethrower|p1a: Sandaconda
+|-crit|p1a: Sandaconda
+|-damage|p1a: Sandaconda|0 fnt
+|faint|p1a: Sandaconda
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Conkeldurr|Conkeldurr, L80, F|299299
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby blissey sandaconda conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-blissey-sandaconda-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: teleport softboiled toxic seismictoss
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 139 vs 249
+|chat|DEBUG|HP: 75 vs 178
+|chat|DEBUG|Created a new Strategy for blissey vs noivern:
+|chat|DEBUG|>[seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83], seismictoss: 83.0 [83, 83]]
+|chat|DEBUG|Best move of blissey (p1): seismictoss: 83.0 [83, 83]
+|chat|DEBUG|Best move of noivern (p2): dracometeor: 93.25 [85, 102]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using seismictoss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vileplume|Vileplume, L84, M|84100
+|-start|p1a: Conkeldurr|Dynamax
+|-heal|p1a: Conkeldurr|598598|[silent]
+|move|p1a: Conkeldurr|Max Darkness|p2a: Vileplume
+|-damage|p2a: Vileplume|41100
+|-unboost|p2a: Vileplume|spd|1
+|-heal|p2a: Vileplume|47100|[from] item: Black Sludge
+|-status|p1a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby sandaconda conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blissey" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-sandaconda-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: sandaconda
+|chat|DEBUG|>Switching to sandaconda (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Giga Drain|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|486598 brn
+|-heal|p2a: Vileplume|69100|[from] drain|[of] p1a: Conkeldurr
+|move|p1a: Conkeldurr|Max Darkness|p2a: Vileplume
+|-damage|p2a: Vileplume|12100
+|-unboost|p2a: Vileplume|spd|1
+|-heal|p2a: Vileplume|18100|[from] item: Black Sludge
+|-damage|p1a: Conkeldurr|468598 brn|[from] brn
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby sandaconda conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandaconda" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-sandaconda-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: coil earthquake stoneedge rest
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['conkeldurr']
+|chat|DEBUG|Speed: 167 vs 249
+|chat|DEBUG|HP: 42 vs 178
+|chat|DEBUG|Created a new Strategy for sandaconda vs noivern:
+|chat|DEBUG|>[stoneedge: 167.5 [154, 182], stoneedge: 167.5 [154, 182], stoneedge: 167.5 [154, 182]]
+|chat|DEBUG|Best move of sandaconda (p1): stoneedge: 167.5 [154, 182]
+|chat|DEBUG|Best move of noivern (p2): hurricane: 65.75 [60, 72]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Giga Drain|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|347598 brn
+|-heal|p2a: Vileplume|41100|[from] drain|[of] p1a: Conkeldurr
+|move|p1a: Conkeldurr|Max Darkness|p2a: Vileplume
+|-damage|p2a: Vileplume|0 fnt
+|faint|p2a: Vileplume
+|-damage|p1a: Conkeldurr|329598 brn|[from] brn
+|-end|p1a: Conkeldurr|Dynamax
+|-heal|p1a: Conkeldurr|165299 brn|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Noivern|Noivern, L82, M|65100
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sandaconda" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['conkeldurr']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to conkeldurr (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Noivern|Dynamax
+|-heal|p2a: Noivern|65100|[silent]
+|move|p2a: Noivern|Max Airstream|p1a: Conkeldurr
+|-supereffective|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|0 fnt
+|-boost|p2a: Noivern|spe|1
+|faint|p1a: Conkeldurr
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, M|61267
+|turn|28
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diggersby conkeldurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "noivern"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diggersby-conkeldurr -- vileplume-arctovish-noivern
+|chat|DEBUG|Own moves: machpunch knockoff closecombat facade
+|chat|DEBUG|Enemy moves: defog dracometeor hurricane roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['conkeldurr']
+|chat|DEBUG|Speed: 118 vs 249
+|chat|DEBUG|HP: 299 vs 178
+|chat|DEBUG|Created a new Strategy for conkeldurr vs noivern:
+|chat|DEBUG|>[knockoff: 93.5625 [86, 102], knockoff: 93.5625 [86, 102], knockoff: 93.5625 [86, 102]]
+|chat|DEBUG|Best move of conkeldurr (p1): knockoff: 93.5625 [86, 102]
+|chat|DEBUG|Best move of noivern (p2): hurricane: 145.125 [134, 158]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Noivern|Max Airstream|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|-boost|p2a: Noivern|spe|1
+|faint|p1a: Diggersby
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>pguthrie75</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">diggersby blissey sandaconda meowstic magmortar conkeldurr</h1>

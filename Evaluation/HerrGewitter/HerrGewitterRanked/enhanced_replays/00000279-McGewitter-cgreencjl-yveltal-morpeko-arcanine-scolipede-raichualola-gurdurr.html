@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490422932<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490422932|init|battle
+|title|McGewitter vs. cgreencjl
+|j|☆McGewitter
+|j|☆cgreencjl
+|gametype|singles
+|player|p1|McGewitter|265|1218
+|player|p2|cgreencjl|buck|1178
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Yveltal|Yveltal, L69|288288
+|switch|p2a: Abomasnow|Abomasnow, L82, M|100100
+|-ability|p1a: Yveltal|Dark Aura
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Abomasnow
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>yveltal morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>yveltal-morpeko-arcanine-scolipede-raichualola-gurdurr -- abomasnow
+|chat|DEBUG|Own moves: roost knockoff suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['arcanine', 'scolipede', 'gurdurr']
+|chat|DEBUG|Counter: ['yveltal', 'morpeko', 'arcanine', 'scolipede', 'raichualola', 'gurdurr']
+|chat|DEBUG|Speed: 177 vs 146
+|chat|DEBUG|HP: 288 vs 282
+|chat|DEBUG|Created a new Strategy for yveltal vs abomasnow:
+|chat|DEBUG|>[oblivionwing: 153.5 [140, 168], oblivionwing: 153.5 [140, 168], oblivionwing: 153.5 [140, 168]]
+|chat|DEBUG|Best move of yveltal (p1): oblivionwing: 153.5 [140, 168]
+|chat|DEBUG|Best move of abomasnow (p2): blizzard: 236.625 [218, 258]
+|chat|DEBUG|Attacking using oblivionwing
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by cgreencjl)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|McGewitter also wants the timer to be on.
+|move|p1a: Yveltal|Oblivion Wing|p2a: Abomasnow
+|-supereffective|p2a: Abomasnow
+|-damage|p2a: Abomasnow|49100
+|move|p2a: Abomasnow|Aurora Veil|p2a: Abomasnow
+|-sidestart|p2: cgreencjl|move: Aurora Veil
+|-weather|Hail|[upkeep]
+|-damage|p1a: Yveltal|270288|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>yveltal morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>yveltal-morpeko-arcanine-scolipede-raichualola-gurdurr -- abomasnow
+|chat|DEBUG|Own moves: roost knockoff suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['yveltal', 'morpeko', 'arcanine', 'scolipede', 'raichualola', 'gurdurr']
+|chat|DEBUG|Counter: ['yveltal', 'morpeko', 'arcanine', 'scolipede', 'raichualola', 'gurdurr']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 177 vs 146
+|chat|DEBUG|HP: 270 vs 138
+|chat|DEBUG|Best move of yveltal (p1): oblivionwing: 153.5 [140, 168]
+|chat|DEBUG|Best move of abomasnow (p2): blizzard: 236.625 [218, 258]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using oblivionwing
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Yveltal|Oblivion Wing|p2a: Abomasnow
+|-supereffective|p2a: Abomasnow
+|-damage|p2a: Abomasnow|24100
+|-heal|p1a: Yveltal|288288|[from] drain|[of] p2a: Abomasnow
+|move|p2a: Abomasnow|Blizzard|p1a: Yveltal
+|-supereffective|p1a: Yveltal
+|-damage|p1a: Yveltal|60288
+|-weather|Hail|[upkeep]
+|-damage|p1a: Yveltal|42288|[from] Hail
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>yveltal morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>yveltal-morpeko-arcanine-scolipede-raichualola-gurdurr -- abomasnow
+|chat|DEBUG|Own moves: roost knockoff suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['morpeko', 'arcanine', 'scolipede', 'raichualola', 'gurdurr']
+|chat|DEBUG|Counter: ['yveltal', 'morpeko', 'arcanine', 'scolipede', 'raichualola', 'gurdurr']
+|chat|DEBUG|Speed: 177 vs 146
+|chat|DEBUG|HP: 42 vs 67
+|chat|DEBUG|Best move of yveltal (p1): oblivionwing: 153.5 [140, 168]
+|chat|DEBUG|Best move of abomasnow (p2): blizzard: 236.625 [218, 258]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Yveltal|Oblivion Wing|p2a: Abomasnow
+|-supereffective|p2a: Abomasnow
+|-damage|p2a: Abomasnow|0 fnt
+|-heal|p1a: Yveltal|92288|[from] drain|[of] p2a: Abomasnow
+|faint|p2a: Abomasnow
+|-weather|Hail|[upkeep]
+|-damage|p1a: Yveltal|74288|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blacephalon|Blacephalon, L80|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>yveltal morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "blacephalon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>yveltal-morpeko-arcanine-scolipede-raichualola-gurdurr -- blacephalon
+|chat|DEBUG|Own moves: roost knockoff suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: calmmind fireblast psyshock shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['morpeko', 'scolipede']
+|chat|DEBUG|Speed: 177 vs 217
+|chat|DEBUG|HP: 74 vs 216
+|chat|DEBUG|Created a new Strategy for yveltal vs blacephalon:
+|chat|DEBUG|>[knockoff: 355.875 [326, 386], knockoff: 355.875 [326, 386], knockoff: 355.875 [326, 386]]
+|chat|DEBUG|Best move of yveltal (p1): knockoff: 355.875 [326, 386]
+|chat|DEBUG|Best move of blacephalon (p2): fireblast: 171.125 [157, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blacephalon|Fire Blast|p1a: Yveltal
+|-damage|p1a: Yveltal|0 fnt
+|faint|p1a: Yveltal
+|-ability|p2a: Blacephalon|Beast Boost|boost
+|-boost|p2a: Blacephalon|spa|1
+|-weather|Hail|[upkeep]
+|-damage|p2a: Blacephalon|94100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Morpeko|Morpeko, L86, M|240240
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "blacephalon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>morpeko-arcanine-scolipede-raichualola-gurdurr -- blacephalon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast psyshock shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['morpeko', 'scolipede']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to morpeko (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blacephalon|Calm Mind|p2a: Blacephalon
+|-boost|p2a: Blacephalon|spa|1
+|-boost|p2a: Blacephalon|spd|1
+|move|p1a: Morpeko|Foul Play|p2a: Blacephalon
+|-supereffective|p2a: Blacephalon
+|-damage|p2a: Blacephalon|25100
+|-weather|none
+|-formechange|p1a: Morpeko|Morpeko-Hangry||[from] ability: Hunger Switch
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "morpeko" vs "blacephalon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>morpeko-arcanine-scolipede-raichualola-gurdurr -- blacephalon
+|chat|DEBUG|Own moves: protect partingshot aurawheel foulplay
+|chat|DEBUG|Enemy moves: calmmind fireblast psyshock shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede', 'gurdurr']
+|chat|DEBUG|Speed: 216 vs 217
+|chat|DEBUG|HP: 240 vs 203
+|chat|DEBUG|Created a new Strategy for morpeko vs blacephalon:
+|chat|DEBUG|>[foulplay: 303.25 [278, 330], foulplay: 303.25 [278, 330], foulplay: 303.25 [278, 330]]
+|chat|DEBUG|Best move of morpeko (p1): foulplay: 303.25 [278, 330]
+|chat|DEBUG|Best move of blacephalon (p2): fireblast: 301.5 [277, 327]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using foulplay
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blacephalon|Fire Blast|p1a: Morpeko
+|-damage|p1a: Morpeko|0 fnt
+|faint|p1a: Morpeko
+|-ability|p2a: Blacephalon|Beast Boost|boost
+|-boost|p2a: Blacephalon|spa|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arcanine|Arcanine, L82, F|282282
+|-ability|p1a: Arcanine|Intimidate|boost
+|-unboost|p2a: Blacephalon|atk|1
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>morpeko arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "morpeko" vs "blacephalon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>morpeko-arcanine-scolipede-raichualola-gurdurr -- blacephalon
+|chat|DEBUG|Own moves: protect partingshot aurawheel foulplay
+|chat|DEBUG|Enemy moves: calmmind fireblast psyshock shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine', 'scolipede', 'raichualola']
+|chat|DEBUG|Speed: 216 vs 217
+|chat|DEBUG|HP: 240 vs 54
+|chat|DEBUG|Best move of morpeko (p1): foulplay: 303.25 [278, 330]
+|chat|DEBUG|Best move of blacephalon (p2): fireblast: 402.875 [370, 436]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using foulplay
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blacephalon|Psyshock|p1a: Arcanine
+|-damage|p1a: Arcanine|74282
+|move|p1a: Arcanine|Flare Blitz|p2a: Blacephalon
+|-resisted|p2a: Blacephalon
+|-damage|p2a: Blacephalon|0 fnt
+|faint|p2a: Blacephalon
+|-damage|p1a: Arcanine|57282|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "morpeko" vs "blacephalon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arcanine-scolipede-raichualola-gurdurr -- blacephalon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast psyshock shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine', 'scolipede', 'raichualola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to arcanine (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Close Combat|p2a: Goodra
+|-damage|p2a: Goodra|82100
+|-unboost|p1a: Arcanine|def|1
+|-unboost|p1a: Arcanine|spd|1
+|move|p2a: Goodra|Sludge Bomb|p1a: Arcanine
+|-damage|p1a: Arcanine|0 fnt
+|faint|p1a: Arcanine
+|-sideend|p2: cgreencjl|move: Aurora Veil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scolipede|Scolipede, L80, M|227227
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "blacephalon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arcanine-scolipede-raichualola-gurdurr -- blacephalon
+|chat|DEBUG|Own moves: flareblitz closecombat toxic morningsun
+|chat|DEBUG|Enemy moves: calmmind fireblast psyshock shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede', 'raichualola']
+|chat|DEBUG|Speed: 203 vs 217
+|chat|DEBUG|HP: 282 vs 54
+|chat|DEBUG|Created a new Strategy for arcanine vs blacephalon:
+|chat|DEBUG|>[flareblitz: 99.1875 [91, 108], flareblitz: 99.1875 [91, 108], flareblitz: 99.1875 [91, 108]]
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 99.1875 [91, 108]
+|chat|DEBUG|Best move of blacephalon (p2): shadowball: 307.0625 [282, 333]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Megahorn|p2a: Goodra|[miss]
+|-miss|p1a: Scolipede|p2a: Goodra
+|move|p2a: Goodra|Earthquake|p1a: Scolipede
+|-damage|p1a: Scolipede|151227
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arcanine scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arcanine-scolipede-raichualola-gurdurr -- goodra
+|chat|DEBUG|Own moves: flareblitz closecombat toxic morningsun
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede']
+|chat|DEBUG|Speed: 203 vs 178
+|chat|DEBUG|HP: 57 vs 282
+|chat|DEBUG|Created a new Strategy for arcanine vs goodra:
+|chat|DEBUG|>[closecombat: 106.8125 [98, 116], closecombat: 106.8125 [98, 116], closecombat: 106.8125 [98, 116]]
+|chat|DEBUG|Best move of arcanine (p1): closecombat: 106.8125 [98, 116]
+|chat|DEBUG|Best move of goodra (p2): earthquake: 100.75 [92, 110]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Megahorn|p2a: Goodra
+|-damage|p2a: Goodra|19100
+|-damage|p1a: Scolipede|129227|[from] item: Life Orb
+|move|p2a: Goodra|Sludge Bomb|p1a: Scolipede
+|-resisted|p1a: Scolipede
+|-damage|p1a: Scolipede|88227
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- goodra
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scolipede (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Goodra|Dynamax
+|-heal|p2a: Goodra|19100|[silent]
+|move|p1a: Scolipede|Megahorn|p2a: Goodra
+|-damage|p2a: Goodra|0 fnt
+|faint|p2a: Goodra
+|-damage|p1a: Scolipede|66227|[from] item: Life Orb
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tapu Fini|Tapu Fini, L78|100100
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p2a: Tapu Fini
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- goodra
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede', 'raichualola']
+|chat|DEBUG|Speed: 225 vs 178
+|chat|DEBUG|HP: 227 vs 231
+|chat|DEBUG|Created a new Strategy for scolipede vs goodra:
+|chat|DEBUG|>[megahorn: 187.8125 [173, 204], megahorn: 187.8125 [173, 204], megahorn: 187.8125 [173, 204]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 187.8125 [173, 204]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 202.5 [186, 220]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raichu|Raichu-Alola, L84, M|238238
+|move|p2a: Tapu Fini|Calm Mind|p2a: Tapu Fini
+|-boost|p2a: Tapu Fini|spa|1
+|-boost|p2a: Tapu Fini|spd|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- goodra
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raichualola']
+|chat|DEBUG|Speed: 225 vs 178
+|chat|DEBUG|HP: 151 vs 231
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 187.8125 [173, 204]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 202.5 [186, 220]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raichu|Thunderbolt|p2a: Tapu Fini
+|-supereffective|p2a: Tapu Fini
+|-crit|p2a: Tapu Fini
+|-damage|p2a: Tapu Fini|0 fnt
+|faint|p2a: Tapu Fini
+|-damage|p1a: Raichu|215238|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|100100
+|-item|p1a: Raichu|Life Orb|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- goodra
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['raichualola', 'gurdurr']
+|chat|DEBUG|Counter: ['scolipede', 'raichualola', 'gurdurr']
+|chat|DEBUG|Speed: 225 vs 178
+|chat|DEBUG|HP: 88 vs 53
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 187.8125 [173, 204]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 202.5 [186, 220]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raichu|Psyshock|p2a: Exeggutor
+|-damage|p2a: Exeggutor|65100
+|-damage|p1a: Raichu|192238|[from] item: Life Orb
+|move|p2a: Exeggutor|Trick Room|p2a: Exeggutor
+|-fieldstart|move: Trick Room|[of] p2a: Exeggutor
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- tapufini
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['raichualola']
+|chat|DEBUG|Counter: ['raichualola']
+|chat|DEBUG|Speed: 225 vs 178
+|chat|DEBUG|HP: 66 vs 237
+|chat|DEBUG|Created a new Strategy for scolipede vs tapufini:
+|chat|DEBUG|>[poisonjab: 184.9375 [172, 203], poisonjab: 184.9375 [172, 203], poisonjab: 184.9375 [172, 203]]
+|chat|DEBUG|Best move of scolipede (p1): poisonjab: 184.9375 [172, 203]
+|chat|DEBUG|Best move of tapufini (p2): surf: 103.25 [94, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raichualola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exeggutor|Flamethrower|p1a: Raichu
+|-crit|p1a: Raichu
+|-damage|p1a: Raichu|28238
+|-damage|p2a: Exeggutor|55100|[from] item: Life Orb
+|move|p1a: Raichu|Psyshock|p2a: Exeggutor
+|-crit|p2a: Exeggutor
+|-damage|p2a: Exeggutor|0 fnt
+|faint|p2a: Exeggutor
+|-damage|p1a: Raichu|5238|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Escavalier|Escavalier, L84, F|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- tapufini
+|chat|DEBUG|Own moves: nastyplot grassknot thunderbolt psyshock
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raichualola']
+|chat|DEBUG|Speed: 233 vs 178
+|chat|DEBUG|HP: 238 vs 237
+|chat|DEBUG|Created a new Strategy for raichualola vs tapufini:
+|chat|DEBUG|>[thunderbolt: 131.0 [120, 143], thunderbolt: 131.0 [120, 143], thunderbolt: 131.0 [120, 143]]
+|chat|DEBUG|Best move of raichualola (p1): thunderbolt: 131.0 [120, 143]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 132.5 [121, 144]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Escavalier|Swords Dance|p2a: Escavalier
+|-boost|p2a: Escavalier|atk|2
+|move|p1a: Raichu|Thunderbolt|p2a: Escavalier
+|-damage|p2a: Escavalier|58100
+|-damage|p1a: Raichu|0 fnt|[from] item: Life Orb
+|faint|p1a: Raichu
+|-heal|p2a: Escavalier|64100|[from] item: Leftovers
+|-fieldend|Misty Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scolipede|Scolipede, L80, M|66227
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "exeggutoralola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- exeggutoralola
+|chat|DEBUG|Own moves: nastyplot grassknot thunderbolt psyshock
+|chat|DEBUG|Enemy moves: dracometeor flamethrower gigadrain leafstorm
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede']
+|chat|DEBUG|Speed: 233 vs 128
+|chat|DEBUG|HP: 215 vs 307
+|chat|DEBUG|Created a new Strategy for raichualola vs exeggutoralola:
+|chat|DEBUG|>[psyshock: 107.0625 [99, 117], psyshock: 107.0625 [99, 117], psyshock: 107.0625 [99, 117]]
+|chat|DEBUG|Best move of raichualola (p1): psyshock: 107.0625 [99, 117]
+|chat|DEBUG|Best move of exeggutoralola (p2): leafstorm: 274.5 [252, 297]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Escavalier|Iron Head|p1a: Scolipede
+|-damage|p1a: Scolipede|0 fnt
+|faint|p1a: Scolipede
+|-heal|p2a: Escavalier|70100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gurdurr|Gurdurr, L83, M|277277
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "exeggutoralola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- exeggutoralola
+|chat|DEBUG|Own moves: nastyplot grassknot thunderbolt psyshock
+|chat|DEBUG|Enemy moves: dracometeor flamethrower gigadrain leafstorm
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede']
+|chat|DEBUG|Speed: 233 vs 128
+|chat|DEBUG|HP: 192 vs 199
+|chat|DEBUG|Best move of raichualola (p1): psyshock: 107.0625 [99, 117]
+|chat|DEBUG|Best move of exeggutoralola (p2): leafstorm: 274.5 [252, 297]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Gurdurr|Dynamax
+|-heal|p1a: Gurdurr|554554|[silent]
+|move|p2a: Escavalier|Megahorn|p1a: Gurdurr
+|-resisted|p1a: Gurdurr
+|-crit|p1a: Gurdurr
+|-damage|p1a: Gurdurr|371554
+|move|p1a: Gurdurr|Max Knuckle|p2a: Escavalier
+|-damage|p2a: Escavalier|37100
+|-boost|p1a: Gurdurr|atk|1
+|-heal|p2a: Escavalier|42100|[from] item: Leftovers
+|-fieldend|move: Trick Room
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede raichualola gurdurr
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "raichualola" vs "escavalier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-raichualola-gurdurr -- escavalier
+|chat|DEBUG|Own moves: nastyplot grassknot thunderbolt psyshock
+|chat|DEBUG|Enemy moves: closecombat ironhead megahorn swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gurdurr']
+|chat|DEBUG|Speed: 233 vs 82
+|chat|DEBUG|HP: 5 vs 255
+|chat|DEBUG|Created a new Strategy for raichualola vs escavalier:
+|chat|DEBUG|>[thunderbolt: 107.0625 [99, 117], thunderbolt: 107.0625 [99, 117], thunderbolt: 107.0625 [99, 117]]
+|chat|DEBUG|Best move of raichualola (p1): thunderbolt: 107.0625 [99, 117]
+|chat|DEBUG|Best move of escavalier (p2): megahorn: 489.125 [450, 530]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gurdurr|Max Knuckle|p2a: Escavalier
+|-damage|p2a: Escavalier|0 fnt
+|-boost|p1a: Gurdurr|atk|1
+|faint|p2a: Escavalier
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>cgreencjl</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">yveltal morpeko arcanine scolipede raichualola gurdurr</h1>

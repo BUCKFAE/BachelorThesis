@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490470494<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490470494|init|battle
+|title|Funginilo vs. McGewitter
+|j|☆Funginilo
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Funginilo|bugcatcher-gen4dp|1263
+|player|p2|McGewitter|265|1256
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Sharpedo|Sharpedo, L82, F|100100
+|switch|p2a: Pinsir|Pinsir, L84, F|246246
+|-ability|p2a: Pinsir|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-tauros-dracovish-nidoking-grimmsnarl-sandslash -- sharpedo
+|chat|DEBUG|Own moves: stealthrock stoneedge earthquake xscissor
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: ['dracovish']
+|chat|DEBUG|Counter: ['pinsir', 'tauros', 'dracovish', 'grimmsnarl']
+|chat|DEBUG|Speed: 191 vs 203
+|chat|DEBUG|HP: 246 vs 249
+|chat|DEBUG|Created a new Strategy for pinsir vs sharpedo:
+|chat|DEBUG|>[xscissor: 355.875 [326, 386], xscissor: 355.875 [326, 386], xscissor: 355.875 [326, 386]]
+|chat|DEBUG|Best move of pinsir (p1): xscissor: 355.875 [326, 386]
+|chat|DEBUG|Best move of sharpedo (p2): hydropump: 166.4375 [153, 181]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Sharpedo|Crunch|p2a: Pinsir
+|-damage|p2a: Pinsir|141246
+|-damage|p1a: Sharpedo|91100|[from] item: Life Orb
+|move|p2a: Pinsir|X-Scissor|p1a: Sharpedo
+|-supereffective|p1a: Sharpedo
+|-damage|p1a: Sharpedo|0 fnt
+|faint|p1a: Sharpedo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mudsdale|Mudsdale, L82, M|100100
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "mudsdale"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale
+|chat|DEBUG|Own moves: stealthrock stoneedge earthquake xscissor
+|chat|DEBUG|Enemy moves: bodypress earthquake heavyslam rockslide
+|chat|DEBUG|Checks: ['dracovish']
+|chat|DEBUG|Counter: ['dracovish']
+|chat|DEBUG|Speed: 191 vs 105
+|chat|DEBUG|HP: 141 vs 298
+|chat|DEBUG|Created a new Strategy for pinsir vs mudsdale:
+|chat|DEBUG|>[xscissor: 96.1875 [88, 105], xscissor: 96.1875 [88, 105], xscissor: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of pinsir (p1): xscissor: 96.1875 [88, 105]
+|chat|DEBUG|Best move of mudsdale (p2): rockslide: 167.5 [154, 182]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pinsir|Stealth Rock|p1a: Mudsdale
+|-sidestart|p1: Funginilo|move: Stealth Rock
+|move|p1a: Mudsdale|Rock Slide|p2a: Pinsir
+|-supereffective|p2a: Pinsir
+|-damage|p2a: Pinsir|0 fnt
+|faint|p2a: Pinsir
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dracovish|Dracovish, L80|275275
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "mudsdale"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress earthquake heavyslam rockslide
+|chat|DEBUG|Checks: ['dracovish']
+|chat|DEBUG|Counter: ['dracovish']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to dracovish (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eldegoss|Eldegoss, L90, F|100100
+|move|p2a: Dracovish|Fishious Rend|p1a: Eldegoss
+|-resisted|p1a: Eldegoss
+|-damage|p1a: Eldegoss|39100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracovish" vs "mudsdale"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale
+|chat|DEBUG|Own moves: fishiousrend lowkick crunch icefang
+|chat|DEBUG|Enemy moves: bodypress earthquake heavyslam rockslide
+|chat|DEBUG|Checks: ['dracovish']
+|chat|DEBUG|Counter: ['dracovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 166 vs 105
+|chat|DEBUG|HP: 275 vs 298
+|chat|DEBUG|Created a new Strategy for dracovish vs mudsdale:
+|chat|DEBUG|>[fishiousrend: 653.0 [600, 708], fishiousrend: 653.0 [600, 708], fishiousrend: 653.0 [600, 708]]
+|chat|DEBUG|Best move of dracovish (p1): fishiousrend: 653.0 [600, 708]
+|chat|DEBUG|Best move of mudsdale (p2): earthquake: 173.875 [160, 189]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dracovish|Fishious Rend|p1a: Eldegoss
+|-resisted|p1a: Eldegoss
+|-crit|p1a: Eldegoss
+|-damage|p1a: Eldegoss|0 fnt
+|faint|p1a: Eldegoss
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rayquaza|Rayquaza, L74|100100
+|-ability|p1a: Rayquaza|Air Lock
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracovish" vs "eldegoss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-eldegoss
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: energyball leechseed pollenpuff sleeppowder
+|chat|DEBUG|Checks: ['tauros', 'dracovish', 'nidoking', 'grimmsnarl']
+|chat|DEBUG|Counter: ['tauros', 'dracovish', 'nidoking', 'grimmsnarl', 'sandslash']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 166 vs 159
+|chat|DEBUG|HP: 275 vs 99
+|chat|DEBUG|Created a new Strategy for dracovish vs eldegoss:
+|chat|DEBUG|>[fishiousrend: 161.5 [148, 175], fishiousrend: 161.5 [148, 175], fishiousrend: 161.5 [148, 175]]
+|chat|DEBUG|Best move of dracovish (p1): fishiousrend: 161.5 [148, 175]
+|chat|DEBUG|Best move of eldegoss (p2): energyball: 107.3125 [99, 117]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rayquaza|Dragon Ascent|p2a: Dracovish
+|-damage|p2a: Dracovish|130275
+|-unboost|p1a: Rayquaza|def|1
+|-unboost|p1a: Rayquaza|spd|1
+|move|p2a: Dracovish|Fishious Rend|p1a: Rayquaza
+|-resisted|p1a: Rayquaza
+|-damage|p1a: Rayquaza|43100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracovish" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['dracovish', 'nidoking']
+|chat|DEBUG|Counter: ['tauros', 'dracovish', 'nidoking', 'grimmsnarl']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 166 vs 184
+|chat|DEBUG|HP: 275 vs 277
+|chat|DEBUG|Created a new Strategy for dracovish vs rayquaza:
+|chat|DEBUG|>[fishiousrend: 97.0625 [89, 105], fishiousrend: 97.0625 [89, 105], fishiousrend: 97.0625 [89, 105]]
+|chat|DEBUG|Best move of dracovish (p1): fishiousrend: 97.0625 [89, 105]
+|chat|DEBUG|Best move of rayquaza (p2): dragonascent: 134.0 [123, 145]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tauros|Tauros, L82, M|257257
+|move|p1a: Rayquaza|Dragon Ascent|p2a: Tauros
+|-damage|p2a: Tauros|116257
+|-unboost|p1a: Rayquaza|def|1
+|-unboost|p1a: Rayquaza|spd|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracovish" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza
+|chat|DEBUG|Own moves: fishiousrend
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['tauros', 'nidoking', 'sandslash']
+|chat|DEBUG|Counter: ['tauros', 'nidoking', 'grimmsnarl', 'sandslash']
+|chat|DEBUG|Speed: 166 vs 184
+|chat|DEBUG|HP: 130 vs 119
+|chat|DEBUG|Created a new Strategy for dracovish vs rayquaza:
+|chat|DEBUG|>[fishiousrend: 146.375 [135, 159], fishiousrend: 146.375 [135, 159], fishiousrend: 146.375 [135, 159]]
+|chat|DEBUG|Best move of dracovish (p1): fishiousrend: 146.375 [135, 159]
+|chat|DEBUG|Best move of rayquaza (p2): dragonascent: 134.0 [123, 145]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tauros
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gengar|Gengar, L80, M|100100
+|-damage|p1a: Gengar|88100|[from] Stealth Rock
+|move|p2a: Tauros|Rock Slide|p1a: Gengar
+|-damage|p1a: Gengar|38100
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tauros" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza
+|chat|DEBUG|Own moves: bodyslam rockslide throatchop zenheadbutt
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['nidoking', 'sandslash']
+|chat|DEBUG|Counter: ['tauros', 'nidoking', 'grimmsnarl', 'sandslash']
+|chat|DEBUG|Speed: 228 vs 184
+|chat|DEBUG|HP: 116 vs 119
+|chat|DEBUG|Created a new Strategy for tauros vs rayquaza:
+|chat|DEBUG|>[rockslide: 386.0 [354, 419], rockslide: 386.0 [354, 419], rockslide: 386.0 [354, 419]]
+|chat|DEBUG|Best move of tauros (p1): rockslide: 386.0 [354, 419]
+|chat|DEBUG|Best move of rayquaza (p2): dragonascent: 137.0 [126, 148]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tauros|Throat Chop|p1a: Gengar
+|-supereffective|p1a: Gengar
+|-damage|p1a: Gengar|0 fnt
+|-start|p2a: Tauros|Disable|Throat Chop|[from] ability: Cursed Body|[of] p1a: Gengar
+|faint|p1a: Gengar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mr. Rime|Mr. Rime, L86, F|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tauros" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza-gengar
+|chat|DEBUG|Own moves: bodyslam rockslide throatchop zenheadbutt
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tauros', 'nidoking', 'sandslash']
+|chat|DEBUG|Speed: 228 vs 222
+|chat|DEBUG|HP: 116 vs 86
+|chat|DEBUG|Created a new Strategy for tauros vs gengar:
+|chat|DEBUG|>[throatchop: 256.0625 [234, 278], throatchop: 256.0625 [234, 278], throatchop: 256.0625 [234, 278]]
+|chat|DEBUG|Best move of tauros (p1): throatchop: 256.0625 [234, 278]
+|chat|DEBUG|Best move of gengar (p2): focusblast: 308.875 [283, 335]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tauros|Rock Slide|p1a: Mr. Rime
+|-supereffective|p1a: Mr. Rime
+|-damage|p1a: Mr. Rime|27100
+|move|p1a: Mr. Rime|Focus Blast|p2a: Tauros
+|-supereffective|p2a: Tauros
+|-damage|p2a: Tauros|0 fnt
+|faint|p2a: Tauros
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dracovish|Dracovish, L80|130275
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tauros dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "tauros" vs "mrrime"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tauros-dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza-mrrime
+|chat|DEBUG|Own moves: bodyslam rockslide zenheadbutt
+|chat|DEBUG|Enemy moves: focusblast freezedry psychic slackoff
+|chat|DEBUG|Checks: ['grimmsnarl']
+|chat|DEBUG|Counter: ['grimmsnarl']
+|chat|DEBUG|Speed: 228 vs 170
+|chat|DEBUG|HP: 116 vs 278
+|chat|DEBUG|Created a new Strategy for tauros vs mrrime:
+|chat|DEBUG|>[rockslide: 191.4375 [177, 208], rockslide: 191.4375 [177, 208], rockslide: 191.4375 [177, 208]]
+|chat|DEBUG|Best move of tauros (p1): rockslide: 191.4375 [177, 208]
+|chat|DEBUG|Best move of mrrime (p2): focusblast: 235.875 [216, 256]
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Rime|Focus Blast|p2a: Dracovish
+|-damage|p2a: Dracovish|26275
+|move|p2a: Dracovish|Crunch|p1a: Mr. Rime
+|-supereffective|p1a: Mr. Rime
+|-damage|p1a: Mr. Rime|0 fnt
+|faint|p1a: Mr. Rime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rayquaza|Rayquaza, L74|43100
+|-ability|p1a: Rayquaza|Air Lock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "tauros" vs "mrrime"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza-mrrime
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast freezedry psychic slackoff
+|chat|DEBUG|Checks: ['grimmsnarl']
+|chat|DEBUG|Counter: ['grimmsnarl']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'dracovish': 130, 'nidoking': 267, 'grimmsnarl': 290, 'sandslash': 269}
+|chat|DEBUG|remaining_hp_team_2={'mudsdale': 100, 'rayquaza': 43, 'mrrime': 100}
+|chat|DEBUG|battle.available_switches=[dracovish (pokemon object) [Active: False, Status: None], nidoking (pokemon object) [Active: False, Status: None], grimmsnarl (pokemon object) [Active: False, Status: None], sandslash (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'dracovish'
+|chat|DEBUG|>Switching to dracovish (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rayquaza|Earthquake|p2a: Dracovish
+|-damage|p2a: Dracovish|0 fnt
+|faint|p2a: Dracovish
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Nidoking|Nidoking, L82, M|267267
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dracovish" vs "mrrime"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza-mrrime
+|chat|DEBUG|Own moves: fishiousrend lowkick crunch icefang
+|chat|DEBUG|Enemy moves: focusblast freezedry psychic slackoff
+|chat|DEBUG|Checks: ['grimmsnarl']
+|chat|DEBUG|Counter: ['nidoking', 'grimmsnarl', 'sandslash']
+|chat|DEBUG|Speed: 166 vs 170
+|chat|DEBUG|HP: 130 vs 75
+|chat|DEBUG|Created a new Strategy for dracovish vs mrrime:
+|chat|DEBUG|>[crunch: 243.375 [224, 264], crunch: 243.375 [224, 264], crunch: 243.375 [224, 264]]
+|chat|DEBUG|Best move of dracovish (p1): crunch: 243.375 [224, 264]
+|chat|DEBUG|Best move of mrrime (p2): freezedry: 384.75 [352, 420]
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Rayquaza|Dynamax
+|-heal|p1a: Rayquaza|43100|[silent]
+|move|p2a: Nidoking|Ice Beam|p1a: Rayquaza
+|-supereffective|p1a: Rayquaza
+|-damage|p1a: Rayquaza|0 fnt
+|faint|p1a: Rayquaza
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mudsdale|Mudsdale, L82, M|100100
+|-damage|p1a: Mudsdale|94100|[from] Stealth Rock
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracovish nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dracovish" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracovish-nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza
+|chat|DEBUG|Own moves: crunch
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['nidoking']
+|chat|DEBUG|Counter: ['nidoking', 'grimmsnarl', 'sandslash']
+|chat|DEBUG|Speed: 166 vs 184
+|chat|DEBUG|HP: 26 vs 119
+|chat|DEBUG|Created a new Strategy for dracovish vs rayquaza:
+|chat|DEBUG|>[crunch: 123.375 [113, 134], crunch: 123.375 [113, 134], crunch: 123.375 [113, 134]]
+|chat|DEBUG|Best move of dracovish (p1): crunch: 123.375 [113, 134]
+|chat|DEBUG|Best move of rayquaza (p2): dragonascent: 134.0 [123, 145]
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Nidoking|Dynamax
+|-heal|p2a: Nidoking|534534|[silent]
+|move|p2a: Nidoking|Max Hailstorm|p1a: Mudsdale
+|-supereffective|p1a: Mudsdale
+|-damage|p1a: Mudsdale|26100
+|-weather|Hail
+|-ability|p1a: Mudsdale|Stamina|boost
+|-boost|p1a: Mudsdale|def|1
+|-damage|p2a: Nidoking|508534|[from] item: Life Orb
+|move|p1a: Mudsdale|Earthquake|p2a: Nidoking
+|-supereffective|p2a: Nidoking
+|-damage|p2a: Nidoking|58534
+|-weather|Hail|[upkeep]
+|-damage|p2a: Nidoking|42534|[from] Hail
+|-damage|p1a: Mudsdale|20100|[from] Hail
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking grimmsnarl sandslash
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dracovish" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-grimmsnarl-sandslash -- mudsdale-rayquaza
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['nidoking']
+|chat|DEBUG|Counter: ['nidoking', 'grimmsnarl', 'sandslash']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'nidoking': 267, 'grimmsnarl': 290, 'sandslash': 269}
+|chat|DEBUG|remaining_hp_team_2={'mudsdale': 100, 'rayquaza': 43}
+|chat|DEBUG|battle.available_switches=[nidoking (pokemon object) [Active: False, Status: None], grimmsnarl (pokemon object) [Active: False, Status: None], sandslash (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'nidoking'
+|chat|DEBUG|>Switching to nidoking (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nidoking|Max Hailstorm|p1a: Mudsdale
+|-supereffective|p1a: Mudsdale
+|-damage|p1a: Mudsdale|0 fnt
+|faint|p1a: Mudsdale
+|-damage|p2a: Nidoking|16534|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Funginilo<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">pinsir tauros dracovish nidoking grimmsnarl sandslash</h1>

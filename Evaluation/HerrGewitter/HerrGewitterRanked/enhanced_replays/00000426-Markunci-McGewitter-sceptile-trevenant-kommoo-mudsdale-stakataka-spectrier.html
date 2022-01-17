@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490628609<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490628609|init|battle
+|title|Markunci vs. McGewitter
+|j|☆Markunci
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Markunci|gentleman-gen4|1276
+|player|p2|McGewitter|265|1283
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Stakataka|Stakataka, L80|100100
+|switch|p2a: Sceptile|Sceptile, L86, M|261261
+|-item|p1a: Stakataka|Air Balloon
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['sceptile', 'kommoo', 'mudsdale']
+|chat|DEBUG|Counter: ['sceptile', 'kommoo', 'mudsdale']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 256 vs 25
+|chat|DEBUG|HP: 261 vs 229
+|chat|DEBUG|Created a new Strategy for sceptile vs stakataka:
+|chat|DEBUG|>[focusblast: 358.0 [328, 388], focusblast: 358.0 [328, 388], focusblast: 358.0 [328, 388]]
+|chat|DEBUG|Best move of sceptile (p1): focusblast: 358.0 [328, 388]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 226.625 [208, 246]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Markunci also wants the timer to be on.
+|move|p2a: Sceptile|Focus Blast|p1a: Stakataka|[miss]
+|-miss|p2a: Sceptile|p1a: Stakataka
+|move|p1a: Stakataka|Stealth Rock|p2a: Sceptile
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['sceptile', 'kommoo', 'mudsdale']
+|chat|DEBUG|Counter: ['sceptile', 'kommoo', 'mudsdale']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 256 vs 25
+|chat|DEBUG|HP: 261 vs 229
+|chat|DEBUG|Best move of sceptile (p1): focusblast: 358.0 [328, 388]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 226.625 [208, 246]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mimikyu|Mimikyu, L76, M|100100
+|move|p2a: Sceptile|Focus Blast|p1a: Mimikyu
+|-immune|p1a: Mimikyu
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "mimikyu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: ['mudsdale', 'stakataka']
+|chat|DEBUG|Counter: ['trevenant', 'mudsdale', 'stakataka']
+|chat|DEBUG|Speed: 256 vs 190
+|chat|DEBUG|HP: 261 vs 209
+|chat|DEBUG|Created a new Strategy for sceptile vs mimikyu:
+|chat|DEBUG|>[leafstorm: 147.5 [135, 160], rockslide: 59.6875 [55, 65], leafstorm: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 147.5 [135, 160]
+|chat|DEBUG|Best move of mimikyu (p2): playrough: 118.0625 [109, 129]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mudsdale
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mudsdale|Mudsdale, L82, F|298298
+|-damage|p2a: Mudsdale|280298|[from] Stealth Rock
+|move|p1a: Mimikyu|Swords Dance|p1a: Mimikyu
+|-boost|p1a: Mimikyu|atk|2
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "mimikyu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu
+|chat|DEBUG|Own moves: rockslide bodypress heavyslam earthquake
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mudsdale', 'stakataka']
+|chat|DEBUG|Speed: 105 vs 190
+|chat|DEBUG|HP: 280 vs 209
+|chat|DEBUG|Created a new Strategy for mudsdale vs mimikyu:
+|chat|DEBUG|>[heavyslam: 345.0 [316, 374], heavyslam: 345.0 [316, 374], heavyslam: 345.0 [316, 374]]
+|chat|DEBUG|Best move of mudsdale (p1): heavyslam: 345.0 [316, 374]
+|chat|DEBUG|Best move of mimikyu (p2): playrough: 180.0 [165, 195]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mimikyu|Shadow Claw|p2a: Mudsdale
+|-damage|p2a: Mudsdale|140298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|-damage|p1a: Mimikyu|91100|[from] item: Life Orb
+|move|p2a: Mudsdale|Heavy Slam|p1a: Mimikyu
+|-activate|p1a: Mimikyu|ability: Disguise
+|-damage|p1a: Mimikyu|91100
+|detailschange|p1a: Mimikyu|Mimikyu-Busted, L76, M
+|-damage|p1a: Mimikyu|78100|[from] pokemon: Mimikyu-Busted
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "mimikyu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu
+|chat|DEBUG|Own moves: heavyslam
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mudsdale', 'stakataka']
+|chat|DEBUG|Speed: 105 vs 190
+|chat|DEBUG|HP: 140 vs 163
+|chat|DEBUG|Created a new Strategy for mudsdale vs mimikyu:
+|chat|DEBUG|>[heavyslam: 345.0 [316, 374], heavyslam: 345.0 [316, 374], heavyslam: 345.0 [316, 374]]
+|chat|DEBUG|Best move of mudsdale (p1): heavyslam: 345.0 [316, 374]
+|chat|DEBUG|Best move of mimikyu (p2): playrough: 119.375 [109, 130]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Mow, L86|100100
+|move|p2a: Mudsdale|Heavy Slam|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|72100
+|-heal|p1a: Rotom|78100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow
+|chat|DEBUG|Own moves: heavyslam
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['sceptile', 'trevenant', 'kommoo']
+|chat|DEBUG|Counter: ['sceptile', 'trevenant', 'kommoo']
+|chat|DEBUG|Speed: 105 vs 197
+|chat|DEBUG|HP: 140 vs 176
+|chat|DEBUG|Created a new Strategy for mudsdale vs rotommow:
+|chat|DEBUG|>[heavyslam: 61.375 [56, 67], heavyslam: 61.375 [56, 67], heavyslam: 61.375 [56, 67]]
+|chat|DEBUG|Best move of mudsdale (p1): heavyslam: 61.375 [56, 67]
+|chat|DEBUG|Best move of rotommow (p2): leafstorm: 322.5 [296, 350]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sceptile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, M|261261
+|-damage|p2a: Sceptile|229261|[from] Stealth Rock
+|move|p1a: Rotom|Leaf Storm|p2a: Sceptile
+|-resisted|p2a: Sceptile
+|-damage|p2a: Sceptile|151261
+|-unboost|p1a: Rotom|spa|2
+|-heal|p2a: Sceptile|167261|[from] item: Leftovers
+|-heal|p1a: Rotom|85100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['sceptile', 'trevenant', 'kommoo', 'spectrier']
+|chat|DEBUG|Counter: ['sceptile', 'trevenant', 'kommoo', 'stakataka', 'spectrier']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 256 vs 197
+|chat|DEBUG|HP: 167 vs 192
+|chat|DEBUG|Created a new Strategy for sceptile vs rotommow:
+|chat|DEBUG|>[focusblast: 80.0 [73, 87], focusblast: 80.0 [73, 87], leafstorm: 64.5 [59, 70]]
+|chat|DEBUG|Best move of sceptile (p1): focusblast: 80.0 [73, 87]
+|chat|DEBUG|Best move of rotommow (p2): thunderbolt: 27.125 [25, 30]
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lickilicky|Lickilicky, L86, M|100100
+|move|p2a: Sceptile|Focus Blast|p1a: Lickilicky
+|-supereffective|p1a: Lickilicky
+|-damage|p1a: Lickilicky|45100
+|-heal|p2a: Sceptile|183261|[from] item: Leftovers
+|-heal|p1a: Lickilicky|51100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow-lickilicky
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['sceptile', 'trevenant', 'kommoo', 'mudsdale', 'stakataka']
+|chat|DEBUG|Counter: ['sceptile', 'trevenant', 'kommoo', 'mudsdale', 'stakataka', 'spectrier']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 256 vs 135
+|chat|DEBUG|HP: 183 vs 167
+|chat|DEBUG|Created a new Strategy for sceptile vs lickilicky:
+|chat|DEBUG|>[focusblast: 175.0 [160, 190], focusblast: 175.0 [160, 190], leafstorm: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of sceptile (p1): focusblast: 175.0 [160, 190]
+|chat|DEBUG|Best move of lickilicky (p2): bodyslam: 104.5 [96, 114]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Focus Blast|p1a: Lickilicky|[miss]
+|-miss|p2a: Sceptile|p1a: Lickilicky
+|move|p1a: Lickilicky|Body Slam|p2a: Sceptile
+|-damage|p2a: Sceptile|72261
+|-heal|p2a: Sceptile|88261|[from] item: Leftovers
+|-heal|p1a: Lickilicky|57100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow-lickilicky
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['trevenant', 'kommoo', 'mudsdale', 'stakataka']
+|chat|DEBUG|Counter: ['trevenant', 'kommoo', 'mudsdale', 'stakataka']
+|chat|DEBUG|Speed: 256 vs 135
+|chat|DEBUG|HP: 88 vs 187
+|chat|DEBUG|Best move of sceptile (p1): focusblast: 175.0 [160, 190]
+|chat|DEBUG|Best move of lickilicky (p2): bodyslam: 104.5 [96, 114]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check trevenant
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Trevenant|Trevenant, L86, F|286286
+|-damage|p2a: Trevenant|251286|[from] Stealth Rock
+|move|p1a: Lickilicky|Body Slam|p2a: Trevenant
+|-immune|p2a: Trevenant
+|-heal|p1a: Lickilicky|63100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow-lickilicky
+|chat|DEBUG|Own moves: trickroom hornleech poltergeist earthquake
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['trevenant', 'kommoo', 'mudsdale', 'stakataka']
+|chat|DEBUG|Counter: ['trevenant', 'kommoo', 'mudsdale', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 101 vs 135
+|chat|DEBUG|HP: 251 vs 207
+|chat|DEBUG|Created a new Strategy for trevenant vs lickilicky:
+|chat|DEBUG|>[hornleech: 110.5 [101, 121], hornleech: 110.5 [101, 121], hornleech: 110.5 [101, 121]]
+|chat|DEBUG|Best move of trevenant (p1): hornleech: 110.5 [101, 121]
+|chat|DEBUG|Best move of lickilicky (p2): earthquake: 36.625 [34, 40]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using hornleech
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lickilicky|Wish|p1a: Lickilicky
+|move|p2a: Trevenant|Horn Leech|p1a: Lickilicky
+|-crit|p1a: Lickilicky
+|-damage|p1a: Lickilicky|13100
+|-heal|p2a: Trevenant|286286|[from] drain|[of] p1a: Lickilicky
+|-damage|p2a: Trevenant|258286|[from] item: Life Orb
+|-heal|p1a: Lickilicky|19100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow-lickilicky
+|chat|DEBUG|Own moves: trickroom hornleech poltergeist earthquake
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['trevenant', 'kommoo', 'mudsdale', 'stakataka', 'spectrier']
+|chat|DEBUG|Counter: ['sceptile', 'trevenant', 'kommoo', 'mudsdale', 'stakataka', 'spectrier']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 101 vs 135
+|chat|DEBUG|HP: 258 vs 62
+|chat|DEBUG|Best move of trevenant (p1): hornleech: 110.5 [101, 121]
+|chat|DEBUG|Best move of lickilicky (p2): earthquake: 36.625 [34, 40]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lickilicky|Protect|p1a: Lickilicky
+|-singleturn|p1a: Lickilicky|Protect
+|move|p2a: Trevenant|Horn Leech|p1a: Lickilicky
+|-activate|p1a: Lickilicky|move: Protect
+|-heal|p1a: Lickilicky|69100|[from] move: Wish|[wisher] Lickilicky
+|-heal|p1a: Lickilicky|75100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyu-rotommow-lickilicky
+|chat|DEBUG|Own moves: trickroom hornleech poltergeist earthquake
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['trevenant', 'kommoo', 'stakataka']
+|chat|DEBUG|Counter: ['trevenant', 'kommoo', 'mudsdale', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 101 vs 135
+|chat|DEBUG|HP: 258 vs 246
+|chat|DEBUG|Best move of trevenant (p1): hornleech: 110.5 [101, 121]
+|chat|DEBUG|Best move of lickilicky (p2): earthquake: 36.625 [34, 40]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using hornleech
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mimikyu|Mimikyu-Busted, L76, M|78100
+|move|p2a: Trevenant|Horn Leech|p1a: Mimikyu
+|-damage|p1a: Mimikyu|15100
+|-heal|p2a: Trevenant|286286|[from] drain|[of] p1a: Mimikyu
+|-damage|p2a: Trevenant|258286|[from] item: Life Orb
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "mimikyubusted"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-mimikyubusted-rotommow-lickilicky
+|chat|DEBUG|Own moves: trickroom hornleech poltergeist earthquake
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mudsdale', 'stakataka']
+|chat|DEBUG|Speed: 101 vs 190
+|chat|DEBUG|HP: 258 vs 31
+|chat|DEBUG|Created a new Strategy for trevenant vs mimikyubusted:
+|chat|DEBUG|>[poltergeist: 412.25 [377, 447], poltergeist: 412.25 [377, 447], poltergeist: 412.25 [377, 447]]
+|chat|DEBUG|Best move of trevenant (p1): poltergeist: 412.25 [377, 447]
+|chat|DEBUG|Best move of mimikyubusted (p2): shadowclaw: 167.0625 [151, 182]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mimikyu|Shadow Claw|p2a: Trevenant
+|-supereffective|p2a: Trevenant
+|-damage|p2a: Trevenant|94286
+|-damage|p1a: Mimikyu|5100|[from] item: Life Orb
+|move|p2a: Trevenant|Poltergeist|p1a: Mimikyu
+|-activate|p1a: Mimikyu|move: Poltergeist|Life Orb
+|-supereffective|p1a: Mimikyu
+|-damage|p1a: Mimikyu|0 fnt
+|faint|p1a: Mimikyu
+|-damage|p2a: Trevenant|66286|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Primarina|Primarina, L82, F|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile trevenant kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-trevenant-kommoo-mudsdale-stakataka-spectrier -- stakataka-rotommow-lickilicky-primarina
+|chat|DEBUG|Own moves: trickroom hornleech poltergeist earthquake
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 101 vs 146
+|chat|DEBUG|HP: 66 vs 265
+|chat|DEBUG|Created a new Strategy for trevenant vs primarina:
+|chat|DEBUG|>[hornleech: 279.0 [257, 304], hornleech: 279.0 [257, 304], hornleech: 279.0 [257, 304]]
+|chat|DEBUG|Best move of trevenant (p1): hornleech: 279.0 [257, 304]
+|chat|DEBUG|Best move of primarina (p2): moonblast: 121.1875 [111, 132]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hornleech
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Moonblast|p2a: Trevenant
+|-damage|p2a: Trevenant|0 fnt
+|faint|p2a: Trevenant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Spectrier|Spectrier, L74|270270
+|-damage|p2a: Spectrier|237270|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka-spectrier -- stakataka-rotommow-lickilicky-primarina
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: spectrier
+|chat|DEBUG|>Switching to spectrier (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Spectrier|Shadow Ball|p1a: Primarina
+|-damage|p1a: Primarina|71100
+|move|p1a: Primarina|Moonblast|p2a: Spectrier
+|-damage|p2a: Spectrier|32270
+|-heal|p2a: Spectrier|48270|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka-spectrier -- stakataka-rotommow-lickilicky-primarina
+|chat|DEBUG|Own moves: darkpulse substitute shadowball nastyplot
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 235 vs 146
+|chat|DEBUG|HP: 237 vs 265
+|chat|DEBUG|Created a new Strategy for spectrier vs primarina:
+|chat|DEBUG|>[shadowball: 75.3125 [69, 82], shadowball: 75.3125 [69, 82], shadowball: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of spectrier (p1): shadowball: 75.3125 [69, 82]
+|chat|DEBUG|Best move of primarina (p2): moonblast: 141.5625 [130, 154]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Spectrier|Shadow Ball|p1a: Primarina
+|-damage|p1a: Primarina|41100
+|move|p1a: Primarina|Moonblast|p2a: Spectrier
+|-crit|p2a: Spectrier
+|-damage|p2a: Spectrier|0 fnt
+|faint|p2a: Spectrier
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, M|88261
+|-damage|p2a: Sceptile|56261|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka spectrier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka-spectrier -- stakataka-rotommow-lickilicky-primarina
+|chat|DEBUG|Own moves: darkpulse substitute shadowball nastyplot
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile', 'stakataka']
+|chat|DEBUG|Speed: 235 vs 146
+|chat|DEBUG|HP: 48 vs 188
+|chat|DEBUG|Best move of spectrier (p1): shadowball: 75.3125 [69, 82]
+|chat|DEBUG|Best move of primarina (p2): moonblast: 141.5625 [130, 154]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Leaf Storm|p1a: Primarina
+|-supereffective|p1a: Primarina
+|-damage|p1a: Primarina|0 fnt
+|-unboost|p2a: Sceptile|spa|2
+|faint|p1a: Primarina
+|-heal|p2a: Sceptile|72261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Mow, L86|85100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka -- stakataka-rotommow-lickilicky-primarina
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile', 'stakataka']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to sceptile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, M|251251
+|-damage|p2a: Kommo-o|236251|[from] Stealth Rock
+|move|p1a: Rotom|Nasty Plot|p1a: Rotom
+|-boost|p1a: Rotom|spa|2
+|-heal|p1a: Rotom|91100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka -- stakataka-rotommow-lickilicky-primarina
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile', 'kommoo', 'stakataka']
+|chat|DEBUG|Speed: 256 vs 146
+|chat|DEBUG|HP: 56 vs 108
+|chat|DEBUG|Created a new Strategy for sceptile vs primarina:
+|chat|DEBUG|>[leafstorm: 381.125 [350, 414], leafstorm: 189.75 [174, 206], leafstorm: 128.5 [116, 140]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 381.125 [350, 414]
+|chat|DEBUG|Best move of primarina (p2): moonblast: 118.3125 [109, 129]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Will-O-Wisp|p2a: Kommo-o|[miss]
+|-miss|p1a: Rotom|p2a: Kommo-o
+|move|p2a: Kommo-o|Close Combat|p1a: Rotom
+|-damage|p1a: Rotom|39100
+|-unboost|p2a: Kommo-o|def|1
+|-unboost|p2a: Kommo-o|spd|1
+|-heal|p1a: Rotom|45100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 256 vs 197
+|chat|DEBUG|HP: 72 vs 192
+|chat|DEBUG|Created a new Strategy for sceptile vs rotommow:
+|chat|DEBUG|>[rockslide: 43.0 [39, 47], rockslide: 43.0 [39, 47], leafstorm: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of sceptile (p1): rockslide: 43.0 [39, 47]
+|chat|DEBUG|Best move of rotommow (p2): thunderbolt: 53.375 [49, 58]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kommoo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Will-O-Wisp|p2a: Kommo-o
+|-status|p2a: Kommo-o|brn
+|move|p2a: Kommo-o|Close Combat|p1a: Rotom
+|-damage|p1a: Rotom|21100
+|-unboost|p2a: Kommo-o|def|1
+|-unboost|p2a: Kommo-o|spd|1
+|-heal|p1a: Rotom|27100|[from] item: Leftovers
+|-damage|p2a: Kommo-o|221251 brn|[from] brn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: closecombat clangoroussoul clangingscales poisonjab
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 182 vs 197
+|chat|DEBUG|HP: 236 vs 205
+|chat|DEBUG|Created a new Strategy for kommoo vs rotommow:
+|chat|DEBUG|>[closecombat: 108.625 [100, 118], closecombat: 108.625 [100, 118], closecombat: 108.625 [100, 118]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 108.625 [100, 118]
+|chat|DEBUG|Best move of rotommow (p2): thunderbolt: 97.0625 [89, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Kommo-o
+|-resisted|p2a: Kommo-o
+|-damage|p2a: Kommo-o|14251 brn
+|move|p2a: Kommo-o|Close Combat|p1a: Rotom
+|-damage|p1a: Rotom|2100
+|-unboost|p2a: Kommo-o|def|1
+|-unboost|p2a: Kommo-o|spd|1
+|-heal|p1a: Rotom|8100|[from] item: Leftovers
+|-damage|p2a: Kommo-o|0 fnt|[from] brn
+|faint|p2a: Kommo-o
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stakataka|Stakataka, L80|229229
+|-damage|p2a: Stakataka|215229|[from] Stealth Rock
+|-item|p2a: Stakataka|Air Balloon
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: closecombat clangoroussoul clangingscales poisonjab
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 182 vs 197
+|chat|DEBUG|HP: 236 vs 101
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 108.625 [100, 118]
+|chat|DEBUG|Best move of rotommow (p2): thunderbolt: 145.6875 [134, 158]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Leaf Storm|p2a: Stakataka
+|-damage|p2a: Stakataka|0 fnt
+|-unboost|p1a: Rotom|spa|2
+|-enditem|p2a: Stakataka|Air Balloon
+|faint|p2a: Stakataka
+|-heal|p1a: Rotom|14100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, M|72261
+|-damage|p2a: Sceptile|40261|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile kommoo mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-kommoo-mudsdale-stakataka -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: closecombat clangoroussoul clangingscales poisonjab
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 182 vs 197
+|chat|DEBUG|HP: 221 vs 61
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 108.625 [100, 118]
+|chat|DEBUG|Best move of rotommow (p2): leafstorm: 279.5625 [257, 303]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Focus Blast|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|-heal|p2a: Sceptile|56261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stakataka|Stakataka, L80|100100
+|-item|p1a: Stakataka|Air Balloon
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-mudsdale-stakataka -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: stakataka
+|chat|DEBUG|>Switching to stakataka (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Focus Blast|p1a: Stakataka
+|-supereffective|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|-enditem|p1a: Stakataka|Air Balloon
+|faint|p1a: Stakataka
+|-heal|p2a: Sceptile|72261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Musharna|Musharna, L86, F|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile mudsdale stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-mudsdale-stakataka -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: gyroball trickroom bodypress stoneedge
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile']
+|chat|DEBUG|Speed: 25 vs 197
+|chat|DEBUG|HP: 215 vs 18
+|chat|DEBUG|Created a new Strategy for stakataka vs rotommow:
+|chat|DEBUG|>[bodypress: 83.75 [77, 91], bodypress: 83.75 [77, 91], bodypress: 83.75 [77, 91]]
+|chat|DEBUG|Best move of stakataka (p1): bodypress: 83.75 [77, 91]
+|chat|DEBUG|Best move of rotommow (p2): leafstorm: 289.0625 [265, 313]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Leaf Storm|p1a: Musharna
+|-crit|p1a: Musharna
+|-damage|p1a: Musharna|13100
+|-unboost|p2a: Sceptile|spa|2
+|move|p1a: Musharna|Psychic|p2a: Sceptile
+|-damage|p2a: Sceptile|0 fnt
+|faint|p2a: Sceptile
+|-heal|p1a: Musharna|19100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mudsdale|Mudsdale, L82, F|140298
+|-damage|p2a: Mudsdale|122298|[from] Stealth Rock
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-mudsdale -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to sceptile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mudsdale|Earthquake|p1a: Musharna
+|-crit|p1a: Musharna
+|-damage|p1a: Musharna|0 fnt
+|faint|p1a: Musharna
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lickilicky|Lickilicky, L86, M|75100
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "rotommow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-mudsdale -- stakataka-rotommow-lickilicky
+|chat|DEBUG|Own moves: leafstorm substitute rockslide focusblast
+|chat|DEBUG|Enemy moves: leafstorm nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile']
+|chat|DEBUG|Speed: 256 vs 197
+|chat|DEBUG|HP: 40 vs 31
+|chat|DEBUG|Created a new Strategy for sceptile vs rotommow:
+|chat|DEBUG|>[focusblast: 80.0 [73, 87], focusblast: 80.0 [73, 87], leafstorm: 96.5 [89, 105]]
+|chat|DEBUG|Best move of sceptile (p1): focusblast: 80.0 [73, 87]
+|chat|DEBUG|Best move of rotommow (p2): thunderbolt: 53.375 [49, 58]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Lickilicky|Dynamax
+|-heal|p1a: Lickilicky|75100|[silent]
+|move|p1a: Lickilicky|Max Strike|p2a: Mudsdale
+|-damage|p2a: Mudsdale|0 fnt
+|faint|p2a: Mudsdale
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Markunci<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">sceptile trevenant kommoo mudsdale stakataka spectrier</h1>

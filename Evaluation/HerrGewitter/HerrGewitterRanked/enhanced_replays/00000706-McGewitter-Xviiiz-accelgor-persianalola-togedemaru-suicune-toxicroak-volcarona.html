@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491150454<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491150454|init|battle
+|title|McGewitter vs. Xviiiz
+|j|☆McGewitter
+|j|☆Xviiiz
+|gametype|singles
+|player|p1|McGewitter|265|1251
+|player|p2|Xviiiz|pokemonbreederf|1206
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Accelgor|Accelgor, L86, M|278278
+|switch|p2a: Butterfree|Butterfree, L87, M|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikes toxic bugbuzz focusblast
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru', 'suicune', 'volcarona']
+|chat|DEBUG|Counter: ['togedemaru', 'suicune', 'toxicroak', 'volcarona']
+|chat|DEBUG|Speed: 299 vs 172
+|chat|DEBUG|HP: 278 vs 246
+|chat|DEBUG|Created a new Strategy for accelgor vs butterfree:
+|chat|DEBUG|>[bugbuzz: 52.625 [48, 57], bugbuzz: 52.625 [48, 57], bugbuzz: 52.625 [48, 57]]
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 52.625 [48, 57]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 206.5 [188, 224]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Accelgor|Spikes|p2a: Butterfree
+|-sidestart|p2: Xviiiz|Spikes
+|move|p2a: Butterfree|Sleep Powder|p1a: Accelgor
+|-status|p1a: Accelgor|slp|[from] move: Sleep Powder
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikes toxic bugbuzz focusblast
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru', 'suicune', 'volcarona']
+|chat|DEBUG|Counter: ['togedemaru', 'suicune', 'toxicroak', 'volcarona']
+|chat|DEBUG|Speed: 299 vs 172
+|chat|DEBUG|HP: 278 vs 246
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 52.625 [48, 57]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 206.5 [188, 224]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Accelgor|slp
+|move|p2a: Butterfree|Quiver Dance|p2a: Butterfree
+|-boost|p2a: Butterfree|spa|1
+|-boost|p2a: Butterfree|spd|1
+|-boost|p2a: Butterfree|spe|1
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikes toxic bugbuzz focusblast
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru', 'volcarona']
+|chat|DEBUG|Speed: 299 vs 172
+|chat|DEBUG|HP: 278 vs 246
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 52.625 [48, 57]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 306.0 [282, 332]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Accelgor|slp
+|move|p2a: Butterfree|Quiver Dance|p2a: Butterfree
+|-boost|p2a: Butterfree|spa|1
+|-boost|p2a: Butterfree|spd|1
+|-boost|p2a: Butterfree|spe|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikes toxic bugbuzz focusblast
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 299 vs 172
+|chat|DEBUG|HP: 278 vs 246
+|chat|DEBUG|Created a new Strategy for accelgor vs butterfree:
+|chat|DEBUG|>[bugbuzz: 26.25 [24, 29], bugbuzz: 26.25 [24, 29], bugbuzz: 26.25 [24, 29]]
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 26.25 [24, 29]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 409.0 [374, 444]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Butterfree|Hurricane|p1a: Accelgor
+|-supereffective|p1a: Accelgor
+|-enditem|p1a: Accelgor|Focus Sash
+|-damage|p1a: Accelgor|1278 slp
+|-curestatus|p1a: Accelgor|slp|[msg]
+|move|p1a: Accelgor|Spikes|p2a: Butterfree
+|-sidestart|p2: Xviiiz|Spikes
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikes toxic bugbuzz focusblast
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 299 vs 172
+|chat|DEBUG|HP: 1 vs 246
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 26.25 [24, 29]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 409.0 [374, 444]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Butterfree|Energy Ball|p1a: Accelgor
+|-resisted|p1a: Accelgor
+|-damage|p1a: Accelgor|0 fnt
+|faint|p1a: Accelgor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, M|252252
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to togedemaru (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Butterfree|Sleep Powder|p1a: Togedemaru
+|-status|p1a: Togedemaru|slp|[from] move: Sleep Powder
+|cant|p1a: Togedemaru|slp
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikyshield ironhead wish zingzap
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 172
+|chat|DEBUG|HP: 252 vs 246
+|chat|DEBUG|Created a new Strategy for togedemaru vs butterfree:
+|chat|DEBUG|>[zingzap: 256.125 [236, 278], zingzap: 256.125 [236, 278], zingzap: 256.125 [236, 278]]
+|chat|DEBUG|Best move of togedemaru (p1): zingzap: 256.125 [236, 278]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 212.125 [194, 230]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using zingzap
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Butterfree|Hurricane|p1a: Togedemaru
+|-resisted|p1a: Togedemaru
+|-damage|p1a: Togedemaru|184252 slp
+|-start|p1a: Togedemaru|confusion
+|-curestatus|p1a: Togedemaru|slp|[msg]
+|-activate|p1a: Togedemaru|confusion
+|move|p1a: Togedemaru|Zing Zap|p2a: Butterfree
+|-supereffective|p2a: Butterfree
+|-damage|p2a: Butterfree|0 fnt
+|faint|p2a: Butterfree
+|-heal|p1a: Togedemaru|199252|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stakataka|Stakataka, L80|100100
+|-item|p2a: Stakataka|Air Balloon
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- butterfree
+|chat|DEBUG|Own moves: spikyshield ironhead wish zingzap
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 172
+|chat|DEBUG|HP: 252 vs 246
+|chat|DEBUG|Best move of togedemaru (p1): zingzap: 256.125 [236, 278]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 212.125 [194, 230]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using zingzap
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Suicune|Suicune, L80|291291
+|-ability|p1a: Suicune|Pressure
+|move|p2a: Stakataka|Trick Room|p2a: Stakataka
+|-fieldstart|move: Trick Room|[of] p2a: Stakataka
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- stakataka
+|chat|DEBUG|Own moves: spikyshield ironhead wish zingzap
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['suicune']
+|chat|DEBUG|Counter: ['suicune', 'toxicroak']
+|chat|DEBUG|Speed: 214 vs 25
+|chat|DEBUG|HP: 199 vs 229
+|chat|DEBUG|Created a new Strategy for togedemaru vs stakataka:
+|chat|DEBUG|>[zingzap: 46.0625 [42, 51], zingzap: 46.0625 [42, 51], zingzap: 46.0625 [42, 51]]
+|chat|DEBUG|Best move of togedemaru (p1): zingzap: 46.0625 [42, 51]
+|chat|DEBUG|Best move of stakataka (p2): earthquake: 412.5 [380, 448]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check suicune
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Toxapex|Toxapex, L82, F|100100
+|-damage|p2a: Toxapex|84100|[from] Spikes
+|move|p1a: Suicune|Scald|p2a: Toxapex
+|-resisted|p2a: Toxapex
+|-damage|p2a: Toxapex|71100
+|-heal|p2a: Toxapex|77100|[from] item: Black Sludge
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- stakataka
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['suicune']
+|chat|DEBUG|Counter: ['suicune', 'toxicroak']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 25
+|chat|DEBUG|HP: 291 vs 229
+|chat|DEBUG|Created a new Strategy for suicune vs stakataka:
+|chat|DEBUG|>[scald: 139.125 [128, 152], scald: 139.125 [128, 152], scald: 139.125 [128, 152]]
+|chat|DEBUG|Best move of suicune (p1): scald: 139.125 [128, 152]
+|chat|DEBUG|Best move of stakataka (p2): stoneedge: 105.875 [97, 115]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Toxapex|Toxic Spikes|p1a: Suicune
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|move|p1a: Suicune|Calm Mind|p1a: Suicune
+|-boost|p1a: Suicune|spa|1
+|-boost|p1a: Suicune|spd|1
+|-heal|p2a: Toxapex|83100|[from] item: Black Sludge
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- stakataka-toxapex
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['persianalola', 'togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 105
+|chat|DEBUG|HP: 291 vs 166
+|chat|DEBUG|Created a new Strategy for suicune vs toxapex:
+|chat|DEBUG|>[airslash: 32.8125 [30, 36], airslash: 32.8125 [30, 36], airslash: 32.8125 [30, 36]]
+|chat|DEBUG|Best move of suicune (p1): airslash: 32.8125 [30, 36]
+|chat|DEBUG|Best move of toxapex (p2): scald: 22.3125 [21, 24]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Toxapex|Toxic Spikes|p1a: Suicune
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|move|p1a: Suicune|Calm Mind|p1a: Suicune
+|-boost|p1a: Suicune|spa|1
+|-boost|p1a: Suicune|spd|1
+|-heal|p2a: Toxapex|89100|[from] item: Black Sludge
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- stakataka-toxapex
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['persianalola', 'togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 105
+|chat|DEBUG|HP: 291 vs 179
+|chat|DEBUG|Best move of suicune (p1): airslash: 32.8125 [30, 36]
+|chat|DEBUG|Best move of toxapex (p2): scald: 15.25 [14, 17]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stakataka|Stakataka, L80|100100
+|-item|p2a: Stakataka|Air Balloon
+|move|p1a: Suicune|Air Slash|p2a: Stakataka
+|-resisted|p2a: Stakataka
+|-damage|p2a: Stakataka|90100
+|-enditem|p2a: Stakataka|Air Balloon
+|-fieldend|move: Trick Room
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- stakataka-toxapex
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['persianalola', 'togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 105
+|chat|DEBUG|HP: 291 vs 192
+|chat|DEBUG|Best move of suicune (p1): airslash: 32.8125 [30, 36]
+|chat|DEBUG|Best move of toxapex (p2): scald: 11.125 [10, 12]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Scald|p2a: Stakataka
+|-supereffective|p2a: Stakataka
+|-damage|p2a: Stakataka|0 fnt
+|faint|p2a: Stakataka
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Crobat|Crobat, L82, M|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- stakataka-toxapex
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: ['suicune']
+|chat|DEBUG|Counter: ['suicune', 'toxicroak']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 25
+|chat|DEBUG|HP: 291 vs 206
+|chat|DEBUG|Created a new Strategy for suicune vs stakataka:
+|chat|DEBUG|>[scald: 277.125 [254, 302], scald: 277.125 [254, 302], scald: 277.125 [254, 302]]
+|chat|DEBUG|Best move of suicune (p1): scald: 277.125 [254, 302]
+|chat|DEBUG|Best move of stakataka (p2): stoneedge: 105.875 [97, 115]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Suicune
+|-damage|p1a: Suicune|192291
+|-damage|p2a: Crobat|88100|[from] Recoil
+|move|p1a: Suicune|Ice Beam|p2a: Crobat
+|-supereffective|p2a: Crobat
+|-damage|p2a: Crobat|3100
+|-heal|p1a: Suicune|210291|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-crobat
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: ['togedemaru', 'suicune']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'suicune']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 260
+|chat|DEBUG|HP: 291 vs 274
+|chat|DEBUG|Created a new Strategy for suicune vs crobat:
+|chat|DEBUG|>[icebeam: 243.375 [224, 264], icebeam: 243.375 [224, 264], icebeam: 243.375 [224, 264]]
+|chat|DEBUG|Best move of suicune (p1): icebeam: 243.375 [224, 264]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 97.625 [90, 106]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Super Fang|p1a: Suicune
+|-damage|p1a: Suicune|105291
+|move|p1a: Suicune|Ice Beam|p2a: Crobat
+|-supereffective|p2a: Crobat
+|-damage|p2a: Crobat|0 fnt
+|faint|p2a: Crobat
+|-heal|p1a: Suicune|123291|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Meowstic|Meowstic-F, L86, F|100100
+|-damage|p2a: Meowstic|84100|[from] Spikes
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-crobat
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: ['persianalola', 'togedemaru', 'suicune']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'suicune']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 260
+|chat|DEBUG|HP: 210 vs 8
+|chat|DEBUG|Best move of suicune (p1): icebeam: 243.375 [224, 264]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 97.625 [90, 106]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian-Alola, L82, M|241241
+|-status|p1a: Persian|tox
+|move|p2a: Meowstic|Thunderbolt|p1a: Persian
+|-damage|p1a: Persian|131241 tox
+|-heal|p1a: Persian|146241 tox|[from] item: Leftovers
+|-damage|p1a: Persian|131241 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-meowsticf
+|chat|DEBUG|Own moves: scald calmmind airslash icebeam
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: ['persianalola', 'volcarona']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'volcarona']
+|chat|DEBUG|Speed: 182 vs 228
+|chat|DEBUG|HP: 123 vs 225
+|chat|DEBUG|Created a new Strategy for suicune vs meowsticf:
+|chat|DEBUG|>[scald: 153.0 [141, 166], scald: 153.0 [141, 166], scald: 153.0 [141, 166]]
+|chat|DEBUG|Best move of suicune (p1): scald: 153.0 [141, 166]
+|chat|DEBUG|Best move of meowsticf (p2): thunderbolt: 68.4375 [62, 75]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check persianalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Toxapex|Toxapex, L82, F|100100
+|-damage|p2a: Toxapex|84100|[from] Spikes
+|move|p1a: Persian|Dark Pulse|p2a: Toxapex
+|-damage|p2a: Toxapex|63100
+|-heal|p1a: Persian|146241 tox|[from] item: Leftovers
+|-heal|p2a: Toxapex|69100|[from] item: Black Sludge
+|-damage|p1a: Persian|116241 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-meowsticf
+|chat|DEBUG|Own moves: nastyplot hypnosis darkpulse thunderbolt
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: ['volcarona']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'volcarona']
+|chat|DEBUG|Speed: 236 vs 228
+|chat|DEBUG|HP: 131 vs 225
+|chat|DEBUG|Created a new Strategy for persianalola vs meowsticf:
+|chat|DEBUG|>[darkpulse: 137.5 [126, 150], darkpulse: 137.5 [126, 150], darkpulse: 137.5 [126, 150]]
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 137.5 [126, 150]
+|chat|DEBUG|Best move of meowsticf (p2): thunderbolt: 98.0 [90, 107]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, M|199252
+|move|p2a: Toxapex|Scald|p1a: Togedemaru
+|-damage|p1a: Togedemaru|141252
+|-heal|p1a: Togedemaru|156252|[from] item: Leftovers
+|-heal|p2a: Toxapex|75100|[from] item: Black Sludge
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-meowsticf
+|chat|DEBUG|Own moves: nastyplot hypnosis darkpulse thunderbolt
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Counter: ['togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Speed: 236 vs 105
+|chat|DEBUG|HP: 116 vs 149
+|chat|DEBUG|Created a new Strategy for persianalola vs toxapex:
+|chat|DEBUG|>[thunderbolt: 71.25 [66, 78], thunderbolt: 71.25 [66, 78], thunderbolt: 71.25 [66, 78]]
+|chat|DEBUG|Best move of persianalola (p1): thunderbolt: 71.25 [66, 78]
+|chat|DEBUG|Best move of toxapex (p2): scald: 67.25 [61, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check togedemaru
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Meowstic|Meowstic-F, L86, F|84100
+|-damage|p2a: Meowstic|68100|[from] Spikes
+|move|p1a: Togedemaru|Zing Zap|p2a: Meowstic
+|-damage|p2a: Meowstic|32100
+|-heal|p1a: Togedemaru|171252|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-meowsticf
+|chat|DEBUG|Own moves: spikyshield ironhead wish zingzap
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Counter: ['togedemaru', 'suicune', 'toxicroak']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 105
+|chat|DEBUG|HP: 156 vs 162
+|chat|DEBUG|Created a new Strategy for togedemaru vs toxapex:
+|chat|DEBUG|>[zingzap: 120.25 [110, 132], zingzap: 120.25 [110, 132], zingzap: 120.25 [110, 132]]
+|chat|DEBUG|Best move of togedemaru (p1): zingzap: 120.25 [110, 132]
+|chat|DEBUG|Best move of toxapex (p2): scald: 58.625 [54, 64]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using zingzap
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Psychic|p1a: Togedemaru
+|-resisted|p1a: Togedemaru
+|-damage|p1a: Togedemaru|95252
+|move|p1a: Togedemaru|Zing Zap|p2a: Meowstic
+|-damage|p2a: Meowstic|0 fnt
+|faint|p2a: Meowstic
+|-heal|p1a: Togedemaru|110252|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan-Galar, L78, M|100100
+|-damage|p2a: Darmanitan|84100|[from] Spikes
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>persianalola togedemaru suicune toxicroak volcarona
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>persianalola-togedemaru-suicune-toxicroak-volcarona -- toxapex-meowsticf
+|chat|DEBUG|Own moves: spikyshield ironhead wish zingzap
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: ['persianalola', 'togedemaru', 'volcarona']
+|chat|DEBUG|Counter: ['persianalola', 'togedemaru', 'suicune', 'volcarona']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 228
+|chat|DEBUG|HP: 171 vs 85
+|chat|DEBUG|Created a new Strategy for togedemaru vs meowsticf:
+|chat|DEBUG|>[zingzap: 97.625 [90, 106], zingzap: 97.625 [90, 106], zingzap: 97.625 [90, 106]]
+|chat|DEBUG|Best move of togedemaru (p1): zingzap: 97.625 [90, 106]
+|chat|DEBUG|Best move of meowsticf (p2): shadowball: 77.5 [71, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using zingzap
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Togedemaru|Iron Head|p2a: Darmanitan
+|-supereffective|p2a: Darmanitan
+|-damage|p2a: Darmanitan|0 fnt
+|faint|p2a: Darmanitan
+|-heal|p1a: Togedemaru|125252|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-message|Xviiiz forfeited.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Xviiiz</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">accelgor persianalola togedemaru suicune toxicroak volcarona</h1>

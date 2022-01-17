@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491535914<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491535914|init|battle
+|title|metsrule158 vs. McGewitter
+|j|☆metsrule158
+|j|☆McGewitter
+|gametype|singles
+|player|p1|metsrule158|169|1296
+|player|p2|McGewitter|265|1271
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Tsareena|Tsareena, L84, F|100100
+|switch|p2a: Lapras|Lapras, L86, F|363363
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras weezing stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-weezing-stunfiskgalar-delibird-dragalge-palkia -- tsareena
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['weezing', 'dragalge', 'palkia']
+|chat|DEBUG|Counter: ['weezing', 'delibird', 'dragalge', 'palkia']
+|chat|DEBUG|Speed: 152 vs 169
+|chat|DEBUG|HP: 363 vs 258
+|chat|DEBUG|Created a new Strategy for lapras vs tsareena:
+|chat|DEBUG|>[icebeam: 167.25 [152, 182], icebeam: 167.25 [152, 182], icebeam: 167.25 [152, 182]]
+|chat|DEBUG|Best move of lapras (p1): icebeam: 167.25 [152, 182]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 409.0625 [374, 445]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check weezing
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Hatterene|Hatterene, L86, F|100100
+|switch|p2a: Weezing|Weezing, L86, M|252252
+|-ability|p2a: Weezing|Neutralizing Gas
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras weezing stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-weezing-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene
+|chat|DEBUG|Own moves: painsplit fireblast sludgebomb willowisp
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lapras', 'dragalge']
+|chat|DEBUG|Speed: 152 vs 54
+|chat|DEBUG|HP: 252 vs 238
+|chat|DEBUG|Created a new Strategy for weezing vs hatterene:
+|chat|DEBUG|>[sludgebomb: 156.375 [144, 170], sludgebomb: 156.375 [144, 170], sludgebomb: 156.375 [144, 170]]
+|chat|DEBUG|Best move of weezing (p1): sludgebomb: 156.375 [144, 170]
+|chat|DEBUG|Best move of hatterene (p2): psychic: 390.5 [359, 424]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|metsrule158 has 120 seconds left.
+|move|p2a: Weezing|Sludge Bomb|p1a: Hatterene
+|-supereffective|p1a: Hatterene
+|-damage|p1a: Hatterene|39100
+|move|p1a: Hatterene|Psychic|p2a: Weezing
+|-supereffective|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|faint|p2a: Weezing
+|-end|p2a: Weezing|ability: Neutralizing Gas
+|-damage|p1a: Hatterene|29100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lapras|Lapras, L86, F|363363
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lapras', 'dragalge']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lapras (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Glastrier|Glastrier, L82|100100
+|move|p2a: Lapras|Ice Beam|p1a: Glastrier
+|-resisted|p1a: Glastrier
+|-damage|p1a: Glastrier|87100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: ['lapras', 'stunfiskgalar', 'delibird']
+|chat|DEBUG|Counter: ['lapras', 'stunfiskgalar', 'delibird', 'dragalge', 'palkia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 152 vs 54
+|chat|DEBUG|HP: 363 vs 69
+|chat|DEBUG|Created a new Strategy for lapras vs hatterene:
+|chat|DEBUG|>[sparklingaria: 78.1875 [72, 85], sparklingaria: 78.1875 [72, 85], sparklingaria: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 78.1875 [72, 85]
+|chat|DEBUG|Best move of hatterene (p2): psychic: 157.5 [144, 172]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['tsareena']
+|chat|DEBUG|Expected enemy: tsareena
+|chat|DEBUG|Using move icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|metsrule158 has 120 seconds left.
+|switch|p2a: Palkia|Palkia, L74|255255
+|-ability|p2a: Palkia|Pressure
+|move|p1a: Glastrier|Swords Dance|p1a: Glastrier
+|-boost|p1a: Glastrier|atk|2
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene-glastrier
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: ['palkia']
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 152 vs 96
+|chat|DEBUG|HP: 363 vs 259
+|chat|DEBUG|Created a new Strategy for lapras vs glastrier:
+|chat|DEBUG|>[sparklingaria: 78.1875 [72, 85], sparklingaria: 78.1875 [72, 85], sparklingaria: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 78.1875 [72, 85]
+|chat|DEBUG|Best move of glastrier (p2): closecombat: 232.125 [214, 252]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check palkia
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|metsrule158 has 120 seconds left.
+|move|p2a: Palkia|Fire Blast|p1a: Glastrier
+|-supereffective|p1a: Glastrier
+|-damage|p1a: Glastrier|13100
+|move|p1a: Glastrier|Icicle Crash|p2a: Palkia
+|-damage|p2a: Palkia|32255
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene-glastrier
+|chat|DEBUG|Own moves: fireblast spacialrend dracometeor hydropump
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 191 vs 96
+|chat|DEBUG|HP: 255 vs 259
+|chat|DEBUG|Created a new Strategy for palkia vs glastrier:
+|chat|DEBUG|>[fireblast: 221.25 [204, 240], fireblast: 221.25 [204, 240], fireblast: 221.25 [204, 240]]
+|chat|DEBUG|Best move of palkia (p1): fireblast: 221.25 [204, 240]
+|chat|DEBUG|Best move of glastrier (p2): closecombat: 226.1875 [208, 245]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|metsrule158 has 120 seconds left.
+|move|p2a: Palkia|Fire Blast|p1a: Glastrier
+|-supereffective|p1a: Glastrier
+|-damage|p1a: Glastrier|0 fnt
+|faint|p1a: Glastrier
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|metsrule158 has 120 seconds left.
+|switch|p1a: Garchomp|Garchomp, L74, M|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene-glastrier
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lapras', 'stunfiskgalar', 'dragalge', 'palkia']
+|chat|DEBUG|Speed: 191 vs 96
+|chat|DEBUG|HP: 32 vs 38
+|chat|DEBUG|Created a new Strategy for palkia vs glastrier:
+|chat|DEBUG|>[fireblast: 221.25 [204, 240], fireblast: 221.25 [204, 240], fireblast: 221.25 [204, 240]]
+|chat|DEBUG|Best move of palkia (p1): fireblast: 221.25 [204, 240]
+|chat|DEBUG|Best move of glastrier (p2): closecombat: 226.1875 [208, 245]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lapras|Lapras, L86, F|363363
+|move|p1a: Garchomp|Earthquake|p2a: Lapras
+|-damage|p2a: Lapras|263363
+|-heal|p2a: Lapras|285363|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene-garchomp
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: earthquake outrage stoneedge swordsdance
+|chat|DEBUG|Checks: ['lapras']
+|chat|DEBUG|Counter: ['lapras', 'delibird', 'dragalge']
+|chat|DEBUG|Speed: 191 vs 194
+|chat|DEBUG|HP: 32 vs 282
+|chat|DEBUG|Created a new Strategy for palkia vs garchomp:
+|chat|DEBUG|>[fireblast: 74.4375 [68, 81], fireblast: 74.4375 [68, 81], fireblast: 74.4375 [68, 81]]
+|chat|DEBUG|Best move of palkia (p1): fireblast: 74.4375 [68, 81]
+|chat|DEBUG|Best move of garchomp (p2): outrage: 256.125 [236, 278]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lapras
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hatterene|Hatterene, L86, F|29100
+|move|p2a: Lapras|Ice Beam|p1a: Hatterene
+|-damage|p1a: Hatterene|0 fnt
+|faint|p1a: Hatterene
+|-heal|p2a: Lapras|307363|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wigglytuff|Wigglytuff, L90, F|100100
+|-item|p2a: Lapras|Leftovers|[from] ability: Frisk|[of] p1a: Wigglytuff|[identify]
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-hatterene-garchomp
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: earthquake outrage stoneedge swordsdance
+|chat|DEBUG|Checks: ['lapras']
+|chat|DEBUG|Counter: ['lapras', 'delibird', 'dragalge']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 152 vs 194
+|chat|DEBUG|HP: 285 vs 282
+|chat|DEBUG|Created a new Strategy for lapras vs garchomp:
+|chat|DEBUG|>[icebeam: 418.0 [384, 456], icebeam: 418.0 [384, 456], icebeam: 418.0 [384, 456]]
+|chat|DEBUG|Best move of lapras (p1): icebeam: 418.0 [384, 456]
+|chat|DEBUG|Best move of garchomp (p2): outrage: 131.0 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lapras|Sparkling Aria|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|72100
+|move|p1a: Wigglytuff|Light Screen|p1a: Wigglytuff
+|-sidestart|p1: metsrule158|move: Light Screen
+|-heal|p2a: Lapras|329363|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "wigglytuff"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast lightscreen reflect
+|chat|DEBUG|Checks: ['dragalge']
+|chat|DEBUG|Counter: ['lapras', 'dragalge']
+|chat|DEBUG|Speed: 152 vs 132
+|chat|DEBUG|HP: 307 vs 398
+|chat|DEBUG|Created a new Strategy for lapras vs wigglytuff:
+|chat|DEBUG|>[sparklingaria: 125.375 [115, 136], sparklingaria: 125.375 [115, 136], sparklingaria: 125.375 [115, 136]]
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 125.375 [115, 136]
+|chat|DEBUG|Best move of wigglytuff (p2): dazzlinggleam: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using sparklingaria
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lapras|Sparkling Aria|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|56100
+|move|p1a: Wigglytuff|Stealth Rock|p2a: Lapras
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-heal|p2a: Lapras|351363|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "wigglytuff"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast lightscreen reflect
+|chat|DEBUG|Checks: ['lapras', 'dragalge']
+|chat|DEBUG|Counter: ['lapras', 'dragalge']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 152 vs 132
+|chat|DEBUG|HP: 329 vs 286
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 125.375 [115, 136]
+|chat|DEBUG|Best move of wigglytuff (p2): dazzlinggleam: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using sparklingaria
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lapras|Sparkling Aria|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|41100
+|move|p1a: Wigglytuff|Reflect|p1a: Wigglytuff
+|-sidestart|p1: metsrule158|Reflect
+|-heal|p2a: Lapras|363363|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "wigglytuff"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast lightscreen reflect
+|chat|DEBUG|Checks: ['lapras', 'dragalge']
+|chat|DEBUG|Counter: ['lapras', 'stunfiskgalar', 'dragalge', 'palkia']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 152 vs 132
+|chat|DEBUG|HP: 351 vs 222
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 125.375 [115, 136]
+|chat|DEBUG|Best move of wigglytuff (p2): dazzlinggleam: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using sparklingaria
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tsareena|Tsareena, L84, F|100100
+|move|p2a: Lapras|Ice Beam|p1a: Tsareena
+|-supereffective|p1a: Tsareena
+|-damage|p1a: Tsareena|66100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "wigglytuff"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast lightscreen reflect
+|chat|DEBUG|Checks: ['lapras', 'dragalge']
+|chat|DEBUG|Counter: ['lapras', 'stunfiskgalar', 'delibird', 'dragalge', 'palkia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 152 vs 132
+|chat|DEBUG|HP: 363 vs 163
+|chat|DEBUG|Created a new Strategy for lapras vs wigglytuff:
+|chat|DEBUG|>[sparklingaria: 125.375 [115, 136], sparklingaria: 125.375 [115, 136], sparklingaria: 125.375 [115, 136]]
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 125.375 [115, 136]
+|chat|DEBUG|Best move of wigglytuff (p2): dazzlinggleam: 82.4375 [76, 90]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['tsareena']
+|chat|DEBUG|Expected enemy: tsareena
+|chat|DEBUG|Using move icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Delibird|Delibird, F|252252
+|move|p1a: Tsareena|Power Whip|p2a: Delibird
+|-resisted|p2a: Delibird
+|-damage|p2a: Delibird|148252
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: toxic protect icebeam sparklingaria
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['delibird', 'dragalge']
+|chat|DEBUG|Counter: ['delibird', 'dragalge', 'palkia']
+|chat|DEBUG|Speed: 152 vs 169
+|chat|DEBUG|HP: 363 vs 170
+|chat|DEBUG|Created a new Strategy for lapras vs tsareena:
+|chat|DEBUG|>[icebeam: 167.25 [152, 182], icebeam: 167.25 [152, 182], icebeam: 167.25 [152, 182]]
+|chat|DEBUG|Best move of lapras (p1): icebeam: 167.25 [152, 182]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 409.0625 [374, 445]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check delibird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Delibird|Spikes|p1a: Tsareena
+|-sidestart|p1: metsrule158|Spikes
+|move|p1a: Tsareena|Power Whip|p2a: Delibird
+|-resisted|p2a: Delibird
+|-damage|p2a: Delibird|43252
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "delibird" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: freezedry memento spikes rapidspin
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['dragalge']
+|chat|DEBUG|Counter: ['delibird', 'dragalge', 'palkia']
+|chat|DEBUG|Speed: 207 vs 169
+|chat|DEBUG|HP: 148 vs 170
+|chat|DEBUG|Created a new Strategy for delibird vs tsareena:
+|chat|DEBUG|>[freezedry: 145.125 [134, 158], freezedry: 145.125 [134, 158], freezedry: 145.125 [134, 158]]
+|chat|DEBUG|Best move of delibird (p1): freezedry: 145.125 [134, 158]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 186.875 [172, 203]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Delibird|Spikes|p1a: Tsareena
+|-sidestart|p1: metsrule158|Spikes
+|move|p1a: Tsareena|Rapid Spin|p2a: Delibird
+|-damage|p2a: Delibird|0 fnt
+|-boost|p1a: Tsareena|spe|1
+|-sideend|p1: metsrule158|Spikes|[from] move: Rapid Spin|[of] p1a: Tsareena
+|faint|p2a: Delibird
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dragalge|Dragalge, L86, M|252252
+|-damage|p2a: Dragalge|221252|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar delibird dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "delibird" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-delibird-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: freezedry memento spikes rapidspin
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['dragalge']
+|chat|DEBUG|Counter: ['delibird', 'dragalge', 'palkia']
+|chat|DEBUG|Speed: 207 vs 169
+|chat|DEBUG|HP: 43 vs 170
+|chat|DEBUG|Best move of delibird (p1): freezedry: 145.125 [134, 158]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 186.875 [172, 203]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Triple Axel|p2a: Dragalge
+|-supereffective|p2a: Dragalge
+|-damage|p2a: Dragalge|189252
+|-supereffective|p2a: Dragalge
+|-damage|p2a: Dragalge|127252
+|-supereffective|p2a: Dragalge
+|-damage|p2a: Dragalge|29252
+|-hitcount|p2a: Dragalge|3
+|move|p2a: Dragalge|Sludge Wave|p1a: Tsareena
+|-supereffective|p1a: Tsareena
+|-damage|p1a: Tsareena|11100
+|-heal|p2a: Dragalge|44252|[from] item: Black Sludge
+|-sideend|p1: metsrule158|move: Light Screen
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "delibird" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['dragalge']
+|chat|DEBUG|Counter: ['dragalge', 'palkia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to dragalge (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Triple Axel|p2a: Dragalge
+|-supereffective|p2a: Dragalge
+|-damage|p2a: Dragalge|8252
+|-supereffective|p2a: Dragalge
+|-damage|p2a: Dragalge|0 fnt
+|faint|p2a: Dragalge
+|-hitcount|p2: Dragalge|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stunfisk|Stunfisk-Galar, L84, M|320320
+|-damage|p2a: Stunfisk|310320|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: sludgewave toxicspikes dracometeor focusblast
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['dragalge']
+|chat|DEBUG|Counter: ['dragalge', 'palkia']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 125 vs 169
+|chat|DEBUG|HP: 221 vs 170
+|chat|DEBUG|Created a new Strategy for dragalge vs tsareena:
+|chat|DEBUG|>[sludgewave: 261.0 [240, 284], sludgewave: 261.0 [240, 284], sludgewave: 261.0 [240, 284]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 261.0 [240, 284]
+|chat|DEBUG|Best move of tsareena (p2): tripleaxel: 85.3125 [78, 94]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Synthesis|p1a: Tsareena
+|-heal|p1a: Tsareena|61100
+|move|p2a: Stunfisk|Stone Edge|p1a: Tsareena
+|-damage|p1a: Tsareena|51100
+|-heal|p2a: Stunfisk|320320|[from] item: Leftovers
+|-sideend|p1: metsrule158|Reflect
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar dragalge palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-dragalge-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: sludgewave toxicspikes dracometeor focusblast
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stunfiskgalar', 'palkia']
+|chat|DEBUG|Speed: 125 vs 169
+|chat|DEBUG|HP: 44 vs 28
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 261.0 [240, 284]
+|chat|DEBUG|Best move of tsareena (p2): tripleaxel: 85.3125 [78, 94]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Synthesis|p1a: Tsareena
+|-heal|p1a: Tsareena|100100
+|move|p2a: Stunfisk|Stealth Rock|p1a: Tsareena
+|-sidestart|p1: metsrule158|move: Stealth Rock
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stunfiskgalar', 'palkia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to stunfiskgalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Rapid Spin|p2a: Stunfisk
+|-resisted|p2a: Stunfisk
+|-damage|p2a: Stunfisk|303320
+|-boost|p1a: Tsareena|spe|1
+|-sideend|p1: metsrule158|Stealth Rock|[from] move: Rapid Spin|[of] p1a: Tsareena
+|move|p2a: Stunfisk|Stone Edge|p1a: Tsareena|[miss]
+|-miss|p2a: Stunfisk|p1a: Tsareena
+|-heal|p2a: Stunfisk|320320|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfiskgalar" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: stealthrock painsplit stoneedge earthquake
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stunfiskgalar', 'palkia']
+|chat|DEBUG|Speed: 102 vs 169
+|chat|DEBUG|HP: 310 vs 28
+|chat|DEBUG|Created a new Strategy for stunfiskgalar vs tsareena:
+|chat|DEBUG|>[stoneedge: 56.875 [52, 62], stoneedge: 56.875 [52, 62], stoneedge: 56.875 [52, 62]]
+|chat|DEBUG|Best move of stunfiskgalar (p1): stoneedge: 56.875 [52, 62]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 256.0625 [234, 278]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Power Whip|p2a: Stunfisk
+|-damage|p2a: Stunfisk|172320
+|move|p2a: Stunfisk|Stealth Rock|p1a: Tsareena
+|-sidestart|p1: metsrule158|move: Stealth Rock
+|-heal|p2a: Stunfisk|192320|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfiskgalar" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: stealthrock painsplit stoneedge earthquake
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 102 vs 169
+|chat|DEBUG|HP: 320 vs 131
+|chat|DEBUG|Best move of stunfiskgalar (p1): stoneedge: 56.875 [52, 62]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 256.0625 [234, 278]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Power Whip|p2a: Stunfisk
+|-damage|p2a: Stunfisk|44320
+|move|p2a: Stunfisk|Stone Edge|p1a: Tsareena
+|-damage|p1a: Tsareena|78100
+|-heal|p2a: Stunfisk|64320|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfiskgalar" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: stealthrock painsplit stoneedge earthquake
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 102 vs 169
+|chat|DEBUG|HP: 320 vs 258
+|chat|DEBUG|Best move of stunfiskgalar (p1): stoneedge: 56.875 [52, 62]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 256.0625 [234, 278]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Rapid Spin|p2a: Stunfisk
+|-resisted|p2a: Stunfisk
+|-damage|p2a: Stunfisk|44320
+|-boost|p1a: Tsareena|spe|1
+|-sideend|p1: metsrule158|Stealth Rock|[from] move: Rapid Spin|[of] p1a: Tsareena
+|move|p2a: Stunfisk|Stone Edge|p1a: Tsareena|[miss]
+|-miss|p2a: Stunfisk|p1a: Tsareena
+|-heal|p2a: Stunfisk|64320|[from] item: Leftovers
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfiskgalar" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: stealthrock painsplit stoneedge earthquake
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 102 vs 169
+|chat|DEBUG|HP: 320 vs 258
+|chat|DEBUG|Created a new Strategy for stunfiskgalar vs tsareena:
+|chat|DEBUG|>[stoneedge: 56.875 [52, 62], stoneedge: 56.875 [52, 62], stoneedge: 56.875 [52, 62]]
+|chat|DEBUG|Best move of stunfiskgalar (p1): stoneedge: 56.875 [52, 62]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 256.0625 [234, 278]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Power Whip|p2a: Stunfisk
+|-damage|p2a: Stunfisk|0 fnt
+|faint|p2a: Stunfisk
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Palkia|Palkia, L74|32255
+|-damage|p2a: Palkia|1255|[from] Stealth Rock
+|-ability|p2a: Palkia|Pressure
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfiskgalar" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: stealthrock painsplit stoneedge earthquake
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 102 vs 169
+|chat|DEBUG|HP: 192 vs 258
+|chat|DEBUG|Best move of stunfiskgalar (p1): stoneedge: 56.875 [52, 62]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 256.0625 [234, 278]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tsareena|Rapid Spin|p2a: Palkia
+|-damage|p2a: Palkia|0 fnt
+|-boost|p1a: Tsareena|spe|1
+|faint|p2a: Palkia
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lapras|Lapras, L86, F|363363
+|-damage|p2a: Lapras|273363|[from] Stealth Rock
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lapras stunfiskgalar palkia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stunfiskgalar" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lapras-stunfiskgalar-palkia -- tsareena-garchomp-wigglytuff
+|chat|DEBUG|Own moves: stealthrock painsplit stoneedge earthquake
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 102 vs 169
+|chat|DEBUG|HP: 64 vs 201
+|chat|DEBUG|Best move of stunfiskgalar (p1): stoneedge: 56.875 [52, 62]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 256.0625 [234, 278]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Tsareena|Dynamax
+|-heal|p1a: Tsareena|78100|[silent]
+|move|p1a: Tsareena|Max Overgrowth|p2a: Lapras
+|-supereffective|p2a: Lapras
+|-damage|p2a: Lapras|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Lapras
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>metsrule158<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lapras weezing stunfiskgalar delibird dragalge palkia</h1>

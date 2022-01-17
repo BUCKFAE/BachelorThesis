@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490663341<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490663341|init|battle
+|title|McGewitter vs. XxRafaxX
+|j|☆McGewitter
+|j|☆XxRafaxX
+|gametype|singles
+|player|p1|McGewitter|265|1212
+|player|p2|XxRafaxX|marshal|1188
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Butterfree|Butterfree, L87, M, shiny|246246
+|switch|p2a: Sharpedo|Sharpedo, L82, M|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygarde eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "butterfree" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygarde-eldegoss-clawitzer -- sharpedo
+|chat|DEBUG|Own moves: energyball hurricane sleeppowder quiverdance
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: ['eldegoss']
+|chat|DEBUG|Counter: ['buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 172 vs 203
+|chat|DEBUG|HP: 246 vs 249
+|chat|DEBUG|Created a new Strategy for butterfree vs sharpedo:
+|chat|DEBUG|>[energyball: 221.25 [204, 240], energyball: 221.25 [204, 240], energyball: 221.25 [204, 240]]
+|chat|DEBUG|Best move of butterfree (p1): energyball: 221.25 [204, 240]
+|chat|DEBUG|Best move of sharpedo (p2): crunch: 176.125 [161, 191]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check eldegoss
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Heatran|Heatran, L78, M|100100
+|-item|p2a: Heatran|Air Balloon
+|switch|p1a: Eldegoss|Eldegoss, L90, M|254254
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygarde eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eldegoss" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygarde-eldegoss-clawitzer -- sharpedo-heatran
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: earthpower flashcannon lavaplume taunt
+|chat|DEBUG|Checks: ['zygarde', 'clawitzer']
+|chat|DEBUG|Counter: ['zygarde', 'clawitzer']
+|chat|DEBUG|Speed: 159 vs 165
+|chat|DEBUG|HP: 254 vs 270
+|chat|DEBUG|Created a new Strategy for eldegoss vs heatran:
+|chat|DEBUG|>[energyball: 21.9375 [20, 24], energyball: 21.9375 [20, 24], energyball: 21.9375 [20, 24]]
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 21.9375 [20, 24]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zygarde
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zygarde|Zygarde, L70|267267
+|move|p2a: Heatran|Lava Plume|p1a: Zygarde
+|-resisted|p1a: Zygarde
+|-damage|p1a: Zygarde|218267
+|-heal|p1a: Zygarde|234267|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygarde eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygarde" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygarde-eldegoss-clawitzer -- sharpedo-heatran
+|chat|DEBUG|Own moves: outrage substitute dragondance thousandarrows
+|chat|DEBUG|Enemy moves: earthpower flashcannon lavaplume taunt
+|chat|DEBUG|Checks: ['zygarde', 'clawitzer']
+|chat|DEBUG|Counter: ['zygarde', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 174 vs 165
+|chat|DEBUG|HP: 234 vs 270
+|chat|DEBUG|Created a new Strategy for zygarde vs heatran:
+|chat|DEBUG|>[thousandarrows: 263.0 [240, 288], thousandarrows: 263.0 [240, 288], thousandarrows: 263.0 [240, 288]]
+|chat|DEBUG|Best move of zygarde (p1): thousandarrows: 263.0 [240, 288]
+|chat|DEBUG|Best move of heatran (p2): flashcannon: 105.875 [97, 115]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thousandarrows
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zygarde|Thousand Arrows|p2a: Heatran
+|-supereffective|p2a: Heatran
+|-damage|p2a: Heatran|6100
+|-enditem|p2a: Heatran|Air Balloon
+|move|p2a: Heatran|Taunt|p1a: Zygarde
+|-start|p1a: Zygarde|move: Taunt
+|-heal|p1a: Zygarde|250267|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygarde eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygarde" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygarde-eldegoss-clawitzer -- sharpedo-heatran
+|chat|DEBUG|Own moves: outrage thousandarrows
+|chat|DEBUG|Enemy moves: earthpower flashcannon lavaplume taunt
+|chat|DEBUG|Checks: ['zygarde', 'clawitzer']
+|chat|DEBUG|Counter: ['butterfree', 'incineroar', 'buzzwole', 'zygarde', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 174 vs 165
+|chat|DEBUG|HP: 250 vs 16
+|chat|DEBUG|Best move of zygarde (p1): thousandarrows: 263.0 [240, 288]
+|chat|DEBUG|Best move of heatran (p2): flashcannon: 105.875 [97, 115]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sharpedo|Sharpedo, L82, M|100100
+|move|p1a: Zygarde|Thousand Arrows|p2a: Sharpedo
+|-damage|p2a: Sharpedo|50100
+|-heal|p1a: Zygarde|266267|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygarde eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygarde" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygarde-eldegoss-clawitzer -- sharpedo-heatran
+|chat|DEBUG|Own moves: outrage thousandarrows
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: ['eldegoss', 'clawitzer']
+|chat|DEBUG|Counter: ['butterfree', 'buzzwole', 'zygarde', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 174 vs 203
+|chat|DEBUG|HP: 266 vs 124
+|chat|DEBUG|Created a new Strategy for zygarde vs sharpedo:
+|chat|DEBUG|>[outrage: 161.25 [148, 175], outrage: 161.25 [148, 175], outrage: 161.25 [148, 175]]
+|chat|DEBUG|Best move of zygarde (p1): outrage: 161.25 [148, 175]
+|chat|DEBUG|Best move of sharpedo (p2): hydropump: 159.3125 [146, 173]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Hydro Pump|p1a: Zygarde
+|-damage|p1a: Zygarde|102267
+|-damage|p2a: Sharpedo|40100|[from] item: Life Orb
+|move|p1a: Zygarde|Outrage|p2a: Sharpedo
+|-damage|p2a: Sharpedo|0 fnt
+|faint|p2a: Sharpedo
+|-heal|p1a: Zygarde|118267|[from] item: Leftovers
+|-activate|p1a: Zygarde|ability: Power Construct
+|detailschange|p1a: Zygarde|Zygarde-Complete, L70
+|-heal|p1a: Zygarde|269418|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Persian|Persian-Alola, L82, F|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygardecomplete" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: ['incineroar', 'buzzwole', 'eldegoss']
+|chat|DEBUG|Counter: ['butterfree', 'incineroar', 'buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 160 vs 236
+|chat|DEBUG|HP: 269 vs 241
+|chat|DEBUG|Created a new Strategy for zygardecomplete vs persianalola:
+|chat|DEBUG|>[outrage: 62.9375 [58, 69], outrage: 62.9375 [58, 69], outrage: 62.9375 [58, 69]]
+|chat|DEBUG|Best move of zygardecomplete (p1): outrage: 62.9375 [58, 69]
+|chat|DEBUG|Best move of persianalola (p2): darkpulse: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Persian|Hypnosis|p1a: Zygarde
+|-status|p1a: Zygarde|slp|[from] move: Hypnosis
+|cant|p1a: Zygarde|slp
+|-heal|p1a: Zygarde|295418 slp|[from] item: Leftovers
+|-end|p1a: Zygarde|move: Taunt
+|-start|p1a: Zygarde|confusion|[fatigue]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygardecomplete" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: outrage substitute dragondance thousandarrows
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: ['incineroar', 'buzzwole', 'eldegoss']
+|chat|DEBUG|Counter: ['butterfree', 'incineroar', 'buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 160 vs 236
+|chat|DEBUG|HP: 295 vs 241
+|chat|DEBUG|Best move of zygardecomplete (p1): outrage: 62.9375 [58, 69]
+|chat|DEBUG|Best move of persianalola (p2): darkpulse: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check incineroar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Incineroar|Incineroar, L80, M|283283
+|-ability|p1a: Incineroar|Intimidate|boost
+|-unboost|p2a: Persian|atk|1
+|move|p2a: Persian|Nasty Plot|p2a: Persian
+|-boost|p2a: Persian|spa|2
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: uturn flareblitz knockoff willowisp
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eldegoss']
+|chat|DEBUG|Speed: 142 vs 236
+|chat|DEBUG|HP: 283 vs 241
+|chat|DEBUG|Created a new Strategy for incineroar vs persianalola:
+|chat|DEBUG|>[flareblitz: 90.875 [84, 99], flareblitz: 90.875 [84, 99], flareblitz: 90.875 [84, 99]]
+|chat|DEBUG|Best move of incineroar (p1): flareblitz: 90.875 [84, 99]
+|chat|DEBUG|Best move of persianalola (p2): thunderbolt: 102.1875 [94, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Persian|Thunderbolt|p1a: Incineroar
+|-damage|p1a: Incineroar|175283
+|-status|p1a: Incineroar|par
+|move|p1a: Incineroar|Flare Blitz|p2a: Persian
+|-damage|p2a: Persian|64100
+|-status|p2a: Persian|brn
+|-damage|p1a: Incineroar|146283 par|[from] Recoil
+|-heal|p2a: Persian|70100 brn|[from] item: Leftovers
+|-damage|p2a: Persian|64100 brn|[from] brn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: uturn flareblitz knockoff willowisp
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 142 vs 236
+|chat|DEBUG|HP: 146 vs 154
+|chat|DEBUG|Best move of incineroar (p1): flareblitz: 90.875 [84, 99]
+|chat|DEBUG|Best move of persianalola (p2): thunderbolt: 102.1875 [94, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Persian|Dark Pulse|p1a: Incineroar
+|-resisted|p1a: Incineroar
+|-damage|p1a: Incineroar|74283 par
+|cant|p1a: Incineroar|flinch
+|-heal|p2a: Persian|70100 brn|[from] item: Leftovers
+|-damage|p2a: Persian|64100 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree incineroar buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-incineroar-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: uturn flareblitz knockoff willowisp
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 142 vs 236
+|chat|DEBUG|HP: 74 vs 154
+|chat|DEBUG|Best move of incineroar (p1): flareblitz: 90.875 [84, 99]
+|chat|DEBUG|Best move of persianalola (p2): thunderbolt: 102.1875 [94, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Persian|Thunderbolt|p1a: Incineroar
+|-damage|p1a: Incineroar|0 fnt
+|faint|p1a: Incineroar
+|-heal|p2a: Persian|70100 brn|[from] item: Leftovers
+|-damage|p2a: Persian|64100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Buzzwole|Buzzwole, L77|291291
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to buzzwole (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Close Combat|p2a: Persian
+|-supereffective|p2a: Persian
+|-damage|p2a: Persian|0 fnt
+|-unboost|p1a: Buzzwole|def|1
+|-unboost|p1a: Buzzwole|spd|1
+|faint|p2a: Persian
+|-ability|p1a: Buzzwole|Beast Boost|boost
+|-boost|p1a: Buzzwole|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|XxRafaxX has 120 seconds left.
+|switch|p2a: Azumarill|Azumarill, L84, F|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "persianalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-persianalola
+|chat|DEBUG|Own moves: leechlife stoneedge ironhead closecombat
+|chat|DEBUG|Enemy moves: darkpulse hypnosis nastyplot thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['buzzwole', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 166 vs 236
+|chat|DEBUG|HP: 291 vs 154
+|chat|DEBUG|Created a new Strategy for buzzwole vs persianalola:
+|chat|DEBUG|>[closecombat: 192.375 [176, 210], closecombat: 192.375 [176, 210], closecombat: 192.375 [176, 210]]
+|chat|DEBUG|Best move of buzzwole (p1): closecombat: 192.375 [176, 210]
+|chat|DEBUG|Best move of persianalola (p2): thunderbolt: 153.875 [141, 167]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Close Combat|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|61100
+|-unboost|p1a: Buzzwole|def|1
+|-unboost|p1a: Buzzwole|spd|1
+|move|p2a: Azumarill|Play Rough|p1a: Buzzwole
+|-supereffective|p1a: Buzzwole
+|-damage|p1a: Buzzwole|0 fnt
+|faint|p1a: Buzzwole
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eldegoss|Eldegoss, L90, M|254254
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree buzzwole zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "azumarill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-buzzwole-zygardecomplete-eldegoss-clawitzer -- heatran-azumarill
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: aquajet knockoff liquidation playrough
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eldegoss']
+|chat|DEBUG|Speed: 166 vs 132
+|chat|DEBUG|HP: 291 vs 305
+|chat|DEBUG|Created a new Strategy for buzzwole vs azumarill:
+|chat|DEBUG|>[closecombat: 113.0625 [104, 123], closecombat: 113.0625 [104, 123], closecombat: 113.0625 [104, 123]]
+|chat|DEBUG|Best move of buzzwole (p1): closecombat: 113.0625 [104, 123]
+|chat|DEBUG|Best move of azumarill (p2): playrough: 406.0 [372, 440]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heatran|Heatran, L78, M|6100
+|move|p1a: Eldegoss|Energy Ball|p2a: Heatran
+|-resisted|p2a: Heatran
+|-damage|p2a: Heatran|0 fnt
+|faint|p2a: Heatran
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Galvantula|Galvantula, L82, M|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "buzzwole" vs "azumarill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- heatran-azumarill
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aquajet knockoff liquidation playrough
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eldegoss']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to eldegoss (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Sticky Web|p1a: Eldegoss
+|-sidestart|p1: McGewitter|move: Sticky Web
+|move|p1a: Eldegoss|Energy Ball|p2a: Galvantula
+|-resisted|p2a: Galvantula
+|-damage|p2a: Galvantula|74100
+|-unboost|p2a: Galvantula|spd|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eldegoss" vs "azumarill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- heatran-azumarill
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: aquajet knockoff liquidation playrough
+|chat|DEBUG|Checks: ['eldegoss']
+|chat|DEBUG|Counter: ['butterfree', 'eldegoss']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 159 vs 132
+|chat|DEBUG|HP: 254 vs 186
+|chat|DEBUG|Created a new Strategy for eldegoss vs azumarill:
+|chat|DEBUG|>[energyball: 203.5 [186, 222], energyball: 203.5 [186, 222], energyball: 203.5 [186, 222]]
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 203.5 [186, 222]
+|chat|DEBUG|Best move of azumarill (p2): playrough: 164.125 [151, 178]
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Bug Buzz|p1a: Eldegoss
+|-supereffective|p1a: Eldegoss
+|-damage|p1a: Eldegoss|110254
+|move|p1a: Eldegoss|Energy Ball|p2a: Galvantula
+|-resisted|p2a: Galvantula
+|-damage|p2a: Galvantula|32100
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eldegoss" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zygardecomplete']
+|chat|DEBUG|Speed: 159 vs 224
+|chat|DEBUG|HP: 254 vs 249
+|chat|DEBUG|Created a new Strategy for eldegoss vs galvantula:
+|chat|DEBUG|>[energyball: 63.8125 [59, 69], energyball: 63.8125 [59, 69], energyball: 63.8125 [59, 69]]
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 63.8125 [59, 69]
+|chat|DEBUG|Best move of galvantula (p2): bugbuzz: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zygarde|Zygarde-Complete, L70|295418 slp
+|-activate|p1a: Zygarde|move: Sticky Web
+|-unboost|p1a: Zygarde|spe|1
+|move|p2a: Galvantula|Bug Buzz|p1a: Zygarde
+|-damage|p1a: Zygarde|189418 slp
+|-heal|p1a: Zygarde|215418 slp|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eldegoss" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['butterfree', 'zygardecomplete', 'clawitzer']
+|chat|DEBUG|Speed: 159 vs 224
+|chat|DEBUG|HP: 254 vs 184
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 63.8125 [59, 69]
+|chat|DEBUG|Best move of galvantula (p2): bugbuzz: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azumarill|Azumarill, L84, F|61100
+|-curestatus|p1a: Zygarde|slp|[msg]
+|move|p1a: Zygarde|Thousand Arrows|p2a: Azumarill
+|-damage|p2a: Azumarill|38100
+|-heal|p1a: Zygarde|241418|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eldegoss" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: ['zygardecomplete']
+|chat|DEBUG|Counter: ['butterfree', 'zygardecomplete', 'clawitzer']
+|chat|DEBUG|Speed: 159 vs 224
+|chat|DEBUG|HP: 110 vs 79
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 63.8125 [59, 69]
+|chat|DEBUG|Best move of galvantula (p2): bugbuzz: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zygardecomplete
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Butterfree|Butterfree, L87, M, shiny|246246
+|move|p2a: Azumarill|Play Rough|p1a: Butterfree
+|-damage|p1a: Butterfree|0 fnt
+|faint|p1a: Butterfree
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eldegoss|Eldegoss, L90, M|194254
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygardecomplete" vs "galvantula"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: outrage substitute dragondance thousandarrows
+|chat|DEBUG|Enemy moves: bugbuzz stickyweb thunder voltswitch
+|chat|DEBUG|Checks: ['zygardecomplete']
+|chat|DEBUG|Counter: ['butterfree', 'zygardecomplete', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 160 vs 224
+|chat|DEBUG|HP: 215 vs 79
+|chat|DEBUG|Created a new Strategy for zygardecomplete vs galvantula:
+|chat|DEBUG|>[outrage: 125.375 [115, 136], outrage: 125.375 [115, 136], outrage: 125.375 [115, 136]]
+|chat|DEBUG|Best move of zygardecomplete (p1): outrage: 125.375 [115, 136]
+|chat|DEBUG|Best move of galvantula (p2): bugbuzz: 101.75 [93, 111]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['azumarill']
+|chat|DEBUG|Expected enemy: azumarill
+|chat|DEBUG|Using move thousandarrows
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro-Galar, L86, M|100100
+|move|p1a: Eldegoss|Energy Ball|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|83100
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>butterfree zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygardecomplete" vs "azumarill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>butterfree-zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: outrage substitute dragondance thousandarrows
+|chat|DEBUG|Enemy moves: aquajet knockoff liquidation playrough
+|chat|DEBUG|Checks: ['butterfree', 'eldegoss']
+|chat|DEBUG|Counter: ['butterfree', 'eldegoss', 'clawitzer']
+|chat|DEBUG|Speed: 160 vs 132
+|chat|DEBUG|HP: 241 vs 115
+|chat|DEBUG|Created a new Strategy for zygardecomplete vs azumarill:
+|chat|DEBUG|>[thousandarrows: 75.3125 [69, 82], thousandarrows: 75.3125 [69, 82], thousandarrows: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of zygardecomplete (p1): thousandarrows: 75.3125 [69, 82]
+|chat|DEBUG|Best move of azumarill (p2): playrough: 331.5 [306, 360]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check butterfree
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Eldegoss|Dynamax
+|-heal|p1a: Eldegoss|388508|[silent]
+|move|p1a: Eldegoss|Max Overgrowth|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|55100
+|-fieldstart|move: Grassy Terrain
+|move|p2a: Slowbro|Shell Side Arm|p1a: Eldegoss|[anim] Shell Side Arm Physical
+|-supereffective|p1a: Eldegoss
+|-crit|p1a: Eldegoss
+|-damage|p1a: Eldegoss|124508
+|-hint|Physical Shell Side Arm
+|-heal|p1a: Eldegoss|139508|[from] Grassy Terrain
+|-heal|p2a: Slowbro|62100|[from] Grassy Terrain
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "butterfree" vs "azumarill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aquajet knockoff liquidation playrough
+|chat|DEBUG|Checks: ['eldegoss']
+|chat|DEBUG|Counter: ['eldegoss', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to eldegoss (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eldegoss|Max Overgrowth|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|27100
+|move|p2a: Slowbro|Shell Side Arm|p1a: Eldegoss|[anim] Shell Side Arm Physical
+|-supereffective|p1a: Eldegoss
+|-damage|p1a: Eldegoss|0 fnt
+|-hint|Physical Shell Side Arm
+|faint|p1a: Eldegoss
+|-heal|p2a: Slowbro|33100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zygarde|Zygarde-Complete, L70|241418
+|-activate|p1a: Zygarde|move: Sticky Web
+|-unboost|p1a: Zygarde|spe|1
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eldegoss" vs "azumarill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: aquajet knockoff liquidation playrough
+|chat|DEBUG|Checks: ['eldegoss']
+|chat|DEBUG|Counter: ['eldegoss', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 159 vs 132
+|chat|DEBUG|HP: 194 vs 115
+|chat|DEBUG|Created a new Strategy for eldegoss vs azumarill:
+|chat|DEBUG|>[energyball: 203.5 [186, 222], energyball: 203.5 [186, 222], energyball: 203.5 [186, 222]]
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 203.5 [186, 222]
+|chat|DEBUG|Best move of azumarill (p2): playrough: 164.125 [151, 178]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|XxRafaxX has 120 seconds left.
+|inactive|XxRafaxX has 90 seconds left.
+|move|p1a: Zygarde|Thousand Arrows|p2a: Slowbro
+|-supereffective|p2a: Slowbro
+|-damage|p2a: Slowbro|0 fnt
+|faint|p2a: Slowbro
+|-heal|p1a: Zygarde|267418|[from] Grassy Terrain
+|-heal|p1a: Zygarde|293418|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Galvantula|Galvantula, L82, M|32100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eldegoss" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula-slowbrogalar
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['zygardecomplete', 'clawitzer']
+|chat|DEBUG|Speed: 159 vs 56
+|chat|DEBUG|HP: 194 vs 252
+|chat|DEBUG|Created a new Strategy for eldegoss vs slowbrogalar:
+|chat|DEBUG|>[energyball: 54.9375 [51, 60], energyball: 54.9375 [51, 60], energyball: 54.9375 [51, 60]]
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 54.9375 [51, 60]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 246.6875 [226, 268]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Bug Buzz|p1a: Zygarde
+|-damage|p1a: Zygarde|193418
+|-unboost|p1a: Zygarde|spd|1
+|move|p1a: Zygarde|Outrage|p2a: Galvantula
+|-damage|p2a: Galvantula|0 fnt
+|faint|p2a: Galvantula
+|-heal|p1a: Zygarde|219418|[from] Grassy Terrain
+|-heal|p1a: Zygarde|245418|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azumarill|Azumarill, L84, F|38100
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete eldegoss clawitzer
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eldegoss" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zygardecomplete-eldegoss-clawitzer -- azumarill-galvantula-slowbrogalar
+|chat|DEBUG|Own moves: leechseed sleeppowder energyball rapidspin
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['zygardecomplete', 'clawitzer']
+|chat|DEBUG|Speed: 159 vs 56
+|chat|DEBUG|HP: 139 vs 188
+|chat|DEBUG|Best move of eldegoss (p1): energyball: 54.9375 [51, 60]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 246.6875 [226, 268]
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Azumarill|Dynamax
+|-heal|p2a: Azumarill|38100|[silent]
+|move|p2a: Azumarill|Max Starfall|p1a: Zygarde
+|-supereffective|p1a: Zygarde
+|-damage|p1a: Zygarde|0 fnt
+|-fieldstart|move: Misty Terrain
+|faint|p1a: Zygarde
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Clawitzer|Clawitzer, L84, M|256256
+|-activate|p1a: Clawitzer|move: Sticky Web
+|-unboost|p1a: Clawitzer|spe|1
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete clawitzer
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eldegoss" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zygardecomplete-clawitzer -- azumarill-galvantula-slowbrogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['zygardecomplete', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'zygardecomplete': 241, 'clawitzer': 256}
+|chat|DEBUG|remaining_hp_team_2={'azumarill': 38, 'galvantula': 32, 'slowbrogalar': 62}
+|chat|DEBUG|battle.available_switches=[zygardecomplete (pokemon object) [Active: False, Status: None], clawitzer (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'zygardecomplete'
+|chat|DEBUG|>Switching to zygardecomplete (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|XxRafaxX has 120 seconds left.
+|move|p2a: Azumarill|Max Starfall|p1a: Clawitzer
+|-damage|p1a: Clawitzer|84256
+|move|p1a: Clawitzer|Dark Pulse|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-crit|p2a: Azumarill
+|-damage|p2a: Azumarill|20100
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete clawitzer
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "zygardecomplete" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zygardecomplete-clawitzer -- azumarill-galvantula-slowbrogalar
+|chat|DEBUG|Own moves: outrage substitute dragondance thousandarrows
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['zygardecomplete', 'clawitzer']
+|chat|DEBUG|Counter: ['zygardecomplete', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 160 vs 56
+|chat|DEBUG|HP: 241 vs 100
+|chat|DEBUG|Created a new Strategy for zygardecomplete vs slowbrogalar:
+|chat|DEBUG|>[thousandarrows: 128.5 [116, 140], thousandarrows: 128.5 [116, 140], thousandarrows: 128.5 [116, 140]]
+|chat|DEBUG|Best move of zygardecomplete (p1): thousandarrows: 128.5 [116, 140]
+|chat|DEBUG|Best move of slowbrogalar (p2): psychic: 150.25 [138, 164]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Azumarill|Max Starfall|p1a: Clawitzer
+|-damage|p1a: Clawitzer|0 fnt
+|faint|p1a: Clawitzer
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>XxRafaxX</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">butterfree incineroar buzzwole zygarde eldegoss clawitzer</h1>

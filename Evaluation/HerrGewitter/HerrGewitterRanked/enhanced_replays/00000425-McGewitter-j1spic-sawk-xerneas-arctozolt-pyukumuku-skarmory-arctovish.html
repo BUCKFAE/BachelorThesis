@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490626955<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490626955|init|battle
+|title|McGewitter vs. j1spic
+|j|☆McGewitter
+|j|☆j1spic
+|gametype|singles
+|player|p1|McGewitter|265|1302
+|player|p2|j1spic|fantina|1323
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Sawk|Sawk, L86, M|269269
+|switch|p2a: Landorus|Landorus-Therian, L72, M|100100
+|-ability|p2a: Landorus|Intimidate|boost
+|-unboost|p1a: Sawk|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sawk xerneas arctozolt pyukumuku skarmory arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sawk-xerneas-arctozolt-pyukumuku-skarmory-arctovish -- landorustherian
+|chat|DEBUG|Own moves: knockoff closecombat poisonjab stoneedge
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctozolt', 'arctovish']
+|chat|DEBUG|Speed: 195 vs 173
+|chat|DEBUG|HP: 269 vs 247
+|chat|DEBUG|Created a new Strategy for sawk vs landorustherian:
+|chat|DEBUG|>[knockoff: 50.375 [46, 55], knockoff: 50.375 [46, 55], knockoff: 50.375 [46, 55]]
+|chat|DEBUG|Best move of sawk (p1): knockoff: 50.375 [46, 55]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 279.0 [257, 304]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Sawk|Knock Off|p2a: Landorus
+|-damage|p2a: Landorus|73100
+|-enditem|p2a: Landorus|Life Orb|[from] move: Knock Off|[of] p1a: Sawk
+|move|p2a: Landorus|Swords Dance|p2a: Landorus
+|-boost|p2a: Landorus|atk|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sawk xerneas arctozolt pyukumuku skarmory arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sawk-xerneas-arctozolt-pyukumuku-skarmory-arctovish -- landorustherian
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Speed: 195 vs 173
+|chat|DEBUG|HP: 269 vs 180
+|chat|DEBUG|Created a new Strategy for sawk vs landorustherian:
+|chat|DEBUG|>[knockoff: 33.75 [31, 37], knockoff: 33.75 [31, 37], knockoff: 33.75 [31, 37]]
+|chat|DEBUG|Best move of sawk (p1): knockoff: 33.75 [31, 37]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 425.375 [390, 462]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sawk|Knock Off|p2a: Landorus
+|-damage|p2a: Landorus|55100
+|move|p2a: Landorus|Earthquake|p1a: Sawk
+|-crit|p1a: Sawk
+|-ability|p1a: Sawk|Sturdy
+|-damage|p1a: Sawk|1269
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sawk xerneas arctozolt pyukumuku skarmory arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sawk-xerneas-arctozolt-pyukumuku-skarmory-arctovish -- landorustherian
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Speed: 195 vs 173
+|chat|DEBUG|HP: 1 vs 135
+|chat|DEBUG|Created a new Strategy for sawk vs landorustherian:
+|chat|DEBUG|>[knockoff: 33.75 [31, 37], knockoff: 33.75 [31, 37], knockoff: 33.75 [31, 37]]
+|chat|DEBUG|Best move of sawk (p1): knockoff: 33.75 [31, 37]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 425.375 [390, 462]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sawk|Knock Off|p2a: Landorus
+|-damage|p2a: Landorus|38100
+|move|p2a: Landorus|Earthquake|p1a: Sawk
+|-damage|p1a: Sawk|0 fnt
+|faint|p1a: Sawk
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctovish|Arctovish, L86|295295
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas arctozolt pyukumuku skarmory arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-arctozolt-pyukumuku-skarmory-arctovish -- landorustherian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to arctovish (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Stone Edge|p1a: Arctovish
+|-supereffective|p1a: Arctovish
+|-crit|p1a: Arctovish
+|-damage|p1a: Arctovish|0 fnt
+|faint|p1a: Arctovish
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xerneas|Xerneas, L67|280280
+|-ability|p1a: Xerneas|Fairy Aura
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas arctozolt pyukumuku skarmory arctovish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-arctozolt-pyukumuku-skarmory-arctovish -- landorustherian
+|chat|DEBUG|Own moves: fishiousrend psychicfangs iciclecrash bodyslam
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xerneas', 'arctovish']
+|chat|DEBUG|Speed: 144 vs 173
+|chat|DEBUG|HP: 295 vs 93
+|chat|DEBUG|Created a new Strategy for arctovish vs landorustherian:
+|chat|DEBUG|>[iciclecrash: 407.0 [372, 444], iciclecrash: 407.0 [372, 444], iciclecrash: 407.0 [372, 444]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 407.0 [372, 444]
+|chat|DEBUG|Best move of landorustherian (p2): stoneedge: 254.375 [234, 276]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Earthquake|p1a: Xerneas
+|-damage|p1a: Xerneas|19280
+|move|p1a: Xerneas|Moonblast|p2a: Landorus
+|-damage|p2a: Landorus|0 fnt
+|faint|p2a: Landorus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Orbeetle|Orbeetle, L86, M|100100
+|-item|p1a: Xerneas|Power Herb|[from] ability: Frisk|[of] p2a: Orbeetle|[identify]
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-arctozolt-pyukumuku-skarmory -- landorustherian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xerneas']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to xerneas (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Orbeetle|Bug Buzz|p1a: Xerneas
+|-resisted|p1a: Xerneas
+|-damage|p1a: Xerneas|0 fnt
+|faint|p1a: Xerneas
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctozolt|Arctozolt, L86|295295
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xerneas" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-arctozolt-pyukumuku-skarmory -- landorustherian
+|chat|DEBUG|Own moves: focusblast thunderbolt moonblast geomancy
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xerneas']
+|chat|DEBUG|Speed: 172 vs 173
+|chat|DEBUG|HP: 280 vs 93
+|chat|DEBUG|Created a new Strategy for xerneas vs landorustherian:
+|chat|DEBUG|>[moonblast: 135.5 [124, 147], moonblast: 135.5 [124, 147], moonblast: 135.5 [124, 147]]
+|chat|DEBUG|Best move of xerneas (p1): moonblast: 135.5 [124, 147]
+|chat|DEBUG|Best move of landorustherian (p2): earthquake: 251.625 [231, 273]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Orbeetle|Psychic|p1a: Arctozolt
+|-damage|p1a: Arctozolt|208295
+|-unboost|p1a: Arctozolt|spd|1
+|move|p1a: Arctozolt|Thunder Wave|p2a: Orbeetle
+|-status|p2a: Orbeetle|par
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xerneas arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xerneas" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xerneas-arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: focusblast thunderbolt moonblast geomancy
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctozolt', 'skarmory']
+|chat|DEBUG|Speed: 172 vs 204
+|chat|DEBUG|HP: 19 vs 243
+|chat|DEBUG|Created a new Strategy for xerneas vs orbeetle:
+|chat|DEBUG|>[moonblast: 83.625 [76, 91], moonblast: 83.625 [76, 91], moonblast: 83.625 [76, 91]]
+|chat|DEBUG|Best move of xerneas (p1): moonblast: 83.625 [76, 91]
+|chat|DEBUG|Best move of orbeetle (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arctozolt|Bolt Beak|p2a: Orbeetle
+|-damage|p2a: Orbeetle|35100 par
+|move|p2a: Orbeetle|Psychic|p1a: Arctozolt
+|-damage|p1a: Arctozolt|82295
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xerneas" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctozolt', 'skarmory']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to arctozolt (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Skarmory|Skarmory, L80, M|235235
+|cant|p2a: Orbeetle|par
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: freezedry thunderwave boltbeak iciclecrash
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctozolt', 'skarmory']
+|chat|DEBUG|Speed: 144 vs 204
+|chat|DEBUG|HP: 295 vs 243
+|chat|DEBUG|Created a new Strategy for arctozolt vs orbeetle:
+|chat|DEBUG|>[thunderwave: 0.0 [0, 0], boltbeak: 158.5625 [145, 172], boltbeak: 158.5625 [145, 172]]
+|chat|DEBUG|Best move of arctozolt (p1): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|Best move of orbeetle (p2): psychic: 90.875 [84, 99]
+|chat|DEBUG|Attacking using thunderwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Skarmory|Spikes|p2a: Orbeetle
+|-sidestart|p2: j1spic|Spikes
+|move|p2a: Orbeetle|Psychic|p1a: Skarmory
+|-resisted|p1a: Skarmory
+|-crit|p1a: Skarmory
+|-damage|p1a: Skarmory|151235
+|-heal|p1a: Skarmory|165235|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: freezedry thunderwave boltbeak iciclecrash
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skarmory']
+|chat|DEBUG|Speed: 144 vs 204
+|chat|DEBUG|HP: 208 vs 243
+|chat|DEBUG|Best move of arctozolt (p1): boltbeak: 158.5625 [145, 172]
+|chat|DEBUG|Best move of orbeetle (p2): psychic: 137.0 [126, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using boltbeak
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cloyster|Cloyster, L80, F|100100
+|-damage|p2a: Cloyster|88100|[from] Spikes
+|move|p1a: Skarmory|Brave Bird|p2a: Cloyster
+|-damage|p2a: Cloyster|62100
+|-damage|p1a: Skarmory|147235|[from] Recoil
+|-heal|p1a: Skarmory|161235|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: freezedry thunderwave boltbeak iciclecrash
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: ['skarmory']
+|chat|DEBUG|Counter: ['skarmory']
+|chat|DEBUG|Speed: 144 vs 204
+|chat|DEBUG|HP: 82 vs 85
+|chat|DEBUG|Best move of arctozolt (p1): boltbeak: 158.5625 [145, 172]
+|chat|DEBUG|Best move of orbeetle (p2): psychic: 137.0 [126, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skarmory
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Skarmory|Spikes|p2a: Cloyster
+|-sidestart|p2: j1spic|Spikes
+|move|p2a: Cloyster|Shell Smash|p2a: Cloyster
+|-unboost|p2a: Cloyster|def|1
+|-unboost|p2a: Cloyster|spd|1
+|-boost|p2a: Cloyster|atk|2
+|-boost|p2a: Cloyster|spa|2
+|-boost|p2a: Cloyster|spe|2
+|-enditem|p2a: Cloyster|White Herb
+|-clearnegativeboost|p2a: Cloyster|[silent]
+|-heal|p1a: Skarmory|175235|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skarmory" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: roost whirlwind bravebird spikes
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: ['skarmory']
+|chat|DEBUG|Counter: ['skarmory']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 158 vs 204
+|chat|DEBUG|HP: 235 vs 85
+|chat|DEBUG|Created a new Strategy for skarmory vs orbeetle:
+|chat|DEBUG|>[bravebird: 167.25 [152, 182], bravebird: 167.25 [152, 182], bravebird: 167.25 [152, 182]]
+|chat|DEBUG|Best move of skarmory (p1): bravebird: 167.25 [152, 182]
+|chat|DEBUG|Best move of orbeetle (p2): psychic: 53.375 [49, 58]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cloyster|Hydro Pump|p1a: Skarmory|[miss]
+|-miss|p2a: Cloyster|p1a: Skarmory
+|move|p1a: Skarmory|Spikes|p2a: Cloyster
+|-sidestart|p2: j1spic|Spikes
+|-heal|p1a: Skarmory|189235|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skarmory" vs "orbeetle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle
+|chat|DEBUG|Own moves: roost whirlwind bravebird spikes
+|chat|DEBUG|Enemy moves: bugbuzz calmmind psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skarmory']
+|chat|DEBUG|Speed: 158 vs 204
+|chat|DEBUG|HP: 165 vs 85
+|chat|DEBUG|Best move of skarmory (p1): bravebird: 167.25 [152, 182]
+|chat|DEBUG|Best move of orbeetle (p2): psychic: 53.375 [49, 58]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cloyster|Hydro Pump|p1a: Skarmory
+|-damage|p1a: Skarmory|0 fnt
+|faint|p1a: Skarmory
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pyukumuku|Pyukumuku, L84, F|230230
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skarmory" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle-cloyster
+|chat|DEBUG|Own moves: roost whirlwind bravebird spikes
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 158
+|chat|DEBUG|HP: 161 vs 130
+|chat|DEBUG|Created a new Strategy for skarmory vs cloyster:
+|chat|DEBUG|>[bravebird: 60.125 [55, 66], bravebird: 60.125 [55, 66], bravebird: 60.125 [55, 66]]
+|chat|DEBUG|Best move of skarmory (p1): bravebird: 60.125 [55, 66]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 121.1875 [111, 132]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctozolt|Arctozolt, L86|82295
+|move|p2a: Cloyster|Icicle Spear|p1a: Arctozolt
+|-resisted|p1a: Arctozolt
+|-damage|p1a: Arctozolt|60295
+|-resisted|p1a: Arctozolt
+|-damage|p1a: Arctozolt|36295
+|-resisted|p1a: Arctozolt
+|-damage|p1a: Arctozolt|12295
+|-resisted|p1a: Arctozolt
+|-damage|p1a: Arctozolt|0 fnt
+|faint|p1a: Arctozolt
+|-hitcount|p1: Arctozolt|4
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pyukumuku|Pyukumuku, L84, F|230230
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skarmory" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle-cloyster
+|chat|DEBUG|Own moves: roost whirlwind bravebird spikes
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 158
+|chat|DEBUG|HP: 175 vs 130
+|chat|DEBUG|Best move of skarmory (p1): bravebird: 60.125 [55, 66]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 240.5 [220, 261]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Cloyster|Dynamax
+|-heal|p2a: Cloyster|62100|[silent]
+|-start|p1a: Pyukumuku|Dynamax
+|-heal|p1a: Pyukumuku|460460|[silent]
+|move|p1a: Pyukumuku|Max Guard|p1a: Pyukumuku
+|-singleturn|p1a: Pyukumuku|Max Guard
+|move|p2a: Cloyster|Max Strike|p1a: Pyukumuku
+|-activate|p1a: Pyukumuku|move: Max Guard
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku skarmory
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skarmory" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku-skarmory -- orbeetle-cloyster
+|chat|DEBUG|Own moves: roost whirlwind bravebird spikes
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 158
+|chat|DEBUG|HP: 189 vs 130
+|chat|DEBUG|Best move of skarmory (p1): bravebird: 60.125 [55, 66]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 240.5 [220, 261]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pyukumuku|Max Guard||[still]
+|-fail|p1a: Pyukumuku
+|move|p2a: Cloyster|Max Strike|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|388460
+|-unboost|p1a: Pyukumuku|spe|1
+|-heal|p1a: Pyukumuku|402460|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skarmory" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: pyukumuku
+|chat|DEBUG|>Switching to pyukumuku (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pyukumuku|Max Guard|p1a: Pyukumuku
+|-singleturn|p1a: Pyukumuku|Max Guard
+|move|p2a: Cloyster|Max Strike|p1a: Pyukumuku
+|-activate|p1a: Pyukumuku|move: Max Guard
+|-heal|p1a: Pyukumuku|416460|[from] item: Leftovers
+|-end|p2a: Cloyster|Dynamax
+|-heal|p2a: Cloyster|62100|[silent]
+|-end|p1a: Pyukumuku|Dynamax
+|-heal|p1a: Pyukumuku|208230|[silent]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>arctozolt pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>arctozolt-pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 158
+|chat|DEBUG|HP: 230 vs 130
+|chat|DEBUG|Created a new Strategy for pyukumuku vs cloyster:
+|chat|DEBUG|>[recover: 0.0 [0, 0], recover: 0.0 [0, 0], recover: 0.0 [0, 0]]
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 35.3125 [33, 39]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to arctozolt as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cloyster|Explosion|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|82230
+|faint|p2a: Cloyster
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|197230
+|-heal|p1a: Pyukumuku|211230|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon2|Porygon2, L82|100100
+|-damage|p2a: Porygon2|76100|[from] Spikes
+|-ability|p2a: Porygon2|Unaware|[from] ability: Trace|[of] p1a: Pyukumuku
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: pyukumuku
+|chat|DEBUG|>Switching to pyukumuku (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Toxic|p1a: Pyukumuku
+|-status|p1a: Pyukumuku|tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|230230 tox
+|-damage|p1a: Pyukumuku|216230 tox|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 158
+|chat|DEBUG|HP: 230 vs 130
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 35.3125 [33, 39]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|134230 tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|230230 tox
+|-damage|p1a: Pyukumuku|202230 tox|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 158
+|chat|DEBUG|HP: 460 vs 130
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 35.3125 [33, 39]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|112230 tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|227230 tox
+|-heal|p1a: Pyukumuku|230230 tox|[from] item: Leftovers
+|-damage|p1a: Pyukumuku|188230 tox|[from] psn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 158
+|chat|DEBUG|HP: 402 vs 130
+|chat|DEBUG|Created a new Strategy for pyukumuku vs cloyster:
+|chat|DEBUG|>[recover: 0.0 [0, 0], recover: 0.0 [0, 0], recover: 0.0 [0, 0]]
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 35.3125 [33, 39]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|104230 tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|219230 tox
+|-heal|p1a: Pyukumuku|230230 tox|[from] item: Leftovers
+|-damage|p1a: Pyukumuku|174230 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-cloyster
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 158
+|chat|DEBUG|HP: 208 vs 130
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 35.3125 [33, 39]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|96230 tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|211230 tox
+|-heal|p1a: Pyukumuku|225230 tox|[from] item: Leftovers
+|-damage|p1a: Pyukumuku|155230 tox|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-porygon2
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 146
+|chat|DEBUG|HP: 211 vs 208
+|chat|DEBUG|Created a new Strategy for pyukumuku vs porygon2:
+|chat|DEBUG|>[recover: 0.0 [0, 0], recover: 0.0 [0, 0], recover: 0.0 [0, 0]]
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 84.25 [78, 92]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|67230 tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|182230 tox
+|-heal|p1a: Pyukumuku|196230 tox|[from] item: Leftovers
+|-damage|p1a: Pyukumuku|112230 tox|[from] psn
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-porygon2
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 146
+|chat|DEBUG|HP: 216 vs 208
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 84.25 [78, 92]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|28230 tox
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|143230 tox
+|-heal|p1a: Pyukumuku|157230 tox|[from] item: Leftovers
+|-damage|p1a: Pyukumuku|59230 tox|[from] psn
+|upkeep
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pyukumuku" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pyukumuku -- orbeetle-porygon2
+|chat|DEBUG|Own moves: counter mirrorcoat toxic recover
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 57 vs 146
+|chat|DEBUG|HP: 202 vs 208
+|chat|DEBUG|Best move of pyukumuku (p1): recover: 0.0 [0, 0]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 84.25 [78, 92]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Pyukumuku
+|-supereffective|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|0 fnt
+|faint|p1a: Pyukumuku
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>j1spic</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">sawk xerneas arctozolt pyukumuku skarmory arctovish</h1>

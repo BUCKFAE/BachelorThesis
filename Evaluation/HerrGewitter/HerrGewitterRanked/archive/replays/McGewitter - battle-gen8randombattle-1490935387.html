@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490935387</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490935387<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">sheep believer</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490935387|init|battle
+|title|sheep believer vs. McGewitter
+|j|☆sheep believer
+|j|☆McGewitter
+|gametype|singles
+|player|p1|sheep believer|266|1180
+|player|p2|McGewitter|265|1214
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Jirachi|Jirachi, L79|100/100
+|switch|p2a: Naganadel|Naganadel, L74|230/230
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Naganadel|Fire Blast|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|30/100
+|-status|p1a: Jirachi|brn
+|-damage|p2a: Naganadel|207/230|[from] item: Life Orb
+|move|p1a: Jirachi|Stealth Rock|p2a: Naganadel
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-heal|p1a: Jirachi|36/100 brn|[from] item: Leftovers
+|-damage|p1a: Jirachi|30/100 brn|[from] brn
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Coalossal|Coalossal, L87, M|100/100
+|move|p2a: Naganadel|Fire Blast|p1a: Coalossal
+|-resisted|p1a: Coalossal
+|-damage|p1a: Coalossal|94/100
+|-damage|p2a: Naganadel|184/230|[from] item: Life Orb
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|258/258
+|-damage|p2a: Aggron|242/258|[from] Stealth Rock
+|-item|p2a: Aggron|Air Balloon
+|move|p1a: Coalossal|Rapid Spin|p2a: Aggron
+|-resisted|p2a: Aggron
+|-damage|p2a: Aggron|238/258
+|-boost|p1a: Coalossal|spe|1
+|-enditem|p2a: Aggron|Air Balloon
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Coalossal|Will-O-Wisp|p2a: Aggron|[miss]
+|-miss|p1a: Coalossal|p2a: Aggron
+|move|p2a: Aggron|Stealth Rock|p1a: Coalossal
+|-sidestart|p1: sheep believer|move: Stealth Rock
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Coalossal|Will-O-Wisp|p2a: Aggron
+|-status|p2a: Aggron|brn
+|move|p2a: Aggron|Earthquake|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|61/100
+|-damage|p2a: Aggron|222/258 brn|[from] brn
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Coalossal|Overheat|p2a: Aggron|[miss]
+|-miss|p1a: Coalossal|p2a: Aggron
+|move|p2a: Aggron|Earthquake|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|21/100
+|-damage|p2a: Aggron|206/258 brn|[from] brn
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Coalossal|Overheat|p2a: Aggron
+|-damage|p2a: Aggron|31/258 brn
+|-unboost|p1a: Coalossal|spa|2
+|move|p2a: Aggron|Earthquake|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|0 fnt
+|faint|p1a: Coalossal
+|-damage|p2a: Aggron|15/258 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jirachi|Jirachi, L79|30/100 brn
+|-damage|p1a: Jirachi|24/100 brn|[from] Stealth Rock
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Naganadel|Naganadel, L74|184/230
+|-damage|p2a: Naganadel|156/230|[from] Stealth Rock
+|move|p1a: Jirachi|Stealth Rock||[still]
+|-fail|p1a: Jirachi
+|-heal|p1a: Jirachi|30/100 brn|[from] item: Leftovers
+|-damage|p1a: Jirachi|24/100 brn|[from] brn
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Naganadel|Fire Blast|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|0 fnt
+|faint|p1a: Jirachi
+|-ability|p2a: Naganadel|Beast Boost|boost
+|-boost|p2a: Naganadel|spa|1
+|-damage|p2a: Naganadel|133/230|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowking|Slowking-Galar, L84, M|100/100
+|-damage|p1a: Slowking|88/100|[from] Stealth Rock
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Naganadel|Fire Blast|p1a: Slowking
+|-damage|p1a: Slowking|45/100
+|-damage|p2a: Naganadel|110/230|[from] item: Life Orb
+|move|p1a: Slowking|Psyshock|p2a: Naganadel
+|-supereffective|p2a: Naganadel
+|-damage|p2a: Naganadel|0 fnt
+|faint|p2a: Naganadel
+|-heal|p1a: Slowking|51/100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mew|Mew, L80|291/291
+|-damage|p2a: Mew|255/291|[from] Stealth Rock
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|22/100
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|72/100
+|-heal|p1a: Slowking|78/100|[from] item: Black Sludge
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|47/100
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|97/100
+|-heal|p1a: Slowking|100/100|[from] item: Black Sludge
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|68/100
+|move|p1a: Slowking|Psyshock|p2a: Mew
+|-resisted|p2a: Mew
+|-crit|p2a: Mew
+|-damage|p2a: Mew|190/291
+|-heal|p1a: Slowking|74/100|[from] item: Black Sludge
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|43/100
+|move|p1a: Slowking|Psyshock|p2a: Mew
+|-resisted|p2a: Mew
+|-damage|p2a: Mew|146/291
+|-heal|p1a: Slowking|49/100|[from] item: Black Sludge
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|16/100
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|66/100
+|-heal|p1a: Slowking|72/100|[from] item: Black Sludge
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|42/100
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|92/100
+|-heal|p1a: Slowking|98/100|[from] item: Black Sludge
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-crit|p1a: Slowking
+|-damage|p1a: Slowking|54/100
+|move|p1a: Slowking|Psyshock|p2a: Mew
+|-resisted|p2a: Mew
+|-damage|p2a: Mew|101/291
+|-heal|p1a: Slowking|60/100|[from] item: Black Sludge
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|31/100
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|81/100
+|-heal|p1a: Slowking|87/100|[from] item: Black Sludge
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|55/100
+|move|p1a: Slowking|Psyshock|p2a: Mew
+|-resisted|p2a: Mew
+|-damage|p2a: Mew|60/291
+|-heal|p1a: Slowking|61/100|[from] item: Black Sludge
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|28/100
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|79/100
+|-heal|p1a: Slowking|85/100|[from] item: Black Sludge
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|54/100
+|move|p1a: Slowking|Psyshock|p2a: Mew
+|-resisted|p2a: Mew
+|-damage|p2a: Mew|15/291
+|-heal|p1a: Slowking|60/100|[from] item: Black Sludge
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Slowking
+|-damage|p1a: Slowking|32/100
+|move|p1a: Slowking|Psyshock|p2a: Mew
+|-resisted|p2a: Mew
+|-damage|p2a: Mew|0 fnt
+|faint|p2a: Mew
+|-heal|p1a: Slowking|38/100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cryogonal|Cryogonal, L86|278/278
+|-damage|p2a: Cryogonal|209/278|[from] Stealth Rock
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cryogonal|Freeze-Dry|p1a: Slowking
+|-damage|p1a: Slowking|15/100
+|move|p1a: Slowking|Fire Blast|p2a: Cryogonal
+|-supereffective|p2a: Cryogonal
+|-crit|p2a: Cryogonal
+|-damage|p2a: Cryogonal|43/278
+|-heal|p2a: Cryogonal|60/278|[from] item: Leftovers
+|-heal|p1a: Slowking|21/100|[from] item: Black Sludge
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cryogonal|Freeze-Dry|p1a: Slowking
+|-damage|p1a: Slowking|0 fnt
+|faint|p1a: Slowking
+|-heal|p2a: Cryogonal|77/278|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Weezing|Weezing-Galar, L86, M|100/100
+|-ability|p1a: Weezing|Neutralizing Gas
+|-damage|p1a: Weezing|88/100|[from] Stealth Rock
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cryogonal|Freeze-Dry|p1a: Weezing
+|-damage|p1a: Weezing|52/100
+|move|p1a: Weezing|Sludge Bomb|p2a: Cryogonal
+|-damage|p2a: Cryogonal|11/278
+|-status|p2a: Cryogonal|psn
+|-heal|p2a: Cryogonal|28/278 psn|[from] item: Leftovers
+|-heal|p1a: Weezing|58/100|[from] item: Black Sludge
+|-damage|p2a: Cryogonal|0 fnt|[from] psn
+|faint|p2a: Cryogonal
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Machamp|Machamp, L82, F|282/282
+|-damage|p2a: Machamp|265/282|[from] Stealth Rock
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Machamp|Bullet Punch|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|39/100
+|move|p1a: Weezing|Will-O-Wisp|p2a: Machamp
+|-status|p2a: Machamp|brn
+|-heal|p1a: Weezing|45/100|[from] item: Black Sludge
+|-damage|p2a: Machamp|248/282 brn|[from] brn
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Machamp|Bullet Punch|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|35/100
+|move|p1a: Weezing|Strange Steam|p2a: Machamp
+|-supereffective|p2a: Machamp
+|-damage|p2a: Machamp|56/282 brn
+|-heal|p1a: Weezing|41/100|[from] item: Black Sludge
+|-damage|p2a: Machamp|39/282 brn|[from] brn
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Machamp|Bullet Punch|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|29/100
+|move|p1a: Weezing|Strange Steam|p2a: Machamp
+|-supereffective|p2a: Machamp
+|-damage|p2a: Machamp|0 fnt
+|faint|p2a: Machamp
+|-heal|p1a: Weezing|35/100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|15/258 brn
+|-damage|p2a: Aggron|0 fnt|[from] Stealth Rock
+|faint|p2a: Aggron
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Escavalier|Escavalier, L84, F|255/255
+|-damage|p2a: Escavalier|224/255|[from] Stealth Rock
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Weezing|Will-O-Wisp|p2a: Escavalier
+|-status|p2a: Escavalier|brn
+|move|p2a: Escavalier|Iron Head|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|0 fnt
+|faint|p1a: Weezing
+|-end|p1a: Weezing|ability: Neutralizing Gas
+|-damage|p2a: Escavalier|209/255 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Seaking|Seaking, L88, F|100/100
+|-damage|p1a: Seaking|88/100|[from] Stealth Rock
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Seaking|Drill Run|p2a: Escavalier
+|-damage|p2a: Escavalier|141/255 brn
+|-damage|p1a: Seaking|78/100|[from] item: Life Orb
+|move|p2a: Escavalier|Iron Head|p1a: Seaking
+|-resisted|p1a: Seaking
+|-damage|p1a: Seaking|61/100
+|-damage|p2a: Escavalier|126/255 brn|[from] brn
+|upkeep
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Seaking|Drill Run|p2a: Escavalier
+|-damage|p2a: Escavalier|55/255 brn
+|-damage|p1a: Seaking|52/100|[from] item: Life Orb
+|move|p2a: Escavalier|Iron Head|p1a: Seaking
+|-resisted|p1a: Seaking
+|-damage|p1a: Seaking|34/100
+|-damage|p2a: Escavalier|40/255 brn|[from] brn
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Seaking|Drill Run|p2a: Escavalier
+|-damage|p2a: Escavalier|0 fnt
+|faint|p2a: Escavalier
+|-damage|p1a: Seaking|24/100|[from] item: Life Orb
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

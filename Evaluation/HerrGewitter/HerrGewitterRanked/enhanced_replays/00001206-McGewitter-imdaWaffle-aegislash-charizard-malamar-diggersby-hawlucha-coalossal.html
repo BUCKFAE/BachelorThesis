@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491909513<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491909513|init|battle
+|title|McGewitter vs. imdaWaffle
+|j|☆McGewitter
+|j|☆imdaWaffle
+|gametype|singles
+|player|p1|McGewitter|265|1335
+|player|p2|imdaWaffle|1|1331
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Aegislash|Aegislash, L80, F|227227
+|switch|p2a: Tangrowth|Tangrowth, L84, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aegislash charizard malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aegislash" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>aegislash-charizard-malamar-diggersby-hawlucha-coalossal -- tangrowth
+|chat|DEBUG|Own moves: ironhead swordsdance shadowsneak closecombat
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['charizard', 'coalossal']
+|chat|DEBUG|Counter: ['aegislash', 'charizard', 'hawlucha', 'coalossal']
+|chat|DEBUG|Speed: 142 vs 132
+|chat|DEBUG|HP: 227 vs 305
+|chat|DEBUG|Created a new Strategy for aegislash vs tangrowth:
+|chat|DEBUG|>[closecombat: 103.9375 [95, 113], closecombat: 103.9375 [95, 113], closecombat: 103.9375 [95, 113]]
+|chat|DEBUG|Best move of aegislash (p1): closecombat: 103.9375 [95, 113]
+|chat|DEBUG|Best move of tangrowth (p2): gigadrain: 68.25 [63, 74]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|-formechange|p1a: Aegislash|Aegislash-Blade||[from] ability: Stance Change
+|move|p1a: Aegislash|Close Combat|p2a: Tangrowth
+|-damage|p2a: Tangrowth|66100
+|-unboost|p1a: Aegislash|def|1
+|-unboost|p1a: Aegislash|spd|1
+|-damage|p1a: Aegislash|190227|[from] item: Rocky Helmet|[of] p2a: Tangrowth
+|-damage|p1a: Aegislash|168227|[from] item: Life Orb
+|move|p2a: Tangrowth|Earthquake|p1a: Aegislash
+|-supereffective|p1a: Aegislash
+|-damage|p1a: Aegislash|0 fnt
+|faint|p1a: Aegislash
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Charizard|Charizard, L82, F|262262
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>charizard malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aegislash" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>charizard-malamar-diggersby-hawlucha-coalossal -- tangrowth
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['charizard', 'coalossal']
+|chat|DEBUG|Counter: ['charizard', 'hawlucha', 'coalossal']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to charizard (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Walrein|Walrein, L86, F|100100
+|move|p1a: Charizard|Fire Blast|p2a: Walrein
+|-damage|p2a: Walrein|84100
+|-heal|p2a: Walrein|90100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>charizard malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>charizard-malamar-diggersby-hawlucha-coalossal -- tangrowth
+|chat|DEBUG|Own moves: airslash earthquake roost fireblast
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['charizard', 'coalossal']
+|chat|DEBUG|Counter: ['charizard', 'malamar', 'diggersby', 'hawlucha', 'coalossal']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 132
+|chat|DEBUG|HP: 262 vs 201
+|chat|DEBUG|Created a new Strategy for charizard vs tangrowth:
+|chat|DEBUG|>[fireblast: 359.0 [330, 390], fireblast: 359.0 [330, 390], fireblast: 359.0 [330, 390]]
+|chat|DEBUG|Best move of charizard (p1): fireblast: 359.0 [330, 390]
+|chat|DEBUG|Best move of tangrowth (p2): sludgebomb: 73.625 [68, 80]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Charizard|Air Slash|p2a: Walrein
+|-damage|p2a: Walrein|68100
+|move|p2a: Walrein|Toxic|p1a: Charizard
+|-status|p1a: Charizard|tox
+|-heal|p2a: Walrein|74100|[from] item: Leftovers
+|-damage|p1a: Charizard|246262 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>charizard malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>charizard-malamar-diggersby-hawlucha-coalossal -- tangrowth-walrein
+|chat|DEBUG|Own moves: airslash earthquake roost fireblast
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['malamar', 'diggersby']
+|chat|DEBUG|Speed: 211 vs 161
+|chat|DEBUG|HP: 262 vs 296
+|chat|DEBUG|Created a new Strategy for charizard vs walrein:
+|chat|DEBUG|>[airslash: 79.5 [73, 87], airslash: 79.5 [73, 87], airslash: 79.5 [73, 87]]
+|chat|DEBUG|Best move of charizard (p1): airslash: 79.5 [73, 87]
+|chat|DEBUG|Best move of walrein (p2): surf: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Walrein|Protect|p2a: Walrein
+|-singleturn|p2a: Walrein|Protect
+|move|p1a: Charizard|Air Slash|p2a: Walrein
+|-activate|p2a: Walrein|move: Protect
+|-heal|p2a: Walrein|80100|[from] item: Leftovers
+|-damage|p1a: Charizard|214262 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>charizard malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>charizard-malamar-diggersby-hawlucha-coalossal -- tangrowth-walrein
+|chat|DEBUG|Own moves: airslash earthquake roost fireblast
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['malamar', 'diggersby']
+|chat|DEBUG|Speed: 211 vs 161
+|chat|DEBUG|HP: 246 vs 243
+|chat|DEBUG|Best move of charizard (p1): airslash: 79.5 [73, 87]
+|chat|DEBUG|Best move of walrein (p2): surf: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Charizard|Air Slash|p2a: Walrein
+|-damage|p2a: Walrein|57100
+|move|p2a: Walrein|Surf|p1a: Charizard
+|-supereffective|p1a: Charizard
+|-damage|p1a: Charizard|4262 tox
+|-heal|p2a: Walrein|63100|[from] item: Leftovers
+|-damage|p1a: Charizard|0 fnt|[from] psn
+|faint|p1a: Charizard
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Malamar|Malamar, L80, F|269269
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>charizard malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>charizard-malamar-diggersby-hawlucha-coalossal -- tangrowth-walrein
+|chat|DEBUG|Own moves: airslash earthquake roost fireblast
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['malamar', 'diggersby']
+|chat|DEBUG|Speed: 211 vs 161
+|chat|DEBUG|HP: 214 vs 263
+|chat|DEBUG|Best move of charizard (p1): airslash: 79.5 [73, 87]
+|chat|DEBUG|Best move of walrein (p2): surf: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Knock Off|p2a: Walrein
+|-damage|p2a: Walrein|38100
+|-enditem|p2a: Walrein|Leftovers|[from] move: Knock Off|[of] p1a: Malamar
+|move|p2a: Walrein|Toxic|p1a: Malamar
+|-status|p1a: Malamar|tox
+|-damage|p1a: Malamar|253269 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- tangrowth-walrein
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['malamar', 'diggersby']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to malamar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Superpower|p2a: Walrein
+|-supereffective|p2a: Walrein
+|-damage|p2a: Walrein|0 fnt
+|-boost|p1a: Malamar|atk|1
+|-boost|p1a: Malamar|def|1
+|faint|p2a: Walrein
+|-heal|p1a: Malamar|269269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|237269 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tangrowth|Tangrowth, L84, F|99100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- tangrowth-walrein
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['malamar']
+|chat|DEBUG|Counter: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 163 vs 161
+|chat|DEBUG|HP: 269 vs 207
+|chat|DEBUG|Created a new Strategy for malamar vs walrein:
+|chat|DEBUG|>[knockoff: 87.9375 [81, 96], superpower: 145.25 [134, 158], superpower: 97.125 [90, 106]]
+|chat|DEBUG|Best move of malamar (p1): knockoff: 87.9375 [81, 96]
+|chat|DEBUG|Best move of walrein (p2): surf: 117.0 [108, 127]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Knock Off|p2a: Tangrowth
+|-damage|p2a: Tangrowth|67100
+|-damage|p1a: Malamar|193269 tox|[from] item: Rocky Helmet|[of] p2a: Tangrowth
+|-enditem|p2a: Tangrowth|Rocky Helmet|[from] move: Knock Off|[of] p1a: Malamar
+|move|p2a: Tangrowth|Leech Seed|p1a: Malamar
+|-start|p1a: Malamar|move: Leech Seed
+|-heal|p1a: Malamar|209269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|176269 tox|[from] Leech Seed|[of] p2a: Tangrowth
+|-heal|p2a: Tangrowth|78100|[silent]
+|-damage|p1a: Malamar|128269 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- tangrowth-walrein
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['malamar', 'diggersby']
+|chat|DEBUG|Counter: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 163 vs 161
+|chat|DEBUG|HP: 253 vs 125
+|chat|DEBUG|Best move of malamar (p1): superpower: 145.25 [134, 158]
+|chat|DEBUG|Best move of walrein (p2): surf: 117.0 [108, 127]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Coalossal|Coalossal, L87, F|333333
+|move|p2a: Tangrowth|Giga Drain|p1a: Coalossal
+|-damage|p1a: Coalossal|249333
+|-heal|p2a: Tangrowth|91100|[from] drain|[of] p1a: Coalossal
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- tangrowth
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['malamar', 'hawlucha', 'coalossal']
+|chat|DEBUG|Speed: 163 vs 132
+|chat|DEBUG|HP: 237 vs 301
+|chat|DEBUG|Created a new Strategy for malamar vs tangrowth:
+|chat|DEBUG|>[knockoff: 103.25 [94, 112], knockoff: 103.25 [94, 112], knockoff: 103.25 [94, 112]]
+|chat|DEBUG|Best move of malamar (p1): knockoff: 103.25 [94, 112]
+|chat|DEBUG|Best move of tangrowth (p2): gigadrain: 103.25 [94, 112]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tangrowth|Earthquake|p1a: Coalossal
+|-supereffective|p1a: Coalossal
+|-damage|p1a: Coalossal|29333
+|move|p1a: Coalossal|Overheat|p2a: Tangrowth
+|-supereffective|p2a: Tangrowth
+|-damage|p2a: Tangrowth|0 fnt
+|-unboost|p1a: Coalossal|spa|2
+|faint|p2a: Tangrowth
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bisharp|Bisharp, L80, M|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- tangrowth
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['hawlucha', 'coalossal']
+|chat|DEBUG|Speed: 163 vs 132
+|chat|DEBUG|HP: 128 vs 237
+|chat|DEBUG|Best move of malamar (p1): knockoff: 103.25 [94, 112]
+|chat|DEBUG|Best move of tangrowth (p2): gigadrain: 103.25 [94, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check coalossal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Bisharp|Iron Head|p1a: Coalossal
+|-damage|p1a: Coalossal|0 fnt
+|faint|p1a: Coalossal
+|-damage|p2a: Bisharp|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Malamar|Malamar, L80, F|128269 tox
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- tangrowth
+|chat|DEBUG|Own moves: stealthrock stoneedge rapidspin overheat
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['hawlucha', 'coalossal']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 102 vs 132
+|chat|DEBUG|HP: 249 vs 277
+|chat|DEBUG|Created a new Strategy for coalossal vs tangrowth:
+|chat|DEBUG|>[overheat: 375.375 [344, 408], overheat: 186.5 [170, 204], overheat: 125.875 [116, 138]]
+|chat|DEBUG|Best move of coalossal (p1): overheat: 375.375 [344, 408]
+|chat|DEBUG|Best move of tangrowth (p2): gigadrain: 83.625 [76, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Superpower|p2a: Bisharp
+|-supereffective|p2a: Bisharp
+|-damage|p2a: Bisharp|0 fnt
+|-boost|p1a: Malamar|atk|1
+|-boost|p1a: Malamar|def|1
+|faint|p2a: Bisharp
+|-heal|p1a: Malamar|144269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|128269 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aromatisse|Aromatisse, L88, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha-coalossal -- bisharp
+|chat|DEBUG|Own moves: stealthrock stoneedge rapidspin overheat
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|Counter: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|Speed: 102 vs 158
+|chat|DEBUG|HP: 29 vs 235
+|chat|DEBUG|Created a new Strategy for coalossal vs bisharp:
+|chat|DEBUG|>[overheat: 156.375 [144, 170], overheat: 106.25 [98, 116], overheat: 78.5 [72, 86]]
+|chat|DEBUG|Best move of coalossal (p1): overheat: 156.375 [144, 170]
+|chat|DEBUG|Best move of bisharp (p2): knockoff: 114.25 [105, 125]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Knock Off|p2a: Aromatisse
+|-resisted|p2a: Aromatisse
+|-damage|p2a: Aromatisse|76100
+|-enditem|p2a: Aromatisse|Leftovers|[from] move: Knock Off|[of] p1a: Malamar
+|move|p2a: Aromatisse|Wish|p2a: Aromatisse
+|-heal|p1a: Malamar|144269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|112269 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha -- bisharp
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|Counter: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to malamar (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Knock Off|p2a: Aromatisse
+|-resisted|p2a: Aromatisse
+|-damage|p2a: Aromatisse|61100
+|move|p2a: Aromatisse|Calm Mind|p2a: Aromatisse
+|-boost|p2a: Aromatisse|spa|1
+|-boost|p2a: Aromatisse|spd|1
+|-heal|p2a: Aromatisse|100100|[from] move: Wish|[wisher] Aromatisse
+|-heal|p1a: Malamar|128269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|80269 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha -- bisharp
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['diggersby', 'hawlucha']
+|chat|DEBUG|Counter: ['malamar', 'diggersby', 'hawlucha']
+|chat|DEBUG|Speed: 163 vs 158
+|chat|DEBUG|HP: 128 vs 213
+|chat|DEBUG|Created a new Strategy for malamar vs bisharp:
+|chat|DEBUG|>[superpower: 286.75 [264, 312], superpower: 190.25 [176, 208], superpower: 146.5 [136, 160]]
+|chat|DEBUG|Best move of malamar (p1): superpower: 286.75 [264, 312]
+|chat|DEBUG|Best move of bisharp (p2): knockoff: 157.5 [144, 172]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Knock Off|p2a: Aromatisse
+|-resisted|p2a: Aromatisse
+|-damage|p2a: Aromatisse|86100
+|move|p2a: Aromatisse|Calm Mind|p2a: Aromatisse
+|-boost|p2a: Aromatisse|spa|1
+|-boost|p2a: Aromatisse|spd|1
+|-heal|p1a: Malamar|96269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|32269 tox|[from] psn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha -- aromatisse
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby']
+|chat|DEBUG|Speed: 163 vs 101
+|chat|DEBUG|HP: 128 vs 321
+|chat|DEBUG|Created a new Strategy for malamar vs aromatisse:
+|chat|DEBUG|>[knockoff: 74.8125 [69, 81], knockoff: 74.8125 [69, 81], knockoff: 74.8125 [69, 81]]
+|chat|DEBUG|Best move of malamar (p1): knockoff: 74.8125 [69, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 268.0 [246, 290]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Malamar|Knock Off|p2a: Aromatisse
+|-resisted|p2a: Aromatisse
+|-damage|p2a: Aromatisse|71100
+|move|p2a: Aromatisse|Calm Mind|p2a: Aromatisse
+|-boost|p2a: Aromatisse|spa|1
+|-boost|p2a: Aromatisse|spd|1
+|-heal|p1a: Malamar|48269 tox|[from] item: Leftovers
+|-damage|p1a: Malamar|0 fnt|[from] psn
+|faint|p1a: Malamar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hawlucha|Hawlucha, L80, M|256256
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha -- aromatisse
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby']
+|chat|DEBUG|Speed: 163 vs 101
+|chat|DEBUG|HP: 112 vs 243
+|chat|DEBUG|Best move of malamar (p1): knockoff: 74.8125 [69, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 268.0 [246, 290]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hawlucha|Brave Bird|p2a: Aromatisse
+|-damage|p2a: Aromatisse|33100
+|-damage|p1a: Hawlucha|216256|[from] Recoil
+|move|p2a: Aromatisse|Moonblast|p1a: Hawlucha
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|0 fnt
+|faint|p1a: Hawlucha
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, F|267267
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha -- aromatisse
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby']
+|chat|DEBUG|Speed: 163 vs 101
+|chat|DEBUG|HP: 80 vs 321
+|chat|DEBUG|Best move of malamar (p1): knockoff: 74.8125 [69, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 397.75 [366, 432]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Earthquake|p2a: Aromatisse
+|-damage|p2a: Aromatisse|0 fnt
+|faint|p2a: Aromatisse
+|-damage|p1a: Diggersby|241267|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Passimian|Passimian, L82, F|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>malamar diggersby hawlucha
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "malamar" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>malamar-diggersby-hawlucha -- aromatisse
+|chat|DEBUG|Own moves: rest sleeptalk superpower knockoff
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 163 vs 101
+|chat|DEBUG|HP: 32 vs 276
+|chat|DEBUG|Created a new Strategy for malamar vs aromatisse:
+|chat|DEBUG|>[knockoff: 50.625 [46, 55], knockoff: 50.625 [46, 55], superpower: 62.0 [57, 67]]
+|chat|DEBUG|Best move of malamar (p1): knockoff: 50.625 [46, 55]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 531.375 [488, 576]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Passimian|Dynamax
+|-heal|p2a: Passimian|100100|[silent]
+|move|p2a: Passimian|Max Knuckle|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|-boost|p2a: Passimian|atk|1
+|faint|p1a: Diggersby
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>imdaWaffle</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">aegislash charizard malamar diggersby hawlucha coalossal</h1>

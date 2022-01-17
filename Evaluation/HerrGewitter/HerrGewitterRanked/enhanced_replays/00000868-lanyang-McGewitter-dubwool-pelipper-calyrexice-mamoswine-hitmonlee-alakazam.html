@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491361883<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491361883|init|battle
+|title|lanyang vs. McGewitter
+|j|☆lanyang
+|j|☆McGewitter
+|gametype|singles
+|player|p1|lanyang|2|1220
+|player|p2|McGewitter|265|1264
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Reuniclus|Reuniclus, L84, F|100100
+|switch|p2a: Dubwool|Dubwool, L86, F|264264
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper calyrexice mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-calyrexice-mamoswine-hitmonlee-alakazam -- reuniclus
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['calyrexice', 'alakazam']
+|chat|DEBUG|Counter: ['calyrexice', 'alakazam']
+|chat|DEBUG|Speed: 201 vs 99
+|chat|DEBUG|HP: 264 vs 322
+|chat|DEBUG|Created a new Strategy for dubwool vs reuniclus:
+|chat|DEBUG|>[bodypress: 34.25 [31, 37], bodypress: 34.25 [31, 37], bodypress: 34.25 [31, 37]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 34.25 [31, 37]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 144.75 [133, 157]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check calyrexice
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Calyrex|Calyrex-Ice, L72|263263
+|-ability|p2a: Calyrex|As One
+|-ability|p2a: Calyrex|Unnerve
+|move|p1a: Reuniclus|Focus Blast|p2a: Calyrex
+|-damage|p2a: Calyrex|147263
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper calyrexice mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "calyrexice" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-calyrexice-mamoswine-hitmonlee-alakazam -- reuniclus
+|chat|DEBUG|Own moves: agility glaciallance highhorsepower closecombat
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['alakazam']
+|chat|DEBUG|Counter: ['calyrexice', 'alakazam']
+|chat|DEBUG|Speed: 114 vs 99
+|chat|DEBUG|HP: 147 vs 322
+|chat|DEBUG|Created a new Strategy for calyrexice vs reuniclus:
+|chat|DEBUG|>[glaciallance: 175.1875 [160, 190], glaciallance: 175.1875 [160, 190], glaciallance: 175.1875 [160, 190]]
+|chat|DEBUG|Best move of calyrexice (p1): glaciallance: 175.1875 [160, 190]
+|chat|DEBUG|Best move of reuniclus (p2): focusblast: 115.0 [105, 125]
+|chat|DEBUG|Attacking using glaciallance
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Calyrex|Glacial Lance|p1a: Reuniclus
+|-damage|p1a: Reuniclus|49100
+|move|p1a: Reuniclus|Psychic|p2a: Calyrex
+|-resisted|p2a: Calyrex
+|-crit|p2a: Calyrex
+|-damage|p2a: Calyrex|57263
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper calyrexice mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "calyrexice" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-calyrexice-mamoswine-hitmonlee-alakazam -- reuniclus
+|chat|DEBUG|Own moves: agility glaciallance highhorsepower closecombat
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['alakazam']
+|chat|DEBUG|Counter: ['pelipper', 'calyrexice', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Speed: 114 vs 99
+|chat|DEBUG|HP: 57 vs 157
+|chat|DEBUG|Best move of calyrexice (p1): glaciallance: 175.1875 [160, 190]
+|chat|DEBUG|Best move of reuniclus (p2): focusblast: 115.0 [105, 125]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Copperajah|Copperajah, L84, F|100100
+|move|p2a: Calyrex|Glacial Lance|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|75100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper calyrexice mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "calyrexice" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-calyrexice-mamoswine-hitmonlee-alakazam -- reuniclus-copperajah
+|chat|DEBUG|Own moves: agility glaciallance highhorsepower closecombat
+|chat|DEBUG|Enemy moves: earthquake ironhead playrough rockslide
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'pelipper', 'calyrexice', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Speed: 114 vs 99
+|chat|DEBUG|HP: 57 vs 256
+|chat|DEBUG|Created a new Strategy for calyrexice vs copperajah:
+|chat|DEBUG|>[closecombat: 228.5 [210, 248], closecombat: 228.5 [210, 248], closecombat: 228.5 [210, 248]]
+|chat|DEBUG|Best move of calyrexice (p1): closecombat: 228.5 [210, 248]
+|chat|DEBUG|Best move of copperajah (p2): ironhead: 275.1875 [252, 299]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Calyrex|Close Combat|p1a: Copperajah
+|-supereffective|p1a: Copperajah
+|-damage|p1a: Copperajah|11100
+|-unboost|p2a: Calyrex|def|1
+|-unboost|p2a: Calyrex|spd|1
+|move|p1a: Copperajah|Iron Head|p2a: Calyrex
+|-supereffective|p2a: Calyrex
+|-damage|p2a: Calyrex|0 fnt
+|faint|p2a: Calyrex
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dubwool|Dubwool, L86, F|264264
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "calyrexice" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-copperajah
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake ironhead playrough rockslide
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'pelipper', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dubwool (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|49100
+|move|p2a: Dubwool|Body Press|p1a: Reuniclus
+|-resisted|p1a: Reuniclus
+|-damage|p1a: Reuniclus|39100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-copperajah
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: earthquake ironhead playrough rockslide
+|chat|DEBUG|Checks: ['dubwool', 'pelipper']
+|chat|DEBUG|Counter: ['dubwool', 'pelipper', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 201 vs 99
+|chat|DEBUG|HP: 264 vs 37
+|chat|DEBUG|Created a new Strategy for dubwool vs copperajah:
+|chat|DEBUG|>[bodypress: 145.25 [134, 158], bodypress: 145.25 [134, 158], bodypress: 145.25 [134, 158]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 145.25 [134, 158]
+|chat|DEBUG|Best move of copperajah (p2): ironhead: 159.3125 [146, 173]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dubwool|Body Press|p1a: Reuniclus
+|-resisted|p1a: Reuniclus
+|-damage|p1a: Reuniclus|28100
+|move|p1a: Reuniclus|Recover|p1a: Reuniclus
+|-heal|p1a: Reuniclus|78100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-copperajah
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['alakazam']
+|chat|DEBUG|Counter: ['dubwool', 'pelipper', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Speed: 201 vs 99
+|chat|DEBUG|HP: 264 vs 125
+|chat|DEBUG|Created a new Strategy for dubwool vs reuniclus:
+|chat|DEBUG|>[bodypress: 34.25 [31, 37], bodypress: 34.25 [31, 37], bodypress: 34.25 [31, 37]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 34.25 [31, 37]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 144.75 [133, 157]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alakazam|Alakazam, L78, F|214214
+|move|p1a: Reuniclus|Psychic|p2a: Alakazam
+|-resisted|p2a: Alakazam
+|-damage|p2a: Alakazam|140214
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-copperajah
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['alakazam']
+|chat|DEBUG|Counter: ['mamoswine', 'alakazam']
+|chat|DEBUG|Speed: 201 vs 99
+|chat|DEBUG|HP: 264 vs 251
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 34.25 [31, 37]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 144.75 [133, 157]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check alakazam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Copperajah|Copperajah, L84, F|11100
+|move|p2a: Alakazam|Shadow Ball|p1a: Copperajah
+|-damage|p1a: Copperajah|0 fnt
+|faint|p1a: Copperajah
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stunfisk|Stunfisk-Galar, L84, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-copperajah
+|chat|DEBUG|Own moves: focusblast shadowball counter psychic
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mamoswine', 'alakazam']
+|chat|DEBUG|Speed: 232 vs 99
+|chat|DEBUG|HP: 140 vs 251
+|chat|DEBUG|Created a new Strategy for alakazam vs reuniclus:
+|chat|DEBUG|>[shadowball: 132.25 [122, 144], shadowball: 132.25 [122, 144], shadowball: 132.25 [122, 144]]
+|chat|DEBUG|Best move of alakazam (p1): shadowball: 132.25 [122, 144]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 76.5 [70, 83]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dubwool|Dubwool, L86, F|264264
+|move|p1a: Stunfisk|Earthquake|p2a: Dubwool
+|-crit|p2a: Dubwool
+|-damage|p2a: Dubwool|140264
+|-heal|p2a: Dubwool|156264|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "stunfiskgalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: focusblast shadowball counter psychic
+|chat|DEBUG|Enemy moves: earthquake painsplit stealthrock stoneedge
+|chat|DEBUG|Checks: ['dubwool', 'pelipper', 'mamoswine']
+|chat|DEBUG|Counter: ['dubwool', 'pelipper', 'mamoswine', 'hitmonlee']
+|chat|DEBUG|Speed: 232 vs 102
+|chat|DEBUG|HP: 140 vs 320
+|chat|DEBUG|Created a new Strategy for alakazam vs stunfiskgalar:
+|chat|DEBUG|>[focusblast: 200.625 [184, 218], focusblast: 200.625 [184, 218], focusblast: 200.625 [184, 218]]
+|chat|DEBUG|Best move of alakazam (p1): focusblast: 200.625 [184, 218]
+|chat|DEBUG|Best move of stunfiskgalar (p2): earthquake: 157.3125 [144, 171]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dubwool
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|78100
+|move|p2a: Dubwool|Body Press|p1a: Reuniclus
+|-resisted|p1a: Reuniclus
+|-damage|p1a: Reuniclus|66100
+|-heal|p2a: Dubwool|172264|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "stunfiskgalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: earthquake painsplit stealthrock stoneedge
+|chat|DEBUG|Checks: ['pelipper', 'mamoswine']
+|chat|DEBUG|Counter: ['dubwool', 'pelipper', 'mamoswine', 'hitmonlee']
+|chat|DEBUG|Speed: 201 vs 102
+|chat|DEBUG|HP: 156 vs 320
+|chat|DEBUG|Created a new Strategy for dubwool vs stunfiskgalar:
+|chat|DEBUG|>[bodypress: 111.875 [102, 122], bodypress: 111.875 [102, 122], bodypress: 111.875 [102, 122]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 111.875 [102, 122]
+|chat|DEBUG|Best move of stunfiskgalar (p2): earthquake: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dubwool|Body Press|p1a: Reuniclus
+|-resisted|p1a: Reuniclus
+|-crit|p1a: Reuniclus
+|-damage|p1a: Reuniclus|51100
+|move|p1a: Reuniclus|Psychic|p2a: Dubwool
+|-damage|p2a: Dubwool|34264
+|-heal|p2a: Dubwool|50264|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pelipper', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Speed: 201 vs 99
+|chat|DEBUG|HP: 172 vs 212
+|chat|DEBUG|Created a new Strategy for dubwool vs reuniclus:
+|chat|DEBUG|>[bodypress: 34.25 [31, 37], bodypress: 34.25 [31, 37], bodypress: 34.25 [31, 37]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 34.25 [31, 37]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 144.75 [133, 157]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alakazam|Alakazam, L78, F|140214
+|move|p1a: Reuniclus|Recover|p1a: Reuniclus
+|-heal|p1a: Reuniclus|100100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['alakazam']
+|chat|DEBUG|Counter: ['pelipper', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Speed: 201 vs 99
+|chat|DEBUG|HP: 50 vs 164
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 34.25 [31, 37]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 144.75 [133, 157]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check alakazam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scolipede|Scolipede, L80, M|100100
+|move|p2a: Alakazam|Shadow Ball|p1a: Scolipede
+|-damage|p1a: Scolipede|67100
+|-heal|p1a: Scolipede|73100|[from] item: Black Sludge
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: focusblast shadowball counter psychic
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['alakazam']
+|chat|DEBUG|Speed: 232 vs 99
+|chat|DEBUG|HP: 140 vs 322
+|chat|DEBUG|Created a new Strategy for alakazam vs reuniclus:
+|chat|DEBUG|>[shadowball: 132.25 [122, 144], shadowball: 132.25 [122, 144], shadowball: 132.25 [122, 144]]
+|chat|DEBUG|Best move of alakazam (p1): shadowball: 132.25 [122, 144]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 76.5 [70, 83]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Protect|p1a: Scolipede
+|-singleturn|p1a: Scolipede|Protect
+|move|p2a: Alakazam|Psychic|p1a: Scolipede
+|-activate|p1a: Scolipede|move: Protect
+|-heal|p1a: Scolipede|79100|[from] item: Black Sludge
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar-scolipede
+|chat|DEBUG|Own moves: focusblast shadowball counter psychic
+|chat|DEBUG|Enemy moves: megahorn poisonjab protect toxicspikes
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper', 'mamoswine', 'hitmonlee', 'alakazam']
+|chat|DEBUG|Speed: 232 vs 225
+|chat|DEBUG|HP: 140 vs 165
+|chat|DEBUG|Created a new Strategy for alakazam vs scolipede:
+|chat|DEBUG|>[psychic: 271.0 [248, 294], psychic: 271.0 [248, 294], psychic: 271.0 [248, 294]]
+|chat|DEBUG|Best move of alakazam (p1): psychic: 271.0 [248, 294]
+|chat|DEBUG|Best move of scolipede (p2): megahorn: 409.0 [374, 444]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Megahorn|p2a: Alakazam
+|-supereffective|p2a: Alakazam
+|-damage|p2a: Alakazam|0 fnt
+|faint|p2a: Alakazam
+|-heal|p1a: Scolipede|86100|[from] item: Black Sludge
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pelipper|Pelipper, L86, M|243243
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee alakazam
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee-alakazam -- reuniclus-stunfiskgalar-scolipede
+|chat|DEBUG|Own moves: focusblast shadowball counter psychic
+|chat|DEBUG|Enemy moves: megahorn poisonjab protect toxicspikes
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper', 'alakazam']
+|chat|DEBUG|Speed: 232 vs 225
+|chat|DEBUG|HP: 140 vs 179
+|chat|DEBUG|Best move of alakazam (p1): psychic: 271.0 [248, 294]
+|chat|DEBUG|Best move of scolipede (p2): megahorn: 409.0 [374, 444]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Protect|p1a: Scolipede
+|-singleturn|p1a: Scolipede|Protect
+|move|p2a: Pelipper|Hurricane|p1a: Scolipede
+|-activate|p1a: Scolipede|move: Protect
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Scolipede|92100|[from] item: Black Sludge
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alakazam" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-scolipede
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: megahorn poisonjab protect toxicspikes
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to pelipper (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Toxic Spikes|p2a: Pelipper
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Pelipper|Hurricane|p1a: Scolipede
+|-supereffective|p1a: Scolipede
+|-damage|p1a: Scolipede|0 fnt
+|faint|p1a: Scolipede
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kingler|Kingler, L84, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-scolipede
+|chat|DEBUG|Own moves: scald uturn roost hurricane
+|chat|DEBUG|Enemy moves: megahorn poisonjab protect toxicspikes
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 161 vs 225
+|chat|DEBUG|HP: 243 vs 195
+|chat|DEBUG|Created a new Strategy for pelipper vs scolipede:
+|chat|DEBUG|>[hurricane: 300.375 [276, 326], hurricane: 300.375 [276, 326], hurricane: 300.375 [276, 326]]
+|chat|DEBUG|Best move of pelipper (p1): hurricane: 300.375 [276, 326]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 71.125 [66, 78]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kingler|Liquidation|p2a: Pelipper
+|-resisted|p2a: Pelipper
+|-damage|p2a: Pelipper|110243
+|move|p2a: Pelipper|Hurricane|p1a: Kingler
+|-damage|p1a: Kingler|24100
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-scolipede
+|chat|DEBUG|Own moves: scald uturn roost hurricane
+|chat|DEBUG|Enemy moves: megahorn poisonjab protect toxicspikes
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 225
+|chat|DEBUG|HP: 243 vs 208
+|chat|DEBUG|Best move of pelipper (p1): hurricane: 300.375 [276, 326]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 71.125 [66, 78]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kingler|Liquidation|p2a: Pelipper
+|-resisted|p2a: Pelipper
+|-crit|p2a: Pelipper
+|-damage|p2a: Pelipper|0 fnt
+|faint|p2a: Pelipper
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dubwool|Dubwool, L86, F|50264
+|-status|p2a: Dubwool|psn
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-kingler
+|chat|DEBUG|Own moves: scald uturn roost hurricane
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 161 vs 174
+|chat|DEBUG|HP: 243 vs 230
+|chat|DEBUG|Created a new Strategy for pelipper vs kingler:
+|chat|DEBUG|>[hurricane: 177.9375 [163, 193], hurricane: 177.9375 [163, 193], hurricane: 177.9375 [163, 193]]
+|chat|DEBUG|Best move of pelipper (p1): hurricane: 177.9375 [163, 193]
+|chat|DEBUG|Best move of kingler (p2): rockslide: 200.875 [185, 218]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dubwool|Body Press|p1a: Kingler
+|-damage|p1a: Kingler|2100
+|move|p1a: Kingler|Superpower|p2a: Dubwool
+|-supereffective|p2a: Dubwool
+|-damage|p2a: Dubwool|0 fnt
+|-unboost|p1a: Kingler|atk|1
+|-unboost|p1a: Kingler|def|1
+|faint|p2a: Dubwool
+|-damage|p1a: Kingler|0 fnt|[from] item: Life Orb
+|faint|p1a: Kingler
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hitmonlee|Hitmonlee, L84, M|221221
+|switch|p1a: Stunfisk|Stunfisk-Galar, L84, M|100100
+|-status|p2a: Hitmonlee|psn
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool pelipper mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-pelipper-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-kingler
+|chat|DEBUG|Own moves: scald uturn roost hurricane
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'hitmonlee']
+|chat|DEBUG|Speed: 161 vs 174
+|chat|DEBUG|HP: 110 vs 55
+|chat|DEBUG|Best move of pelipper (p1): hurricane: 177.9375 [163, 193]
+|chat|DEBUG|Best move of kingler (p2): rockslide: 200.875 [185, 218]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hitmonlee|Close Combat|p1a: Stunfisk
+|-supereffective|p1a: Stunfisk
+|-damage|p1a: Stunfisk|17100
+|-unboost|p2a: Hitmonlee|def|1
+|-unboost|p2a: Hitmonlee|spd|1
+|-enditem|p2a: Hitmonlee|White Herb
+|-clearnegativeboost|p2a: Hitmonlee|[silent]
+|move|p1a: Stunfisk|Earthquake|p2a: Hitmonlee
+|-damage|p2a: Hitmonlee|95221 psn
+|-heal|p1a: Stunfisk|24100|[from] item: Leftovers
+|-damage|p2a: Hitmonlee|68221 psn|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-kingler
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'hitmonlee']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dubwool (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hitmonlee|Close Combat|p1a: Stunfisk
+|-supereffective|p1a: Stunfisk
+|-damage|p1a: Stunfisk|0 fnt
+|-unboost|p2a: Hitmonlee|def|1
+|-unboost|p2a: Hitmonlee|spd|1
+|faint|p1a: Stunfisk
+|-damage|p2a: Hitmonlee|41221 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sandslash|Sandslash, L86, F|100100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-mamoswine-hitmonlee -- reuniclus-stunfiskgalar-kingler
+|chat|DEBUG|Own moves: rest cottonguard bodypress sleeptalk
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'hitmonlee']
+|chat|DEBUG|Speed: 201 vs 174
+|chat|DEBUG|HP: 50 vs 55
+|chat|DEBUG|Created a new Strategy for dubwool vs kingler:
+|chat|DEBUG|>[bodypress: 49.4375 [45, 54], bodypress: 49.4375 [45, 54], bodypress: 49.4375 [45, 54]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 49.4375 [45, 54]
+|chat|DEBUG|Best move of kingler (p2): liquidation: 170.3125 [156, 185]
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hitmonlee|Close Combat|p1a: Sandslash
+|-damage|p1a: Sandslash|58100
+|-unboost|p2a: Hitmonlee|def|1
+|-unboost|p2a: Hitmonlee|spd|1
+|move|p1a: Sandslash|Rapid Spin|p2a: Hitmonlee
+|-damage|p2a: Hitmonlee|0 fnt
+|-boost|p1a: Sandslash|spe|1
+|faint|p2a: Hitmonlee
+|-heal|p1a: Sandslash|64100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mamoswine|Mamoswine, L80, M|307307
+|-status|p2a: Mamoswine|psn
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-hitmonlee -- reuniclus-stunfiskgalar-kingler
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmonlee']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hitmonlee (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandslash|Earthquake|p2a: Mamoswine
+|-damage|p2a: Mamoswine|174307 psn
+|move|p2a: Mamoswine|Icicle Crash|p1a: Sandslash
+|-supereffective|p1a: Sandslash
+|-damage|p1a: Sandslash|0 fnt
+|faint|p1a: Sandslash
+|-damage|p2a: Mamoswine|144307 psn|[from] item: Life Orb
+|-damage|p2a: Mamoswine|106307 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmonlee" vs "stunfiskgalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-hitmonlee -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: stoneedge closecombat knockoff curse
+|chat|DEBUG|Enemy moves: earthquake painsplit stealthrock stoneedge
+|chat|DEBUG|Checks: ['mamoswine']
+|chat|DEBUG|Counter: ['mamoswine', 'hitmonlee']
+|chat|DEBUG|Speed: 194 vs 102
+|chat|DEBUG|HP: 221 vs 320
+|chat|DEBUG|Created a new Strategy for hitmonlee vs stunfiskgalar:
+|chat|DEBUG|>[closecombat: 274.0 [252, 296], closecombat: 274.0 [252, 296], closecombat: 274.0 [252, 296]]
+|chat|DEBUG|Best move of hitmonlee (p1): closecombat: 274.0 [252, 296]
+|chat|DEBUG|Best move of stunfiskgalar (p2): earthquake: 132.5 [121, 144]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Reuniclus|Dynamax
+|-heal|p1a: Reuniclus|100100|[silent]
+|move|p1a: Reuniclus|Max Guard|p1a: Reuniclus
+|-singleturn|p1a: Reuniclus|Max Guard
+|move|p2a: Mamoswine|Knock Off|p1a: Reuniclus
+|-activate|p1a: Reuniclus|move: Max Guard
+|-damage|p2a: Mamoswine|68307 psn|[from] psn
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine hitmonlee
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmonlee" vs "stunfiskgalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-hitmonlee -- reuniclus-stunfiskgalar
+|chat|DEBUG|Own moves: stoneedge closecombat knockoff curse
+|chat|DEBUG|Enemy moves: earthquake painsplit stealthrock stoneedge
+|chat|DEBUG|Checks: ['mamoswine']
+|chat|DEBUG|Counter: ['mamoswine', 'hitmonlee']
+|chat|DEBUG|Speed: 194 vs 102
+|chat|DEBUG|HP: 68 vs 76
+|chat|DEBUG|Best move of hitmonlee (p1): closecombat: 274.0 [252, 296]
+|chat|DEBUG|Best move of stunfiskgalar (p2): earthquake: 132.5 [121, 144]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mamoswine|Knock Off|p1a: Reuniclus
+|-supereffective|p1a: Reuniclus
+|-damage|p1a: Reuniclus|66100
+|-enditem|p1a: Reuniclus|Life Orb|[from] move: Knock Off|[of] p2a: Mamoswine
+|-damage|p2a: Mamoswine|38307 psn|[from] item: Life Orb
+|move|p1a: Reuniclus|Max Mindstorm|p2a: Mamoswine
+|-damage|p2a: Mamoswine|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p2a: Mamoswine
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>lanyang<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dubwool pelipper calyrexice mamoswine hitmonlee alakazam</h1>

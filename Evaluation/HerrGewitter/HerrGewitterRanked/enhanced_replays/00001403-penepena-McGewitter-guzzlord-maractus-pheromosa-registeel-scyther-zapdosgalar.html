@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492210404<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492210404|init|battle
+|title|penepena vs. McGewitter
+|j|☆penepena
+|j|☆McGewitter
+|gametype|singles
+|player|p1|penepena|shadowtriad|1189
+|player|p2|McGewitter|265|1233
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Qwilfish|Qwilfish, L84, M|100100
+|switch|p2a: Guzzlord|Guzzlord, L84|512512
+|-ability|p1a: Qwilfish|Intimidate|boost
+|-unboost|p2a: Guzzlord|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>guzzlord maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>guzzlord-maractus-pheromosa-registeel-scyther-zapdosgalar -- qwilfish
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: destinybond thunderwave toxicspikes waterfall
+|chat|DEBUG|Checks: ['guzzlord', 'maractus']
+|chat|DEBUG|Counter: ['guzzlord', 'maractus', 'zapdosgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 120 vs 191
+|chat|DEBUG|HP: 512 vs 246
+|chat|DEBUG|Created a new Strategy for guzzlord vs qwilfish:
+|chat|DEBUG|>[dracometeor: 190.5625 [175, 207], dracometeor: 94.875 [87, 103], dracometeor: 64.25 [58, 70]]
+|chat|DEBUG|Best move of guzzlord (p1): dracometeor: 190.5625 [175, 207]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 59.625 [54, 65]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Qwilfish|Toxic Spikes|p2a: Guzzlord
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Guzzlord|Draco Meteor|p1a: Qwilfish
+|-damage|p1a: Qwilfish|27100
+|-unboost|p2a: Guzzlord|spa|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>guzzlord maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>guzzlord-maractus-pheromosa-registeel-scyther-zapdosgalar -- qwilfish
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: destinybond thunderwave toxicspikes waterfall
+|chat|DEBUG|Checks: ['guzzlord', 'maractus', 'pheromosa', 'registeel', 'scyther', 'zapdosgalar']
+|chat|DEBUG|Counter: ['guzzlord', 'maractus', 'pheromosa', 'registeel', 'scyther', 'zapdosgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 120 vs 191
+|chat|DEBUG|HP: 512 vs 66
+|chat|DEBUG|Best move of guzzlord (p1): dracometeor: 94.875 [87, 103]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 59.625 [54, 65]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Qwilfish|Toxic Spikes|p2a: Guzzlord
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Guzzlord|Draco Meteor|p1a: Qwilfish
+|-damage|p1a: Qwilfish|0 fnt
+|-unboost|p2a: Guzzlord|spa|2
+|faint|p1a: Qwilfish
+|-ability|p2a: Guzzlord|Beast Boost|boost
+|-boost|p2a: Guzzlord|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Druddigon|Druddigon, L84, F|100100
+|-ability|p1a: Druddigon|Mold Breaker
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>guzzlord maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>guzzlord-maractus-pheromosa-registeel-scyther-zapdosgalar -- druddigon
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: glare outrage suckerpunch superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'zapdosgalar']
+|chat|DEBUG|Speed: 120 vs 129
+|chat|DEBUG|HP: 512 vs 267
+|chat|DEBUG|Created a new Strategy for guzzlord vs druddigon:
+|chat|DEBUG|>[knockoff: 104.5 [96, 114], knockoff: 104.5 [96, 114], knockoff: 104.5 [96, 114]]
+|chat|DEBUG|Best move of guzzlord (p1): knockoff: 104.5 [96, 114]
+|chat|DEBUG|Best move of druddigon (p2): outrage: 556.4375 [510, 603]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Druddigon|Outrage|p2a: Guzzlord
+|-supereffective|p2a: Guzzlord
+|-damage|p2a: Guzzlord|0 fnt
+|faint|p2a: Guzzlord
+|-damage|p1a: Druddigon|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, M|245245
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther-zapdosgalar -- druddigon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: glare outrage suckerpunch superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'zapdosgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scyther (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scyther|U-turn|p1a: Druddigon
+|-damage|p1a: Druddigon|50100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos-Galar, L76|262262
+|move|p1a: Druddigon|Outrage|p2a: Zapdos|[from]lockedmove
+|-damage|p2a: Zapdos|40262
+|-damage|p1a: Druddigon|41100|[from] item: Life Orb
+|-start|p1a: Druddigon|confusion|[fatigue]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther-zapdosgalar -- druddigon
+|chat|DEBUG|Own moves: brickbreak dualwingbeat knockoff uturn
+|chat|DEBUG|Enemy moves: glare outrage suckerpunch superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'zapdosgalar']
+|chat|DEBUG|Speed: 217 vs 129
+|chat|DEBUG|HP: 245 vs 242
+|chat|DEBUG|Created a new Strategy for scyther vs druddigon:
+|chat|DEBUG|>[uturn: 112.8125 [103, 123], uturn: 112.8125 [103, 123], uturn: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of scyther (p1): uturn: 112.8125 [103, 123]
+|chat|DEBUG|Best move of druddigon (p2): outrage: 216.9375 [199, 235]
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p1a: Druddigon|confusion
+|move|p1a: Druddigon|Sucker Punch|p2a: Zapdos
+|-resisted|p2a: Zapdos
+|-damage|p2a: Zapdos|2262
+|-damage|p1a: Druddigon|31100|[from] item: Life Orb
+|move|p2a: Zapdos|Close Combat|p1a: Druddigon
+|-damage|p1a: Druddigon|0 fnt
+|-unboost|p2a: Zapdos|def|1
+|-unboost|p2a: Zapdos|spd|1
+|faint|p1a: Druddigon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninetales|Ninetales, L82, M|100100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Ninetales
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther-zapdosgalar -- druddigon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: glare outrage suckerpunch superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'zapdosgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zapdosgalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Close Combat|p1a: Ninetales
+|-damage|p1a: Ninetales|39100
+|-unboost|p2a: Zapdos|def|1
+|-unboost|p2a: Zapdos|spd|1
+|move|p1a: Ninetales|Solar Beam||[still]
+|-prepare|p1a: Ninetales|Solar Beam
+|-anim|p1a: Ninetales|Solar Beam|p2a: Zapdos
+|-resisted|p2a: Zapdos
+|-damage|p2a: Zapdos|0 fnt
+|faint|p2a: Zapdos
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268268
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdosgalar" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther-zapdosgalar -- druddigon
+|chat|DEBUG|Own moves: bravebird closecombat uturn throatchop
+|chat|DEBUG|Enemy moves: glare outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['scyther']
+|chat|DEBUG|Counter: ['maractus', 'pheromosa', 'registeel', 'scyther', 'zapdosgalar']
+|chat|DEBUG|Speed: 196 vs 129
+|chat|DEBUG|HP: 40 vs 109
+|chat|DEBUG|Created a new Strategy for zapdosgalar vs druddigon:
+|chat|DEBUG|>[closecombat: 126.8125 [117, 138], closecombat: 126.8125 [117, 138], closecombat: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of zapdosgalar (p1): closecombat: 126.8125 [117, 138]
+|chat|DEBUG|Best move of druddigon (p2): outrage: 211.625 [195, 230]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, M|245245
+|move|p1a: Ninetales|Fire Blast|p2a: Scyther
+|-supereffective|p2a: Scyther
+|-damage|p2a: Scyther|0 fnt
+|faint|p2a: Scyther
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pheromosa|Pheromosa, L76|233233
+|-status|p2a: Pheromosa|tox
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther zapdosgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdosgalar" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther-zapdosgalar -- ninetales
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 196 vs 211
+|chat|DEBUG|HP: 2 vs 254
+|chat|DEBUG|Created a new Strategy for zapdosgalar vs ninetales:
+|chat|DEBUG|>[closecombat: 147.5 [135, 160], closecombat: 147.5 [135, 160], closecombat: 147.5 [135, 160]]
+|chat|DEBUG|Best move of zapdosgalar (p1): closecombat: 147.5 [135, 160]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 157.3125 [144, 171]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pheromosa|Close Combat|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|-unboost|p2a: Pheromosa|def|1
+|-unboost|p2a: Pheromosa|spd|1
+|faint|p1a: Ninetales
+|-ability|p2a: Pheromosa|Beast Boost|boost
+|-boost|p2a: Pheromosa|spe|1
+|-weather|SunnyDay|[upkeep]
+|-damage|p2a: Pheromosa|219233 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Doublade|Doublade, L82, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdosgalar" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther -- ninetales
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: registeel
+|chat|DEBUG|Early game switch: registeel
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pheromosa|Close Combat|p1a: Doublade
+|-immune|p1a: Doublade
+|move|p1a: Doublade|Close Combat|p2a: Pheromosa
+|-resisted|p2a: Pheromosa
+|-damage|p2a: Pheromosa|81233 tox
+|-unboost|p1a: Doublade|def|1
+|-unboost|p1a: Doublade|spd|1
+|-weather|SunnyDay|[upkeep]
+|-damage|p2a: Pheromosa|53233 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel scyther
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel-scyther -- ninetales
+|chat|DEBUG|Own moves: rest toxic ironhead sleeptalk
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: ['scyther']
+|chat|DEBUG|Counter: ['pheromosa', 'scyther']
+|chat|DEBUG|Speed: 131 vs 211
+|chat|DEBUG|HP: 268 vs 99
+|chat|DEBUG|Created a new Strategy for registeel vs ninetales:
+|chat|DEBUG|>[ironhead: 39.5 [36, 43], ironhead: 39.5 [36, 43], ironhead: 39.5 [36, 43]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 39.5 [36, 43]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 128.5 [116, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scyther
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pheromosa|Close Combat|p1a: Doublade
+|-immune|p1a: Doublade
+|move|p1a: Doublade|Iron Head|p2a: Pheromosa
+|-damage|p2a: Pheromosa|0 fnt
+|faint|p2a: Pheromosa
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Maractus|Maractus, L94, F|293293
+|-status|p2a: Maractus|tox
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel -- ninetales
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pheromosa']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pheromosa (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Maractus|Spikes|p1a: Doublade
+|-sidestart|p1: penepena|Spikes
+|move|p1a: Doublade|Iron Head|p2a: Maractus
+|-damage|p2a: Maractus|199293 tox
+|-heal|p2a: Maractus|217293 tox|[from] item: Leftovers
+|-damage|p2a: Maractus|199293 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pheromosa" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel -- ninetales
+|chat|DEBUG|Own moves: throatchop uturn closecombat poisonjab
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pheromosa']
+|chat|DEBUG|Speed: 274 vs 211
+|chat|DEBUG|HP: 233 vs 99
+|chat|DEBUG|Created a new Strategy for pheromosa vs ninetales:
+|chat|DEBUG|>[closecombat: 237.6875 [219, 258], closecombat: 237.6875 [219, 258], closecombat: 237.6875 [219, 258]]
+|chat|DEBUG|Best move of pheromosa (p1): closecombat: 237.6875 [219, 258]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 375.375 [344, 408]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Maractus|Spikes|p1a: Doublade
+|-sidestart|p1: penepena|Spikes
+|move|p1a: Doublade|Iron Head|p2a: Maractus
+|-damage|p2a: Maractus|103293 tox
+|-heal|p2a: Maractus|121293 tox|[from] item: Leftovers
+|-damage|p2a: Maractus|85293 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pheromosa" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel -- doublade
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 274 vs 105
+|chat|DEBUG|HP: 219 vs 231
+|chat|DEBUG|Created a new Strategy for pheromosa vs doublade:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of pheromosa (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of doublade (p2): ironhead: 261.25 [240, 283]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Maractus|Spikes|p1a: Doublade
+|-sidestart|p1: penepena|Spikes
+|move|p1a: Doublade|Swords Dance|p1a: Doublade
+|-boost|p1a: Doublade|atk|2
+|-heal|p2a: Maractus|103293 tox|[from] item: Leftovers
+|-damage|p2a: Maractus|49293 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus pheromosa registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pheromosa" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-pheromosa-registeel -- doublade
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['maractus']
+|chat|DEBUG|Speed: 274 vs 105
+|chat|DEBUG|HP: 53 vs 231
+|chat|DEBUG|Created a new Strategy for pheromosa vs doublade:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of pheromosa (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of doublade (p2): ironhead: 261.25 [240, 283]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Maractus|Knock Off|p1a: Doublade
+|-supereffective|p1a: Doublade
+|-damage|p1a: Doublade|55100
+|-enditem|p1a: Doublade|Eviolite|[from] move: Knock Off|[of] p2a: Maractus
+|move|p1a: Doublade|Iron Head|p2a: Maractus
+|-damage|p2a: Maractus|0 fnt
+|faint|p2a: Maractus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268268
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pheromosa" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-registeel -- doublade
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['maractus']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to maractus (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Registeel|Dynamax
+|-heal|p2a: Registeel|536536|[silent]
+|move|p2a: Registeel|Max Steelspike|p1a: Doublade
+|-resisted|p1a: Doublade
+|-damage|p1a: Doublade|31100
+|-boost|p2a: Registeel|def|1
+|move|p1a: Doublade|Close Combat|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|384536
+|-unboost|p1a: Doublade|def|1
+|-unboost|p1a: Doublade|spd|1
+|-heal|p2a: Registeel|400536|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "maractus" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-registeel -- doublade
+|chat|DEBUG|Own moves: spikyshield spikes knockoff energyball
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['maractus']
+|chat|DEBUG|Speed: 166 vs 105
+|chat|DEBUG|HP: 293 vs 231
+|chat|DEBUG|Created a new Strategy for maractus vs doublade:
+|chat|DEBUG|>[knockoff: 104.625 [96, 114], knockoff: 104.625 [96, 114], knockoff: 104.625 [96, 114]]
+|chat|DEBUG|Best move of maractus (p1): knockoff: 104.625 [96, 114]
+|chat|DEBUG|Best move of doublade (p2): ironhead: 97.625 [90, 106]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Registeel|Max Steelspike|p1a: Doublade
+|-resisted|p1a: Doublade
+|-damage|p1a: Doublade|0 fnt
+|-boost|p2a: Registeel|def|1
+|faint|p1a: Doublade
+|-heal|p2a: Registeel|416536|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gurdurr|Gurdurr, L83, M|100100
+|-damage|p1a: Gurdurr|76100|[from] Spikes
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "maractus" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-registeel -- doublade
+|chat|DEBUG|Own moves: spikyshield spikes knockoff energyball
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['maractus']
+|chat|DEBUG|Speed: 166 vs 105
+|chat|DEBUG|HP: 199 vs 231
+|chat|DEBUG|Best move of maractus (p1): knockoff: 104.625 [96, 114]
+|chat|DEBUG|Best move of doublade (p2): ironhead: 97.625 [90, 106]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Registeel|Max Steelspike|p1a: Gurdurr
+|-damage|p1a: Gurdurr|49100
+|-boost|p2a: Registeel|def|1
+|move|p1a: Gurdurr|Bulk Up|p1a: Gurdurr
+|-boost|p1a: Gurdurr|atk|1
+|-boost|p1a: Gurdurr|def|1
+|-heal|p2a: Registeel|432536|[from] item: Leftovers
+|-end|p2a: Registeel|Dynamax
+|-heal|p2a: Registeel|216268|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "maractus" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-registeel -- doublade
+|chat|DEBUG|Own moves: spikyshield spikes knockoff energyball
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 166 vs 105
+|chat|DEBUG|HP: 85 vs 231
+|chat|DEBUG|Best move of maractus (p1): knockoff: 104.625 [96, 114]
+|chat|DEBUG|Best move of doublade (p2): ironhead: 97.625 [90, 106]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Registeel|Iron Head|p1a: Gurdurr
+|-damage|p1a: Gurdurr|37100
+|cant|p1a: Gurdurr|flinch
+|-heal|p2a: Registeel|232268|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>maractus registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "maractus" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>maractus-registeel -- doublade
+|chat|DEBUG|Own moves: spikyshield spikes knockoff energyball
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 166 vs 105
+|chat|DEBUG|HP: 49 vs 231
+|chat|DEBUG|Created a new Strategy for maractus vs doublade:
+|chat|DEBUG|>[knockoff: 104.625 [96, 114], knockoff: 104.625 [96, 114], knockoff: 104.625 [96, 114]]
+|chat|DEBUG|Best move of maractus (p1): knockoff: 104.625 [96, 114]
+|chat|DEBUG|Best move of doublade (p2): ironhead: 193.4375 [178, 210]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Registeel|Iron Head|p1a: Gurdurr
+|-damage|p1a: Gurdurr|25100
+|move|p1a: Gurdurr|Drain Punch|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|164268
+|-heal|p1a: Gurdurr|37100|[from] drain|[of] p2a: Registeel
+|-heal|p2a: Registeel|180268|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "maractus" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel -- doublade
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: registeel
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Gurdurr|Dynamax
+|-heal|p1a: Gurdurr|37100|[silent]
+|move|p2a: Registeel|Iron Head|p1a: Gurdurr
+|-crit|p1a: Gurdurr
+|-damage|p1a: Gurdurr|24100
+|move|p1a: Gurdurr|Max Knuckle|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|102268
+|-boost|p1a: Gurdurr|atk|1
+|-heal|p2a: Registeel|118268|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel -- doublade
+|chat|DEBUG|Own moves: rest toxic ironhead sleeptalk
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 131 vs 105
+|chat|DEBUG|HP: 268 vs 127
+|chat|DEBUG|Created a new Strategy for registeel vs doublade:
+|chat|DEBUG|>[ironhead: 34.5625 [32, 38], ironhead: 34.5625 [32, 38], ironhead: 34.5625 [32, 38]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 34.5625 [32, 38]
+|chat|DEBUG|Best move of doublade (p2): closecombat: 234.0 [214, 254]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Registeel|Iron Head|p1a: Gurdurr
+|-damage|p1a: Gurdurr|18100
+|move|p1a: Gurdurr|Max Knuckle|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|20268
+|-boost|p1a: Gurdurr|atk|1
+|-heal|p2a: Registeel|36268|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "doublade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>registeel -- doublade
+|chat|DEBUG|Own moves: rest toxic ironhead sleeptalk
+|chat|DEBUG|Enemy moves: closecombat ironhead shadowsneak swordsdance
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 131 vs 105
+|chat|DEBUG|HP: 400 vs 71
+|chat|DEBUG|Best move of registeel (p1): ironhead: 34.5625 [32, 38]
+|chat|DEBUG|Best move of doublade (p2): closecombat: 156.375 [144, 170]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Registeel|Iron Head|p1a: Gurdurr
+|-damage|p1a: Gurdurr|12100
+|move|p1a: Gurdurr|Max Knuckle|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|0 fnt
+|-boost|p1a: Gurdurr|atk|1
+|faint|p2a: Registeel
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>penepena<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">guzzlord maractus pheromosa registeel scyther zapdosgalar</h1>

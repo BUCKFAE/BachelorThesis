@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492028033<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492028033|init|battle
+|title|keeper of the milk vs. McGewitter
+|j|☆keeper of the milk
+|j|☆McGewitter
+|gametype|singles
+|player|p1|keeper of the milk|170|1311
+|player|p2|McGewitter|265|1273
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Octillery|Octillery, L86, M|100100
+|switch|p2a: Togedemaru|Togedemaru, L86, F|252252
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: energyball gunkshot hydropump protect
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['togedemaru', 'meowsticf', 'kommoo', 'frosmoth']
+|chat|DEBUG|Speed: 214 vs 127
+|chat|DEBUG|HP: 252 vs 269
+|chat|DEBUG|Created a new Strategy for togedemaru vs octillery:
+|chat|DEBUG|>[zingzap: 197.875 [182, 216], zingzap: 197.875 [182, 216], zingzap: 197.875 [182, 216]]
+|chat|DEBUG|Best move of togedemaru (p1): zingzap: 197.875 [182, 216]
+|chat|DEBUG|Best move of octillery (p2): hydropump: 146.125 [135, 159]
+|chat|DEBUG|Attacking using zingzap
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Dracozolt|Dracozolt, L78|100100
+|move|p2a: Togedemaru|Zing Zap|p1a: Dracozolt
+|-resisted|p1a: Dracozolt
+|-damage|p1a: Dracozolt|91100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hatterene', 'kommoo']
+|chat|DEBUG|Speed: 214 vs 162
+|chat|DEBUG|HP: 252 vs 243
+|chat|DEBUG|Created a new Strategy for togedemaru vs dracozolt:
+|chat|DEBUG|>[ironhead: 47.1875 [43, 51], ironhead: 47.1875 [43, 51], ironhead: 47.1875 [43, 51]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 47.1875 [43, 51]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 104.6875 [96, 114]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Bolt Beak|p2a: Togedemaru
+|-ability|p2a: Togedemaru|Lightning Rod|boost
+|-boost|p2a: Togedemaru|spa|1
+|move|p2a: Togedemaru|Iron Head|p1a: Dracozolt
+|-resisted|p1a: Dracozolt
+|-damage|p1a: Dracozolt|74100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hatterene', 'kommoo']
+|chat|DEBUG|Speed: 214 vs 162
+|chat|DEBUG|HP: 252 vs 198
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 47.1875 [43, 51]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 104.6875 [96, 114]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Garbodor|Garbodor, L87, M|100100
+|move|p2a: Togedemaru|Iron Head|p1a: Garbodor
+|-damage|p1a: Garbodor|65100
+|-heal|p1a: Garbodor|71100|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-garbodor
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Counter: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Speed: 214 vs 180
+|chat|DEBUG|HP: 252 vs 199
+|chat|DEBUG|Created a new Strategy for togedemaru vs garbodor:
+|chat|DEBUG|>[ironhead: 91.875 [84, 100], ironhead: 91.875 [84, 100], ironhead: 91.875 [84, 100]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 91.875 [84, 100]
+|chat|DEBUG|Best move of garbodor (p2): stompingtantrum: 276.0 [252, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check crobat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Crobat|Crobat, L82, M|274274
+|move|p1a: Garbodor|Stomping Tantrum|p2a: Crobat
+|-immune|p2a: Crobat
+|-heal|p1a: Garbodor|77100|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-garbodor
+|chat|DEBUG|Own moves: roost bravebird defog superfang
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Counter: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 260 vs 180
+|chat|DEBUG|HP: 274 vs 216
+|chat|DEBUG|Created a new Strategy for crobat vs garbodor:
+|chat|DEBUG|>[bravebird: 115.625 [106, 126], bravebird: 115.625 [106, 126], bravebird: 115.625 [106, 126]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 115.625 [106, 126]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 72.8125 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['dracozolt']
+|chat|DEBUG|Expected enemy: dracozolt
+|chat|DEBUG|Using move bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Garbodor
+|-damage|p1a: Garbodor|35100
+|-damage|p2a: Crobat|235274|[from] Recoil
+|move|p1a: Garbodor|Spikes|p2a: Crobat
+|-sidestart|p2: McGewitter|Spikes
+|-heal|p1a: Garbodor|41100|[from] item: Black Sludge
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-garbodor
+|chat|DEBUG|Own moves: roost bravebird defog superfang
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Counter: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 260 vs 180
+|chat|DEBUG|HP: 235 vs 115
+|chat|DEBUG|Best move of crobat (p1): bravebird: 115.625 [106, 126]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 72.8125 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['dracozolt']
+|chat|DEBUG|Expected enemy: dracozolt
+|chat|DEBUG|Using move bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Garbodor
+|-damage|p1a: Garbodor|3100
+|-damage|p2a: Crobat|199274|[from] Recoil
+|move|p1a: Garbodor|Spikes|p2a: Crobat
+|-sidestart|p2: McGewitter|Spikes
+|-heal|p1a: Garbodor|9100|[from] item: Black Sludge
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-garbodor
+|chat|DEBUG|Own moves: roost bravebird defog superfang
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['crobat', 'meowsticf', 'kommoo']
+|chat|DEBUG|Counter: ['togedemaru', 'crobat', 'meowsticf', 'kommoo', 'frosmoth']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 260 vs 180
+|chat|DEBUG|HP: 199 vs 25
+|chat|DEBUG|Best move of crobat (p1): bravebird: 115.625 [106, 126]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 72.8125 [67, 79]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Garbodor
+|-damage|p1a: Garbodor|0 fnt
+|-damage|p2a: Crobat|131274|[from] ability: Aftermath|[of] p1a: Garbodor
+|faint|p1a: Garbodor
+|-damage|p2a: Crobat|123274|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jirachi|Jirachi, L79|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: roost bravebird defog superfang
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['meowsticf', 'kommoo']
+|chat|DEBUG|Speed: 260 vs 204
+|chat|DEBUG|HP: 123 vs 288
+|chat|DEBUG|Created a new Strategy for crobat vs jirachi:
+|chat|DEBUG|>[bravebird: 54.9375 [51, 60], bravebird: 54.9375 [51, 60], bravebird: 54.9375 [51, 60]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 54.9375 [51, 60]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 85.0625 [78, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kommoo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, M|251251
+|-damage|p2a: Kommo-o|210251|[from] Spikes
+|move|p1a: Jirachi|Stealth Rock|p2a: Kommo-o
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-heal|p2a: Kommo-o|225251|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: clangingscales closecombat poisonjab stealthrock
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['meowsticf', 'kommoo']
+|chat|DEBUG|Speed: 182 vs 204
+|chat|DEBUG|HP: 225 vs 288
+|chat|DEBUG|Created a new Strategy for kommoo vs jirachi:
+|chat|DEBUG|>[closecombat: 124.0625 [114, 135], closecombat: 124.0625 [114, 135], closecombat: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 124.0625 [114, 135]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 61.5625 [57, 67]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Toxic|p2a: Kommo-o
+|-status|p2a: Kommo-o|tox
+|move|p2a: Kommo-o|Stealth Rock|p1a: Jirachi
+|-sidestart|p1: keeper of the milk|move: Stealth Rock
+|-heal|p2a: Kommo-o|240251 tox|[from] item: Leftovers
+|-damage|p2a: Kommo-o|225251 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: clangingscales closecombat poisonjab stealthrock
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['meowsticf', 'kommoo']
+|chat|DEBUG|Speed: 182 vs 204
+|chat|DEBUG|HP: 225 vs 288
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 124.0625 [114, 135]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 61.5625 [57, 67]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Kommo-o
+|-damage|p2a: Kommo-o|168251 tox
+|cant|p2a: Kommo-o|flinch
+|-heal|p2a: Kommo-o|183251 tox|[from] item: Leftovers
+|-damage|p2a: Kommo-o|153251 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: clangingscales closecombat poisonjab stealthrock
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['meowsticf']
+|chat|DEBUG|Speed: 182 vs 204
+|chat|DEBUG|HP: 153 vs 288
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 124.0625 [114, 135]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 61.5625 [57, 67]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Kommo-o
+|-damage|p2a: Kommo-o|96251 tox
+|move|p2a: Kommo-o|Close Combat|p1a: Jirachi
+|-damage|p1a: Jirachi|54100
+|-unboost|p2a: Kommo-o|def|1
+|-unboost|p2a: Kommo-o|spd|1
+|-heal|p1a: Jirachi|60100|[from] item: Leftovers
+|-heal|p2a: Kommo-o|111251 tox|[from] item: Leftovers
+|-damage|p2a: Kommo-o|66251 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: clangingscales closecombat poisonjab stealthrock
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['meowsticf']
+|chat|DEBUG|Counter: ['togedemaru', 'meowsticf']
+|chat|DEBUG|Speed: 182 vs 204
+|chat|DEBUG|HP: 66 vs 172
+|chat|DEBUG|Created a new Strategy for kommoo vs jirachi:
+|chat|DEBUG|>[closecombat: 124.0625 [114, 135], closecombat: 124.0625 [114, 135], closecombat: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 124.0625 [114, 135]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 91.875 [84, 100]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check meowsticf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Meowstic|Meowstic-F, L86, F|268268
+|-damage|p2a: Meowstic|224268|[from] Spikes
+|-damage|p2a: Meowstic|191268|[from] Stealth Rock
+|move|p1a: Jirachi|Iron Head|p2a: Meowstic
+|-damage|p2a: Meowstic|100268
+|-heal|p1a: Jirachi|66100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowsticf" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: psychic shadowball thunderbolt nastyplot
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 228 vs 204
+|chat|DEBUG|HP: 100 vs 190
+|chat|DEBUG|Created a new Strategy for meowsticf vs jirachi:
+|chat|DEBUG|>[shadowball: 133.375 [122, 146], shadowball: 133.375 [122, 146], shadowball: 133.375 [122, 146]]
+|chat|DEBUG|Best move of meowsticf (p1): shadowball: 133.375 [122, 146]
+|chat|DEBUG|Best move of jirachi (p2): uturn: 98.875 [90, 108]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Shadow Ball|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|19100
+|-unboost|p1a: Jirachi|spd|1
+|-damage|p2a: Meowstic|74268|[from] item: Life Orb
+|move|p1a: Jirachi|Toxic|p2a: Meowstic
+|-status|p2a: Meowstic|tox
+|-heal|p1a: Jirachi|25100|[from] item: Leftovers
+|-damage|p2a: Meowstic|58268 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat meowsticf kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowsticf" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-meowsticf-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: psychic shadowball thunderbolt nastyplot
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru', 'hatterene', 'crobat', 'meowsticf']
+|chat|DEBUG|Speed: 228 vs 204
+|chat|DEBUG|HP: 58 vs 72
+|chat|DEBUG|Best move of meowsticf (p1): shadowball: 133.375 [122, 146]
+|chat|DEBUG|Best move of jirachi (p2): uturn: 98.875 [90, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Shadow Ball|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|0 fnt
+|faint|p1a: Jirachi
+|-damage|p2a: Meowstic|32268 tox|[from] item: Life Orb
+|-damage|p2a: Meowstic|0 fnt|[from] psn
+|faint|p2a: Meowstic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Togedemaru|Togedemaru, L86, F|252252
+|switch|p1a: Cradily|Cradily, L86, M|100100
+|-damage|p2a: Togedemaru|210252|[from] Spikes
+|-damage|p2a: Togedemaru|195252|[from] Stealth Rock
+|-damage|p1a: Cradily|88100|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowsticf" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt-jirachi
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru', 'hatterene', 'crobat']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to togedemaru (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Togedemaru|Iron Head|p1a: Cradily
+|-supereffective|p1a: Cradily
+|-damage|p1a: Cradily|28100
+|move|p1a: Cradily|Swords Dance|p1a: Cradily
+|-boost|p1a: Cradily|atk|2
+|-heal|p1a: Cradily|34100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt-cradily
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 123
+|chat|DEBUG|HP: 195 vs 253
+|chat|DEBUG|Created a new Strategy for togedemaru vs cradily:
+|chat|DEBUG|>[ironhead: 164.875 [152, 180], ironhead: 164.875 [152, 180], ironhead: 164.875 [152, 180]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 164.875 [152, 180]
+|chat|DEBUG|Best move of cradily (p2): powerwhip: 72.0 [66, 78]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['dracozolt']
+|chat|DEBUG|Expected enemy: dracozolt
+|chat|DEBUG|Using move ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Togedemaru|Iron Head|p1a: Cradily
+|-supereffective|p1a: Cradily
+|-damage|p1a: Cradily|0 fnt
+|faint|p1a: Cradily
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scrafty|Scrafty, L82, F|100100
+|-damage|p1a: Scrafty|94100|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt-cradily
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru', 'hatterene', 'crobat', 'kommoo', 'frosmoth']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 123
+|chat|DEBUG|HP: 195 vs 97
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 164.875 [152, 180]
+|chat|DEBUG|Best move of cradily (p2): powerwhip: 143.5 [132, 156]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['dracozolt']
+|chat|DEBUG|Expected enemy: dracozolt
+|chat|DEBUG|Using move ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Togedemaru|Dynamax
+|-heal|p2a: Togedemaru|390504|[silent]
+|move|p2a: Togedemaru|Max Steelspike|p1a: Scrafty
+|-damage|p1a: Scrafty|44100
+|-boost|p2a: Togedemaru|def|1
+|move|p1a: Scrafty|Close Combat|p2a: Togedemaru
+|-supereffective|p2a: Togedemaru
+|-damage|p2a: Togedemaru|210504
+|-unboost|p1a: Scrafty|def|1
+|-unboost|p1a: Scrafty|spd|1
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt-scrafty
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: ['hatterene']
+|chat|DEBUG|Counter: ['hatterene']
+|chat|DEBUG|Speed: 214 vs 142
+|chat|DEBUG|HP: 195 vs 226
+|chat|DEBUG|Created a new Strategy for togedemaru vs scrafty:
+|chat|DEBUG|>[ironhead: 50.375 [46, 55], ironhead: 50.375 [46, 55], ironhead: 50.375 [46, 55]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 50.375 [46, 55]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 280.25 [258, 306]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Togedemaru|Max Steelspike|p1a: Scrafty
+|-damage|p1a: Scrafty|0 fnt
+|-boost|p2a: Togedemaru|def|1
+|faint|p1a: Scrafty
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dracozolt|Dracozolt, L78|74100
+|-damage|p1a: Dracozolt|62100|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt-scrafty
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: ['hatterene', 'frosmoth']
+|chat|DEBUG|Counter: ['togedemaru', 'hatterene', 'crobat', 'kommoo', 'frosmoth']
+|chat|DEBUG|Speed: 214 vs 142
+|chat|DEBUG|HP: 210 vs 106
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 50.375 [46, 55]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 189.75 [174, 206]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Dracozolt|Dynamax
+|-heal|p1a: Dracozolt|62100|[silent]
+|move|p2a: Togedemaru|Max Steelspike|p1a: Dracozolt
+|-resisted|p1a: Dracozolt
+|-damage|p1a: Dracozolt|48100
+|-boost|p2a: Togedemaru|def|1
+|move|p1a: Dracozolt|Max Knuckle|p2a: Togedemaru
+|-supereffective|p2a: Togedemaru
+|-damage|p2a: Togedemaru|112504
+|-boost|p1a: Dracozolt|atk|1
+|-end|p2a: Togedemaru|Dynamax
+|-heal|p2a: Togedemaru|56252|[silent]
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['togedemaru', 'hatterene', 'kommoo']
+|chat|DEBUG|Speed: 214 vs 162
+|chat|DEBUG|HP: 210 vs 166
+|chat|DEBUG|Created a new Strategy for togedemaru vs dracozolt:
+|chat|DEBUG|>[ironhead: 47.1875 [43, 51], ironhead: 47.1875 [43, 51], ironhead: 47.1875 [43, 51]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 47.1875 [43, 51]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 52.625 [48, 57]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Togedemaru|Iron Head|p1a: Dracozolt
+|-resisted|p1a: Dracozolt
+|-damage|p1a: Dracozolt|39100
+|move|p1a: Dracozolt|Max Knuckle|p2a: Togedemaru
+|-supereffective|p2a: Togedemaru
+|-damage|p2a: Togedemaru|0 fnt
+|-boost|p1a: Dracozolt|atk|1
+|faint|p2a: Togedemaru
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, M|66251 tox
+|-damage|p2a: Kommo-o|25251 tox|[from] Spikes
+|-damage|p2a: Kommo-o|10251 tox|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>togedemaru hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>togedemaru-hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt
+|chat|DEBUG|Own moves: zingzap spikyshield wish ironhead
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 214 vs 162
+|chat|DEBUG|HP: 56 vs 128
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 47.1875 [43, 51]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 63.1875 [58, 69]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kommo-o|Clanging Scales|p1a: Dracozolt
+|-supereffective|p1a: Dracozolt
+|-damage|p1a: Dracozolt|0 fnt
+|faint|p1a: Dracozolt
+|-unboost|p2a: Kommo-o|def|1
+|-heal|p2a: Kommo-o|25251 tox|[from] item: Leftovers
+|-damage|p2a: Kommo-o|10251 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Octillery|Octillery, L86, M|100100
+|-damage|p1a: Octillery|88100|[from] Stealth Rock
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'hatterene': 238, 'crobat': 123, 'kommoo': 66, 'frosmoth': 249}
+|chat|DEBUG|remaining_hp_team_2={'octillery': 100, 'dracozolt': 48}
+|chat|DEBUG|battle.available_switches=[hatterene (pokemon object) [Active: False, Status: None], kommoo (pokemon object) [Active: False, Status: TOX], crobat (pokemon object) [Active: False, Status: None], frosmoth (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'kommoo'
+|chat|DEBUG|>Switching to kommoo (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kommo-o|Close Combat|p1a: Octillery
+|-damage|p1a: Octillery|38100
+|-unboost|p2a: Kommo-o|def|1
+|-unboost|p2a: Kommo-o|spd|1
+|move|p1a: Octillery|Ice Beam|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-damage|p2a: Kommo-o|0 fnt
+|faint|p2a: Kommo-o
+|-damage|p1a: Octillery|28100|[from] item: Life Orb
+|-ability|p1a: Octillery|Moody|boost
+|-boost|p1a: Octillery|atk|2
+|-unboost|p1a: Octillery|spd|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hatterene|Hatterene, L86, F|238238
+|-damage|p2a: Hatterene|199238|[from] Spikes
+|-damage|p2a: Hatterene|170238|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "kommoo" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hatterene-crobat-kommoo-frosmoth -- octillery-dracozolt
+|chat|DEBUG|Own moves: clangingscales closecombat poisonjab stealthrock
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 182 vs 162
+|chat|DEBUG|HP: 10 vs 104
+|chat|DEBUG|Created a new Strategy for kommoo vs dracozolt:
+|chat|DEBUG|>[clangingscales: 280.25 [258, 306], clangingscales: 280.25 [258, 306], clangingscales: 280.25 [258, 306]]
+|chat|DEBUG|Best move of kommoo (p1): clangingscales: 280.25 [258, 306]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 543.0 [498, 588]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Octillery|Gunk Shot|p2a: Hatterene
+|-supereffective|p2a: Hatterene
+|-damage|p2a: Hatterene|0 fnt
+|faint|p2a: Hatterene
+|-damage|p1a: Octillery|18100|[from] item: Life Orb
+|-ability|p1a: Octillery|Moody|boost
+|-boost|p1a: Octillery|spe|2
+|-unboost|p1a: Octillery|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Crobat|Crobat, L82, M|123274
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hatterene crobat kommoo frosmoth
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "kommoo" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hatterene-crobat-kommoo-frosmoth -- octillery
+|chat|DEBUG|Own moves: clangingscales closecombat poisonjab stealthrock
+|chat|DEBUG|Enemy moves: energyball gunkshot hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['frosmoth']
+|chat|DEBUG|Speed: 182 vs 127
+|chat|DEBUG|HP: 10 vs 236
+|chat|DEBUG|Created a new Strategy for kommoo vs octillery:
+|chat|DEBUG|>[closecombat: 141.5625 [130, 154], closecombat: 141.5625 [130, 154], closecombat: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 141.5625 [130, 154]
+|chat|DEBUG|Best move of octillery (p2): gunkshot: 113.3125 [104, 123]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Octillery
+|-damage|p1a: Octillery|0 fnt
+|faint|p1a: Octillery
+|-damage|p2a: Crobat|107274|[from] Recoil
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>keeper of the milk<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">togedemaru hatterene crobat meowsticf kommoo frosmoth</h1>

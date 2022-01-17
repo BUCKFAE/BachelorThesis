@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490328690<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490328690|init|battle
+|title|McGewitter vs. Cegovax
+|j|☆McGewitter
+|j|☆Cegovax
+|gametype|singles
+|player|p1|McGewitter|265|1193
+|player|p2|Cegovax|cyrus|1181
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dusknoir|Dusknoir, L86, F|218218
+|switch|p2a: Lanturn|Lanturn, L86, F|100100
+|-item|p2a: Lanturn|Choice Specs|[from] ability: Frisk|[of] p1a: Dusknoir|[identify]
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian raikou slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-raikou-slowking-kommoo -- lanturn
+|chat|DEBUG|Own moves: icepunch willowisp poltergeist earthquake
+|chat|DEBUG|Enemy moves: icebeam scald thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dusknoir', 'landorustherian']
+|chat|DEBUG|Speed: 127 vs 164
+|chat|DEBUG|HP: 218 vs 355
+|chat|DEBUG|Created a new Strategy for dusknoir vs lanturn:
+|chat|DEBUG|>[earthquake: 198.75 [182, 216], earthquake: 198.75 [182, 216], earthquake: 198.75 [182, 216]]
+|chat|DEBUG|Best move of dusknoir (p1): earthquake: 198.75 [182, 216]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 87.9375 [81, 96]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Cegovax has 120 seconds left.
+|inactive|Cegovax has 90 seconds left.
+|move|p2a: Lanturn|Scald|p1a: Dusknoir
+|-damage|p1a: Dusknoir|143218
+|-status|p1a: Dusknoir|brn
+|move|p1a: Dusknoir|Earthquake|p2a: Lanturn
+|-supereffective|p2a: Lanturn
+|-damage|p2a: Lanturn|73100
+|-heal|p1a: Dusknoir|156218 brn|[from] item: Leftovers
+|-damage|p1a: Dusknoir|143218 brn|[from] brn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian raikou slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-raikou-slowking-kommoo -- lanturn
+|chat|DEBUG|Own moves: icepunch willowisp poltergeist earthquake
+|chat|DEBUG|Enemy moves: icebeam scald thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'kommoo']
+|chat|DEBUG|Speed: 127 vs 164
+|chat|DEBUG|HP: 143 vs 259
+|chat|DEBUG|Best move of dusknoir (p1): earthquake: 198.75 [182, 216]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 87.9375 [81, 96]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lanturn|Scald|p1a: Dusknoir
+|-damage|p1a: Dusknoir|68218 brn
+|move|p1a: Dusknoir|Earthquake|p2a: Lanturn
+|-supereffective|p2a: Lanturn
+|-damage|p2a: Lanturn|45100
+|-heal|p1a: Dusknoir|81218 brn|[from] item: Leftovers
+|-damage|p1a: Dusknoir|68218 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian raikou slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-raikou-slowking-kommoo -- lanturn
+|chat|DEBUG|Own moves: icepunch willowisp poltergeist earthquake
+|chat|DEBUG|Enemy moves: icebeam scald thunderbolt voltswitch
+|chat|DEBUG|Checks: ['raikou', 'kommoo']
+|chat|DEBUG|Counter: ['landorustherian', 'raikou', 'kommoo']
+|chat|DEBUG|Speed: 127 vs 164
+|chat|DEBUG|HP: 68 vs 159
+|chat|DEBUG|Best move of dusknoir (p1): earthquake: 198.75 [182, 216]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 87.9375 [81, 96]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raikou
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raikou|Raikou, L80|275275
+|-ability|p1a: Raikou|Pressure
+|move|p2a: Lanturn|Scald|p1a: Raikou
+|-damage|p1a: Raikou|170275
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian raikou slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-raikou-slowking-kommoo -- lanturn
+|chat|DEBUG|Own moves: aurasphere scald thunderbolt calmmind
+|chat|DEBUG|Enemy moves: icebeam scald thunderbolt voltswitch
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['landorustherian', 'raikou', 'kommoo']
+|chat|DEBUG|Speed: 230 vs 164
+|chat|DEBUG|HP: 170 vs 159
+|chat|DEBUG|Created a new Strategy for raikou vs lanturn:
+|chat|DEBUG|>[aurasphere: 84.75 [78, 92], aurasphere: 84.75 [78, 92], aurasphere: 84.75 [78, 92]]
+|chat|DEBUG|Best move of raikou (p1): aurasphere: 84.75 [78, 92]
+|chat|DEBUG|Best move of lanturn (p2): scald: 105.875 [97, 115]
+|chat|DEBUG|Attacking using aurasphere
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raikou|Aura Sphere|p2a: Lanturn
+|-crit|p2a: Lanturn
+|-damage|p2a: Lanturn|9100
+|-damage|p1a: Raikou|143275|[from] item: Life Orb
+|move|p2a: Lanturn|Scald|p1a: Raikou
+|-damage|p1a: Raikou|31275
+|-status|p1a: Raikou|brn
+|-damage|p1a: Raikou|14275 brn|[from] brn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian raikou slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-raikou-slowking-kommoo -- lanturn
+|chat|DEBUG|Own moves: aurasphere scald thunderbolt calmmind
+|chat|DEBUG|Enemy moves: icebeam scald thunderbolt voltswitch
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'raikou', 'slowking', 'kommoo']
+|chat|DEBUG|Speed: 230 vs 164
+|chat|DEBUG|HP: 14 vs 31
+|chat|DEBUG|Best move of raikou (p1): aurasphere: 84.75 [78, 92]
+|chat|DEBUG|Best move of lanturn (p2): scald: 105.875 [97, 115]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raikou|Aura Sphere|p2a: Lanturn
+|-damage|p2a: Lanturn|0 fnt
+|faint|p2a: Lanturn
+|-damage|p1a: Raikou|0 fnt|[from] item: Life Orb
+|faint|p1a: Raikou
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kommo-o|Kommo-o, L80, F|251251
+|switch|p2a: Leafeon|Leafeon, L86, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- lanturn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: icebeam scald thunderbolt voltswitch
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to kommoo (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Knock Off|p1a: Kommo-o
+|-resisted|p1a: Kommo-o
+|-damage|p1a: Kommo-o|217251
+|-enditem|p1a: Kommo-o|Throat Spray|[from] move: Knock Off|[of] p2a: Leafeon
+|move|p1a: Kommo-o|Clangorous Soul|p1a: Kommo-o
+|-boost|p1a: Kommo-o|atk|1
+|-boost|p1a: Kommo-o|def|1
+|-boost|p1a: Kommo-o|spa|1
+|-boost|p1a: Kommo-o|spd|1
+|-boost|p1a: Kommo-o|spe|1
+|-damage|p1a: Kommo-o|135251
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- leafeon
+|chat|DEBUG|Own moves: poisonjab clangingscales clangoroussoul closecombat
+|chat|DEBUG|Enemy moves: leafblade swordsdance synthesis xscissor
+|chat|DEBUG|Checks: ['stakataka', 'kommoo']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 213
+|chat|DEBUG|HP: 251 vs 252
+|chat|DEBUG|Created a new Strategy for kommoo vs leafeon:
+|chat|DEBUG|>[clangingscales: 134.0 [123, 145], clangingscales: 134.0 [123, 145], clangingscales: 134.0 [123, 145]]
+|chat|DEBUG|Best move of kommoo (p1): clangingscales: 134.0 [123, 145]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 43.75 [40, 48]
+|chat|DEBUG|Boost Moves: [clangoroussoul (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kommo-o|Clanging Scales|p2a: Leafeon
+|-damage|p2a: Leafeon|18100
+|-unboost|p1a: Kommo-o|def|1
+|move|p2a: Leafeon|Leaf Blade|p1a: Kommo-o
+|-resisted|p1a: Kommo-o
+|-damage|p1a: Kommo-o|93251
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- leafeon
+|chat|DEBUG|Own moves: poisonjab clangingscales clangoroussoul closecombat
+|chat|DEBUG|Enemy moves: leafblade swordsdance synthesis xscissor
+|chat|DEBUG|Checks: ['stakataka', 'kommoo']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 213
+|chat|DEBUG|HP: 135 vs 252
+|chat|DEBUG|Best move of kommoo (p1): clangingscales: 134.0 [123, 145]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 29.0625 [27, 32]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using clangingscales
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|100100
+|move|p1a: Kommo-o|Clanging Scales|p2a: Alcremie
+|-immune|p2a: Alcremie
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- leafeon
+|chat|DEBUG|Own moves: poisonjab clangingscales clangoroussoul closecombat
+|chat|DEBUG|Enemy moves: leafblade swordsdance synthesis xscissor
+|chat|DEBUG|Checks: ['stakataka', 'landorustherian', 'kommoo']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 213
+|chat|DEBUG|HP: 93 vs 45
+|chat|DEBUG|Best move of kommoo (p1): clangingscales: 134.0 [123, 145]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 43.75 [40, 48]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stakataka|Stakataka, L80|229229
+|-item|p1a: Stakataka|Air Balloon
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Stakataka
+|-resisted|p1a: Stakataka
+|-damage|p1a: Stakataka|187229
+|-enditem|p1a: Stakataka|Air Balloon
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- leafeon-alcremie
+|chat|DEBUG|Own moves: poisonjab clangingscales clangoroussoul closecombat
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'slowking']
+|chat|DEBUG|Speed: 182 vs 159
+|chat|DEBUG|HP: 93 vs 252
+|chat|DEBUG|Created a new Strategy for kommoo vs alcremie:
+|chat|DEBUG|>[poisonjab: 189.125 [174, 206], poisonjab: 189.125 [174, 206], poisonjab: 189.125 [174, 206]]
+|chat|DEBUG|Best move of kommoo (p1): poisonjab: 189.125 [174, 206]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 240.5 [220, 264]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stakataka
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Leafeon|Leafeon, L86, M|18100
+|move|p1a: Stakataka|Gyro Ball|p2a: Leafeon
+|-damage|p2a: Leafeon|0 fnt
+|faint|p2a: Leafeon
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Diggersby|Diggersby, L80, F|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- leafeon-alcremie
+|chat|DEBUG|Own moves: gyroball trickroom bodypress stoneedge
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['stakataka', 'landorustherian', 'slowking']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 159
+|chat|DEBUG|HP: 187 vs 252
+|chat|DEBUG|Created a new Strategy for stakataka vs alcremie:
+|chat|DEBUG|>[gyroball: 409.0 [374, 444], gyroball: 409.0 [374, 444], gyroball: 409.0 [374, 444]]
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 409.0 [374, 444]
+|chat|DEBUG|Best move of alcremie (p2): mysticalfire: 57.8125 [53, 63]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Diggersby|Earthquake|p1a: Stakataka
+|-supereffective|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|faint|p1a: Stakataka
+|-damage|p2a: Diggersby|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus-Therian, L72, M|247247
+|-ability|p1a: Landorus|Intimidate|boost
+|-unboost|p2a: Diggersby|atk|1
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir stakataka landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-stakataka-landorustherian-slowking-kommoo -- alcremie-diggersby
+|chat|DEBUG|Own moves: gyroball trickroom bodypress stoneedge
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'kommoo']
+|chat|DEBUG|Speed: 25 vs 171
+|chat|DEBUG|HP: 187 vs 267
+|chat|DEBUG|Created a new Strategy for stakataka vs diggersby:
+|chat|DEBUG|>[bodypress: 345.0 [316, 374], bodypress: 345.0 [316, 374], bodypress: 345.0 [316, 374]]
+|chat|DEBUG|Best move of stakataka (p1): bodypress: 345.0 [316, 374]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 239.625 [218, 265]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Earthquake|p2a: Diggersby
+|-damage|p2a: Diggersby|34100
+|-damage|p1a: Landorus|223247|[from] item: Life Orb
+|move|p2a: Diggersby|Body Slam|p1a: Landorus
+|-damage|p1a: Landorus|110247
+|-damage|p2a: Diggersby|24100|[from] item: Life Orb
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to landorustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azelf|Azelf, L82|100100
+|move|p1a: Landorus|Earthquake|p2a: Azelf
+|-immune|p2a: Azelf|[from] ability: Levitate
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby
+|chat|DEBUG|Own moves: earthquake fly swordsdance stoneedge
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['landorustherian', 'kommoo']
+|chat|DEBUG|Counter: ['landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 171
+|chat|DEBUG|HP: 247 vs 242
+|chat|DEBUG|Created a new Strategy for landorustherian vs diggersby:
+|chat|DEBUG|>[earthquake: 162.9375 [149, 177], earthquake: 162.9375 [149, 177], earthquake: 162.9375 [149, 177]]
+|chat|DEBUG|Best move of landorustherian (p1): earthquake: 162.9375 [149, 177]
+|chat|DEBUG|Best move of diggersby (p2): bodyslam: 83.5 [75, 91]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowking|Slowking, L86, M|304304
+|move|p2a: Azelf|Psyshock|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|236304
+|-damage|p2a: Azelf|91100|[from] item: Life Orb
+|-heal|p1a: Slowking|255304|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby
+|chat|DEBUG|Own moves: earthquake fly swordsdance stoneedge
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|Counter: ['landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 173 vs 171
+|chat|DEBUG|HP: 110 vs 64
+|chat|DEBUG|Best move of landorustherian (p1): earthquake: 162.9375 [149, 177]
+|chat|DEBUG|Best move of diggersby (p2): bodyslam: 83.5 [75, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|100100
+|move|p1a: Slowking|Scald|p2a: Alcremie
+|-damage|p2a: Alcremie|73100
+|-heal|p2a: Alcremie|79100|[from] item: Leftovers
+|-heal|p1a: Slowking|274304|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "azelf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby-azelf
+|chat|DEBUG|Own moves: earthquake fly swordsdance stoneedge
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast nastyplot psychic
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['slowking']
+|chat|DEBUG|Speed: 173 vs 236
+|chat|DEBUG|HP: 110 vs 257
+|chat|DEBUG|Created a new Strategy for landorustherian vs azelf:
+|chat|DEBUG|>[fly: 152.0 [140, 165], fly: 152.0 [140, 165], fly: 152.0 [140, 165]]
+|chat|DEBUG|Best move of landorustherian (p1): fly: 152.0 [140, 165]
+|chat|DEBUG|Best move of azelf (p2): psychic: 180.0 [165, 195]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check slowking
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Calm Mind|p2a: Alcremie
+|-boost|p2a: Alcremie|spa|1
+|-boost|p2a: Alcremie|spd|1
+|move|p1a: Slowking|Psyshock|p2a: Alcremie
+|-damage|p2a: Alcremie|39100
+|-heal|p2a: Alcremie|45100|[from] item: Leftovers
+|-heal|p1a: Slowking|293304|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "azelf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast nastyplot psychic
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['slowking']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 101 vs 236
+|chat|DEBUG|HP: 255 vs 233
+|chat|DEBUG|Created a new Strategy for slowking vs azelf:
+|chat|DEBUG|>[scald: 110.25 [102, 120], scald: 110.25 [102, 120], scald: 110.25 [102, 120]]
+|chat|DEBUG|Best move of slowking (p1): scald: 110.25 [102, 120]
+|chat|DEBUG|Best move of azelf (p2): dazzlinggleam: 70.3125 [65, 77]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|95100
+|move|p1a: Slowking|Psyshock|p2a: Alcremie
+|-damage|p2a: Alcremie|55100
+|-heal|p2a: Alcremie|61100|[from] item: Leftovers
+|-heal|p1a: Slowking|304304|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slowking']
+|chat|DEBUG|Speed: 101 vs 159
+|chat|DEBUG|HP: 274 vs 199
+|chat|DEBUG|Created a new Strategy for slowking vs alcremie:
+|chat|DEBUG|>[psyshock: 100.375 [93, 109], psyshock: 100.375 [93, 109], psyshock: 100.375 [93, 109]]
+|chat|DEBUG|Best move of slowking (p1): psyshock: 100.375 [93, 109]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 80.9375 [75, 88]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Slowking|Dynamax
+|-heal|p1a: Slowking|608608|[silent]
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Slowking
+|-damage|p1a: Slowking|482608
+|move|p1a: Slowking|Max Mindstorm|p2a: Alcremie
+|-damage|p2a: Alcremie|30100
+|-fieldstart|move: Psychic Terrain
+|-heal|p2a: Alcremie|36100|[from] item: Leftovers
+|-heal|p1a: Slowking|501608|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|Speed: 101 vs 159
+|chat|DEBUG|HP: 293 vs 113
+|chat|DEBUG|Best move of slowking (p1): psyshock: 100.375 [93, 109]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 121.1875 [111, 132]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Slowking
+|-crit|p1a: Slowking
+|-damage|p1a: Slowking|333608
+|move|p1a: Slowking|Max Mindstorm|p2a: Alcremie
+|-damage|p2a: Alcremie|0 fnt
+|faint|p2a: Alcremie
+|-heal|p1a: Slowking|352608|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azelf|Azelf, L82|91100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slowking', 'kommoo']
+|chat|DEBUG|Speed: 101 vs 159
+|chat|DEBUG|HP: 304 vs 153
+|chat|DEBUG|Best move of slowking (p1): psyshock: 100.375 [93, 109]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 121.1875 [111, 132]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Azelf|Nasty Plot|p2a: Azelf
+|-boost|p2a: Azelf|spa|2
+|move|p1a: Slowking|Max Geyser|p2a: Azelf
+|-damage|p2a: Azelf|22100
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Slowking|371608|[from] item: Leftovers
+|-end|p1a: Slowking|Dynamax
+|-heal|p1a: Slowking|186304|[silent]
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "alcremie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- alcremie-diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire recover
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['landorustherian', 'slowking', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 101 vs 159
+|chat|DEBUG|HP: 501 vs 90
+|chat|DEBUG|Created a new Strategy for slowking vs alcremie:
+|chat|DEBUG|>[psyshock: 100.375 [93, 109], psyshock: 100.375 [93, 109], psyshock: 100.375 [93, 109]]
+|chat|DEBUG|Best move of slowking (p1): psyshock: 100.375 [93, 109]
+|chat|DEBUG|Best move of alcremie (p2): dazzlinggleam: 121.1875 [111, 132]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Azelf|Psyshock|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|42304
+|-damage|p2a: Azelf|12100|[from] item: Life Orb
+|move|p1a: Slowking|Scald|p2a: Azelf
+|-damage|p2a: Azelf|0 fnt
+|faint|p2a: Azelf
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Slowking|61304|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Diggersby|Diggersby, L80, F|24100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "azelf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast nastyplot psychic
+|chat|DEBUG|Checks: ['slowking']
+|chat|DEBUG|Counter: ['slowking']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 101 vs 236
+|chat|DEBUG|HP: 352 vs 233
+|chat|DEBUG|Created a new Strategy for slowking vs azelf:
+|chat|DEBUG|>[scald: 110.25 [102, 120], scald: 110.25 [102, 120], scald: 110.25 [102, 120]]
+|chat|DEBUG|Best move of slowking (p1): scald: 110.25 [102, 120]
+|chat|DEBUG|Best move of azelf (p2): dazzlinggleam: 70.3125 [65, 77]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Diggersby|Body Slam|p1a: Slowking
+|-damage|p1a: Slowking|0 fnt
+|faint|p1a: Slowking
+|-damage|p2a: Diggersby|14100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus-Therian, L72, M|110247
+|-ability|p1a: Landorus|Intimidate|boost
+|-unboost|p2a: Diggersby|atk|1
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "azelf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- diggersby-azelf
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: dazzlinggleam fireblast nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slowking']
+|chat|DEBUG|Speed: 101 vs 236
+|chat|DEBUG|HP: 186 vs 56
+|chat|DEBUG|Best move of slowking (p1): scald: 110.25 [102, 120]
+|chat|DEBUG|Best move of azelf (p2): dazzlinggleam: 139.9375 [129, 152]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Earthquake|p2a: Diggersby
+|-damage|p2a: Diggersby|0 fnt
+|faint|p2a: Diggersby
+|-damage|p1a: Landorus|86247|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Indeedee|Indeedee, L82, M|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Indeedee
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian slowking kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-slowking-kommoo -- diggersby
+|chat|DEBUG|Own moves: psyshock toxic fireblast scald
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'kommoo']
+|chat|DEBUG|Speed: 101 vs 171
+|chat|DEBUG|HP: 61 vs 64
+|chat|DEBUG|Created a new Strategy for slowking vs diggersby:
+|chat|DEBUG|>[scald: 211.75 [194, 230], scald: 211.75 [194, 230], scald: 211.75 [194, 230]]
+|chat|DEBUG|Best move of slowking (p1): scald: 211.75 [194, 230]
+|chat|DEBUG|Best move of diggersby (p2): knockoff: 232.6875 [213, 252]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Indeedee|Expanding Force|p1a: Landorus
+|-damage|p1a: Landorus|0 fnt
+|faint|p1a: Landorus
+|-damage|p2a: Indeedee|91100|[from] item: Life Orb
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kommo-o|Kommo-o, L80, F|93251
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-kommoo -- diggersby
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorustherian', 'kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to landorustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Indeedee|Expanding Force|p1a: Kommo-o
+|-supereffective|p1a: Kommo-o
+|-damage|p1a: Kommo-o|0 fnt
+|faint|p1a: Kommo-o
+|-damage|p2a: Indeedee|81100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dusknoir|Dusknoir, L86, F|68218 brn
+|-item|p2a: Indeedee|Life Orb|[from] ability: Frisk|[of] p1a: Dusknoir|[identify]
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir landorustherian kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorustherian" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-landorustherian-kommoo -- diggersby
+|chat|DEBUG|Own moves: earthquake fly swordsdance stoneedge
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['landorustherian', 'kommoo']
+|chat|DEBUG|Counter: ['landorustherian', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 173 vs 171
+|chat|DEBUG|HP: 110 vs 37
+|chat|DEBUG|Created a new Strategy for landorustherian vs diggersby:
+|chat|DEBUG|>[earthquake: 162.9375 [149, 177], earthquake: 162.9375 [149, 177], earthquake: 162.9375 [149, 177]]
+|chat|DEBUG|Best move of landorustherian (p1): earthquake: 162.9375 [149, 177]
+|chat|DEBUG|Best move of diggersby (p2): bodyslam: 83.5 [75, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Indeedee|Expanding Force|p1a: Dusknoir
+|-damage|p1a: Dusknoir|0 fnt
+|faint|p1a: Dusknoir
+|-damage|p2a: Indeedee|71100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Cegovax</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dusknoir stakataka landorustherian raikou slowking kommoo</h1>

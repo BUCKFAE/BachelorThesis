@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490425919</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490425919|init|battle
+|title|McDonner vs. Vizcarr0nd0
+|j|☆McDonner
+|j|☆Vizcarr0nd0
+|gametype|singles
+|player|p1|McDonner|265|1160
+|player|p2|Vizcarr0nd0|lance|1152
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Aerodactyl|Aerodactyl, L82, M|265/265
+|switch|p2a: Excadrill|Excadrill, L78, F|100/100
+|-ability|p1a: Aerodactyl|Unnerve
+|-ability|p2a: Excadrill|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl stunfiskgalar copperajah keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: aerodactyl vs excadrill
+|chat|DEBUG|Updating information about excadrill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: stunfiskgalar vs. excadrill
+|chat|DEBUG|Getting matchup: copperajah vs. excadrill
+|chat|DEBUG|Getting matchup: keldeoresolute vs. excadrill
+|chat|DEBUG|Getting matchup: milotic vs. excadrill
+|chat|DEBUG|Getting matchup: ninetalesalola vs. excadrill
+|chat|DEBUG|Getting matchup: aerodactyl vs. excadrill
+|chat|DEBUG|Checks / Counter: {'excadrill': {'checks': [], 'counter': ['stunfiskgalar', 'copperajah', 'keldeoresolute', 'milotic']}}
+|chat|DEBUG|Speed: 260 - 182
+|chat|DEBUG|Most likely moves for: aerodactyl
+|chat|DEBUG|>['stoneedge', 'honeclaws', 'dualwingbeat', 'earthquake']
+|chat|DEBUG|Most likely moves for: excadrill
+|chat|DEBUG|>['earthquake', 'ironhead', 'rockslide', 'swordsdance']
+|chat|DEBUG|Best own move: ('earthquake', 200.625)
+|chat|DEBUG|Best enemy move: ('ironhead', 245.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: stunfiskgalar
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Stunfisk|Stunfisk-Galar, L84, M|320/320
+|move|p2a: Excadrill|Iron Head|p1a: Stunfisk
+|-resisted|p1a: Stunfisk
+|-damage|p1a: Stunfisk|278/320
+|-heal|p1a: Stunfisk|298/320|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl stunfiskgalar copperajah keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: stunfiskgalar vs excadrill
+|chat|DEBUG|Updating information about excadrill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. excadrill
+|chat|DEBUG|Getting matchup: copperajah vs. excadrill
+|chat|DEBUG|Getting matchup: keldeoresolute vs. excadrill
+|chat|DEBUG|Getting matchup: milotic vs. excadrill
+|chat|DEBUG|Getting matchup: ninetalesalola vs. excadrill
+|chat|DEBUG|Getting matchup: stunfiskgalar vs. excadrill
+|chat|DEBUG|Checks / Counter: {'excadrill': {'checks': [], 'counter': ['copperajah', 'keldeoresolute', 'milotic', 'stunfiskgalar']}}
+|chat|DEBUG|Speed: 102 - 182
+|chat|DEBUG|Most likely moves for: stunfiskgalar
+|chat|DEBUG|>['stealthrock', 'thunderwave', 'painsplit', 'earthquake']
+|chat|DEBUG|Most likely moves for: excadrill
+|chat|DEBUG|>['earthquake', 'ironhead', 'rockslide', 'swordsdance']
+|chat|DEBUG|Best own move: ('earthquake', 259.0)
+|chat|DEBUG|Best enemy move: ('earthquake', 220.5)
+|chat|DEBUG|Picking the most damaging move from stunfiskgalar against excadrill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Excadrill|Earthquake|p1a: Stunfisk
+|-supereffective|p1a: Stunfisk
+|-damage|p1a: Stunfisk|68/320
+|move|p1a: Stunfisk|Earthquake|p2a: Excadrill
+|-supereffective|p2a: Excadrill
+|-damage|p2a: Excadrill|6/100
+|-heal|p2a: Excadrill|12/100|[from] item: Leftovers
+|-heal|p1a: Stunfisk|88/320|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl stunfiskgalar copperajah keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: stunfiskgalar vs excadrill
+|chat|DEBUG|Updating information about excadrill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. excadrill
+|chat|DEBUG|Getting matchup: copperajah vs. excadrill
+|chat|DEBUG|Getting matchup: keldeoresolute vs. excadrill
+|chat|DEBUG|Getting matchup: milotic vs. excadrill
+|chat|DEBUG|Getting matchup: ninetalesalola vs. excadrill
+|chat|DEBUG|Getting matchup: stunfiskgalar vs. excadrill
+|chat|DEBUG|Checks / Counter: {'excadrill': {'checks': [], 'counter': ['copperajah', 'keldeoresolute', 'milotic', 'stunfiskgalar']}}
+|chat|DEBUG|Speed: 102 - 182
+|chat|DEBUG|Most likely moves for: stunfiskgalar
+|chat|DEBUG|>['stealthrock', 'thunderwave', 'painsplit', 'earthquake']
+|chat|DEBUG|Most likely moves for: excadrill
+|chat|DEBUG|>['earthquake', 'ironhead', 'rockslide', 'swordsdance']
+|chat|DEBUG|Best own move: ('earthquake', 259.0)
+|chat|DEBUG|Best enemy move: ('earthquake', 220.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from stunfiskgalar against excadrill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Excadrill|Earthquake|p1a: Stunfisk
+|-supereffective|p1a: Stunfisk
+|-damage|p1a: Stunfisk|0 fnt
+|faint|p1a: Stunfisk
+|-heal|p2a: Excadrill|18/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Copperajah|Copperajah, L84, M|342/342
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl copperajah keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: stunfiskgalar vs excadrill
+|chat|DEBUG|Updating information about excadrill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. excadrill
+|chat|DEBUG|Getting matchup: copperajah vs. excadrill
+|chat|DEBUG|Getting matchup: keldeoresolute vs. excadrill
+|chat|DEBUG|Getting matchup: milotic vs. excadrill
+|chat|DEBUG|Getting matchup: ninetalesalola vs. excadrill
+|chat|DEBUG|Getting matchup: stunfiskgalar vs. excadrill
+|chat|DEBUG|Checks / Counter: {'excadrill': {'checks': [], 'counter': ['copperajah', 'keldeoresolute', 'milotic', 'stunfiskgalar']}}
+|chat|DEBUG|>>Switching to counter: copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Excadrill|Earthquake|p1a: Copperajah
+|-supereffective|p1a: Copperajah
+|-damage|p1a: Copperajah|34/342
+|move|p1a: Copperajah|Heat Crash|p2a: Excadrill
+|-supereffective|p2a: Excadrill
+|-damage|p2a: Excadrill|0 fnt
+|faint|p2a: Excadrill
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan-Galar, L78, F|100/100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl copperajah keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: copperajah vs excadrill
+|chat|DEBUG|Updating information about excadrill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. excadrill
+|chat|DEBUG|Getting matchup: keldeoresolute vs. excadrill
+|chat|DEBUG|Getting matchup: milotic vs. excadrill
+|chat|DEBUG|Getting matchup: ninetalesalola vs. excadrill
+|chat|DEBUG|Getting matchup: copperajah vs. excadrill
+|chat|DEBUG|Checks / Counter: {'excadrill': {'checks': [], 'counter': ['keldeoresolute', 'milotic', 'copperajah']}}
+|chat|DEBUG|Speed: 99 - 182
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['powerwhip', 'heatcrash', 'heavyslam', 'stoneedge']
+|chat|DEBUG|Most likely moves for: excadrill
+|chat|DEBUG|>['earthquake', 'ironhead', 'rockslide', 'swordsdance']
+|chat|DEBUG|Best own move: ('heatcrash', 300.625)
+|chat|DEBUG|Best enemy move: ('earthquake', 289.125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('heatcrash', 300.625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Darmanitan|U-turn|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|0 fnt
+|faint|p1a: Copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gigalith|Gigalith, L82, M|100/100|[from]move: U-turn
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Gigalith
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aerodactyl|Aerodactyl, L82, M|265/265
+|-ability|p1a: Aerodactyl|Unnerve
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl copperajah keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: copperajah vs darmanitangalar
+|chat|DEBUG|Updating information about darmanitangalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: salacberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: keldeoresolute vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: copperajah vs. darmanitangalar
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'keldeoresolute', 'milotic', 'copperajah']}}
+|chat|DEBUG|Speed: 99 - 193
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['heatcrash']
+|chat|DEBUG|Most likely moves for: darmanitangalar
+|chat|DEBUG|>['bellydrum', 'earthquake', 'iciclecrash', 'substitute']
+|chat|DEBUG|Best own move: ('heatcrash', 319.125)
+|chat|DEBUG|Best enemy move: ('earthquake', 197.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from copperajah against darmanitangalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Keldeo|Keldeo-Resolute, L79|273/273
+|move|p2a: Gigalith|Stone Edge|p1a: Keldeo
+|-resisted|p1a: Keldeo
+|-damage|p1a: Keldeo|165/273
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Keldeo|148/273|[from] Sandstorm
+|-heal|p1a: Keldeo|165/273|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: copperajah vs darmanitangalar
+|chat|DEBUG|Updating information about darmanitangalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: salacberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: keldeoresolute vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: copperajah vs. darmanitangalar
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'keldeoresolute', 'milotic', 'copperajah']}}
+|chat|DEBUG|>>Switching to counter: aerodactyl
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Trevenant|Trevenant, L86, F|100/100
+|move|p1a: Keldeo|Hydro Pump|p2a: Trevenant
+|-resisted|p2a: Trevenant
+|-damage|p2a: Trevenant|78/100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Keldeo|148/273|[from] Sandstorm
+|-damage|p2a: Trevenant|73/100|[from] Sandstorm
+|-heal|p1a: Keldeo|165/273|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: aerodactyl vs gigalith
+|chat|DEBUG|Updating information about gigalith
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: keldeoresolute vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: keldeoresolute vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['keldeoresolute', 'milotic', 'aerodactyl']}, 'gigalith': {'checks': [], 'counter': ['keldeoresolute']}}
+|chat|DEBUG|Speed: 260 - 88
+|chat|DEBUG|Most likely moves for: aerodactyl
+|chat|DEBUG|>['stoneedge', 'honeclaws', 'dualwingbeat', 'earthquake']
+|chat|DEBUG|Most likely moves for: gigalith
+|chat|DEBUG|>['explosion', 'stealthrock', 'stoneedge', 'superpower']
+|chat|DEBUG|Best own move: ('earthquake', 108.25)
+|chat|DEBUG|Best enemy move: ('stoneedge', 331.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: keldeoresolute
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Keldeo|Hydro Pump|p2a: Trevenant
+|-resisted|p2a: Trevenant
+|-damage|p2a: Trevenant|48/100
+|move|p2a: Trevenant|Wood Hammer|p1a: Keldeo
+|-supereffective|p1a: Keldeo
+|-damage|p1a: Keldeo|0 fnt
+|faint|p1a: Keldeo
+|-damage|p2a: Trevenant|30/100|[from] Recoil
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Trevenant|24/100|[from] Sandstorm
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Milotic|Milotic, L82, F|290/290
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: keldeoresolute vs gigalith
+|chat|DEBUG|Updating information about gigalith
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: keldeoresolute vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: keldeoresolute vs. gigalith
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'milotic', 'keldeoresolute']}, 'gigalith': {'checks': [], 'counter': ['keldeoresolute']}}
+|chat|DEBUG|Speed: 216 - 88
+|chat|DEBUG|Most likely moves for: keldeoresolute
+|chat|DEBUG|>['calmmind', 'secretsword', 'substitute', 'hydropump']
+|chat|DEBUG|Most likely moves for: gigalith
+|chat|DEBUG|>['explosion', 'stealthrock', 'stoneedge', 'superpower']
+|chat|DEBUG|Best own move: ('hydropump', 283.125)
+|chat|DEBUG|Best enemy move: ('explosion', 226.1875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from keldeoresolute against gigalith
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Milotic|Ice Beam|p2a: Trevenant
+|-supereffective|p2a: Trevenant
+|-damage|p2a: Trevenant|0 fnt
+|faint|p2a: Trevenant
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raichu|Raichu-Alola, L84, F|100/100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl keldeoresolute milotic ninetalesalola
+|chat|DEBUG|Matchup: keldeoresolute vs trevenant
+|chat|DEBUG|Updating information about trevenant
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: keldeoresolute vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: keldeoresolute vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. trevenant
+|chat|DEBUG|Getting matchup: milotic vs. trevenant
+|chat|DEBUG|Getting matchup: ninetalesalola vs. trevenant
+|chat|DEBUG|Getting matchup: keldeoresolute vs. trevenant
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'milotic', 'keldeoresolute']}, 'gigalith': {'checks': [], 'counter': ['keldeoresolute']}, 'trevenant': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 216 - 146
+|chat|DEBUG|Most likely moves for: keldeoresolute
+|chat|DEBUG|>['calmmind', 'secretsword', 'substitute', 'hydropump']
+|chat|DEBUG|Most likely moves for: trevenant
+|chat|DEBUG|>['earthquake', 'hornleech', 'poltergeist', 'rockslide']
+|chat|DEBUG|Best own move: ('hydropump', 66.75)
+|chat|DEBUG|Best enemy move: ('hornleech', 192.375)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat trevenant with keldeoresolute
+|chat|DEBUG|Picking the most damaging move from keldeoresolute against trevenant
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aerodactyl|Aerodactyl, L82, M|265/265
+|-ability|p1a: Aerodactyl|Unnerve
+|move|p2a: Raichu|Nasty Plot|p2a: Raichu
+|-boost|p2a: Raichu|spa|2
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: keldeoresolute vs trevenant
+|chat|DEBUG|Updating information about trevenant
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: keldeoresolute vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: keldeoresolute vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. trevenant
+|chat|DEBUG|Getting matchup: milotic vs. trevenant
+|chat|DEBUG|Getting matchup: ninetalesalola vs. trevenant
+|chat|DEBUG|Getting matchup: keldeoresolute vs. trevenant
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'milotic', 'keldeoresolute']}, 'gigalith': {'checks': [], 'counter': ['keldeoresolute']}, 'trevenant': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Aerodactyl|Dynamax
+|-heal|p1a: Aerodactyl|530/530|[silent]
+|move|p1a: Aerodactyl|Max Quake|p2a: Raichu
+|-supereffective|p2a: Raichu
+|-damage|p2a: Raichu|0 fnt
+|-boost|p1a: Aerodactyl|spd|1
+|faint|p2a: Raichu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan-Galar, L78, F|100/100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: milotic vs trevenant
+|chat|DEBUG|Updating information about trevenant
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. trevenant
+|chat|DEBUG|Getting matchup: ninetalesalola vs. trevenant
+|chat|DEBUG|Getting matchup: milotic vs. trevenant
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'milotic']}, 'gigalith': {'checks': [], 'counter': []}, 'trevenant': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 180 - 146
+|chat|DEBUG|Most likely moves for: milotic
+|chat|DEBUG|>['recover', 'toxic', 'icebeam', 'scald']
+|chat|DEBUG|Most likely moves for: trevenant
+|chat|DEBUG|>['earthquake', 'hornleech', 'poltergeist', 'rockslide']
+|chat|DEBUG|Best own move: ('icebeam', 126.75)
+|chat|DEBUG|Best enemy move: ('hornleech', 203.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('icebeam', 126.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Darmanitan|Icicle Crash|p1a: Aerodactyl
+|-supereffective|p1a: Aerodactyl
+|-damage|p1a: Aerodactyl|110/530
+|move|p1a: Aerodactyl|Max Rockfall|p2a: Darmanitan
+|-supereffective|p2a: Darmanitan
+|-damage|p2a: Darmanitan|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Darmanitan
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, M|100/100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: milotic vs raichualola
+|chat|DEBUG|Updating information about raichualola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. raichualola
+|chat|DEBUG|Getting matchup: ninetalesalola vs. raichualola
+|chat|DEBUG|Getting matchup: milotic vs. raichualola
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['aerodactyl', 'milotic']}, 'gigalith': {'checks': [], 'counter': []}, 'raichualola': {'checks': [], 'counter': ['aerodactyl']}}
+|chat|DEBUG|Speed: 180 - 233
+|chat|DEBUG|Most likely moves for: milotic
+|chat|DEBUG|>['recover', 'toxic', 'icebeam', 'scald']
+|chat|DEBUG|Most likely moves for: raichualola
+|chat|DEBUG|>['grassknot', 'nastyplot', 'psyshock', 'thunderbolt']
+|chat|DEBUG|Best own move: ('scald', 85.0625)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 147.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: aerodactyl
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Kommo-o|Dynamax
+|-heal|p2a: Kommo-o|100/100|[silent]
+|move|p2a: Kommo-o|Max Guard|p2a: Kommo-o
+|-singleturn|p2a: Kommo-o|Max Guard
+|move|p1a: Aerodactyl|Max Airstream|p2a: Kommo-o
+|-activate|p2a: Kommo-o|move: Max Guard
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Kommo-o|98/100|[from] Sandstorm
+|-end|p1a: Aerodactyl|Dynamax
+|-heal|p1a: Aerodactyl|55/265|[silent]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: aerodactyl vs raichualola
+|chat|DEBUG|Updating information about raichualola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. raichualola
+|chat|DEBUG|Getting matchup: ninetalesalola vs. raichualola
+|chat|DEBUG|Getting matchup: aerodactyl vs. raichualola
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['milotic', 'aerodactyl']}, 'gigalith': {'checks': [], 'counter': []}, 'raichualola': {'checks': [], 'counter': ['aerodactyl']}}
+|chat|DEBUG|Speed: 260 - 233
+|chat|DEBUG|Most likely moves for: aerodactyl
+|chat|DEBUG|>['stoneedge', 'honeclaws', 'dualwingbeat', 'earthquake']
+|chat|DEBUG|Most likely moves for: raichualola
+|chat|DEBUG|>['grassknot', 'nastyplot', 'psyshock', 'thunderbolt']
+|chat|DEBUG|Best own move: ('earthquake', 210.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 217.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninetales|Ninetales-Alola, L79, F|245/245
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Ninetales
+|move|p2a: Kommo-o|Max Wyrmwind|p1a: Ninetales
+|-immune|p1a: Ninetales
+|-weather|Hail|[upkeep]
+|-damage|p2a: Kommo-o|95/100|[from] Hail
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: aerodactyl vs darmanitangalar
+|chat|DEBUG|Updating information about darmanitangalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: salacberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: milotic vs. darmanitangalar
+|chat|DEBUG|Getting matchup: ninetalesalola vs. darmanitangalar
+|chat|DEBUG|Getting matchup: aerodactyl vs. darmanitangalar
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Checks / Counter: {'darmanitangalar': {'checks': [], 'counter': ['milotic', 'aerodactyl']}, 'gigalith': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 260 - 193
+|chat|DEBUG|Most likely moves for: aerodactyl
+|chat|DEBUG|>['stoneedge', 'honeclaws', 'dualwingbeat', 'earthquake']
+|chat|DEBUG|Most likely moves for: darmanitangalar
+|chat|DEBUG|>['bellydrum', 'earthquake', 'iciclecrash', 'substitute']
+|chat|DEBUG|Best own move: ('stoneedge', 317.125)
+|chat|DEBUG|Best enemy move: ('iciclecrash', 268.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('stoneedge', 317.125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Moonblast|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-damage|p2a: Kommo-o|36/100
+|move|p2a: Kommo-o|Max Ooze|p1a: Ninetales
+|-supereffective|p1a: Ninetales
+|-damage|p1a: Ninetales|101/245
+|-boost|p2a: Kommo-o|spa|1
+|-weather|Hail|[upkeep]
+|-damage|p2a: Kommo-o|33/100|[from] Hail
+|-end|p2a: Kommo-o|Dynamax
+|-heal|p2a: Kommo-o|34/100|[silent]
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: aerodactyl vs kommoo
+|chat|DEBUG|Updating information about kommoo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: throatspray
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. kommoo
+|chat|DEBUG|Getting matchup: ninetalesalola vs. kommoo
+|chat|DEBUG|Getting matchup: aerodactyl vs. kommoo
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}, 'kommoo': {'checks': [], 'counter': ['ninetalesalola']}}
+|chat|DEBUG|Speed: 260 - 182
+|chat|DEBUG|Most likely moves for: aerodactyl
+|chat|DEBUG|>['stoneedge', 'honeclaws', 'dualwingbeat', 'earthquake']
+|chat|DEBUG|Most likely moves for: kommoo
+|chat|DEBUG|>['clangingscales', 'clangoroussoul', 'closecombat', 'poisonjab']
+|chat|DEBUG|Best own move: ('dualwingbeat', 70.25)
+|chat|DEBUG|Best enemy move: ('closecombat', 164.125)
+|chat|DEBUG|Picking the most damaging move from aerodactyl against kommoo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Moonblast|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-damage|p2a: Kommo-o|0 fnt
+|faint|p2a: Kommo-o
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gigalith|Gigalith, L82, M|100/100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Gigalith
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: aerodactyl vs kommoo
+|chat|DEBUG|Updating information about kommoo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: throatspray
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. kommoo
+|chat|DEBUG|Getting matchup: ninetalesalola vs. kommoo
+|chat|DEBUG|Getting matchup: aerodactyl vs. kommoo
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}, 'kommoo': {'checks': [], 'counter': ['ninetalesalola']}}
+|chat|DEBUG|Speed: 260 - 182
+|chat|DEBUG|Most likely moves for: aerodactyl
+|chat|DEBUG|>['stoneedge', 'honeclaws', 'dualwingbeat', 'earthquake']
+|chat|DEBUG|Most likely moves for: kommoo
+|chat|DEBUG|>['clangingscales', 'clangoroussoul', 'closecombat', 'poisonjab']
+|chat|DEBUG|Best own move: ('dualwingbeat', 70.25)
+|chat|DEBUG|Best enemy move: ('closecombat', 164.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: ninetalesalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Blizzard|p2a: Gigalith
+|-damage|p2a: Gigalith|77/100
+|move|p2a: Gigalith|Stone Edge|p1a: Ninetales
+|-supereffective|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|faint|p1a: Ninetales
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aerodactyl|Aerodactyl, L82, M|55/265
+|-ability|p1a: Aerodactyl|Unnerve
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: ninetalesalola vs kommoo
+|chat|DEBUG|Updating information about kommoo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: throatspray
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. kommoo
+|chat|DEBUG|Getting matchup: aerodactyl vs. kommoo
+|chat|DEBUG|Getting matchup: ninetalesalola vs. kommoo
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}, 'kommoo': {'checks': [], 'counter': ['ninetalesalola']}}
+|chat|DEBUG|Speed: 218 - 182
+|chat|DEBUG|Most likely moves for: ninetalesalola
+|chat|DEBUG|>['auroraveil', 'moonblast', 'blizzard', 'nastyplot']
+|chat|DEBUG|Most likely moves for: kommoo
+|chat|DEBUG|>['clangingscales', 'clangoroussoul', 'closecombat', 'poisonjab']
+|chat|DEBUG|Best own move: ('moonblast', 284.5)
+|chat|DEBUG|Best enemy move: ('closecombat', 154.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('moonblast', 284.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aerodactyl|Earthquake|p2a: Gigalith
+|-supereffective|p2a: Gigalith
+|-damage|p2a: Gigalith|38/100
+|move|p2a: Gigalith|Stone Edge|p1a: Aerodactyl
+|-supereffective|p1a: Aerodactyl
+|-damage|p1a: Aerodactyl|0 fnt
+|faint|p1a: Aerodactyl
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Milotic|Milotic, L82, F|290/290
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>aerodactyl milotic ninetalesalola
+|chat|DEBUG|Matchup: ninetalesalola vs kommoo
+|chat|DEBUG|Updating information about kommoo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: throatspray
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: milotic vs. gigalith
+|chat|DEBUG|Getting matchup: aerodactyl vs. gigalith
+|chat|DEBUG|Getting matchup: ninetalesalola vs. gigalith
+|chat|DEBUG|Getting matchup: milotic vs. kommoo
+|chat|DEBUG|Getting matchup: aerodactyl vs. kommoo
+|chat|DEBUG|Getting matchup: ninetalesalola vs. kommoo
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}, 'kommoo': {'checks': [], 'counter': ['ninetalesalola']}}
+|chat|DEBUG|Speed: 218 - 182
+|chat|DEBUG|Most likely moves for: ninetalesalola
+|chat|DEBUG|>['auroraveil', 'moonblast', 'blizzard', 'nastyplot']
+|chat|DEBUG|Most likely moves for: kommoo
+|chat|DEBUG|>['clangingscales', 'clangoroussoul', 'closecombat', 'poisonjab']
+|chat|DEBUG|Best own move: ('moonblast', 284.5)
+|chat|DEBUG|Best enemy move: ('closecombat', 154.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from ninetalesalola against kommoo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Milotic|Scald|p2a: Gigalith
+|-supereffective|p2a: Gigalith
+|-crit|p2a: Gigalith
+|-damage|p2a: Gigalith|0 fnt
+|faint|p2a: Gigalith
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McDonner<br>vs<br>Vizcarr0nd0</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">aerodactyl stunfiskgalar copperajah keldeoresolute milotic ninetalesalola</h1>

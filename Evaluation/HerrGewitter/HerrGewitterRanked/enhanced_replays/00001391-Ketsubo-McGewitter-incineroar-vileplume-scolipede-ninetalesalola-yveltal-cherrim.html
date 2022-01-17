@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492187887<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492187887|init|battle
+|title|Ketsubo vs. McGewitter
+|j|☆Ketsubo
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Ketsubo|hilbert|1255
+|player|p2|McGewitter|265|1276
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Slowbro|Slowbro-Galar, L86, F|100100
+|switch|p2a: Incineroar|Incineroar, L80, M|283283
+|-ability|p2a: Incineroar|Intimidate|boost
+|-unboost|p1a: Slowbro|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>incineroar vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>incineroar-vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar
+|chat|DEBUG|Own moves: knockoff earthquake uturn flareblitz
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['incineroar']
+|chat|DEBUG|Counter: ['incineroar', 'yveltal']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 56
+|chat|DEBUG|HP: 283 vs 304
+|chat|DEBUG|Created a new Strategy for incineroar vs slowbrogalar:
+|chat|DEBUG|>[knockoff: 200.75 [186, 218], knockoff: 200.75 [186, 218], knockoff: 200.75 [186, 218]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 200.75 [186, 218]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 137.625 [126, 149]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Toxapex|Toxapex, L82, F|100100
+|move|p2a: Incineroar|Knock Off|p1a: Toxapex
+|-damage|p1a: Toxapex|67100
+|-enditem|p1a: Toxapex|Black Sludge|[from] move: Knock Off|[of] p2a: Incineroar
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>incineroar vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>incineroar-vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-toxapex
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['incineroar', 'vileplume', 'scolipede', 'yveltal', 'cherrim']
+|chat|DEBUG|Counter: ['incineroar', 'vileplume', 'scolipede', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 105
+|chat|DEBUG|HP: 283 vs 144
+|chat|DEBUG|Created a new Strategy for incineroar vs toxapex:
+|chat|DEBUG|>[knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 49.0 [45, 54]
+|chat|DEBUG|Best move of toxapex (p2): scald: 109.5 [102, 120]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxapex|Baneful Bunker|p1a: Toxapex
+|-singleturn|p1a: Toxapex|move: Protect
+|move|p2a: Incineroar|Knock Off|p1a: Toxapex
+|-activate|p1a: Toxapex|move: Protect
+|-status|p2a: Incineroar|psn
+|-damage|p2a: Incineroar|248283 psn|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>incineroar vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>incineroar-vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-toxapex
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['incineroar', 'vileplume', 'scolipede', 'yveltal', 'cherrim']
+|chat|DEBUG|Counter: ['incineroar', 'vileplume', 'scolipede', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 105
+|chat|DEBUG|HP: 248 vs 144
+|chat|DEBUG|Created a new Strategy for incineroar vs toxapex:
+|chat|DEBUG|>[knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 49.0 [45, 54]
+|chat|DEBUG|Best move of toxapex (p2): scald: 109.5 [102, 120]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Incineroar|Knock Off|p1a: Toxapex
+|-damage|p1a: Toxapex|45100
+|move|p1a: Toxapex|Toxic Spikes|p2a: Incineroar
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-damage|p2a: Incineroar|213283 psn|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>incineroar vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>incineroar-vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-toxapex
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['incineroar', 'vileplume', 'scolipede', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Counter: ['incineroar', 'vileplume', 'scolipede', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 105
+|chat|DEBUG|HP: 213 vs 97
+|chat|DEBUG|Created a new Strategy for incineroar vs toxapex:
+|chat|DEBUG|>[knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 49.0 [45, 54]
+|chat|DEBUG|Best move of toxapex (p2): scald: 109.5 [102, 120]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Incineroar|Knock Off|p1a: Toxapex
+|-damage|p1a: Toxapex|22100
+|move|p1a: Toxapex|Toxic Spikes|p2a: Incineroar
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-damage|p2a: Incineroar|178283 psn|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>incineroar vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "toxapex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>incineroar-vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-toxapex
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: banefulbunker recover scald toxic
+|chat|DEBUG|Checks: ['incineroar', 'vileplume', 'scolipede', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Counter: ['incineroar', 'vileplume', 'scolipede', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 105
+|chat|DEBUG|HP: 178 vs 47
+|chat|DEBUG|Created a new Strategy for incineroar vs toxapex:
+|chat|DEBUG|>[knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54], knockoff: 49.0 [45, 54]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 49.0 [45, 54]
+|chat|DEBUG|Best move of toxapex (p2): scald: 109.5 [102, 120]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Incineroar|Knock Off|p1a: Toxapex
+|-crit|p1a: Toxapex
+|-damage|p1a: Toxapex|0 fnt
+|faint|p1a: Toxapex
+|-damage|p2a: Incineroar|143283 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Snorlax|Snorlax, L82, F|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>incineroar vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>incineroar-vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-snorlax
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['incineroar', 'scolipede']
+|chat|DEBUG|Speed: 142 vs 96
+|chat|DEBUG|HP: 143 vs 397
+|chat|DEBUG|Created a new Strategy for incineroar vs snorlax:
+|chat|DEBUG|>[knockoff: 138.5 [127, 150], knockoff: 138.5 [127, 150], knockoff: 138.5 [127, 150]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 138.5 [127, 150]
+|chat|DEBUG|Best move of snorlax (p2): bodyslam: 65.75 [60, 72]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Incineroar|Knock Off|p1a: Snorlax
+|-damage|p1a: Snorlax|63100
+|-enditem|p1a: Snorlax|Choice Band|[from] move: Knock Off|[of] p2a: Incineroar
+|move|p1a: Snorlax|Earthquake|p2a: Incineroar
+|-supereffective|p2a: Incineroar
+|-damage|p2a: Incineroar|0 fnt
+|faint|p2a: Incineroar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scolipede|Scolipede, L80, F|227227
+|-sideend|p2: McGewitter|move: Toxic Spikes|[of] p2a: Scolipede
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-snorlax
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scolipede']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scolipede (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Megahorn|p1a: Snorlax
+|-damage|p1a: Snorlax|17100
+|-damage|p2a: Scolipede|205227|[from] item: Life Orb
+|move|p1a: Snorlax|Heat Crash|p2a: Scolipede
+|-supereffective|p2a: Scolipede
+|-damage|p2a: Scolipede|113227
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-snorlax
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vileplume', 'scolipede', 'yveltal', 'cherrim']
+|chat|DEBUG|Speed: 225 vs 96
+|chat|DEBUG|HP: 227 vs 250
+|chat|DEBUG|Created a new Strategy for scolipede vs snorlax:
+|chat|DEBUG|>[megahorn: 198.875 [183, 216], megahorn: 198.875 [183, 216], megahorn: 198.875 [183, 216]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 198.875 [183, 216]
+|chat|DEBUG|Best move of snorlax (p2): bodyslam: 97.625 [90, 106]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Megahorn|p1a: Snorlax
+|-damage|p1a: Snorlax|0 fnt
+|faint|p1a: Snorlax
+|-damage|p2a: Scolipede|91227|[from] item: Life Orb
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ketsubo has 120 seconds left.
+|switch|p1a: Slowbro|Slowbro-Galar, L86, F|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar-snorlax
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: ['vileplume', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'scolipede', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Speed: 225 vs 96
+|chat|DEBUG|HP: 113 vs 67
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 198.875 [183, 216]
+|chat|DEBUG|Best move of snorlax (p2): bodyslam: 97.625 [90, 106]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ketsubo has 120 seconds left.
+|move|p2a: Scolipede|Earthquake|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|50100
+|-damage|p2a: Scolipede|69227|[from] item: Life Orb
+|move|p1a: Slowbro|Trick|p2a: Scolipede
+|-activate|p1a: Slowbro|move: Trick|[of] p2a: Scolipede
+|-item|p2a: Scolipede|Choice Specs|[from] move: Trick
+|-item|p1a: Slowbro|Life Orb|[from] move: Trick
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['yveltal']
+|chat|DEBUG|Speed: 225 vs 56
+|chat|DEBUG|HP: 91 vs 304
+|chat|DEBUG|Created a new Strategy for scolipede vs slowbrogalar:
+|chat|DEBUG|>[earthquake: 159.5625 [146, 174], earthquake: 159.5625 [146, 174], earthquake: 159.5625 [146, 174]]
+|chat|DEBUG|Best move of scolipede (p1): earthquake: 159.5625 [146, 174]
+|chat|DEBUG|Best move of slowbrogalar (p2): psychic: 333.0 [307, 361]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Earthquake|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|11100
+|move|p1a: Slowbro|Psychic|p2a: Scolipede
+|-supereffective|p2a: Scolipede
+|-damage|p2a: Scolipede|0 fnt
+|faint|p2a: Scolipede
+|-damage|p1a: Slowbro|1100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Yveltal|Yveltal, L69|288288
+|-ability|p2a: Yveltal|Dark Aura
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume scolipede ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-scolipede-ninetalesalola-yveltal-cherrim -- slowbrogalar
+|chat|DEBUG|Own moves: poisonjab swordsdance megahorn earthquake
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['yveltal']
+|chat|DEBUG|Counter: ['vileplume', 'scolipede', 'yveltal']
+|chat|DEBUG|Speed: 225 vs 56
+|chat|DEBUG|HP: 69 vs 152
+|chat|DEBUG|Best move of scolipede (p1): earthquake: 159.5625 [146, 174]
+|chat|DEBUG|Best move of slowbrogalar (p2): psychic: 333.0 [307, 361]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ketsubo has 120 seconds left.
+|move|p2a: Yveltal|Dark Pulse|p1a: Slowbro
+|-supereffective|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|faint|p1a: Slowbro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ketsubo has 120 seconds left.
+|switch|p1a: Gastrodon|Gastrodon, L84, F|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- slowbrogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['yveltal']
+|chat|DEBUG|Counter: ['vileplume', 'yveltal']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to yveltal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Sucker Punch|p1a: Gastrodon
+|-damage|p1a: Gastrodon|68100
+|move|p1a: Gastrodon|Scald|p2a: Yveltal
+|-damage|p2a: Yveltal|197288
+|-status|p2a: Yveltal|brn
+|-heal|p1a: Gastrodon|74100|[from] item: Leftovers
+|-damage|p2a: Yveltal|179288 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- slowbrogalar
+|chat|DEBUG|Own moves: darkpulse roost suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['vileplume', 'yveltal']
+|chat|DEBUG|Counter: ['vileplume', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 177 vs 56
+|chat|DEBUG|HP: 288 vs 3
+|chat|DEBUG|Created a new Strategy for yveltal vs slowbrogalar:
+|chat|DEBUG|>[darkpulse: 222.875 [204, 242], darkpulse: 222.875 [204, 242], darkpulse: 222.875 [204, 242]]
+|chat|DEBUG|Best move of yveltal (p1): darkpulse: 222.875 [204, 242]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 152.0 [140, 165]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vileplume|Vileplume, L84, F|263263
+|move|p1a: Gastrodon|Scald|p2a: Vileplume
+|-resisted|p2a: Vileplume
+|-damage|p2a: Vileplume|222263
+|-heal|p2a: Vileplume|238263|[from] item: Black Sludge
+|-heal|p1a: Gastrodon|80100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "gastrodon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon
+|chat|DEBUG|Own moves: darkpulse roost suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: earthquake recover scald toxic
+|chat|DEBUG|Checks: ['vileplume', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'yveltal', 'cherrim']
+|chat|DEBUG|Speed: 177 vs 114
+|chat|DEBUG|HP: 288 vs 324
+|chat|DEBUG|Created a new Strategy for yveltal vs gastrodon:
+|chat|DEBUG|>[suckerpunch: 103.25 [94, 112], suckerpunch: 103.25 [94, 112], suckerpunch: 103.25 [94, 112]]
+|chat|DEBUG|Best move of yveltal (p1): suckerpunch: 103.25 [94, 112]
+|chat|DEBUG|Best move of gastrodon (p2): scald: 90.875 [84, 99]
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Claydol|Claydol, L86|100100
+|move|p2a: Vileplume|Giga Drain|p1a: Claydol
+|-supereffective|p1a: Claydol
+|-damage|p1a: Claydol|49100
+|-heal|p2a: Vileplume|263263|[from] drain|[of] p1a: Claydol
+|-heal|p1a: Claydol|55100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "gastrodon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon
+|chat|DEBUG|Own moves: darkpulse roost suckerpunch oblivionwing
+|chat|DEBUG|Enemy moves: earthquake recover scald toxic
+|chat|DEBUG|Checks: ['vileplume', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'ninetalesalola', 'cherrim']
+|chat|DEBUG|Speed: 177 vs 114
+|chat|DEBUG|HP: 179 vs 239
+|chat|DEBUG|Best move of yveltal (p1): suckerpunch: 103.25 [94, 112]
+|chat|DEBUG|Best move of gastrodon (p2): scald: 90.875 [84, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check vileplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drampa|Drampa, L86, F|100100
+|move|p2a: Vileplume|Giga Drain|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|86100
+|-heal|p1a: Drampa|92100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vileplume" vs "gastrodon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon
+|chat|DEBUG|Own moves: sleeppowder sludgebomb strengthsap gigadrain
+|chat|DEBUG|Enemy moves: earthquake recover scald toxic
+|chat|DEBUG|Checks: ['vileplume', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 114
+|chat|DEBUG|HP: 238 vs 259
+|chat|DEBUG|Created a new Strategy for vileplume vs gastrodon:
+|chat|DEBUG|>[gigadrain: 367.5 [336, 400], gigadrain: 367.5 [336, 400], gigadrain: 367.5 [336, 400]]
+|chat|DEBUG|Best move of vileplume (p1): gigadrain: 367.5 [336, 400]
+|chat|DEBUG|Best move of gastrodon (p2): earthquake: 96.1875 [88, 105]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Vileplume|Dynamax
+|-heal|p2a: Vileplume|526526|[silent]
+|move|p2a: Vileplume|Max Ooze|p1a: Drampa
+|-damage|p1a: Drampa|53100
+|-boost|p2a: Vileplume|spa|1
+|move|p1a: Drampa|Draco Meteor|p2a: Vileplume
+|-damage|p2a: Vileplume|328526
+|-unboost|p1a: Drampa|spa|2
+|-heal|p2a: Vileplume|344526|[from] item: Black Sludge
+|-heal|p1a: Drampa|59100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vileplume" vs "claydol"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon-claydol
+|chat|DEBUG|Own moves: sleeppowder sludgebomb strengthsap gigadrain
+|chat|DEBUG|Enemy moves: earthquake icebeam psychic toxic
+|chat|DEBUG|Checks: ['ninetalesalola', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Speed: 132 vs 178
+|chat|DEBUG|HP: 263 vs 133
+|chat|DEBUG|Created a new Strategy for vileplume vs claydol:
+|chat|DEBUG|>[gigadrain: 134.5 [122, 146], gigadrain: 134.5 [122, 146], gigadrain: 134.5 [122, 146]]
+|chat|DEBUG|Best move of vileplume (p1): gigadrain: 134.5 [122, 146]
+|chat|DEBUG|Best move of claydol (p2): psychic: 156.375 [144, 170]
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Max Ooze|p1a: Drampa
+|-damage|p1a: Drampa|4100
+|-boost|p2a: Vileplume|spa|1
+|-ability|p1a: Drampa|Berserk|boost
+|-boost|p1a: Drampa|spa|1
+|move|p1a: Drampa|Hyper Voice|p2a: Vileplume
+|-damage|p2a: Vileplume|265526
+|-heal|p2a: Vileplume|281526|[from] item: Black Sludge
+|-heal|p1a: Drampa|10100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "vileplume" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon-claydol-drampa
+|chat|DEBUG|Own moves: sleeppowder sludgebomb strengthsap gigadrain
+|chat|DEBUG|Enemy moves: dracometeor hypervoice roost thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ninetalesalola']
+|chat|DEBUG|Speed: 132 vs 111
+|chat|DEBUG|HP: 263 vs 252
+|chat|DEBUG|Created a new Strategy for vileplume vs drampa:
+|chat|DEBUG|>[sludgebomb: 100.375 [93, 109], sludgebomb: 100.375 [93, 109], sludgebomb: 100.375 [93, 109]]
+|chat|DEBUG|Best move of vileplume (p1): sludgebomb: 100.375 [93, 109]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 128.0625 [118, 139]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Max Ooze|p1a: Drampa
+|-damage|p1a: Drampa|0 fnt
+|-boost|p2a: Vileplume|spa|1
+|faint|p1a: Drampa
+|-heal|p2a: Vileplume|297526|[from] item: Black Sludge
+|-end|p2a: Vileplume|Dynamax
+|-heal|p2a: Vileplume|149263|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Claydol|Claydol, L86|55100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "vileplume" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon-claydol-drampa
+|chat|DEBUG|Own moves: sleeppowder sludgebomb strengthsap gigadrain
+|chat|DEBUG|Enemy moves: dracometeor hypervoice roost thunderbolt
+|chat|DEBUG|Checks: ['vileplume', 'ninetalesalola', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 111
+|chat|DEBUG|HP: 344 vs 161
+|chat|DEBUG|Best move of vileplume (p1): sludgebomb: 100.375 [93, 109]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 64.25 [58, 70]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Claydol|Ice Beam|p2a: Vileplume
+|-supereffective|p2a: Vileplume
+|-damage|p2a: Vileplume|41263
+|move|p2a: Vileplume|Giga Drain|p1a: Claydol
+|-supereffective|p1a: Claydol
+|-damage|p1a: Claydol|0 fnt
+|-heal|p2a: Vileplume|107263|[from] drain|[of] p1a: Claydol
+|faint|p1a: Claydol
+|-heal|p2a: Vileplume|123263|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gastrodon|Gastrodon, L84, F|80100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>vileplume ninetalesalola yveltal cherrim
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "vileplume" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>vileplume-ninetalesalola-yveltal-cherrim -- gastrodon-claydol-drampa
+|chat|DEBUG|Own moves: sleeppowder sludgebomb strengthsap gigadrain
+|chat|DEBUG|Enemy moves: dracometeor hypervoice roost thunderbolt
+|chat|DEBUG|Checks: ['vileplume', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Counter: ['vileplume', 'ninetalesalola', 'yveltal', 'cherrim']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 111
+|chat|DEBUG|HP: 281 vs 27
+|chat|DEBUG|Best move of vileplume (p1): sludgebomb: 100.375 [93, 109]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 85.0625 [78, 93]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vileplume|Giga Drain|p1a: Gastrodon
+|-supereffective|p1a: Gastrodon
+|-damage|p1a: Gastrodon|0 fnt
+|-heal|p2a: Vileplume|253263|[from] drain|[of] p1a: Gastrodon
+|faint|p1a: Gastrodon
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Ketsubo<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">incineroar vileplume scolipede ninetalesalola yveltal cherrim</h1>

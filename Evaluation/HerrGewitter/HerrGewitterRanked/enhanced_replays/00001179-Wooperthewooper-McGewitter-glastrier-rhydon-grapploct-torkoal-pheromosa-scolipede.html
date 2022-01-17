@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491884349<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491884349|init|battle
+|title|Wooperthewooper vs. McGewitter
+|j|☆Wooperthewooper
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Wooperthewooper|hilbert|1303
+|player|p2|McGewitter|265|1261
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Talonflame|Talonflame, L81, F|100100
+|switch|p2a: Glastrier|Glastrier, L82|298298
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "glastrier" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame
+|chat|DEBUG|Own moves: swordsdance highhorsepower iciclecrash closecombat
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['rhydon', 'pheromosa']
+|chat|DEBUG|Speed: 96 vs 251
+|chat|DEBUG|HP: 298 vs 259
+|chat|DEBUG|Created a new Strategy for glastrier vs talonflame:
+|chat|DEBUG|>[iciclecrash: 141.5625 [130, 154], iciclecrash: 141.5625 [130, 154], iciclecrash: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of glastrier (p1): iciclecrash: 141.5625 [130, 154]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 156.375 [144, 170]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rhydon
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Rhydon|Rhydon, L87, F|324324
+|move|p1a: Talonflame|Flare Blitz|p2a: Rhydon
+|-resisted|p2a: Rhydon
+|-damage|p2a: Rhydon|300324
+|-damage|p1a: Talonflame|97100|[from] Recoil
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['rhydon', 'pheromosa']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 119 vs 251
+|chat|DEBUG|HP: 300 vs 251
+|chat|DEBUG|Created a new Strategy for rhydon vs talonflame:
+|chat|DEBUG|>[stoneedge: 684.5 [628, 744], stoneedge: 684.5 [628, 744], stoneedge: 684.5 [628, 744]]
+|chat|DEBUG|Best move of rhydon (p1): stoneedge: 684.5 [628, 744]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 26.25 [24, 29]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Carracosta|Carracosta, L84, F|100100
+|move|p2a: Rhydon|Stealth Rock|p1a: Carracosta
+|-sidestart|p1: Wooperthewooper|move: Stealth Rock
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "carracosta"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-carracosta
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: aquajet hydropump shellsmash stoneedge
+|chat|DEBUG|Checks: ['grapploct']
+|chat|DEBUG|Counter: ['grapploct', 'torkoal', 'pheromosa']
+|chat|DEBUG|Speed: 119 vs 102
+|chat|DEBUG|HP: 300 vs 262
+|chat|DEBUG|Created a new Strategy for rhydon vs carracosta:
+|chat|DEBUG|>[earthquake: 154.625 [141, 168], earthquake: 154.625 [141, 168], earthquake: 154.625 [141, 168]]
+|chat|DEBUG|Best move of rhydon (p1): earthquake: 154.625 [141, 168]
+|chat|DEBUG|Best move of carracosta (p2): hydropump: 423.5 [388, 460]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check grapploct
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Grapploct|Grapploct, L86, M|278278
+|move|p1a: Carracosta|Hydro Pump|p2a: Grapploct|[miss]
+|-miss|p1a: Carracosta|p2a: Grapploct
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "carracosta"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-carracosta
+|chat|DEBUG|Own moves: drainpunch bulkup brutalswing icepunch
+|chat|DEBUG|Enemy moves: aquajet hydropump shellsmash stoneedge
+|chat|DEBUG|Checks: ['grapploct']
+|chat|DEBUG|Counter: ['grapploct', 'torkoal', 'pheromosa']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 121 vs 102
+|chat|DEBUG|HP: 278 vs 262
+|chat|DEBUG|Created a new Strategy for grapploct vs carracosta:
+|chat|DEBUG|>[drainpunch: 138.625 [129, 152], drainpunch: 138.625 [129, 152], drainpunch: 138.625 [129, 152]]
+|chat|DEBUG|Best move of grapploct (p1): drainpunch: 138.625 [129, 152]
+|chat|DEBUG|Best move of carracosta (p2): hydropump: 108.625 [100, 118]
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Grapploct|Drain Punch|p1a: Carracosta
+|-supereffective|p1a: Carracosta
+|-damage|p1a: Carracosta|35100
+|-damage|p2a: Grapploct|251278|[from] item: Life Orb
+|move|p1a: Carracosta|Shell Smash|p1a: Carracosta
+|-unboost|p1a: Carracosta|def|1
+|-unboost|p1a: Carracosta|spd|1
+|-boost|p1a: Carracosta|atk|2
+|-boost|p1a: Carracosta|spa|2
+|-boost|p1a: Carracosta|spe|2
+|-enditem|p1a: Carracosta|White Herb
+|-clearnegativeboost|p1a: Carracosta|[silent]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "carracosta"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-carracosta
+|chat|DEBUG|Own moves: drainpunch bulkup brutalswing icepunch
+|chat|DEBUG|Enemy moves: aquajet hydropump shellsmash stoneedge
+|chat|DEBUG|Checks: ['grapploct']
+|chat|DEBUG|Counter: ['rhydon', 'grapploct', 'pheromosa']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 121 vs 102
+|chat|DEBUG|HP: 251 vs 91
+|chat|DEBUG|Best move of grapploct (p1): drainpunch: 138.625 [129, 152]
+|chat|DEBUG|Best move of carracosta (p2): hydropump: 215.5 [198, 234]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Carracosta|Hydro Pump|p2a: Grapploct
+|-damage|p2a: Grapploct|53278
+|move|p2a: Grapploct|Drain Punch|p1a: Carracosta
+|-supereffective|p1a: Carracosta
+|-damage|p1a: Carracosta|0 fnt
+|-heal|p2a: Grapploct|98278|[from] drain|[of] p1a: Carracosta
+|faint|p1a: Carracosta
+|-damage|p2a: Grapploct|71278|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|switch|p1a: Talonflame|Talonflame, L81, F|97100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame
+|chat|DEBUG|Own moves: drainpunch bulkup brutalswing icepunch
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['rhydon', 'pheromosa']
+|chat|DEBUG|Speed: 121 vs 251
+|chat|DEBUG|HP: 71 vs 251
+|chat|DEBUG|Created a new Strategy for grapploct vs talonflame:
+|chat|DEBUG|>[brutalswing: 121.625 [112, 133], brutalswing: 121.625 [112, 133], brutalswing: 121.625 [112, 133]]
+|chat|DEBUG|Best move of grapploct (p1): brutalswing: 121.625 [112, 133]
+|chat|DEBUG|Best move of talonflame (p2): bravebird: 200.75 [186, 218]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rhydon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhydon|Rhydon, L87, F|300324
+|move|p1a: Talonflame|Brave Bird|p2a: Rhydon
+|-resisted|p2a: Rhydon
+|-damage|p2a: Rhydon|275324
+|-damage|p1a: Talonflame|94100|[from] Recoil
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['rhydon', 'pheromosa']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 119 vs 251
+|chat|DEBUG|HP: 275 vs 243
+|chat|DEBUG|Created a new Strategy for rhydon vs talonflame:
+|chat|DEBUG|>[stoneedge: 684.5 [628, 744], stoneedge: 684.5 [628, 744], stoneedge: 684.5 [628, 744]]
+|chat|DEBUG|Best move of rhydon (p1): stoneedge: 684.5 [628, 744]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 26.25 [24, 29]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Regirock|Regirock, L85|100100
+|-damage|p1a: Regirock|88100|[from] Stealth Rock
+|move|p2a: Rhydon|Stone Edge|p1a: Regirock
+|-damage|p1a: Regirock|59100
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "regirock"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-regirock
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: bodypress curse earthquake rockslide
+|chat|DEBUG|Checks: ['pheromosa']
+|chat|DEBUG|Counter: ['rhydon', 'torkoal', 'pheromosa']
+|chat|DEBUG|Speed: 119 vs 134
+|chat|DEBUG|HP: 275 vs 162
+|chat|DEBUG|Created a new Strategy for rhydon vs regirock:
+|chat|DEBUG|>[earthquake: 145.125 [134, 158], earthquake: 145.125 [134, 158], earthquake: 145.125 [134, 158]]
+|chat|DEBUG|Best move of rhydon (p1): earthquake: 145.125 [134, 158]
+|chat|DEBUG|Best move of regirock (p2): bodypress: 108.25 [100, 118]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regirock|Body Press|p2a: Rhydon
+|-supereffective|p2a: Rhydon
+|-damage|p2a: Rhydon|175324
+|move|p2a: Rhydon|Earthquake|p1a: Regirock
+|-supereffective|p1a: Regirock
+|-damage|p1a: Regirock|7100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "regirock"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-regirock
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: bodypress curse earthquake rockslide
+|chat|DEBUG|Checks: ['torkoal', 'pheromosa', 'scolipede']
+|chat|DEBUG|Counter: ['glastrier', 'rhydon', 'torkoal', 'pheromosa', 'scolipede']
+|chat|DEBUG|Speed: 119 vs 134
+|chat|DEBUG|HP: 175 vs 19
+|chat|DEBUG|Best move of rhydon (p1): earthquake: 145.125 [134, 158]
+|chat|DEBUG|Best move of regirock (p2): bodypress: 108.25 [100, 118]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regirock|Rest|p1a: Regirock
+|-status|p1a: Regirock|slp|[from] move: Rest
+|-heal|p1a: Regirock|100100 slp|[silent]
+|-enditem|p1a: Regirock|Chesto Berry|[eat]
+|-curestatus|p1a: Regirock|slp|[msg]
+|move|p2a: Rhydon|Earthquake|p1a: Regirock
+|-supereffective|p1a: Regirock
+|-damage|p1a: Regirock|50100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "regirock"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-regirock
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: bodypress curse earthquake rockslide
+|chat|DEBUG|Checks: ['torkoal', 'pheromosa']
+|chat|DEBUG|Counter: ['rhydon', 'torkoal', 'pheromosa']
+|chat|DEBUG|Speed: 119 vs 134
+|chat|DEBUG|HP: 175 vs 137
+|chat|DEBUG|Best move of rhydon (p1): earthquake: 145.125 [134, 158]
+|chat|DEBUG|Best move of regirock (p2): bodypress: 108.25 [100, 118]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regirock|Body Press|p2a: Rhydon
+|-supereffective|p2a: Rhydon
+|-damage|p2a: Rhydon|67324
+|move|p2a: Rhydon|Earthquake|p1a: Regirock
+|-supereffective|p1a: Regirock
+|-damage|p1a: Regirock|0 fnt
+|faint|p1a: Regirock
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Corviknight|Corviknight, L78, M|100100
+|-damage|p1a: Corviknight|88100|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "corviknight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-corviknight
+|chat|DEBUG|Own moves: toxic stealthrock earthquake stoneedge
+|chat|DEBUG|Enemy moves: bodypress bravebird bulkup roost
+|chat|DEBUG|Checks: ['torkoal']
+|chat|DEBUG|Counter: ['glastrier', 'torkoal', 'pheromosa']
+|chat|DEBUG|Speed: 119 vs 150
+|chat|DEBUG|HP: 67 vs 247
+|chat|DEBUG|Created a new Strategy for rhydon vs corviknight:
+|chat|DEBUG|>[stoneedge: 134.0 [123, 145], stoneedge: 134.0 [123, 145], stoneedge: 134.0 [123, 145]]
+|chat|DEBUG|Best move of rhydon (p1): stoneedge: 134.0 [123, 145]
+|chat|DEBUG|Best move of corviknight (p2): bodypress: 54.625 [50, 60]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check torkoal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Torkoal|Torkoal, L86, M|261261
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Torkoal
+|move|p1a: Corviknight|Body Press|p2a: Torkoal
+|-damage|p2a: Torkoal|224261
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Corviknight|94100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "corviknight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-corviknight
+|chat|DEBUG|Own moves: rapidspin lavaplume earthquake solarbeam
+|chat|DEBUG|Enemy moves: bodypress bravebird bulkup roost
+|chat|DEBUG|Checks: ['torkoal']
+|chat|DEBUG|Counter: ['glastrier', 'torkoal', 'pheromosa']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 84 vs 150
+|chat|DEBUG|HP: 224 vs 264
+|chat|DEBUG|Created a new Strategy for torkoal vs corviknight:
+|chat|DEBUG|>[lavaplume: 178.375 [164, 194], lavaplume: 178.375 [164, 194], lavaplume: 178.375 [164, 194]]
+|chat|DEBUG|Best move of torkoal (p1): lavaplume: 178.375 [164, 194]
+|chat|DEBUG|Best move of corviknight (p2): bravebird: 69.5625 [64, 76]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|switch|p1a: Chandelure|Chandelure, L82, F|100100
+|move|p2a: Torkoal|Lava Plume|p1a: Chandelure
+|-start|p1a: Chandelure|ability: Flash Fire
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: rapidspin lavaplume earthquake solarbeam
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 84 vs 178
+|chat|DEBUG|HP: 224 vs 233
+|chat|DEBUG|Created a new Strategy for torkoal vs chandelure:
+|chat|DEBUG|>[earthquake: 136.0 [124, 148], earthquake: 136.0 [124, 148], earthquake: 136.0 [124, 148]]
+|chat|DEBUG|Best move of torkoal (p1): earthquake: 136.0 [124, 148]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 128.0625 [118, 139]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|move|p1a: Chandelure|Fire Blast|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|19261
+|move|p2a: Torkoal|Earthquake|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-damage|p1a: Chandelure|42100
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct torkoal pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-torkoal-pheromosa-scolipede -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: rapidspin lavaplume earthquake solarbeam
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pheromosa']
+|chat|DEBUG|Speed: 84 vs 178
+|chat|DEBUG|HP: 19 vs 97
+|chat|DEBUG|Best move of torkoal (p1): earthquake: 136.0 [124, 148]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 128.0625 [118, 139]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|move|p1a: Chandelure|Shadow Ball|p2a: Torkoal
+|-damage|p2a: Torkoal|0 fnt
+|faint|p2a: Torkoal
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pheromosa|Pheromosa, L76|233233
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "torkoal" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-pheromosa-scolipede -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pheromosa']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pheromosa (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|-end|p1a: Chandelure|ability: Flash Fire|[silent]
+|switch|p1a: Xerneas|Xerneas, L67|100100
+|-damage|p1a: Xerneas|88100|[from] Stealth Rock
+|-ability|p1a: Xerneas|Fairy Aura
+|move|p2a: Pheromosa|Throat Chop|p1a: Xerneas
+|-resisted|p1a: Xerneas
+|-damage|p1a: Xerneas|68100
+|-start|p1a: Xerneas|Throat Chop|[silent]
+|-weather|none
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct pheromosa scolipede
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pheromosa" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-pheromosa-scolipede -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: closecombat throatchop uturn poisonjab
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pheromosa']
+|chat|DEBUG|Speed: 274 vs 178
+|chat|DEBUG|HP: 233 vs 97
+|chat|DEBUG|Created a new Strategy for pheromosa vs chandelure:
+|chat|DEBUG|>[throatchop: 185.125 [170, 202], throatchop: 185.125 [170, 202], throatchop: 185.125 [170, 202]]
+|chat|DEBUG|Best move of pheromosa (p1): throatchop: 185.125 [170, 202]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 888.875 [816, 962]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|-start|p2a: Pheromosa|Dynamax
+|-heal|p2a: Pheromosa|466466|[silent]
+|move|p2a: Pheromosa|Max Darkness|p1a: Xerneas
+|-resisted|p1a: Xerneas
+|-damage|p1a: Xerneas|46100
+|-unboost|p1a: Xerneas|spd|1
+|move|p1a: Xerneas|Moonblast|p2a: Pheromosa
+|-supereffective|p2a: Pheromosa
+|-damage|p2a: Pheromosa|28466
+|-unboost|p2a: Pheromosa|spa|1
+|-end|p1a: Xerneas|Throat Chop|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct pheromosa scolipede
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pheromosa" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-pheromosa-scolipede -- talonflame-corviknight-chandelure-xerneas
+|chat|DEBUG|Own moves: throatchop
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['glastrier']
+|chat|DEBUG|Counter: ['glastrier', 'pheromosa', 'scolipede']
+|chat|DEBUG|Speed: 274 vs 172
+|chat|DEBUG|HP: 233 vs 190
+|chat|DEBUG|Created a new Strategy for pheromosa vs xerneas:
+|chat|DEBUG|>[throatchop: 53.5625 [49, 58], throatchop: 53.5625 [49, 58], throatchop: 53.5625 [49, 58]]
+|chat|DEBUG|Best move of pheromosa (p1): throatchop: 53.5625 [49, 58]
+|chat|DEBUG|Best move of xerneas (p2): moonblast: 422.625 [390, 458]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|move|p2a: Pheromosa|Max Darkness|p1a: Xerneas
+|-resisted|p1a: Xerneas
+|-damage|p1a: Xerneas|27100
+|-unboost|p1a: Xerneas|spd|1
+|move|p1a: Xerneas|Moonblast|p2a: Pheromosa
+|-supereffective|p2a: Pheromosa
+|-damage|p2a: Pheromosa|0 fnt
+|faint|p2a: Pheromosa
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scolipede|Scolipede, L80, M|227227
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct pheromosa scolipede
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pheromosa" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-pheromosa-scolipede -- talonflame-corviknight-chandelure-xerneas
+|chat|DEBUG|Own moves: closecombat throatchop uturn poisonjab
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['glastrier', 'scolipede']
+|chat|DEBUG|Counter: ['glastrier', 'pheromosa', 'scolipede']
+|chat|DEBUG|Speed: 274 vs 172
+|chat|DEBUG|HP: 28 vs 128
+|chat|DEBUG|Best move of pheromosa (p1): throatchop: 53.5625 [49, 58]
+|chat|DEBUG|Best move of xerneas (p2): moonblast: 422.625 [390, 458]
+|chat|DEBUG|Attacking using throatchop
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xerneas|Moonblast|p2a: Scolipede
+|-resisted|p2a: Scolipede
+|-damage|p2a: Scolipede|162227
+|move|p2a: Scolipede|Megahorn|p1a: Xerneas
+|-resisted|p1a: Xerneas
+|-damage|p1a: Xerneas|0 fnt
+|faint|p1a: Xerneas
+|-heal|p2a: Scolipede|176227|[from] item: Black Sludge
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|switch|p1a: Talonflame|Talonflame, L81, F|94100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct scolipede
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pheromosa" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-scolipede -- talonflame-corviknight-chandelure-xerneas
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['glastrier', 'scolipede']
+|chat|DEBUG|Counter: ['glastrier', 'scolipede']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'glastrier': 298, 'rhydon': 67, 'grapploct': 71, 'scolipede': 227}
+|chat|DEBUG|remaining_hp_team_2={'talonflame': 94, 'corviknight': 94, 'chandelure': 42, 'xerneas': 46}
+|chat|DEBUG|battle.available_switches=[glastrier (pokemon object) [Active: False, Status: None], grapploct (pokemon object) [Active: False, Status: None], rhydon (pokemon object) [Active: False, Status: None], scolipede (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'scolipede'
+|chat|DEBUG|>Switching to scolipede (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Megahorn|p1a: Talonflame
+|-resisted|p1a: Talonflame
+|-damage|p1a: Talonflame|81100
+|move|p1a: Talonflame|Flare Blitz|p2a: Scolipede
+|-supereffective|p2a: Scolipede
+|-damage|p2a: Scolipede|0 fnt
+|faint|p2a: Scolipede
+|-damage|p1a: Talonflame|59100|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Glastrier|Glastrier, L82|298298
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct scolipede
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-scolipede -- talonflame-corviknight-chandelure-xerneas
+|chat|DEBUG|Own moves: toxicspikes protect spikes megahorn
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['glastrier', 'scolipede']
+|chat|DEBUG|Counter: ['glastrier', 'scolipede']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 225 vs 172
+|chat|DEBUG|HP: 227 vs 75
+|chat|DEBUG|Created a new Strategy for scolipede vs xerneas:
+|chat|DEBUG|>[megahorn: 69.8125 [64, 76], megahorn: 69.8125 [64, 76], megahorn: 69.8125 [64, 76]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 69.8125 [64, 76]
+|chat|DEBUG|Best move of xerneas (p2): psyshock: 95.125 [88, 104]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Talonflame|Flare Blitz|p2a: Glastrier
+|-supereffective|p2a: Glastrier
+|-damage|p2a: Glastrier|152298
+|-damage|p1a: Talonflame|40100|[from] Recoil
+|move|p2a: Glastrier|Icicle Crash|p1a: Talonflame
+|-damage|p1a: Talonflame|0 fnt
+|faint|p1a: Talonflame
+|-ability|p2a: Glastrier|Chilling Neigh|boost
+|-boost|p2a: Glastrier|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|switch|p1a: Chandelure|Chandelure, L82, F|42100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct scolipede
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct-scolipede -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: toxicspikes protect spikes megahorn
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['rhydon']
+|chat|DEBUG|Speed: 225 vs 251
+|chat|DEBUG|HP: 176 vs 243
+|chat|DEBUG|Created a new Strategy for scolipede vs talonflame:
+|chat|DEBUG|>[megahorn: 35.75 [33, 39], megahorn: 35.75 [33, 39], megahorn: 35.75 [33, 39]]
+|chat|DEBUG|Best move of scolipede (p1): megahorn: 35.75 [33, 39]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 214.625 [198, 234]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Wooperthewooper has 120 seconds left.
+|-start|p1a: Chandelure|Dynamax
+|-heal|p1a: Chandelure|42100|[silent]
+|move|p1a: Chandelure|Max Flare|p2a: Glastrier
+|-supereffective|p2a: Glastrier
+|-damage|p2a: Glastrier|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Glastrier
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Grapploct|Grapploct, L86, M|71278
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scolipede" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['rhydon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'glastrier': 298, 'rhydon': 67, 'grapploct': 71}
+|chat|DEBUG|remaining_hp_team_2={'talonflame': 94, 'corviknight': 94, 'chandelure': 42}
+|chat|DEBUG|battle.available_switches=[glastrier (pokemon object) [Active: False, Status: None], grapploct (pokemon object) [Active: False, Status: None], rhydon (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'glastrier'
+|chat|DEBUG|>Switching to glastrier (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Chandelure|Max Flare|p2a: Grapploct
+|-damage|p2a: Grapploct|0 fnt
+|faint|p2a: Grapploct
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhydon|Rhydon, L87, F|67324
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>glastrier rhydon grapploct
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "glastrier" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>glastrier-rhydon-grapploct -- talonflame-corviknight-chandelure
+|chat|DEBUG|Own moves: swordsdance highhorsepower iciclecrash closecombat
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['rhydon']
+|chat|DEBUG|Counter: ['glastrier', 'rhydon']
+|chat|DEBUG|Speed: 96 vs 251
+|chat|DEBUG|HP: 298 vs 152
+|chat|DEBUG|Created a new Strategy for glastrier vs talonflame:
+|chat|DEBUG|>[iciclecrash: 141.5625 [130, 154], iciclecrash: 141.5625 [130, 154], iciclecrash: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of glastrier (p1): iciclecrash: 141.5625 [130, 154]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 156.375 [144, 170]
+|chat|DEBUG|Attacking using iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Chandelure|Max Overgrowth|p2a: Rhydon
+|-supereffective|p2a: Rhydon
+|-damage|p2a: Rhydon|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Rhydon
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Wooperthewooper<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">glastrier rhydon grapploct torkoal pheromosa scolipede</h1>

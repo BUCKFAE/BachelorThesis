@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491721107<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491721107|init|battle
+|title|ReDsum vs. McGewitter
+|j|☆ReDsum
+|j|☆McGewitter
+|gametype|singles
+|player|p1|ReDsum|266|1272
+|player|p2|McGewitter|265|1216
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Oranguru|Oranguru, L86, M|100100
+|switch|p2a: Mawile|Mawile, L86, F|226226
+|-ability|p2a: Mawile|Intimidate|boost
+|-fail|p1a: Oranguru|unboost|Attack|[from] ability: Inner Focus|[of] p1a: Oranguru
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff yveltal excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "oranguru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-yveltal-excadrill-audino-venusaur -- oranguru
+|chat|DEBUG|Own moves: ironhead swordsdance suckerpunch playrough
+|chat|DEBUG|Enemy moves: focusblast nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: ['yveltal']
+|chat|DEBUG|Counter: ['yveltal']
+|chat|DEBUG|Speed: 135 vs 152
+|chat|DEBUG|HP: 226 vs 295
+|chat|DEBUG|Created a new Strategy for mawile vs oranguru:
+|chat|DEBUG|>[suckerpunch: 98.875 [90, 108], suckerpunch: 98.875 [90, 108], suckerpunch: 98.875 [90, 108]]
+|chat|DEBUG|Best move of mawile (p1): suckerpunch: 98.875 [90, 108]
+|chat|DEBUG|Best move of oranguru (p2): thunderbolt: 85.5625 [79, 93]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check yveltal
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Yveltal|Yveltal, L69|288288
+|-ability|p2a: Yveltal|Dark Aura
+|move|p1a: Oranguru|Nasty Plot|p1a: Oranguru
+|-boost|p1a: Oranguru|spa|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff yveltal excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "oranguru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-yveltal-excadrill-audino-venusaur -- oranguru
+|chat|DEBUG|Own moves: suckerpunch roost knockoff oblivionwing
+|chat|DEBUG|Enemy moves: focusblast nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['yveltal']
+|chat|DEBUG|Speed: 177 vs 152
+|chat|DEBUG|HP: 288 vs 295
+|chat|DEBUG|Created a new Strategy for yveltal vs oranguru:
+|chat|DEBUG|>[knockoff: 250.75 [230, 272], knockoff: 250.75 [230, 272], knockoff: 250.75 [230, 272]]
+|chat|DEBUG|Best move of yveltal (p1): knockoff: 250.75 [230, 272]
+|chat|DEBUG|Best move of oranguru (p2): thunderbolt: 280.125 [258, 304]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Knock Off|p1a: Oranguru
+|-supereffective|p1a: Oranguru
+|-damage|p1a: Oranguru|19100
+|-enditem|p1a: Oranguru|Leftovers|[from] move: Knock Off|[of] p2a: Yveltal
+|move|p1a: Oranguru|Thunderbolt|p2a: Yveltal
+|-supereffective|p2a: Yveltal
+|-damage|p2a: Yveltal|24288
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff yveltal excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "oranguru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-yveltal-excadrill-audino-venusaur -- oranguru
+|chat|DEBUG|Own moves: suckerpunch roost knockoff oblivionwing
+|chat|DEBUG|Enemy moves: focusblast nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: ['slurpuff', 'excadrill']
+|chat|DEBUG|Counter: ['mawile', 'slurpuff', 'yveltal', 'excadrill', 'audino', 'venusaur']
+|chat|DEBUG|Speed: 177 vs 152
+|chat|DEBUG|HP: 24 vs 56
+|chat|DEBUG|Best move of yveltal (p1): knockoff: 250.75 [230, 272]
+|chat|DEBUG|Best move of oranguru (p2): thunderbolt: 280.125 [258, 304]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Knock Off|p1a: Oranguru
+|-supereffective|p1a: Oranguru
+|-damage|p1a: Oranguru|0 fnt
+|faint|p1a: Oranguru
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 120 seconds left.
+|switch|p1a: Scolipede|Scolipede, L80, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff yveltal excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-yveltal-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: suckerpunch roost knockoff oblivionwing
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 177 vs 225
+|chat|DEBUG|HP: 24 vs 227
+|chat|DEBUG|Created a new Strategy for yveltal vs scolipede:
+|chat|DEBUG|>[oblivionwing: 183.75 [168, 200], oblivionwing: 183.75 [168, 200], oblivionwing: 183.75 [168, 200]]
+|chat|DEBUG|Best move of yveltal (p1): oblivionwing: 183.75 [168, 200]
+|chat|DEBUG|Best move of scolipede (p2): megahorn: 180.0 [165, 195]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using oblivionwing
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Poison Jab|p2a: Yveltal
+|-damage|p2a: Yveltal|0 fnt
+|faint|p2a: Yveltal
+|-damage|p1a: Scolipede|91100|[from] item: Life Orb
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Audino|Audino, L90, F|332332
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "yveltal" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: audino
+|chat|DEBUG|Early game switch: audino
+|chat|DEBUG|>Switching to audino (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 120 seconds left.
+|switch|p1a: Zeraora|Zeraora, L76|100100
+|move|p2a: Audino|Knock Off|p1a: Zeraora
+|-damage|p1a: Zeraora|72100
+|-enditem|p1a: Zeraora|Life Orb|[from] move: Knock Off|[of] p2a: Audino
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: protect toxic wish knockoff
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 141 vs 225
+|chat|DEBUG|HP: 332 vs 206
+|chat|DEBUG|Created a new Strategy for audino vs scolipede:
+|chat|DEBUG|>[knockoff: 58.75 [54, 64], knockoff: 58.75 [54, 64], knockoff: 58.75 [54, 64]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 58.75 [54, 64]
+|chat|DEBUG|Best move of scolipede (p2): megahorn: 148.5 [136, 161]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mawile|Mawile, L86, F|226226
+|-ability|p2a: Mawile|Intimidate|boost
+|-unboost|p1a: Zeraora|atk|1
+|move|p1a: Zeraora|Knock Off|p2a: Mawile
+|-resisted|p2a: Mawile
+|-damage|p2a: Mawile|203226
+|-enditem|p2a: Mawile|Focus Sash|[from] move: Knock Off|[of] p1a: Zeraora
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede-zeraora
+|chat|DEBUG|Own moves: protect toxic wish knockoff
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: ['mawile']
+|chat|DEBUG|Counter: ['mawile', 'slurpuff', 'excadrill', 'venusaur']
+|chat|DEBUG|Speed: 141 vs 261
+|chat|DEBUG|HP: 332 vs 186
+|chat|DEBUG|Created a new Strategy for audino vs zeraora:
+|chat|DEBUG|>[knockoff: 46.5625 [43, 51], knockoff: 46.5625 [43, 51], knockoff: 46.5625 [43, 51]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 46.5625 [43, 51]
+|chat|DEBUG|Best move of zeraora (p2): closecombat: 148.875 [136, 162]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mawile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 90 seconds left.
+|move|p1a: Zeraora|Bulk Up|p1a: Zeraora
+|-boost|p1a: Zeraora|atk|1
+|-boost|p1a: Zeraora|def|1
+|move|p2a: Mawile|Swords Dance|p2a: Mawile
+|-boost|p2a: Mawile|atk|2
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede-zeraora
+|chat|DEBUG|Own moves: ironhead swordsdance suckerpunch playrough
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: ['mawile', 'slurpuff', 'excadrill', 'venusaur']
+|chat|DEBUG|Counter: ['mawile', 'slurpuff', 'excadrill', 'venusaur']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 135 vs 261
+|chat|DEBUG|HP: 203 vs 186
+|chat|DEBUG|Created a new Strategy for mawile vs zeraora:
+|chat|DEBUG|>[playrough: 111.4375 [102, 121], playrough: 111.4375 [102, 121], playrough: 111.4375 [102, 121]]
+|chat|DEBUG|Best move of mawile (p1): playrough: 111.4375 [102, 121]
+|chat|DEBUG|Best move of zeraora (p2): blazekick: 56.375 [52, 62]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 90 seconds left.
+|move|p1a: Zeraora|Bulk Up|p1a: Zeraora
+|-boost|p1a: Zeraora|atk|1
+|-boost|p1a: Zeraora|def|1
+|move|p2a: Mawile|Play Rough|p1a: Zeraora
+|-damage|p1a: Zeraora|29100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede-zeraora
+|chat|DEBUG|Own moves: ironhead swordsdance suckerpunch playrough
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mawile', 'excadrill', 'venusaur']
+|chat|DEBUG|Speed: 135 vs 261
+|chat|DEBUG|HP: 203 vs 186
+|chat|DEBUG|Best move of mawile (p1): playrough: 111.4375 [102, 121]
+|chat|DEBUG|Best move of zeraora (p2): blazekick: 74.875 [68, 82]
+|chat|DEBUG|Attacking using playrough
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 90 seconds left.
+|move|p1a: Zeraora|Plasma Fists|p2a: Mawile
+|-damage|p2a: Mawile|59226
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|move|p2a: Mawile|Play Rough|p1a: Zeraora
+|-damage|p1a: Zeraora|0 fnt
+|faint|p1a: Zeraora
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scolipede|Scolipede, L80, M|91100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede-zeraora
+|chat|DEBUG|Own moves: ironhead swordsdance suckerpunch playrough
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mawile', 'venusaur']
+|chat|DEBUG|Speed: 135 vs 261
+|chat|DEBUG|HP: 203 vs 75
+|chat|DEBUG|Best move of mawile (p1): playrough: 111.4375 [102, 121]
+|chat|DEBUG|Best move of zeraora (p2): blazekick: 111.875 [102, 122]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Earthquake|p2a: Mawile
+|-supereffective|p2a: Mawile
+|-damage|p2a: Mawile|0 fnt
+|faint|p2a: Mawile
+|-damage|p1a: Scolipede|81100|[from] item: Life Orb
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slurpuff|Slurpuff, L80, F|262262
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-slurpuff-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: ironhead swordsdance suckerpunch playrough
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 135 vs 225
+|chat|DEBUG|HP: 59 vs 206
+|chat|DEBUG|Created a new Strategy for mawile vs scolipede:
+|chat|DEBUG|>[ironhead: 165.75 [153, 180], ironhead: 165.75 [153, 180], ironhead: 165.75 [153, 180]]
+|chat|DEBUG|Best move of mawile (p1): ironhead: 165.75 [153, 180]
+|chat|DEBUG|Best move of scolipede (p2): earthquake: 117.0 [107, 127]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 90 seconds left.
+|inactive|ReDsum has 60 seconds left.
+|move|p1a: Scolipede|Poison Jab|p2a: Slurpuff
+|-supereffective|p2a: Slurpuff
+|-damage|p2a: Slurpuff|28262
+|-enditem|p2a: Slurpuff|Sitrus Berry|[eat]
+|-heal|p2a: Slurpuff|93262|[from] item: Sitrus Berry
+|-damage|p1a: Scolipede|71100|[from] item: Life Orb
+|move|p2a: Slurpuff|Facade|p1a: Scolipede
+|-damage|p1a: Scolipede|54100
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: slurpuff
+|chat|DEBUG|>Switching to slurpuff (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scolipede|Poison Jab|p2a: Slurpuff
+|-supereffective|p2a: Slurpuff
+|-damage|p2a: Slurpuff|0 fnt
+|faint|p2a: Slurpuff
+|-damage|p1a: Scolipede|44100|[from] item: Life Orb
+|-ability|p1a: Scolipede|Speed Boost|boost
+|-boost|p1a: Scolipede|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Excadrill|Excadrill, L78, M|300300
+|-ability|p2a: Excadrill|Mold Breaker
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: drainpunch playrough facade bellydrum
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 161 vs 225
+|chat|DEBUG|HP: 262 vs 183
+|chat|DEBUG|Created a new Strategy for slurpuff vs scolipede:
+|chat|DEBUG|>[facade: 41.1875 [38, 45], facade: 41.1875 [38, 45], facade: 41.1875 [38, 45]]
+|chat|DEBUG|Best move of slurpuff (p1): facade: 41.1875 [38, 45]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 221.125 [203, 242]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 60 seconds left.
+|inactive|ReDsum has 30 seconds left.
+|move|p1a: Scolipede|Earthquake|p2a: Excadrill
+|-supereffective|p2a: Excadrill
+|-damage|p2a: Excadrill|71300
+|-damage|p1a: Scolipede|34100|[from] item: Life Orb
+|move|p2a: Excadrill|Earthquake|p1a: Scolipede
+|-damage|p1a: Scolipede|0 fnt
+|faint|p1a: Scolipede
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 30 seconds left this turn.
+|inactive|ReDsum has 20 seconds left.
+|inactive|ReDsum has 15 seconds left.
+|switch|p1a: Hitmontop|Hitmontop, L85, M|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: drainpunch playrough facade bellydrum
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['excadrill', 'audino']
+|chat|DEBUG|Speed: 161 vs 225
+|chat|DEBUG|HP: 93 vs 122
+|chat|DEBUG|Best move of slurpuff (p1): facade: 41.1875 [38, 45]
+|chat|DEBUG|Best move of scolipede (p2): poisonjab: 221.125 [203, 242]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 25 seconds left this turn.
+|move|p2a: Excadrill|Earthquake|p1a: Hitmontop
+|-damage|p1a: Hitmontop|52100
+|move|p1a: Hitmontop|Close Combat|p2a: Excadrill
+|-supereffective|p2a: Excadrill
+|-damage|p2a: Excadrill|0 fnt
+|-unboost|p1a: Hitmontop|def|1
+|-unboost|p1a: Hitmontop|spd|1
+|faint|p2a: Excadrill
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 30 seconds left this turn.
+|switch|p2a: Venusaur|Venusaur, L82, M|265265
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['excadrill', 'audino']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to excadrill (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 30 seconds left.
+|move|p2a: Venusaur|Sludge Bomb|p1a: Hitmontop
+|-damage|p1a: Hitmontop|19100
+|-status|p1a: Hitmontop|psn
+|move|p1a: Hitmontop|Triple Axel|p2a: Venusaur
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|215265
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|115265
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|0 fnt
+|faint|p2a: Venusaur
+|-hitcount|p2: Venusaur|3
+|-damage|p1a: Hitmontop|7100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Audino|Audino, L90, F|332332
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "excadrill" vs "scolipede"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>excadrill-audino-venusaur -- scolipede
+|chat|DEBUG|Own moves: rapidspin earthquake rockslide ironhead
+|chat|DEBUG|Enemy moves: earthquake megahorn poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['excadrill', 'audino']
+|chat|DEBUG|Speed: 182 vs 225
+|chat|DEBUG|HP: 300 vs 99
+|chat|DEBUG|Created a new Strategy for excadrill vs scolipede:
+|chat|DEBUG|>[earthquake: 125.375 [115, 136], earthquake: 125.375 [115, 136], earthquake: 125.375 [115, 136]]
+|chat|DEBUG|Best move of excadrill (p1): earthquake: 125.375 [115, 136]
+|chat|DEBUG|Best move of scolipede (p2): earthquake: 243.25 [224, 265]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Audino|Dynamax
+|-heal|p2a: Audino|664664|[silent]
+|move|p1a: Hitmontop|Close Combat|p2a: Audino
+|-supereffective|p2a: Audino
+|-damage|p2a: Audino|422664
+|-unboost|p1a: Hitmontop|def|1
+|-unboost|p1a: Hitmontop|spd|1
+|move|p2a: Audino|Max Darkness|p1a: Hitmontop
+|-resisted|p1a: Hitmontop
+|-damage|p1a: Hitmontop|0 fnt
+|faint|p1a: Hitmontop
+|-heal|p2a: Audino|442664|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 30 seconds left.
+|inactive|ReDsum has 20 seconds left.
+|switch|p1a: Kommo-o|Kommo-o, L80, F|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>excadrill audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "excadrill" vs "hitmontop"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>excadrill-audino-venusaur -- hitmontop
+|chat|DEBUG|Own moves: rapidspin earthquake rockslide ironhead
+|chat|DEBUG|Enemy moves: closecombat earthquake toxic tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['venusaur']
+|chat|DEBUG|Speed: 182 vs 168
+|chat|DEBUG|HP: 71 vs 224
+|chat|DEBUG|Created a new Strategy for excadrill vs hitmontop:
+|chat|DEBUG|>[earthquake: 112.8125 [103, 123], earthquake: 112.8125 [103, 123], earthquake: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of excadrill (p1): earthquake: 112.8125 [103, 123]
+|chat|DEBUG|Best move of hitmontop (p2): closecombat: 474.1875 [437, 515]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 30 seconds left this turn.
+|-start|p1a: Kommo-o|Dynamax
+|-heal|p1a: Kommo-o|100100|[silent]
+|move|p1a: Kommo-o|Max Knuckle|p2a: Audino
+|-supereffective|p2a: Audino
+|-damage|p2a: Audino|238664
+|-boost|p1a: Kommo-o|atk|1
+|move|p2a: Audino|Max Darkness|p1a: Kommo-o
+|-resisted|p1a: Kommo-o
+|-damage|p1a: Kommo-o|95100
+|-unboost|p1a: Kommo-o|spd|1
+|-heal|p2a: Audino|258664|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "excadrill" vs "hitmontop"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-venusaur -- hitmontop
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat earthquake toxic tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['venusaur']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to venusaur (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ReDsum has 30 seconds left.
+|inactive|ReDsum has 20 seconds left.
+|inactive|ReDsum has 15 seconds left.
+|move|p1a: Kommo-o|Max Knuckle|p2a: Audino
+|-supereffective|p2a: Audino
+|-damage|p2a: Audino|0 fnt
+|-boost|p1a: Kommo-o|atk|1
+|faint|p2a: Audino
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>ReDsum<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mawile slurpuff yveltal excadrill audino venusaur</h1>

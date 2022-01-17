@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491324151</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1491324151|init|battle
+|title|kingjuanes vs. McDonner
+|j|☆kingjuanes
+|j|☆McDonner
+|gametype|singles
+|player|p1|kingjuanes|170|1158
+|player|p2|McDonner|265|1185
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dracozolt|Dracozolt, L78|100/100
+|switch|p2a: Slurpuff|Slurpuff, L80, F|262/262
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon aurorus sceptile regigigas drapion
+|chat|DEBUG|Matchup: slurpuff vs dracozolt
+|chat|DEBUG|Updating information about dracozolt
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: sitrusberry
+|chat|DEBUG|>Enemy Item: choicescarf
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: aurorus vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['aurorus', 'regigigas', 'drapion']}}
+|chat|DEBUG|Speed: 161 - 162
+|chat|DEBUG|Most likely moves for: slurpuff
+|chat|DEBUG|>['drainpunch', 'playrough', 'facade', 'bellydrum']
+|chat|DEBUG|Most likely moves for: dracozolt
+|chat|DEBUG|>['boltbeak', 'earthquake', 'lowkick', 'outrage']
+|chat|DEBUG|Best own move: ('playrough', 161.875)
+|chat|DEBUG|Best enemy move: ('boltbeak', 171.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: aurorus
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Aurorus|Aurorus, L84, M|344/344
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Aurorus
+|move|p1a: Dracozolt|Bolt Beak|p2a: Aurorus
+|-damage|p2a: Aurorus|56/344
+|-weather|Hail|[upkeep]
+|-damage|p1a: Dracozolt|95/100|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon aurorus sceptile regigigas drapion
+|chat|DEBUG|Matchup: aurorus vs dracozolt
+|chat|DEBUG|Updating information about dracozolt
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicescarf
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: aurorus vs. dracozolt
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['regigigas', 'drapion', 'aurorus']}}
+|chat|DEBUG|Speed: 146 - 162
+|chat|DEBUG|Most likely moves for: aurorus
+|chat|DEBUG|>['earthpower', 'thunderwave', 'freezedry', 'blizzard']
+|chat|DEBUG|Most likely moves for: dracozolt
+|chat|DEBUG|>['boltbeak', 'earthquake', 'lowkick', 'outrage']
+|chat|DEBUG|Best own move: ('blizzard', 300.375)
+|chat|DEBUG|Best enemy move: ('lowkick', 354.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from aurorus against dracozolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Bolt Beak|p2a: Aurorus
+|-damage|p2a: Aurorus|0 fnt
+|faint|p2a: Aurorus
+|-weather|Hail|[upkeep]
+|-damage|p1a: Dracozolt|89/100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regigigas|Regigigas, L82|315/315
+|-start|p2a: Regigigas|ability: Slow Start
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile regigigas drapion
+|chat|DEBUG|Matchup: aurorus vs dracozolt
+|chat|DEBUG|Updating information about dracozolt
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicescarf
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: aurorus vs. dracozolt
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['regigigas', 'drapion', 'aurorus']}}
+|chat|DEBUG|>>Switching to counter: regigigas
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|kingjuanes has 120 seconds left.
+|switch|p1a: Copperajah|Copperajah, L84, M|100/100
+|move|p2a: Regigigas|Body Slam|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|90/100
+|-status|p1a: Copperajah|par
+|-weather|Hail|[upkeep]
+|-damage|p2a: Regigigas|296/315|[from] Hail
+|-damage|p1a: Copperajah|84/100 par|[from] Hail
+|-heal|p2a: Regigigas|315/315|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile regigigas drapion
+|chat|DEBUG|Matchup: regigigas vs dracozolt
+|chat|DEBUG|Updating information about dracozolt
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicescarf
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion', 'regigigas']}}
+|chat|DEBUG|Speed: 211 - 162
+|chat|DEBUG|Most likely moves for: regigigas
+|chat|DEBUG|>['bodyslam', 'toxic', 'substitute', 'protect']
+|chat|DEBUG|Most likely moves for: dracozolt
+|chat|DEBUG|>['boltbeak', 'earthquake', 'lowkick', 'outrage']
+|chat|DEBUG|Best own move: ('bodyslam', 135.5)
+|chat|DEBUG|Best enemy move: ('lowkick', 130.5)
+|chat|DEBUG|Picking the most damaging move from regigigas against dracozolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regigigas|Body Slam|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|73/100 par
+|cant|p1a: Copperajah|par
+|-weather|Hail|[upkeep]
+|-damage|p2a: Regigigas|296/315|[from] Hail
+|-damage|p1a: Copperajah|67/100 par|[from] Hail
+|-heal|p2a: Regigigas|315/315|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile regigigas drapion
+|chat|DEBUG|Matchup: regigigas vs copperajah
+|chat|DEBUG|Updating information about copperajah
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. copperajah
+|chat|DEBUG|Getting matchup: slurpuff vs. copperajah
+|chat|DEBUG|Getting matchup: sceptile vs. copperajah
+|chat|DEBUG|Getting matchup: drapion vs. copperajah
+|chat|DEBUG|Getting matchup: regigigas vs. copperajah
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion', 'regigigas']}, 'copperajah': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 211 - 99
+|chat|DEBUG|Most likely moves for: regigigas
+|chat|DEBUG|>['bodyslam', 'toxic', 'substitute', 'protect']
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['earthquake', 'ironhead', 'playrough', 'rockslide']
+|chat|DEBUG|Best own move: ('bodyslam', 76.25)
+|chat|DEBUG|Best enemy move: ('ironhead', 91.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat copperajah with regigigas
+|chat|DEBUG|Picking the most damaging move from regigigas against copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regigigas|Body Slam|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|56/100 par
+|move|p1a: Copperajah|Iron Head|p2a: Regigigas
+|-damage|p2a: Regigigas|166/315
+|-weather|none
+|-heal|p2a: Regigigas|185/315|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile regigigas drapion
+|chat|DEBUG|Matchup: regigigas vs copperajah
+|chat|DEBUG|Updating information about copperajah
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. copperajah
+|chat|DEBUG|Getting matchup: slurpuff vs. copperajah
+|chat|DEBUG|Getting matchup: sceptile vs. copperajah
+|chat|DEBUG|Getting matchup: drapion vs. copperajah
+|chat|DEBUG|Getting matchup: regigigas vs. copperajah
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion', 'regigigas']}, 'copperajah': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 211 - 99
+|chat|DEBUG|Most likely moves for: regigigas
+|chat|DEBUG|>['bodyslam', 'toxic', 'substitute', 'protect']
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['earthquake', 'ironhead', 'playrough', 'rockslide']
+|chat|DEBUG|Best own move: ('bodyslam', 76.25)
+|chat|DEBUG|Best enemy move: ('ironhead', 91.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat copperajah with regigigas
+|chat|DEBUG|Picking the most damaging move from regigigas against copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regigigas|Body Slam|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|45/100 par
+|move|p1a: Copperajah|Iron Head|p2a: Regigigas
+|-damage|p2a: Regigigas|21/315
+|-heal|p2a: Regigigas|40/315|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile regigigas drapion
+|chat|DEBUG|Matchup: regigigas vs copperajah
+|chat|DEBUG|Updating information about copperajah
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. copperajah
+|chat|DEBUG|Getting matchup: slurpuff vs. copperajah
+|chat|DEBUG|Getting matchup: sceptile vs. copperajah
+|chat|DEBUG|Getting matchup: drapion vs. copperajah
+|chat|DEBUG|Getting matchup: regigigas vs. copperajah
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion', 'regigigas']}, 'copperajah': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 211 - 99
+|chat|DEBUG|Most likely moves for: regigigas
+|chat|DEBUG|>['bodyslam', 'toxic', 'substitute', 'protect']
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['earthquake', 'ironhead', 'playrough', 'rockslide']
+|chat|DEBUG|Best own move: ('bodyslam', 76.25)
+|chat|DEBUG|Best enemy move: ('ironhead', 91.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat copperajah with regigigas
+|chat|DEBUG|Picking the most damaging move from regigigas against copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regigigas|Body Slam|p1a: Copperajah
+|-resisted|p1a: Copperajah
+|-damage|p1a: Copperajah|34/100 par
+|move|p1a: Copperajah|Iron Head|p2a: Regigigas
+|-damage|p2a: Regigigas|0 fnt
+|faint|p2a: Regigigas
+|-end|p2a: Regigigas|Slow Start|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Umbreon|Umbreon, L82, F|290/290
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile regigigas drapion
+|chat|DEBUG|Matchup: regigigas vs copperajah
+|chat|DEBUG|Updating information about copperajah
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. copperajah
+|chat|DEBUG|Getting matchup: slurpuff vs. copperajah
+|chat|DEBUG|Getting matchup: sceptile vs. copperajah
+|chat|DEBUG|Getting matchup: drapion vs. copperajah
+|chat|DEBUG|Getting matchup: regigigas vs. copperajah
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion', 'regigigas']}, 'copperajah': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 211 - 99
+|chat|DEBUG|Most likely moves for: regigigas
+|chat|DEBUG|>['bodyslam', 'toxic', 'substitute', 'protect']
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['earthquake', 'ironhead', 'playrough', 'rockslide']
+|chat|DEBUG|Best own move: ('bodyslam', 76.25)
+|chat|DEBUG|Best enemy move: ('ironhead', 91.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat copperajah with regigigas
+|chat|DEBUG|Picking the most damaging move from regigigas against copperajah
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Umbreon|Foul Play|p1a: Copperajah
+|-damage|p1a: Copperajah|0 fnt
+|faint|p1a: Copperajah
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Centiskorch|Centiskorch, L84, F|100/100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile drapion
+|chat|DEBUG|Matchup: regigigas vs copperajah
+|chat|DEBUG|Updating information about copperajah
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: regigigas vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. copperajah
+|chat|DEBUG|Getting matchup: slurpuff vs. copperajah
+|chat|DEBUG|Getting matchup: sceptile vs. copperajah
+|chat|DEBUG|Getting matchup: drapion vs. copperajah
+|chat|DEBUG|Getting matchup: regigigas vs. copperajah
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion', 'regigigas']}, 'copperajah': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Drapion|Drapion, L82, F|249/249
+|move|p1a: Centiskorch|Coil|p1a: Centiskorch
+|-boost|p1a: Centiskorch|atk|1
+|-boost|p1a: Centiskorch|def|1
+|-boost|p1a: Centiskorch|accuracy|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile drapion
+|chat|DEBUG|Matchup: umbreon vs copperajah
+|chat|DEBUG|Updating information about copperajah
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. copperajah
+|chat|DEBUG|Getting matchup: sceptile vs. copperajah
+|chat|DEBUG|Getting matchup: drapion vs. copperajah
+|chat|DEBUG|Getting matchup: umbreon vs. copperajah
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion']}, 'copperajah': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 154 - 99
+|chat|DEBUG|Most likely moves for: umbreon
+|chat|DEBUG|>['toxic', 'protect', 'foulplay', 'wish']
+|chat|DEBUG|Most likely moves for: copperajah
+|chat|DEBUG|>['earthquake', 'ironhead', 'playrough', 'rockslide']
+|chat|DEBUG|Best own move: ('foulplay', 147.5)
+|chat|DEBUG|Best enemy move: ('playrough', 138.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('foulplay', 147.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drapion|Knock Off|p1a: Centiskorch
+|-damage|p1a: Centiskorch|68/100
+|-enditem|p1a: Centiskorch|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Drapion
+|-damage|p2a: Drapion|225/249|[from] item: Life Orb
+|move|p1a: Centiskorch|Coil|p1a: Centiskorch
+|-boost|p1a: Centiskorch|atk|1
+|-boost|p1a: Centiskorch|def|1
+|-boost|p1a: Centiskorch|accuracy|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile drapion
+|chat|DEBUG|Matchup: umbreon vs centiskorch
+|chat|DEBUG|Updating information about centiskorch
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. centiskorch
+|chat|DEBUG|Getting matchup: sceptile vs. centiskorch
+|chat|DEBUG|Getting matchup: drapion vs. centiskorch
+|chat|DEBUG|Getting matchup: umbreon vs. centiskorch
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion']}, 'centiskorch': {'checks': [], 'counter': ['drapion']}}
+|chat|DEBUG|Speed: 154 - 157
+|chat|DEBUG|Most likely moves for: umbreon
+|chat|DEBUG|>['toxic', 'protect', 'foulplay', 'wish']
+|chat|DEBUG|Most likely moves for: centiskorch
+|chat|DEBUG|>['coil', 'firelash', 'knockoff', 'leechlife']
+|chat|DEBUG|Best own move: ('foulplay', 138.5625)
+|chat|DEBUG|Best enemy move: ('leechlife', 167.25)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drapion|Knock Off|p1a: Centiskorch
+|-damage|p1a: Centiskorch|51/100
+|-damage|p2a: Drapion|201/249|[from] item: Life Orb
+|move|p1a: Centiskorch|Leech Life|p2a: Drapion
+|-damage|p2a: Drapion|47/249
+|-heal|p1a: Centiskorch|76/100|[from] drain|[of] p2a: Drapion
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile drapion
+|chat|DEBUG|Matchup: drapion vs centiskorch
+|chat|DEBUG|Updating information about centiskorch
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. centiskorch
+|chat|DEBUG|Getting matchup: sceptile vs. centiskorch
+|chat|DEBUG|Getting matchup: umbreon vs. centiskorch
+|chat|DEBUG|Getting matchup: drapion vs. centiskorch
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion']}, 'centiskorch': {'checks': [], 'counter': ['drapion']}}
+|chat|DEBUG|Speed: 203 - 157
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'swordsdance', 'poisonjab']
+|chat|DEBUG|Most likely moves for: centiskorch
+|chat|DEBUG|>['coil', 'firelash', 'knockoff', 'leechlife']
+|chat|DEBUG|Best own move: ('knockoff', 114.3125)
+|chat|DEBUG|Best enemy move: ('leechlife', 83.625)
+|chat|DEBUG|Picking the most damaging move from drapion against centiskorch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drapion|Knock Off|p1a: Centiskorch
+|-damage|p1a: Centiskorch|60/100
+|-damage|p2a: Drapion|23/249|[from] item: Life Orb
+|move|p1a: Centiskorch|Leech Life|p2a: Drapion
+|-damage|p2a: Drapion|0 fnt
+|-heal|p1a: Centiskorch|63/100|[from] drain|[of] p2a: Drapion
+|faint|p2a: Drapion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Umbreon|Umbreon, L82, F|290/290
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile drapion
+|chat|DEBUG|Matchup: drapion vs centiskorch
+|chat|DEBUG|Updating information about centiskorch
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. centiskorch
+|chat|DEBUG|Getting matchup: sceptile vs. centiskorch
+|chat|DEBUG|Getting matchup: umbreon vs. centiskorch
+|chat|DEBUG|Getting matchup: drapion vs. centiskorch
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion']}, 'centiskorch': {'checks': [], 'counter': ['drapion']}}
+|chat|DEBUG|Speed: 203 - 157
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'swordsdance', 'poisonjab']
+|chat|DEBUG|Most likely moves for: centiskorch
+|chat|DEBUG|>['coil', 'firelash', 'knockoff', 'leechlife']
+|chat|DEBUG|Best own move: ('knockoff', 114.3125)
+|chat|DEBUG|Best enemy move: ('leechlife', 83.625)
+|chat|DEBUG|Picking the most damaging move from drapion against centiskorch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Centiskorch|Leech Life|p2a: Umbreon
+|-supereffective|p2a: Umbreon
+|-damage|p2a: Umbreon|0 fnt
+|-heal|p1a: Centiskorch|100/100|[from] drain|[of] p2a: Umbreon
+|faint|p2a: Umbreon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, M|261/261
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile drapion
+|chat|DEBUG|Matchup: drapion vs centiskorch
+|chat|DEBUG|Updating information about centiskorch
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. centiskorch
+|chat|DEBUG|Getting matchup: sceptile vs. centiskorch
+|chat|DEBUG|Getting matchup: umbreon vs. centiskorch
+|chat|DEBUG|Getting matchup: drapion vs. centiskorch
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion']}, 'centiskorch': {'checks': [], 'counter': ['drapion']}}
+|chat|DEBUG|Speed: 203 - 157
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'swordsdance', 'poisonjab']
+|chat|DEBUG|Most likely moves for: centiskorch
+|chat|DEBUG|>['coil', 'firelash', 'knockoff', 'leechlife']
+|chat|DEBUG|Best own move: ('knockoff', 114.3125)
+|chat|DEBUG|Best enemy move: ('leechlife', 83.625)
+|chat|DEBUG|Picking the most damaging move from drapion against centiskorch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Centiskorch|Dynamax
+|-heal|p1a: Centiskorch|100/100|[silent]
+|move|p2a: Sceptile|Rock Slide|p1a: Centiskorch|[miss]
+|-miss|p2a: Sceptile|p1a: Centiskorch
+|move|p1a: Centiskorch|Max Flare|p2a: Sceptile
+|-supereffective|p2a: Sceptile
+|-damage|p2a: Sceptile|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Sceptile
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slurpuff|Slurpuff, L80, F|262/262
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff umbreon sceptile
+|chat|DEBUG|Matchup: drapion vs centiskorch
+|chat|DEBUG|Updating information about centiskorch
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slurpuff vs. dracozolt
+|chat|DEBUG|Getting matchup: sceptile vs. dracozolt
+|chat|DEBUG|Getting matchup: umbreon vs. dracozolt
+|chat|DEBUG|Getting matchup: drapion vs. dracozolt
+|chat|DEBUG|Getting matchup: slurpuff vs. centiskorch
+|chat|DEBUG|Getting matchup: sceptile vs. centiskorch
+|chat|DEBUG|Getting matchup: umbreon vs. centiskorch
+|chat|DEBUG|Getting matchup: drapion vs. centiskorch
+|chat|DEBUG|Checks / Counter: {'dracozolt': {'checks': [], 'counter': ['drapion']}, 'centiskorch': {'checks': [], 'counter': ['drapion']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Slurpuff|Facade|p1a: Centiskorch
+|-damage|p1a: Centiskorch|96/100
+|move|p1a: Centiskorch|Max Flare|p2a: Slurpuff
+|-crit|p2a: Slurpuff
+|-damage|p2a: Slurpuff|0 fnt
+|faint|p2a: Slurpuff
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>kingjuanes<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">slurpuff umbreon aurorus sceptile regigigas drapion</h1>

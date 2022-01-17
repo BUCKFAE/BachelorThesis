@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490375636<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490375636|init|battle
+|title|Fluffy2486 vs. McGewitter
+|j|☆Fluffy2486
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Fluffy2486|266|1125
+|player|p2|McGewitter|265|1168
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Kyurem|Kyurem-Black, L73|100100
+|switch|p2a: Terrakion|Terrakion, L78|270270
+|-ability|p1a: Kyurem|Teravolt
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "kyuremblack"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- kyuremblack
+|chat|DEBUG|Own moves: stoneedge closecombat earthquake quickattack
+|chat|DEBUG|Enemy moves: dragondance fusionbolt iciclespear outrage
+|chat|DEBUG|Checks: ['terrakion', 'stakataka']
+|chat|DEBUG|Counter: ['terrakion', 'stakataka', 'hitmontop', 'scizor']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 181
+|chat|DEBUG|HP: 270 vs 303
+|chat|DEBUG|Created a new Strategy for terrakion vs kyuremblack:
+|chat|DEBUG|>[closecombat: 433.875 [398, 470], closecombat: 433.875 [398, 470], closecombat: 433.875 [398, 470]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 433.875 [398, 470]
+|chat|DEBUG|Best move of kyuremblack (p2): outrage: 164.125 [151, 178]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Fluffy2486 also wants the timer to be on.
+|move|p2a: Terrakion|Close Combat|p1a: Kyurem
+|-supereffective|p1a: Kyurem
+|-damage|p1a: Kyurem|0 fnt
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|faint|p1a: Kyurem
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tsareena|Tsareena, L84, F|100100
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- tsareena
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 214 vs 169
+|chat|DEBUG|HP: 270 vs 258
+|chat|DEBUG|Created a new Strategy for terrakion vs tsareena:
+|chat|DEBUG|>[closecombat: 191.9375 [177, 208], closecombat: 191.9375 [177, 208], closecombat: 191.9375 [177, 208]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 191.9375 [177, 208]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 617.9375 [569, 671]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Close Combat|p1a: Tsareena
+|-damage|p1a: Tsareena|27100
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|move|p1a: Tsareena|Knock Off|p2a: Terrakion
+|-resisted|p2a: Terrakion
+|-damage|p2a: Terrakion|188270
+|-ability|p2a: Terrakion|Justified|boost
+|-boost|p2a: Terrakion|atk|1
+|-enditem|p2a: Terrakion|Choice Band|[from] move: Knock Off|[of] p1a: Tsareena
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- tsareena
+|chat|DEBUG|Own moves: stoneedge closecombat earthquake quickattack
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'hitmontop', 'scizor', 'dusknoir', 'typenull']
+|chat|DEBUG|Speed: 214 vs 169
+|chat|DEBUG|HP: 188 vs 69
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 191.9375 [177, 208]
+|chat|DEBUG|Best move of tsareena (p2): powerwhip: 827.125 [759, 897]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Close Combat|p1a: Tsareena
+|-damage|p1a: Tsareena|0 fnt
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|faint|p1a: Tsareena
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Roserade|Roserade, L84, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- roserade
+|chat|DEBUG|Own moves: stoneedge closecombat earthquake quickattack
+|chat|DEBUG|Enemy moves: leafstorm sludgebomb spikes synthesis
+|chat|DEBUG|Checks: ['scizor', 'dusknoir']
+|chat|DEBUG|Counter: ['scizor', 'dusknoir', 'typenull']
+|chat|DEBUG|Speed: 214 vs 199
+|chat|DEBUG|HP: 188 vs 238
+|chat|DEBUG|Created a new Strategy for terrakion vs roserade:
+|chat|DEBUG|>[stoneedge: 216.9375 [199, 235], stoneedge: 216.9375 [199, 235], stoneedge: 216.9375 [199, 235]]
+|chat|DEBUG|Best move of terrakion (p1): stoneedge: 216.9375 [199, 235]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 883.25 [812, 956]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scizor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, F|243243
+|move|p1a: Roserade|Leaf Storm|p2a: Scizor
+|-resisted|p2a: Scizor
+|-damage|p2a: Scizor|192243
+|-unboost|p1a: Roserade|spa|2
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- roserade
+|chat|DEBUG|Own moves: superpower dualwingbeat swordsdance bulletpunch
+|chat|DEBUG|Enemy moves: leafstorm sludgebomb spikes synthesis
+|chat|DEBUG|Checks: ['stakataka', 'scizor', 'dusknoir', 'typenull']
+|chat|DEBUG|Counter: ['stakataka', 'hitmontop', 'scizor', 'dusknoir', 'typenull']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 150 vs 199
+|chat|DEBUG|HP: 192 vs 238
+|chat|DEBUG|Created a new Strategy for scizor vs roserade:
+|chat|DEBUG|>[dualwingbeat: 162.1875 [148, 177], dualwingbeat: 162.1875 [148, 177], dualwingbeat: 162.1875 [148, 177]]
+|chat|DEBUG|Best move of scizor (p1): dualwingbeat: 162.1875 [148, 177]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 23.3125 [21, 25]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Sleep Powder|p2a: Scizor
+|-status|p2a: Scizor|slp|[from] move: Sleep Powder
+|cant|p2a: Scizor|slp
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- roserade
+|chat|DEBUG|Own moves: superpower dualwingbeat swordsdance bulletpunch
+|chat|DEBUG|Enemy moves: leafstorm sludgebomb spikes synthesis
+|chat|DEBUG|Checks: ['stakataka', 'scizor', 'dusknoir', 'typenull']
+|chat|DEBUG|Counter: ['stakataka', 'hitmontop', 'scizor', 'dusknoir', 'typenull']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 150 vs 199
+|chat|DEBUG|HP: 192 vs 238
+|chat|DEBUG|Best move of scizor (p1): dualwingbeat: 162.1875 [148, 177]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 23.3125 [21, 25]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scizor|Scizor, L80, M|100100
+|cant|p2a: Scizor|slp
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: superpower dualwingbeat swordsdance bulletpunch
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['stakataka', 'hitmontop']
+|chat|DEBUG|Speed: 150 vs 150
+|chat|DEBUG|HP: 192 vs 243
+|chat|DEBUG|Created a new Strategy for scizor vs scizor:
+|chat|DEBUG|>[superpower: 121.625 [112, 133], superpower: 81.0 [74, 88], superpower: 61.75 [57, 68]]
+|chat|DEBUG|Best move of scizor (p1): superpower: 121.625 [112, 133]
+|chat|DEBUG|Best move of scizor (p2): superpower: 121.625 [112, 133]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stakataka
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stakataka|Stakataka, L80|229229
+|-item|p2a: Stakataka|Air Balloon
+|-start|p1a: Scizor|Dynamax
+|-heal|p1a: Scizor|100100|[silent]
+|move|p1a: Scizor|Max Knuckle|p2a: Stakataka
+|-supereffective|p2a: Stakataka
+|-damage|p2a: Stakataka|77229
+|-boost|p1a: Scizor|atk|1
+|-enditem|p2a: Stakataka|Air Balloon
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion stakataka hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-stakataka-hitmontop-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: stoneedge trickroom bodypress gyroball
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|Speed: 25 vs 150
+|chat|DEBUG|HP: 77 vs 243
+|chat|DEBUG|Created a new Strategy for stakataka vs scizor:
+|chat|DEBUG|>[stoneedge: 118.3125 [109, 129], stoneedge: 118.3125 [109, 129], stoneedge: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of stakataka (p1): stoneedge: 118.3125 [109, 129]
+|chat|DEBUG|Best move of scizor (p2): bulletpunch: 74.3125 [68, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scizor|Max Knuckle|p2a: Stakataka
+|-supereffective|p2a: Stakataka
+|-damage|p2a: Stakataka|0 fnt
+|-boost|p1a: Scizor|atk|1
+|faint|p2a: Stakataka
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hitmontop|Hitmontop, L85, M|224224
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-hitmontop-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hitmontop (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hitmontop|Close Combat|p1a: Scizor
+|-damage|p1a: Scizor|67100
+|-unboost|p2a: Hitmontop|def|1
+|-unboost|p2a: Hitmontop|spd|1
+|-damage|p2a: Hitmontop|202224|[from] item: Life Orb
+|move|p1a: Scizor|Max Knuckle|p2a: Hitmontop
+|-damage|p2a: Hitmontop|0 fnt
+|-boost|p1a: Scizor|atk|1
+|faint|p2a: Hitmontop
+|-heal|p1a: Scizor|70100|[from] item: Leftovers
+|-end|p1a: Scizor|Dynamax
+|-heal|p1a: Scizor|70100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Type: Null|Type: Null, L86|304304
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion hitmontop scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-hitmontop-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: toxic earthquake tripleaxel closecombat
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 168 vs 150
+|chat|DEBUG|HP: 224 vs 243
+|chat|DEBUG|Created a new Strategy for hitmontop vs scizor:
+|chat|DEBUG|>[closecombat: 161.1875 [148, 175], closecombat: 161.1875 [148, 175], closecombat: 161.1875 [148, 175]]
+|chat|DEBUG|Best move of hitmontop (p1): closecombat: 161.1875 [148, 175]
+|chat|DEBUG|Best move of scizor (p2): dualwingbeat: 240.5 [221, 260]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scizor|Bullet Punch|p2a: Type: Null
+|-damage|p2a: Type: Null|184304
+|move|p2a: Type: Null|Crush Claw|p1a: Scizor
+|-resisted|p1a: Scizor
+|-damage|p1a: Scizor|56100
+|-unboost|p1a: Scizor|def|1
+|-heal|p1a: Scizor|62100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: typenull
+|chat|DEBUG|>Switching to typenull (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Type: Null|Crush Claw|p1a: Scizor
+|-resisted|p1a: Scizor
+|-damage|p1a: Scizor|36100
+|-unboost|p1a: Scizor|def|1
+|move|p1a: Scizor|Superpower|p2a: Type: Null
+|-supereffective|p2a: Type: Null
+|-damage|p2a: Type: Null|0 fnt
+|-unboost|p1a: Scizor|atk|1
+|-unboost|p1a: Scizor|def|1
+|faint|p2a: Type: Null
+|-heal|p1a: Scizor|42100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Terrakion|Terrakion, L78|188270
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "typenull" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: rest swordsdance sleeptalk crushclaw
+|chat|DEBUG|Enemy moves: bulletpunch roost swordsdance uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion']
+|chat|DEBUG|Speed: 151 vs 150
+|chat|DEBUG|HP: 304 vs 170
+|chat|DEBUG|Created a new Strategy for typenull vs scizor:
+|chat|DEBUG|>[crushclaw: 38.8125 [36, 42], crushclaw: 38.8125 [36, 42], crushclaw: 38.8125 [36, 42]]
+|chat|DEBUG|Best move of typenull (p1): crushclaw: 38.8125 [36, 42]
+|chat|DEBUG|Best move of scizor (p2): uturn: 132.5 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using crushclaw
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Close Combat|p1a: Scizor
+|-damage|p1a: Scizor|0 fnt
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|faint|p1a: Scizor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Roserade|Roserade, L84, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir typenull
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "typenull" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir-typenull -- roserade-scizor
+|chat|DEBUG|Own moves: rest swordsdance sleeptalk crushclaw
+|chat|DEBUG|Enemy moves: bulletpunch roost swordsdance uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'dusknoir']
+|chat|DEBUG|Speed: 151 vs 150
+|chat|DEBUG|HP: 184 vs 150
+|chat|DEBUG|Best move of typenull (p1): crushclaw: 38.8125 [36, 42]
+|chat|DEBUG|Best move of scizor (p2): uturn: 132.5 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using crushclaw
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, F|192243 slp
+|move|p1a: Roserade|Leaf Storm|p2a: Scizor
+|-resisted|p2a: Scizor
+|-damage|p2a: Scizor|146243 slp
+|-unboost|p1a: Roserade|spa|2
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "typenull" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir -- roserade-scizor
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletpunch roost swordsdance uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'dusknoir']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to terrakion (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stonjourner|Stonjourner, L88, F|100100
+|cant|p2a: Scizor|slp
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir -- roserade-scizor
+|chat|DEBUG|Own moves: stoneedge closecombat earthquake quickattack
+|chat|DEBUG|Enemy moves: bulletpunch roost swordsdance uturn
+|chat|DEBUG|Checks: ['dusknoir']
+|chat|DEBUG|Counter: ['terrakion', 'dusknoir']
+|chat|DEBUG|Speed: 214 vs 150
+|chat|DEBUG|HP: 188 vs 102
+|chat|DEBUG|Created a new Strategy for terrakion vs scizor:
+|chat|DEBUG|>[closecombat: 330.625 [304, 358], closecombat: 330.625 [304, 358], closecombat: 330.625 [304, 358]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 330.625 [304, 358]
+|chat|DEBUG|Best move of scizor (p2): bulletpunch: 314.625 [288, 342]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p2a: Scizor|slp|[msg]
+|move|p2a: Scizor|Bullet Punch|p1a: Stonjourner
+|-supereffective|p1a: Stonjourner
+|-damage|p1a: Stonjourner|63100
+|-damage|p2a: Scizor|122243|[from] item: Life Orb
+|move|p1a: Stonjourner|Rock Polish|p1a: Stonjourner
+|-boost|p1a: Stonjourner|spe|2
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir -- roserade
+|chat|DEBUG|Own moves: stoneedge closecombat earthquake quickattack
+|chat|DEBUG|Enemy moves: leafstorm sludgebomb spikes synthesis
+|chat|DEBUG|Checks: ['scizor', 'dusknoir']
+|chat|DEBUG|Counter: ['scizor', 'dusknoir']
+|chat|DEBUG|Speed: 214 vs 199
+|chat|DEBUG|HP: 188 vs 238
+|chat|DEBUG|Created a new Strategy for terrakion vs roserade:
+|chat|DEBUG|>[stoneedge: 144.5625 [133, 157], stoneedge: 144.5625 [133, 157], stoneedge: 144.5625 [133, 157]]
+|chat|DEBUG|Best move of terrakion (p1): stoneedge: 144.5625 [133, 157]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 531.375 [488, 576]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scizor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scizor|Bullet Punch|p1a: Stonjourner
+|-supereffective|p1a: Stonjourner
+|-damage|p1a: Stonjourner|24100
+|-damage|p2a: Scizor|98243|[from] item: Life Orb
+|move|p1a: Stonjourner|Heat Crash|p2a: Scizor
+|-supereffective|p2a: Scizor
+|-damage|p2a: Scizor|0 fnt
+|faint|p2a: Scizor
+|-damage|p1a: Stonjourner|14100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Terrakion|Terrakion, L78|188270
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir -- roserade
+|chat|DEBUG|Own moves: superpower dualwingbeat swordsdance bulletpunch
+|chat|DEBUG|Enemy moves: leafstorm sludgebomb spikes synthesis
+|chat|DEBUG|Checks: ['scizor', 'dusknoir']
+|chat|DEBUG|Counter: ['scizor', 'dusknoir']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 150 vs 199
+|chat|DEBUG|HP: 146 vs 238
+|chat|DEBUG|Created a new Strategy for scizor vs roserade:
+|chat|DEBUG|>[dualwingbeat: 162.1875 [148, 177], dualwingbeat: 162.1875 [148, 177], dualwingbeat: 162.1875 [148, 177]]
+|chat|DEBUG|Best move of scizor (p1): dualwingbeat: 162.1875 [148, 177]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 23.3125 [21, 25]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dualwingbeat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stonjourner|Earthquake|p2a: Terrakion
+|-supereffective|p2a: Terrakion
+|-damage|p2a: Terrakion|0 fnt
+|faint|p2a: Terrakion
+|-damage|p1a: Stonjourner|4100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dusknoir|Dusknoir, L86, F|218218
+|-item|p1a: Stonjourner|Life Orb|[from] ability: Frisk|[of] p2a: Dusknoir|[identify]
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir -- roserade-stonjourner
+|chat|DEBUG|Own moves: superpower dualwingbeat swordsdance bulletpunch
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 150 vs 173
+|chat|DEBUG|HP: 146 vs 319
+|chat|DEBUG|Created a new Strategy for scizor vs stonjourner:
+|chat|DEBUG|>[bulletpunch: 131.0 [120, 143], bulletpunch: 131.0 [120, 143], superpower: 174.3125 [161, 190]]
+|chat|DEBUG|Best move of scizor (p1): bulletpunch: 131.0 [120, 143]
+|chat|DEBUG|Best move of stonjourner (p2): heatcrash: 470.625 [432, 510]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bulletpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stonjourner|Stone Edge|p2a: Dusknoir
+|-damage|p2a: Dusknoir|97218
+|-damage|p1a: Stonjourner|0 fnt|[from] item: Life Orb
+|faint|p1a: Stonjourner
+|move|p2a: Dusknoir|Poltergeist|p1: Stonjourner|[notarget]
+|-fail|p2a: Dusknoir
+|-heal|p2a: Dusknoir|110218|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Noctowl|Noctowl, L88, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion scizor dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-scizor-dusknoir -- roserade-stonjourner
+|chat|DEBUG|Own moves: superpower dualwingbeat swordsdance bulletpunch
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion']
+|chat|DEBUG|Speed: 150 vs 173
+|chat|DEBUG|HP: 122 vs 200
+|chat|DEBUG|Best move of scizor (p1): bulletpunch: 131.0 [120, 143]
+|chat|DEBUG|Best move of stonjourner (p2): heatcrash: 470.625 [432, 510]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bulletpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Noctowl|Nasty Plot|p1a: Noctowl
+|-boost|p1a: Noctowl|spa|2
+|move|p2a: Dusknoir|Ice Punch|p1a: Noctowl
+|-supereffective|p1a: Noctowl
+|-damage|p1a: Noctowl|49100
+|-heal|p2a: Dusknoir|123218|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-dusknoir -- roserade-stonjourner
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to terrakion (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Noctowl|Heat Wave|p2a: Dusknoir
+|-damage|p2a: Dusknoir|35218
+|move|p2a: Dusknoir|Ice Punch|p1a: Noctowl
+|-supereffective|p1a: Noctowl
+|-crit|p1a: Noctowl
+|-damage|p1a: Noctowl|0 fnt
+|faint|p1a: Noctowl
+|-heal|p2a: Dusknoir|48218|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Roserade|Roserade, L84, M|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-dusknoir -- roserade-stonjourner
+|chat|DEBUG|Own moves: stoneedge closecombat earthquake quickattack
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'dusknoir']
+|chat|DEBUG|Speed: 214 vs 173
+|chat|DEBUG|HP: 188 vs 44
+|chat|DEBUG|Created a new Strategy for terrakion vs stonjourner:
+|chat|DEBUG|>[closecombat: 189.75 [174, 206], closecombat: 189.75 [174, 206], closecombat: 189.75 [174, 206]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 189.75 [174, 206]
+|chat|DEBUG|Best move of stonjourner (p2): earthquake: 263.25 [242, 286]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Sleep Powder|p2a: Dusknoir
+|-status|p2a: Dusknoir|slp|[from] move: Sleep Powder
+|cant|p2a: Dusknoir|slp
+|-heal|p2a: Dusknoir|61218 slp|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "stonjourner"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir -- roserade-stonjourner
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake heatcrash rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dusknoir']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dusknoir (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Leaf Storm|p2a: Dusknoir
+|-damage|p2a: Dusknoir|0 fnt
+|-unboost|p1a: Roserade|spa|2
+|faint|p2a: Dusknoir
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Fluffy2486<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">terrakion stakataka hitmontop scizor dusknoir typenull</h1>

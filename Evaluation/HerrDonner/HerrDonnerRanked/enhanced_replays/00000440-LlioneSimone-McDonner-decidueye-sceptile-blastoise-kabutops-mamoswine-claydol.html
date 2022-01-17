@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490670153</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490670153|init|battle
+|title|Llione Simone vs. McDonner
+|j|☆Llione Simone
+|j|☆McDonner
+|gametype|singles
+|player|p1|Llione Simone|1|1070
+|player|p2|McDonner|265|1115
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Cursola|Cursola, L86, F|100/100
+|switch|p2a: Decidueye|Decidueye, L86, F|274/274
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise kabutops mamoswine claydol
+|chat|DEBUG|Matchup: decidueye vs cursola
+|chat|DEBUG|Updating information about cursola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. cursola
+|chat|DEBUG|Getting matchup: blastoise vs. cursola
+|chat|DEBUG|Getting matchup: kabutops vs. cursola
+|chat|DEBUG|Getting matchup: mamoswine vs. cursola
+|chat|DEBUG|Getting matchup: claydol vs. cursola
+|chat|DEBUG|Getting matchup: decidueye vs. cursola
+|chat|DEBUG|Checks / Counter: {'cursola': {'checks': [], 'counter': ['kabutops']}}
+|chat|DEBUG|Speed: 170 - 101
+|chat|DEBUG|Most likely moves for: decidueye
+|chat|DEBUG|>['poltergeist', 'swordsdance', 'leafblade', 'bravebird']
+|chat|DEBUG|Most likely moves for: cursola
+|chat|DEBUG|>['hydropump', 'icebeam', 'shadowball', 'strengthsap']
+|chat|DEBUG|Best own move: ('leafblade', 155.8125)
+|chat|DEBUG|Best enemy move: ('shadowball', 217.25)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: kabutops
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Kabutops|Kabutops, L82, F|233/233
+|move|p1a: Cursola|Strength Sap|p2a: Kabutops
+|-unboost|p2a: Kabutops|atk|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise kabutops mamoswine claydol
+|chat|DEBUG|Matchup: kabutops vs cursola
+|chat|DEBUG|Updating information about cursola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. cursola
+|chat|DEBUG|Getting matchup: blastoise vs. cursola
+|chat|DEBUG|Getting matchup: decidueye vs. cursola
+|chat|DEBUG|Getting matchup: mamoswine vs. cursola
+|chat|DEBUG|Getting matchup: claydol vs. cursola
+|chat|DEBUG|Getting matchup: kabutops vs. cursola
+|chat|DEBUG|Checks / Counter: {'cursola': {'checks': [], 'counter': ['kabutops']}}
+|chat|DEBUG|Speed: 178 - 101
+|chat|DEBUG|Most likely moves for: kabutops
+|chat|DEBUG|>['liquidation', 'stoneedge', 'aquajet', 'swordsdance']
+|chat|DEBUG|Most likely moves for: cursola
+|chat|DEBUG|>['hydropump', 'icebeam', 'shadowball', 'strengthsap']
+|chat|DEBUG|Best own move: ('stoneedge', 165.75)
+|chat|DEBUG|Best enemy move: ('shadowball', 148.8125)
+|chat|DEBUG|Picking the most damaging move from kabutops against cursola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kabutops|Stone Edge|p1a: Cursola
+|-damage|p1a: Cursola|36/100
+|-ability|p1a: Cursola|Weak Armor|boost
+|-unboost|p1a: Cursola|def|1
+|-boost|p1a: Cursola|spe|2
+|-damage|p2a: Kabutops|210/233|[from] item: Life Orb
+|move|p1a: Cursola|Stealth Rock|p2a: Kabutops
+|-sidestart|p2: McDonner|move: Stealth Rock
+|-heal|p1a: Cursola|42/100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise kabutops mamoswine claydol
+|chat|DEBUG|Matchup: kabutops vs cursola
+|chat|DEBUG|Updating information about cursola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. cursola
+|chat|DEBUG|Getting matchup: blastoise vs. cursola
+|chat|DEBUG|Getting matchup: decidueye vs. cursola
+|chat|DEBUG|Getting matchup: mamoswine vs. cursola
+|chat|DEBUG|Getting matchup: claydol vs. cursola
+|chat|DEBUG|Getting matchup: kabutops vs. cursola
+|chat|DEBUG|Checks / Counter: {'cursola': {'checks': [], 'counter': ['decidueye', 'kabutops']}}
+|chat|DEBUG|Speed: 178 - 101
+|chat|DEBUG|Most likely moves for: kabutops
+|chat|DEBUG|>['liquidation', 'stoneedge', 'aquajet', 'swordsdance']
+|chat|DEBUG|Most likely moves for: cursola
+|chat|DEBUG|>['hydropump', 'icebeam', 'shadowball', 'strengthsap']
+|chat|DEBUG|Best own move: ('stoneedge', 165.75)
+|chat|DEBUG|Best enemy move: ('shadowball', 148.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('stoneedge', 165.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 120 seconds left.
+|move|p1a: Cursola|Hydro Pump|p2a: Kabutops
+|-damage|p2a: Kabutops|70/233
+|move|p2a: Kabutops|Stone Edge|p1a: Cursola
+|-damage|p1a: Cursola|0 fnt
+|faint|p1a: Cursola
+|-damage|p2a: Kabutops|47/233|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, F|100/100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise kabutops mamoswine claydol
+|chat|DEBUG|Matchup: kabutops vs linoone
+|chat|DEBUG|Updating information about linoone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: aguavberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: blastoise vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: kabutops vs. linoone
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'blastoise', 'decidueye', 'mamoswine', 'claydol', 'kabutops']}}
+|chat|DEBUG|Speed: 178 - 216
+|chat|DEBUG|Most likely moves for: kabutops
+|chat|DEBUG|>['liquidation', 'stoneedge', 'aquajet', 'swordsdance']
+|chat|DEBUG|Most likely moves for: linoone
+|chat|DEBUG|>['bellydrum', 'extremespeed', 'stompingtantrum', 'throatchop']
+|chat|DEBUG|Best own move: ('stoneedge', 148.8125)
+|chat|DEBUG|Best enemy move: ('stompingtantrum', 74.875)
+|chat|DEBUG|Picking the most damaging move from kabutops against linoone
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Stomping Tantrum|p2a: Kabutops
+|-supereffective|p2a: Kabutops
+|-damage|p2a: Kabutops|0 fnt
+|faint|p2a: Kabutops
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, F|261/261
+|-damage|p2a: Sceptile|229/261|[from] Stealth Rock
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise mamoswine claydol
+|chat|DEBUG|Matchup: kabutops vs linoone
+|chat|DEBUG|Updating information about linoone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: aguavberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: blastoise vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: kabutops vs. linoone
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'blastoise', 'decidueye', 'mamoswine', 'claydol', 'kabutops']}}
+|chat|DEBUG|>>Switching to counter: sceptile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 120 seconds left.
+|switch|p1a: Noivern|Noivern, L82, M|100/100
+|move|p2a: Sceptile|Leaf Storm|p1a: Noivern
+|-resisted|p1a: Noivern
+|-damage|p1a: Noivern|82/100
+|-unboost|p2a: Sceptile|spa|2
+|-damage|p2a: Sceptile|203/261|[from] item: Life Orb
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise mamoswine claydol
+|chat|DEBUG|Matchup: sceptile vs linoone
+|chat|DEBUG|Updating information about linoone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: aguavberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: blastoise vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['blastoise', 'decidueye', 'mamoswine', 'claydol', 'sceptile']}}
+|chat|DEBUG|Speed: 256 - 216
+|chat|DEBUG|Most likely moves for: sceptile
+|chat|DEBUG|>['earthquake', 'rockslide', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Most likely moves for: linoone
+|chat|DEBUG|>['bellydrum', 'extremespeed', 'stompingtantrum', 'throatchop']
+|chat|DEBUG|Best own move: ('leafstorm', 198.875)
+|chat|DEBUG|Best enemy move: ('extremespeed', 80.9375)
+|chat|DEBUG|Picking the most damaging move from sceptile against linoone
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blastoise|Blastoise, L82, M|264/264
+|-damage|p2a: Blastoise|231/264|[from] Stealth Rock
+|move|p1a: Noivern|Hurricane|p2a: Blastoise
+|-damage|p2a: Blastoise|134/264
+|-start|p2a: Blastoise|confusion
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise mamoswine claydol
+|chat|DEBUG|Matchup: sceptile vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: blastoise vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: blastoise vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['blastoise', 'decidueye', 'mamoswine', 'claydol', 'sceptile']}, 'noivern': {'checks': [], 'counter': ['blastoise', 'mamoswine']}}
+|chat|DEBUG|Speed: 256 - 249
+|chat|DEBUG|Most likely moves for: sceptile
+|chat|DEBUG|>['earthquake', 'rockslide', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Most likely moves for: noivern
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'hurricane', 'roost']
+|chat|DEBUG|Best own move: ('rockslide', 111.875)
+|chat|DEBUG|Best enemy move: ('hurricane', 222.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: blastoise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 90 seconds left.
+|move|p1a: Noivern|Draco Meteor|p2a: Blastoise
+|-crit|p2a: Blastoise
+|-damage|p2a: Blastoise|0 fnt
+|-unboost|p1a: Noivern|spa|2
+|faint|p2a: Blastoise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mamoswine|Mamoswine, L80, F|307/307
+|-damage|p2a: Mamoswine|269/307|[from] Stealth Rock
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile blastoise mamoswine claydol
+|chat|DEBUG|Matchup: blastoise vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: whiteherb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: blastoise vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: blastoise vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'decidueye', 'mamoswine', 'claydol', 'blastoise']}, 'noivern': {'checks': [], 'counter': ['mamoswine', 'blastoise']}}
+|chat|DEBUG|Speed: 175 - 249
+|chat|DEBUG|Most likely moves for: blastoise
+|chat|DEBUG|>['hydropump', 'shellsmash', 'icebeam', 'earthquake']
+|chat|DEBUG|Most likely moves for: noivern
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'hurricane', 'roost']
+|chat|DEBUG|Best own move: ('icebeam', 242.75)
+|chat|DEBUG|Best enemy move: ('dracometeor', 117.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('icebeam', 242.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 90 seconds left.
+|switch|p1a: Azumarill|Azumarill, L84, F|100/100
+|move|p2a: Mamoswine|Icicle Crash|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|82/100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile mamoswine claydol
+|chat|DEBUG|Matchup: blastoise vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: whiteherb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: blastoise vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: blastoise vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'decidueye', 'mamoswine', 'claydol', 'blastoise']}, 'noivern': {'checks': [], 'counter': ['mamoswine', 'blastoise']}}
+|chat|DEBUG|>>Switching to counter: mamoswine
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 90 seconds left.
+|move|p2a: Mamoswine|Icicle Crash|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|63/100
+|move|p1a: Azumarill|Play Rough|p2a: Mamoswine
+|-damage|p2a: Mamoswine|83/307
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile mamoswine claydol
+|chat|DEBUG|Matchup: mamoswine vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'decidueye', 'claydol', 'mamoswine']}, 'noivern': {'checks': [], 'counter': ['mamoswine']}}
+|chat|DEBUG|Speed: 174 - 249
+|chat|DEBUG|Most likely moves for: mamoswine
+|chat|DEBUG|>['superpower', 'earthquake', 'knockoff', 'iciclecrash']
+|chat|DEBUG|Most likely moves for: noivern
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'hurricane', 'roost']
+|chat|DEBUG|Best own move: ('iciclecrash', 462.5)
+|chat|DEBUG|Best enemy move: ('dracometeor', 179.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('iciclecrash', 462.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 90 seconds left.
+|move|p2a: Mamoswine|Icicle Crash|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|46/100
+|move|p1a: Azumarill|Play Rough|p2a: Mamoswine
+|-damage|p2a: Mamoswine|0 fnt
+|faint|p2a: Mamoswine
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, F|203/261
+|-damage|p2a: Sceptile|171/261|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile mamoswine claydol
+|chat|DEBUG|Matchup: mamoswine vs azumarill
+|chat|DEBUG|Updating information about azumarill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. azumarill
+|chat|DEBUG|Getting matchup: decidueye vs. azumarill
+|chat|DEBUG|Getting matchup: claydol vs. azumarill
+|chat|DEBUG|Getting matchup: mamoswine vs. azumarill
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'decidueye', 'claydol', 'mamoswine']}, 'noivern': {'checks': [], 'counter': ['mamoswine']}, 'azumarill': {'checks': [], 'counter': ['sceptile', 'decidueye', 'mamoswine']}}
+|chat|DEBUG|Speed: 174 - 132
+|chat|DEBUG|Most likely moves for: mamoswine
+|chat|DEBUG|>['iciclecrash']
+|chat|DEBUG|Most likely moves for: azumarill
+|chat|DEBUG|>['aquajet', 'liquidation', 'playrough', 'superpower']
+|chat|DEBUG|Best own move: ('iciclecrash', 56.125)
+|chat|DEBUG|Best enemy move: ('liquidation', 128.5)
+|chat|DEBUG|Picking the most damaging move from mamoswine against azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Leaf Storm|p1a: Azumarill
+|-supereffective|p1a: Azumarill
+|-damage|p1a: Azumarill|0 fnt
+|-unboost|p2a: Sceptile|spa|2
+|faint|p1a: Azumarill
+|-damage|p2a: Sceptile|145/261|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Noivern|Noivern, L82, M|82/100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile mamoswine claydol
+|chat|DEBUG|Matchup: mamoswine vs azumarill
+|chat|DEBUG|Updating information about azumarill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. azumarill
+|chat|DEBUG|Getting matchup: decidueye vs. azumarill
+|chat|DEBUG|Getting matchup: claydol vs. azumarill
+|chat|DEBUG|Getting matchup: mamoswine vs. azumarill
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'decidueye', 'claydol', 'mamoswine']}, 'noivern': {'checks': [], 'counter': ['mamoswine']}, 'azumarill': {'checks': [], 'counter': ['sceptile', 'decidueye', 'mamoswine']}}
+|chat|DEBUG|Speed: 174 - 132
+|chat|DEBUG|Most likely moves for: mamoswine
+|chat|DEBUG|>['iciclecrash']
+|chat|DEBUG|Most likely moves for: azumarill
+|chat|DEBUG|>['aquajet', 'liquidation', 'playrough', 'superpower']
+|chat|DEBUG|Best own move: ('iciclecrash', 56.125)
+|chat|DEBUG|Best enemy move: ('liquidation', 128.5)
+|chat|DEBUG|Picking the most damaging move from mamoswine against azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Rock Slide|p1a: Noivern
+|-supereffective|p1a: Noivern
+|-crit|p1a: Noivern
+|-damage|p1a: Noivern|5/100
+|-damage|p2a: Sceptile|119/261|[from] item: Life Orb
+|move|p1a: Noivern|Hurricane|p2a: Sceptile
+|-supereffective|p2a: Sceptile
+|-damage|p2a: Sceptile|0 fnt
+|faint|p2a: Sceptile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Claydol|Claydol, L86|243/243
+|-damage|p2a: Claydol|228/243|[from] Stealth Rock
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile claydol
+|chat|DEBUG|Matchup: mamoswine vs azumarill
+|chat|DEBUG|Updating information about azumarill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicescarf
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: mamoswine vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: mamoswine vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. azumarill
+|chat|DEBUG|Getting matchup: decidueye vs. azumarill
+|chat|DEBUG|Getting matchup: claydol vs. azumarill
+|chat|DEBUG|Getting matchup: mamoswine vs. azumarill
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['sceptile', 'decidueye', 'claydol', 'mamoswine']}, 'noivern': {'checks': [], 'counter': ['mamoswine']}, 'azumarill': {'checks': [], 'counter': ['sceptile', 'decidueye', 'mamoswine']}}
+|chat|DEBUG|>>Switching to counter: sceptile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 90 seconds left.
+|switch|p1a: Diancie|Diancie, L82|100/100
+|move|p2a: Claydol|Rapid Spin|p1a: Diancie
+|-resisted|p1a: Diancie
+|-damage|p1a: Diancie|96/100
+|-boost|p2a: Claydol|spe|1
+|-sideend|p2: McDonner|Stealth Rock|[from] move: Rapid Spin|[of] p2a: Claydol
+|-heal|p2a: Claydol|243/243|[from] item: Leftovers
+|-heal|p1a: Diancie|100/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile claydol
+|chat|DEBUG|Matchup: sceptile vs azumarill
+|chat|DEBUG|Updating information about azumarill
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. azumarill
+|chat|DEBUG|Getting matchup: claydol vs. azumarill
+|chat|DEBUG|Getting matchup: sceptile vs. azumarill
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol', 'sceptile']}, 'noivern': {'checks': [], 'counter': []}, 'azumarill': {'checks': [], 'counter': ['decidueye', 'sceptile']}}
+|chat|DEBUG|Speed: 256 - 132
+|chat|DEBUG|Most likely moves for: sceptile
+|chat|DEBUG|>['earthquake', 'rockslide', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Most likely moves for: azumarill
+|chat|DEBUG|>['aquajet', 'liquidation', 'playrough', 'superpower']
+|chat|DEBUG|Best own move: ('leafstorm', 328.25)
+|chat|DEBUG|Best enemy move: ('playrough', 72.5625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('leafstorm', 328.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 60 seconds left.
+|-start|p2a: Claydol|Dynamax
+|-heal|p2a: Claydol|486/486|[silent]
+|move|p2a: Claydol|Max Quake|p1a: Diancie
+|-supereffective|p1a: Diancie
+|-damage|p1a: Diancie|31/100
+|-boost|p2a: Claydol|spd|1
+|move|p1a: Diancie|Moonblast|p2a: Claydol
+|-damage|p2a: Claydol|431/486
+|-unboost|p2a: Claydol|spa|1
+|-heal|p2a: Claydol|446/486|[from] item: Leftovers
+|-heal|p1a: Diancie|37/100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye sceptile claydol
+|chat|DEBUG|Matchup: sceptile vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol', 'sceptile']}, 'noivern': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 256 - 249
+|chat|DEBUG|Most likely moves for: sceptile
+|chat|DEBUG|>['earthquake', 'rockslide', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Most likely moves for: noivern
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'hurricane', 'roost']
+|chat|DEBUG|Best own move: ('rockslide', 111.875)
+|chat|DEBUG|Best enemy move: ('hurricane', 222.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat noivern with sceptile
+|chat|DEBUG|Picking the most damaging move from sceptile against noivern
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Llione Simone has 60 seconds left.
+|move|p2a: Claydol|Max Quake|p1a: Diancie
+|-supereffective|p1a: Diancie
+|-damage|p1a: Diancie|0 fnt
+|-boost|p2a: Claydol|spd|1
+|faint|p1a: Diancie
+|-heal|p2a: Claydol|461/486|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, F|100/100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye claydol
+|chat|DEBUG|Matchup: sceptile vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: sceptile vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: sceptile vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol', 'sceptile']}, 'noivern': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Claydol|Max Quake|p1a: Linoone
+|-damage|p1a: Linoone|43/100
+|-boost|p2a: Claydol|spd|1
+|-enditem|p1a: Linoone|Aguav Berry|[eat]
+|-heal|p1a: Linoone|76/100|[from] item: Aguav Berry
+|move|p1a: Linoone|Throat Chop|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|379/486
+|-start|p2a: Claydol|Throat Chop|[silent]
+|-heal|p2a: Claydol|394/486|[from] item: Leftovers
+|-end|p2a: Claydol|Dynamax
+|-heal|p2a: Claydol|197/243|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye claydol
+|chat|DEBUG|Matchup: claydol vs noivern
+|chat|DEBUG|Updating information about noivern
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol']}, 'noivern': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 178 - 249
+|chat|DEBUG|Most likely moves for: claydol
+|chat|DEBUG|>['toxic', 'stealthrock', 'rapidspin', 'earthquake']
+|chat|DEBUG|Most likely moves for: noivern
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'hurricane', 'roost']
+|chat|DEBUG|Best own move: ('rapidspin', 32.8125)
+|chat|DEBUG|Best enemy move: ('dracometeor', 100.375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('rapidspin', 32.8125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Linoone|Dynamax
+|-heal|p1a: Linoone|76/100|[silent]
+|move|p2a: Claydol|Earthquake|p1a: Linoone
+|-damage|p1a: Linoone|55/100
+|move|p1a: Linoone|Max Darkness|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|81/243
+|-unboost|p2a: Claydol|spd|1
+|-heal|p2a: Claydol|96/243|[from] item: Leftovers
+|-end|p2a: Claydol|Throat Chop|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye claydol
+|chat|DEBUG|Matchup: claydol vs diancie
+|chat|DEBUG|Updating information about diancie
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. diancie
+|chat|DEBUG|Getting matchup: claydol vs. diancie
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol']}, 'noivern': {'checks': [], 'counter': []}, 'diancie': {'checks': [], 'counter': ['decidueye', 'claydol']}}
+|chat|DEBUG|Speed: 178 - 129
+|chat|DEBUG|Most likely moves for: claydol
+|chat|DEBUG|>['toxic', 'stealthrock', 'rapidspin', 'earthquake']
+|chat|DEBUG|Most likely moves for: diancie
+|chat|DEBUG|>['diamondstorm', 'moonblast', 'stealthrock', 'toxic']
+|chat|DEBUG|Best own move: ('earthquake', 117.25)
+|chat|DEBUG|Best enemy move: ('moonblast', 75.3125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Claydol|Earthquake|p1a: Linoone
+|-damage|p1a: Linoone|34/100
+|move|p1a: Linoone|Max Darkness|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|0 fnt
+|faint|p2a: Claydol
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Decidueye|Decidueye, L86, F|274/274
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye claydol
+|chat|DEBUG|Matchup: claydol vs diancie
+|chat|DEBUG|Updating information about diancie
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Getting matchup: decidueye vs. diancie
+|chat|DEBUG|Getting matchup: claydol vs. diancie
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol']}, 'noivern': {'checks': [], 'counter': []}, 'diancie': {'checks': [], 'counter': ['decidueye', 'claydol']}}
+|chat|DEBUG|Speed: 178 - 129
+|chat|DEBUG|Most likely moves for: claydol
+|chat|DEBUG|>['toxic', 'stealthrock', 'rapidspin', 'earthquake']
+|chat|DEBUG|Most likely moves for: diancie
+|chat|DEBUG|>['diamondstorm', 'moonblast', 'stealthrock', 'toxic']
+|chat|DEBUG|Best own move: ('earthquake', 117.25)
+|chat|DEBUG|Best enemy move: ('moonblast', 75.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('earthquake', 117.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Max Darkness|p2a: Decidueye
+|-supereffective|p2a: Decidueye
+|-damage|p2a: Decidueye|104/274
+|-unboost|p2a: Decidueye|spd|1
+|move|p2a: Decidueye|Leaf Blade|p1a: Linoone
+|-damage|p1a: Linoone|0 fnt
+|faint|p1a: Linoone
+|-damage|p2a: Decidueye|77/274|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Noivern|Noivern, L82, M|5/100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye claydol
+|chat|DEBUG|Matchup: claydol vs linoone
+|chat|DEBUG|Updating information about linoone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: aguavberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol']}, 'noivern': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 178 - 216
+|chat|DEBUG|Most likely moves for: claydol
+|chat|DEBUG|>['toxic', 'stealthrock', 'rapidspin', 'earthquake']
+|chat|DEBUG|Most likely moves for: linoone
+|chat|DEBUG|>['bellydrum', 'extremespeed', 'stompingtantrum', 'throatchop']
+|chat|DEBUG|Best own move: ('earthquake', 114.3125)
+|chat|DEBUG|Best enemy move: ('throatchop', 76.75)
+|chat|DEBUG|Picking the most damaging move from claydol against linoone
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Noivern|Hurricane|p2a: Decidueye|[miss]
+|-miss|p1a: Noivern|p2a: Decidueye
+|move|p2a: Decidueye|Poltergeist|p1a: Noivern
+|-activate|p1a: Noivern|move: Poltergeist|Heavy-Duty Boots
+|-damage|p1a: Noivern|0 fnt
+|faint|p1a: Noivern
+|-damage|p2a: Decidueye|50/274|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowbro|Slowbro-Galar, L86, F|100/100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye claydol
+|chat|DEBUG|Matchup: claydol vs linoone
+|chat|DEBUG|Updating information about linoone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: aguavberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: decidueye vs. linoone
+|chat|DEBUG|Getting matchup: claydol vs. linoone
+|chat|DEBUG|Getting matchup: decidueye vs. noivern
+|chat|DEBUG|Getting matchup: claydol vs. noivern
+|chat|DEBUG|Checks / Counter: {'linoone': {'checks': [], 'counter': ['decidueye', 'claydol']}, 'noivern': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 178 - 216
+|chat|DEBUG|Most likely moves for: claydol
+|chat|DEBUG|>['toxic', 'stealthrock', 'rapidspin', 'earthquake']
+|chat|DEBUG|Most likely moves for: linoone
+|chat|DEBUG|>['bellydrum', 'extremespeed', 'stompingtantrum', 'throatchop']
+|chat|DEBUG|Best own move: ('earthquake', 114.3125)
+|chat|DEBUG|Best enemy move: ('throatchop', 76.75)
+|chat|DEBUG|Picking the most damaging move from claydol against linoone
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Decidueye|Poltergeist|p1a: Slowbro
+|-activate|p1a: Slowbro|move: Poltergeist|Choice Specs
+|-supereffective|p1a: Slowbro
+|-crit|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|faint|p1a: Slowbro
+|-damage|p2a: Decidueye|23/274|[from] item: Life Orb
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Llione Simone<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">decidueye sceptile blastoise kabutops mamoswine claydol</h1>

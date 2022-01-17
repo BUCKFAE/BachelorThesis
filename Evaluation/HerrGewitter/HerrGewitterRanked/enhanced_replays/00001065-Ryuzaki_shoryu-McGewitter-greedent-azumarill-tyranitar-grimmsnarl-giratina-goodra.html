@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491718594<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491718594|init|battle
+|title|Ryuzaki_shoryu vs. McGewitter
+|j|☆Ryuzaki_shoryu
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Ryuzaki_shoryu|hilbert|1220
+|player|p2|McGewitter|265|1189
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Abomasnow|Abomasnow, L82, M|100100
+|switch|p2a: Greedent|Greedent, L84, F|339339
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Abomasnow
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- abomasnow
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['greedent', 'goodra']
+|chat|DEBUG|Counter: ['greedent', 'azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 82 vs 146
+|chat|DEBUG|HP: 339 vs 282
+|chat|DEBUG|Created a new Strategy for greedent vs abomasnow:
+|chat|DEBUG|>[firefang: 209.25 [192, 228], firefang: 209.25 [192, 228], firefang: 209.25 [192, 228]]
+|chat|DEBUG|Best move of greedent (p1): firefang: 209.25 [192, 228]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 108.625 [100, 118]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Abomasnow|Earthquake|p2a: Greedent
+|-damage|p2a: Greedent|279339
+|move|p2a: Greedent|Swords Dance|p2a: Greedent
+|-boost|p2a: Greedent|atk|2
+|-weather|Hail|[upkeep]
+|-damage|p2a: Greedent|258339|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- abomasnow
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['greedent', 'goodra']
+|chat|DEBUG|Counter: ['greedent', 'azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 82 vs 146
+|chat|DEBUG|HP: 258 vs 282
+|chat|DEBUG|Best move of greedent (p1): firefang: 209.25 [192, 228]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 108.625 [100, 118]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using firefang
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Abomasnow|Aurora Veil|p1a: Abomasnow
+|-sidestart|p1: Ryuzaki_shoryu|move: Aurora Veil
+|move|p2a: Greedent|Fire Fang|p1a: Abomasnow
+|-supereffective|p1a: Abomasnow
+|-damage|p1a: Abomasnow|22100
+|-status|p1a: Abomasnow|brn
+|-weather|Hail|[upkeep]
+|-damage|p2a: Greedent|237339|[from] Hail
+|-damage|p1a: Abomasnow|16100 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "abomasnow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- abomasnow
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: auroraveil blizzard iceshard woodhammer
+|chat|DEBUG|Checks: ['greedent', 'giratina', 'goodra']
+|chat|DEBUG|Counter: ['greedent', 'azumarill', 'tyranitar', 'grimmsnarl', 'giratina', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 82 vs 146
+|chat|DEBUG|HP: 237 vs 45
+|chat|DEBUG|Best move of greedent (p1): firefang: 209.25 [192, 228]
+|chat|DEBUG|Best move of abomasnow (p2): woodhammer: 108.625 [100, 118]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Abomasnow|Blizzard|p2a: Greedent
+|-damage|p2a: Greedent|125339
+|-enditem|p2a: Greedent|Sitrus Berry|[eat]
+|-heal|p2a: Greedent|209339|[from] item: Sitrus Berry
+|-heal|p2a: Greedent|322339|[from] ability: Cheek Pouch
+|move|p2a: Greedent|Fire Fang|p1a: Abomasnow
+|-supereffective|p1a: Abomasnow
+|-damage|p1a: Abomasnow|0 fnt
+|faint|p1a: Abomasnow
+|-weather|Hail|[upkeep]
+|-damage|p2a: Greedent|301339|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|switch|p1a: Sceptile|Sceptile, L86, F|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- sceptile
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: ['giratina', 'goodra']
+|chat|DEBUG|Counter: ['greedent', 'giratina', 'goodra']
+|chat|DEBUG|Speed: 82 vs 256
+|chat|DEBUG|HP: 301 vs 261
+|chat|DEBUG|Created a new Strategy for greedent vs sceptile:
+|chat|DEBUG|>[bodyslam: 214.0 [196, 232], bodyslam: 214.0 [196, 232], bodyslam: 214.0 [196, 232]]
+|chat|DEBUG|Best move of greedent (p1): bodyslam: 214.0 [196, 232]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 100.375 [93, 109]
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Focus Blast|p2a: Greedent|[miss]
+|-miss|p1a: Sceptile|p2a: Greedent
+|move|p2a: Greedent|Body Slam|p1a: Sceptile
+|-damage|p1a: Sceptile|60100
+|-status|p1a: Sceptile|par
+|-weather|Hail|[upkeep]
+|-damage|p1a: Sceptile|54100 par|[from] Hail
+|-damage|p2a: Greedent|280339|[from] Hail
+|-heal|p1a: Sceptile|60100 par|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- sceptile
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: ['greedent', 'giratina', 'goodra']
+|chat|DEBUG|Counter: ['greedent', 'azumarill', 'grimmsnarl', 'giratina', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 82 vs 256
+|chat|DEBUG|HP: 280 vs 156
+|chat|DEBUG|Best move of greedent (p1): bodyslam: 214.0 [196, 232]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Sceptile|par
+|move|p2a: Greedent|Body Slam|p1a: Sceptile
+|-damage|p1a: Sceptile|17100 par
+|-weather|none
+|-heal|p1a: Sceptile|23100 par|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- sceptile
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: ['giratina', 'goodra']
+|chat|DEBUG|Counter: ['greedent', 'azumarill', 'tyranitar', 'grimmsnarl', 'giratina', 'goodra']
+|chat|DEBUG|Speed: 82 vs 256
+|chat|DEBUG|HP: 280 vs 60
+|chat|DEBUG|Best move of greedent (p1): bodyslam: 214.0 [196, 232]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 150.1875 [138, 163]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Focus Blast|p2a: Greedent
+|-supereffective|p2a: Greedent
+|-damage|p2a: Greedent|82339
+|move|p2a: Greedent|Body Slam|p1a: Sceptile
+|-damage|p1a: Sceptile|0 fnt
+|faint|p1a: Sceptile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Turtonator|Turtonator, L84, M|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: firefang earthquake bodyslam swordsdance
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Speed: 82 vs 109
+|chat|DEBUG|HP: 82 vs 238
+|chat|DEBUG|Created a new Strategy for greedent vs turtonator:
+|chat|DEBUG|>[earthquake: 197.0 [180, 214], earthquake: 197.0 [180, 214], earthquake: 197.0 [180, 214]]
+|chat|DEBUG|Best move of greedent (p1): earthquake: 197.0 [180, 214]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 124.0625 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|switch|p2a: Azumarill|Azumarill, L84, F|305305
+|move|p1a: Turtonator|Earthquake|p2a: Azumarill
+|-damage|p2a: Azumarill|237305
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: aquajet playrough liquidation superpower
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 109
+|chat|DEBUG|HP: 237 vs 238
+|chat|DEBUG|Created a new Strategy for azumarill vs turtonator:
+|chat|DEBUG|>[liquidation: 119.75 [109, 130], liquidation: 119.75 [109, 130], liquidation: 119.75 [109, 130]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 119.75 [109, 130]
+|chat|DEBUG|Best move of turtonator (p2): earthquake: 64.3125 [59, 70]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|switch|p1a: Xurkitree|Xurkitree, L76|100100
+|move|p2a: Azumarill|Liquidation|p1a: Xurkitree
+|-damage|p1a: Xurkitree|54100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-xurkitree
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: ['giratina', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Speed: 132 vs 170
+|chat|DEBUG|HP: 237 vs 135
+|chat|DEBUG|Created a new Strategy for azumarill vs xurkitree:
+|chat|DEBUG|>[liquidation: 216.9375 [199, 235], liquidation: 216.9375 [199, 235], liquidation: 216.9375 [199, 235]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 216.9375 [199, 235]
+|chat|DEBUG|Best move of xurkitree (p2): thunderbolt: 271.0 [248, 294]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check giratina
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|switch|p2a: Giratina|Giratina, L74|344344
+|-ability|p2a: Giratina|Pressure
+|move|p1a: Xurkitree|Thunderbolt|p2a: Giratina
+|-resisted|p2a: Giratina
+|-damage|p2a: Giratina|290344
+|-heal|p2a: Giratina|311344|[from] item: Leftovers
+|-sideend|p1: Ryuzaki_shoryu|move: Aurora Veil
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-xurkitree
+|chat|DEBUG|Own moves: rest hex toxic sleeptalk
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: ['giratina', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 170
+|chat|DEBUG|HP: 311 vs 135
+|chat|DEBUG|Created a new Strategy for giratina vs xurkitree:
+|chat|DEBUG|>[hex: 71.125 [66, 78], hex: 71.125 [66, 78], hex: 71.125 [66, 78]]
+|chat|DEBUG|Best move of giratina (p1): hex: 71.125 [66, 78]
+|chat|DEBUG|Best move of xurkitree (p2): dazzlinggleam: 134.125 [124, 146]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['turtonator']
+|chat|DEBUG|Expected enemy: turtonator
+|chat|DEBUG|Using move toxic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|switch|p1a: Turtonator|Turtonator, L84, M|100100
+|move|p2a: Giratina|Toxic|p1a: Turtonator
+|-status|p1a: Turtonator|tox
+|-heal|p2a: Giratina|332344|[from] item: Leftovers
+|-damage|p1a: Turtonator|95100 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-xurkitree
+|chat|DEBUG|Own moves: rest hex toxic sleeptalk
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Speed: 176 vs 109
+|chat|DEBUG|HP: 332 vs 226
+|chat|DEBUG|Created a new Strategy for giratina vs turtonator:
+|chat|DEBUG|>[toxic: 0.0 [0, 0], hex: 112.8125 [103, 123], hex: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of giratina (p1): toxic: 0.0 [0, 0]
+|chat|DEBUG|Best move of turtonator (p2): dracometeor: 231.25 [212, 252]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|switch|p2a: Azumarill|Azumarill, L84, F|237305
+|move|p1a: Turtonator|Draco Meteor|p2a: Azumarill
+|-immune|p2a: Azumarill
+|-damage|p1a: Turtonator|83100 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-xurkitree
+|chat|DEBUG|Own moves: aquajet playrough liquidation superpower
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['azumarill', 'tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['azumarill', 'tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 109
+|chat|DEBUG|HP: 237 vs 197
+|chat|DEBUG|Created a new Strategy for azumarill vs turtonator:
+|chat|DEBUG|>[liquidation: 119.75 [109, 130], liquidation: 119.75 [109, 130], liquidation: 119.75 [109, 130]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 119.75 [109, 130]
+|chat|DEBUG|Best move of turtonator (p2): earthquake: 64.3125 [59, 70]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xurkitree|Xurkitree, L76|54100
+|move|p2a: Azumarill|Liquidation|p1a: Xurkitree
+|-damage|p1a: Xurkitree|0 fnt
+|faint|p1a: Xurkitree
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Druddigon|Druddigon, L84, M|100100
+|-ability|p1a: Druddigon|Mold Breaker
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-druddigon
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: earthquake outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['azumarill', 'grimmsnarl', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 129
+|chat|DEBUG|HP: 237 vs 267
+|chat|DEBUG|Created a new Strategy for azumarill vs druddigon:
+|chat|DEBUG|>[liquidation: 82.625 [76, 90], liquidation: 82.625 [76, 90], liquidation: 82.625 [76, 90]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 82.625 [76, 90]
+|chat|DEBUG|Best move of druddigon (p2): earthquake: 133.6875 [123, 145]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Druddigon|Sucker Punch|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|187305
+|move|p2a: Azumarill|Liquidation|p1a: Druddigon
+|-resisted|p1a: Druddigon
+|-damage|p1a: Druddigon|69100
+|-unboost|p1a: Druddigon|def|1
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-druddigon
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: earthquake outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['azumarill', 'grimmsnarl']
+|chat|DEBUG|Counter: ['azumarill', 'grimmsnarl', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 129
+|chat|DEBUG|HP: 187 vs 184
+|chat|DEBUG|Created a new Strategy for azumarill vs druddigon:
+|chat|DEBUG|>[liquidation: 124.25 [114, 135], liquidation: 124.25 [114, 135], liquidation: 124.25 [114, 135]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 124.25 [114, 135]
+|chat|DEBUG|Best move of druddigon (p2): earthquake: 133.6875 [123, 145]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Druddigon|Dynamax
+|-heal|p1a: Druddigon|69100|[silent]
+|move|p2a: Azumarill|Liquidation|p1a: Druddigon
+|-resisted|p1a: Druddigon
+|-damage|p1a: Druddigon|47100
+|move|p1a: Druddigon|Max Knuckle|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|148305
+|-boost|p1a: Druddigon|atk|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent azumarill tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-azumarill-tyranitar-grimmsnarl-giratina-goodra -- turtonator-druddigon
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: earthquake outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['grimmsnarl']
+|chat|DEBUG|Counter: ['azumarill', 'tyranitar', 'grimmsnarl', 'goodra']
+|chat|DEBUG|Speed: 132 vs 129
+|chat|DEBUG|HP: 148 vs 125
+|chat|DEBUG|Created a new Strategy for azumarill vs druddigon:
+|chat|DEBUG|>[liquidation: 124.25 [114, 135], liquidation: 124.25 [114, 135], liquidation: 124.25 [114, 135]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 124.25 [114, 135]
+|chat|DEBUG|Best move of druddigon (p2): earthquake: 199.3125 [183, 216]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Azumarill|Liquidation|p1a: Druddigon
+|-resisted|p1a: Druddigon
+|-damage|p1a: Druddigon|22100
+|move|p1a: Druddigon|Max Quake|p2a: Azumarill
+|-damage|p2a: Azumarill|0 fnt
+|-boost|p1a: Druddigon|spd|1
+|faint|p2a: Azumarill
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Grimmsnarl|Grimmsnarl, L82, M|290290
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator-druddigon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['grimmsnarl']
+|chat|DEBUG|Counter: ['tyranitar', 'grimmsnarl', 'goodra']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to grimmsnarl (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|c|☆Ryuzaki_shoryu|I have only drgon xd
+|move|p2a: Grimmsnarl|Spirit Break|p1a: Druddigon
+|-supereffective|p1a: Druddigon
+|-damage|p1a: Druddigon|0 fnt
+|faint|p1a: Druddigon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Turtonator|Turtonator, L84, M|83100 tox
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grimmsnarl" vs "druddigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator-druddigon
+|chat|DEBUG|Own moves: reflect spiritbreak lightscreen thunderwave
+|chat|DEBUG|Enemy moves: earthquake outrage suckerpunch superpower
+|chat|DEBUG|Checks: ['grimmsnarl']
+|chat|DEBUG|Counter: ['tyranitar', 'grimmsnarl', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 129
+|chat|DEBUG|HP: 290 vs 58
+|chat|DEBUG|Created a new Strategy for grimmsnarl vs druddigon:
+|chat|DEBUG|>[spiritbreak: 265.0 [242, 288], spiritbreak: 265.0 [242, 288], spiritbreak: 265.0 [242, 288]]
+|chat|DEBUG|Best move of grimmsnarl (p1): spiritbreak: 265.0 [242, 288]
+|chat|DEBUG|Best move of druddigon (p2): earthquake: 237.3125 [218, 257]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Grimmsnarl|Reflect|p2a: Grimmsnarl
+|-sidestart|p2: McGewitter|Reflect
+|move|p1a: Turtonator|Fire Blast|p2a: Grimmsnarl
+|-damage|p2a: Grimmsnarl|154290
+|-damage|p1a: Turtonator|77100 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grimmsnarl" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: reflect spiritbreak lightscreen thunderwave
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Speed: 146 vs 109
+|chat|DEBUG|HP: 290 vs 197
+|chat|DEBUG|Created a new Strategy for grimmsnarl vs turtonator:
+|chat|DEBUG|>[spiritbreak: 64.25 [58, 70], spiritbreak: 64.25 [58, 70], spiritbreak: 64.25 [58, 70]]
+|chat|DEBUG|Best move of grimmsnarl (p1): spiritbreak: 64.25 [58, 70]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 128.0625 [118, 139]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Grimmsnarl|Light Screen|p2a: Grimmsnarl
+|-sidestart|p2: McGewitter|move: Light Screen
+|move|p1a: Turtonator|Fire Blast|p2a: Grimmsnarl
+|-damage|p2a: Grimmsnarl|86290
+|-damage|p1a: Turtonator|65100 tox|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grimmsnarl" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: reflect spiritbreak lightscreen thunderwave
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Speed: 146 vs 109
+|chat|DEBUG|HP: 154 vs 183
+|chat|DEBUG|Best move of grimmsnarl (p1): spiritbreak: 64.25 [58, 70]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 128.0625 [118, 139]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, F|284284
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Tyranitar
+|move|p1a: Turtonator|Fire Blast|p2a: Tyranitar
+|-resisted|p2a: Tyranitar
+|-damage|p2a: Tyranitar|265284
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Turtonator|59100 tox|[from] Sandstorm
+|-damage|p1a: Turtonator|42100 tox|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grimmsnarl" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: reflect spiritbreak lightscreen thunderwave
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['tyranitar', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Speed: 146 vs 109
+|chat|DEBUG|HP: 86 vs 154
+|chat|DEBUG|Best move of grimmsnarl (p1): spiritbreak: 64.25 [58, 70]
+|chat|DEBUG|Best move of turtonator (p2): fireblast: 128.0625 [118, 139]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tyranitar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|move|p2a: Tyranitar|Stone Edge|p1a: Turtonator|[miss]
+|-miss|p2a: Tyranitar|p1a: Turtonator
+|move|p1a: Turtonator|Earthquake|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|215284
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Turtonator|36100 tox|[from] Sandstorm
+|-damage|p1a: Turtonator|12100 tox|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tyranitar" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: stoneedge earthquake dragondance crunch
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 140 vs 109
+|chat|DEBUG|HP: 265 vs 99
+|chat|DEBUG|Created a new Strategy for tyranitar vs turtonator:
+|chat|DEBUG|>[stoneedge: 170.125 [156, 186], stoneedge: 170.125 [156, 186], stoneedge: 170.125 [156, 186]]
+|chat|DEBUG|Best move of tyranitar (p1): stoneedge: 170.125 [156, 186]
+|chat|DEBUG|Best move of turtonator (p2): earthquake: 108.25 [100, 118]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|move|p2a: Tyranitar|Stone Edge|p1a: Turtonator
+|-supereffective|p1a: Turtonator
+|-damage|p1a: Turtonator|0 fnt
+|faint|p1a: Turtonator
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Victini|Victini, L78|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent tyranitar grimmsnarl giratina goodra
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tyranitar" vs "turtonator"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-tyranitar-grimmsnarl-giratina-goodra -- turtonator
+|chat|DEBUG|Own moves: stoneedge earthquake dragondance crunch
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast shellsmash
+|chat|DEBUG|Checks: ['tyranitar', 'giratina', 'goodra']
+|chat|DEBUG|Counter: ['tyranitar', 'grimmsnarl', 'giratina', 'goodra']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 140 vs 109
+|chat|DEBUG|HP: 215 vs 28
+|chat|DEBUG|Best move of tyranitar (p1): stoneedge: 170.125 [156, 186]
+|chat|DEBUG|Best move of turtonator (p2): earthquake: 108.25 [100, 118]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ryuzaki_shoryu has 120 seconds left.
+|-start|p2a: Tyranitar|Dynamax
+|-heal|p2a: Tyranitar|430568|[silent]
+|move|p1a: Victini|Energy Ball|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|393568
+|move|p2a: Tyranitar|Max Rockfall|p1a: Victini
+|-supereffective|p1a: Victini
+|-damage|p1a: Victini|0 fnt
+|faint|p1a: Victini
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Ryuzaki_shoryu<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">greedent azumarill tyranitar grimmsnarl giratina goodra</h1>

@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490688422<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490688422|init|battle
+|title|ErickHellsing vs. McGewitter
+|j|☆ErickHellsing
+|j|☆McGewitter
+|gametype|singles
+|player|p1|ErickHellsing|giovanni|1179
+|player|p2|McGewitter|265|1162
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Basculin|Basculin-Blue-Striped, L86, M|100100
+|switch|p2a: Mew|Mew, L80|291291
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped
+|chat|DEBUG|Own moves: dragondance psychicfangs flareblitz closecombat
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zamazentacrowned']
+|chat|DEBUG|Speed: 206 vs 218
+|chat|DEBUG|HP: 291 vs 261
+|chat|DEBUG|Created a new Strategy for mew vs basculinbluestriped:
+|chat|DEBUG|>[psychicfangs: 103.25 [94, 112], psychicfangs: 103.25 [94, 112], psychicfangs: 103.25 [94, 112]]
+|chat|DEBUG|Best move of mew (p1): psychicfangs: 103.25 [94, 112]
+|chat|DEBUG|Best move of basculinbluestriped (p2): liquidation: 173.0 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychicfangs
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Basculin|Crunch|p2a: Mew
+|-supereffective|p2a: Mew
+|-damage|p2a: Mew|115291
+|move|p2a: Mew|Psychic Fangs|p1a: Basculin
+|-damage|p1a: Basculin|64100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped
+|chat|DEBUG|Own moves: dragondance psychicfangs flareblitz closecombat
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon', 'zamazentacrowned']
+|chat|DEBUG|Speed: 206 vs 218
+|chat|DEBUG|HP: 115 vs 167
+|chat|DEBUG|Best move of mew (p1): psychicfangs: 103.25 [94, 112]
+|chat|DEBUG|Best move of basculinbluestriped (p2): liquidation: 173.0 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychicfangs
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Basculin|Crunch|p2a: Mew
+|-supereffective|p2a: Mew
+|-damage|p2a: Mew|0 fnt
+|faint|p2a: Mew
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hydreigon|Hydreigon, L80, M|278278
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon', 'zamazentacrowned']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hydreigon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|move|p2a: Hydreigon|Dark Pulse|p1a: Tapu Fini
+|-resisted|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|84100
+|-heal|p1a: Tapu Fini|90100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped
+|chat|DEBUG|Own moves: roost dracometeor nastyplot darkpulse
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon', 'zamazentacrowned']
+|chat|DEBUG|Speed: 203 vs 218
+|chat|DEBUG|HP: 278 vs 167
+|chat|DEBUG|Created a new Strategy for hydreigon vs basculinbluestriped:
+|chat|DEBUG|>[darkpulse: 129.5 [118, 141], darkpulse: 129.5 [118, 141], dracometeor: 211.3125 [195, 229]]
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 129.5 [118, 141]
+|chat|DEBUG|Best move of basculinbluestriped (p2): headsmash: 164.1875 [151, 178]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zamazenta|Zamazenta-Crowned, L71|248248
+|-ability|p2a: Zamazenta|Dauntless Shield|boost
+|-boost|p2a: Zamazenta|def|1
+|move|p1a: Tapu Fini|Calm Mind|p1a: Tapu Fini
+|-boost|p1a: Tapu Fini|spa|1
+|-boost|p1a: Tapu Fini|spd|1
+|-heal|p1a: Tapu Fini|96100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped-tapufini
+|chat|DEBUG|Own moves: roost dracometeor nastyplot darkpulse
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['zamazentacrowned']
+|chat|DEBUG|Counter: ['zamazentacrowned']
+|chat|DEBUG|Speed: 203 vs 178
+|chat|DEBUG|HP: 278 vs 213
+|chat|DEBUG|Created a new Strategy for hydreigon vs tapufini:
+|chat|DEBUG|>[darkpulse: 37.4375 [34, 41], darkpulse: 37.4375 [34, 41], darkpulse: 37.4375 [34, 41]]
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 37.4375 [34, 41]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 356.75 [328, 388]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zamazentacrowned
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Tapu Fini|Dynamax
+|-heal|p1a: Tapu Fini|96100|[silent]
+|move|p2a: Zamazenta|Behemoth Bash|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|59100
+|move|p1a: Tapu Fini|Max Starfall|p2a: Zamazenta
+|-crit|p2a: Zamazenta
+|-damage|p2a: Zamazenta|29248
+|-heal|p1a: Tapu Fini|62100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zamazentacrowned" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped-tapufini
+|chat|DEBUG|Own moves: closecombat crunch psychicfangs behemothbash
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zamazentacrowned']
+|chat|DEBUG|Speed: 223 vs 178
+|chat|DEBUG|HP: 248 vs 227
+|chat|DEBUG|Created a new Strategy for zamazentacrowned vs tapufini:
+|chat|DEBUG|>[behemothbash: 85.0625 [78, 93], behemothbash: 85.0625 [78, 93], behemothbash: 85.0625 [78, 93]]
+|chat|DEBUG|Best move of zamazentacrowned (p1): behemothbash: 85.0625 [78, 93]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 103.25 [94, 112]
+|chat|DEBUG|Attacking using behemothbash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zamazenta|Behemoth Bash|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|23100
+|move|p1a: Tapu Fini|Max Starfall|p2a: Zamazenta
+|-damage|p2a: Zamazenta|0 fnt
+|faint|p2a: Zamazenta
+|-heal|p1a: Tapu Fini|26100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slurpuff|Slurpuff, L80, F|262262
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon zamazentacrowned slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zamazentacrowned" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-zamazentacrowned-slurpuff -- basculinbluestriped-tapufini
+|chat|DEBUG|Own moves: closecombat crunch psychicfangs behemothbash
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 223 vs 178
+|chat|DEBUG|HP: 29 vs 146
+|chat|DEBUG|Best move of zamazentacrowned (p1): behemothbash: 85.0625 [78, 93]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 103.25 [94, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using behemothbash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Fini|Max Geyser|p2a: Slurpuff
+|-damage|p2a: Slurpuff|66262
+|-weather|RainDance
+|-enditem|p2a: Slurpuff|Sitrus Berry|[eat]
+|-heal|p2a: Slurpuff|131262|[from] item: Sitrus Berry
+|move|p2a: Slurpuff|Play Rough|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|13100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Tapu Fini|16100|[from] item: Leftovers
+|-fieldend|Misty Terrain
+|-end|p1a: Tapu Fini|Dynamax
+|-heal|p1a: Tapu Fini|16100|[silent]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zamazentacrowned" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-slurpuff -- basculinbluestriped-tapufini
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: slurpuff
+|chat|DEBUG|>Switching to slurpuff (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 120 seconds left.
+|move|p2a: Slurpuff|Play Rough|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|0 fnt
+|faint|p1a: Tapu Fini
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Basculin|Basculin-Blue-Striped, L86, M|64100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-slurpuff -- basculinbluestriped-tapufini
+|chat|DEBUG|Own moves: drainpunch playrough bellydrum facade
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol', 'slurpuff']
+|chat|DEBUG|Speed: 161 vs 178
+|chat|DEBUG|HP: 262 vs 61
+|chat|DEBUG|Created a new Strategy for slurpuff vs tapufini:
+|chat|DEBUG|>[playrough: 67.25 [61, 73], playrough: 67.25 [61, 73], playrough: 67.25 [61, 73]]
+|chat|DEBUG|Best move of slurpuff (p1): playrough: 67.25 [61, 73]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 153.0 [141, 166]
+|chat|DEBUG|Attacking using playrough
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 120 seconds left.
+|move|p2a: Slurpuff|Play Rough|p1a: Basculin|[miss]
+|-miss|p2a: Slurpuff|p1a: Basculin
+|move|p1a: Basculin|Liquidation|p2a: Slurpuff
+|-damage|p2a: Slurpuff|0 fnt
+|faint|p2a: Slurpuff
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hydreigon|Hydreigon, L80, M|278278
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-slurpuff -- basculinbluestriped-tapufini
+|chat|DEBUG|Own moves: drainpunch playrough bellydrum facade
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol']
+|chat|DEBUG|Speed: 161 vs 178
+|chat|DEBUG|HP: 131 vs 37
+|chat|DEBUG|Best move of slurpuff (p1): playrough: 67.25 [61, 73]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 153.0 [141, 166]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using playrough
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 120 seconds left.
+|move|p1a: Basculin|Liquidation|p2a: Hydreigon
+|-resisted|p2a: Hydreigon
+|-damage|p2a: Hydreigon|150278
+|move|p2a: Hydreigon|Dark Pulse|p1a: Basculin
+|-damage|p1a: Basculin|15100
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Hydreigon|167278|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon slurpuff
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon-slurpuff -- basculinbluestriped
+|chat|DEBUG|Own moves: drainpunch playrough bellydrum facade
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 161 vs 218
+|chat|DEBUG|HP: 131 vs 167
+|chat|DEBUG|Created a new Strategy for slurpuff vs basculinbluestriped:
+|chat|DEBUG|>[playrough: 93.25 [85, 102], playrough: 93.25 [85, 102], playrough: 93.25 [85, 102]]
+|chat|DEBUG|Best move of slurpuff (p1): playrough: 93.25 [85, 102]
+|chat|DEBUG|Best move of basculinbluestriped (p2): liquidation: 193.125 [178, 210]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using playrough
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Basculin|Liquidation|p2a: Hydreigon
+|-resisted|p2a: Hydreigon
+|-damage|p2a: Hydreigon|35278
+|move|p2a: Hydreigon|Dark Pulse|p1a: Basculin
+|-damage|p1a: Basculin|0 fnt
+|faint|p1a: Basculin
+|-weather|none
+|-heal|p2a: Hydreigon|52278|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 120 seconds left.
+|switch|p1a: Obstagoon|Obstagoon, L80, F|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- basculinbluestriped
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hydreigon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Crustle|Crustle, L82, M|249249
+|move|p1a: Obstagoon|Facade|p2a: Crustle
+|-resisted|p2a: Crustle
+|-damage|p2a: Crustle|225249
+|-status|p1a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- basculinbluestriped
+|chat|DEBUG|Own moves: roost dracometeor nastyplot darkpulse
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 203 vs 218
+|chat|DEBUG|HP: 278 vs 167
+|chat|DEBUG|Created a new Strategy for hydreigon vs basculinbluestriped:
+|chat|DEBUG|>[darkpulse: 129.5 [118, 141], darkpulse: 129.5 [118, 141], dracometeor: 211.3125 [195, 229]]
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 129.5 [118, 141]
+|chat|DEBUG|Best move of basculinbluestriped (p2): headsmash: 164.1875 [151, 178]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 120 seconds left.
+|move|p1a: Obstagoon|Close Combat|p2a: Crustle
+|-damage|p2a: Crustle|141249
+|-unboost|p1a: Obstagoon|def|1
+|-unboost|p1a: Obstagoon|spd|1
+|move|p2a: Crustle|Shell Smash|p2a: Crustle
+|-unboost|p2a: Crustle|def|1
+|-unboost|p2a: Crustle|spd|1
+|-boost|p2a: Crustle|atk|2
+|-boost|p2a: Crustle|spa|2
+|-boost|p2a: Crustle|spe|2
+|-damage|p1a: Obstagoon|94100 brn|[from] brn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "basculinbluestriped"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- basculinbluestriped
+|chat|DEBUG|Own moves: roost dracometeor nastyplot darkpulse
+|chat|DEBUG|Enemy moves: aquajet headsmash liquidation psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 203 vs 218
+|chat|DEBUG|HP: 167 vs 39
+|chat|DEBUG|Best move of hydreigon (p1): darkpulse: 129.5 [118, 141]
+|chat|DEBUG|Best move of basculinbluestriped (p2): headsmash: 164.1875 [151, 178]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 120 seconds left.
+|move|p2a: Crustle|X-Scissor|p1a: Obstagoon
+|-supereffective|p1a: Obstagoon
+|-damage|p1a: Obstagoon|0 fnt
+|faint|p1a: Obstagoon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Goodra|Goodra, L82, M|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hydreigon" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- obstagoon
+|chat|DEBUG|Own moves: roost dracometeor nastyplot darkpulse
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['crustle']
+|chat|DEBUG|Counter: ['crustle']
+|chat|DEBUG|Speed: 203 vs 198
+|chat|DEBUG|HP: 52 vs 280
+|chat|DEBUG|Created a new Strategy for hydreigon vs obstagoon:
+|chat|DEBUG|>[dracometeor: 172.625 [159, 187], dracometeor: 86.4375 [79, 94], dracometeor: 58.625 [54, 64]]
+|chat|DEBUG|Best move of hydreigon (p1): dracometeor: 172.625 [159, 187]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 152.75 [140, 166]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check crustle
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crustle|X-Scissor|p1a: Goodra
+|-damage|p1a: Goodra|21100
+|move|p1a: Goodra|Earthquake|p2a: Crustle
+|-damage|p2a: Crustle|61249
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crustle" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- obstagoon
+|chat|DEBUG|Own moves: shellsmash xscissor stoneedge earthquake
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['crustle']
+|chat|DEBUG|Counter: ['crustle']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 121 vs 198
+|chat|DEBUG|HP: 225 vs 280
+|chat|DEBUG|Created a new Strategy for crustle vs obstagoon:
+|chat|DEBUG|>[xscissor: 161.875 [150, 176], xscissor: 161.875 [150, 176], xscissor: 161.875 [150, 176]]
+|chat|DEBUG|Best move of crustle (p1): xscissor: 161.875 [150, 176]
+|chat|DEBUG|Best move of obstagoon (p2): knockoff: 69.5625 [64, 76]
+|chat|DEBUG|Boost Moves: [shellsmash (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crustle|X-Scissor|p1a: Goodra
+|-crit|p1a: Goodra
+|-damage|p1a: Goodra|0 fnt
+|faint|p1a: Goodra
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|switch|p1a: Dhelmise|Dhelmise, L86|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crustle" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- obstagoon
+|chat|DEBUG|Own moves: shellsmash xscissor stoneedge earthquake
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['crustle']
+|chat|DEBUG|Speed: 121 vs 198
+|chat|DEBUG|HP: 141 vs 263
+|chat|DEBUG|Best move of crustle (p1): xscissor: 161.875 [150, 176]
+|chat|DEBUG|Best move of obstagoon (p2): knockoff: 104.5 [96, 114]
+|chat|DEBUG|Attacking using xscissor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Crustle|X-Scissor|p1a: Dhelmise
+|-damage|p1a: Dhelmise|43100
+|move|p1a: Dhelmise|Poltergeist|p2a: Crustle
+|-activate|p2a: Crustle|move: Poltergeist|Heavy-Duty Boots
+|-damage|p2a: Crustle|0 fnt
+|faint|p2a: Crustle
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Claydol|Claydol, L86|243243
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crustle" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- goodra
+|chat|DEBUG|Own moves: shellsmash xscissor stoneedge earthquake
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 121 vs 178
+|chat|DEBUG|HP: 141 vs 282
+|chat|DEBUG|Created a new Strategy for crustle vs goodra:
+|chat|DEBUG|>[xscissor: 206.0 [189, 223], xscissor: 206.0 [189, 223], xscissor: 206.0 [189, 223]]
+|chat|DEBUG|Best move of crustle (p1): xscissor: 206.0 [189, 223]
+|chat|DEBUG|Best move of goodra (p2): dracometeor: 249.0 [229, 270]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using xscissor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Claydol|Dynamax
+|-heal|p2a: Claydol|486486|[silent]
+|move|p2a: Claydol|Max Hailstorm|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|-weather|Hail
+|faint|p1a: Dhelmise
+|-weather|Hail|[upkeep]
+|-damage|p2a: Claydol|471486|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|switch|p1a: Calyrex|Calyrex, L88|100100
+|-ability|p1a: Calyrex|Unnerve
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crustle" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- goodra
+|chat|DEBUG|Own moves: shellsmash xscissor stoneedge earthquake
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol']
+|chat|DEBUG|Speed: 121 vs 178
+|chat|DEBUG|HP: 61 vs 59
+|chat|DEBUG|Best move of crustle (p1): xscissor: 206.0 [189, 223]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 140.0625 [129, 152]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using xscissor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Calyrex|Substitute|p1a: Calyrex
+|-start|p1a: Calyrex|Substitute
+|-damage|p1a: Calyrex|76100
+|move|p2a: Claydol|Max Strike|p1a: Calyrex
+|-activate|p1a: Calyrex|move: Substitute|[damage]
+|-unboost|p1a: Calyrex|spe|1
+|-weather|Hail|[upkeep]
+|-damage|p2a: Claydol|456486|[from] Hail
+|-damage|p1a: Calyrex|70100|[from] Hail
+|-heal|p1a: Calyrex|76100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crustle claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crustle" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crustle-claydol-hydreigon -- dhelmise
+|chat|DEBUG|Own moves: shellsmash xscissor stoneedge earthquake
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 121 vs 118
+|chat|DEBUG|HP: 61 vs 261
+|chat|DEBUG|Created a new Strategy for crustle vs dhelmise:
+|chat|DEBUG|>[xscissor: 150.1875 [138, 163], xscissor: 150.1875 [138, 163], xscissor: 150.1875 [138, 163]]
+|chat|DEBUG|Best move of crustle (p1): xscissor: 150.1875 [138, 163]
+|chat|DEBUG|Best move of dhelmise (p2): anchorshot: 263.5 [242, 286]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using xscissor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Claydol|Max Strike|p1a: Calyrex
+|-end|p1a: Calyrex|Substitute
+|-unboost|p1a: Calyrex|spe|1
+|move|p1a: Calyrex|Calm Mind|p1a: Calyrex
+|-boost|p1a: Calyrex|spa|1
+|-boost|p1a: Calyrex|spd|1
+|-weather|Hail|[upkeep]
+|-damage|p2a: Claydol|441486|[from] Hail
+|-damage|p1a: Calyrex|70100|[from] Hail
+|-heal|p1a: Calyrex|76100|[from] item: Leftovers
+|-end|p2a: Claydol|Dynamax
+|-heal|p2a: Claydol|221243|[silent]
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crustle" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>claydol-hydreigon -- dhelmise
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: claydol
+|chat|DEBUG|>Switching to claydol (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Claydol|Ice Beam|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|52100
+|move|p1a: Calyrex|Substitute|p1a: Calyrex
+|-start|p1a: Calyrex|Substitute
+|-damage|p1a: Calyrex|27100
+|-weather|Hail|[upkeep]
+|-damage|p2a: Claydol|206243|[from] Hail
+|-damage|p1a: Calyrex|21100|[from] Hail
+|-heal|p1a: Calyrex|27100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>claydol hydreigon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "claydol" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>claydol-hydreigon -- dhelmise
+|chat|DEBUG|Own moves: psychic earthquake rapidspin icebeam
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hydreigon']
+|chat|DEBUG|Speed: 178 vs 118
+|chat|DEBUG|HP: 243 vs 112
+|chat|DEBUG|Created a new Strategy for claydol vs dhelmise:
+|chat|DEBUG|>[icebeam: 102.625 [94, 112], icebeam: 102.625 [94, 112], icebeam: 102.625 [94, 112]]
+|chat|DEBUG|Best move of claydol (p1): icebeam: 102.625 [94, 112]
+|chat|DEBUG|Best move of dhelmise (p2): powerwhip: 289.125 [266, 314]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Claydol|Ice Beam|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-activate|p1a: Calyrex|move: Substitute|[damage]
+|move|p1a: Calyrex|Giga Drain|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|92243
+|-heal|p1a: Calyrex|45100|[from] drain|[of] p2a: Claydol
+|-weather|none
+|-heal|p1a: Calyrex|51100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>claydol hydreigon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "calyrex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>claydol-hydreigon -- calyrex
+|chat|DEBUG|Own moves: psychic earthquake rapidspin icebeam
+|chat|DEBUG|Enemy moves: calmmind gigadrain psyshock substitute
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['claydol', 'hydreigon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 191
+|chat|DEBUG|HP: 471 vs 319
+|chat|DEBUG|Created a new Strategy for claydol vs calyrex:
+|chat|DEBUG|>[icebeam: 108.25 [100, 118], icebeam: 108.25 [100, 118], icebeam: 108.25 [100, 118]]
+|chat|DEBUG|Best move of claydol (p1): icebeam: 108.25 [100, 118]
+|chat|DEBUG|Best move of calyrex (p2): gigadrain: 78.5 [72, 86]
+|chat|DEBUG|Boost Moves: [rapidspin (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Claydol|Ice Beam|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-end|p1a: Calyrex|Substitute
+|move|p1a: Calyrex|Giga Drain|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|0 fnt
+|-heal|p1a: Calyrex|65100|[from] drain|[of] p2a: Claydol
+|faint|p2a: Claydol
+|-heal|p1a: Calyrex|71100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hydreigon|Hydreigon, L80, M|52278
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>claydol hydreigon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "calyrex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>claydol-hydreigon -- calyrex
+|chat|DEBUG|Own moves: psychic earthquake rapidspin icebeam
+|chat|DEBUG|Enemy moves: calmmind gigadrain psyshock substitute
+|chat|DEBUG|Checks: ['claydol']
+|chat|DEBUG|Counter: ['claydol', 'hydreigon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 191
+|chat|DEBUG|HP: 456 vs 242
+|chat|DEBUG|Best move of claydol (p1): icebeam: 108.25 [100, 118]
+|chat|DEBUG|Best move of calyrex (p2): gigadrain: 78.5 [72, 86]
+|chat|DEBUG|Boost Moves: [rapidspin (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Hydreigon|Dark Pulse|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|34100
+|cant|p1a: Calyrex|flinch
+|-heal|p2a: Hydreigon|69278|[from] item: Leftovers
+|-heal|p1a: Calyrex|40100|[from] item: Leftovers
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>claydol hydreigon
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "calyrex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>claydol-hydreigon -- calyrex
+|chat|DEBUG|Own moves: psychic earthquake rapidspin icebeam
+|chat|DEBUG|Enemy moves: calmmind gigadrain psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 178 vs 191
+|chat|DEBUG|HP: 221 vs 242
+|chat|DEBUG|Best move of claydol (p1): icebeam: 108.25 [100, 118]
+|chat|DEBUG|Best move of calyrex (p2): gigadrain: 117.25 [108, 128]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|ErickHellsing has 90 seconds left.
+|move|p2a: Hydreigon|Dark Pulse|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|0 fnt
+|faint|p1a: Calyrex
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>ErickHellsing<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mew crustle claydol hydreigon zamazentacrowned slurpuff</h1>

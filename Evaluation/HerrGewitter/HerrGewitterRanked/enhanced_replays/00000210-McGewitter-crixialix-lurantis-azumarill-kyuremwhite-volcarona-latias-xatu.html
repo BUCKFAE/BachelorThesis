@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490317397<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490317397|init|battle
+|title|McGewitter vs. crixialix
+|j|☆McGewitter
+|j|☆crixialix
+|gametype|singles
+|player|p1|McGewitter|265|1253
+|player|p2|crixialix|2|1210
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Lurantis|Lurantis, L86, F|261261
+|switch|p2a: Arctozolt|Arctozolt, L86|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lurantis" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt
+|chat|DEBUG|Own moves: defog knockoff leafstorm synthesis
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['kyuremwhite']
+|chat|DEBUG|Counter: ['kyuremwhite', 'volcarona']
+|chat|DEBUG|Speed: 127 vs 144
+|chat|DEBUG|HP: 261 vs 295
+|chat|DEBUG|Created a new Strategy for lurantis vs arctozolt:
+|chat|DEBUG|>[leafstorm: 131.0 [120, 142], knockoff: 73.625 [68, 80], knockoff: 73.625 [68, 80]]
+|chat|DEBUG|Best move of lurantis (p1): leafstorm: 131.0 [120, 142]
+|chat|DEBUG|Best move of arctozolt (p2): iciclecrash: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kyuremwhite
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Kyurem|Kyurem-White, L74|307307
+|-ability|p1a: Kyurem|Turboblaze
+|move|p2a: Arctozolt|Icicle Crash|p1a: Kyurem|[miss]
+|-miss|p2a: Arctozolt|p1a: Kyurem
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt
+|chat|DEBUG|Own moves: dracometeor freezedry earthpower fusionflare
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['kyuremwhite']
+|chat|DEBUG|Counter: ['kyuremwhite', 'volcarona']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 184 vs 144
+|chat|DEBUG|HP: 307 vs 295
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs arctozolt:
+|chat|DEBUG|>[fusionflare: 183.0 [168, 198], fusionflare: 183.0 [168, 198], fusionflare: 183.0 [168, 198]]
+|chat|DEBUG|Best move of kyuremwhite (p1): fusionflare: 183.0 [168, 198]
+|chat|DEBUG|Best move of arctozolt (p2): iciclecrash: 107.3125 [99, 117]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fusionflare
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|100100
+|move|p1a: Kyurem|Fusion Flare|p2a: Cinderace
+|-resisted|p2a: Cinderace
+|-damage|p2a: Cinderace|78100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt-cinderace
+|chat|DEBUG|Own moves: fusionflare
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['azumarill', 'kyuremwhite', 'latias', 'xatu']
+|chat|DEBUG|Speed: 184 vs 219
+|chat|DEBUG|HP: 307 vs 187
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs cinderace:
+|chat|DEBUG|>[fusionflare: 55.125 [51, 60], fusionflare: 55.125 [51, 60], fusionflare: 55.125 [51, 60]]
+|chat|DEBUG|Best move of kyuremwhite (p1): fusionflare: 55.125 [51, 60]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 277.0 [254, 300]
+|chat|DEBUG|Attacking using fusionflare
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Fusion Flare|p2a: Cinderace
+|-resisted|p2a: Cinderace
+|-damage|p2a: Cinderace|56100
+|move|p2a: Cinderace|Pyro Ball|p1a: Kyurem
+|-damage|p1a: Kyurem|183307
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt-cinderace
+|chat|DEBUG|Own moves: fusionflare
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['azumarill', 'latias', 'xatu']
+|chat|DEBUG|Speed: 184 vs 219
+|chat|DEBUG|HP: 183 vs 134
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs cinderace:
+|chat|DEBUG|>[fusionflare: 55.125 [51, 60], fusionflare: 55.125 [51, 60], fusionflare: 55.125 [51, 60]]
+|chat|DEBUG|Best move of kyuremwhite (p1): fusionflare: 55.125 [51, 60]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Azumarill|Azumarill, L84, F|305305
+|move|p2a: Cinderace|Pyro Ball|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|240305
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt-cinderace
+|chat|DEBUG|Own moves: playrough aquajet knockoff liquidation
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['azumarill', 'latias', 'xatu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 219
+|chat|DEBUG|HP: 240 vs 134
+|chat|DEBUG|Created a new Strategy for azumarill vs cinderace:
+|chat|DEBUG|>[liquidation: 428.0 [392, 464], liquidation: 428.0 [392, 464], liquidation: 428.0 [392, 464]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 428.0 [392, 464]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 66.0 [60, 72]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arctozolt|Arctozolt, L86|100100
+|move|p1a: Azumarill|Liquidation|p2a: Arctozolt
+|-damage|p2a: Arctozolt|44100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt-cinderace
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['kyuremwhite', 'volcarona']
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 132 vs 144
+|chat|DEBUG|HP: 240 vs 129
+|chat|DEBUG|Created a new Strategy for azumarill vs arctozolt:
+|chat|DEBUG|>[liquidation: 161.25 [148, 175], liquidation: 161.25 [148, 175], liquidation: 161.25 [148, 175]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 161.25 [148, 175]
+|chat|DEBUG|Best move of arctozolt (p2): boltbeak: 412.0 [378, 446]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kyuremwhite
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyurem|Kyurem-White, L74|183307
+|-ability|p1a: Kyurem|Turboblaze
+|move|p2a: Arctozolt|Bolt Beak|p1a: Kyurem
+|-resisted|p1a: Kyurem
+|-damage|p1a: Kyurem|71307
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt-cinderace
+|chat|DEBUG|Own moves: dracometeor freezedry earthpower fusionflare
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['volcarona']
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 184 vs 144
+|chat|DEBUG|HP: 71 vs 129
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs arctozolt:
+|chat|DEBUG|>[fusionflare: 183.0 [168, 198], fusionflare: 183.0 [168, 198], fusionflare: 183.0 [168, 198]]
+|chat|DEBUG|Best move of kyuremwhite (p1): fusionflare: 183.0 [168, 198]
+|chat|DEBUG|Best move of arctozolt (p2): iciclecrash: 107.3125 [99, 117]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Fusion Flare|p2a: Arctozolt
+|-supereffective|p2a: Arctozolt
+|-damage|p2a: Arctozolt|4100
+|move|p2a: Arctozolt|Bolt Beak|p1a: Kyurem
+|-resisted|p1a: Kyurem
+|-damage|p1a: Kyurem|16307
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- arctozolt-cinderace
+|chat|DEBUG|Own moves: fusionflare
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['volcarona', 'latias', 'xatu']
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 184 vs 144
+|chat|DEBUG|HP: 16 vs 11
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs arctozolt:
+|chat|DEBUG|>[fusionflare: 183.0 [168, 198], fusionflare: 183.0 [168, 198], fusionflare: 183.0 [168, 198]]
+|chat|DEBUG|Best move of kyuremwhite (p1): fusionflare: 183.0 [168, 198]
+|chat|DEBUG|Best move of arctozolt (p2): iciclecrash: 107.3125 [99, 117]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Fusion Flare|p2a: Arctozolt
+|-supereffective|p2a: Arctozolt
+|-damage|p2a: Arctozolt|0 fnt
+|faint|p2a: Arctozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|56100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace
+|chat|DEBUG|Own moves: fusionflare
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['azumarill', 'latias', 'xatu']
+|chat|DEBUG|Speed: 184 vs 219
+|chat|DEBUG|HP: 16 vs 134
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs cinderace:
+|chat|DEBUG|>[fusionflare: 55.125 [51, 60], fusionflare: 55.125 [51, 60], fusionflare: 55.125 [51, 60]]
+|chat|DEBUG|Best move of kyuremwhite (p1): fusionflare: 55.125 [51, 60]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Azumarill|Azumarill, L84, F|240305
+|move|p2a: Cinderace|Pyro Ball|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|183305
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace
+|chat|DEBUG|Own moves: playrough aquajet knockoff liquidation
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['azumarill', 'latias', 'xatu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 219
+|chat|DEBUG|HP: 183 vs 134
+|chat|DEBUG|Created a new Strategy for azumarill vs cinderace:
+|chat|DEBUG|>[liquidation: 428.0 [392, 464], liquidation: 428.0 [392, 464], liquidation: 428.0 [392, 464]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 428.0 [392, 464]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 66.0 [60, 72]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Relicanth|Relicanth, L86, F|100100
+|move|p1a: Azumarill|Liquidation|p2a: Relicanth
+|-damage|p2a: Relicanth|63100
+|-unboost|p2a: Relicanth|def|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: ['latias']
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 132 vs 144
+|chat|DEBUG|HP: 183 vs 196
+|chat|DEBUG|Created a new Strategy for azumarill vs relicanth:
+|chat|DEBUG|>[liquidation: 180.6875 [166, 196], liquidation: 180.6875 [166, 196], liquidation: 180.6875 [166, 196]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 180.6875 [166, 196]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 251.625 [231, 273]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check latias
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Latias|Latias, L80, F|259259
+|move|p2a: Relicanth|Body Press|p1a: Latias
+|-resisted|p1a: Latias
+|-damage|p1a: Latias|217259
+|-heal|p1a: Latias|233259|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: roost dracometeor mysticalfire psychic
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 222 vs 144
+|chat|DEBUG|HP: 233 vs 196
+|chat|DEBUG|Created a new Strategy for latias vs relicanth:
+|chat|DEBUG|>[psychic: 118.3125 [109, 129], psychic: 118.3125 [109, 129], dracometeor: 169.6875 [156, 184]]
+|chat|DEBUG|Best move of latias (p1): psychic: 118.3125 [109, 129]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 242.0 [222, 262]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|56100
+|move|p1a: Latias|Psychic|p2a: Cinderace
+|-damage|p2a: Cinderace|5100
+|-heal|p1a: Latias|249259|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: roost dracometeor mysticalfire psychic
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'latias', 'xatu']
+|chat|DEBUG|Counter: ['lurantis', 'azumarill', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 222 vs 219
+|chat|DEBUG|HP: 249 vs 12
+|chat|DEBUG|Created a new Strategy for latias vs cinderace:
+|chat|DEBUG|>[psychic: 124.0625 [114, 135], psychic: 124.0625 [114, 135], dracometeor: 177.9375 [163, 193]]
+|chat|DEBUG|Best move of latias (p1): psychic: 124.0625 [114, 135]
+|chat|DEBUG|Best move of cinderace (p2): suckerpunch: 139.125 [128, 152]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Sucker Punch|p1a: Latias
+|-start|p2a: Cinderace|typechange|Dark|[from] ability: Libero
+|-supereffective|p1a: Latias
+|-damage|p1a: Latias|117259
+|move|p1a: Latias|Psychic|p2a: Cinderace
+|-immune|p2a: Cinderace
+|-heal|p1a: Latias|133259|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: roost dracometeor mysticalfire psychic
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['lurantis', 'azumarill', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 222 vs 219
+|chat|DEBUG|HP: 133 vs 12
+|chat|DEBUG|Best move of latias (p1): psychic: 124.0625 [114, 135]
+|chat|DEBUG|Best move of cinderace (p2): suckerpunch: 139.125 [128, 152]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latias|Psychic|p2a: Cinderace
+|-immune|p2a: Cinderace
+|move|p2a: Cinderace|Pyro Ball|p1a: Latias
+|-start|p2a: Cinderace|typechange|Fire|[from] ability: Libero
+|-resisted|p1a: Latias
+|-damage|p1a: Latias|74259
+|-status|p1a: Latias|brn
+|-heal|p1a: Latias|90259 brn|[from] item: Leftovers
+|-damage|p1a: Latias|74259 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-latias-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: roost dracometeor mysticalfire psychic
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['lurantis', 'azumarill', 'volcarona', 'latias', 'xatu']
+|chat|DEBUG|Speed: 222 vs 219
+|chat|DEBUG|HP: 74 vs 12
+|chat|DEBUG|Best move of latias (p1): dracometeor: 177.9375 [163, 193]
+|chat|DEBUG|Best move of cinderace (p2): suckerpunch: 139.125 [128, 152]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Sucker Punch|p1a: Latias
+|-start|p2a: Cinderace|typechange|Dark|[from] ability: Libero
+|-supereffective|p1a: Latias
+|-damage|p1a: Latias|0 fnt
+|faint|p1a: Latias
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Azumarill|Azumarill, L84, F|183305
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['lurantis', 'azumarill', 'volcarona', 'xatu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to azumarill (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|High Jump Kick|p1a: Azumarill
+|-start|p2a: Cinderace|typechange|Fighting|[from] ability: Libero
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|119305
+|move|p1a: Azumarill|Liquidation|p2a: Cinderace
+|-damage|p2a: Cinderace|0 fnt
+|faint|p2a: Cinderace
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Relicanth|Relicanth, L86, F|63100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-xatu -- cinderace-relicanth
+|chat|DEBUG|Own moves: playrough aquajet knockoff liquidation
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['azumarill', 'xatu']
+|chat|DEBUG|Counter: ['lurantis', 'azumarill', 'volcarona', 'xatu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 132 vs 219
+|chat|DEBUG|HP: 183 vs 12
+|chat|DEBUG|Created a new Strategy for azumarill vs cinderace:
+|chat|DEBUG|>[liquidation: 428.0 [392, 464], liquidation: 428.0 [392, 464], liquidation: 428.0 [392, 464]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 428.0 [392, 464]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 66.0 [60, 72]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Relicanth|Liquidation|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|45305
+|move|p1a: Azumarill|Liquidation|p2a: Relicanth
+|-damage|p2a: Relicanth|24100
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-xatu -- relicanth
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'xatu']
+|chat|DEBUG|Speed: 132 vs 144
+|chat|DEBUG|HP: 119 vs 196
+|chat|DEBUG|Created a new Strategy for azumarill vs relicanth:
+|chat|DEBUG|>[liquidation: 121.1875 [111, 132], liquidation: 121.1875 [111, 132], liquidation: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 121.1875 [111, 132]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 251.625 [231, 273]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Relicanth|Liquidation|p1a: Azumarill
+|-resisted|p1a: Azumarill
+|-damage|p1a: Azumarill|0 fnt
+|faint|p1a: Azumarill
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lurantis|Lurantis, L86, F|261261
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis azumarill kyuremwhite volcarona xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-azumarill-kyuremwhite-volcarona-xatu -- relicanth
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'xatu']
+|chat|DEBUG|Speed: 132 vs 144
+|chat|DEBUG|HP: 45 vs 74
+|chat|DEBUG|Created a new Strategy for azumarill vs relicanth:
+|chat|DEBUG|>[liquidation: 121.1875 [111, 132], liquidation: 121.1875 [111, 132], liquidation: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 121.1875 [111, 132]
+|chat|DEBUG|Best move of relicanth (p2): headsmash: 251.625 [231, 273]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Relicanth|Liquidation|p1a: Lurantis
+|-resisted|p1a: Lurantis
+|-damage|p1a: Lurantis|201261
+|move|p1a: Lurantis|Leaf Storm|p2a: Relicanth
+|-supereffective|p2a: Relicanth
+|-damage|p2a: Relicanth|0 fnt
+|-boost|p1a: Lurantis|spa|2
+|faint|p2a: Relicanth
+|-heal|p1a: Lurantis|217261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Marshadow|Marshadow, L70|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lurantis kyuremwhite volcarona xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "relicanth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lurantis-kyuremwhite-volcarona-xatu -- relicanth
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress earthquake headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lurantis', 'kyuremwhite', 'volcarona', 'xatu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lurantis (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Marshadow|Bulk Up|p2a: Marshadow
+|-boost|p2a: Marshadow|atk|1
+|-boost|p2a: Marshadow|def|1
+|move|p1a: Lurantis|Leaf Storm|p2a: Marshadow
+|-damage|p2a: Marshadow|0 fnt
+|-boost|p1a: Lurantis|spa|2
+|faint|p2a: Marshadow
+|-heal|p1a: Lurantis|233261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-message|crixialix forfeited.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>crixialix</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lurantis azumarill kyuremwhite volcarona latias xatu</h1>

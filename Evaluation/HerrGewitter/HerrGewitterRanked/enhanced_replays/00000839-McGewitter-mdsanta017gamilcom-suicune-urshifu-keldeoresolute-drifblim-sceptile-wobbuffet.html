@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491315333<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491315333|init|battle
+|title|McGewitter vs. mdsanta017gamilcom
+|j|☆McGewitter
+|j|☆mdsanta017gamilcom
+|gametype|singles
+|player|p1|McGewitter|265|1170
+|player|p2|mdsanta017gamilcom|cheryl|1133
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Suicune|Suicune, L80|291291
+|switch|p2a: Blaziken|Blaziken, L76, F|100100
+|-ability|p1a: Suicune|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "blaziken"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: closecombat flareblitz knockoff swordsdance
+|chat|DEBUG|Checks: ['suicune', 'keldeoresolute']
+|chat|DEBUG|Counter: ['suicune', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 166
+|chat|DEBUG|HP: 291 vs 247
+|chat|DEBUG|Created a new Strategy for suicune vs blaziken:
+|chat|DEBUG|>[scald: 192.375 [176, 210], scald: 192.375 [176, 210], scald: 192.375 [176, 210]]
+|chat|DEBUG|Best move of suicune (p1): scald: 192.375 [176, 210]
+|chat|DEBUG|Best move of blaziken (p2): closecombat: 137.625 [126, 149]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Toxtricity|Toxtricity-Low-Key, L82, F|100100
+|move|p1a: Suicune|Scald|p2a: Toxtricity
+|-damage|p2a: Toxtricity|63100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-toxtricitylowkey
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['sceptile']
+|chat|DEBUG|Counter: ['suicune', 'urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Speed: 182 vs 170
+|chat|DEBUG|HP: 291 vs 161
+|chat|DEBUG|Created a new Strategy for suicune vs toxtricitylowkey:
+|chat|DEBUG|>[scald: 89.1875 [82, 97], scald: 89.1875 [82, 97], scald: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of suicune (p1): scald: 89.1875 [82, 97]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): overdrive: 203.3125 [187, 221]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Toxtricity|Overdrive|p1a: Suicune
+|-supereffective|p1a: Suicune
+|-damage|p1a: Suicune|81291
+|move|p1a: Suicune|Scald|p2a: Toxtricity
+|-damage|p2a: Toxtricity|28100
+|-heal|p1a: Suicune|99291|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-toxtricitylowkey
+|chat|DEBUG|Own moves: icebeam airslash scald calmmind
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Counter: ['suicune', 'urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Speed: 182 vs 170
+|chat|DEBUG|HP: 99 vs 71
+|chat|DEBUG|Best move of suicune (p1): scald: 89.1875 [82, 97]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): overdrive: 203.3125 [187, 221]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Toxtricity|Overdrive|p1a: Suicune
+|-supereffective|p1a: Suicune
+|-damage|p1a: Suicune|0 fnt
+|faint|p1a: Suicune
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Urshifu|Urshifu, L76, F|277277
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-toxtricitylowkey
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Counter: ['urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to urshifu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Toxtricity|Overdrive|p1a: Urshifu
+|-damage|p1a: Urshifu|112277
+|move|p1a: Urshifu|Wicked Blow|p2a: Toxtricity
+|-crit|p2a: Toxtricity
+|-damage|p2a: Toxtricity|0 fnt
+|faint|p2a: Toxtricity
+|-heal|p1a: Urshifu|129277|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Buzzwole|Buzzwole, L77|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "toxtricitylowkey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-toxtricitylowkey
+|chat|DEBUG|Own moves: bulkup wickedblow drainpunch substitute
+|chat|DEBUG|Enemy moves: boomburst overdrive sludgewave voltswitch
+|chat|DEBUG|Checks: ['urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Counter: ['urshifu', 'keldeoresolute', 'drifblim', 'sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 191 vs 170
+|chat|DEBUG|HP: 277 vs 71
+|chat|DEBUG|Created a new Strategy for urshifu vs toxtricitylowkey:
+|chat|DEBUG|>[wickedblow: 161.25 [148, 175], wickedblow: 161.25 [148, 175], wickedblow: 161.25 [148, 175]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 161.25 [148, 175]
+|chat|DEBUG|Best move of toxtricitylowkey (p2): boomburst: 200.0625 [183, 217]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Wicked Blow|p2a: Buzzwole
+|-resisted|p2a: Buzzwole
+|-crit|p2a: Buzzwole
+|-damage|p2a: Buzzwole|83100
+|move|p2a: Buzzwole|Dual Wingbeat|p1a: Urshifu|[miss]
+|-miss|p2a: Buzzwole|p1a: Urshifu
+|-heal|p1a: Urshifu|146277|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: bulkup wickedblow drainpunch substitute
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute']
+|chat|DEBUG|Speed: 191 vs 166
+|chat|DEBUG|HP: 129 vs 291
+|chat|DEBUG|Created a new Strategy for urshifu vs buzzwole:
+|chat|DEBUG|>[wickedblow: 49.9375 [46, 54], wickedblow: 49.9375 [46, 54], wickedblow: 49.9375 [46, 54]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 49.9375 [46, 54]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 425.375 [390, 462]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using wickedblow
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Wicked Blow|p2a: Buzzwole
+|-resisted|p2a: Buzzwole
+|-crit|p2a: Buzzwole
+|-damage|p2a: Buzzwole|67100
+|move|p2a: Buzzwole|Dual Wingbeat|p1a: Urshifu
+|-supereffective|p1a: Urshifu
+|-damage|p1a: Urshifu|52277
+|-supereffective|p1a: Urshifu
+|-damage|p1a: Urshifu|0 fnt
+|faint|p1a: Urshifu
+|-ability|p2a: Buzzwole|Beast Boost|boost
+|-boost|p2a: Buzzwole|atk|1
+|-hitcount|p1: Urshifu|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Keldeo|Keldeo-Resolute, L79|273273
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: bulkup wickedblow drainpunch substitute
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute', 'drifblim']
+|chat|DEBUG|Speed: 191 vs 166
+|chat|DEBUG|HP: 146 vs 241
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 49.9375 [46, 54]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 425.375 [390, 462]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using wickedblow
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Keldeo|Scald|p2a: Buzzwole
+|-damage|p2a: Buzzwole|19100
+|move|p2a: Buzzwole|Dual Wingbeat|p1a: Keldeo
+|-supereffective|p1a: Keldeo
+|-damage|p1a: Keldeo|137273
+|-supereffective|p1a: Keldeo
+|-damage|p1a: Keldeo|0 fnt
+|faint|p1a: Keldeo
+|-ability|p2a: Buzzwole|Beast Boost|boost
+|-boost|p2a: Buzzwole|atk|1
+|-hitcount|p1: Keldeo|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wobbuffet|Wobbuffet, L92, M|499499
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute', 'drifblim']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to keldeoresolute (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drifblim|Drifblim, L84, M|389389
+|move|p2a: Buzzwole|Dual Wingbeat|p1a: Drifblim
+|-crit|p1a: Drifblim
+|-damage|p1a: Drifblim|177389
+|-enditem|p1a: Drifblim|Sitrus Berry|[eat]
+|-heal|p1a: Drifblim|274389|[from] item: Sitrus Berry
+|-damage|p1a: Drifblim|109389
+|-hitcount|p1a: Drifblim|2
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>keldeoresolute drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>keldeoresolute-drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: substitute scald calmmind secretsword
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 216 vs 166
+|chat|DEBUG|HP: 273 vs 194
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs buzzwole:
+|chat|DEBUG|>[scald: 146.125 [135, 159], scald: 146.125 [135, 159], scald: 146.125 [135, 159]]
+|chat|DEBUG|Best move of keldeoresolute (p1): scald: 146.125 [135, 159]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 330.625 [304, 358]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drifblim|Shadow Ball|p2a: Buzzwole
+|-damage|p2a: Buzzwole|0 fnt
+|faint|p2a: Buzzwole
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raikou|Raikou, L80|100100
+|-ability|p2a: Raikou|Pressure
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: wobbuffet
+|chat|DEBUG|>Switching to wobbuffet (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sceptile|Sceptile, L86, F|261261
+|move|p2a: Raikou|Thunderbolt|p1a: Sceptile
+|-resisted|p1a: Sceptile
+|-damage|p1a: Sceptile|214261
+|-heal|p1a: Sceptile|230261|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wobbuffet" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: charm mirrorcoat encore counter
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drifblim', 'sceptile']
+|chat|DEBUG|Speed: 113 vs 166
+|chat|DEBUG|HP: 499 vs 55
+|chat|DEBUG|Created a new Strategy for wobbuffet vs buzzwole:
+|chat|DEBUG|>[counter: 0.0 [0, 0], counter: 0.0 [0, 0], counter: 0.0 [0, 0]]
+|chat|DEBUG|Best move of wobbuffet (p1): counter: 0.0 [0, 0]
+|chat|DEBUG|Best move of buzzwole (p2): leechlife: 697.25 [642, 756]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to drifblim as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Earthquake|p2a: Raikou
+|-supereffective|p2a: Raikou
+|-damage|p2a: Raikou|43100
+|move|p2a: Raikou|Calm Mind|p2a: Raikou
+|-boost|p2a: Raikou|spa|1
+|-boost|p2a: Raikou|spd|1
+|-heal|p1a: Sceptile|246261|[from] item: Leftovers
+|-heal|p2a: Raikou|49100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-buzzwole
+|chat|DEBUG|Own moves: thunderbolt strengthsap shadowball calmmind
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drifblim', 'sceptile']
+|chat|DEBUG|Speed: 183 vs 166
+|chat|DEBUG|HP: 109 vs 55
+|chat|DEBUG|Created a new Strategy for drifblim vs buzzwole:
+|chat|DEBUG|>[shadowball: 124.0625 [114, 135], shadowball: 124.0625 [114, 135], shadowball: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 124.0625 [114, 135]
+|chat|DEBUG|Best move of buzzwole (p2): stoneedge: 755.625 [694, 818]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Earthquake|p2a: Raikou
+|-supereffective|p2a: Raikou
+|-damage|p2a: Raikou|0 fnt
+|faint|p2a: Raikou
+|-heal|p1a: Sceptile|261261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kangaskhan|Kangaskhan, L84, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "raikou"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-raikou
+|chat|DEBUG|Own moves: thunderbolt strengthsap shadowball calmmind
+|chat|DEBUG|Enemy moves: calmmind scald substitute thunderbolt
+|chat|DEBUG|Checks: ['sceptile']
+|chat|DEBUG|Counter: ['sceptile']
+|chat|DEBUG|Speed: 183 vs 230
+|chat|DEBUG|HP: 109 vs 275
+|chat|DEBUG|Created a new Strategy for drifblim vs raikou:
+|chat|DEBUG|>[shadowball: 76.75 [70, 84], shadowball: 76.75 [70, 84], shadowball: 76.75 [70, 84]]
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 76.75 [70, 84]
+|chat|DEBUG|Best move of raikou (p2): thunderbolt: 283.125 [260, 308]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sceptile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kangaskhan|Fake Out|p1a: Sceptile
+|-damage|p1a: Sceptile|212261
+|cant|p1a: Sceptile|flinch
+|-heal|p1a: Sceptile|228261|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "raikou"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-raikou
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: calmmind scald substitute thunderbolt
+|chat|DEBUG|Checks: ['sceptile']
+|chat|DEBUG|Counter: ['sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 256 vs 230
+|chat|DEBUG|HP: 230 vs 275
+|chat|DEBUG|Created a new Strategy for sceptile vs raikou:
+|chat|DEBUG|>[earthquake: 158.125 [146, 172], earthquake: 158.125 [146, 172], earthquake: 158.125 [146, 172]]
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 158.125 [146, 172]
+|chat|DEBUG|Best move of raikou (p2): thunderbolt: 50.625 [46, 55]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kangaskhan|Sucker Punch|p1a: Sceptile
+|-damage|p1a: Sceptile|173261
+|move|p1a: Sceptile|Earthquake|p2a: Kangaskhan
+|-damage|p2a: Kangaskhan|79100
+|-heal|p1a: Sceptile|189261|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "raikou"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-raikou
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: calmmind scald substitute thunderbolt
+|chat|DEBUG|Checks: ['sceptile']
+|chat|DEBUG|Counter: ['sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 256 vs 230
+|chat|DEBUG|HP: 246 vs 134
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 158.125 [146, 172]
+|chat|DEBUG|Best move of raikou (p2): thunderbolt: 75.5625 [69, 82]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Earthquake|p2a: Kangaskhan
+|-damage|p2a: Kangaskhan|58100
+|move|p2a: Kangaskhan|Double-Edge|p1a: Sceptile
+|-damage|p1a: Sceptile|45261
+|-damage|p2a: Kangaskhan|43100|[from] Recoil
+|-heal|p1a: Sceptile|61261|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-kangaskhan
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 256 vs 199
+|chat|DEBUG|HP: 261 vs 314
+|chat|DEBUG|Created a new Strategy for sceptile vs kangaskhan:
+|chat|DEBUG|>[earthquake: 71.6875 [66, 78], earthquake: 71.6875 [66, 78], earthquake: 71.6875 [66, 78]]
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 71.6875 [66, 78]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 151.625 [139, 165]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kangaskhan|Sucker Punch|p1a: Sceptile
+|-damage|p1a: Sceptile|4261
+|move|p1a: Sceptile|Giga Drain|p2a: Kangaskhan
+|-damage|p2a: Kangaskhan|15100
+|-heal|p1a: Sceptile|48261|[from] drain|[of] p2a: Kangaskhan
+|-heal|p1a: Sceptile|64261|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-kangaskhan
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 256 vs 199
+|chat|DEBUG|HP: 228 vs 314
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 71.6875 [66, 78]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 151.625 [139, 165]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kangaskhan|Sucker Punch|p1a: Sceptile
+|-damage|p1a: Sceptile|9261
+|move|p1a: Sceptile|Giga Drain|p2a: Kangaskhan
+|-damage|p2a: Kangaskhan|0 fnt
+|-heal|p1a: Sceptile|32261|[from] drain|[of] p2a: Kangaskhan
+|faint|p2a: Kangaskhan
+|-heal|p1a: Sceptile|48261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Froslass|Froslass, L84, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-kangaskhan
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 256 vs 199
+|chat|DEBUG|HP: 189 vs 248
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 71.6875 [66, 78]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 151.625 [139, 165]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Giga Drain|p2a: Froslass
+|-damage|p2a: Froslass|39100
+|-heal|p1a: Sceptile|126261|[from] drain|[of] p2a: Froslass
+|-start|p1a: Sceptile|Disable|Giga Drain|[from] ability: Cursed Body|[of] p2a: Froslass
+|move|p2a: Froslass|Triple Axel|p1a: Sceptile
+|-supereffective|p1a: Sceptile
+|-damage|p1a: Sceptile|82261
+|-supereffective|p1a: Sceptile
+|-damage|p1a: Sceptile|0 fnt
+|faint|p1a: Sceptile
+|-hitcount|p1: Sceptile|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wobbuffet|Wobbuffet, L92, M|499499
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-kangaskhan
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sceptile', 'wobbuffet']
+|chat|DEBUG|Speed: 256 vs 199
+|chat|DEBUG|HP: 61 vs 135
+|chat|DEBUG|Created a new Strategy for sceptile vs kangaskhan:
+|chat|DEBUG|>[gigadrain: 94.875 [87, 103], gigadrain: 94.875 [87, 103], gigadrain: 94.875 [87, 103]]
+|chat|DEBUG|Best move of sceptile (p1): gigadrain: 94.875 [87, 103]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 151.625 [139, 165]
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Wobbuffet|Dynamax
+|-heal|p1a: Wobbuffet|998998|[silent]
+|move|p2a: Froslass|Taunt|p1a: Wobbuffet
+|-start|p1a: Wobbuffet|move: Taunt
+|move|p1a: Wobbuffet|Max Knuckle|p2a: Froslass
+|-immune|p2a: Froslass
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-kangaskhan
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['wobbuffet']
+|chat|DEBUG|Counter: ['sceptile', 'wobbuffet']
+|chat|DEBUG|Speed: 256 vs 199
+|chat|DEBUG|HP: 64 vs 47
+|chat|DEBUG|Best move of sceptile (p1): gigadrain: 94.875 [87, 103]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 151.625 [139, 165]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-end|p1a: Wobbuffet|Dynamax
+|-heal|p1a: Wobbuffet|499499|[silent]
+|switch|p1a: Drifblim|Drifblim, L84, M|109389
+|move|p2a: Froslass|Poltergeist||[still]
+|-fail|p2a: Froslass
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim sceptile wobbuffet
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sceptile" vs "froslass"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-sceptile-wobbuffet -- blaziken-froslass
+|chat|DEBUG|Own moves: substitute leechseed gigadrain earthquake
+|chat|DEBUG|Enemy moves: poltergeist spikes tripleaxel willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 256 vs 233
+|chat|DEBUG|HP: 48 vs 255
+|chat|DEBUG|Created a new Strategy for sceptile vs froslass:
+|chat|DEBUG|>[gigadrain: 157.3125 [144, 171], gigadrain: 157.3125 [144, 171], gigadrain: 157.3125 [144, 171]]
+|chat|DEBUG|Best move of sceptile (p1): gigadrain: 157.3125 [144, 171]
+|chat|DEBUG|Best move of froslass (p2): poltergeist: 122.5625 [112, 133]
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Triple Axel|p1a: Drifblim
+|-supereffective|p1a: Drifblim
+|-damage|p1a: Drifblim|41389
+|-supereffective|p1a: Drifblim
+|-damage|p1a: Drifblim|0 fnt
+|faint|p1a: Drifblim
+|-hitcount|p1: Drifblim|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wobbuffet|Wobbuffet, L92, M|499499
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim wobbuffet
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sceptile" vs "froslass"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-wobbuffet -- blaziken-froslass
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: poltergeist spikes tripleaxel willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'drifblim': 109, 'wobbuffet': 499}
+|chat|DEBUG|remaining_hp_team_2={'blaziken': 100, 'froslass': 100}
+|chat|DEBUG|battle.available_switches=[wobbuffet (pokemon object) [Active: False, Status: None], drifblim (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'wobbuffet'
+|chat|DEBUG|>Switching to wobbuffet (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Poltergeist|p1a: Wobbuffet
+|-activate|p1a: Wobbuffet|move: Poltergeist|Sitrus Berry
+|-supereffective|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|265499
+|move|p1a: Wobbuffet|Counter|p2a: Froslass
+|-immune|p2a: Froslass
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim wobbuffet
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "wobbuffet" vs "froslass"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-wobbuffet -- blaziken-froslass
+|chat|DEBUG|Own moves: charm mirrorcoat encore counter
+|chat|DEBUG|Enemy moves: poltergeist spikes tripleaxel willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 113 vs 233
+|chat|DEBUG|HP: 499 vs 99
+|chat|DEBUG|Created a new Strategy for wobbuffet vs froslass:
+|chat|DEBUG|>[counter: 0.0 [0, 0], counter: 0.0 [0, 0], counter: 0.0 [0, 0]]
+|chat|DEBUG|Best move of wobbuffet (p1): counter: 0.0 [0, 0]
+|chat|DEBUG|Best move of froslass (p2): poltergeist: 248.125 [228, 270]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|mdsanta017gamilcom has 120 seconds left.
+|inactive|mdsanta017gamilcom has 90 seconds left.
+|inactive|mdsanta017gamilcom has 60 seconds left.
+|move|p2a: Froslass|Poltergeist|p1a: Wobbuffet
+|-activate|p1a: Wobbuffet|move: Poltergeist|Sitrus Berry
+|-supereffective|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|11499
+|-enditem|p1a: Wobbuffet|Sitrus Berry|[eat]
+|-heal|p1a: Wobbuffet|135499|[from] item: Sitrus Berry
+|move|p1a: Wobbuffet|Counter|p2a: Froslass
+|-immune|p2a: Froslass
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim wobbuffet
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "wobbuffet" vs "froslass"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-wobbuffet -- blaziken-froslass
+|chat|DEBUG|Own moves: mirrorcoat counter
+|chat|DEBUG|Enemy moves: poltergeist spikes tripleaxel willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 113 vs 233
+|chat|DEBUG|HP: 998 vs 99
+|chat|DEBUG|Best move of wobbuffet (p1): counter: 0.0 [0, 0]
+|chat|DEBUG|Best move of froslass (p2): poltergeist: 248.125 [228, 270]
+|chat|DEBUG|Switching to drifblim as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Poltergeist||[still]
+|-fail|p2a: Froslass
+|move|p1a: Wobbuffet|Counter|p2a: Froslass
+|-immune|p2a: Froslass
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>drifblim wobbuffet
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "drifblim" vs "froslass"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>drifblim-wobbuffet -- blaziken-froslass
+|chat|DEBUG|Own moves: thunderbolt strengthsap shadowball calmmind
+|chat|DEBUG|Enemy moves: poltergeist spikes tripleaxel willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 183 vs 233
+|chat|DEBUG|HP: 109 vs 99
+|chat|DEBUG|Created a new Strategy for drifblim vs froslass:
+|chat|DEBUG|>[shadowball: 189.75 [174, 206], shadowball: 189.75 [174, 206], shadowball: 189.75 [174, 206]]
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 189.75 [174, 206]
+|chat|DEBUG|Best move of froslass (p2): tripleaxel: 120.25 [110, 132]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Triple Axel|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|110499
+|-damage|p1a: Wobbuffet|65499
+|-crit|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|0 fnt
+|faint|p1a: Wobbuffet
+|-hitcount|p1: Wobbuffet|3
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>mdsanta017gamilcom</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">suicune urshifu keldeoresolute drifblim sceptile wobbuffet</h1>

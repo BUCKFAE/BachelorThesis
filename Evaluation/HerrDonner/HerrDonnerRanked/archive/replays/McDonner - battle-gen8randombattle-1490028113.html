@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490028113</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490028113<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McDonner</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Montanova</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490028113|init|battle
+|title|McDonner vs. Montanova
+|j|☆McDonner
+|j|☆Montanova
+|gametype|singles
+|player|p1|McDonner|265|1204
+|player|p2|Montanova|1|1196
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Mandibuzz|Mandibuzz, L82, F|315/315
+|switch|p2a: Keldeo|Keldeo-Resolute, L79|100/100
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Keldeo|Icy Wind|p1a: Mandibuzz
+|-supereffective|p1a: Mandibuzz
+|-damage|p1a: Mandibuzz|225/315
+|-unboost|p1a: Mandibuzz|spe|1
+|move|p1a: Mandibuzz|Brave Bird|p2a: Keldeo
+|-supereffective|p2a: Keldeo
+|-damage|p2a: Keldeo|36/100
+|-damage|p1a: Mandibuzz|167/315|[from] Recoil
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Keldeo|Dynamax
+|-heal|p2a: Keldeo|36/100|[silent]
+|move|p2a: Keldeo|Max Hailstorm|p1a: Mandibuzz
+|-supereffective|p1a: Mandibuzz
+|-damage|p1a: Mandibuzz|0 fnt
+|-weather|Hail
+|faint|p1a: Mandibuzz
+|-weather|Hail|[upkeep]
+|-damage|p2a: Keldeo|33/100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gardevoir|Gardevoir, L82, M|246/246
+|-ability|p1a: Gardevoir|Justified|[from] ability: Trace|[of] p2a: Keldeo
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Max Airstream|p1a: Gardevoir
+|-damage|p1a: Gardevoir|154/246
+|-boost|p2a: Keldeo|spe|1
+|move|p1a: Gardevoir|Moonblast|p2a: Keldeo
+|-supereffective|p2a: Keldeo
+|-damage|p2a: Keldeo|0 fnt
+|faint|p2a: Keldeo
+|-weather|Hail|[upkeep]
+|-damage|p1a: Gardevoir|139/246|[from] Hail
+|-heal|p1a: Gardevoir|154/246|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corsola|Corsola-Galar, L84, M|100/100
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Moonblast|p2a: Corsola
+|-damage|p2a: Corsola|69/100
+|move|p2a: Corsola|Stealth Rock|p1a: Gardevoir
+|-sidestart|p1: McDonner|move: Stealth Rock
+|-weather|Hail|[upkeep]
+|-damage|p1a: Gardevoir|139/246|[from] Hail
+|-damage|p2a: Corsola|63/100|[from] Hail
+|-heal|p1a: Gardevoir|154/246|[from] item: Leftovers
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Moonblast|p2a: Corsola
+|-damage|p2a: Corsola|33/100
+|move|p2a: Corsola|Strength Sap|p1a: Gardevoir
+|-unboost|p1a: Gardevoir|atk|1
+|-heal|p2a: Corsola|80/100
+|-weather|Hail|[upkeep]
+|-damage|p1a: Gardevoir|139/246|[from] Hail
+|-damage|p2a: Corsola|74/100|[from] Hail
+|-heal|p1a: Gardevoir|154/246|[from] item: Leftovers
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, F|100/100
+|move|p1a: Gardevoir|Moonblast|p2a: Charizard
+|-resisted|p2a: Charizard
+|-damage|p2a: Charizard|76/100
+|-weather|none
+|-heal|p1a: Gardevoir|169/246|[from] item: Leftovers
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Fire Blast|p1a: Gardevoir
+|-damage|p1a: Gardevoir|73/246
+|move|p1a: Gardevoir|Psyshock|p2a: Charizard
+|-damage|p2a: Charizard|38/100
+|-heal|p1a: Gardevoir|88/246|[from] item: Leftovers
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Fire Blast|p1a: Gardevoir
+|-crit|p1a: Gardevoir
+|-damage|p1a: Gardevoir|0 fnt
+|faint|p1a: Gardevoir
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Meowstic|Meowstic-F, L86, F|268/268
+|-damage|p1a: Meowstic|235/268|[from] Stealth Rock
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Thunderbolt|p2a: Charizard
+|-supereffective|p2a: Charizard
+|-damage|p2a: Charizard|0 fnt
+|faint|p2a: Charizard
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whiscash|Whiscash, L86, M|100/100
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Thunderbolt|p2a: Whiscash
+|-immune|p2a: Whiscash
+|move|p2a: Whiscash|Liquidation|p1a: Meowstic
+|-damage|p1a: Meowstic|97/268
+|-unboost|p1a: Meowstic|def|1
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Thunderbolt|p2a: Whiscash
+|-immune|p2a: Whiscash
+|move|p2a: Whiscash|Liquidation|p1a: Meowstic
+|-damage|p1a: Meowstic|0 fnt
+|faint|p1a: Meowstic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crobat|Crobat, L82, F|274/274
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corsola|Corsola-Galar, L84, M|74/100
+|move|p1a: Crobat|Brave Bird|p2a: Corsola
+|-damage|p2a: Corsola|47/100
+|-start|p1a: Crobat|Disable|Brave Bird|[from] ability: Cursed Body|[of] p2a: Corsola
+|-damage|p1a: Crobat|253/274|[from] Recoil
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Roost|p1a: Crobat
+|-heal|p1a: Crobat|274/274
+|-singleturn|p1a: Crobat|move: Roost
+|move|p2a: Corsola|Strength Sap|p1a: Crobat
+|-unboost|p1a: Crobat|atk|1
+|-heal|p2a: Corsola|100/100
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Roost||[still]
+|-fail|p1a: Crobat|heal
+|move|p2a: Corsola|Night Shade|p1a: Crobat
+|-damage|p1a: Crobat|190/274
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Roost|p1a: Crobat
+|-heal|p1a: Crobat|274/274
+|-singleturn|p1a: Crobat|move: Roost
+|move|p2a: Corsola|Night Shade|p1a: Crobat
+|-damage|p1a: Crobat|190/274
+|-end|p1a: Crobat|Disable
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Corsola
+|-damage|p2a: Corsola|81/100
+|-damage|p1a: Crobat|175/274|[from] Recoil
+|move|p2a: Corsola|Strength Sap|p1a: Crobat
+|-unboost|p1a: Crobat|atk|1
+|-heal|p2a: Corsola|100/100
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Corsola
+|-damage|p2a: Corsola|87/100
+|-damage|p1a: Crobat|164/274|[from] Recoil
+|move|p2a: Corsola|Night Shade|p1a: Crobat
+|-damage|p1a: Crobat|80/274
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Corsola
+|-damage|p2a: Corsola|73/100
+|-damage|p1a: Crobat|69/274|[from] Recoil
+|move|p2a: Corsola|Night Shade|p1a: Crobat
+|-damage|p1a: Crobat|0 fnt
+|faint|p1a: Crobat
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Urshifu|Urshifu-Rapid-Strike, L78, M|284/284
+|-damage|p1a: Urshifu|267/284|[from] Stealth Rock
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Surging Strikes|p2a: Corsola
+|-crit|p2a: Corsola
+|-damage|p2a: Corsola|60/100
+|-start|p1a: Urshifu|Disable|Surging Strikes|[from] ability: Cursed Body|[of] p2a: Corsola
+|-crit|p2a: Corsola
+|-damage|p2a: Corsola|49/100
+|-crit|p2a: Corsola
+|-damage|p2a: Corsola|37/100
+|-hitcount|p2a: Corsola|3
+|move|p2a: Corsola|Strength Sap|p1a: Urshifu
+|-unboost|p1a: Urshifu|atk|1
+|-heal|p2a: Corsola|100/100
+|-heal|p1a: Urshifu|284/284|[from] item: Leftovers
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whiscash|Whiscash, L86, M|100/100
+|move|p1a: Urshifu|Substitute|p1a: Urshifu
+|-start|p1a: Urshifu|Substitute
+|-damage|p1a: Urshifu|213/284
+|-heal|p1a: Urshifu|230/284|[from] item: Leftovers
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Drain Punch|p2a: Whiscash
+|-damage|p2a: Whiscash|81/100
+|-heal|p1a: Urshifu|262/284|[from] drain|[of] p2a: Whiscash
+|move|p2a: Whiscash|Earthquake|p1a: Urshifu
+|-end|p1a: Urshifu|Substitute
+|-heal|p1a: Urshifu|279/284|[from] item: Leftovers
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Drain Punch|p2a: Whiscash
+|-damage|p2a: Whiscash|61/100
+|-heal|p1a: Urshifu|284/284|[from] drain|[of] p2a: Whiscash
+|move|p2a: Whiscash|Earthquake|p1a: Urshifu
+|-damage|p1a: Urshifu|151/284
+|-heal|p1a: Urshifu|168/284|[from] item: Leftovers
+|-end|p1a: Urshifu|Disable
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corsola|Corsola-Galar, L84, M|100/100
+|move|p1a: Urshifu|Drain Punch|p2a: Corsola
+|-immune|p2a: Corsola
+|-heal|p1a: Urshifu|185/284|[from] item: Leftovers
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Surging Strikes|p2a: Corsola
+|-crit|p2a: Corsola
+|-damage|p2a: Corsola|89/100
+|-crit|p2a: Corsola
+|-damage|p2a: Corsola|78/100
+|-crit|p2a: Corsola
+|-damage|p2a: Corsola|67/100
+|-start|p1a: Urshifu|Disable|Surging Strikes|[from] ability: Cursed Body|[of] p2a: Corsola
+|-hitcount|p2a: Corsola|3
+|move|p2a: Corsola|Night Shade|p1a: Urshifu
+|-damage|p1a: Urshifu|101/284
+|-heal|p1a: Urshifu|118/284|[from] item: Leftovers
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Substitute|p1a: Urshifu
+|-start|p1a: Urshifu|Substitute
+|-damage|p1a: Urshifu|47/284
+|move|p2a: Corsola|Night Shade|p1a: Urshifu
+|-end|p1a: Urshifu|Substitute
+|-heal|p1a: Urshifu|64/284|[from] item: Leftovers
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Urshifu|Substitute|p1a: Urshifu
+|-fail|p1a: Urshifu|move: Substitute|[weak]
+|move|p2a: Corsola|Night Shade|p1a: Urshifu
+|-damage|p1a: Urshifu|0 fnt
+|faint|p1a: Urshifu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Durant|Durant, L78, M|219/219
+|-damage|p1a: Durant|192/219|[from] Stealth Rock
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Corsola|[miss]
+|-miss|p1a: Durant|p2a: Corsola
+|move|p2a: Corsola|Strength Sap|p1a: Durant
+|-unboost|p1a: Durant|atk|1
+|-heal|p2a: Corsola|100/100
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Corsola
+|-damage|p2a: Corsola|67/100
+|move|p2a: Corsola|Night Shade|p1a: Durant
+|-damage|p1a: Durant|108/219
+|upkeep
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Corsola
+|-damage|p2a: Corsola|37/100
+|move|p2a: Corsola|Strength Sap|p1a: Durant
+|-unboost|p1a: Durant|atk|1
+|-heal|p2a: Corsola|97/100
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Corsola
+|-damage|p2a: Corsola|74/100
+|-start|p1a: Durant|Disable|Iron Head|[from] ability: Cursed Body|[of] p2a: Corsola
+|move|p2a: Corsola|Night Shade|p1a: Durant
+|-damage|p1a: Durant|24/219
+|upkeep
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p1a: Durant|move: Struggle
+|move|p1a: Durant|Struggle|p2a: Corsola
+|-damage|p2a: Corsola|65/100
+|-damage|p1a: Durant|0 fnt|[from] recoil
+|faint|p1a: Durant
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

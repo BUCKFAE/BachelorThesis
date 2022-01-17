@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490792155<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490792155|init|battle
+|title|Jorge.vp14 vs. McGewitter
+|j|☆Jorge.vp14
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Jorge.vp14|1|1158
+|player|p2|McGewitter|265|1111
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Crobat|Crobat, L82, M|100100
+|switch|p2a: Silvally|Silvally-Fire, L84|297297
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfire flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfire" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfire-flygon-giratinaorigin-moltres-accelgor-froslass -- crobat
+|chat|DEBUG|Own moves: crunch multiattack ironhead swordsdance
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyfire', 'giratinaorigin', 'moltres']
+|chat|DEBUG|Speed: 208 vs 260
+|chat|DEBUG|HP: 297 vs 274
+|chat|DEBUG|Created a new Strategy for silvallyfire vs crobat:
+|chat|DEBUG|>[multiattack: 138.5 [127, 150], multiattack: 138.5 [127, 150], multiattack: 138.5 [127, 150]]
+|chat|DEBUG|Best move of silvallyfire (p1): multiattack: 138.5 [127, 150]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using multiattack
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Crobat|U-turn|p2a: Silvally
+|-resisted|p2a: Silvally
+|-damage|p2a: Silvally|278297
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragapult|Dragapult, L78, F|100100|[from]move: U-turn
+|move|p2a: Silvally|Multi-Attack|p1a: Dragapult
+|-resisted|p1a: Dragapult
+|-damage|p1a: Dragapult|71100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfire flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfire" vs "dragapult"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfire-flygon-giratinaorigin-moltres-accelgor-froslass -- crobat-dragapult
+|chat|DEBUG|Own moves: crunch multiattack ironhead swordsdance
+|chat|DEBUG|Enemy moves: dracometeor shadowball thunderbolt uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyfire', 'giratinaorigin']
+|chat|DEBUG|Speed: 208 vs 267
+|chat|DEBUG|HP: 278 vs 188
+|chat|DEBUG|Created a new Strategy for silvallyfire vs dragapult:
+|chat|DEBUG|>[crunch: 134.125 [124, 146], crunch: 134.125 [124, 146], crunch: 134.125 [124, 146]]
+|chat|DEBUG|Best move of silvallyfire (p1): crunch: 134.125 [124, 146]
+|chat|DEBUG|Best move of dragapult (p2): shadowball: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dragapult|Shadow Ball|p2a: Silvally
+|-damage|p2a: Silvally|175297
+|move|p2a: Silvally|Crunch|p1a: Dragapult
+|-supereffective|p1a: Dragapult
+|-damage|p1a: Dragapult|24100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfire flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfire" vs "dragapult"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfire-flygon-giratinaorigin-moltres-accelgor-froslass -- crobat-dragapult
+|chat|DEBUG|Own moves: crunch multiattack ironhead swordsdance
+|chat|DEBUG|Enemy moves: dracometeor shadowball thunderbolt uturn
+|chat|DEBUG|Checks: ['accelgor']
+|chat|DEBUG|Counter: ['silvallyfire', 'giratinaorigin', 'moltres', 'accelgor']
+|chat|DEBUG|Speed: 208 vs 267
+|chat|DEBUG|HP: 175 vs 63
+|chat|DEBUG|Best move of silvallyfire (p1): crunch: 134.125 [124, 146]
+|chat|DEBUG|Best move of dragapult (p2): shadowball: 107.3125 [99, 117]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dragapult|Shadow Ball|p2a: Silvally
+|-damage|p2a: Silvally|58297
+|move|p2a: Silvally|Crunch|p1a: Dragapult
+|-supereffective|p1a: Dragapult
+|-damage|p1a: Dragapult|0 fnt
+|faint|p1a: Dragapult
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crobat|Crobat, L82, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyfire flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfire" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyfire-flygon-giratinaorigin-moltres-accelgor-froslass -- crobat
+|chat|DEBUG|Own moves: crunch multiattack ironhead swordsdance
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['giratinaorigin', 'moltres']
+|chat|DEBUG|Speed: 208 vs 260
+|chat|DEBUG|HP: 58 vs 274
+|chat|DEBUG|Created a new Strategy for silvallyfire vs crobat:
+|chat|DEBUG|>[multiattack: 138.5 [127, 150], multiattack: 138.5 [127, 150], multiattack: 138.5 [127, 150]]
+|chat|DEBUG|Best move of silvallyfire (p1): multiattack: 138.5 [127, 150]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Silvally
+|-damage|p2a: Silvally|0 fnt
+|faint|p2a: Silvally
+|-damage|p1a: Crobat|94100|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina-Origin, L74|344344
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyfire" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-giratinaorigin-moltres-accelgor-froslass -- crobat
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['giratinaorigin', 'moltres']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to giratinaorigin (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|U-turn|p2a: Giratina
+|-resisted|p2a: Giratina
+|-crit|p2a: Giratina
+|-damage|p2a: Giratina|312344
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonchan|Hitmonchan, L86, M|100100|[from]move: U-turn
+|move|p2a: Giratina|Outrage|p1a: Hitmonchan
+|-damage|p1a: Hitmonchan|33100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-giratinaorigin-moltres-accelgor-froslass -- crobat
+|chat|DEBUG|Own moves: dualwingbeat outrage honeclaws poltergeist
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['giratinaorigin', 'moltres']
+|chat|DEBUG|Speed: 176 vs 260
+|chat|DEBUG|HP: 344 vs 257
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs crobat:
+|chat|DEBUG|>[outrage: 129.5 [118, 141], outrage: 129.5 [118, 141], outrage: 129.5 [118, 141]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 129.5 [118, 141]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonchan|Throat Chop|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|140344
+|-start|p2a: Giratina|Throat Chop|[silent]
+|-damage|p1a: Hitmonchan|23100|[from] item: Life Orb
+|move|p2a: Giratina|Outrage|p1a: Hitmonchan|[from]lockedmove
+|-damage|p1a: Hitmonchan|0 fnt
+|faint|p1a: Hitmonchan
+|-start|p2a: Giratina|confusion|[fatigue]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Spectrier|Spectrier, L74|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-giratinaorigin-moltres-accelgor-froslass -- crobat-hitmonchan
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: ['flygon', 'moltres', 'accelgor', 'froslass']
+|chat|DEBUG|Counter: ['flygon', 'giratinaorigin', 'moltres', 'accelgor', 'froslass']
+|chat|DEBUG|Speed: 176 vs 180
+|chat|DEBUG|HP: 312 vs 74
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs hitmonchan:
+|chat|DEBUG|>[outrage: 124.0625 [114, 135], outrage: 124.0625 [114, 135], outrage: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 124.0625 [114, 135]
+|chat|DEBUG|Best move of hitmonchan (p2): throatchop: 169.75 [156, 185]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Spectrier|Shadow Ball|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|0 fnt
+|faint|p2a: Giratina
+|-ability|p1a: Spectrier|Grim Neigh|boost
+|-boost|p1a: Spectrier|spa|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Flygon|Flygon, L80, M|259259
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon giratinaorigin moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-giratinaorigin-moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: dualwingbeat outrage honeclaws poltergeist
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flygon', 'moltres', 'froslass']
+|chat|DEBUG|Speed: 176 vs 235
+|chat|DEBUG|HP: 140 vs 270
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs spectrier:
+|chat|DEBUG|>[poltergeist: 320.0 [294, 348], poltergeist: 320.0 [294, 348], poltergeist: 320.0 [294, 348]]
+|chat|DEBUG|Best move of giratinaorigin (p1): poltergeist: 320.0 [294, 348]
+|chat|DEBUG|Best move of spectrier (p2): shadowball: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Spectrier|Shadow Ball|p2a: Flygon
+|-damage|p2a: Flygon|100259
+|move|p2a: Flygon|Outrage|p1a: Spectrier
+|-damage|p1a: Spectrier|10100
+|-damage|p2a: Flygon|75259|[from] item: Life Orb
+|-heal|p1a: Spectrier|16100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flygon', 'moltres', 'froslass']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to flygon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Spectrier|Shadow Ball|p2a: Flygon
+|-damage|p2a: Flygon|0 fnt
+|faint|p2a: Flygon
+|-ability|p1a: Spectrier|Grim Neigh|boost
+|-boost|p1a: Spectrier|spa|1
+|-heal|p1a: Spectrier|22100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Accelgor|Accelgor, L86, M|278278
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: firepunch outrage earthquake dragondance
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 206 vs 235
+|chat|DEBUG|HP: 259 vs 270
+|chat|DEBUG|Created a new Strategy for flygon vs spectrier:
+|chat|DEBUG|>[outrage: 231.1875 [212, 251], outrage: 231.1875 [212, 251], outrage: 231.1875 [212, 251]]
+|chat|DEBUG|Best move of flygon (p1): outrage: 231.1875 [212, 251]
+|chat|DEBUG|Best move of spectrier (p2): shadowball: 154.4375 [142, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crobat|Crobat, L82, M|94100
+|move|p2a: Accelgor|Energy Ball|p1a: Crobat
+|-resisted|p1a: Crobat
+|-damage|p1a: Crobat|87100
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: ['accelgor']
+|chat|DEBUG|Counter: ['moltres', 'accelgor']
+|chat|DEBUG|Speed: 206 vs 235
+|chat|DEBUG|HP: 75 vs 43
+|chat|DEBUG|Created a new Strategy for flygon vs spectrier:
+|chat|DEBUG|>[outrage: 231.1875 [212, 251], outrage: 231.1875 [212, 251], outrage: 231.1875 [212, 251]]
+|chat|DEBUG|Best move of flygon (p1): outrage: 231.1875 [212, 251]
+|chat|DEBUG|Best move of spectrier (p2): shadowball: 154.4375 [142, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Spikes|p1a: Crobat
+|-sidestart|p1: Jorge.vp14|Spikes
+|move|p1a: Crobat|Brave Bird|p2a: Accelgor
+|-supereffective|p2a: Accelgor
+|-damage|p2a: Accelgor|0 fnt
+|faint|p2a: Accelgor
+|-damage|p1a: Crobat|53100|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Moltres|Moltres, L80|275275
+|-ability|p2a: Moltres|Pressure
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: ['accelgor']
+|chat|DEBUG|Counter: ['moltres', 'accelgor']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to accelgor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Moltres
+|-damage|p2a: Moltres|157275
+|-damage|p1a: Crobat|39100|[from] Recoil
+|move|p2a: Moltres|Fire Blast|p1a: Crobat
+|-damage|p1a: Crobat|0 fnt
+|faint|p1a: Crobat
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, F|100100
+|-damage|p1a: Audino|88100|[from] Spikes
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "spectrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: spikes energyball toxic bugbuzz
+|chat|DEBUG|Enemy moves: darkpulse nastyplot shadowball substitute
+|chat|DEBUG|Checks: ['accelgor']
+|chat|DEBUG|Counter: ['moltres', 'accelgor']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 299 vs 235
+|chat|DEBUG|HP: 278 vs 59
+|chat|DEBUG|Created a new Strategy for accelgor vs spectrier:
+|chat|DEBUG|>[energyball: 82.875 [76, 90], energyball: 82.875 [76, 90], energyball: 82.875 [76, 90]]
+|chat|DEBUG|Best move of accelgor (p1): energyball: 82.875 [76, 90]
+|chat|DEBUG|Best move of spectrier (p2): shadowball: 235.0 [216, 255]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Roost|p2a: Moltres
+|-heal|p2a: Moltres|275275
+|-singleturn|p2a: Moltres|move: Roost
+|move|p1a: Audino|Toxic|p2a: Moltres
+|-status|p2a: Moltres|tox
+|-heal|p1a: Audino|94100|[from] item: Leftovers
+|-damage|p2a: Moltres|258275 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres accelgor froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-accelgor-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: spikes energyball toxic bugbuzz
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Speed: 299 vs 260
+|chat|DEBUG|HP: 278 vs 238
+|chat|DEBUG|Created a new Strategy for accelgor vs crobat:
+|chat|DEBUG|>[bugbuzz: 27.8125 [25, 30], bugbuzz: 27.8125 [25, 30], bugbuzz: 27.8125 [25, 30]]
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 27.8125 [25, 30]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 375.375 [344, 408]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Audino
+|-damage|p1a: Audino|59100
+|move|p1a: Audino|Wish|p1a: Audino
+|-heal|p1a: Audino|65100|[from] item: Leftovers
+|-damage|p2a: Moltres|224275 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to moltres (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Spectrier|Spectrier, L74|22100
+|-damage|p1a: Spectrier|10100|[from] Spikes
+|move|p2a: Moltres|Fire Blast|p1a: Spectrier
+|-damage|p1a: Spectrier|0 fnt
+|faint|p1a: Spectrier
+|-damage|p2a: Moltres|173275 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Audino|Audino, L90, F|98100
+|-damage|p1a: Audino|86100|[from] Spikes
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- crobat-spectrier
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['moltres', 'froslass']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 190 vs 260
+|chat|DEBUG|HP: 275 vs 145
+|chat|DEBUG|Created a new Strategy for moltres vs crobat:
+|chat|DEBUG|>[fireblast: 144.5625 [133, 157], fireblast: 144.5625 [133, 157], fireblast: 144.5625 [133, 157]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 144.5625 [133, 157]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 117.0 [108, 127]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Roost|p2a: Moltres
+|-heal|p2a: Moltres|275275 tox
+|-singleturn|p2a: Moltres|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Moltres
+|-damage|p2a: Moltres|221275 tox
+|-enditem|p2a: Moltres|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|92100|[from] item: Leftovers
+|-damage|p2a: Moltres|153275 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- spectrier-audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 157 vs 292
+|chat|DEBUG|Created a new Strategy for moltres vs audino:
+|chat|DEBUG|>[fireblast: 125.375 [115, 136], fireblast: 125.375 [115, 136], fireblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 57.8125 [53, 63]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Roost|p2a: Moltres
+|-heal|p2a: Moltres|275275 tox
+|-singleturn|p2a: Moltres|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Moltres
+|-damage|p2a: Moltres|236275 tox
+|-heal|p1a: Audino|98100|[from] item: Leftovers
+|-damage|p2a: Moltres|151275 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- spectrier-audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 258 vs 312
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 57.8125 [53, 63]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Roost|p2a: Moltres
+|-heal|p2a: Moltres|275275 tox
+|-singleturn|p2a: Moltres|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Moltres
+|-damage|p2a: Moltres|237275 tox
+|-heal|p1a: Audino|100100|[from] item: Leftovers
+|-damage|p2a: Moltres|135275 tox|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- spectrier-audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 224 vs 215
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 57.8125 [53, 63]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Roost|p2a: Moltres
+|-heal|p2a: Moltres|273275 tox
+|-singleturn|p2a: Moltres|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Moltres
+|-damage|p2a: Moltres|235275 tox
+|-damage|p2a: Moltres|116275 tox|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 173 vs 285
+|chat|DEBUG|Created a new Strategy for moltres vs audino:
+|chat|DEBUG|>[fireblast: 125.375 [115, 136], fireblast: 125.375 [115, 136], fireblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 57.8125 [53, 63]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Roost|p2a: Moltres
+|-heal|p2a: Moltres|254275 tox
+|-singleturn|p2a: Moltres|move: Roost
+|move|p1a: Audino|Knock Off|p2a: Moltres
+|-damage|p2a: Moltres|214275 tox
+|-damage|p2a: Moltres|78275 tox|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 153 vs 305
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 39.25 [36, 43]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Fire Blast|p1a: Audino
+|-damage|p1a: Audino|64100
+|move|p1a: Audino|Knock Off|p2a: Moltres
+|-damage|p2a: Moltres|39275 tox
+|-heal|p1a: Audino|70100|[from] item: Leftovers
+|-damage|p2a: Moltres|0 fnt|[from] psn
+|faint|p2a: Moltres
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Froslass|Froslass, L84, F|255255
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 151 vs 325
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 39.25 [36, 43]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Spikes|p1a: Audino
+|-sidestart|p1: Jorge.vp14|Spikes
+|move|p1a: Audino|Toxic|p2a: Froslass
+|-status|p2a: Froslass|tox
+|-heal|p1a: Audino|76100|[from] item: Leftovers
+|-damage|p2a: Froslass|240255 tox|[from] psn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: ['moltres']
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 135 vs 332
+|chat|DEBUG|Created a new Strategy for moltres vs audino:
+|chat|DEBUG|>[fireblast: 125.375 [115, 136], fireblast: 125.375 [115, 136], fireblast: 125.375 [115, 136]]
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 39.25 [36, 43]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Spikes|p1a: Audino
+|-sidestart|p1: Jorge.vp14|Spikes
+|move|p1a: Audino|Knock Off|p2a: Froslass
+|-supereffective|p2a: Froslass
+|-damage|p2a: Froslass|106255 tox
+|-enditem|p2a: Froslass|Wide Lens|[from] move: Knock Off|[of] p1a: Audino
+|-heal|p1a: Audino|82100|[from] item: Leftovers
+|-damage|p2a: Froslass|76255 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>moltres froslass
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "audino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>moltres-froslass -- audino
+|chat|DEBUG|Own moves: fireblast roost defog airslash
+|chat|DEBUG|Enemy moves: knockoff protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltres']
+|chat|DEBUG|Speed: 190 vs 141
+|chat|DEBUG|HP: 116 vs 332
+|chat|DEBUG|Best move of moltres (p1): fireblast: 125.375 [115, 136]
+|chat|DEBUG|Best move of audino (p2): knockoff: 39.25 [36, 43]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Triple Axel|p1a: Audino
+|-damage|p1a: Audino|77100
+|-damage|p1a: Audino|67100
+|-damage|p1a: Audino|50100
+|-hitcount|p1a: Audino|3
+|move|p1a: Audino|Knock Off|p2a: Froslass
+|-supereffective|p2a: Froslass
+|-damage|p2a: Froslass|0 fnt
+|faint|p2a: Froslass
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Jorge.vp14<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">silvallyfire flygon giratinaorigin moltres accelgor froslass</h1>

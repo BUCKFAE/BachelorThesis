@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490246214<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490246214|init|battle
+|title|McGewitter vs. Tjediesworld25
+|j|☆McGewitter
+|j|☆Tjediesworld25
+|gametype|singles
+|player|p1|McGewitter|265|1201
+|player|p2|Tjediesworld25|1|1188
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dragalge|Dragalge, L86, M|252252
+|switch|p2a: Jynx|Jynx, L86, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge thundurus zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-thundurus-zekrom-amoonguss-chandelure-drednaw -- jynx
+|chat|DEBUG|Own moves: sludgewave focusblast flipturn dragonpulse
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: ['thundurus', 'chandelure']
+|chat|DEBUG|Counter: ['thundurus', 'chandelure', 'drednaw']
+|chat|DEBUG|Speed: 125 vs 213
+|chat|DEBUG|HP: 252 vs 252
+|chat|DEBUG|Created a new Strategy for dragalge vs jynx:
+|chat|DEBUG|>[sludgewave: 195.125 [180, 212], sludgewave: 195.125 [180, 212], sludgewave: 195.125 [180, 212]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 195.125 [180, 212]
+|chat|DEBUG|Best move of jynx (p2): psyshock: 195.25 [180, 212]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check thundurus
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Thundurus|Thundurus, L80, M|258258
+|move|p2a: Jynx|Lovely Kiss|p1a: Thundurus
+|-status|p1a: Thundurus|slp|[from] move: Lovely Kiss
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge thundurus zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-thundurus-zekrom-amoonguss-chandelure-drednaw -- jynx
+|chat|DEBUG|Own moves: thunderwave knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: ['thundurus', 'chandelure']
+|chat|DEBUG|Counter: ['thundurus', 'chandelure', 'drednaw']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 224 vs 213
+|chat|DEBUG|HP: 258 vs 252
+|chat|DEBUG|Created a new Strategy for thundurus vs jynx:
+|chat|DEBUG|>[knockoff: 259.875 [238, 282], knockoff: 259.875 [238, 282], knockoff: 259.875 [238, 282]]
+|chat|DEBUG|Best move of thundurus (p1): knockoff: 259.875 [238, 282]
+|chat|DEBUG|Best move of jynx (p2): icebeam: 256.125 [236, 278]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhyperior|Rhyperior, L82, F|100100
+|cant|p1a: Thundurus|slp
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge thundurus zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-thundurus-zekrom-amoonguss-chandelure-drednaw -- jynx-rhyperior
+|chat|DEBUG|Own moves: thunderwave knockoff sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['amoonguss', 'chandelure']
+|chat|DEBUG|Speed: 224 vs 113
+|chat|DEBUG|HP: 258 vs 323
+|chat|DEBUG|Created a new Strategy for thundurus vs rhyperior:
+|chat|DEBUG|>[knockoff: 55.125 [51, 60], knockoff: 55.125 [51, 60], knockoff: 55.125 [51, 60]]
+|chat|DEBUG|Best move of thundurus (p1): knockoff: 55.125 [51, 60]
+|chat|DEBUG|Best move of rhyperior (p2): stoneedge: 333.875 [306, 362]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p1a: Thundurus|slp|[msg]
+|move|p1a: Thundurus|Knock Off|p2a: Rhyperior
+|-damage|p2a: Rhyperior|83100
+|-enditem|p2a: Rhyperior|Choice Band|[from] move: Knock Off|[of] p1a: Thundurus
+|move|p2a: Rhyperior|Stone Edge|p1a: Thundurus
+|-supereffective|p1a: Thundurus
+|-damage|p1a: Thundurus|0 fnt
+|faint|p1a: Thundurus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|329329
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurus" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-chandelure-drednaw -- jynx-rhyperior
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['amoonguss', 'chandelure']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to amoonguss (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rhyperior|Fire Punch|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|163329
+|move|p1a: Amoonguss|Giga Drain|p2a: Rhyperior
+|-supereffective|p2a: Rhyperior
+|-damage|p2a: Rhyperior|0 fnt
+|-heal|p1a: Amoonguss|296329|[from] drain|[of] p2a: Rhyperior
+|faint|p2a: Rhyperior
+|-heal|p1a: Amoonguss|316329|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jynx|Jynx, L86, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-chandelure-drednaw -- jynx-rhyperior
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['amoonguss']
+|chat|DEBUG|Counter: ['dragalge', 'amoonguss', 'chandelure', 'drednaw']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 99 vs 113
+|chat|DEBUG|HP: 329 vs 268
+|chat|DEBUG|Created a new Strategy for amoonguss vs rhyperior:
+|chat|DEBUG|>[gigadrain: 309.75 [282, 336], gigadrain: 309.75 [282, 336], gigadrain: 309.75 [282, 336]]
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 309.75 [282, 336]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 158.5625 [145, 172]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|233233
+|move|p2a: Jynx|Lovely Kiss|p1a: Chandelure
+|-status|p1a: Chandelure|slp|[from] move: Lovely Kiss
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-chandelure-drednaw -- jynx
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: ['chandelure']
+|chat|DEBUG|Counter: ['chandelure', 'drednaw']
+|chat|DEBUG|Speed: 99 vs 213
+|chat|DEBUG|HP: 316 vs 252
+|chat|DEBUG|Created a new Strategy for amoonguss vs jynx:
+|chat|DEBUG|>[sludgebomb: 79.5 [73, 87], sludgebomb: 79.5 [73, 87], sludgebomb: 79.5 [73, 87]]
+|chat|DEBUG|Best move of amoonguss (p1): sludgebomb: 79.5 [73, 87]
+|chat|DEBUG|Best move of jynx (p2): icebeam: 245.125 [224, 266]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check chandelure
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Chandelure|slp
+|move|p2a: Jynx|Psyshock|p1a: Chandelure
+|-damage|p1a: Chandelure|131233 slp
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "chandelure" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-chandelure-drednaw -- jynx
+|chat|DEBUG|Own moves: fireblast trick energyball shadowball
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: ['chandelure']
+|chat|DEBUG|Counter: ['chandelure', 'drednaw']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 213
+|chat|DEBUG|HP: 233 vs 252
+|chat|DEBUG|Created a new Strategy for chandelure vs jynx:
+|chat|DEBUG|>[fireblast: 519.875 [476, 564], fireblast: 519.875 [476, 564], fireblast: 519.875 [476, 564]]
+|chat|DEBUG|Best move of chandelure (p1): fireblast: 519.875 [476, 564]
+|chat|DEBUG|Best move of jynx (p2): psyshock: 101.75 [93, 111]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Chandelure|slp
+|move|p2a: Jynx|Psyshock|p1a: Chandelure
+|-damage|p1a: Chandelure|25233 slp
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "chandelure" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-chandelure-drednaw -- jynx
+|chat|DEBUG|Own moves: fireblast trick energyball shadowball
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['chandelure', 'drednaw']
+|chat|DEBUG|Speed: 178 vs 213
+|chat|DEBUG|HP: 131 vs 252
+|chat|DEBUG|Best move of chandelure (p1): fireblast: 519.875 [476, 564]
+|chat|DEBUG|Best move of jynx (p2): psyshock: 101.75 [93, 111]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p1a: Chandelure|slp
+|move|p2a: Jynx|Psyshock|p1a: Chandelure
+|-damage|p1a: Chandelure|0 fnt
+|faint|p1a: Chandelure
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drednaw|Drednaw, L84, M|288288
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss chandelure drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "chandelure" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-chandelure-drednaw -- jynx
+|chat|DEBUG|Own moves: fireblast trick energyball shadowball
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw']
+|chat|DEBUG|Speed: 178 vs 213
+|chat|DEBUG|HP: 25 vs 252
+|chat|DEBUG|Best move of chandelure (p1): fireblast: 519.875 [476, 564]
+|chat|DEBUG|Best move of jynx (p2): psyshock: 101.75 [93, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jynx|Lovely Kiss|p1a: Drednaw
+|-status|p1a: Drednaw|slp|[from] move: Lovely Kiss
+|cant|p1a: Drednaw|slp
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "chandelure" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-drednaw -- jynx
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to drednaw (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jynx|Focus Blast|p1a: Drednaw
+|-supereffective|p1a: Drednaw
+|-damage|p1a: Drednaw|44288 slp
+|-curestatus|p1a: Drednaw|slp|[msg]
+|move|p1a: Drednaw|Stone Edge|p2a: Jynx
+|-supereffective|p2a: Jynx
+|-enditem|p2a: Jynx|Focus Sash
+|-damage|p2a: Jynx|1100
+|-damage|p1a: Drednaw|16288|[from] item: Life Orb
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-drednaw -- jynx
+|chat|DEBUG|Own moves: liquidation swordsdance superpower stoneedge
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw']
+|chat|DEBUG|Speed: 173 vs 213
+|chat|DEBUG|HP: 288 vs 252
+|chat|DEBUG|Created a new Strategy for drednaw vs jynx:
+|chat|DEBUG|>[stoneedge: 560.3125 [515, 608], stoneedge: 560.3125 [515, 608], stoneedge: 560.3125 [515, 608]]
+|chat|DEBUG|Best move of drednaw (p1): stoneedge: 560.3125 [515, 608]
+|chat|DEBUG|Best move of jynx (p2): focusblast: 245.375 [226, 266]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jynx|Focus Blast|p1a: Drednaw|[miss]
+|-miss|p2a: Jynx|p1a: Drednaw
+|move|p1a: Drednaw|Stone Edge|p2a: Jynx
+|-supereffective|p2a: Jynx
+|-damage|p2a: Jynx|0 fnt
+|faint|p2a: Jynx
+|-damage|p1a: Drednaw|0 fnt|[from] item: Life Orb
+|faint|p1a: Drednaw
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Talonflame|Talonflame, L81, M|100100
+|switch|p1a: Dragalge|Dragalge, L86, M|252252
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-drednaw -- jynx
+|chat|DEBUG|Own moves: liquidation swordsdance superpower stoneedge
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drednaw']
+|chat|DEBUG|Speed: 173 vs 213
+|chat|DEBUG|HP: 288 vs 252
+|chat|DEBUG|Best move of drednaw (p1): stoneedge: 560.3125 [515, 608]
+|chat|DEBUG|Best move of jynx (p2): focusblast: 245.375 [226, 266]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Talonflame|Swords Dance|p2a: Talonflame
+|-boost|p2a: Talonflame|atk|2
+|move|p1a: Dragalge|Sludge Wave|p2a: Talonflame
+|-damage|p2a: Talonflame|8100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss-drednaw -- jynx
+|chat|DEBUG|Own moves: liquidation swordsdance superpower stoneedge
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragalge', 'zekrom', 'amoonguss']
+|chat|DEBUG|Speed: 173 vs 213
+|chat|DEBUG|HP: 16 vs 2
+|chat|DEBUG|Best move of drednaw (p1): stoneedge: 560.3125 [515, 608]
+|chat|DEBUG|Best move of jynx (p2): focusblast: 245.375 [226, 266]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Talonflame|Flare Blitz|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|148252
+|-damage|p2a: Talonflame|0 fnt|[from] Recoil
+|faint|p2a: Talonflame
+|move|p1a: Dragalge|Sludge Wave|p2: Talonflame|[notarget]
+|-fail|p1a: Dragalge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Necrozma|Necrozma-Dawn-Wings, L76|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "jynx"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss -- jynx
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast icebeam nastyplot psyshock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragalge', 'zekrom', 'amoonguss']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dragalge (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Photon Geyser|p1a: Dragalge
+|-supereffective|p1a: Dragalge
+|-damage|p1a: Dragalge|0 fnt
+|faint|p1a: Dragalge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|329329
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss -- talonflame
+|chat|DEBUG|Own moves: sludgewave focusblast flipturn dragonpulse
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['dragalge', 'zekrom']
+|chat|DEBUG|Counter: ['dragalge', 'zekrom']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 125 vs 251
+|chat|DEBUG|HP: 252 vs 259
+|chat|DEBUG|Created a new Strategy for dragalge vs talonflame:
+|chat|DEBUG|>[sludgewave: 261.75 [240, 284], sludgewave: 261.75 [240, 284], sludgewave: 261.75 [240, 284]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 261.75 [240, 284]
+|chat|DEBUG|Best move of talonflame (p2): bravebird: 100.375 [93, 109]
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|149329
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|78100
+|-heal|p1a: Amoonguss|179329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|85100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|199329|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss -- talonflame
+|chat|DEBUG|Own moves: sludgewave
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['zekrom']
+|chat|DEBUG|Counter: ['dragalge', 'zekrom']
+|chat|DEBUG|Speed: 125 vs 251
+|chat|DEBUG|HP: 252 vs 20
+|chat|DEBUG|Created a new Strategy for dragalge vs talonflame:
+|chat|DEBUG|>[sludgewave: 261.75 [240, 284], sludgewave: 261.75 [240, 284], sludgewave: 261.75 [240, 284]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 261.75 [240, 284]
+|chat|DEBUG|Best move of talonflame (p2): bravebird: 198.875 [183, 216]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Amoonguss|[miss]
+|-miss|p2a: Necrozma|p1a: Amoonguss
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|64100
+|-heal|p1a: Amoonguss|228329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|70100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|248329|[from] item: Black Sludge
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dragalge zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dragalge-zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: sludgewave
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 125 vs 161
+|chat|DEBUG|HP: 148 vs 272
+|chat|DEBUG|Created a new Strategy for dragalge vs necrozmadawnwings:
+|chat|DEBUG|>[sludgewave: 87.5 [80, 95], sludgewave: 87.5 [80, 95], sludgewave: 87.5 [80, 95]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 87.5 [80, 95]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 195.25 [180, 212]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Stealth Rock|p1a: Amoonguss
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|47100
+|-heal|p1a: Amoonguss|280329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|53100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|300329|[from] item: Black Sludge
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: amoonguss
+|chat|DEBUG|>Switching to amoonguss (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|124329
+|move|p1a: Amoonguss|Giga Drain|p2a: Necrozma
+|-damage|p2a: Necrozma|29100
+|-heal|p1a: Amoonguss|157329|[from] drain|[of] p2a: Necrozma
+|-heal|p2a: Necrozma|35100|[from] item: Leftovers
+|-heal|p1a: Amoonguss|177329|[from] item: Black Sludge
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 99 vs 161
+|chat|DEBUG|HP: 329 vs 272
+|chat|DEBUG|Created a new Strategy for amoonguss vs necrozmadawnwings:
+|chat|DEBUG|>[gigadrain: 60.125 [55, 66], gigadrain: 60.125 [55, 66], gigadrain: 60.125 [55, 66]]
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 60.125 [55, 66]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zekrom|Zekrom, L69|252252
+|-damage|p1a: Zekrom|221252|[from] Stealth Rock
+|-ability|p1a: Zekrom|Teravolt
+|move|p2a: Necrozma|Heat Wave|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|176252
+|-heal|p2a: Necrozma|41100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 99 vs 161
+|chat|DEBUG|HP: 199 vs 231
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 60.125 [55, 66]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Necrozma
+|-damage|p2a: Necrozma|0 fnt
+|faint|p2a: Necrozma
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Barbaracle|Barbaracle, L80, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zekrom']
+|chat|DEBUG|Speed: 99 vs 161
+|chat|DEBUG|HP: 248 vs 190
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 60.125 [55, 66]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Barbaracle|Dynamax
+|-heal|p2a: Barbaracle|100100|[silent]
+|move|p2a: Barbaracle|Max Guard|p2a: Barbaracle
+|-singleturn|p2a: Barbaracle|Max Guard
+|move|p1a: Zekrom|Outrage|p2a: Barbaracle|[from]lockedmove
+|-activate|p2a: Barbaracle|move: Max Guard
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zekrom']
+|chat|DEBUG|Speed: 99 vs 161
+|chat|DEBUG|HP: 300 vs 144
+|chat|DEBUG|Created a new Strategy for amoonguss vs necrozmadawnwings:
+|chat|DEBUG|>[gigadrain: 60.125 [55, 66], gigadrain: 60.125 [55, 66], gigadrain: 60.125 [55, 66]]
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 60.125 [55, 66]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Barbaracle
+|-damage|p2a: Barbaracle|79100
+|move|p2a: Barbaracle|Max Quake|p1a: Zekrom
+|-supereffective|p1a: Zekrom
+|-damage|p1a: Zekrom|12252
+|-boost|p2a: Barbaracle|spd|1
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: gigadrain sludgebomb toxic spore
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: ['zekrom']
+|chat|DEBUG|Counter: ['zekrom']
+|chat|DEBUG|Speed: 99 vs 161
+|chat|DEBUG|HP: 177 vs 95
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 60.125 [55, 66]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zekrom
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Barbaracle|[from]lockedmove
+|-damage|p2a: Barbaracle|57100
+|move|p2a: Barbaracle|Max Geyser|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|0 fnt
+|-weather|RainDance
+|faint|p1a: Zekrom
+|-weather|RainDance|[upkeep]
+|-end|p2a: Barbaracle|Dynamax
+|-heal|p2a: Barbaracle|57100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|286329
+|-damage|p1a: Amoonguss|245329|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- necrozmadawnwings
+|chat|DEBUG|Own moves: dragondance roost outrage boltstrike
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: ['zekrom']
+|chat|DEBUG|Counter: ['zekrom']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 165 vs 161
+|chat|DEBUG|HP: 176 vs 111
+|chat|DEBUG|Created a new Strategy for zekrom vs necrozmadawnwings:
+|chat|DEBUG|>[outrage: 114.3125 [105, 124], outrage: 114.3125 [105, 124], outrage: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 114.3125 [105, 124]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 141.5625 [130, 154]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Barbaracle|Shell Smash|p2a: Barbaracle
+|-unboost|p2a: Barbaracle|def|1
+|-unboost|p2a: Barbaracle|spd|1
+|-boost|p2a: Barbaracle|atk|2
+|-boost|p2a: Barbaracle|spa|2
+|-boost|p2a: Barbaracle|spe|2
+|-enditem|p2a: Barbaracle|White Herb
+|-clearnegativeboost|p2a: Barbaracle|[silent]
+|move|p1a: Amoonguss|Giga Drain|p2a: Barbaracle
+|-supereffective|p2a: Barbaracle
+|-damage|p2a: Barbaracle|0 fnt
+|-heal|p1a: Amoonguss|314329|[from] drain|[of] p2a: Barbaracle
+|faint|p2a: Barbaracle
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Amoonguss|329329|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos, L78|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- barbaracle
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: ['amoonguss']
+|chat|DEBUG|Counter: ['zekrom', 'amoonguss']
+|chat|DEBUG|Speed: 165 vs 155
+|chat|DEBUG|HP: 176 vs 246
+|chat|DEBUG|Created a new Strategy for zekrom vs barbaracle:
+|chat|DEBUG|>[outrage: 104.5 [96, 114], outrage: 104.5 [96, 114], outrage: 104.5 [96, 114]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 104.5 [96, 114]
+|chat|DEBUG|Best move of barbaracle (p2): earthquake: 132.25 [122, 144]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Amoonguss|Dynamax
+|-heal|p1a: Amoonguss|658658|[silent]
+|move|p2a: Zapdos|Hurricane|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|412658
+|move|p1a: Amoonguss|Max Ooze|p2a: Zapdos
+|-damage|p2a: Zapdos|66100
+|-boost|p1a: Amoonguss|spa|1
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Amoonguss|432658|[from] item: Black Sludge
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- barbaracle
+|chat|DEBUG|Own moves: dragondance roost outrage boltstrike
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: ['amoonguss']
+|chat|DEBUG|Counter: ['zekrom', 'amoonguss']
+|chat|DEBUG|Speed: 165 vs 155
+|chat|DEBUG|HP: 176 vs 246
+|chat|DEBUG|Best move of zekrom (p1): outrage: 104.5 [96, 114]
+|chat|DEBUG|Best move of barbaracle (p2): earthquake: 132.25 [122, 144]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|178658
+|move|p1a: Amoonguss|Max Ooze|p2a: Zapdos
+|-damage|p2a: Zapdos|14100
+|-boost|p1a: Amoonguss|spa|1
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Amoonguss|198658|[from] item: Black Sludge
+|upkeep
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zekrom amoonguss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zekrom" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zekrom-amoonguss -- barbaracle
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: ['amoonguss']
+|chat|DEBUG|Counter: ['zekrom', 'amoonguss']
+|chat|DEBUG|Speed: 165 vs 155
+|chat|DEBUG|HP: 12 vs 194
+|chat|DEBUG|Created a new Strategy for zekrom vs barbaracle:
+|chat|DEBUG|>[outrage: 104.5 [96, 114], outrage: 104.5 [96, 114], outrage: 104.5 [96, 114]]
+|chat|DEBUG|Best move of zekrom (p1): outrage: 104.5 [96, 114]
+|chat|DEBUG|Best move of barbaracle (p2): earthquake: 132.25 [122, 144]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Amoonguss
+|-supereffective|p1a: Amoonguss
+|-damage|p1a: Amoonguss|0 fnt
+|faint|p1a: Amoonguss
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Tjediesworld25</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dragalge thundurus zekrom amoonguss chandelure drednaw</h1>

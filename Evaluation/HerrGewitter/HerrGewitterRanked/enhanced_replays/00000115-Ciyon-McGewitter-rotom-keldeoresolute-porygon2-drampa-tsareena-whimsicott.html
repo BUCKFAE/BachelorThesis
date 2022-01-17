@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490130799<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490130799|init|battle
+|title|Ciyon vs. McGewitter
+|j|☆Ciyon
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Ciyon|shadowtriad|1280
+|player|p2|McGewitter|265|1236
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Exeggutor|Exeggutor, L86, M|100100
+|switch|p2a: Rotom|Rotom, L84|221221
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotom" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor
+|chat|DEBUG|Own moves: thunderbolt nastyplot shadowball willowisp
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: ['drampa', 'tsareena']
+|chat|DEBUG|Counter: ['rotom', 'porygon2', 'drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Speed: 201 vs 144
+|chat|DEBUG|HP: 221 vs 304
+|chat|DEBUG|Created a new Strategy for rotom vs exeggutor:
+|chat|DEBUG|>[shadowball: 183.75 [168, 200], shadowball: 183.75 [168, 200], shadowball: 183.75 [168, 200]]
+|chat|DEBUG|Best move of rotom (p1): shadowball: 183.75 [168, 200]
+|chat|DEBUG|Best move of exeggutor (p2): psychic: 135.5 [124, 147]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Rotom|Shadow Ball|p1a: Exeggutor
+|-supereffective|p1a: Exeggutor
+|-damage|p1a: Exeggutor|43100
+|-enditem|p1a: Exeggutor|Sitrus Berry|[eat]
+|-heal|p1a: Exeggutor|68100|[from] item: Sitrus Berry
+|move|p1a: Exeggutor|Leech Seed|p2a: Rotom
+|-start|p2a: Rotom|move: Leech Seed
+|-damage|p2a: Rotom|194221|[from] Leech Seed|[of] p1a: Exeggutor
+|-heal|p1a: Exeggutor|77100|[silent]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotom" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor
+|chat|DEBUG|Own moves: thunderbolt nastyplot shadowball willowisp
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: ['porygon2', 'drampa']
+|chat|DEBUG|Counter: ['rotom', 'porygon2', 'drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Speed: 201 vs 144
+|chat|DEBUG|HP: 194 vs 234
+|chat|DEBUG|Best move of rotom (p1): shadowball: 183.75 [168, 200]
+|chat|DEBUG|Best move of exeggutor (p2): psychic: 135.5 [124, 147]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Duraludon|Duraludon, L84, M|100100
+|move|p2a: Rotom|Shadow Ball|p1a: Duraludon
+|-damage|p1a: Duraludon|69100
+|-damage|p2a: Rotom|167221|[from] Leech Seed|[of] p1a: Duraludon
+|-heal|p1a: Duraludon|79100|[silent]
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotom" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon
+|chat|DEBUG|Own moves: thunderbolt nastyplot shadowball willowisp
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute']
+|chat|DEBUG|Speed: 201 vs 191
+|chat|DEBUG|HP: 167 vs 201
+|chat|DEBUG|Created a new Strategy for rotom vs duraludon:
+|chat|DEBUG|>[shadowball: 82.4375 [76, 90], shadowball: 82.4375 [76, 90], shadowball: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of rotom (p1): shadowball: 82.4375 [76, 90]
+|chat|DEBUG|Best move of duraludon (p2): flashcannon: 54.9375 [51, 60]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Shadow Ball|p1a: Duraludon
+|-damage|p1a: Duraludon|45100
+|move|p1a: Duraludon|Flash Cannon|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|113221
+|-damage|p2a: Rotom|86221|[from] Leech Seed|[of] p1a: Duraludon
+|-heal|p1a: Duraludon|56100|[silent]
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotom" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon
+|chat|DEBUG|Own moves: thunderbolt nastyplot shadowball willowisp
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: ['keldeoresolute']
+|chat|DEBUG|Counter: ['keldeoresolute', 'whimsicott']
+|chat|DEBUG|Speed: 201 vs 191
+|chat|DEBUG|HP: 86 vs 142
+|chat|DEBUG|Best move of rotom (p1): shadowball: 82.4375 [76, 90]
+|chat|DEBUG|Best move of duraludon (p2): dracometeor: 177.9375 [163, 193]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check keldeoresolute
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Keldeo|Keldeo-Resolute, L79|273273
+|move|p1a: Duraludon|Draco Meteor|p2a: Keldeo
+|-damage|p2a: Keldeo|99273
+|-unboost|p1a: Duraludon|spa|2
+|-heal|p2a: Keldeo|116273|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon
+|chat|DEBUG|Own moves: secretsword calmmind scald substitute
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: ['keldeoresolute', 'whimsicott']
+|chat|DEBUG|Counter: ['keldeoresolute', 'drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 191
+|chat|DEBUG|HP: 116 vs 142
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs duraludon:
+|chat|DEBUG|>[secretsword: 161.875 [150, 176], secretsword: 161.875 [150, 176], secretsword: 161.875 [150, 176]]
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 161.875 [150, 176]
+|chat|DEBUG|Best move of duraludon (p2): thunderbolt: 78.5 [72, 86]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['exeggutor']
+|chat|DEBUG|Expected enemy: exeggutor
+|chat|DEBUG|Using move scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Scald|p1a: Duraludon
+|-resisted|p1a: Duraludon
+|-damage|p1a: Duraludon|37100
+|move|p1a: Duraludon|Thunderbolt|p2a: Keldeo
+|-supereffective|p2a: Keldeo
+|-damage|p2a: Keldeo|38273
+|-heal|p2a: Keldeo|55273|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon
+|chat|DEBUG|Own moves: secretsword calmmind scald substitute
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: ['tsareena', 'whimsicott']
+|chat|DEBUG|Counter: ['keldeoresolute', 'porygon2', 'drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Speed: 216 vs 191
+|chat|DEBUG|HP: 55 vs 94
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 161.875 [150, 176]
+|chat|DEBUG|Best move of duraludon (p2): thunderbolt: 78.5 [72, 86]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jellicent|Jellicent, L84, M|100100
+|move|p2a: Keldeo|Secret Sword|p1a: Jellicent
+|-immune|p1a: Jellicent
+|-heal|p2a: Keldeo|72273|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: secretsword calmmind scald substitute
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Speed: 216 vs 149
+|chat|DEBUG|HP: 72 vs 305
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs jellicent:
+|chat|DEBUG|>[substitute: 0.0 [0, 0], substitute: 0.0 [0, 0], substitute: 0.0 [0, 0]]
+|chat|DEBUG|Best move of keldeoresolute (p1): substitute: 0.0 [0, 0]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 79.5 [73, 87]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygon2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon2|Porygon2, L82|274274
+|-ability|p2a: Porygon2|Water Absorb|[from] ability: Trace|[of] p1a: Jellicent
+|move|p1a: Jellicent|Shadow Ball|p2a: Porygon2
+|-immune|p2a: Porygon2
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 149
+|chat|DEBUG|HP: 274 vs 305
+|chat|DEBUG|Created a new Strategy for porygon2 vs jellicent:
+|chat|DEBUG|>[discharge: 98.875 [90, 108], discharge: 98.875 [90, 108], discharge: 98.875 [90, 108]]
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 98.875 [90, 108]
+|chat|DEBUG|Best move of jellicent (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jellicent|Toxic|p2a: Porygon2
+|-status|p2a: Porygon2|tox
+|move|p2a: Porygon2|Discharge|p1a: Jellicent
+|-supereffective|p1a: Jellicent
+|-damage|p1a: Jellicent|71100
+|-status|p1a: Jellicent|par
+|-heal|p1a: Jellicent|77100 par|[from] item: Leftovers
+|-damage|p2a: Porygon2|257274 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 149
+|chat|DEBUG|HP: 257 vs 234
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 98.875 [90, 108]
+|chat|DEBUG|Best move of jellicent (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Jellicent
+|-supereffective|p1a: Jellicent
+|-damage|p1a: Jellicent|45100 par
+|move|p1a: Jellicent|Recover|p1a: Jellicent
+|-heal|p1a: Jellicent|95100 par
+|-heal|p1a: Jellicent|100100 par|[from] item: Leftovers
+|-damage|p2a: Porygon2|223274 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 149
+|chat|DEBUG|HP: 223 vs 305
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 98.875 [90, 108]
+|chat|DEBUG|Best move of jellicent (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Jellicent
+|-supereffective|p1a: Jellicent
+|-damage|p1a: Jellicent|67100 par
+|move|p1a: Jellicent|Recover|p1a: Jellicent
+|-heal|p1a: Jellicent|100100 par
+|-damage|p2a: Porygon2|172274 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 149
+|chat|DEBUG|HP: 172 vs 305
+|chat|DEBUG|Created a new Strategy for porygon2 vs jellicent:
+|chat|DEBUG|>[discharge: 98.875 [90, 108], discharge: 98.875 [90, 108], discharge: 98.875 [90, 108]]
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 98.875 [90, 108]
+|chat|DEBUG|Best move of jellicent (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Healing using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Recover|p2a: Porygon2
+|-heal|p2a: Porygon2|274274 tox
+|move|p1a: Jellicent|Scald|p2a: Porygon2
+|-immune|p2a: Porygon2|[from] ability: Water Absorb
+|-damage|p2a: Porygon2|206274 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 149
+|chat|DEBUG|HP: 206 vs 305
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 98.875 [90, 108]
+|chat|DEBUG|Best move of jellicent (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Attacking using discharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Jellicent
+|-supereffective|p1a: Jellicent
+|-damage|p1a: Jellicent|67100 par
+|cant|p1a: Jellicent|par
+|-heal|p1a: Jellicent|73100 par|[from] item: Leftovers
+|-damage|p2a: Porygon2|121274 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 149
+|chat|DEBUG|HP: 121 vs 222
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 98.875 [90, 108]
+|chat|DEBUG|Best move of jellicent (p2): toxic: 0.0 [0, 0]
+|chat|DEBUG|Healing using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Exeggutor|Exeggutor, L86, M|77100
+|move|p2a: Porygon2|Recover|p2a: Porygon2
+|-heal|p2a: Porygon2|258274 tox
+|-damage|p2a: Porygon2|156274 tox|[from] psn
+|-item|p1a: Exeggutor|Sitrus Berry|[from] ability: Harvest
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: ['drampa', 'tsareena']
+|chat|DEBUG|Counter: ['drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Speed: 146 vs 144
+|chat|DEBUG|HP: 156 vs 234
+|chat|DEBUG|Created a new Strategy for porygon2 vs exeggutor:
+|chat|DEBUG|>[triattack: 93.25 [85, 102], triattack: 93.25 [85, 102], triattack: 93.25 [85, 102]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 93.25 [85, 102]
+|chat|DEBUG|Best move of exeggutor (p2): psychic: 79.5 [73, 87]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check drampa
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|switch|p2a: Drampa|Drampa, L86, F|274274
+|move|p1a: Exeggutor|Leech Seed|p2a: Drampa
+|-ability|p2a: Drampa|Sap Sipper|boost
+|-boost|p2a: Drampa|atk|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drampa" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent
+|chat|DEBUG|Own moves: thunderbolt dracometeor hypervoice fireblast
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: ['drampa', 'tsareena']
+|chat|DEBUG|Counter: ['drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 111 vs 144
+|chat|DEBUG|HP: 274 vs 234
+|chat|DEBUG|Created a new Strategy for drampa vs exeggutor:
+|chat|DEBUG|>[fireblast: 348.75 [320, 378], fireblast: 348.75 [320, 378], fireblast: 348.75 [320, 378]]
+|chat|DEBUG|Best move of drampa (p1): fireblast: 348.75 [320, 378]
+|chat|DEBUG|Best move of exeggutor (p2): psychic: 117.0 [108, 127]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|switch|p1a: Slowking|Slowking, L86, F|100100
+|move|p2a: Drampa|Fire Blast|p1a: Slowking|[miss]
+|-miss|p2a: Drampa|p1a: Slowking
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drampa" vs "slowking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent-slowking
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: psyshock scald teleport toxic
+|chat|DEBUG|Checks: ['drampa', 'tsareena']
+|chat|DEBUG|Counter: ['drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 111 vs 101
+|chat|DEBUG|HP: 274 vs 304
+|chat|DEBUG|Created a new Strategy for drampa vs slowking:
+|chat|DEBUG|>[fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71]]
+|chat|DEBUG|Best move of drampa (p1): fireblast: 65.25 [60, 71]
+|chat|DEBUG|Best move of slowking (p2): psyshock: 91.875 [84, 100]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drampa|Fire Blast|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|80100
+|move|p1a: Slowking|Toxic|p2a: Drampa
+|-status|p2a: Drampa|tox
+|-heal|p1a: Slowking|86100|[from] item: Leftovers
+|-damage|p2a: Drampa|257274 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drampa" vs "slowking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent-slowking
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: psyshock scald teleport toxic
+|chat|DEBUG|Checks: ['drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 111 vs 101
+|chat|DEBUG|HP: 257 vs 261
+|chat|DEBUG|Created a new Strategy for drampa vs slowking:
+|chat|DEBUG|>[fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71]]
+|chat|DEBUG|Best move of drampa (p1): fireblast: 65.25 [60, 71]
+|chat|DEBUG|Best move of slowking (p2): psyshock: 91.875 [84, 100]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|move|p2a: Drampa|Fire Blast|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|64100
+|-status|p1a: Slowking|brn
+|move|p1a: Slowking|Psyshock|p2a: Drampa
+|-damage|p2a: Drampa|164274 tox
+|-heal|p1a: Slowking|71100 brn|[from] item: Leftovers
+|-damage|p2a: Drampa|130274 tox|[from] psn
+|-damage|p1a: Slowking|64100 brn|[from] brn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drampa" vs "slowking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent-slowking
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: psyshock scald teleport toxic
+|chat|DEBUG|Checks: ['drampa', 'tsareena']
+|chat|DEBUG|Counter: ['porygon2', 'drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 111 vs 101
+|chat|DEBUG|HP: 130 vs 194
+|chat|DEBUG|Created a new Strategy for drampa vs slowking:
+|chat|DEBUG|>[fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71]]
+|chat|DEBUG|Best move of drampa (p1): fireblast: 65.25 [60, 71]
+|chat|DEBUG|Best move of slowking (p2): psyshock: 91.875 [84, 100]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|move|p2a: Drampa|Fire Blast|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|44100 brn
+|move|p1a: Slowking|Scald|p2a: Drampa
+|-resisted|p2a: Drampa
+|-damage|p2a: Drampa|88274 tox
+|-heal|p1a: Slowking|50100 brn|[from] item: Leftovers
+|-damage|p2a: Drampa|37274 tox|[from] psn
+|-damage|p1a: Slowking|44100 brn|[from] brn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 drampa tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drampa" vs "slowking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-drampa-tsareena-whimsicott -- exeggutor-duraludon-jellicent-slowking
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: psyshock scald teleport toxic
+|chat|DEBUG|Checks: ['porygon2', 'tsareena', 'whimsicott']
+|chat|DEBUG|Counter: ['rotom', 'porygon2', 'drampa', 'tsareena', 'whimsicott']
+|chat|DEBUG|Speed: 111 vs 101
+|chat|DEBUG|HP: 37 vs 133
+|chat|DEBUG|Created a new Strategy for drampa vs slowking:
+|chat|DEBUG|>[fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71], fireblast: 65.25 [60, 71]]
+|chat|DEBUG|Best move of drampa (p1): fireblast: 65.25 [60, 71]
+|chat|DEBUG|Best move of slowking (p2): psyshock: 91.875 [84, 100]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drampa|Fire Blast|p1a: Slowking
+|-resisted|p1a: Slowking
+|-damage|p1a: Slowking|23100 brn
+|move|p1a: Slowking|Psyshock|p2a: Drampa
+|-damage|p2a: Drampa|0 fnt
+|faint|p2a: Drampa
+|-heal|p1a: Slowking|29100 brn|[from] item: Leftovers
+|-damage|p1a: Slowking|23100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon2|Porygon2, L82|156274 tox
+|-ability|p2a: Porygon2|Regenerator|[from] ability: Trace|[of] p1a: Slowking
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drampa" vs "slowking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-tsareena-whimsicott -- exeggutor-duraludon-jellicent-slowking
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: psyshock scald teleport toxic
+|chat|DEBUG|Checks: ['porygon2', 'tsareena', 'whimsicott']
+|chat|DEBUG|Counter: ['rotom', 'porygon2', 'tsareena', 'whimsicott']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to porygon2 (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Discharge|p1a: Slowking
+|-supereffective|p1a: Slowking
+|-damage|p1a: Slowking|0 fnt
+|faint|p1a: Slowking
+|-damage|p2a: Porygon2|139274 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rhyperior|Rhyperior, L82, M|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "slowking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-tsareena-whimsicott -- exeggutor-duraludon-jellicent-slowking
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: psyshock scald teleport toxic
+|chat|DEBUG|Checks: ['porygon2', 'tsareena', 'whimsicott']
+|chat|DEBUG|Counter: ['rotom', 'porygon2', 'tsareena', 'whimsicott']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 101
+|chat|DEBUG|HP: 156 vs 69
+|chat|DEBUG|Created a new Strategy for porygon2 vs slowking:
+|chat|DEBUG|>[discharge: 95.125 [88, 104], discharge: 95.125 [88, 104], discharge: 95.125 [88, 104]]
+|chat|DEBUG|Best move of porygon2 (p1): discharge: 95.125 [88, 104]
+|chat|DEBUG|Best move of slowking (p2): psyshock: 61.5625 [57, 67]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tsareena|Tsareena, L84, F|258258
+|move|p1a: Rhyperior|Rock Polish|p1a: Rhyperior
+|-boost|p1a: Rhyperior|spe|2
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-tsareena-whimsicott -- exeggutor-duraludon-jellicent-rhyperior
+|chat|DEBUG|Own moves: toxic recover discharge triattack
+|chat|DEBUG|Enemy moves: earthquake firepunch rockpolish stoneedge
+|chat|DEBUG|Checks: ['tsareena']
+|chat|DEBUG|Counter: ['keldeoresolute', 'tsareena']
+|chat|DEBUG|Speed: 146 vs 113
+|chat|DEBUG|HP: 139 vs 323
+|chat|DEBUG|Created a new Strategy for porygon2 vs rhyperior:
+|chat|DEBUG|>[triattack: 60.375 [55, 66], triattack: 60.375 [55, 66], triattack: 60.375 [55, 66]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 60.375 [55, 66]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 90.875 [84, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tsareena
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Fire Punch|p2a: Tsareena
+|-supereffective|p2a: Tsareena
+|-damage|p2a: Tsareena|132258
+|-status|p2a: Tsareena|brn
+|move|p2a: Tsareena|Power Whip|p1a: Rhyperior
+|-supereffective|p1a: Rhyperior
+|-damage|p1a: Rhyperior|50100
+|-enditem|p1a: Rhyperior|Weakness Policy
+|-boost|p1a: Rhyperior|atk|2|[from] item: Weakness Policy
+|-boost|p1a: Rhyperior|spa|2|[from] item: Weakness Policy
+|-damage|p2a: Tsareena|116258 brn|[from] brn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-tsareena-whimsicott -- exeggutor-duraludon-jellicent-rhyperior
+|chat|DEBUG|Own moves: knockoff synthesis rapidspin powerwhip
+|chat|DEBUG|Enemy moves: earthquake firepunch rockpolish stoneedge
+|chat|DEBUG|Checks: ['tsareena']
+|chat|DEBUG|Counter: ['keldeoresolute', 'tsareena']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 169 vs 113
+|chat|DEBUG|HP: 258 vs 323
+|chat|DEBUG|Created a new Strategy for tsareena vs rhyperior:
+|chat|DEBUG|>[powerwhip: 338.4375 [309, 369], powerwhip: 338.4375 [309, 369], powerwhip: 338.4375 [309, 369]]
+|chat|DEBUG|Best move of tsareena (p1): powerwhip: 338.4375 [309, 369]
+|chat|DEBUG|Best move of rhyperior (p2): firepunch: 124.75 [114, 136]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Fire Punch|p2a: Tsareena
+|-supereffective|p2a: Tsareena
+|-damage|p2a: Tsareena|0 fnt
+|faint|p2a: Tsareena
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Keldeo|Keldeo-Resolute, L79|72273
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 tsareena whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-tsareena-whimsicott -- exeggutor-duraludon-jellicent-rhyperior
+|chat|DEBUG|Own moves: knockoff synthesis rapidspin powerwhip
+|chat|DEBUG|Enemy moves: earthquake firepunch rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute', 'tsareena']
+|chat|DEBUG|Speed: 169 vs 113
+|chat|DEBUG|HP: 116 vs 161
+|chat|DEBUG|Best move of tsareena (p1): powerwhip: 338.4375 [309, 369]
+|chat|DEBUG|Best move of rhyperior (p2): firepunch: 246.75 [226, 268]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|move|p1a: Rhyperior|Earthquake|p2a: Keldeo
+|-damage|p2a: Keldeo|0 fnt
+|faint|p2a: Keldeo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon2|Porygon2, L82|230274 tox
+|-ability|p2a: Porygon2|Solid Rock|[from] ability: Trace|[of] p1a: Rhyperior
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-whimsicott -- exeggutor-duraludon-jellicent-rhyperior
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake firepunch rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to keldeoresolute (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|-start|p1a: Rhyperior|Dynamax
+|-heal|p1a: Rhyperior|50100|[silent]
+|move|p1a: Rhyperior|Max Quake|p2a: Porygon2
+|-damage|p2a: Porygon2|8274 tox
+|-boost|p1a: Rhyperior|spd|1
+|move|p2a: Porygon2|Tri Attack|p1a: Rhyperior
+|-resisted|p1a: Rhyperior
+|-damage|p1a: Rhyperior|44100
+|-damage|p2a: Porygon2|0 fnt|[from] psn
+|faint|p2a: Porygon2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whimsicott|Whimsicott, L84, F|238238
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom keldeoresolute porygon2 whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-keldeoresolute-porygon2-whimsicott -- exeggutor-duraludon-jellicent-rhyperior
+|chat|DEBUG|Own moves: secretsword calmmind scald substitute
+|chat|DEBUG|Enemy moves: earthquake firepunch rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['keldeoresolute']
+|chat|DEBUG|Speed: 216 vs 113
+|chat|DEBUG|HP: 72 vs 161
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs rhyperior:
+|chat|DEBUG|>[scald: 402.0 [369, 435], scald: 402.0 [369, 435], scald: 402.0 [369, 435]]
+|chat|DEBUG|Best move of keldeoresolute (p1): scald: 402.0 [369, 435]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 278.625 [256, 303]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|-start|p2a: Whimsicott|Dynamax
+|-heal|p2a: Whimsicott|476476|[silent]
+|move|p2a: Whimsicott|Max Starfall|p1a: Rhyperior
+|-damage|p1a: Rhyperior|27100
+|-fieldstart|move: Misty Terrain
+|move|p1a: Rhyperior|Max Flare|p2a: Whimsicott
+|-supereffective|p2a: Whimsicott
+|-damage|p2a: Whimsicott|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Whimsicott
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom, L84|86221
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotom porygon2 whimsicott
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotom-porygon2-whimsicott -- exeggutor-duraludon-jellicent-rhyperior
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake firepunch rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: porygon2
+|chat|DEBUG|>Switching to porygon2 (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Ciyon has 120 seconds left.
+|move|p1a: Rhyperior|Max Rockfall|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Rotom
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Ciyon<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">rotom keldeoresolute porygon2 drampa tsareena whimsicott</h1>

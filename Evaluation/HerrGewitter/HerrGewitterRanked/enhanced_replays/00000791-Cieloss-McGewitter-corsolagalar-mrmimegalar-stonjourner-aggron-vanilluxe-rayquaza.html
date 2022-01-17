@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491259068<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491259068|init|battle
+|title|Cieloss vs. McGewitter
+|j|☆Cieloss
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Cieloss|1|1273
+|player|p2|McGewitter|265|1270
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Corsola|Corsola, L93, F|100100
+|switch|p2a: Corsola|Corsola-Galar, L84, M|238238
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: willowisp haze nightshade strengthsap
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsolagalar', 'mrmimegalar', 'aggron']
+|chat|DEBUG|Speed: 99 vs 118
+|chat|DEBUG|HP: 238 vs 272
+|chat|DEBUG|Created a new Strategy for corsolagalar vs corsola:
+|chat|DEBUG|>[nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84]]
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of corsola (p2): scald: 47.5625 [43, 52]
+|chat|DEBUG|Attacking using nightshade
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Cieloss also wants the timer to be on.
+|move|p1a: Corsola|Scald|p2a: Corsola
+|-damage|p2a: Corsola|195238
+|move|p2a: Corsola|Night Shade|p1a: Corsola
+|-damage|p1a: Corsola|70100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: willowisp haze nightshade strengthsap
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['corsolagalar', 'mrmimegalar']
+|chat|DEBUG|Counter: ['corsolagalar', 'mrmimegalar', 'stonjourner', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 118
+|chat|DEBUG|HP: 195 vs 190
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of corsola (p2): scald: 47.5625 [43, 52]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using nightshade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Corsola|Toxic|p2a: Corsola
+|-status|p2a: Corsola|tox
+|move|p2a: Corsola|Night Shade|p1a: Corsola
+|-damage|p1a: Corsola|39100
+|-damage|p2a: Corsola|181238 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: willowisp haze nightshade strengthsap
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['corsolagalar', 'mrmimegalar', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Counter: ['corsolagalar', 'mrmimegalar', 'stonjourner', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 118
+|chat|DEBUG|HP: 181 vs 106
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of corsola (p2): scald: 47.5625 [43, 52]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using nightshade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Corsola|Recover|p1a: Corsola
+|-heal|p1a: Corsola|89100
+|move|p2a: Corsola|Night Shade|p1a: Corsola
+|-damage|p1a: Corsola|58100
+|-damage|p2a: Corsola|153238 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: willowisp haze nightshade strengthsap
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['corsolagalar', 'mrmimegalar']
+|chat|DEBUG|Counter: ['corsolagalar', 'mrmimegalar', 'stonjourner', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 118
+|chat|DEBUG|HP: 153 vs 157
+|chat|DEBUG|Created a new Strategy for corsolagalar vs corsola:
+|chat|DEBUG|>[nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84]]
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of corsola (p2): scald: 47.5625 [43, 52]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using nightshade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Corsola|Scald|p2a: Corsola
+|-damage|p2a: Corsola|101238 tox
+|move|p2a: Corsola|Night Shade|p1a: Corsola
+|-damage|p1a: Corsola|27100
+|-damage|p2a: Corsola|59238 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: willowisp haze nightshade strengthsap
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['mrmimegalar', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Counter: ['corsolagalar', 'mrmimegalar', 'stonjourner', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Speed: 99 vs 118
+|chat|DEBUG|HP: 59 vs 73
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of corsola (p2): scald: 47.5625 [43, 52]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Corsola|Recover|p1a: Corsola
+|-heal|p1a: Corsola|77100
+|move|p2a: Corsola|Night Shade|p1a: Corsola
+|-damage|p1a: Corsola|46100
+|-damage|p2a: Corsola|3238 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: willowisp haze nightshade strengthsap
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['mrmimegalar', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Counter: ['mrmimegalar', 'stonjourner', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Speed: 99 vs 118
+|chat|DEBUG|HP: 3 vs 125
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of corsola (p2): scald: 47.5625 [43, 52]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrmimegalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, M|226226
+|move|p1a: Corsola|Recover|p1a: Corsola
+|-heal|p1a: Corsola|96100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: psychic focusblast rapidspin freezedry
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmimegalar', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Speed: 221 vs 118
+|chat|DEBUG|HP: 226 vs 261
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs corsola:
+|chat|DEBUG|>[freezedry: 125.875 [116, 138], freezedry: 125.875 [116, 138], freezedry: 125.875 [116, 138]]
+|chat|DEBUG|Best move of mrmimegalar (p1): freezedry: 125.875 [116, 138]
+|chat|DEBUG|Best move of corsola (p2): powergem: 100.75 [92, 110]
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Freeze-Dry|p1a: Corsola
+|-supereffective|p1a: Corsola
+|-damage|p1a: Corsola|45100
+|move|p1a: Corsola|Power Gem|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|122226
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola
+|chat|DEBUG|Own moves: psychic focusblast rapidspin freezedry
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['mrmimegalar', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Counter: ['mrmimegalar', 'stonjourner', 'aggron', 'vanilluxe', 'rayquaza']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 118
+|chat|DEBUG|HP: 122 vs 122
+|chat|DEBUG|Best move of mrmimegalar (p1): freezedry: 125.875 [116, 138]
+|chat|DEBUG|Best move of corsola (p2): powergem: 100.75 [92, 110]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gengar|Gengar, L80, M|100100
+|move|p2a: Mr. Mime|Freeze-Dry|p1a: Gengar
+|-damage|p1a: Gengar|65100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-mrmimegalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola-gengar
+|chat|DEBUG|Own moves: psychic focusblast rapidspin freezedry
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vanilluxe', 'rayquaza']
+|chat|DEBUG|Speed: 221 vs 222
+|chat|DEBUG|HP: 122 vs 147
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs gengar:
+|chat|DEBUG|>[psychic: 222.875 [204, 242], psychic: 222.875 [204, 242], psychic: 222.875 [204, 242]]
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 222.875 [204, 242]
+|chat|DEBUG|Best move of gengar (p2): shadowball: 167.0625 [151, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Shadow Ball|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|-damage|p1a: Gengar|55100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vanilluxe|Vanilluxe, L82, M|251251
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Vanilluxe
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola-gengar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vanilluxe', 'rayquaza']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to vanilluxe (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Focus Blast|p2a: Vanilluxe
+|-supereffective|p2a: Vanilluxe
+|-damage|p2a: Vanilluxe|0 fnt
+|faint|p2a: Vanilluxe
+|-damage|p1a: Gengar|45100|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p1a: Gengar|39100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rayquaza|Rayquaza, L74|277277
+|-ability|p2a: Rayquaza|Air Lock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron vanilluxe rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vanilluxe" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron-vanilluxe-rayquaza -- corsola-gengar
+|chat|DEBUG|Own moves: freezedry explosion auroraveil blizzard
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vanilluxe', 'rayquaza']
+|chat|DEBUG|Speed: 177 vs 222
+|chat|DEBUG|HP: 251 vs 124
+|chat|DEBUG|Created a new Strategy for vanilluxe vs gengar:
+|chat|DEBUG|>[blizzard: 143.125 [132, 156], blizzard: 143.125 [132, 156], blizzard: 143.125 [132, 156]]
+|chat|DEBUG|Best move of vanilluxe (p1): blizzard: 143.125 [132, 156]
+|chat|DEBUG|Best move of gengar (p2): focusblast: 248.4375 [229, 270]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|auroraveil
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Shadow Ball|p2a: Rayquaza
+|-damage|p2a: Rayquaza|144277
+|-damage|p1a: Gengar|30100|[from] item: Life Orb
+|move|p2a: Rayquaza|Earthquake|p1a: Gengar
+|-supereffective|p1a: Gengar
+|-damage|p1a: Gengar|0 fnt
+|faint|p1a: Gengar
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Corsola|Corsola, L93, F|78100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vanilluxe" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron-rayquaza -- corsola-gengar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rayquaza']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to rayquaza (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rayquaza|Earthquake|p1a: Corsola
+|-supereffective|p1a: Corsola
+|-damage|p1a: Corsola|26100
+|move|p1a: Corsola|Power Gem|p2a: Rayquaza
+|-supereffective|p2a: Rayquaza
+|-damage|p2a: Rayquaza|0 fnt
+|faint|p2a: Rayquaza
+|-weather|Hail|[upkeep]
+|-damage|p1a: Corsola|20100|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|258258
+|-item|p2a: Aggron|Air Balloon
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rayquaza" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron-rayquaza -- corsola-gengar
+|chat|DEBUG|Own moves: dragondance dragonascent earthquake vcreate
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rayquaza']
+|chat|DEBUG|Speed: 184 vs 222
+|chat|DEBUG|HP: 277 vs 88
+|chat|DEBUG|Created a new Strategy for rayquaza vs gengar:
+|chat|DEBUG|>[earthquake: 215.375 [198, 234], earthquake: 215.375 [198, 234], earthquake: 215.375 [198, 234]]
+|chat|DEBUG|Best move of rayquaza (p1): earthquake: 215.375 [198, 234]
+|chat|DEBUG|Best move of gengar (p2): sludgewave: 170.3125 [156, 185]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Conkeldurr|Conkeldurr, L80, F|100100
+|move|p2a: Aggron|Earthquake|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|73100
+|-weather|Hail|[upkeep]
+|-damage|p2a: Aggron|242258|[from] Hail
+|-damage|p1a: Conkeldurr|67100|[from] Hail
+|-status|p1a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron rayquaza
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rayquaza" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron-rayquaza -- corsola
+|chat|DEBUG|Own moves: dragondance dragonascent earthquake vcreate
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aggron']
+|chat|DEBUG|Speed: 184 vs 118
+|chat|DEBUG|HP: 144 vs 212
+|chat|DEBUG|Created a new Strategy for rayquaza vs corsola:
+|chat|DEBUG|>[earthquake: 134.125 [124, 146], earthquake: 134.125 [124, 146], earthquake: 134.125 [124, 146]]
+|chat|DEBUG|Best move of rayquaza (p1): earthquake: 134.125 [124, 146]
+|chat|DEBUG|Best move of corsola (p2): powergem: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Conkeldurr|Mach Punch|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|58258
+|-enditem|p2a: Aggron|Air Balloon
+|move|p2a: Aggron|Heavy Slam|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|29100 brn
+|-weather|none
+|-damage|p1a: Conkeldurr|23100 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rayquaza" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron -- corsola
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aggron']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to aggron (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Conkeldurr|Mach Punch|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|0 fnt
+|faint|p2a: Aggron
+|-damage|p1a: Conkeldurr|17100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stonjourner|Stonjourner, L88, M|319319
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron -- corsola
+|chat|DEBUG|Own moves: headsmash rockpolish earthquake heavyslam
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['stonjourner', 'aggron']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 134 vs 118
+|chat|DEBUG|HP: 258 vs 54
+|chat|DEBUG|Created a new Strategy for aggron vs corsola:
+|chat|DEBUG|>[earthquake: 138.0 [126, 150], earthquake: 138.0 [126, 150], earthquake: 138.0 [126, 150]]
+|chat|DEBUG|Best move of aggron (p1): earthquake: 138.0 [126, 150]
+|chat|DEBUG|Best move of corsola (p2): scald: 200.75 [186, 218]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Stonjourner|Heat Crash|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|0 fnt
+|faint|p1a: Conkeldurr
+|-damage|p2a: Stonjourner|288319|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Corsola|Corsola, L93, F|53100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron -- corsola-conkeldurr
+|chat|DEBUG|Own moves: headsmash rockpolish earthquake heavyslam
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stonjourner']
+|chat|DEBUG|Speed: 134 vs 118
+|chat|DEBUG|HP: 242 vs 200
+|chat|DEBUG|Created a new Strategy for aggron vs conkeldurr:
+|chat|DEBUG|>[heavyslam: 119.75 [109, 130], heavyslam: 119.75 [109, 130], heavyslam: 119.75 [109, 130]]
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 119.75 [109, 130]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 351.75 [324, 384]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Stonjourner|Earthquake|p1a: Corsola
+|-supereffective|p1a: Corsola
+|-damage|p1a: Corsola|0 fnt
+|faint|p1a: Corsola
+|-damage|p2a: Stonjourner|257319|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Volcanion|Volcanion, L80|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner aggron
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner-aggron -- corsola-conkeldurr
+|chat|DEBUG|Own moves: headsmash rockpolish earthquake heavyslam
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: ['stonjourner']
+|chat|DEBUG|Counter: ['stonjourner', 'aggron']
+|chat|DEBUG|Speed: 134 vs 118
+|chat|DEBUG|HP: 58 vs 68
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 119.75 [109, 130]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 351.75 [324, 384]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Stonjourner|Stone Edge|p1a: Volcanion
+|-supereffective|p1a: Volcanion
+|-damage|p1a: Volcanion|0 fnt
+|faint|p1a: Volcanion
+|-damage|p2a: Stonjourner|226319|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mewtwo|Mewtwo, L72|100100
+|-ability|p1a: Mewtwo|Unnerve
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner -- corsola-conkeldurr
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: ['stonjourner']
+|chat|DEBUG|Counter: ['stonjourner']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to stonjourner (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Shadow Ball|p2a: Stonjourner
+|-damage|p2a: Stonjourner|32319
+|-damage|p1a: Mewtwo|91100|[from] item: Life Orb
+|move|p2a: Stonjourner|Stone Edge|p1a: Mewtwo|[miss]
+|-miss|p2a: Stonjourner|p1a: Mewtwo
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stonjourner" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner -- corsola-conkeldurr
+|chat|DEBUG|Own moves: earthquake stoneedge rockpolish heatcrash
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: ['stonjourner']
+|chat|DEBUG|Counter: ['stonjourner']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 118
+|chat|DEBUG|HP: 319 vs 50
+|chat|DEBUG|Created a new Strategy for stonjourner vs conkeldurr:
+|chat|DEBUG|>[heatcrash: 147.1875 [135, 160], heatcrash: 147.1875 [135, 160], heatcrash: 147.1875 [135, 160]]
+|chat|DEBUG|Best move of stonjourner (p1): heatcrash: 147.1875 [135, 160]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 214.625 [198, 234]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Shadow Ball|p2a: Stonjourner
+|-damage|p2a: Stonjourner|0 fnt
+|faint|p2a: Stonjourner
+|-damage|p1a: Mewtwo|81100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corsola|Corsola-Galar, L84, M|3238 tox
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar stonjourner
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stonjourner" vs "corsola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-stonjourner -- corsola
+|chat|DEBUG|Own moves: earthquake stoneedge rockpolish heatcrash
+|chat|DEBUG|Enemy moves: powergem recover scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stonjourner']
+|chat|DEBUG|Speed: 173 vs 118
+|chat|DEBUG|HP: 288 vs 144
+|chat|DEBUG|Created a new Strategy for stonjourner vs corsola:
+|chat|DEBUG|>[earthquake: 210.4375 [192, 229], earthquake: 210.4375 [192, 229], earthquake: 210.4375 [192, 229]]
+|chat|DEBUG|Best move of stonjourner (p1): earthquake: 210.4375 [192, 229]
+|chat|DEBUG|Best move of corsola (p2): scald: 355.875 [326, 386]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Shadow Ball|p2a: Corsola
+|-supereffective|p2a: Corsola
+|-damage|p2a: Corsola|0 fnt
+|-start|p1a: Mewtwo|Disable|Shadow Ball|[from] ability: Cursed Body|[of] p2a: Corsola
+|faint|p2a: Corsola
+|-damage|p1a: Mewtwo|71100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Cieloss<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">corsolagalar mrmimegalar stonjourner aggron vanilluxe rayquaza</h1>

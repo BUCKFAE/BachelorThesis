@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490874741<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490874741|init|battle
+|title|McGewitter vs. Blademaster2034
+|j|☆McGewitter
+|j|☆Blademaster2034
+|gametype|singles
+|player|p1|McGewitter|265|1291
+|player|p2|Blademaster2034|102|1316
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Klefki|Klefki, L82, M|228228
+|switch|p2a: Krookodile|Krookodile, L78, F|100100
+|-ability|p2a: Krookodile|Intimidate|boost
+|-unboost|p1a: Klefki|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>klefki terrakion tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>klefki-terrakion-tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: playrough spikes magnetrise thunderwave
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'tornadustherian', 'falinks']
+|chat|DEBUG|Speed: 170 vs 189
+|chat|DEBUG|HP: 228 vs 276
+|chat|DEBUG|Created a new Strategy for klefki vs krookodile:
+|chat|DEBUG|>[playrough: 92.125 [84, 102], playrough: 92.125 [84, 102], playrough: 92.125 [84, 102]]
+|chat|DEBUG|Best move of klefki (p1): playrough: 92.125 [84, 102]
+|chat|DEBUG|Best move of krookodile (p2): earthquake: 279.0 [257, 304]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Klefki|Spikes|p2a: Krookodile
+|-sidestart|p2: Blademaster2034|Spikes
+|move|p2a: Krookodile|Stealth Rock|p1a: Klefki
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>klefki terrakion tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>klefki-terrakion-tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: playrough spikes magnetrise thunderwave
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'tornadustherian', 'falinks']
+|chat|DEBUG|Speed: 170 vs 189
+|chat|DEBUG|HP: 228 vs 276
+|chat|DEBUG|Best move of klefki (p1): playrough: 92.125 [84, 102]
+|chat|DEBUG|Best move of krookodile (p2): earthquake: 279.0 [257, 304]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Klefki|Spikes|p2a: Krookodile
+|-sidestart|p2: Blademaster2034|Spikes
+|move|p2a: Krookodile|Earthquake|p1a: Klefki
+|-supereffective|p1a: Klefki
+|-damage|p1a: Klefki|24228
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>klefki terrakion tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>klefki-terrakion-tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: playrough spikes magnetrise thunderwave
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'tornadustherian', 'falinks']
+|chat|DEBUG|Speed: 170 vs 189
+|chat|DEBUG|HP: 24 vs 276
+|chat|DEBUG|Best move of klefki (p1): playrough: 92.125 [84, 102]
+|chat|DEBUG|Best move of krookodile (p2): earthquake: 279.0 [257, 304]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Klefki|Spikes|p2a: Krookodile
+|-sidestart|p2: Blademaster2034|Spikes
+|move|p2a: Krookodile|Earthquake|p1a: Klefki
+|-supereffective|p1a: Klefki
+|-crit|p1a: Klefki
+|-damage|p1a: Klefki|0 fnt
+|faint|p1a: Klefki
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Terrakion|Terrakion, L78|270270
+|-damage|p1a: Terrakion|254270|[from] Stealth Rock
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'tornadustherian', 'falinks']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to terrakion (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Terrakion|Close Combat|p2a: Krookodile
+|-supereffective|p2a: Krookodile
+|-enditem|p2a: Krookodile|Focus Sash
+|-damage|p2a: Krookodile|1100
+|-unboost|p1a: Terrakion|def|1
+|-unboost|p1a: Terrakion|spd|1
+|move|p2a: Krookodile|Earthquake|p1a: Terrakion
+|-supereffective|p1a: Terrakion
+|-damage|p1a: Terrakion|0 fnt
+|faint|p1a: Terrakion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|251251
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>terrakion tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>terrakion-tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: closecombat earthquake quickattack stoneedge
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['terrakion', 'tornadustherian', 'falinks']
+|chat|DEBUG|Speed: 214 vs 189
+|chat|DEBUG|HP: 254 vs 276
+|chat|DEBUG|Created a new Strategy for terrakion vs krookodile:
+|chat|DEBUG|>[closecombat: 320.0 [294, 348], closecombat: 320.0 [294, 348], closecombat: 320.0 [294, 348]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 320.0 [294, 348]
+|chat|DEBUG|Best move of krookodile (p2): earthquake: 297.1875 [273, 322]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Hurricane|p2a: Krookodile|[miss]
+|-miss|p1a: Tornadus|p2a: Krookodile
+|move|p2a: Krookodile|Knock Off|p1a: Tornadus
+|-damage|p1a: Tornadus|136251
+|-enditem|p1a: Tornadus|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Krookodile
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian', 'falinks']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tornadustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Hurricane|p2a: Krookodile
+|-damage|p2a: Krookodile|0 fnt
+|faint|p2a: Krookodile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pikachu|Pikachu, L92, M|100100
+|-damage|p2a: Pikachu|76100|[from] Spikes
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: knockoff uturn defog hurricane
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: ['tornadustherian', 'falinks']
+|chat|DEBUG|Counter: ['tornadustherian', 'palossand', 'falinks', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 234 vs 189
+|chat|DEBUG|HP: 251 vs 2
+|chat|DEBUG|Created a new Strategy for tornadustherian vs krookodile:
+|chat|DEBUG|>[hurricane: 143.125 [132, 156], hurricane: 143.125 [132, 156], hurricane: 143.125 [132, 156]]
+|chat|DEBUG|Best move of tornadustherian (p1): hurricane: 143.125 [132, 156]
+|chat|DEBUG|Best move of krookodile (p2): stoneedge: 165.75 [152, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Knock Off|p2a: Pikachu
+|-damage|p2a: Pikachu|34100
+|-enditem|p2a: Pikachu|Light Ball|[from] move: Knock Off|[of] p1a: Tornadus
+|move|p2a: Pikachu|Volt Tackle|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|faint|p1a: Tornadus
+|-damage|p2a: Pikachu|13100|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palossand|Palossand, L86, M|286286
+|-damage|p1a: Palossand|269286|[from] Stealth Rock
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tornadustherian-palossand-falinks-moltresgalar -- krookodile
+|chat|DEBUG|Own moves: knockoff uturn defog hurricane
+|chat|DEBUG|Enemy moves: earthquake knockoff stealthrock stoneedge
+|chat|DEBUG|Checks: ['falinks']
+|chat|DEBUG|Counter: ['tornadustherian', 'palossand', 'falinks', 'moltresgalar']
+|chat|DEBUG|Speed: 234 vs 189
+|chat|DEBUG|HP: 136 vs 2
+|chat|DEBUG|Best move of tornadustherian (p1): hurricane: 143.125 [132, 156]
+|chat|DEBUG|Best move of krookodile (p2): stoneedge: 165.75 [152, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pikachu|Knock Off|p1a: Palossand
+|-supereffective|p1a: Palossand
+|-damage|p1a: Palossand|185286
+|-enditem|p1a: Palossand|Leftovers|[from] move: Knock Off|[of] p2a: Pikachu
+|move|p1a: Palossand|Earth Power|p2a: Pikachu
+|-supereffective|p2a: Pikachu
+|-damage|p2a: Pikachu|0 fnt
+|faint|p2a: Pikachu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Drifblim|Drifblim, L84, F|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tornadustherian palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "pikachu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tornadustherian-palossand-falinks-moltresgalar -- pikachu
+|chat|DEBUG|Own moves: knockoff uturn defog hurricane
+|chat|DEBUG|Enemy moves: irontail surf voltswitch volttackle
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian', 'palossand', 'falinks']
+|chat|DEBUG|Speed: 234 vs 218
+|chat|DEBUG|HP: 136 vs 162
+|chat|DEBUG|Created a new Strategy for tornadustherian vs pikachu:
+|chat|DEBUG|>[knockoff: 95.5625 [88, 104], knockoff: 95.5625 [88, 104], knockoff: 95.5625 [88, 104]]
+|chat|DEBUG|Best move of tornadustherian (p1): knockoff: 95.5625 [88, 104]
+|chat|DEBUG|Best move of pikachu (p2): volttackle: 461.0 [422, 500]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Shadow Ball|p1a: Palossand
+|-supereffective|p1a: Palossand
+|-crit|p1a: Palossand
+|-damage|p1a: Palossand|0 fnt
+|faint|p1a: Palossand
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres-Galar, L75|259259
+|-damage|p1a: Moltres|195259|[from] Stealth Rock
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "pikachu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>palossand-falinks-moltresgalar -- pikachu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: irontail surf voltswitch volttackle
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palossand', 'falinks']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to palossand (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Blademaster2034 has 120 seconds left.
+|move|p2a: Drifblim|Thunderbolt|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|87259
+|-status|p1a: Moltres|par
+|-ability|p1a: Moltres|Berserk|boost
+|-boost|p1a: Moltres|spa|1
+|move|p1a: Moltres|Fiery Wrath|p2a: Drifblim
+|-supereffective|p2a: Drifblim
+|-damage|p2a: Drifblim|17100
+|-enditem|p2a: Drifblim|Sitrus Berry|[eat]
+|-heal|p2a: Drifblim|42100|[from] item: Sitrus Berry
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "pikachu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>palossand-falinks-moltresgalar -- pikachu
+|chat|DEBUG|Own moves: earthpower shadowball shoreup stealthrock
+|chat|DEBUG|Enemy moves: irontail surf voltswitch volttackle
+|chat|DEBUG|Checks: ['palossand', 'falinks']
+|chat|DEBUG|Counter: ['palossand', 'falinks', 'moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 109 vs 218
+|chat|DEBUG|HP: 269 vs 27
+|chat|DEBUG|Created a new Strategy for palossand vs pikachu:
+|chat|DEBUG|>[earthpower: 277.125 [254, 302], earthpower: 277.125 [254, 302], earthpower: 277.125 [254, 302]]
+|chat|DEBUG|Best move of palossand (p1): earthpower: 277.125 [254, 302]
+|chat|DEBUG|Best move of pikachu (p2): surf: 104.625 [96, 114]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Falinks|Falinks, L84|246246
+|-damage|p1a: Falinks|231246|[from] Stealth Rock
+|move|p2a: Drifblim|Thunderbolt|p1a: Falinks
+|-damage|p1a: Falinks|152246
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>palossand falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>palossand-falinks-moltresgalar -- drifblim
+|chat|DEBUG|Own moves: earthpower shadowball shoreup stealthrock
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 109 vs 183
+|chat|DEBUG|HP: 185 vs 389
+|chat|DEBUG|Created a new Strategy for palossand vs drifblim:
+|chat|DEBUG|>[shadowball: 256.125 [236, 278], shadowball: 256.125 [236, 278], shadowball: 256.125 [236, 278]]
+|chat|DEBUG|Best move of palossand (p1): shadowball: 256.125 [236, 278]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 175.875 [162, 192]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Strength Sap|p1a: Falinks
+|-unboost|p1a: Falinks|atk|1
+|-ability|p1a: Falinks|Defiant
+|-boost|p1a: Falinks|atk|2
+|-heal|p2a: Drifblim|98100
+|move|p1a: Falinks|Throat Chop|p2a: Drifblim
+|-supereffective|p2a: Drifblim
+|-damage|p2a: Drifblim|32100
+|-start|p2a: Drifblim|Throat Chop|[silent]
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- drifblim
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to moltresgalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Shadow Ball|p1a: Falinks
+|-damage|p1a: Falinks|40246
+|move|p1a: Falinks|Throat Chop|p2a: Drifblim
+|-supereffective|p2a: Drifblim
+|-damage|p2a: Drifblim|0 fnt
+|faint|p2a: Drifblim
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Blademaster2034 has 120 seconds left.
+|switch|p2a: Meowstic|Meowstic, L84, M|100100
+|-damage|p2a: Meowstic|76100|[from] Spikes
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- drifblim
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 179 vs 183
+|chat|DEBUG|HP: 195 vs 389
+|chat|DEBUG|Created a new Strategy for moltresgalar vs drifblim:
+|chat|DEBUG|>[fierywrath: 225.625 [206, 246], fierywrath: 225.625 [206, 246], fierywrath: 225.625 [206, 246]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 225.625 [206, 246]
+|chat|DEBUG|Best move of drifblim (p2): thunderbolt: 102.625 [94, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fierywrath
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Blademaster2034 has 120 seconds left.
+|switch|p1a: Moltres|Moltres-Galar, L75|87259 par
+|-damage|p1a: Moltres|23259 par|[from] Stealth Rock
+|move|p2a: Meowstic|Psychic|p1a: Moltres
+|-immune|p1a: Moltres
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- drifblim
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: ['falinks']
+|chat|DEBUG|Counter: ['falinks']
+|chat|DEBUG|Speed: 179 vs 183
+|chat|DEBUG|HP: 87 vs 163
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 225.625 [206, 246]
+|chat|DEBUG|Best move of drifblim (p2): thunderbolt: 102.625 [94, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check falinks
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Blademaster2034 has 120 seconds left.
+|move|p2a: Meowstic|Reflect|p2a: Meowstic
+|-sidestart|p2: Blademaster2034|Reflect
+|cant|p1a: Moltres|par
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "falinks" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- drifblim
+|chat|DEBUG|Own moves: throatchop rockslide poisonjab closecombat
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['falinks']
+|chat|DEBUG|Speed: 174 vs 183
+|chat|DEBUG|HP: 152 vs 163
+|chat|DEBUG|Created a new Strategy for falinks vs drifblim:
+|chat|DEBUG|>[throatchop: 185.125 [170, 202], throatchop: 185.125 [170, 202], throatchop: 185.125 [170, 202]]
+|chat|DEBUG|Best move of falinks (p1): throatchop: 185.125 [170, 202]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 104.5 [96, 114]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Light Screen|p2a: Meowstic
+|-sidestart|p2: Blademaster2034|move: Light Screen
+|move|p1a: Moltres|Fiery Wrath|p2a: Meowstic
+|-supereffective|p2a: Meowstic
+|-damage|p2a: Meowstic|46100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "falinks" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- drifblim
+|chat|DEBUG|Own moves: throatchop
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['falinks']
+|chat|DEBUG|Speed: 174 vs 183
+|chat|DEBUG|HP: 152 vs 124
+|chat|DEBUG|Created a new Strategy for falinks vs drifblim:
+|chat|DEBUG|>[throatchop: 277.0 [254, 300], throatchop: 277.0 [254, 300], throatchop: 277.0 [254, 300]]
+|chat|DEBUG|Best move of falinks (p1): throatchop: 277.0 [254, 300]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 104.5 [96, 114]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Yawn|p1a: Moltres
+|-hint|Since gen 7, Dark is immune to Prankster moves.
+|-immune|p1a: Moltres
+|move|p1a: Moltres|Fiery Wrath|p2a: Meowstic
+|-supereffective|p2a: Meowstic
+|-damage|p2a: Meowstic|12100
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "falinks" vs "meowstic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- meowstic
+|chat|DEBUG|Own moves: throatchop
+|chat|DEBUG|Enemy moves: lightscreen psychic reflect yawn
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Speed: 174 vs 223
+|chat|DEBUG|HP: 40 vs 199
+|chat|DEBUG|Created a new Strategy for falinks vs meowstic:
+|chat|DEBUG|>[throatchop: 193.125 [178, 210], throatchop: 193.125 [178, 210], throatchop: 193.125 [178, 210]]
+|chat|DEBUG|Best move of falinks (p1): throatchop: 193.125 [178, 210]
+|chat|DEBUG|Best move of meowstic (p2): psychic: 222.875 [204, 242]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check moltresgalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Yawn|p1a: Moltres
+|-hint|Since gen 7, Dark is immune to Prankster moves.
+|-immune|p1a: Moltres
+|cant|p1a: Moltres|par
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "meowstic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- meowstic
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: lightscreen psychic reflect yawn
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 179 vs 223
+|chat|DEBUG|HP: 23 vs 199
+|chat|DEBUG|Created a new Strategy for moltresgalar vs meowstic:
+|chat|DEBUG|>[fierywrath: 170.125 [156, 186], fierywrath: 170.125 [156, 186], fierywrath: 170.125 [156, 186]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 170.125 [156, 186]
+|chat|DEBUG|Best move of meowstic (p2): yawn: 0.0 [0, 0]
+|chat|DEBUG|Attacking using fierywrath
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Yawn|p1a: Moltres
+|-hint|Since gen 7, Dark is immune to Prankster moves.
+|-immune|p1a: Moltres
+|cant|p1a: Moltres|par
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "meowstic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- meowstic
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: lightscreen psychic reflect yawn
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 179 vs 223
+|chat|DEBUG|HP: 23 vs 199
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 170.125 [156, 186]
+|chat|DEBUG|Best move of meowstic (p2): yawn: 0.0 [0, 0]
+|chat|DEBUG|Attacking using fierywrath
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Yawn|p1a: Moltres
+|-hint|Since gen 7, Dark is immune to Prankster moves.
+|-immune|p1a: Moltres
+|cant|p1a: Moltres|par
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "meowstic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- meowstic
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: lightscreen psychic reflect yawn
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 179 vs 223
+|chat|DEBUG|HP: 23 vs 120
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 170.125 [156, 186]
+|chat|DEBUG|Best move of meowstic (p2): yawn: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Yawn|p1a: Moltres
+|-hint|Since gen 7, Dark is immune to Prankster moves.
+|-immune|p1a: Moltres
+|move|p1a: Moltres|Fiery Wrath|p2a: Meowstic
+|-supereffective|p2a: Meowstic
+|-damage|p2a: Meowstic|0 fnt
+|faint|p2a: Meowstic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Incineroar|Incineroar, L80, M|100100
+|-ability|p2a: Incineroar|Intimidate|boost
+|-unboost|p1a: Moltres|atk|1
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "meowstic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- meowstic
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: lightscreen psychic reflect yawn
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 179 vs 223
+|chat|DEBUG|HP: 23 vs 31
+|chat|DEBUG|Created a new Strategy for moltresgalar vs meowstic:
+|chat|DEBUG|>[fierywrath: 170.125 [156, 186], fierywrath: 170.125 [156, 186], fierywrath: 170.125 [156, 186]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 170.125 [156, 186]
+|chat|DEBUG|Best move of meowstic (p2): yawn: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Incineroar|Knock Off|p1a: Moltres
+|-resisted|p1a: Moltres
+|-damage|p1a: Moltres|0 fnt
+|-enditem|p1a: Moltres|Chesto Berry|[from] move: Knock Off|[of] p2a: Incineroar
+|faint|p1a: Moltres
+|-sideend|p2: Blademaster2034|Reflect
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Falinks|Falinks, L84|40246
+|-damage|p1a: Falinks|25246|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks moltresgalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "meowstic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-moltresgalar -- meowstic
+|chat|DEBUG|Own moves: rest hurricane nastyplot fierywrath
+|chat|DEBUG|Enemy moves: lightscreen psychic reflect yawn
+|chat|DEBUG|Checks: ['moltresgalar']
+|chat|DEBUG|Counter: ['moltresgalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 179 vs 223
+|chat|DEBUG|HP: 23 vs 31
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 170.125 [156, 186]
+|chat|DEBUG|Best move of meowstic (p2): yawn: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Falinks|Close Combat|p2a: Incineroar
+|-supereffective|p2a: Incineroar
+|-damage|p2a: Incineroar|4100
+|-unboost|p1a: Falinks|def|1
+|-unboost|p1a: Falinks|spd|1
+|move|p2a: Incineroar|Earthquake|p1a: Falinks
+|-damage|p1a: Falinks|0 fnt
+|faint|p1a: Falinks
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Blademaster2034</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">klefki terrakion tornadustherian palossand falinks moltresgalar</h1>

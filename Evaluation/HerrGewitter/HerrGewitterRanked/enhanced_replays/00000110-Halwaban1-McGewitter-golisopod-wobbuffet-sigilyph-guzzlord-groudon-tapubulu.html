@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490121281<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490121281|init|battle
+|title|Halwaban1 vs. McGewitter
+|j|☆Halwaban1
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Halwaban1|1|1194
+|player|p2|McGewitter|265|1206
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Zarude|Zarude-Dada, L78|100100
+|switch|p2a: Golisopod|Golisopod, L84, M|263263
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>golisopod wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>golisopod-wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: firstimpression knockoff liquidation spikes
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: ['golisopod', 'guzzlord', 'tapubulu']
+|chat|DEBUG|Counter: ['golisopod', 'guzzlord', 'tapubulu']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 115 vs 209
+|chat|DEBUG|HP: 263 vs 292
+|chat|DEBUG|Created a new Strategy for golisopod vs zarudedada:
+|chat|DEBUG|>[firstimpression: 434.5 [400, 472], firstimpression: 434.5 [400, 472], firstimpression: 434.5 [400, 472]]
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 434.5 [400, 472]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 90.875 [84, 99]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Zarude|Bulk Up|p1a: Zarude
+|-boost|p1a: Zarude|atk|1
+|-boost|p1a: Zarude|def|1
+|move|p2a: Golisopod|Spikes|p1a: Zarude
+|-sidestart|p1: Halwaban1|Spikes
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>golisopod wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>golisopod-wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: firstimpression knockoff liquidation spikes
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Counter: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Speed: 115 vs 209
+|chat|DEBUG|HP: 263 vs 292
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 434.5 [400, 472]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 137.0 [126, 148]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golisopod|First Impression||[still]
+|-hint|First Impression only works on your first turn out.
+|-fail|p2a: Golisopod
+|move|p1a: Zarude|Darkest Lariat|p2a: Golisopod
+|-damage|p2a: Golisopod|160263
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>golisopod wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>golisopod-wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: firstimpression knockoff liquidation spikes
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Counter: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Speed: 115 vs 209
+|chat|DEBUG|HP: 160 vs 292
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 434.5 [400, 472]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 137.0 [126, 148]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golisopod|First Impression||[still]
+|-hint|First Impression only works on your first turn out.
+|-fail|p2a: Golisopod
+|move|p1a: Zarude|Bulk Up|p1a: Zarude
+|-boost|p1a: Zarude|atk|1
+|-boost|p1a: Zarude|def|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>golisopod wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>golisopod-wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: firstimpression knockoff liquidation spikes
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Speed: 115 vs 209
+|chat|DEBUG|HP: 160 vs 292
+|chat|DEBUG|Created a new Strategy for golisopod vs zarudedada:
+|chat|DEBUG|>[firstimpression: 219.0 [204, 240], firstimpression: 219.0 [204, 240], firstimpression: 219.0 [204, 240]]
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 219.0 [204, 240]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 180.6875 [166, 196]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zarude|Darkest Lariat|p2a: Golisopod
+|-crit|p2a: Golisopod
+|-damage|p2a: Golisopod|0 fnt
+|faint|p2a: Golisopod
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|512512
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['guzzlord', 'tapubulu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to guzzlord (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zarude|Power Whip|p2a: Guzzlord|[miss]
+|-miss|p1a: Zarude|p2a: Guzzlord
+|move|p2a: Guzzlord|Fire Blast|p1a: Zarude
+|-supereffective|p1a: Zarude
+|-damage|p1a: Zarude|42100
+|-heal|p1a: Zarude|48100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Speed: 120 vs 209
+|chat|DEBUG|HP: 512 vs 292
+|chat|DEBUG|Created a new Strategy for guzzlord vs zarudedada:
+|chat|DEBUG|>[fireblast: 158.125 [146, 172], fireblast: 158.125 [146, 172], fireblast: 158.125 [146, 172]]
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 158.125 [146, 172]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 186.625 [171, 202]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zarude|Power Whip|p2a: Guzzlord
+|-resisted|p2a: Guzzlord
+|-damage|p2a: Guzzlord|326512
+|move|p2a: Guzzlord|Fire Blast|p1a: Zarude
+|-supereffective|p1a: Zarude
+|-damage|p1a: Zarude|0 fnt
+|faint|p1a: Zarude
+|-ability|p2a: Guzzlord|Beast Boost|boost
+|-boost|p2a: Guzzlord|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Darmanitan|Darmanitan-Galar, L78, F|100100
+|-damage|p1a: Darmanitan|88100|[from] Spikes
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "zarudedada"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- zarudedada
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: bulkup darkestlariat junglehealing powerwhip
+|chat|DEBUG|Checks: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Counter: ['guzzlord', 'tapubulu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 120 vs 209
+|chat|DEBUG|HP: 512 vs 140
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 158.125 [146, 172]
+|chat|DEBUG|Best move of zarudedada (p2): powerwhip: 186.625 [171, 202]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, M|255255
+|move|p1a: Darmanitan|Icicle Crash|p2a: Sigilyph
+|-supereffective|p2a: Sigilyph
+|-damage|p2a: Sigilyph|39255
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- darmanitangalar
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: ['sigilyph']
+|chat|DEBUG|Counter: ['sigilyph', 'groudon']
+|chat|DEBUG|Speed: 120 vs 193
+|chat|DEBUG|HP: 326 vs 256
+|chat|DEBUG|Created a new Strategy for guzzlord vs darmanitangalar:
+|chat|DEBUG|>[knockoff: 236.3125 [217, 256], knockoff: 236.3125 [217, 256], knockoff: 236.3125 [217, 256]]
+|chat|DEBUG|Best move of guzzlord (p1): knockoff: 236.3125 [217, 256]
+|chat|DEBUG|Best move of darmanitangalar (p2): iciclecrash: 300.375 [276, 326]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sigilyph
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Heat Wave|p1a: Darmanitan|[miss]
+|-miss|p2a: Sigilyph|p1a: Darmanitan
+|move|p1a: Darmanitan|Icicle Crash|p2a: Sigilyph
+|-supereffective|p2a: Sigilyph
+|-damage|p2a: Sigilyph|0 fnt
+|faint|p2a: Sigilyph
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Groudon|Groudon, L73|266266
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Groudon
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet sigilyph guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-sigilyph-guzzlord-groudon-tapubulu -- darmanitangalar
+|chat|DEBUG|Own moves: energyball airslash defog heatwave
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sigilyph', 'groudon']
+|chat|DEBUG|Speed: 209 vs 193
+|chat|DEBUG|HP: 39 vs 256
+|chat|DEBUG|Created a new Strategy for sigilyph vs darmanitangalar:
+|chat|DEBUG|>[heatwave: 270.625 [250, 294], heatwave: 270.625 [250, 294], heatwave: 270.625 [250, 294]]
+|chat|DEBUG|Best move of sigilyph (p1): heatwave: 270.625 [250, 294]
+|chat|DEBUG|Best move of darmanitangalar (p2): iciclecrash: 228.625 [210, 248]
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Darmanitan|Icicle Crash|p2a: Groudon
+|-supereffective|p2a: Groudon
+|-damage|p2a: Groudon|90266
+|move|p2a: Groudon|Heat Crash|p1a: Darmanitan
+|-supereffective|p1a: Darmanitan
+|-damage|p1a: Darmanitan|0 fnt
+|faint|p1a: Darmanitan
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Groudon|106266|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctovish|Arctovish, L86|100100
+|-damage|p1a: Arctovish|88100|[from] Spikes
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-groudon-tapubulu -- darmanitangalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to groudon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Groudon|Precipice Blades|p1a: Arctovish
+|-damage|p1a: Arctovish|45100
+|move|p1a: Arctovish|Fishious Rend|p2a: Groudon
+|-supereffective|p2a: Groudon
+|-damage|p2a: Groudon|38266
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Groudon|54266|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-groudon-tapubulu -- darmanitangalar
+|chat|DEBUG|Own moves: precipiceblades swordsdance heavyslam heatcrash
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon']
+|chat|DEBUG|Speed: 174 vs 193
+|chat|DEBUG|HP: 266 vs 256
+|chat|DEBUG|Created a new Strategy for groudon vs darmanitangalar:
+|chat|DEBUG|>[heatcrash: 277.0 [254, 300], heatcrash: 277.0 [254, 300], heatcrash: 277.0 [254, 300]]
+|chat|DEBUG|Best move of groudon (p1): heatcrash: 277.0 [254, 300]
+|chat|DEBUG|Best move of darmanitangalar (p2): iciclecrash: 167.25 [152, 182]
+|chat|DEBUG|Attacking using heatcrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Groudon|Precipice Blades|p1a: Arctovish|[miss]
+|-miss|p2a: Groudon|p1a: Arctovish
+|move|p1a: Arctovish|Icicle Crash|p2a: Groudon
+|-supereffective|p2a: Groudon
+|-damage|p2a: Groudon|0 fnt
+|faint|p2a: Groudon
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tapu Bulu|Tapu Bulu, L82|249249
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Tapu Bulu
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-groudon-tapubulu -- arctovish
+|chat|DEBUG|Own moves: precipiceblades swordsdance heavyslam heatcrash
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|Speed: 174 vs 144
+|chat|DEBUG|HP: 106 vs 259
+|chat|DEBUG|Created a new Strategy for groudon vs arctovish:
+|chat|DEBUG|>[precipiceblades: 122.5625 [112, 133], precipiceblades: 122.5625 [112, 133], precipiceblades: 122.5625 [112, 133]]
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 122.5625 [112, 133]
+|chat|DEBUG|Best move of arctovish (p2): fishiousrend: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tapu Bulu|Wood Hammer|p1a: Arctovish
+|-supereffective|p1a: Arctovish
+|-damage|p1a: Arctovish|0 fnt
+|faint|p1a: Arctovish
+|-damage|p2a: Tapu Bulu|205249|[from] Recoil
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Tapu Bulu|220249|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zapdos|Zapdos, L78|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord groudon tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-groudon-tapubulu -- arctovish
+|chat|DEBUG|Own moves: precipiceblades swordsdance heavyslam heatcrash
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|Speed: 174 vs 144
+|chat|DEBUG|HP: 54 vs 132
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 122.5625 [112, 133]
+|chat|DEBUG|Best move of arctovish (p2): fishiousrend: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Zapdos|Dynamax
+|-heal|p1a: Zapdos|100100|[silent]
+|move|p1a: Zapdos|Max Flutterby|p2a: Tapu Bulu
+|-damage|p2a: Tapu Bulu|158249
+|-unboost|p2a: Tapu Bulu|spa|1
+|move|p2a: Tapu Bulu|Stone Edge|p1a: Zapdos
+|-supereffective|p1a: Zapdos
+|-damage|p1a: Zapdos|64100
+|-weather|none
+|-heal|p2a: Tapu Bulu|173249|[from] Grassy Terrain
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "groudon" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-tapubulu -- arctovish
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tapubulu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|326512
+|move|p1a: Zapdos|Max Flutterby|p2a: Guzzlord
+|-supereffective|p2a: Guzzlord
+|-damage|p2a: Guzzlord|140512
+|-unboost|p2a: Guzzlord|spa|1
+|-heal|p2a: Guzzlord|172512|[from] Grassy Terrain
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-tapubulu -- arctovish
+|chat|DEBUG|Own moves: swordsdance stoneedge woodhammer megahorn
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|Speed: 170 vs 144
+|chat|DEBUG|HP: 249 vs 132
+|chat|DEBUG|Created a new Strategy for tapubulu vs arctovish:
+|chat|DEBUG|>[woodhammer: 271.0 [248, 294], woodhammer: 271.0 [248, 294], woodhammer: 271.0 [248, 294]]
+|chat|DEBUG|Best move of tapubulu (p1): woodhammer: 271.0 [248, 294]
+|chat|DEBUG|Best move of arctovish (p2): iciclecrash: 222.875 [204, 242]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Max Flutterby|p2a: Guzzlord
+|-supereffective|p2a: Guzzlord
+|-damage|p2a: Guzzlord|0 fnt
+|faint|p2a: Guzzlord
+|-end|p1a: Zapdos|Dynamax
+|-heal|p1a: Zapdos|64100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wobbuffet|Wobbuffet, L92, F|499499
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-tapubulu -- zapdos
+|chat|DEBUG|Own moves: swordsdance stoneedge woodhammer megahorn
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['guzzlord']
+|chat|DEBUG|Speed: 170 vs 201
+|chat|DEBUG|HP: 220 vs 268
+|chat|DEBUG|Created a new Strategy for tapubulu vs zapdos:
+|chat|DEBUG|>[stoneedge: 185.125 [170, 202], stoneedge: 185.125 [170, 202], stoneedge: 185.125 [170, 202]]
+|chat|DEBUG|Best move of tapubulu (p1): stoneedge: 185.125 [170, 202]
+|chat|DEBUG|Best move of zapdos (p2): hurricane: 239.5 [218, 260]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tapu Bulu|Tapu Bulu, L82|173249
+|move|p1a: Zapdos|U-turn|p2a: Tapu Bulu
+|-damage|p2a: Tapu Bulu|136249
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian, L88, M|100100|[from]move: U-turn
+|-damage|p1a: Persian|88100|[from] Spikes
+|-heal|p1a: Persian|94100|[from] Grassy Terrain
+|-heal|p2a: Tapu Bulu|151249|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-tapubulu -- zapdos
+|chat|DEBUG|Own moves: swordsdance stoneedge woodhammer megahorn
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: ['guzzlord']
+|chat|DEBUG|Counter: ['guzzlord']
+|chat|DEBUG|Speed: 170 vs 201
+|chat|DEBUG|HP: 173 vs 171
+|chat|DEBUG|Best move of tapubulu (p1): stoneedge: 185.125 [170, 202]
+|chat|DEBUG|Best move of zapdos (p2): hurricane: 239.5 [218, 260]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check guzzlord
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Double-Edge|p2a: Tapu Bulu
+|-damage|p2a: Tapu Bulu|42249
+|-damage|p1a: Persian|80100|[from] Recoil
+|-damage|p1a: Persian|71100|[from] item: Life Orb
+|move|p2a: Tapu Bulu|Wood Hammer|p1a: Persian
+|-damage|p1a: Persian|1100
+|-damage|p2a: Tapu Bulu|0 fnt|[from] Recoil
+|faint|p2a: Tapu Bulu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wobbuffet|Wobbuffet, L92, F|499499
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet guzzlord tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-guzzlord-tapubulu -- zapdos
+|chat|DEBUG|Own moves: knockoff sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 120 vs 201
+|chat|DEBUG|HP: 172 vs 171
+|chat|DEBUG|Created a new Strategy for guzzlord vs zapdos:
+|chat|DEBUG|>[knockoff: 117.0 [108, 127], knockoff: 117.0 [108, 127], knockoff: 117.0 [108, 127]]
+|chat|DEBUG|Best move of guzzlord (p1): knockoff: 117.0 [108, 127]
+|chat|DEBUG|Best move of zapdos (p2): uturn: 117.5 [108, 128]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Wobbuffet|Dynamax
+|-heal|p2a: Wobbuffet|998998|[silent]
+|move|p1a: Persian|Knock Off|p2a: Wobbuffet
+|-supereffective|p2a: Wobbuffet
+|-damage|p2a: Wobbuffet|806998
+|-enditem|p2a: Wobbuffet|Sitrus Berry|[from] move: Knock Off|[of] p1a: Persian
+|-damage|p1a: Persian|0 fnt|[from] item: Life Orb
+|faint|p1a: Persian
+|move|p2a: Wobbuffet|Max Mindstorm|p1: Persian|[notarget]
+|-fail|p2a: Wobbuffet
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Incineroar|Incineroar, L80, M|100100
+|-ability|p1a: Incineroar|Intimidate|boost
+|-unboost|p2a: Wobbuffet|atk|1
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-tapubulu -- zapdos
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: wobbuffet
+|chat|DEBUG|>Switching to wobbuffet (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Incineroar|Knock Off|p2a: Wobbuffet
+|-supereffective|p2a: Wobbuffet
+|-damage|p2a: Wobbuffet|630998
+|move|p2a: Wobbuffet|Max Mindstorm|p1a: Incineroar
+|-immune|p1a: Incineroar
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wobbuffet" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-tapubulu -- zapdos
+|chat|DEBUG|Own moves: encore charm counter mirrorcoat
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 113 vs 201
+|chat|DEBUG|HP: 499 vs 171
+|chat|DEBUG|Created a new Strategy for wobbuffet vs zapdos:
+|chat|DEBUG|>[mirrorcoat: 0.0 [0, 0], mirrorcoat: 0.0 [0, 0], mirrorcoat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of wobbuffet (p1): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Best move of zapdos (p2): discharge: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to tapubulu as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Incineroar|Will-O-Wisp|p2a: Wobbuffet
+|-status|p2a: Wobbuffet|brn
+|move|p2a: Wobbuffet|Max Mindstorm|p1a: Incineroar
+|-immune|p1a: Incineroar
+|-damage|p2a: Wobbuffet|599998 brn|[from] brn
+|-end|p2a: Wobbuffet|Dynamax
+|-heal|p2a: Wobbuffet|300499 brn|[silent]
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet tapubulu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet-tapubulu -- zapdos-persian
+|chat|DEBUG|Own moves: swordsdance stoneedge woodhammer megahorn
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 253
+|chat|DEBUG|HP: 151 vs 242
+|chat|DEBUG|Created a new Strategy for tapubulu vs persian:
+|chat|DEBUG|>[woodhammer: 190.5625 [175, 207], woodhammer: 190.5625 [175, 207], woodhammer: 190.5625 [175, 207]]
+|chat|DEBUG|Best move of tapubulu (p1): woodhammer: 190.5625 [175, 207]
+|chat|DEBUG|Best move of persian (p2): doubleedge: 137.0 [126, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using woodhammer
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Incineroar|Knock Off|p2a: Wobbuffet
+|-supereffective|p2a: Wobbuffet
+|-damage|p2a: Wobbuffet|132499 brn
+|move|p2a: Wobbuffet|Mirror Coat|p1a: Incineroar
+|-immune|p1a: Incineroar
+|-damage|p2a: Wobbuffet|101499 brn|[from] brn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wobbuffet
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "persian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wobbuffet -- zapdos-persian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleedge knockoff playrough uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: wobbuffet
+|chat|DEBUG|>Switching to wobbuffet (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Incineroar|Knock Off|p2a: Wobbuffet
+|-supereffective|p2a: Wobbuffet
+|-damage|p2a: Wobbuffet|0 fnt
+|faint|p2a: Wobbuffet
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Halwaban1<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">golisopod wobbuffet sigilyph guzzlord groudon tapubulu</h1>

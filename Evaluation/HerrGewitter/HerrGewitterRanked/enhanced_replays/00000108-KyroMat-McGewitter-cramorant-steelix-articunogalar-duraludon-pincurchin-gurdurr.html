@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490118166<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490118166|init|battle
+|title|KyroMat vs. McGewitter
+|j|☆KyroMat
+|j|☆McGewitter
+|gametype|singles
+|player|p1|KyroMat|burglar|1225
+|player|p2|McGewitter|265|1200
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Zacian|Zacian, L68|100100
+|switch|p2a: Cramorant|Cramorant, L84, F|255255
+|-ability|p1a: Zacian|Intrepid Sword|boost
+|-boost|p1a: Zacian|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cramorant steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cramorant-steelix-articunogalar-duraludon-pincurchin-gurdurr -- zacian
+|chat|DEBUG|Own moves: roost superpower surf bravebird
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 228
+|chat|DEBUG|HP: 255 vs 238
+|chat|DEBUG|Created a new Strategy for cramorant vs zacian:
+|chat|DEBUG|>[bravebird: 114.3125 [105, 124], bravebird: 114.3125 [105, 124], bravebird: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 114.3125 [105, 124]
+|chat|DEBUG|Best move of zacian (p2): playrough: 223.8125 [205, 243]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Zacian|Swords Dance|p1a: Zacian
+|-boost|p1a: Zacian|atk|2
+|move|p2a: Cramorant|Brave Bird|p1a: Zacian
+|-damage|p1a: Zacian|49100
+|-damage|p2a: Cramorant|214255|[from] Recoil
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cramorant steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cramorant-steelix-articunogalar-duraludon-pincurchin-gurdurr -- zacian
+|chat|DEBUG|Own moves: roost superpower surf bravebird
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['steelix']
+|chat|DEBUG|Speed: 191 vs 228
+|chat|DEBUG|HP: 214 vs 116
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 114.3125 [105, 124]
+|chat|DEBUG|Best move of zacian (p2): playrough: 336.125 [309, 364]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zacian|Play Rough|p2a: Cramorant
+|-damage|p2a: Cramorant|0 fnt
+|faint|p2a: Cramorant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Steelix|Steelix, L84, M|263263
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- zacian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['steelix']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to steelix (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zacian|Close Combat|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|69263
+|-unboost|p1a: Zacian|def|1
+|-unboost|p1a: Zacian|spd|1
+|move|p2a: Steelix|Heavy Slam|p1a: Zacian
+|-supereffective|p1a: Zacian
+|-damage|p1a: Zacian|0 fnt
+|faint|p1a: Zacian
+|-heal|p2a: Steelix|85263|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cinderace|Cinderace, L74, F|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "zacian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- zacian
+|chat|DEBUG|Own moves: dragondance heavyslam earthquake headsmash
+|chat|DEBUG|Enemy moves: closecombat crunch playrough swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['steelix']
+|chat|DEBUG|Speed: 99 vs 228
+|chat|DEBUG|HP: 263 vs 116
+|chat|DEBUG|Created a new Strategy for steelix vs zacian:
+|chat|DEBUG|>[heavyslam: 153.5 [140, 168], heavyslam: 153.5 [140, 168], heavyslam: 153.5 [140, 168]]
+|chat|DEBUG|Best move of steelix (p1): heavyslam: 153.5 [140, 168]
+|chat|DEBUG|Best move of zacian (p2): closecombat: 219.25 [202, 238]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cinderace|Pyro Ball|p2a: Steelix|[miss]
+|-miss|p1a: Cinderace|p2a: Steelix
+|move|p2a: Steelix|Earthquake|p1a: Cinderace
+|-supereffective|p1a: Cinderace
+|-damage|p1a: Cinderace|0 fnt
+|faint|p1a: Cinderace
+|-heal|p2a: Steelix|101263|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eldegoss|Eldegoss, L90, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- cinderace
+|chat|DEBUG|Own moves: dragondance heavyslam earthquake headsmash
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pincurchin', 'gurdurr']
+|chat|DEBUG|Speed: 99 vs 219
+|chat|DEBUG|HP: 85 vs 240
+|chat|DEBUG|Created a new Strategy for steelix vs cinderace:
+|chat|DEBUG|>[earthquake: 242.375 [222, 264], earthquake: 242.375 [222, 264], earthquake: 242.375 [222, 264]]
+|chat|DEBUG|Best move of steelix (p1): earthquake: 242.375 [222, 264]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 128.5 [116, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno-Galar, L80|275275
+|move|p1a: Eldegoss|Energy Ball|p2a: Articuno
+|-resisted|p2a: Articuno
+|-damage|p2a: Articuno|230275
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "eldegoss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss
+|chat|DEBUG|Own moves: dragondance heavyslam earthquake headsmash
+|chat|DEBUG|Enemy moves: energyball leechseed pollenpuff sleeppowder
+|chat|DEBUG|Checks: ['articunogalar', 'duraludon']
+|chat|DEBUG|Counter: ['articunogalar', 'duraludon']
+|chat|DEBUG|Speed: 99 vs 159
+|chat|DEBUG|HP: 101 vs 254
+|chat|DEBUG|Created a new Strategy for steelix vs eldegoss:
+|chat|DEBUG|>[heavyslam: 105.875 [97, 115], heavyslam: 105.875 [97, 115], heavyslam: 105.875 [97, 115]]
+|chat|DEBUG|Best move of steelix (p1): heavyslam: 105.875 [97, 115]
+|chat|DEBUG|Best move of eldegoss (p2): energyball: 118.3125 [109, 129]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check articunogalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|100100
+|move|p2a: Articuno|Calm Mind|p2a: Articuno
+|-boost|p2a: Articuno|spa|1
+|-boost|p2a: Articuno|spd|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "eldegoss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: energyball leechseed pollenpuff sleeppowder
+|chat|DEBUG|Checks: ['articunogalar', 'duraludon']
+|chat|DEBUG|Counter: ['articunogalar', 'duraludon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 159
+|chat|DEBUG|HP: 230 vs 254
+|chat|DEBUG|Created a new Strategy for articunogalar vs eldegoss:
+|chat|DEBUG|>[airslash: 131.5 [120, 144], airslash: 131.5 [120, 144], airslash: 131.5 [120, 144]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 131.5 [120, 144]
+|chat|DEBUG|Best move of eldegoss (p2): pollenpuff: 60.6875 [56, 66]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Calm Mind|p2a: Articuno
+|-boost|p2a: Articuno|spa|1
+|-boost|p2a: Articuno|spd|1
+|move|p1a: Reuniclus|Calm Mind|p1a: Reuniclus
+|-boost|p1a: Reuniclus|spa|1
+|-boost|p1a: Reuniclus|spd|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['articunogalar']
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 322
+|chat|DEBUG|Created a new Strategy for articunogalar vs reuniclus:
+|chat|DEBUG|>[airslash: 138.5 [127, 150], airslash: 138.5 [127, 150], airslash: 138.5 [127, 150]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 138.5 [127, 150]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 47.6875 [43, 52]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|62100
+|move|p1a: Reuniclus|Calm Mind|p1a: Reuniclus
+|-boost|p1a: Reuniclus|spa|1
+|-boost|p1a: Reuniclus|spd|1
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['articunogalar']
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 322
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 138.5 [127, 150]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 54.0625 [49, 58]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|32100
+|move|p1a: Reuniclus|Calm Mind|p1a: Reuniclus
+|-boost|p1a: Reuniclus|spa|1
+|-boost|p1a: Reuniclus|spd|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['articunogalar']
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 199
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 138.5 [127, 150]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 71.3125 [66, 78]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|9100
+|move|p1a: Reuniclus|Recover|p1a: Reuniclus
+|-heal|p1a: Reuniclus|59100
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['articunogalar']
+|chat|DEBUG|Counter: ['articunogalar', 'gurdurr']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 103
+|chat|DEBUG|Created a new Strategy for articunogalar vs reuniclus:
+|chat|DEBUG|>[airslash: 73.9375 [67, 81], airslash: 73.9375 [67, 81], airslash: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 73.9375 [67, 81]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 89.6875 [82, 97]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|37100
+|move|p1a: Reuniclus|Recover|p1a: Reuniclus
+|-heal|p1a: Reuniclus|87100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['articunogalar']
+|chat|DEBUG|Counter: ['articunogalar', 'gurdurr']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 189
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 73.9375 [67, 81]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 89.6875 [82, 97]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|65100
+|move|p1a: Reuniclus|Calm Mind|p1a: Reuniclus
+|-boost|p1a: Reuniclus|spa|1
+|-boost|p1a: Reuniclus|spd|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 280
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 73.9375 [67, 81]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 89.6875 [82, 97]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|46100
+|move|p1a: Reuniclus|Calm Mind|p1a: Reuniclus
+|-boost|p1a: Reuniclus|spa|1
+|-boost|p1a: Reuniclus|spd|1
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 209
+|chat|DEBUG|Created a new Strategy for articunogalar vs reuniclus:
+|chat|DEBUG|>[airslash: 61.5625 [57, 67], airslash: 61.5625 [57, 67], airslash: 61.5625 [57, 67]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 61.5625 [57, 67]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|29100
+|cant|p1a: Reuniclus|flinch
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar', 'gurdurr']
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 148
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 61.5625 [57, 67]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 125.4375 [116, 136]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-damage|p1a: Reuniclus|11100
+|cant|p1a: Reuniclus|flinch
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar', 'gurdurr']
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 93
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 61.5625 [57, 67]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 125.4375 [116, 136]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus|[miss]
+|-miss|p2a: Articuno|p1a: Reuniclus
+|move|p1a: Reuniclus|Recover|p1a: Reuniclus
+|-heal|p1a: Reuniclus|61100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['articunogalar']
+|chat|DEBUG|Counter: ['articunogalar', 'duraludon', 'gurdurr']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 35
+|chat|DEBUG|Created a new Strategy for articunogalar vs reuniclus:
+|chat|DEBUG|>[airslash: 53.125 [49, 58], airslash: 53.125 [49, 58], airslash: 53.125 [49, 58]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 53.125 [49, 58]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 125.4375 [116, 136]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Reuniclus
+|-crit|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|faint|p1a: Reuniclus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jellicent|Jellicent, L84, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-reuniclus
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 230 vs 196
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 53.125 [49, 58]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 125.4375 [116, 136]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freezing Glare|p1a: Jellicent
+|-damage|p1a: Jellicent|42100
+|move|p1a: Jellicent|Shadow Ball|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|152275
+|-heal|p1a: Jellicent|49100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-jellicent
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['articunogalar', 'gurdurr']
+|chat|DEBUG|Counter: ['articunogalar', 'pincurchin', 'gurdurr']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 149
+|chat|DEBUG|HP: 230 vs 305
+|chat|DEBUG|Created a new Strategy for articunogalar vs jellicent:
+|chat|DEBUG|>[freezingglare: 186.375 [171, 202], freezingglare: 186.375 [171, 202], freezingglare: 186.375 [171, 202]]
+|chat|DEBUG|Best move of articunogalar (p1): freezingglare: 186.375 [171, 202]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 73.0 [66, 80]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezingglare
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freezing Glare|p1a: Jellicent
+|-damage|p1a: Jellicent|0 fnt
+|faint|p1a: Jellicent
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gengar|Gengar, L80, M|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-jellicent
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['articunogalar', 'pincurchin', 'gurdurr']
+|chat|DEBUG|Counter: ['articunogalar', 'duraludon', 'pincurchin', 'gurdurr']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 198 vs 149
+|chat|DEBUG|HP: 152 vs 149
+|chat|DEBUG|Best move of articunogalar (p1): freezingglare: 186.375 [171, 202]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 73.0 [66, 80]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Gengar|Dynamax
+|-formechange|p1a: Gengar|Gengar-Gmax
+|-heal|p1a: Gengar|100100|[silent]
+|move|p1a: Gengar|G-Max Terror|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|0 fnt
+|faint|p2a: Articuno
+|-damage|p1a: Gengar|96100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pincurchin|Pincurchin, L88, F|228228
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p2a: Pincurchin
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix articunogalar duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "articunogalar" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-articunogalar-duraludon-pincurchin-gurdurr -- eldegoss-gengar
+|chat|DEBUG|Own moves: airslash recover freezingglare calmmind
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['articunogalar']
+|chat|DEBUG|Speed: 198 vs 222
+|chat|DEBUG|HP: 152 vs 227
+|chat|DEBUG|Created a new Strategy for articunogalar vs gengar:
+|chat|DEBUG|>[freezingglare: 506.0 [464, 548], freezingglare: 506.0 [464, 548], freezingglare: 506.0 [464, 548]]
+|chat|DEBUG|Best move of articunogalar (p1): freezingglare: 506.0 [464, 548]
+|chat|DEBUG|Best move of gengar (p2): shadowball: 123.75 [112, 135]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Pincurchin|Dynamax
+|-heal|p2a: Pincurchin|456456|[silent]
+|move|p1a: Gengar|G-Max Terror|p2a: Pincurchin
+|-damage|p2a: Pincurchin|244456
+|-activate|p2a: Pincurchin|trapped
+|-damage|p1a: Gengar|91100|[from] item: Life Orb
+|move|p2a: Pincurchin|Max Darkness|p1a: Gengar
+|-supereffective|p1a: Gengar
+|-crit|p1a: Gengar
+|-damage|p1a: Gengar|0 fnt
+|faint|p1a: Gengar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eldegoss|Eldegoss, L90, F|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "articunogalar" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-duraludon-pincurchin-gurdurr -- eldegoss-gengar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'steelix': 101, 'duraludon': 255, 'pincurchin': 228, 'gurdurr': 277}
+|chat|DEBUG|remaining_hp_team_2={'eldegoss': 100, 'gengar': 100}
+|chat|DEBUG|battle.available_switches=[steelix (pokemon object) [Active: False, Status: None], duraludon (pokemon object) [Active: False, Status: None], pincurchin (pokemon object) [Active: False, Status: None], gurdurr (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'pincurchin'
+|chat|DEBUG|>Switching to pincurchin (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eldegoss|Sleep Powder|p2a: Pincurchin|[miss]
+|-miss|p1a: Eldegoss|p2a: Pincurchin
+|move|p2a: Pincurchin|Max Darkness|p1a: Eldegoss
+|-damage|p1a: Eldegoss|65100
+|-unboost|p1a: Eldegoss|spd|1
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pincurchin" vs "gengar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-duraludon-pincurchin-gurdurr -- eldegoss-gengar
+|chat|DEBUG|Own moves: suckerpunch risingvoltage spikes scald
+|chat|DEBUG|Enemy moves: focusblast nastyplot shadowball sludgewave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gurdurr']
+|chat|DEBUG|Speed: 77 vs 222
+|chat|DEBUG|HP: 228 vs 217
+|chat|DEBUG|Created a new Strategy for pincurchin vs gengar:
+|chat|DEBUG|>[suckerpunch: 156.375 [144, 170], suckerpunch: 156.375 [144, 170], suckerpunch: 156.375 [144, 170]]
+|chat|DEBUG|Best move of pincurchin (p1): suckerpunch: 156.375 [144, 170]
+|chat|DEBUG|Best move of gengar (p2): sludgewave: 150.25 [138, 164]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eldegoss|Sleep Powder|p2a: Pincurchin
+|-activate|p2a: Pincurchin|move: Electric Terrain
+|move|p2a: Pincurchin|Max Darkness|p1a: Eldegoss
+|-damage|p1a: Eldegoss|32100
+|-unboost|p1a: Eldegoss|spd|1
+|-end|p2a: Pincurchin|Dynamax
+|-heal|p2a: Pincurchin|122228|[silent]
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pincurchin" vs "eldegoss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-duraludon-pincurchin-gurdurr -- eldegoss
+|chat|DEBUG|Own moves: suckerpunch risingvoltage spikes scald
+|chat|DEBUG|Enemy moves: energyball leechseed pollenpuff sleeppowder
+|chat|DEBUG|Checks: ['duraludon']
+|chat|DEBUG|Counter: ['duraludon']
+|chat|DEBUG|Speed: 77 vs 159
+|chat|DEBUG|HP: 244 vs 254
+|chat|DEBUG|Created a new Strategy for pincurchin vs eldegoss:
+|chat|DEBUG|>[suckerpunch: 52.3125 [48, 57], suckerpunch: 52.3125 [48, 57], suckerpunch: 52.3125 [48, 57]]
+|chat|DEBUG|Best move of pincurchin (p1): suckerpunch: 52.3125 [48, 57]
+|chat|DEBUG|Best move of eldegoss (p2): energyball: 93.25 [85, 102]
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pincurchin|Sucker Punch||[still]
+|-fail|p2a: Pincurchin
+|move|p1a: Eldegoss|Sleep Powder|p2a: Pincurchin|[miss]
+|-miss|p1a: Eldegoss|p2a: Pincurchin
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix duraludon pincurchin gurdurr
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pincurchin" vs "eldegoss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-duraludon-pincurchin-gurdurr -- eldegoss
+|chat|DEBUG|Own moves: suckerpunch risingvoltage spikes scald
+|chat|DEBUG|Enemy moves: energyball leechseed pollenpuff sleeppowder
+|chat|DEBUG|Checks: ['duraludon']
+|chat|DEBUG|Counter: ['duraludon']
+|chat|DEBUG|Speed: 77 vs 159
+|chat|DEBUG|HP: 244 vs 165
+|chat|DEBUG|Best move of pincurchin (p1): suckerpunch: 52.3125 [48, 57]
+|chat|DEBUG|Best move of eldegoss (p2): energyball: 93.25 [85, 102]
+|chat|DEBUG|Attacking using suckerpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eldegoss|Rapid Spin|p2a: Pincurchin
+|-damage|p2a: Pincurchin|99228
+|-boost|p1a: Eldegoss|spe|1
+|move|p2a: Pincurchin|Rising Voltage|p1a: Eldegoss
+|-resisted|p1a: Eldegoss
+|-damage|p1a: Eldegoss|0 fnt
+|faint|p1a: Eldegoss
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>KyroMat<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">cramorant steelix articunogalar duraludon pincurchin gurdurr</h1>

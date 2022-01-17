@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490230706</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490230706|init|battle
+|title|McDonner vs. falafelol
+|j|☆McDonner
+|j|☆falafelol
+|gametype|singles
+|player|p1|McDonner|265|1255
+|player|p2|falafelol|102|1302
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Garchomp|Garchomp, L74, M|282/282
+|switch|p2a: Togedemaru|Togedemaru, L86, F|100/100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garchomp lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: garchomp vs togedemaru
+|chat|DEBUG|Updating information about togedemaru
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. togedemaru
+|chat|DEBUG|Getting matchup: quagsire vs. togedemaru
+|chat|DEBUG|Getting matchup: armaldo vs. togedemaru
+|chat|DEBUG|Getting matchup: kyuremblack vs. togedemaru
+|chat|DEBUG|Getting matchup: kabutops vs. togedemaru
+|chat|DEBUG|Getting matchup: garchomp vs. togedemaru
+|chat|DEBUG|Checks / Counter: {'togedemaru': {'checks': [], 'counter': ['lopunny', 'quagsire', 'garchomp']}}
+|chat|DEBUG|Speed: 194 - 214
+|chat|DEBUG|Most likely moves for: garchomp
+|chat|DEBUG|>['earthquake', 'swordsdance', 'stoneedge', 'outrage']
+|chat|DEBUG|Most likely moves for: togedemaru
+|chat|DEBUG|>['ironhead', 'spikyshield', 'wish', 'zingzap']
+|chat|DEBUG|Best own move: ('earthquake', 518.0)
+|chat|DEBUG|Best enemy move: ('ironhead', 96.1875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('earthquake', 518.0)
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|falafelol has 120 seconds left.
+|move|p2a: Togedemaru|Iron Head|p1a: Garchomp
+|-damage|p1a: Garchomp|182/282
+|-damage|p2a: Togedemaru|88/100|[from] ability: Rough Skin|[of] p1a: Garchomp
+|move|p1a: Garchomp|Earthquake|p2a: Togedemaru
+|-supereffective|p2a: Togedemaru
+|-damage|p2a: Togedemaru|0 fnt
+|faint|p2a: Togedemaru
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gurdurr|Gurdurr, L83, M|100/100
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garchomp lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: garchomp vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: garchomp vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['quagsire', 'armaldo', 'kyuremblack', 'garchomp']}}
+|chat|DEBUG|Speed: 194 - 114
+|chat|DEBUG|Most likely moves for: garchomp
+|chat|DEBUG|>['earthquake', 'swordsdance', 'stoneedge', 'outrage']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('outrage', 129.5)
+|chat|DEBUG|Best enemy move: ('drainpunch', 89.1875)
+|chat|DEBUG|Picking the most damaging move from garchomp against gurdurr
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garchomp|Outrage|p2a: Gurdurr
+|-damage|p2a: Gurdurr|68/100
+|move|p2a: Gurdurr|Bulk Up|p2a: Gurdurr
+|-boost|p2a: Gurdurr|atk|1
+|-boost|p2a: Gurdurr|def|1
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garchomp lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: garchomp vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: garchomp vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['garchomp']}}
+|chat|DEBUG|Speed: 194 - 114
+|chat|DEBUG|Most likely moves for: garchomp
+|chat|DEBUG|>['outrage']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('outrage', 129.5)
+|chat|DEBUG|Best enemy move: ('drainpunch', 89.1875)
+|chat|DEBUG|Picking the most damaging move from garchomp against gurdurr
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garchomp|Outrage|p2a: Gurdurr|[from]lockedmove
+|-damage|p2a: Gurdurr|46/100
+|-start|p1a: Garchomp|confusion|[fatigue]
+|-enditem|p1a: Garchomp|Lum Berry|[eat]
+|-end|p1a: Garchomp|confusion
+|move|p2a: Gurdurr|Bulk Up|p2a: Gurdurr
+|-boost|p2a: Gurdurr|atk|1
+|-boost|p2a: Gurdurr|def|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garchomp lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: garchomp vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: garchomp vs. gurdurr
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['quagsire', 'armaldo', 'kyuremblack', 'garchomp']}}
+|chat|DEBUG|Speed: 194 - 114
+|chat|DEBUG|Most likely moves for: garchomp
+|chat|DEBUG|>['earthquake', 'swordsdance', 'stoneedge', 'outrage']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('outrage', 129.5)
+|chat|DEBUG|Best enemy move: ('drainpunch', 89.1875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('outrage', 129.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garchomp|Outrage|p2a: Gurdurr
+|-damage|p2a: Gurdurr|30/100
+|move|p2a: Gurdurr|Drain Punch|p1a: Garchomp
+|-damage|p1a: Garchomp|0 fnt
+|-heal|p2a: Gurdurr|63/100|[from] drain|[of] p1a: Garchomp
+|-damage|p2a: Gurdurr|50/100|[from] ability: Rough Skin|[of] p1a: Garchomp
+|faint|p1a: Garchomp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Quagsire|Quagsire, L84, F|297/297
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: garchomp vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: garchomp vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['quagsire', 'armaldo', 'kyuremblack', 'garchomp']}}
+|chat|DEBUG|>>Switching to counter: quagsire
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gurdurr|Knock Off|p1a: Quagsire
+|-damage|p1a: Quagsire|219/297
+|-enditem|p1a: Quagsire|Leftovers|[from] move: Knock Off|[of] p2a: Gurdurr
+|move|p1a: Quagsire|Earthquake|p2a: Gurdurr
+|-damage|p2a: Gurdurr|27/100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: quagsire vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['armaldo', 'kyuremblack', 'quagsire']}}
+|chat|DEBUG|Speed: 107 - 114
+|chat|DEBUG|Most likely moves for: quagsire
+|chat|DEBUG|>['recover', 'toxic', 'earthquake', 'scald']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('earthquake', 98.9375)
+|chat|DEBUG|Best enemy move: ('drainpunch', 86.4375)
+|chat|DEBUG|Picking the most damaging move from quagsire against gurdurr
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gurdurr|Drain Punch|p1a: Quagsire
+|-damage|p1a: Quagsire|129/297
+|-heal|p2a: Gurdurr|43/100|[from] drain|[of] p1a: Quagsire
+|move|p1a: Quagsire|Earthquake|p2a: Gurdurr
+|-damage|p2a: Gurdurr|19/100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: quagsire vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['armaldo', 'kyuremblack', 'quagsire']}}
+|chat|DEBUG|Speed: 107 - 114
+|chat|DEBUG|Most likely moves for: quagsire
+|chat|DEBUG|>['recover', 'toxic', 'earthquake', 'scald']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('earthquake', 98.9375)
+|chat|DEBUG|Best enemy move: ('drainpunch', 86.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('earthquake', 98.9375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gurdurr|Drain Punch|p1a: Quagsire
+|-damage|p1a: Quagsire|38/297
+|-heal|p2a: Gurdurr|35/100|[from] drain|[of] p1a: Quagsire
+|move|p1a: Quagsire|Earthquake|p2a: Gurdurr
+|-damage|p2a: Gurdurr|12/100
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: quagsire vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['armaldo', 'kyuremblack', 'quagsire']}}
+|chat|DEBUG|Speed: 107 - 114
+|chat|DEBUG|Most likely moves for: quagsire
+|chat|DEBUG|>['recover', 'toxic', 'earthquake', 'scald']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('earthquake', 98.9375)
+|chat|DEBUG|Best enemy move: ('drainpunch', 86.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('earthquake', 98.9375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gurdurr|Drain Punch|p1a: Quagsire
+|-damage|p1a: Quagsire|0 fnt
+|-heal|p2a: Gurdurr|19/100|[from] drain|[of] p1a: Quagsire
+|faint|p1a: Quagsire
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Armaldo|Armaldo, L86, M|269/269
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny quagsire armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: quagsire vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['armaldo', 'kyuremblack', 'quagsire']}}
+|chat|DEBUG|Speed: 107 - 114
+|chat|DEBUG|Most likely moves for: quagsire
+|chat|DEBUG|>['recover', 'toxic', 'earthquake', 'scald']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('earthquake', 98.9375)
+|chat|DEBUG|Best enemy move: ('drainpunch', 86.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from quagsire against gurdurr
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gurdurr|Mach Punch|p1a: Armaldo
+|-damage|p1a: Armaldo|190/269
+|move|p1a: Armaldo|Liquidation|p2a: Gurdurr
+|-damage|p2a: Gurdurr|9/100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: quagsire vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: quagsire vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['armaldo', 'kyuremblack', 'quagsire']}}
+|chat|DEBUG|>>Switching to counter: armaldo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Armaldo|Liquidation|p2a: Gurdurr
+|-damage|p2a: Gurdurr|0 fnt
+|faint|p2a: Gurdurr
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|100/100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: armaldo vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['kyuremblack', 'armaldo']}}
+|chat|DEBUG|Speed: 127 - 114
+|chat|DEBUG|Most likely moves for: armaldo
+|chat|DEBUG|>['swordsdance', 'liquidation', 'rapidspin', 'stoneedge']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('liquidation', 80.0)
+|chat|DEBUG|Best enemy move: ('drainpunch', 73.9375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('liquidation', 80.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Pyro Ball|p1a: Armaldo
+|-damage|p1a: Armaldo|96/269
+|move|p1a: Armaldo|Stone Edge|p2a: Cinderace|[miss]
+|-miss|p1a: Armaldo|p2a: Cinderace
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: armaldo vs gurdurr
+|chat|DEBUG|Updating information about gurdurr
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. gurdurr
+|chat|DEBUG|Getting matchup: kyuremblack vs. gurdurr
+|chat|DEBUG|Getting matchup: kabutops vs. gurdurr
+|chat|DEBUG|Getting matchup: armaldo vs. gurdurr
+|chat|DEBUG|Checks / Counter: {'gurdurr': {'checks': [], 'counter': ['kyuremblack', 'armaldo']}}
+|chat|DEBUG|Speed: 127 - 114
+|chat|DEBUG|Most likely moves for: armaldo
+|chat|DEBUG|>['swordsdance', 'liquidation', 'rapidspin', 'stoneedge']
+|chat|DEBUG|Most likely moves for: gurdurr
+|chat|DEBUG|>['bulkup', 'drainpunch', 'knockoff', 'machpunch']
+|chat|DEBUG|Best own move: ('liquidation', 80.0)
+|chat|DEBUG|Best enemy move: ('drainpunch', 73.9375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('liquidation', 80.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Cinderace|Dynamax
+|-heal|p2a: Cinderace|100/100|[silent]
+|move|p2a: Cinderace|Max Knuckle|p1a: Armaldo
+|-start|p2a: Cinderace|typechange|Fighting|[from] ability: Libero
+|-damage|p1a: Armaldo|14/269
+|-boost|p2a: Cinderace|atk|1
+|move|p1a: Armaldo|Stone Edge|p2a: Cinderace
+|-resisted|p2a: Cinderace
+|-damage|p2a: Cinderace|83/100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: armaldo vs cinderace
+|chat|DEBUG|Updating information about cinderace
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. cinderace
+|chat|DEBUG|Getting matchup: kyuremblack vs. cinderace
+|chat|DEBUG|Getting matchup: kabutops vs. cinderace
+|chat|DEBUG|Getting matchup: armaldo vs. cinderace
+|chat|DEBUG|Checks / Counter: {'cinderace': {'checks': [], 'counter': ['kyuremblack', 'kabutops', 'armaldo']}}
+|chat|DEBUG|Speed: 127 - 219
+|chat|DEBUG|Most likely moves for: armaldo
+|chat|DEBUG|>['swordsdance', 'liquidation', 'rapidspin', 'stoneedge']
+|chat|DEBUG|Most likely moves for: cinderace
+|chat|DEBUG|>['bulkup', 'highjumpkick', 'pyroball', 'suckerpunch']
+|chat|DEBUG|Best own move: ('stoneedge', 345.25)
+|chat|DEBUG|Best enemy move: ('pyroball', 101.75)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('stoneedge', 345.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Max Knuckle|p1a: Armaldo
+|-damage|p1a: Armaldo|0 fnt
+|-boost|p2a: Cinderace|atk|1
+|faint|p1a: Armaldo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyurem|Kyurem-Black, L73|303/303
+|-ability|p1a: Kyurem|Teravolt
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: armaldo vs cinderace
+|chat|DEBUG|Updating information about cinderace
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. cinderace
+|chat|DEBUG|Getting matchup: kyuremblack vs. cinderace
+|chat|DEBUG|Getting matchup: kabutops vs. cinderace
+|chat|DEBUG|Getting matchup: armaldo vs. cinderace
+|chat|DEBUG|Checks / Counter: {'cinderace': {'checks': [], 'counter': ['kyuremblack', 'kabutops', 'armaldo']}}
+|chat|DEBUG|Speed: 127 - 219
+|chat|DEBUG|Most likely moves for: armaldo
+|chat|DEBUG|>['swordsdance', 'liquidation', 'rapidspin', 'stoneedge']
+|chat|DEBUG|Most likely moves for: cinderace
+|chat|DEBUG|>['bulkup', 'highjumpkick', 'pyroball', 'suckerpunch']
+|chat|DEBUG|Best own move: ('stoneedge', 345.25)
+|chat|DEBUG|Best enemy move: ('pyroball', 101.75)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from armaldo against cinderace
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Max Flare|p1a: Kyurem
+|-start|p2a: Cinderace|typechange|Fire|[from] ability: Libero
+|-damage|p1a: Kyurem|9/303
+|-weather|SunnyDay
+|move|p1a: Kyurem|Outrage|p2a: Cinderace
+|-damage|p2a: Cinderace|45/100
+|-weather|SunnyDay|[upkeep]
+|-end|p2a: Cinderace|Dynamax
+|-heal|p2a: Cinderace|45/100|[silent]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny armaldo kyuremblack kabutops
+|chat|DEBUG|Matchup: armaldo vs cinderace
+|chat|DEBUG|Updating information about cinderace
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. cinderace
+|chat|DEBUG|Getting matchup: kyuremblack vs. cinderace
+|chat|DEBUG|Getting matchup: kabutops vs. cinderace
+|chat|DEBUG|Getting matchup: armaldo vs. cinderace
+|chat|DEBUG|Checks / Counter: {'cinderace': {'checks': [], 'counter': ['kyuremblack', 'kabutops', 'armaldo']}}
+|chat|DEBUG|Speed: 127 - 219
+|chat|DEBUG|Most likely moves for: armaldo
+|chat|DEBUG|>['swordsdance', 'liquidation', 'rapidspin', 'stoneedge']
+|chat|DEBUG|Most likely moves for: cinderace
+|chat|DEBUG|>['bulkup', 'highjumpkick', 'pyroball', 'suckerpunch']
+|chat|DEBUG|Best own move: ('stoneedge', 345.25)
+|chat|DEBUG|Best enemy move: ('pyroball', 101.75)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from armaldo against cinderace
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Pyro Ball|p1a: Kyurem
+|-damage|p1a: Kyurem|0 fnt
+|faint|p1a: Kyurem
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kabutops|Kabutops, L82, M|233/233
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny kyuremblack kabutops
+|chat|DEBUG|Matchup: armaldo vs cinderace
+|chat|DEBUG|Updating information about cinderace
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. cinderace
+|chat|DEBUG|Getting matchup: kyuremblack vs. cinderace
+|chat|DEBUG|Getting matchup: kabutops vs. cinderace
+|chat|DEBUG|Getting matchup: armaldo vs. cinderace
+|chat|DEBUG|Checks / Counter: {'cinderace': {'checks': [], 'counter': ['kyuremblack', 'kabutops', 'armaldo']}}
+|chat|DEBUG|>>Switching to counter: kyuremblack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|High Jump Kick|p1a: Kabutops
+|-start|p2a: Cinderace|typechange|Fighting|[from] ability: Libero
+|-supereffective|p1a: Kabutops
+|-damage|p1a: Kabutops|0 fnt
+|faint|p1a: Kabutops
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lopunny|Lopunny, L90, F|263/263
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny kyuremblack kabutops
+|chat|DEBUG|Matchup: kyuremblack vs cinderace
+|chat|DEBUG|Updating information about cinderace
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lopunny vs. cinderace
+|chat|DEBUG|Getting matchup: kabutops vs. cinderace
+|chat|DEBUG|Getting matchup: kyuremblack vs. cinderace
+|chat|DEBUG|Checks / Counter: {'cinderace': {'checks': [], 'counter': ['kabutops', 'kyuremblack']}}
+|chat|DEBUG|Speed: 181 - 219
+|chat|DEBUG|Most likely moves for: kyuremblack
+|chat|DEBUG|>['outrage', 'dragondance', 'iciclespear', 'fusionbolt']
+|chat|DEBUG|Most likely moves for: cinderace
+|chat|DEBUG|>['bulkup', 'highjumpkick', 'pyroball', 'suckerpunch']
+|chat|DEBUG|Best own move: ('outrage', 196.125)
+|chat|DEBUG|Best enemy move: ('highjumpkick', 173.0)
+|chat|DEBUG|Picking the most damaging move from kyuremblack against cinderace
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lopunny|Close Combat|p2a: Cinderace
+|-damage|p2a: Cinderace|0 fnt
+|-unboost|p1a: Lopunny|def|1
+|-unboost|p1a: Lopunny|spd|1
+|faint|p2a: Cinderace
+|-weather|SunnyDay|[upkeep]
+|-status|p1a: Lopunny|tox|[from] item: Toxic Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stakataka|Stakataka, L80|100/100
+|-item|p2a: Stakataka|Air Balloon
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lopunny kyuremblack kabutops
+|chat|DEBUG|Matchup: kyuremblack vs cinderace
+|chat|DEBUG|Updating information about cinderace
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kyuremblack vs. cinderace
+|chat|DEBUG|Checks / Counter: {'cinderace': {'checks': [], 'counter': ['kyuremblack']}}
+|chat|DEBUG|Speed: 181 - 219
+|chat|DEBUG|Most likely moves for: kyuremblack
+|chat|DEBUG|>['outrage']
+|chat|DEBUG|Most likely moves for: cinderace
+|chat|DEBUG|>['bulkup', 'highjumpkick', 'pyroball', 'suckerpunch']
+|chat|DEBUG|Best own move: ('outrage', 196.125)
+|chat|DEBUG|Best enemy move: ('highjumpkick', 173.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from kyuremblack against cinderace
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lopunny|Close Combat|p2a: Stakataka
+|-supereffective|p2a: Stakataka
+|-damage|p2a: Stakataka|29/100
+|-unboost|p1a: Lopunny|def|1
+|-unboost|p1a: Lopunny|spd|1
+|-enditem|p2a: Stakataka|Air Balloon
+|move|p2a: Stakataka|Body Press|p1a: Lopunny
+|-supereffective|p1a: Lopunny
+|-damage|p1a: Lopunny|0 fnt
+|faint|p1a: Lopunny
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McDonner<br>vs<br>falafelol</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">garchomp lopunny quagsire armaldo kyuremblack kabutops</h1>

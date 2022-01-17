@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491148571<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491148571|init|battle
+|title|McGewitter vs. 313ctr0
+|j|☆McGewitter
+|j|☆313ctr0
+|gametype|singles
+|player|p1|McGewitter|265|1249
+|player|p2|313ctr0|169|1215
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Hippowdon|Hippowdon, L80, F|304304
+|switch|p2a: Gardevoir|Gardevoir, L82, F|100100
+|-ability|p2a: Gardevoir|Sand Stream|[from] ability: Trace|[of] p1a: Hippowdon
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Gardevoir
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- gardevoir
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: ['lucario', 'aggron']
+|chat|DEBUG|Counter: ['hippowdon', 'lucario', 'aggron', 'heatmor']
+|chat|DEBUG|Speed: 121 vs 178
+|chat|DEBUG|HP: 304 vs 246
+|chat|DEBUG|Created a new Strategy for hippowdon vs gardevoir:
+|chat|DEBUG|>[earthquake: 138.5625 [127, 151], earthquake: 138.5625 [127, 151], earthquake: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 138.5625 [127, 151]
+|chat|DEBUG|Best move of gardevoir (p2): moonblast: 141.5625 [130, 154]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Gardevoir|Calm Mind|p2a: Gardevoir
+|-boost|p2a: Gardevoir|spa|1
+|-boost|p2a: Gardevoir|spd|1
+|move|p1a: Hippowdon|Stealth Rock|p2a: Gardevoir
+|-sidestart|p2: 313ctr0|move: Stealth Rock
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Gardevoir|94100|[from] Sandstorm
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- gardevoir
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: ['lucario', 'aggron']
+|chat|DEBUG|Counter: ['lucario', 'aggron']
+|chat|DEBUG|Speed: 121 vs 178
+|chat|DEBUG|HP: 304 vs 231
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 138.5625 [127, 151]
+|chat|DEBUG|Best move of gardevoir (p2): moonblast: 211.3125 [195, 229]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lucario
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lucario|Lucario, L82, M|249249
+|move|p2a: Gardevoir|Calm Mind|p2a: Gardevoir
+|-boost|p2a: Gardevoir|spa|1
+|-boost|p2a: Gardevoir|spd|1
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Gardevoir|88100|[from] Sandstorm
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- gardevoir
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario', 'aggron']
+|chat|DEBUG|Speed: 195 vs 178
+|chat|DEBUG|HP: 249 vs 216
+|chat|DEBUG|Created a new Strategy for lucario vs gardevoir:
+|chat|DEBUG|>[meteormash: 329.75 [304, 359], meteormash: 329.75 [304, 359], meteormash: 329.75 [304, 359]]
+|chat|DEBUG|Best move of lucario (p1): meteormash: 329.75 [304, 359]
+|chat|DEBUG|Best move of gardevoir (p2): moonblast: 278.625 [256, 303]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lucario|Meteor Mash|p2a: Gardevoir
+|-supereffective|p2a: Gardevoir
+|-damage|p2a: Gardevoir|0 fnt
+|faint|p2a: Gardevoir
+|-damage|p1a: Lucario|225249|[from] item: Life Orb
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Runerigus|Runerigus, L84, M|100100
+|-damage|p2a: Runerigus|95100|[from] Stealth Rock
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['hippowdon', 'aggron', 'heatmor']
+|chat|DEBUG|Speed: 195 vs 99
+|chat|DEBUG|HP: 225 vs 223
+|chat|DEBUG|Created a new Strategy for lucario vs runerigus:
+|chat|DEBUG|>[meteormash: 87.5 [79, 95], meteormash: 87.5 [79, 95], meteormash: 87.5 [79, 95]]
+|chat|DEBUG|Best move of lucario (p1): meteormash: 87.5 [79, 95]
+|chat|DEBUG|Best move of runerigus (p2): earthquake: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check aggron
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aggron|Aggron, L85, M|258258
+|-item|p1a: Aggron|Air Balloon
+|move|p2a: Runerigus|Earthquake|p1a: Aggron
+|-immune|p1a: Aggron
+|-weather|Sandstorm|[upkeep]
+|-heal|p2a: Runerigus|100100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: heavyslam headsmash bodypress rockpolish
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['hippowdon', 'aggron']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 134 vs 99
+|chat|DEBUG|HP: 258 vs 235
+|chat|DEBUG|Created a new Strategy for aggron vs runerigus:
+|chat|DEBUG|>[heavyslam: 97.625 [90, 106], heavyslam: 97.625 [90, 106], heavyslam: 97.625 [90, 106]]
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 97.625 [90, 106]
+|chat|DEBUG|Best move of runerigus (p2): poltergeist: 64.25 [58, 70]
+|chat|DEBUG|Boost Moves: [rockpolish (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aggron|Rock Polish|p1a: Aggron
+|-boost|p1a: Aggron|spe|2
+|move|p2a: Runerigus|Stealth Rock|p1a: Aggron
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|-weather|none
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: heavyslam headsmash bodypress rockpolish
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['aggron']
+|chat|DEBUG|Counter: ['hippowdon', 'aggron']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 134 vs 99
+|chat|DEBUG|HP: 258 vs 235
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 97.625 [90, 106]
+|chat|DEBUG|Best move of runerigus (p2): poltergeist: 64.25 [58, 70]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aggron|Heavy Slam|p2a: Runerigus
+|-damage|p2a: Runerigus|58100
+|-activate|p2a: Runerigus|ability: Wandering Spirit|Rock Head|Wandering Spirit|[of] p1a: Aggron
+|move|p2a: Runerigus|Poltergeist|p1a: Aggron
+|-activate|p1a: Aggron|move: Poltergeist|Air Balloon
+|-damage|p1a: Aggron|197258
+|-enditem|p1a: Aggron|Air Balloon
+|-heal|p2a: Runerigus|64100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: heavyslam headsmash bodypress rockpolish
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['hippowdon', 'rotomheat']
+|chat|DEBUG|Counter: ['hippowdon', 'rotomheat', 'heatmor']
+|chat|DEBUG|Speed: 134 vs 99
+|chat|DEBUG|HP: 197 vs 150
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 97.625 [90, 106]
+|chat|DEBUG|Best move of runerigus (p2): earthquake: 234.5 [216, 256]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check hippowdon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hippowdon|Hippowdon, L80, F|304304
+|-damage|p1a: Hippowdon|285304|[from] Stealth Rock
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Hippowdon
+|move|p2a: Runerigus|Earthquake|p1a: Hippowdon
+|-damage|p1a: Hippowdon|201304
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Hippowdon|220304|[from] item: Leftovers
+|-heal|p2a: Runerigus|70100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['rotomheat']
+|chat|DEBUG|Counter: ['hippowdon', 'rotomheat', 'heatmor']
+|chat|DEBUG|Speed: 121 vs 99
+|chat|DEBUG|HP: 220 vs 164
+|chat|DEBUG|Created a new Strategy for hippowdon vs runerigus:
+|chat|DEBUG|>[earthquake: 73.9375 [67, 81], earthquake: 73.9375 [67, 81], earthquake: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 73.9375 [67, 81]
+|chat|DEBUG|Best move of runerigus (p2): poltergeist: 96.1875 [88, 105]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hippowdon|Earthquake|p2a: Runerigus
+|-damage|p2a: Runerigus|38100
+|move|p2a: Runerigus|Poltergeist|p1a: Hippowdon
+|-activate|p1a: Hippowdon|move: Poltergeist|Leftovers
+|-damage|p1a: Hippowdon|121304
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Hippowdon|140304|[from] item: Leftovers
+|-heal|p2a: Runerigus|44100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['rotomheat', 'heatmor']
+|chat|DEBUG|Counter: ['hippowdon', 'rotomheat', 'heatmor']
+|chat|DEBUG|Speed: 121 vs 99
+|chat|DEBUG|HP: 140 vs 103
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 73.9375 [67, 81]
+|chat|DEBUG|Best move of runerigus (p2): poltergeist: 96.1875 [88, 105]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hippowdon|Earthquake|p2a: Runerigus
+|-damage|p2a: Runerigus|11100
+|move|p2a: Runerigus|Toxic Spikes|p1a: Hippowdon
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Hippowdon|159304|[from] item: Leftovers
+|-heal|p2a: Runerigus|17100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "runerigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- runerigus
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: earthquake poltergeist stealthrock willowisp
+|chat|DEBUG|Checks: ['hippowdon', 'rotomheat', 'heatmor']
+|chat|DEBUG|Counter: ['hippowdon', 'lucario', 'aggron', 'swoobat', 'rotomheat', 'heatmor']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 121 vs 99
+|chat|DEBUG|HP: 159 vs 39
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 73.9375 [67, 81]
+|chat|DEBUG|Best move of runerigus (p2): poltergeist: 96.1875 [88, 105]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hippowdon|Earthquake|p2a: Runerigus
+|-crit|p2a: Runerigus
+|-damage|p2a: Runerigus|0 fnt
+|faint|p2a: Runerigus
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Hippowdon|178304|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Leafeon|Leafeon, L86, F|100100
+|-damage|p2a: Leafeon|88100|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- leafeon
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: ['rotomheat', 'heatmor']
+|chat|DEBUG|Counter: ['lucario', 'swoobat', 'rotomheat', 'heatmor']
+|chat|DEBUG|Speed: 121 vs 213
+|chat|DEBUG|HP: 178 vs 221
+|chat|DEBUG|Created a new Strategy for hippowdon vs leafeon:
+|chat|DEBUG|>[earthquake: 39.5 [36, 43], earthquake: 39.5 [36, 43], earthquake: 39.5 [36, 43]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 39.5 [36, 43]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 183.75 [168, 200]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomheat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Heat, L82|216216
+|move|p2a: Leafeon|Swords Dance|p2a: Leafeon
+|-boost|p2a: Leafeon|atk|2
+|-weather|none
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomheat" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- leafeon
+|chat|DEBUG|Own moves: nastyplot thunderbolt overheat willowisp
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['swoobat', 'rotomheat', 'heatmor']
+|chat|DEBUG|Speed: 188 vs 213
+|chat|DEBUG|HP: 216 vs 221
+|chat|DEBUG|Created a new Strategy for rotomheat vs leafeon:
+|chat|DEBUG|>[overheat: 336.625 [308, 366], overheat: 167.25 [152, 182], overheat: 114.625 [104, 126]]
+|chat|DEBUG|Best move of rotomheat (p1): overheat: 336.625 [308, 366]
+|chat|DEBUG|Best move of leafeon (p2): doubleedge: 171.5625 [158, 186]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Leafeon|Dynamax
+|-heal|p2a: Leafeon|88100|[silent]
+|move|p2a: Leafeon|Max Flutterby|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|121216
+|-unboost|p1a: Rotom|spa|1
+|move|p1a: Rotom|Overheat|p2a: Leafeon
+|-supereffective|p2a: Leafeon
+|-damage|p2a: Leafeon|44100
+|-unboost|p1a: Rotom|spa|2
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat rotomheat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomheat" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-rotomheat-heatmor -- leafeon
+|chat|DEBUG|Own moves: nastyplot thunderbolt overheat willowisp
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario', 'aggron', 'swoobat', 'heatmor']
+|chat|DEBUG|Speed: 188 vs 213
+|chat|DEBUG|HP: 121 vs 110
+|chat|DEBUG|Best move of rotomheat (p1): overheat: 167.25 [152, 182]
+|chat|DEBUG|Best move of leafeon (p2): doubleedge: 171.5625 [158, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using overheat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Max Flutterby|p1a: Rotom
+|-resisted|p1a: Rotom
+|-crit|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lucario|Lucario, L82, M|225249
+|-damage|p1a: Lucario|218249|[from] Stealth Rock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomheat" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-heatmor -- leafeon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario', 'aggron', 'swoobat', 'heatmor']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lucario (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Max Overgrowth|p1a: Lucario
+|-resisted|p1a: Lucario
+|-damage|p1a: Lucario|28249
+|-fieldstart|move: Grassy Terrain
+|move|p1a: Lucario|Close Combat|p2a: Leafeon
+|-damage|p2a: Leafeon|22100
+|-unboost|p1a: Lucario|def|1
+|-unboost|p1a: Lucario|spd|1
+|-damage|p1a: Lucario|4249|[from] item: Life Orb
+|-heal|p2a: Leafeon|25100|[from] Grassy Terrain
+|-heal|p1a: Lucario|19249|[from] Grassy Terrain
+|-end|p2a: Leafeon|Dynamax
+|-heal|p2a: Leafeon|25100|[silent]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-heatmor -- leafeon
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario', 'aggron', 'swoobat', 'heatmor']
+|chat|DEBUG|Speed: 195 vs 213
+|chat|DEBUG|HP: 218 vs 110
+|chat|DEBUG|Created a new Strategy for lucario vs leafeon:
+|chat|DEBUG|>[closecombat: 125.0 [114, 136], closecombat: 125.0 [114, 136], closecombat: 125.0 [114, 136]]
+|chat|DEBUG|Best move of lucario (p1): closecombat: 125.0 [114, 136]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 132.625 [122, 144]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Leaf Blade|p1a: Lucario
+|-resisted|p1a: Lucario
+|-damage|p1a: Lucario|0 fnt
+|faint|p1a: Lucario
+|-heal|p2a: Leafeon|31100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aggron|Aggron, L85, M|197258
+|-damage|p1a: Aggron|181258|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon lucario aggron swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-lucario-aggron-swoobat-heatmor -- leafeon
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aggron', 'swoobat', 'heatmor']
+|chat|DEBUG|Speed: 195 vs 213
+|chat|DEBUG|HP: 19 vs 63
+|chat|DEBUG|Best move of lucario (p1): closecombat: 125.0 [114, 136]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 198.375 [182, 215]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Leaf Blade|p1a: Aggron
+|-damage|p1a: Aggron|18258
+|move|p1a: Aggron|Head Smash|p2a: Leafeon
+|-damage|p2a: Leafeon|0 fnt
+|faint|p2a: Leafeon
+|-heal|p1a: Aggron|34258|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon aggron swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-aggron-swoobat-heatmor -- leafeon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aggron', 'swoobat', 'heatmor']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to aggron (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Sucker Punch|p1a: Aggron
+|-start|p2a: Cinderace|typechange|Dark|[from] ability: Libero
+|-damage|p1a: Aggron|0 fnt
+|faint|p1a: Aggron
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hippowdon|Hippowdon, L80, F|178304
+|-status|p1a: Hippowdon|psn
+|-damage|p1a: Hippowdon|159304 psn|[from] Stealth Rock
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Hippowdon
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon aggron swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "leafeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-aggron-swoobat-heatmor -- leafeon
+|chat|DEBUG|Own moves: heavyslam headsmash bodypress rockpolish
+|chat|DEBUG|Enemy moves: doubleedge leafblade swordsdance synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['swoobat', 'heatmor']
+|chat|DEBUG|Speed: 134 vs 213
+|chat|DEBUG|HP: 181 vs 78
+|chat|DEBUG|Created a new Strategy for aggron vs leafeon:
+|chat|DEBUG|>[headsmash: 131.0 [120, 142], headsmash: 131.0 [120, 142], headsmash: 131.0 [120, 142]]
+|chat|DEBUG|Best move of aggron (p1): headsmash: 131.0 [120, 142]
+|chat|DEBUG|Best move of leafeon (p2): leafblade: 121.1875 [111, 132]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|High Jump Kick|p1a: Hippowdon|[miss]
+|-start|p2a: Cinderace|typechange|Fighting|[from] ability: Libero
+|-miss|p2a: Cinderace|p1a: Hippowdon
+|-damage|p2a: Cinderace|50100|[from] highjumpkick
+|move|p1a: Hippowdon|Earthquake|p2a: Cinderace
+|-damage|p2a: Cinderace|21100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Cinderace|15100|[from] Sandstorm
+|-heal|p2a: Cinderace|21100|[from] Grassy Terrain
+|-heal|p1a: Hippowdon|178304 psn|[from] Grassy Terrain
+|-heal|p1a: Hippowdon|197304 psn|[from] item: Leftovers
+|-damage|p1a: Hippowdon|159304 psn|[from] psn
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon aggron swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-aggron-swoobat-heatmor -- cinderace
+|chat|DEBUG|Own moves: heavyslam headsmash bodypress rockpolish
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hippowdon']
+|chat|DEBUG|Speed: 134 vs 219
+|chat|DEBUG|HP: 34 vs 240
+|chat|DEBUG|Created a new Strategy for aggron vs cinderace:
+|chat|DEBUG|>[headsmash: 461.0 [422, 500], headsmash: 461.0 [422, 500], headsmash: 461.0 [422, 500]]
+|chat|DEBUG|Best move of aggron (p1): headsmash: 461.0 [422, 500]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 275.0 [252, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using headsmash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|High Jump Kick|p1a: Hippowdon|[miss]
+|-miss|p2a: Cinderace|p1a: Hippowdon
+|-damage|p2a: Cinderace|0 fnt|[from] highjumpkick
+|faint|p2a: Cinderace
+|move|p1a: Hippowdon|Earthquake|p2: Cinderace|[notarget]
+|-fail|p1a: Hippowdon
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Hippowdon|178304 psn|[from] item: Leftovers
+|-damage|p1a: Hippowdon|140304 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regidrago|Regidrago, L78|100100
+|-damage|p2a: Regidrago|88100|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-swoobat-heatmor -- cinderace
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hippowdon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hippowdon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regidrago|Draco Meteor|p1a: Hippowdon
+|-damage|p1a: Hippowdon|0 fnt
+|-unboost|p2a: Regidrago|spa|2
+|faint|p1a: Hippowdon
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Regidrago|82100|[from] Sandstorm
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Swoobat|Swoobat, L86, M|255255
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-swoobat-heatmor -- cinderace
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hippowdon']
+|chat|DEBUG|Speed: 121 vs 219
+|chat|DEBUG|HP: 159 vs 240
+|chat|DEBUG|Created a new Strategy for hippowdon vs cinderace:
+|chat|DEBUG|>[earthquake: 277.125 [254, 302], earthquake: 277.125 [254, 302], earthquake: 277.125 [254, 302]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 277.125 [254, 302]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 103.25 [94, 112]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bisharp|Bisharp, L80, F|100100
+|-damage|p2a: Bisharp|95100|[from] Stealth Rock
+|move|p1a: Swoobat|Heat Wave|p2a: Bisharp
+|-supereffective|p2a: Bisharp
+|-damage|p2a: Bisharp|33100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Swoobat|240255|[from] Sandstorm
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-swoobat-heatmor -- cinderace
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['hippowdon', 'swoobat', 'heatmor']
+|chat|DEBUG|Speed: 121 vs 219
+|chat|DEBUG|HP: 159 vs 50
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 277.125 [254, 302]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 103.25 [94, 112]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swoobat|Heat Wave|p2a: Bisharp
+|-supereffective|p2a: Bisharp
+|-damage|p2a: Bisharp|0 fnt
+|faint|p2a: Bisharp
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regidrago|Regidrago, L78|82100
+|-damage|p2a: Regidrago|69100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hippowdon swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hippowdon-swoobat-heatmor -- regidrago
+|chat|DEBUG|Own moves: toxic slackoff earthquake stealthrock
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 121 vs 170
+|chat|DEBUG|HP: 140 vs 387
+|chat|DEBUG|Created a new Strategy for hippowdon vs regidrago:
+|chat|DEBUG|>[earthquake: 173.875 [160, 189], earthquake: 173.875 [160, 189], earthquake: 173.875 [160, 189]]
+|chat|DEBUG|Best move of hippowdon (p1): earthquake: 173.875 [160, 189]
+|chat|DEBUG|Best move of regidrago (p2): outrage: 141.5625 [130, 154]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Swoobat|Dynamax
+|-heal|p1a: Swoobat|480510|[silent]
+|move|p1a: Swoobat|Max Flare|p2a: Regidrago
+|-resisted|p2a: Regidrago
+|-damage|p2a: Regidrago|59100
+|-weather|SunnyDay
+|move|p2a: Regidrago|Draco Meteor|p1a: Swoobat
+|-damage|p1a: Swoobat|242510
+|-unboost|p2a: Regidrago|spa|2
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hippowdon" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-heatmor -- regidrago
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: swoobat
+|chat|DEBUG|>Switching to swoobat (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swoobat|Max Flare|p2a: Regidrago
+|-resisted|p2a: Regidrago
+|-damage|p2a: Regidrago|44100
+|move|p2a: Regidrago|Outrage|p1a: Swoobat
+|-damage|p1a: Swoobat|0 fnt
+|faint|p1a: Swoobat
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heatmor|Heatmor, L90, M|299299
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat heatmor
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swoobat" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-heatmor -- regidrago
+|chat|DEBUG|Own moves: roost heatwave storedpower calmmind
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 245 vs 170
+|chat|DEBUG|HP: 255 vs 360
+|chat|DEBUG|Created a new Strategy for swoobat vs regidrago:
+|chat|DEBUG|>[heatwave: 47.0 [43, 51], heatwave: 47.0 [43, 51], heatwave: 47.0 [43, 51]]
+|chat|DEBUG|Best move of swoobat (p1): heatwave: 47.0 [43, 51]
+|chat|DEBUG|Best move of regidrago (p2): outrage: 230.5 [211, 250]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regidrago|Outrage|p1a: Heatmor|[from]lockedmove
+|-damage|p1a: Heatmor|110299
+|move|p1a: Heatmor|Knock Off|p2a: Regidrago
+|-damage|p2a: Regidrago|15100
+|-enditem|p2a: Regidrago|Assault Vest|[from] move: Knock Off|[of] p1a: Heatmor
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat heatmor
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "swoobat" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-heatmor -- regidrago-bisharp
+|chat|DEBUG|Own moves: roost heatwave storedpower calmmind
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['heatmor']
+|chat|DEBUG|Counter: ['swoobat', 'heatmor']
+|chat|DEBUG|Speed: 245 vs 158
+|chat|DEBUG|HP: 240 vs 77
+|chat|DEBUG|Created a new Strategy for swoobat vs bisharp:
+|chat|DEBUG|>[heatwave: 147.25 [136, 160], heatwave: 147.25 [136, 160], heatwave: 147.25 [136, 160]]
+|chat|DEBUG|Best move of swoobat (p1): heatwave: 147.25 [136, 160]
+|chat|DEBUG|Best move of bisharp (p2): knockoff: 409.0625 [374, 445]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regidrago|Outrage|p1a: Heatmor|[from]lockedmove
+|-damage|p1a: Heatmor|0 fnt
+|faint|p1a: Heatmor
+|-start|p2a: Regidrago|confusion|[fatigue]
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>313ctr0</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">hippowdon lucario aggron swoobat rotomheat heatmor</h1>

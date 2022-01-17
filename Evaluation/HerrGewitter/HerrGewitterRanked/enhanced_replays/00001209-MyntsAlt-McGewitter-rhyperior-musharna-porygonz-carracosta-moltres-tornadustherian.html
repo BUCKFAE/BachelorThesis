@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491911788<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491911788|init|battle
+|title|MyntsAlt vs. McGewitter
+|j|☆MyntsAlt
+|j|☆McGewitter
+|gametype|singles
+|player|p1|MyntsAlt|benga|1353
+|player|p2|McGewitter|265|1360
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Celebi|Celebi, L82|100100
+|switch|p2a: Rhyperior|Rhyperior, L82, F|323323
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhyperior" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi
+|chat|DEBUG|Own moves: rockpolish stoneedge megahorn earthquake
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['tornadustherian']
+|chat|DEBUG|Counter: ['moltres', 'tornadustherian']
+|chat|DEBUG|Speed: 113 vs 211
+|chat|DEBUG|HP: 323 vs 298
+|chat|DEBUG|Created a new Strategy for rhyperior vs celebi:
+|chat|DEBUG|>[megahorn: 401.25 [368, 436], megahorn: 401.25 [368, 436], megahorn: 401.25 [368, 436]]
+|chat|DEBUG|Best move of rhyperior (p1): megahorn: 401.25 [368, 436]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 330.75 [306, 360]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tornadustherian
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|move|p1a: Celebi|Giga Drain|p2a: Tornadus
+|-resisted|p2a: Tornadus
+|-crit|p2a: Tornadus
+|-damage|p2a: Tornadus|212251
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi
+|chat|DEBUG|Own moves: knockoff uturn superpower hurricane
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['tornadustherian']
+|chat|DEBUG|Counter: ['moltres', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 234 vs 211
+|chat|DEBUG|HP: 212 vs 298
+|chat|DEBUG|Created a new Strategy for tornadustherian vs celebi:
+|chat|DEBUG|>[uturn: 168.5 [156, 184], uturn: 168.5 [156, 184], uturn: 168.5 [156, 184]]
+|chat|DEBUG|Best move of tornadustherian (p1): uturn: 168.5 [156, 184]
+|chat|DEBUG|Best move of celebi (p2): psychic: 65.75 [60, 72]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drampa|Drampa, L86, F|100100
+|move|p2a: Tornadus|U-turn|p1a: Drampa
+|-damage|p1a: Drampa|84100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Moltres|Moltres, L80|275275
+|-heal|p1a: Drampa|91100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['tornadustherian']
+|chat|DEBUG|Counter: ['moltres', 'tornadustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to moltres (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Moltres|Air Slash|p1a: Drampa
+|-damage|p1a: Drampa|58100
+|move|p1a: Drampa|Thunderbolt|p2a: Moltres
+|-supereffective|p2a: Moltres
+|-damage|p2a: Moltres|79275
+|-heal|p1a: Drampa|64100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: uturn roost airslash fireblast
+|chat|DEBUG|Enemy moves: dracometeor hypervoice roost thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rhyperior', 'musharna', 'porygonz', 'tornadustherian']
+|chat|DEBUG|Speed: 190 vs 111
+|chat|DEBUG|HP: 275 vs 249
+|chat|DEBUG|Created a new Strategy for moltres vs drampa:
+|chat|DEBUG|>[airslash: 85.0625 [78, 93], airslash: 85.0625 [78, 93], airslash: 85.0625 [78, 93]]
+|chat|DEBUG|Best move of moltres (p1): airslash: 85.0625 [78, 93]
+|chat|DEBUG|Best move of drampa (p2): thunderbolt: 187.125 [172, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon-Z|Porygon-Z, L80|267267
+|move|p1a: Drampa|Roost|p1a: Drampa
+|-heal|p1a: Drampa|100100
+|-singleturn|p1a: Drampa|move: Roost
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: uturn roost airslash fireblast
+|chat|DEBUG|Enemy moves: dracometeor hypervoice roost thunderbolt
+|chat|DEBUG|Checks: ['porygonz', 'tornadustherian']
+|chat|DEBUG|Counter: ['rhyperior', 'musharna', 'porygonz', 'tornadustherian']
+|chat|DEBUG|Speed: 190 vs 111
+|chat|DEBUG|HP: 79 vs 175
+|chat|DEBUG|Best move of moltres (p1): airslash: 85.0625 [78, 93]
+|chat|DEBUG|Best move of drampa (p2): thunderbolt: 187.125 [172, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygonz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blastoise|Blastoise, L82, F|100100
+|move|p2a: Porygon-Z|Ice Beam|p1a: Blastoise
+|-resisted|p1a: Blastoise
+|-damage|p1a: Blastoise|82100
+|-status|p1a: Blastoise|frz
+|-damage|p2a: Porygon-Z|241267|[from] item: Life Orb
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: icebeam triattack darkpulse nastyplot
+|chat|DEBUG|Enemy moves: dracometeor hypervoice roost thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['porygonz', 'tornadustherian']
+|chat|DEBUG|Speed: 190 vs 111
+|chat|DEBUG|HP: 267 vs 274
+|chat|DEBUG|Created a new Strategy for porygonz vs drampa:
+|chat|DEBUG|>[icebeam: 188.8125 [174, 205], icebeam: 188.8125 [174, 205], icebeam: 188.8125 [174, 205]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 188.8125 [174, 205]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 153.0 [141, 166]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Tri Attack|p1a: Blastoise
+|-damage|p1a: Blastoise|21100 frz
+|-damage|p2a: Porygon-Z|215267|[from] item: Life Orb
+|cant|p1a: Blastoise|frz
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa-blastoise
+|chat|DEBUG|Own moves: icebeam triattack darkpulse nastyplot
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['tornadustherian']
+|chat|DEBUG|Counter: ['musharna', 'porygonz', 'tornadustherian']
+|chat|DEBUG|Speed: 190 vs 175
+|chat|DEBUG|HP: 241 vs 216
+|chat|DEBUG|Created a new Strategy for porygonz vs blastoise:
+|chat|DEBUG|>[triattack: 159.5625 [146, 174], triattack: 159.5625 [146, 174], triattack: 159.5625 [146, 174]]
+|chat|DEBUG|Best move of porygonz (p1): triattack: 159.5625 [146, 174]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 118.3125 [109, 129]
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Tri Attack|p1a: Blastoise
+|-damage|p1a: Blastoise|0 fnt
+|faint|p1a: Blastoise
+|-damage|p2a: Porygon-Z|189267|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Vanilluxe|Vanilluxe, L82, M|100100
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Vanilluxe
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa-blastoise
+|chat|DEBUG|Own moves: icebeam triattack darkpulse nastyplot
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['musharna', 'porygonz', 'tornadustherian']
+|chat|DEBUG|Counter: ['musharna', 'porygonz', 'carracosta', 'moltres', 'tornadustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 190 vs 175
+|chat|DEBUG|HP: 215 vs 55
+|chat|DEBUG|Best move of porygonz (p1): triattack: 159.5625 [146, 174]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 176.6875 [162, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Tri Attack|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|33100
+|-damage|p2a: Porygon-Z|163267|[from] item: Life Orb
+|move|p1a: Vanilluxe|Aurora Veil|p1a: Vanilluxe
+|-sidestart|p1: MyntsAlt|move: Aurora Veil
+|-weather|Hail|[upkeep]
+|-damage|p2a: Porygon-Z|147267|[from] Hail
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "vanilluxe"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa-vanilluxe
+|chat|DEBUG|Own moves: icebeam triattack darkpulse nastyplot
+|chat|DEBUG|Enemy moves: auroraveil blizzard explosion freezedry
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rhyperior', 'musharna', 'porygonz', 'moltres', 'tornadustherian']
+|chat|DEBUG|Speed: 190 vs 177
+|chat|DEBUG|HP: 189 vs 251
+|chat|DEBUG|Created a new Strategy for porygonz vs vanilluxe:
+|chat|DEBUG|>[triattack: 171.9375 [159, 187], triattack: 171.9375 [159, 187], triattack: 171.9375 [159, 187]]
+|chat|DEBUG|Best move of porygonz (p1): triattack: 171.9375 [159, 187]
+|chat|DEBUG|Best move of vanilluxe (p2): blizzard: 143.125 [132, 156]
+|chat|DEBUG|Attacking using triattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon-Z|Tri Attack|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|0 fnt
+|faint|p1a: Vanilluxe
+|-damage|p2a: Porygon-Z|121267|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p2a: Porygon-Z|105267|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Celebi|Celebi, L82|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "vanilluxe"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa-vanilluxe
+|chat|DEBUG|Own moves: icebeam triattack darkpulse nastyplot
+|chat|DEBUG|Enemy moves: auroraveil blizzard explosion freezedry
+|chat|DEBUG|Checks: ['musharna', 'tornadustherian']
+|chat|DEBUG|Counter: ['rhyperior', 'musharna', 'porygonz', 'carracosta', 'moltres', 'tornadustherian']
+|chat|DEBUG|Speed: 190 vs 177
+|chat|DEBUG|HP: 147 vs 82
+|chat|DEBUG|Best move of porygonz (p1): triattack: 171.9375 [159, 187]
+|chat|DEBUG|Best move of vanilluxe (p2): blizzard: 143.125 [132, 156]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|move|p1a: Celebi|Nasty Plot|p1a: Celebi
+|-boost|p1a: Celebi|spa|2
+|-weather|Hail|[upkeep]
+|-damage|p2a: Tornadus|236251|[from] Hail
+|-damage|p1a: Celebi|94100|[from] Hail
+|-heal|p1a: Celebi|100100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: icebeam triattack darkpulse nastyplot
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['tornadustherian']
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 190 vs 211
+|chat|DEBUG|HP: 105 vs 298
+|chat|DEBUG|Created a new Strategy for porygonz vs celebi:
+|chat|DEBUG|>[icebeam: 184.0 [169, 200], icebeam: 184.0 [169, 200], icebeam: 184.0 [169, 200]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 184.0 [169, 200]
+|chat|DEBUG|Best move of celebi (p2): psychic: 108.625 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tornadustherian
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Celebi
+|-supereffective|p1a: Celebi
+|-damage|p1a: Celebi|71100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Musharna|Musharna, L86, M|340340
+|move|p1a: Celebi|Psychic|p2a: Musharna
+|-resisted|p2a: Musharna
+|-damage|p2a: Musharna|262340
+|-weather|Hail|[upkeep]
+|-damage|p1a: Celebi|65100|[from] Hail
+|-damage|p2a: Musharna|241340|[from] Hail
+|-heal|p1a: Celebi|71100|[from] item: Leftovers
+|-heal|p2a: Musharna|262340|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: knockoff uturn superpower hurricane
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 234 vs 211
+|chat|DEBUG|HP: 236 vs 298
+|chat|DEBUG|Created a new Strategy for tornadustherian vs celebi:
+|chat|DEBUG|>[uturn: 168.5 [156, 184], uturn: 168.5 [156, 184], uturn: 168.5 [156, 184]]
+|chat|DEBUG|Best move of tornadustherian (p1): uturn: 168.5 [156, 184]
+|chat|DEBUG|Best move of celebi (p2): psychic: 131.0 [120, 142]
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Celebi|Giga Drain|p2a: Musharna
+|-damage|p2a: Musharna|120340
+|-heal|p1a: Celebi|95100|[from] drain|[of] p2a: Musharna
+|move|p2a: Musharna|Moonblast|p1a: Celebi
+|-damage|p1a: Celebi|84100
+|-weather|none
+|-heal|p1a: Celebi|90100|[from] item: Leftovers
+|-heal|p2a: Musharna|141340|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: musharna
+|chat|DEBUG|>Switching to musharna (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Celebi|Nasty Plot|p1a: Celebi
+|-boost|p1a: Celebi|spa|2
+|move|p2a: Musharna|Moonblast|p1a: Celebi
+|-damage|p1a: Celebi|79100
+|-heal|p1a: Celebi|85100|[from] item: Leftovers
+|-heal|p2a: Musharna|162340|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: psychic moonlight calmmind moonblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 99 vs 211
+|chat|DEBUG|HP: 262 vs 211
+|chat|DEBUG|Created a new Strategy for musharna vs celebi:
+|chat|DEBUG|>[moonblast: 70.75 [65, 77], moonblast: 70.75 [65, 77], moonblast: 70.75 [65, 77]]
+|chat|DEBUG|Best move of musharna (p1): moonblast: 70.75 [65, 77]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 141.5625 [130, 154]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Celebi|Nasty Plot|p1a: Celebi
+|-boost|p1a: Celebi|spa|2
+|move|p2a: Musharna|Moonblast|p1a: Celebi
+|-damage|p1a: Celebi|73100
+|-heal|p1a: Celebi|79100|[from] item: Leftovers
+|-heal|p2a: Musharna|183340|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: psychic moonlight calmmind moonblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 99 vs 211
+|chat|DEBUG|HP: 141 vs 268
+|chat|DEBUG|Best move of musharna (p1): moonblast: 70.75 [65, 77]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 141.5625 [130, 154]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Celebi|Giga Drain|p2a: Musharna
+|-damage|p2a: Musharna|0 fnt
+|-heal|p1a: Celebi|100100|[from] drain|[of] p2a: Musharna
+|faint|p2a: Musharna
+|-sideend|p1: MyntsAlt|move: Aurora Veil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carracosta|Carracosta, L84, M|262262
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: psychic moonlight calmmind moonblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tornadustherian']
+|chat|DEBUG|Speed: 99 vs 211
+|chat|DEBUG|HP: 162 vs 253
+|chat|DEBUG|Best move of musharna (p1): moonblast: 70.75 [65, 77]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 211.3125 [195, 229]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Celebi|Giga Drain|p2a: Carracosta
+|-supereffective|p2a: Carracosta
+|-damage|p2a: Carracosta|0 fnt
+|faint|p2a: Carracosta
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior musharna porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-musharna-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: psychic moonlight calmmind moonblast
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 99 vs 211
+|chat|DEBUG|HP: 183 vs 235
+|chat|DEBUG|Created a new Strategy for musharna vs celebi:
+|chat|DEBUG|>[moonblast: 70.75 [65, 77], moonblast: 70.75 [65, 77], moonblast: 70.75 [65, 77]]
+|chat|DEBUG|Best move of musharna (p1): moonblast: 70.75 [65, 77]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 281.625 [259, 306]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Celebi|Dynamax
+|-heal|p1a: Celebi|100100|[silent]
+|move|p2a: Tornadus|U-turn|p1a: Celebi
+|-supereffective|p1a: Celebi
+|-damage|p1a: Celebi|70100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Moltres|Moltres, L80|79275
+|move|p1a: Celebi|Max Mindstorm|p2a: Moltres
+|-damage|p2a: Moltres|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p2a: Moltres
+|-heal|p1a: Celebi|73100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: carracosta
+|chat|DEBUG|>Switching to carracosta (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Celebi
+|-supereffective|p1a: Celebi
+|-damage|p1a: Celebi|43100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon-Z|Porygon-Z, L80|105267
+|move|p1a: Celebi|Max Mindstorm|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|0 fnt
+|faint|p2a: Porygon-Z
+|-heal|p1a: Celebi|46100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz carracosta moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-carracosta-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: hydropump aquajet stoneedge shellsmash
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 102 vs 211
+|chat|DEBUG|HP: 262 vs 298
+|chat|DEBUG|Created a new Strategy for carracosta vs celebi:
+|chat|DEBUG|>[stoneedge: 107.3125 [99, 117], stoneedge: 107.3125 [99, 117], stoneedge: 107.3125 [99, 117]]
+|chat|DEBUG|Best move of carracosta (p1): stoneedge: 107.3125 [99, 117]
+|chat|DEBUG|Best move of celebi (p2): gigadrain: 1528.0 [1404, 1656]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Celebi
+|-supereffective|p1a: Celebi
+|-damage|p1a: Celebi|16100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhyperior|Rhyperior, L82, F|323323
+|move|p1a: Celebi|Max Mindstorm|p2a: Rhyperior
+|-damage|p2a: Rhyperior|0 fnt
+|faint|p2a: Rhyperior
+|-heal|p1a: Celebi|19100|[from] item: Leftovers
+|-end|p1a: Celebi|Dynamax
+|-heal|p1a: Celebi|19100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|251251
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: tornadustherian
+|chat|DEBUG|>Switching to tornadustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|U-turn|p1a: Celebi
+|-supereffective|p1a: Celebi
+|-damage|p1a: Celebi|0 fnt
+|faint|p1a: Celebi
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drampa|Drampa, L86, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: knockoff uturn superpower hurricane
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 234 vs 211
+|chat|DEBUG|HP: 251 vs 298
+|chat|DEBUG|Created a new Strategy for tornadustherian vs celebi:
+|chat|DEBUG|>[uturn: 168.5 [156, 184], uturn: 168.5 [156, 184], uturn: 168.5 [156, 184]]
+|chat|DEBUG|Best move of tornadustherian (p1): uturn: 168.5 [156, 184]
+|chat|DEBUG|Best move of celebi (p2): psychic: 259.9375 [238, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Tornadus|Dynamax
+|-heal|p2a: Tornadus|502502|[silent]
+|move|p2a: Tornadus|Max Knuckle|p1a: Drampa
+|-supereffective|p1a: Drampa
+|-damage|p1a: Drampa|55100
+|-boost|p2a: Tornadus|atk|1
+|move|p1a: Drampa|Thunderbolt|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|382502
+|-heal|p1a: Drampa|61100|[from] item: Leftovers
+|-fieldend|move: Psychic Terrain
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz moltres tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-moltres-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: moltres
+|chat|DEBUG|>Switching to moltres (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Max Knuckle|p1a: Drampa
+|-supereffective|p1a: Drampa
+|-damage|p1a: Drampa|0 fnt
+|-boost|p2a: Tornadus|atk|1
+|faint|p1a: Drampa
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mamoswine|Mamoswine, L80, M|100100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltres" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: tornadustherian
+|chat|DEBUG|>Switching to tornadustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Max Knuckle|p1a: Mamoswine
+|-supereffective|p1a: Mamoswine
+|-damage|p1a: Mamoswine|20100
+|-boost|p2a: Tornadus|atk|1
+|move|p1a: Mamoswine|Icicle Crash|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|50502
+|-end|p2a: Tornadus|Dynamax
+|-heal|p2a: Tornadus|25251|[silent]
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: knockoff uturn superpower hurricane
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 234 vs 211
+|chat|DEBUG|HP: 251 vs 217
+|chat|DEBUG|Best move of tornadustherian (p1): uturn: 168.5 [156, 184]
+|chat|DEBUG|Best move of celebi (p2): psychic: 259.9375 [238, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, M|100100
+|move|p2a: Tornadus|Superpower|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|-unboost|p2a: Tornadus|atk|1
+|-unboost|p2a: Tornadus|def|1
+|faint|p1a: Diggersby
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mamoswine|Mamoswine, L80, M|20100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rhyperior porygonz tornadustherian
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rhyperior-porygonz-tornadustherian -- celebi-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: porygonz
+|chat|DEBUG|>Switching to porygonz (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mamoswine|Ice Shard|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|faint|p2a: Tornadus
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>MyntsAlt<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">rhyperior musharna porygonz carracosta moltres tornadustherian</h1>

@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490066342</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490066342|init|battle
+|title|Chamak_19 vs. McDonner
+|j|☆Chamak_19
+|j|☆McDonner
+|gametype|singles
+|player|p1|Chamak_19|ninjaboy|1177
+|player|p2|McDonner|265|1167
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Vanilluxe|Vanilluxe, L82, F|100/100
+|switch|p2a: Mew|Mew, L80|291/291
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Vanilluxe
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: mew vs vanilluxe
+|chat|DEBUG|Updating information about vanilluxe
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lightclay
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: metagross vs. vanilluxe
+|chat|DEBUG|Getting matchup: carbink vs. vanilluxe
+|chat|DEBUG|Getting matchup: jellicent vs. vanilluxe
+|chat|DEBUG|Getting matchup: rayquaza vs. vanilluxe
+|chat|DEBUG|Getting matchup: dragapult vs. vanilluxe
+|chat|DEBUG|Getting matchup: mew vs. vanilluxe
+|chat|DEBUG|Checks / Counter: {'vanilluxe': {'checks': [], 'counter': ['metagross', 'carbink', 'mew']}}
+|chat|DEBUG|Speed: 206 - 177
+|chat|DEBUG|Most likely moves for: mew
+|chat|DEBUG|>['swordsdance', 'closecombat', 'psychicfangs', 'bravebird']
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'flashcannon', 'freezedry']
+|chat|DEBUG|Best own move: ('closecombat', 167.5)
+|chat|DEBUG|Best enemy move: ('blizzard', 115.625)
+|chat|DEBUG|Picking the most damaging move from mew against vanilluxe
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Mew|Close Combat|p1a: Vanilluxe
+|-supereffective|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|39/100
+|-unboost|p2a: Mew|def|1
+|-unboost|p2a: Mew|spd|1
+|move|p1a: Vanilluxe|Aurora Veil|p1a: Vanilluxe
+|-sidestart|p1: Chamak_19|move: Aurora Veil
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mew|273/291|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: mew vs vanilluxe
+|chat|DEBUG|Updating information about vanilluxe
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lightclay
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: metagross vs. vanilluxe
+|chat|DEBUG|Getting matchup: carbink vs. vanilluxe
+|chat|DEBUG|Getting matchup: jellicent vs. vanilluxe
+|chat|DEBUG|Getting matchup: rayquaza vs. vanilluxe
+|chat|DEBUG|Getting matchup: dragapult vs. vanilluxe
+|chat|DEBUG|Getting matchup: mew vs. vanilluxe
+|chat|DEBUG|Checks / Counter: {'vanilluxe': {'checks': [], 'counter': ['metagross', 'carbink', 'mew']}}
+|chat|DEBUG|Speed: 206 - 177
+|chat|DEBUG|Most likely moves for: mew
+|chat|DEBUG|>['swordsdance', 'closecombat', 'psychicfangs', 'bravebird']
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'flashcannon', 'freezedry']
+|chat|DEBUG|Best own move: ('closecombat', 167.5)
+|chat|DEBUG|Best enemy move: ('blizzard', 115.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('closecombat', 167.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Close Combat|p1a: Vanilluxe
+|-supereffective|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|4/100
+|-unboost|p2a: Mew|def|1
+|-unboost|p2a: Mew|spd|1
+|move|p1a: Vanilluxe|Blizzard|p2a: Mew
+|-damage|p2a: Mew|32/291
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mew|14/291|[from] Hail
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: mew vs vanilluxe
+|chat|DEBUG|Updating information about vanilluxe
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lightclay
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: metagross vs. vanilluxe
+|chat|DEBUG|Getting matchup: carbink vs. vanilluxe
+|chat|DEBUG|Getting matchup: jellicent vs. vanilluxe
+|chat|DEBUG|Getting matchup: rayquaza vs. vanilluxe
+|chat|DEBUG|Getting matchup: dragapult vs. vanilluxe
+|chat|DEBUG|Getting matchup: mew vs. vanilluxe
+|chat|DEBUG|Checks / Counter: {'vanilluxe': {'checks': [], 'counter': ['metagross', 'carbink', 'mew']}}
+|chat|DEBUG|Speed: 206 - 177
+|chat|DEBUG|Most likely moves for: mew
+|chat|DEBUG|>['swordsdance', 'closecombat', 'psychicfangs', 'bravebird']
+|chat|DEBUG|Most likely moves for: vanilluxe
+|chat|DEBUG|>['auroraveil', 'blizzard', 'flashcannon', 'freezedry']
+|chat|DEBUG|Best own move: ('closecombat', 167.5)
+|chat|DEBUG|Best enemy move: ('blizzard', 115.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from mew against vanilluxe
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Close Combat|p1a: Vanilluxe
+|-supereffective|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|0 fnt
+|-unboost|p2a: Mew|def|1
+|-unboost|p2a: Mew|spd|1
+|faint|p1a: Vanilluxe
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mew|0 fnt|[from] Hail
+|faint|p2a: Mew
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Metagross|Metagross, L79|256/256
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|100/100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: mew vs vanilluxe
+|chat|DEBUG|Updating information about vanilluxe
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lightclay
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: metagross vs. vanilluxe
+|chat|DEBUG|Getting matchup: carbink vs. vanilluxe
+|chat|DEBUG|Getting matchup: jellicent vs. vanilluxe
+|chat|DEBUG|Getting matchup: rayquaza vs. vanilluxe
+|chat|DEBUG|Getting matchup: dragapult vs. vanilluxe
+|chat|DEBUG|Getting matchup: mew vs. vanilluxe
+|chat|DEBUG|Checks / Counter: {'vanilluxe': {'checks': [], 'counter': ['metagross', 'carbink', 'mew']}}
+|chat|DEBUG|>>Switching to counter: metagross
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Metagross|Earthquake|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|88/100
+|move|p1a: Ferrothorn|Knock Off|p2a: Metagross
+|-supereffective|p2a: Metagross
+|-damage|p2a: Metagross|160/256
+|-enditem|p2a: Metagross|Weakness Policy
+|-boost|p2a: Metagross|atk|2|[from] item: Weakness Policy
+|-boost|p2a: Metagross|spa|2|[from] item: Weakness Policy
+|-weather|Hail|[upkeep]
+|-damage|p2a: Metagross|144/256|[from] Hail
+|-damage|p1a: Ferrothorn|82/100|[from] Hail
+|-heal|p1a: Ferrothorn|88/100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: metagross vs ferrothorn
+|chat|DEBUG|Updating information about ferrothorn
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: weaknesspolicy
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: carbink vs. ferrothorn
+|chat|DEBUG|Getting matchup: jellicent vs. ferrothorn
+|chat|DEBUG|Getting matchup: rayquaza vs. ferrothorn
+|chat|DEBUG|Getting matchup: dragapult vs. ferrothorn
+|chat|DEBUG|Getting matchup: metagross vs. ferrothorn
+|chat|DEBUG|Checks / Counter: {'ferrothorn': {'checks': [], 'counter': ['metagross']}}
+|chat|DEBUG|Speed: 156 - 36
+|chat|DEBUG|Most likely moves for: metagross
+|chat|DEBUG|>['meteormash', 'agility', 'thunderpunch', 'earthquake']
+|chat|DEBUG|Most likely moves for: ferrothorn
+|chat|DEBUG|>['gyroball', 'leechseed', 'powerwhip', 'protect']
+|chat|DEBUG|Best own move: ('earthquake', 64.3125)
+|chat|DEBUG|Best enemy move: ('powerwhip', 42.25)
+|chat|DEBUG|Picking the most damaging move from metagross against ferrothorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Metagross|Earthquake|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|60/100
+|move|p1a: Ferrothorn|Knock Off|p2a: Metagross
+|-supereffective|p2a: Metagross
+|-crit|p2a: Metagross
+|-damage|p2a: Metagross|44/256
+|-weather|none
+|-heal|p1a: Ferrothorn|66/100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: metagross vs ferrothorn
+|chat|DEBUG|Updating information about ferrothorn
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: carbink vs. ferrothorn
+|chat|DEBUG|Getting matchup: jellicent vs. ferrothorn
+|chat|DEBUG|Getting matchup: rayquaza vs. ferrothorn
+|chat|DEBUG|Getting matchup: dragapult vs. ferrothorn
+|chat|DEBUG|Getting matchup: metagross vs. ferrothorn
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'ferrothorn': {'checks': [], 'counter': ['metagross']}}
+|chat|DEBUG|Speed: 156 - 36
+|chat|DEBUG|Most likely moves for: metagross
+|chat|DEBUG|>['meteormash', 'agility', 'thunderpunch', 'earthquake']
+|chat|DEBUG|Most likely moves for: ferrothorn
+|chat|DEBUG|>['gyroball', 'leechseed', 'powerwhip', 'protect']
+|chat|DEBUG|Best own move: ('earthquake', 64.3125)
+|chat|DEBUG|Best enemy move: ('powerwhip', 42.25)
+|chat|DEBUG|Picking the most damaging move from metagross against ferrothorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Metagross|Earthquake|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|39/100
+|move|p1a: Ferrothorn|Knock Off|p2a: Metagross
+|-supereffective|p2a: Metagross
+|-damage|p2a: Metagross|0 fnt
+|faint|p2a: Metagross
+|-heal|p1a: Ferrothorn|45/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carbink|Carbink, L86|226/226
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>metagross carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: metagross vs ferrothorn
+|chat|DEBUG|Updating information about ferrothorn
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: carbink vs. ferrothorn
+|chat|DEBUG|Getting matchup: jellicent vs. ferrothorn
+|chat|DEBUG|Getting matchup: rayquaza vs. ferrothorn
+|chat|DEBUG|Getting matchup: dragapult vs. ferrothorn
+|chat|DEBUG|Getting matchup: metagross vs. ferrothorn
+|chat|DEBUG|Checks / Counter: {'ferrothorn': {'checks': [], 'counter': ['metagross']}}
+|chat|DEBUG|Speed: 156 - 36
+|chat|DEBUG|Most likely moves for: metagross
+|chat|DEBUG|>['meteormash', 'agility', 'thunderpunch', 'earthquake']
+|chat|DEBUG|Most likely moves for: ferrothorn
+|chat|DEBUG|>['gyroball', 'leechseed', 'powerwhip', 'protect']
+|chat|DEBUG|Best own move: ('earthquake', 64.3125)
+|chat|DEBUG|Best enemy move: ('powerwhip', 42.25)
+|chat|DEBUG|Picking the most damaging move from metagross against ferrothorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Carbink|Body Press|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-crit|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|0 fnt
+|-damage|p2a: Carbink|198/226|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|faint|p1a: Ferrothorn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Porygon2|Porygon2, L82|100/100
+|-ability|p1a: Porygon2|Sturdy|[from] ability: Trace|[of] p2a: Carbink
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: metagross vs ferrothorn
+|chat|DEBUG|Updating information about ferrothorn
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: carbink vs. ferrothorn
+|chat|DEBUG|Getting matchup: jellicent vs. ferrothorn
+|chat|DEBUG|Getting matchup: rayquaza vs. ferrothorn
+|chat|DEBUG|Getting matchup: dragapult vs. ferrothorn
+|chat|DEBUG|Getting matchup: metagross vs. ferrothorn
+|chat|DEBUG|Checks / Counter: {'ferrothorn': {'checks': [], 'counter': ['metagross']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Tri Attack|p2a: Carbink
+|-resisted|p2a: Carbink
+|-damage|p2a: Carbink|173/226
+|move|p2a: Carbink|Body Press|p1a: Porygon2
+|-supereffective|p1a: Porygon2
+|-damage|p1a: Porygon2|79/100
+|-sideend|p1: Chamak_19|move: Aurora Veil
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs ferrothorn
+|chat|DEBUG|Updating information about ferrothorn
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. ferrothorn
+|chat|DEBUG|Getting matchup: rayquaza vs. ferrothorn
+|chat|DEBUG|Getting matchup: dragapult vs. ferrothorn
+|chat|DEBUG|Getting matchup: carbink vs. ferrothorn
+|chat|DEBUG|Checks / Counter: {'ferrothorn': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 135 - 36
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: ferrothorn
+|chat|DEBUG|>['gyroball', 'leechseed', 'powerwhip', 'protect']
+|chat|DEBUG|Best own move: ('bodypress', 134.125)
+|chat|DEBUG|Best enemy move: ('gyroball', 219.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bodypress', 134.125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Ice Beam|p2a: Carbink
+|-damage|p2a: Carbink|132/226
+|move|p2a: Carbink|Body Press|p1a: Porygon2
+|-supereffective|p1a: Porygon2
+|-damage|p1a: Porygon2|37/100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs porygon2
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Updating information about porygon2
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. porygon2
+|chat|DEBUG|Getting matchup: rayquaza vs. porygon2
+|chat|DEBUG|Getting matchup: dragapult vs. porygon2
+|chat|DEBUG|Getting matchup: carbink vs. porygon2
+|chat|DEBUG|Checks / Counter: {'porygon2': {'checks': [], 'counter': ['rayquaza', 'dragapult', 'carbink']}}
+|chat|DEBUG|Speed: 135 - 146
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: porygon2
+|chat|DEBUG|>['discharge', 'recover', 'toxic', 'triattack']
+|chat|DEBUG|Best own move: ('bodypress', 169.375)
+|chat|DEBUG|Best enemy move: ('discharge', 36.625)
+|chat|DEBUG|Picking the most damaging move from carbink against porygon2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Recover|p1a: Porygon2
+|-heal|p1a: Porygon2|87/100
+|move|p2a: Carbink|Body Press|p1a: Porygon2
+|-supereffective|p1a: Porygon2
+|-damage|p1a: Porygon2|46/100
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs porygon2
+|chat|DEBUG|Updating information about porygon2
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. porygon2
+|chat|DEBUG|Getting matchup: rayquaza vs. porygon2
+|chat|DEBUG|Getting matchup: dragapult vs. porygon2
+|chat|DEBUG|Getting matchup: carbink vs. porygon2
+|chat|DEBUG|Checks / Counter: {'porygon2': {'checks': [], 'counter': ['rayquaza', 'dragapult', 'carbink']}}
+|chat|DEBUG|Speed: 135 - 146
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: porygon2
+|chat|DEBUG|>['discharge', 'recover', 'toxic', 'triattack']
+|chat|DEBUG|Best own move: ('bodypress', 169.375)
+|chat|DEBUG|Best enemy move: ('discharge', 36.625)
+|chat|DEBUG|Picking the most damaging move from carbink against porygon2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Recover|p1a: Porygon2
+|-heal|p1a: Porygon2|96/100
+|move|p2a: Carbink|Body Press|p1a: Porygon2
+|-supereffective|p1a: Porygon2
+|-damage|p1a: Porygon2|52/100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs porygon2
+|chat|DEBUG|Updating information about porygon2
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. porygon2
+|chat|DEBUG|Getting matchup: rayquaza vs. porygon2
+|chat|DEBUG|Getting matchup: dragapult vs. porygon2
+|chat|DEBUG|Getting matchup: carbink vs. porygon2
+|chat|DEBUG|Checks / Counter: {'porygon2': {'checks': [], 'counter': ['rayquaza', 'dragapult', 'carbink']}}
+|chat|DEBUG|Speed: 135 - 146
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: porygon2
+|chat|DEBUG|>['discharge', 'recover', 'toxic', 'triattack']
+|chat|DEBUG|Best own move: ('bodypress', 169.375)
+|chat|DEBUG|Best enemy move: ('discharge', 36.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bodypress', 169.375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Toxic|p2a: Carbink
+|-status|p2a: Carbink|tox
+|move|p2a: Carbink|Body Press|p1a: Porygon2
+|-supereffective|p1a: Porygon2
+|-crit|p1a: Porygon2
+|-damage|p1a: Porygon2|0 fnt
+|faint|p1a: Porygon2
+|-damage|p2a: Carbink|118/226 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pangoro|Pangoro, L84, M|100/100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs porygon2
+|chat|DEBUG|Updating information about porygon2
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. porygon2
+|chat|DEBUG|Getting matchup: rayquaza vs. porygon2
+|chat|DEBUG|Getting matchup: dragapult vs. porygon2
+|chat|DEBUG|Getting matchup: carbink vs. porygon2
+|chat|DEBUG|Checks / Counter: {'porygon2': {'checks': [], 'counter': ['rayquaza', 'dragapult', 'carbink']}}
+|chat|DEBUG|Speed: 135 - 146
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: porygon2
+|chat|DEBUG|>['discharge', 'recover', 'toxic', 'triattack']
+|chat|DEBUG|Best own move: ('bodypress', 169.375)
+|chat|DEBUG|Best enemy move: ('discharge', 36.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bodypress', 169.375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pangoro|Gunk Shot|p2a: Carbink
+|-damage|p2a: Carbink|24/226 tox
+|move|p2a: Carbink|Moonblast|p1a: Pangoro
+|-supereffective|p1a: Pangoro
+|-damage|p1a: Pangoro|0 fnt
+|faint|p1a: Pangoro
+|-damage|p2a: Carbink|0 fnt|[from] psn
+|faint|p2a: Carbink
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mudsdale|Mudsdale, L82, F|100/100
+|switch|p2a: Rayquaza|Rayquaza, L74|277/277
+|-ability|p2a: Rayquaza|Air Lock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs porygon2
+|chat|DEBUG|Updating information about porygon2
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: eviolite
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. porygon2
+|chat|DEBUG|Getting matchup: rayquaza vs. porygon2
+|chat|DEBUG|Getting matchup: dragapult vs. porygon2
+|chat|DEBUG|Getting matchup: carbink vs. porygon2
+|chat|DEBUG|Checks / Counter: {'porygon2': {'checks': [], 'counter': ['rayquaza', 'dragapult', 'carbink']}}
+|chat|DEBUG|Speed: 135 - 146
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: porygon2
+|chat|DEBUG|>['discharge', 'recover', 'toxic', 'triattack']
+|chat|DEBUG|Best own move: ('bodypress', 169.375)
+|chat|DEBUG|Best enemy move: ('discharge', 36.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bodypress', 169.375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jellicent|Jellicent, L84, M|305/305
+|move|p1a: Mudsdale|Rock Slide|p2a: Jellicent
+|-damage|p2a: Jellicent|189/305
+|-heal|p2a: Jellicent|208/305|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs pangoro
+|chat|DEBUG|Updating information about pangoro
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. pangoro
+|chat|DEBUG|Getting matchup: rayquaza vs. pangoro
+|chat|DEBUG|Getting matchup: dragapult vs. pangoro
+|chat|DEBUG|Getting matchup: carbink vs. pangoro
+|chat|DEBUG|Checks / Counter: {'pangoro': {'checks': [], 'counter': ['rayquaza', 'carbink']}}
+|chat|DEBUG|Speed: 135 - 146
+|chat|DEBUG|Most likely moves for: carbink
+|chat|DEBUG|>['lightscreen', 'moonblast', 'reflect', 'bodypress']
+|chat|DEBUG|Most likely moves for: pangoro
+|chat|DEBUG|>['closecombat', 'icepunch', 'knockoff', 'partingshot']
+|chat|DEBUG|Best own move: ('moonblast', 312.75)
+|chat|DEBUG|Best enemy move: ('closecombat', 98.9375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('moonblast', 312.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Jellicent|Dynamax
+|-heal|p2a: Jellicent|416/610|[silent]
+|move|p2a: Jellicent|Max Geyser|p1a: Mudsdale
+|-supereffective|p1a: Mudsdale
+|-damage|p1a: Mudsdale|18/100
+|-weather|RainDance
+|-ability|p1a: Mudsdale|Stamina|boost
+|-boost|p1a: Mudsdale|def|1
+|move|p1a: Mudsdale|Rock Slide|p2a: Jellicent
+|-damage|p2a: Jellicent|314/610
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Jellicent|333/610|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: carbink vs pangoro
+|chat|DEBUG|Updating information about pangoro
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. pangoro
+|chat|DEBUG|Getting matchup: rayquaza vs. pangoro
+|chat|DEBUG|Getting matchup: dragapult vs. pangoro
+|chat|DEBUG|Getting matchup: carbink vs. pangoro
+|chat|DEBUG|Checks / Counter: {'pangoro': {'checks': [], 'counter': ['rayquaza', 'carbink']}}
+|chat|DEBUG|>>Switching to counter: rayquaza
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Max Geyser|p1a: Mudsdale
+|-supereffective|p1a: Mudsdale
+|-damage|p1a: Mudsdale|0 fnt
+|faint|p1a: Mudsdale
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Jellicent|352/610|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyogre|Kyogre, L72|100/100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: rayquaza vs mudsdale
+|chat|DEBUG|Updating information about mudsdale
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: jellicent vs. mudsdale
+|chat|DEBUG|Getting matchup: dragapult vs. mudsdale
+|chat|DEBUG|Getting matchup: rayquaza vs. mudsdale
+|chat|DEBUG|Checks / Counter: {'mudsdale': {'checks': [], 'counter': ['jellicent']}}
+|chat|DEBUG|Speed: 184 - 105
+|chat|DEBUG|Most likely moves for: rayquaza
+|chat|DEBUG|>['extremespeed', 'dragonascent', 'earthquake', 'swordsdance']
+|chat|DEBUG|Most likely moves for: mudsdale
+|chat|DEBUG|>['bodypress', 'earthquake', 'heavyslam', 'rockslide']
+|chat|DEBUG|Best own move: ('dragonascent', 131.0)
+|chat|DEBUG|Best enemy move: ('rockslide', 138.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: jellicent
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyogre|Calm Mind|p1a: Kyogre
+|-boost|p1a: Kyogre|spa|1
+|-boost|p1a: Kyogre|spd|1
+|move|p2a: Jellicent|Max Phantasm|p1a: Kyogre
+|-damage|p1a: Kyogre|77/100
+|-unboost|p1a: Kyogre|def|1
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|83/100|[from] item: Leftovers
+|-heal|p2a: Jellicent|371/610|[from] item: Leftovers
+|-end|p2a: Jellicent|Dynamax
+|-heal|p2a: Jellicent|186/305|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: jellicent vs mudsdale
+|chat|DEBUG|Updating information about mudsdale
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rayquaza vs. mudsdale
+|chat|DEBUG|Getting matchup: dragapult vs. mudsdale
+|chat|DEBUG|Getting matchup: jellicent vs. mudsdale
+|chat|DEBUG|Checks / Counter: {'mudsdale': {'checks': [], 'counter': ['jellicent']}}
+|chat|DEBUG|Speed: 149 - 105
+|chat|DEBUG|Most likely moves for: jellicent
+|chat|DEBUG|>['scald', 'shadowball', 'toxic', 'recover']
+|chat|DEBUG|Most likely moves for: mudsdale
+|chat|DEBUG|>['bodypress', 'earthquake', 'heavyslam', 'rockslide']
+|chat|DEBUG|Best own move: ('scald', 161.875)
+|chat|DEBUG|Best enemy move: ('earthquake', 144.5625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Kyogre|Dynamax
+|-heal|p1a: Kyogre|83/100|[silent]
+|move|p1a: Kyogre|Max Lightning|p2a: Jellicent
+|-supereffective|p2a: Jellicent
+|-damage|p2a: Jellicent|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Jellicent
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|86/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rayquaza|Rayquaza, L74|277/277
+|-ability|p2a: Rayquaza|Air Lock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: jellicent vs mudsdale
+|chat|DEBUG|Updating information about mudsdale
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rayquaza vs. mudsdale
+|chat|DEBUG|Getting matchup: dragapult vs. mudsdale
+|chat|DEBUG|Getting matchup: jellicent vs. mudsdale
+|chat|DEBUG|Checks / Counter: {'mudsdale': {'checks': [], 'counter': ['jellicent']}}
+|chat|DEBUG|Speed: 149 - 105
+|chat|DEBUG|Most likely moves for: jellicent
+|chat|DEBUG|>['scald', 'shadowball', 'toxic', 'recover']
+|chat|DEBUG|Most likely moves for: mudsdale
+|chat|DEBUG|>['bodypress', 'earthquake', 'heavyslam', 'rockslide']
+|chat|DEBUG|Best own move: ('scald', 161.875)
+|chat|DEBUG|Best enemy move: ('earthquake', 144.5625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('scald', 161.875)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rayquaza|Dragon Ascent|p1a: Kyogre
+|-damage|p1a: Kyogre|41/100
+|-unboost|p2a: Rayquaza|def|1
+|-unboost|p2a: Rayquaza|spd|1
+|move|p1a: Kyogre|Max Lightning|p2a: Rayquaza
+|-damage|p2a: Rayquaza|0 fnt
+|faint|p2a: Rayquaza
+|-weather|none
+|-heal|p1a: Kyogre|44/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dragapult|Dragapult, L78, F|265/265
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent rayquaza dragapult
+|chat|DEBUG|Matchup: jellicent vs kyogre
+|chat|DEBUG|Updating information about kyogre
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rayquaza vs. kyogre
+|chat|DEBUG|Getting matchup: dragapult vs. kyogre
+|chat|DEBUG|Getting matchup: jellicent vs. kyogre
+|chat|DEBUG|Checks / Counter: {'kyogre': {'checks': [], 'counter': ['jellicent']}}
+|chat|DEBUG|Speed: 149 - 172
+|chat|DEBUG|Most likely moves for: jellicent
+|chat|DEBUG|>['scald', 'shadowball', 'toxic', 'recover']
+|chat|DEBUG|Most likely moves for: kyogre
+|chat|DEBUG|>['calmmind', 'icebeam', 'originpulse', 'thunder']
+|chat|DEBUG|Best own move: ('shadowball', 61.5625)
+|chat|DEBUG|Best enemy move: ('thunder', 141.5)
+|chat|DEBUG|Picking the most damaging move from jellicent against kyogre
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dragapult|Draco Meteor|p1a: Kyogre|[miss]
+|-miss|p2a: Dragapult|p1a: Kyogre
+|move|p1a: Kyogre|Max Hailstorm|p2a: Dragapult
+|-supereffective|p2a: Dragapult
+|-damage|p2a: Dragapult|0 fnt
+|-weather|Hail
+|faint|p2a: Dragapult
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Chamak_19<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mew metagross carbink jellicent rayquaza dragapult</h1>

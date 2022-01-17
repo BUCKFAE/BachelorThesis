@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491746445<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491746445|init|battle
+|title|daggerdrib vs. McGewitter
+|j|☆daggerdrib
+|j|☆McGewitter
+|gametype|singles
+|player|p1|daggerdrib|lance|1266
+|player|p2|McGewitter|265|1239
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Vileplume|Vileplume, L84, M|100100
+|switch|p2a: Raikou|Raikou, L80|275275
+|-ability|p2a: Raikou|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou solrock urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-solrock-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: substitute aurasphere calmmind thunderbolt
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['solrock', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['solrock', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Speed: 230 vs 132
+|chat|DEBUG|HP: 275 vs 263
+|chat|DEBUG|Created a new Strategy for raikou vs vileplume:
+|chat|DEBUG|>[thunderbolt: 49.1875 [45, 54], thunderbolt: 49.1875 [45, 54], thunderbolt: 49.1875 [45, 54]]
+|chat|DEBUG|Best move of raikou (p1): thunderbolt: 49.1875 [45, 54]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 100.375 [93, 109]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check solrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|daggerdrib also wants the timer to be on.
+|switch|p2a: Solrock|Solrock, L88|302302
+|move|p1a: Vileplume|Sleep Powder|p2a: Solrock
+|-status|p2a: Solrock|slp|[from] move: Sleep Powder
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou solrock urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solrock" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-solrock-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockslide stealthrock morningsun willowisp
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['solrock', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['solrock', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 132
+|chat|DEBUG|HP: 302 vs 263
+|chat|DEBUG|Created a new Strategy for solrock vs vileplume:
+|chat|DEBUG|>[rockslide: 89.1875 [82, 97], rockslide: 89.1875 [82, 97], rockslide: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of solrock (p1): rockslide: 89.1875 [82, 97]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 61.75 [57, 67]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Solrock|slp
+|move|p1a: Vileplume|Aromatherapy||[still]
+|-activate|p1a: Vileplume|move: Aromatherapy
+|-fail|p1a: Vileplume
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou solrock urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solrock" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-solrock-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockslide stealthrock morningsun willowisp
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['solrock', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['solrock', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 132
+|chat|DEBUG|HP: 302 vs 263
+|chat|DEBUG|Best move of solrock (p1): rockslide: 89.1875 [82, 97]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 61.75 [57, 67]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Solrock|slp
+|move|p1a: Vileplume|Giga Drain|p2a: Solrock
+|-supereffective|p2a: Solrock
+|-damage|p2a: Solrock|74302 slp
+|-heal|p2a: Solrock|92302 slp|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou solrock urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solrock" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-solrock-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockslide stealthrock morningsun willowisp
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Speed: 173 vs 132
+|chat|DEBUG|HP: 92 vs 263
+|chat|DEBUG|Best move of solrock (p1): rockslide: 89.1875 [82, 97]
+|chat|DEBUG|Best move of vileplume (p2): sludgebomb: 61.75 [57, 67]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Solrock|slp
+|move|p1a: Vileplume|Giga Drain|p2a: Solrock
+|-supereffective|p2a: Solrock
+|-damage|p2a: Solrock|0 fnt
+|faint|p2a: Solrock
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|258258
+|-item|p2a: Aggron|Air Balloon
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solrock" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to aggron (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aggron|Head Smash|p1a: Vileplume|[miss]
+|-miss|p2a: Aggron|p1a: Vileplume
+|move|p1a: Vileplume|Sleep Powder|p2a: Aggron
+|-status|p2a: Aggron|slp|[from] move: Sleep Powder
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockpolish heavyslam headsmash earthquake
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 134 vs 132
+|chat|DEBUG|HP: 258 vs 263
+|chat|DEBUG|Created a new Strategy for aggron vs vileplume:
+|chat|DEBUG|>[headsmash: 186.375 [171, 202], headsmash: 186.375 [171, 202], headsmash: 186.375 [171, 202]]
+|chat|DEBUG|Best move of aggron (p1): headsmash: 186.375 [171, 202]
+|chat|DEBUG|Best move of vileplume (p2): strengthsap: 0.0 [0, 0]
+|chat|DEBUG|Attacking using headsmash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Aggron|slp
+|move|p1a: Vileplume|Giga Drain|p2a: Aggron
+|-damage|p2a: Aggron|141258 slp
+|-enditem|p2a: Aggron|Air Balloon
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockpolish heavyslam headsmash earthquake
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Counter: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 134 vs 132
+|chat|DEBUG|HP: 258 vs 263
+|chat|DEBUG|Best move of aggron (p1): headsmash: 186.375 [171, 202]
+|chat|DEBUG|Best move of vileplume (p2): strengthsap: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using headsmash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p2a: Aggron|slp|[msg]
+|move|p2a: Aggron|Head Smash|p1a: Vileplume
+|-damage|p1a: Vileplume|25100
+|move|p1a: Vileplume|Giga Drain|p2a: Aggron
+|-damage|p2a: Aggron|24258
+|-heal|p1a: Vileplume|47100|[from] drain|[of] p2a: Aggron
+|-heal|p1a: Vileplume|53100|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockpolish heavyslam headsmash earthquake
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['lapras', 'dialga']
+|chat|DEBUG|Counter: ['aggron', 'lapras', 'dialga']
+|chat|DEBUG|Speed: 134 vs 132
+|chat|DEBUG|HP: 141 vs 263
+|chat|DEBUG|Best move of aggron (p1): headsmash: 186.375 [171, 202]
+|chat|DEBUG|Best move of vileplume (p2): strengthsap: 0.0 [0, 0]
+|chat|DEBUG|Attacking using headsmash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Aggron|Head Smash|p1a: Vileplume
+|-crit|p1a: Vileplume
+|-damage|p1a: Vileplume|0 fnt
+|faint|p1a: Vileplume
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Omastar|Omastar, L82, F|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "vileplume"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- vileplume
+|chat|DEBUG|Own moves: rockpolish heavyslam headsmash earthquake
+|chat|DEBUG|Enemy moves: aromatherapy sleeppowder sludgebomb strengthsap
+|chat|DEBUG|Checks: ['lapras', 'dialga']
+|chat|DEBUG|Counter: ['raikou', 'aggron', 'lapras', 'dialga']
+|chat|DEBUG|Speed: 134 vs 132
+|chat|DEBUG|HP: 24 vs 139
+|chat|DEBUG|Created a new Strategy for aggron vs vileplume:
+|chat|DEBUG|>[headsmash: 186.375 [171, 202], headsmash: 186.375 [171, 202], headsmash: 186.375 [171, 202]]
+|chat|DEBUG|Best move of aggron (p1): headsmash: 186.375 [171, 202]
+|chat|DEBUG|Best move of vileplume (p2): strengthsap: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raikou|Raikou, L80|275275
+|-ability|p2a: Raikou|Pressure
+|move|p1a: Omastar|Shell Smash|p1a: Omastar
+|-unboost|p1a: Omastar|def|1
+|-unboost|p1a: Omastar|spd|1
+|-boost|p1a: Omastar|atk|2
+|-boost|p1a: Omastar|spa|2
+|-boost|p1a: Omastar|spe|2
+|-enditem|p1a: Omastar|White Herb
+|-clearnegativeboost|p1a: Omastar|[silent]
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- omastar
+|chat|DEBUG|Own moves: rockpolish heavyslam headsmash earthquake
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['raikou', 'urshifurapidstrike', 'lapras']
+|chat|DEBUG|Counter: ['raikou', 'urshifurapidstrike', 'lapras', 'dialga']
+|chat|DEBUG|Speed: 134 vs 137
+|chat|DEBUG|HP: 24 vs 249
+|chat|DEBUG|Created a new Strategy for aggron vs omastar:
+|chat|DEBUG|>[earthquake: 126.75 [116, 138], earthquake: 126.75 [116, 138], earthquake: 126.75 [116, 138]]
+|chat|DEBUG|Best move of aggron (p1): earthquake: 126.75 [116, 138]
+|chat|DEBUG|Best move of omastar (p2): earthpower: 358.0 [328, 388]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raikou
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Omastar|Earth Power|p2a: Raikou
+|-supereffective|p2a: Raikou
+|-damage|p2a: Raikou|15275
+|move|p2a: Raikou|Thunderbolt|p1a: Omastar
+|-supereffective|p1a: Omastar
+|-damage|p1a: Omastar|4100
+|-heal|p2a: Raikou|32275|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- omastar
+|chat|DEBUG|Own moves: substitute aurasphere calmmind thunderbolt
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['lapras']
+|chat|DEBUG|Counter: ['raikou', 'urshifurapidstrike', 'lapras']
+|chat|DEBUG|Speed: 230 vs 137
+|chat|DEBUG|HP: 275 vs 249
+|chat|DEBUG|Created a new Strategy for raikou vs omastar:
+|chat|DEBUG|>[thunderbolt: 242.375 [222, 264], thunderbolt: 242.375 [222, 264], thunderbolt: 242.375 [222, 264]]
+|chat|DEBUG|Best move of raikou (p1): thunderbolt: 242.375 [222, 264]
+|chat|DEBUG|Best move of omastar (p2): earthpower: 261.75 [240, 284]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Omastar|Ice Beam|p2a: Raikou
+|-damage|p2a: Raikou|0 fnt
+|faint|p2a: Raikou
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, M|284284
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-urshifurapidstrike-aggron-lapras-dialga -- omastar
+|chat|DEBUG|Own moves: substitute aurasphere calmmind thunderbolt
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['urshifurapidstrike', 'lapras']
+|chat|DEBUG|Counter: ['raikou', 'urshifurapidstrike', 'lapras', 'dialga']
+|chat|DEBUG|Speed: 230 vs 137
+|chat|DEBUG|HP: 32 vs 9
+|chat|DEBUG|Best move of raikou (p1): thunderbolt: 242.375 [222, 264]
+|chat|DEBUG|Best move of omastar (p2): earthpower: 261.75 [240, 284]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Omastar|Earth Power|p2a: Urshifu
+|-damage|p2a: Urshifu|75284
+|move|p2a: Urshifu|Drain Punch|p1a: Omastar
+|-supereffective|p1a: Omastar
+|-damage|p1a: Omastar|0 fnt
+|-heal|p2a: Urshifu|80284|[from] drain|[of] p1a: Omastar
+|faint|p1a: Omastar
+|-heal|p2a: Urshifu|97284|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Fan, L84|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- omastar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['urshifurapidstrike', 'lapras']
+|chat|DEBUG|Counter: ['urshifurapidstrike', 'lapras', 'dialga']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to urshifurapidstrike (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dialga|Dialga, L74|270270
+|-ability|p2a: Dialga|Pressure
+|move|p1a: Rotom|Air Slash|p2a: Dialga
+|-resisted|p2a: Dialga
+|-damage|p2a: Dialga|225270
+|-heal|p2a: Dialga|241270|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- omastar
+|chat|DEBUG|Own moves: bulkup substitute surgingstrikes drainpunch
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['urshifurapidstrike', 'lapras']
+|chat|DEBUG|Counter: ['urshifurapidstrike', 'lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 196 vs 137
+|chat|DEBUG|HP: 284 vs 9
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs omastar:
+|chat|DEBUG|>[drainpunch: 137.5 [126, 150], drainpunch: 137.5 [126, 150], drainpunch: 137.5 [126, 150]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): drainpunch: 137.5 [126, 150]
+|chat|DEBUG|Best move of omastar (p2): earthpower: 192.8125 [177, 209]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Will-O-Wisp|p2a: Dialga|[miss]
+|-miss|p1a: Rotom|p2a: Dialga
+|move|p2a: Dialga|Draco Meteor|p1a: Rotom
+|-damage|p1a: Rotom|43100
+|-unboost|p2a: Dialga|spa|2
+|-heal|p2a: Dialga|257270|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- rotomfan
+|chat|DEBUG|Own moves: bulkup substitute surgingstrikes drainpunch
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['lapras', 'dialga']
+|chat|DEBUG|Speed: 196 vs 193
+|chat|DEBUG|HP: 97 vs 221
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs rotomfan:
+|chat|DEBUG|>[surgingstrikes: 37.9375 [34, 42], surgingstrikes: 37.9375 [34, 42], surgingstrikes: 37.9375 [34, 42]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): surgingstrikes: 37.9375 [34, 42]
+|chat|DEBUG|Best move of rotomfan (p2): thunderbolt: 283.125 [260, 308]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dialga
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Will-O-Wisp|p2a: Dialga
+|-status|p2a: Dialga|brn
+|move|p2a: Dialga|Draco Meteor|p1a: Rotom
+|-damage|p1a: Rotom|14100
+|-unboost|p2a: Dialga|spa|2
+|-heal|p2a: Dialga|270270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|254270 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- rotomfan
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 193
+|chat|DEBUG|HP: 241 vs 221
+|chat|DEBUG|Created a new Strategy for dialga vs rotomfan:
+|chat|DEBUG|>[dracometeor: 131.0 [120, 142], dracometeor: 65.75 [60, 72], dracometeor: 45.0625 [42, 49]]
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 131.0 [120, 142]
+|chat|DEBUG|Best move of rotomfan (p2): thunderbolt: 52.0 [48, 57]
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Dialga
+|-resisted|p2a: Dialga
+|-damage|p2a: Dialga|203270 brn
+|move|p2a: Dialga|Draco Meteor|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|-unboost|p2a: Dialga|spa|2
+|faint|p1a: Rotom
+|-heal|p2a: Dialga|219270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|203270 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Obstagoon|Obstagoon, L80, F|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- rotomfan
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 193
+|chat|DEBUG|HP: 257 vs 95
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 65.75 [60, 72]
+|chat|DEBUG|Best move of rotomfan (p2): thunderbolt: 52.0 [48, 57]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Bulk Up|p1a: Obstagoon
+|-boost|p1a: Obstagoon|atk|1
+|-boost|p1a: Obstagoon|def|1
+|move|p2a: Dialga|Draco Meteor|p1a: Obstagoon
+|-damage|p1a: Obstagoon|84100
+|-heal|p2a: Dialga|219270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|203270 brn|[from] brn
+|-status|p1a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "rotomfan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- rotomfan
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: airslash nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['urshifurapidstrike', 'lapras', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 193
+|chat|DEBUG|HP: 254 vs 30
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 45.0625 [42, 49]
+|chat|DEBUG|Best move of rotomfan (p2): thunderbolt: 52.0 [48, 57]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Bulk Up|p1a: Obstagoon
+|-boost|p1a: Obstagoon|atk|1
+|-boost|p1a: Obstagoon|def|1
+|move|p2a: Dialga|Draco Meteor|p1a: Obstagoon
+|-damage|p1a: Obstagoon|68100 brn
+|-heal|p2a: Dialga|219270 brn|[from] item: Leftovers
+|-damage|p1a: Obstagoon|62100 brn|[from] brn
+|-damage|p2a: Dialga|203270 brn|[from] brn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- obstagoon
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifurapidstrike', 'lapras']
+|chat|DEBUG|Speed: 176 vs 198
+|chat|DEBUG|HP: 203 vs 280
+|chat|DEBUG|Created a new Strategy for dialga vs obstagoon:
+|chat|DEBUG|>[dracometeor: 43.5 [40, 48], dracometeor: 43.5 [40, 48], dracometeor: 43.5 [40, 48]]
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 43.5 [40, 48]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 132.25 [122, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Bulk Up|p1a: Obstagoon
+|-boost|p1a: Obstagoon|atk|1
+|-boost|p1a: Obstagoon|def|1
+|move|p2a: Dialga|Draco Meteor|p1a: Obstagoon
+|-damage|p1a: Obstagoon|47100 brn
+|-heal|p2a: Dialga|219270 brn|[from] item: Leftovers
+|-damage|p1a: Obstagoon|40100 brn|[from] brn
+|-damage|p2a: Dialga|203270 brn|[from] brn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- obstagoon
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 198
+|chat|DEBUG|HP: 203 vs 235
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 43.5 [40, 48]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 197.0 [180, 214]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Close Combat|p2a: Dialga
+|-supereffective|p2a: Dialga
+|-damage|p2a: Dialga|0 fnt
+|-unboost|p1a: Obstagoon|def|1
+|-unboost|p1a: Obstagoon|spd|1
+|faint|p2a: Dialga
+|-damage|p1a: Obstagoon|34100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, F|24258
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- obstagoon
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 198
+|chat|DEBUG|HP: 203 vs 173
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 43.5 [40, 48]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 261.75 [240, 284]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Close Combat|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|0 fnt
+|-unboost|p1a: Obstagoon|def|1
+|-unboost|p1a: Obstagoon|spd|1
+|faint|p2a: Aggron
+|-damage|p1a: Obstagoon|28100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, M|97284
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras-dialga -- obstagoon
+|chat|DEBUG|Own moves: dracometeor toxic flashcannon fireblast
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 198
+|chat|DEBUG|HP: 203 vs 112
+|chat|DEBUG|Created a new Strategy for dialga vs obstagoon:
+|chat|DEBUG|>[dracometeor: 43.5 [40, 48], dracometeor: 43.5 [40, 48], dracometeor: 43.5 [40, 48]]
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 43.5 [40, 48]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 326.5 [300, 354]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Facade|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|faint|p2a: Urshifu
+|-damage|p1a: Obstagoon|22100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lapras|Lapras, L86, F|363363
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras -- obstagoon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: aggron
+|chat|DEBUG|>Switching to aggron (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Lapras|Dynamax
+|-formechange|p2a: Lapras|Lapras-Gmax
+|-heal|p2a: Lapras|726726|[silent]
+|move|p1a: Obstagoon|Close Combat|p2a: Lapras
+|-supereffective|p2a: Lapras
+|-damage|p2a: Lapras|184726
+|-unboost|p1a: Obstagoon|def|1
+|-unboost|p1a: Obstagoon|spd|1
+|move|p2a: Lapras|G-Max Resonance|p1a: Obstagoon
+|-damage|p1a: Obstagoon|0 fnt
+|-sidestart|p2: McGewitter|move: Aurora Veil
+|faint|p1a: Obstagoon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gyarados|Gyarados, L76, F|100100
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike aggron lapras
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-aggron-lapras -- obstagoon
+|chat|DEBUG|Own moves: rockpolish heavyslam headsmash earthquake
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 134 vs 198
+|chat|DEBUG|HP: 24 vs 95
+|chat|DEBUG|Created a new Strategy for aggron vs obstagoon:
+|chat|DEBUG|>[heavyslam: 69.5625 [64, 76], heavyslam: 69.5625 [64, 76], heavyslam: 69.5625 [64, 76]]
+|chat|DEBUG|Best move of aggron (p1): heavyslam: 69.5625 [64, 76]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 408.75 [376, 444]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gyarados|Earthquake|p2a: Lapras
+|-damage|p2a: Lapras|128726
+|move|p2a: Lapras|G-Max Resonance|p1a: Gyarados
+|-damage|p1a: Gyarados|59100
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike lapras
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aggron" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-lapras -- obstagoon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: urshifurapidstrike
+|chat|DEBUG|>Switching to urshifurapidstrike (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Gyarados|Dynamax
+|-heal|p1a: Gyarados|59100|[silent]
+|move|p1a: Gyarados|Max Quake|p2a: Lapras
+|-damage|p2a: Lapras|81726
+|-boost|p1a: Gyarados|spd|1
+|move|p2a: Lapras|G-Max Resonance|p1a: Gyarados
+|-damage|p1a: Gyarados|44100
+|-end|p2a: Lapras|Dynamax
+|-formechange|p2a: Lapras|Lapras
+|-heal|p2a: Lapras|41363|[silent]
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifurapidstrike lapras
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifurapidstrike-lapras -- obstagoon
+|chat|DEBUG|Own moves: bulkup substitute surgingstrikes drainpunch
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 196 vs 198
+|chat|DEBUG|HP: 97 vs 78
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs obstagoon:
+|chat|DEBUG|>[drainpunch: 223.75 [204, 244], drainpunch: 223.75 [204, 244], drainpunch: 223.75 [204, 244]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): drainpunch: 223.75 [204, 244]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 179.0 [164, 194]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gyarados|Max Airstream|p2a: Lapras
+|-damage|p2a: Lapras|0 fnt
+|-boost|p1a: Gyarados|spe|1
+|faint|p2a: Lapras
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>daggerdrib<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">raikou solrock urshifurapidstrike aggron lapras dialga</h1>

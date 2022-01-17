@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491220397<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491220397|init|battle
+|title|DIALGAOP#2 vs. McGewitter
+|j|☆DIALGAOP#2
+|j|☆McGewitter
+|gametype|singles
+|player|p1|DIALGAOP#2|pokekid|1120
+|player|p2|McGewitter|265|1108
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Drifblim|Drifblim, L84, M|100100
+|switch|p2a: Regieleki|Regieleki, L78|253253
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regieleki" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim
+|chat|DEBUG|Own moves: explosion thunderbolt substitute voltswitch
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: ['regieleki', 'eternatus', 'guzzlord']
+|chat|DEBUG|Counter: ['regieleki', 'eternatus', 'guzzlord', 'nihilego']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 357 vs 183
+|chat|DEBUG|HP: 253 vs 389
+|chat|DEBUG|Created a new Strategy for regieleki vs drifblim:
+|chat|DEBUG|>[thunderbolt: 431.0 [396, 468], thunderbolt: 431.0 [396, 468], thunderbolt: 431.0 [396, 468]]
+|chat|DEBUG|Best move of regieleki (p1): thunderbolt: 431.0 [396, 468]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 126.8125 [117, 138]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Excadrill|Excadrill, L78, F|100100
+|-ability|p1a: Excadrill|Mold Breaker
+|move|p2a: Regieleki|Thunderbolt|p1a: Excadrill
+|-immune|p1a: Excadrill
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regieleki" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-excadrill
+|chat|DEBUG|Own moves: explosion thunderbolt substitute voltswitch
+|chat|DEBUG|Enemy moves: earthquake ironhead rapidspin swordsdance
+|chat|DEBUG|Checks: ['guzzlord']
+|chat|DEBUG|Counter: ['swoobat', 'eternatus', 'guzzlord', 'cloyster']
+|chat|DEBUG|Speed: 357 vs 182
+|chat|DEBUG|HP: 253 vs 300
+|chat|DEBUG|Created a new Strategy for regieleki vs excadrill:
+|chat|DEBUG|>[voltswitch: 0.0 [0, 0], voltswitch: 0.0 [0, 0], voltswitch: 0.0 [0, 0]]
+|chat|DEBUG|Best move of regieleki (p1): voltswitch: 0.0 [0, 0]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 383.875 [354, 416]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check guzzlord
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|512512
+|move|p1a: Excadrill|Earthquake|p2a: Guzzlord
+|-damage|p2a: Guzzlord|337512
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-excadrill
+|chat|DEBUG|Own moves: darkpulse dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead rapidspin swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['swoobat', 'eternatus', 'guzzlord', 'cloyster']
+|chat|DEBUG|Speed: 120 vs 182
+|chat|DEBUG|HP: 337 vs 300
+|chat|DEBUG|Created a new Strategy for guzzlord vs excadrill:
+|chat|DEBUG|>[fireblast: 309.75 [284, 336], fireblast: 309.75 [284, 336], fireblast: 309.75 [284, 336]]
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 309.75 [284, 336]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 172.625 [159, 187]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Excadrill|Iron Head|p2a: Guzzlord
+|-damage|p2a: Guzzlord|187512
+|cant|p2a: Guzzlord|flinch
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-excadrill
+|chat|DEBUG|Own moves: darkpulse dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead rapidspin swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['swoobat', 'eternatus', 'guzzlord', 'cloyster']
+|chat|DEBUG|Speed: 120 vs 182
+|chat|DEBUG|HP: 187 vs 300
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 309.75 [284, 336]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 172.625 [159, 187]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Excadrill|Earthquake|p2a: Guzzlord
+|-damage|p2a: Guzzlord|15512
+|move|p2a: Guzzlord|Fire Blast|p1a: Excadrill
+|-supereffective|p1a: Excadrill
+|-damage|p1a: Excadrill|27100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "guzzlord" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-excadrill
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead rapidspin swordsdance
+|chat|DEBUG|Checks: ['swoobat', 'eternatus', 'cloyster']
+|chat|DEBUG|Counter: ['swoobat', 'eternatus', 'cloyster']
+|chat|DEBUG|Speed: 120 vs 182
+|chat|DEBUG|HP: 15 vs 81
+|chat|DEBUG|Created a new Strategy for guzzlord vs excadrill:
+|chat|DEBUG|>[fireblast: 309.75 [284, 336], fireblast: 309.75 [284, 336], fireblast: 309.75 [284, 336]]
+|chat|DEBUG|Best move of guzzlord (p1): fireblast: 309.75 [284, 336]
+|chat|DEBUG|Best move of excadrill (p2): earthquake: 172.625 [159, 187]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check swoobat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Swoobat|Swoobat, L86, F|255255
+|move|p1a: Excadrill|Earthquake|p2a: Swoobat
+|-immune|p2a: Swoobat
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swoobat" vs "excadrill"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-excadrill
+|chat|DEBUG|Own moves: roost heatwave calmmind storedpower
+|chat|DEBUG|Enemy moves: earthquake ironhead rapidspin swordsdance
+|chat|DEBUG|Checks: ['swoobat', 'eternatus', 'cloyster']
+|chat|DEBUG|Counter: ['swoobat', 'eternatus', 'cloyster']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 245 vs 182
+|chat|DEBUG|HP: 255 vs 81
+|chat|DEBUG|Created a new Strategy for swoobat vs excadrill:
+|chat|DEBUG|>[heatwave: 160.0 [146, 174], heatwave: 160.0 [146, 174], heatwave: 160.0 [146, 174]]
+|chat|DEBUG|Best move of swoobat (p1): heatwave: 160.0 [146, 174]
+|chat|DEBUG|Best move of excadrill (p2): ironhead: 131.0 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Swoobat|Heat Wave|p1a: Excadrill
+|-supereffective|p1a: Excadrill
+|-damage|p1a: Excadrill|0 fnt
+|faint|p1a: Excadrill
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raikou|Raikou, L80|100100
+|-ability|p1a: Raikou|Pressure
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swoobat" vs "raikou"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-raikou
+|chat|DEBUG|Own moves: roost heatwave calmmind storedpower
+|chat|DEBUG|Enemy moves: calmmind scald substitute thunderbolt
+|chat|DEBUG|Checks: ['eternatus']
+|chat|DEBUG|Counter: ['eternatus', 'nihilego']
+|chat|DEBUG|Speed: 245 vs 230
+|chat|DEBUG|HP: 255 vs 275
+|chat|DEBUG|Created a new Strategy for swoobat vs raikou:
+|chat|DEBUG|>[heatwave: 56.875 [52, 62], heatwave: 56.875 [52, 62], heatwave: 56.875 [52, 62]]
+|chat|DEBUG|Best move of swoobat (p1): heatwave: 56.875 [52, 62]
+|chat|DEBUG|Best move of raikou (p2): thunderbolt: 274.0 [252, 296]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check eternatus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Eternatus|Eternatus, L69|308308
+|-ability|p2a: Eternatus|Pressure
+|move|p1a: Raikou|Thunderbolt|p2a: Eternatus
+|-resisted|p2a: Eternatus
+|-damage|p2a: Eternatus|233308
+|-damage|p1a: Raikou|91100|[from] item: Life Orb
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "raikou"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-raikou
+|chat|DEBUG|Own moves: dynamaxcannon sludgewave recover flamethrower
+|chat|DEBUG|Enemy moves: aurasphere calmmind scald thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['regieleki', 'eternatus', 'nihilego']
+|chat|DEBUG|Speed: 220 vs 230
+|chat|DEBUG|HP: 233 vs 250
+|chat|DEBUG|Created a new Strategy for eternatus vs raikou:
+|chat|DEBUG|>[dynamaxcannon: 94.875 [87, 103], dynamaxcannon: 94.875 [87, 103], dynamaxcannon: 94.875 [87, 103]]
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 94.875 [87, 103]
+|chat|DEBUG|Best move of raikou (p2): thunderbolt: 74.75 [69, 82]
+|chat|DEBUG|Attacking using dynamaxcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pheromosa|Pheromosa, L76|100100
+|move|p2a: Eternatus|Dynamax Cannon|p1a: Pheromosa
+|-damage|p1a: Pheromosa|13100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "pheromosa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-raikou-pheromosa
+|chat|DEBUG|Own moves: dynamaxcannon sludgewave recover flamethrower
+|chat|DEBUG|Enemy moves: closecombat icebeam throatchop uturn
+|chat|DEBUG|Checks: ['regieleki']
+|chat|DEBUG|Counter: ['regieleki', 'swoobat', 'eternatus', 'cloyster', 'nihilego']
+|chat|DEBUG|Speed: 220 vs 274
+|chat|DEBUG|HP: 233 vs 30
+|chat|DEBUG|Created a new Strategy for eternatus vs pheromosa:
+|chat|DEBUG|>[flamethrower: 234.0 [214, 254], flamethrower: 234.0 [214, 254], flamethrower: 234.0 [214, 254]]
+|chat|DEBUG|Best move of eternatus (p1): flamethrower: 234.0 [214, 254]
+|chat|DEBUG|Best move of pheromosa (p2): icebeam: 189.75 [175, 206]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pheromosa|Ice Beam|p2a: Eternatus
+|-supereffective|p2a: Eternatus
+|-damage|p2a: Eternatus|51308
+|move|p2a: Eternatus|Flamethrower|p1a: Pheromosa
+|-supereffective|p1a: Pheromosa
+|-damage|p1a: Pheromosa|0 fnt
+|faint|p1a: Pheromosa
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tauros|Tauros, L82, M|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat eternatus guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-eternatus-guzzlord-cloyster-nihilego -- drifblim-raikou-tauros
+|chat|DEBUG|Own moves: dynamaxcannon sludgewave recover flamethrower
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['regieleki']
+|chat|DEBUG|Speed: 220 vs 228
+|chat|DEBUG|HP: 51 vs 257
+|chat|DEBUG|Created a new Strategy for eternatus vs tauros:
+|chat|DEBUG|>[dynamaxcannon: 119.75 [109, 130], dynamaxcannon: 119.75 [109, 130], dynamaxcannon: 119.75 [109, 130]]
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 119.75 [109, 130]
+|chat|DEBUG|Best move of tauros (p2): bodyslam: 170.3125 [156, 185]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dynamaxcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Body Slam|p2a: Eternatus
+|-damage|p2a: Eternatus|0 fnt
+|faint|p2a: Eternatus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regieleki|Regieleki, L78|253253
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-tauros
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['regieleki']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to regieleki (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regieleki|Thunderbolt|p1a: Tauros
+|-damage|p1a: Tauros|26100
+|move|p1a: Tauros|Close Combat|p2a: Regieleki
+|-damage|p2a: Regieleki|70253
+|-unboost|p1a: Tauros|def|1
+|-unboost|p1a: Tauros|spd|1
+|-damage|p1a: Tauros|16100|[from] item: Life Orb
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regieleki" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-tauros
+|chat|DEBUG|Own moves: explosion thunderbolt substitute voltswitch
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['regieleki']
+|chat|DEBUG|Speed: 357 vs 228
+|chat|DEBUG|HP: 253 vs 257
+|chat|DEBUG|Created a new Strategy for regieleki vs tauros:
+|chat|DEBUG|>[thunderbolt: 184.75 [169, 201], thunderbolt: 184.75 [169, 201], thunderbolt: 184.75 [169, 201]]
+|chat|DEBUG|Best move of regieleki (p1): thunderbolt: 184.75 [169, 201]
+|chat|DEBUG|Best move of tauros (p2): bodyslam: 234.875 [216, 255]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regieleki|Thunderbolt|p1a: Tauros
+|-damage|p1a: Tauros|0 fnt
+|faint|p1a: Tauros
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragonite|Dragonite, L75, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regieleki" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-tauros
+|chat|DEBUG|Own moves: explosion thunderbolt substitute voltswitch
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: ['swoobat']
+|chat|DEBUG|Counter: ['regieleki', 'swoobat', 'cloyster', 'nihilego']
+|chat|DEBUG|Speed: 357 vs 228
+|chat|DEBUG|HP: 70 vs 41
+|chat|DEBUG|Best move of regieleki (p1): thunderbolt: 184.75 [169, 201]
+|chat|DEBUG|Best move of tauros (p2): bodyslam: 234.875 [216, 255]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regieleki|Thunderbolt|p1a: Dragonite
+|-damage|p1a: Dragonite|72100
+|move|p1a: Dragonite|Earthquake|p2a: Regieleki
+|-supereffective|p2a: Regieleki
+|-damage|p2a: Regieleki|0 fnt
+|faint|p2a: Regieleki
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Nihilego|Nihilego, L80|306306
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regieleki swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "regieleki" vs "dragonite"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regieleki-swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-dragonite
+|chat|DEBUG|Own moves: explosion thunderbolt substitute voltswitch
+|chat|DEBUG|Enemy moves: dragondance dualwingbeat earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 357 vs 164
+|chat|DEBUG|HP: 70 vs 260
+|chat|DEBUG|Created a new Strategy for regieleki vs dragonite:
+|chat|DEBUG|>[thunderbolt: 77.0 [71, 84], thunderbolt: 77.0 [71, 84], thunderbolt: 77.0 [71, 84]]
+|chat|DEBUG|Best move of regieleki (p1): thunderbolt: 77.0 [71, 84]
+|chat|DEBUG|Best move of dragonite (p2): earthquake: 237.625 [218, 258]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Nihilego|Dynamax
+|-heal|p2a: Nihilego|612612|[silent]
+|move|p2a: Nihilego|Max Ooze|p1a: Dragonite
+|-damage|p1a: Dragonite|33100
+|-boost|p2a: Nihilego|spa|1
+|move|p1a: Dragonite|Earthquake|p2a: Nihilego
+|-supereffective|p2a: Nihilego
+|-damage|p2a: Nihilego|112612
+|-heal|p2a: Nihilego|131612|[from] item: Black Sludge
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "regieleki" vs "dragonite"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-dragonite
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance dualwingbeat earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'swoobat': 255, 'guzzlord': 15, 'cloyster': 211, 'nihilego': 306}
+|chat|DEBUG|remaining_hp_team_2={'drifblim': 100, 'raikou': 91, 'dragonite': 100}
+|chat|DEBUG|battle.available_switches=[guzzlord (pokemon object) [Active: False, Status: None], swoobat (pokemon object) [Active: False, Status: None], cloyster (pokemon object) [Active: False, Status: None], nihilego (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'nihilego'
+|chat|DEBUG|>Switching to nihilego (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nihilego|Max Ooze|p1a: Dragonite
+|-damage|p1a: Dragonite|0 fnt
+|-boost|p2a: Nihilego|spa|1
+|faint|p1a: Dragonite
+|-ability|p2a: Nihilego|Beast Boost|boost
+|-boost|p2a: Nihilego|spa|1
+|-heal|p2a: Nihilego|150612|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raikou|Raikou, L80|91100
+|-ability|p1a: Raikou|Pressure
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nihilego" vs "dragonite"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-dragonite
+|chat|DEBUG|Own moves: toxicspikes sludgewave stealthrock grassknot
+|chat|DEBUG|Enemy moves: dragondance dualwingbeat earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cloyster']
+|chat|DEBUG|Speed: 211 vs 164
+|chat|DEBUG|HP: 306 vs 187
+|chat|DEBUG|Created a new Strategy for nihilego vs dragonite:
+|chat|DEBUG|>[sludgewave: 115.625 [106, 126], sludgewave: 115.625 [106, 126], sludgewave: 115.625 [106, 126]]
+|chat|DEBUG|Best move of nihilego (p1): sludgewave: 115.625 [106, 126]
+|chat|DEBUG|Best move of dragonite (p2): earthquake: 482.75 [444, 524]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raikou|Aura Sphere|p2a: Nihilego
+|-damage|p2a: Nihilego|89612
+|-damage|p1a: Raikou|81100|[from] item: Life Orb
+|move|p2a: Nihilego|Max Ooze|p1a: Raikou
+|-damage|p1a: Raikou|0 fnt
+|-boost|p2a: Nihilego|spa|1
+|faint|p1a: Raikou
+|-ability|p2a: Nihilego|Beast Boost|boost
+|-boost|p2a: Nihilego|spa|1
+|-heal|p2a: Nihilego|108612|[from] item: Black Sludge
+|-end|p2a: Nihilego|Dynamax
+|-heal|p2a: Nihilego|54306|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drifblim|Drifblim, L84, M|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nihilego" vs "dragonite"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou-dragonite
+|chat|DEBUG|Own moves: toxicspikes sludgewave stealthrock grassknot
+|chat|DEBUG|Enemy moves: dragondance dualwingbeat earthquake outrage
+|chat|DEBUG|Checks: ['cloyster']
+|chat|DEBUG|Counter: ['cloyster', 'nihilego']
+|chat|DEBUG|Speed: 211 vs 164
+|chat|DEBUG|HP: 131 vs 85
+|chat|DEBUG|Best move of nihilego (p1): sludgewave: 115.625 [106, 126]
+|chat|DEBUG|Best move of dragonite (p2): earthquake: 482.75 [444, 524]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nihilego|Sludge Wave|p1a: Drifblim
+|-resisted|p1a: Drifblim
+|-damage|p1a: Drifblim|23100
+|-status|p1a: Drifblim|psn
+|-enditem|p1a: Drifblim|Sitrus Berry|[eat]
+|-heal|p1a: Drifblim|48100 psn|[from] item: Sitrus Berry
+|move|p1a: Drifblim|Shadow Ball|p2a: Nihilego
+|-damage|p2a: Nihilego|0 fnt
+|faint|p2a: Nihilego
+|-damage|p1a: Drifblim|36100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Guzzlord|Guzzlord, L84|15512
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nihilego" vs "raikou"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster-nihilego -- drifblim-raikou
+|chat|DEBUG|Own moves: toxicspikes sludgewave stealthrock grassknot
+|chat|DEBUG|Enemy moves: aurasphere calmmind scald thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['nihilego']
+|chat|DEBUG|Speed: 211 vs 230
+|chat|DEBUG|HP: 150 vs 250
+|chat|DEBUG|Created a new Strategy for nihilego vs raikou:
+|chat|DEBUG|>[sludgewave: 272.5 [250, 295], sludgewave: 272.5 [250, 295], sludgewave: 272.5 [250, 295]]
+|chat|DEBUG|Best move of nihilego (p1): sludgewave: 272.5 [250, 295]
+|chat|DEBUG|Best move of raikou (p2): scald: 123.625 [114, 135]
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Drifblim|Dynamax
+|-heal|p1a: Drifblim|36100 psn|[silent]
+|move|p1a: Drifblim|Max Phantasm|p2a: Guzzlord
+|-resisted|p2a: Guzzlord
+|-damage|p2a: Guzzlord|0 fnt
+|faint|p2a: Guzzlord
+|-damage|p1a: Drifblim|30100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Swoobat|Swoobat, L86, F|255255
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster nihilego
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nihilego" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster-nihilego -- drifblim
+|chat|DEBUG|Own moves: toxicspikes sludgewave stealthrock grassknot
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 211 vs 183
+|chat|DEBUG|HP: 54 vs 389
+|chat|DEBUG|Created a new Strategy for nihilego vs drifblim:
+|chat|DEBUG|>[sludgewave: 280.5625 [258, 304], sludgewave: 280.5625 [258, 304], sludgewave: 280.5625 [258, 304]]
+|chat|DEBUG|Best move of nihilego (p1): sludgewave: 280.5625 [258, 304]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 62.9375 [58, 69]
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drifblim|Max Lightning|p2a: Swoobat
+|-supereffective|p2a: Swoobat
+|-damage|p2a: Swoobat|9255
+|-fieldstart|move: Electric Terrain
+|move|p2a: Swoobat|Heat Wave|p1a: Drifblim
+|-damage|p1a: Drifblim|20100 psn
+|-damage|p1a: Drifblim|14100 psn|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nihilego" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster -- drifblim
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'swoobat': 255, 'guzzlord': 15, 'cloyster': 211}
+|chat|DEBUG|remaining_hp_team_2={'drifblim': 100}
+|chat|DEBUG|battle.available_switches=[guzzlord (pokemon object) [Active: False, Status: None], swoobat (pokemon object) [Active: False, Status: None], cloyster (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'guzzlord'
+|chat|DEBUG|>Switching to guzzlord (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drifblim|Max Lightning|p2a: Swoobat
+|-supereffective|p2a: Swoobat
+|-damage|p2a: Swoobat|0 fnt
+|faint|p2a: Swoobat
+|-damage|p1a: Drifblim|7100 psn|[from] psn
+|-end|p1a: Drifblim|Dynamax
+|-heal|p1a: Drifblim|7100 psn|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cloyster|Cloyster, L80, M|211211
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>swoobat guzzlord cloyster
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "guzzlord" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>swoobat-guzzlord-cloyster -- drifblim
+|chat|DEBUG|Own moves: darkpulse dracometeor sludgebomb fireblast
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['swoobat']
+|chat|DEBUG|Speed: 120 vs 183
+|chat|DEBUG|HP: 15 vs 140
+|chat|DEBUG|Created a new Strategy for guzzlord vs drifblim:
+|chat|DEBUG|>[darkpulse: 355.875 [326, 386], darkpulse: 355.875 [326, 386], darkpulse: 355.875 [326, 386]]
+|chat|DEBUG|Best move of guzzlord (p1): darkpulse: 355.875 [326, 386]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 56.875 [52, 62]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drifblim|Thunderbolt|p2a: Cloyster
+|-supereffective|p2a: Cloyster
+|-damage|p2a: Cloyster|13211
+|-status|p2a: Cloyster|par
+|cant|p2a: Cloyster|par
+|-damage|p1a: Drifblim|0 fnt|[from] psn
+|faint|p1a: Drifblim
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>DIALGAOP#2<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">regieleki swoobat eternatus guzzlord cloyster nihilego</h1>

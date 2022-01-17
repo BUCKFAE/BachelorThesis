@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490284429</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490284429|init|battle
+|title|cmdr.meowmix vs. McDonner
+|j|☆cmdr.meowmix
+|j|☆McDonner
+|gametype|singles
+|player|p1|cmdr.meowmix|1|1070
+|player|p2|McDonner|265|1046
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Starmie|Starmie, L84|100/100
+|switch|p2a: Dedenne|Dedenne, L87, M|258/258
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd goodra zeraora venusaur kingdra
+|chat|DEBUG|Matchup: dedenne vs starmie
+|chat|DEBUG|Updating information about starmie
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: sitrusberry
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: goodra vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['goodra', 'zeraora', 'venusaur', 'kingdra', 'dedenne']}}
+|chat|DEBUG|Speed: 225 - 241
+|chat|DEBUG|Most likely moves for: dedenne
+|chat|DEBUG|>['protect', 'thunderbolt', 'toxic', 'recycle']
+|chat|DEBUG|Most likely moves for: starmie
+|chat|DEBUG|>['icebeam', 'rapidspin', 'scald', 'thunderbolt']
+|chat|DEBUG|Best own move: ('thunderbolt', 181.75)
+|chat|DEBUG|Best enemy move: ('scald', 101.75)
+|chat|DEBUG|Picking the most damaging move from dedenne against starmie
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Stakataka|Stakataka, L80|100/100
+|-item|p1a: Stakataka|Air Balloon
+|move|p2a: Dedenne|Thunderbolt|p1a: Stakataka
+|-damage|p1a: Stakataka|66/100
+|-enditem|p1a: Stakataka|Air Balloon
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd goodra zeraora venusaur kingdra
+|chat|DEBUG|Matchup: dedenne vs stakataka
+|chat|DEBUG|Updating information about stakataka
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: sitrusberry
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: goodra vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. stakataka
+|chat|DEBUG|Getting matchup: goodra vs. stakataka
+|chat|DEBUG|Getting matchup: zeraora vs. stakataka
+|chat|DEBUG|Getting matchup: venusaur vs. stakataka
+|chat|DEBUG|Getting matchup: kingdra vs. stakataka
+|chat|DEBUG|Getting matchup: dedenne vs. stakataka
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['goodra', 'zeraora', 'venusaur', 'kingdra', 'dedenne']}, 'stakataka': {'checks': [], 'counter': ['zeraora', 'kingdra']}}
+|chat|DEBUG|Speed: 225 - 25
+|chat|DEBUG|Most likely moves for: dedenne
+|chat|DEBUG|>['protect', 'thunderbolt', 'toxic', 'recycle']
+|chat|DEBUG|Most likely moves for: stakataka
+|chat|DEBUG|>['bodypress', 'gyroball', 'stoneedge', 'trickroom']
+|chat|DEBUG|Best own move: ('thunderbolt', 83.625)
+|chat|DEBUG|Best enemy move: ('gyroball', 244.5625)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: zeraora
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|259/259
+|move|p1a: Stakataka|Earthquake|p2a: Zeraora
+|-supereffective|p2a: Zeraora
+|-damage|p2a: Zeraora|45/259
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd goodra zeraora venusaur kingdra
+|chat|DEBUG|Matchup: zeraora vs stakataka
+|chat|DEBUG|Updating information about stakataka
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: goodra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. stakataka
+|chat|DEBUG|Getting matchup: goodra vs. stakataka
+|chat|DEBUG|Getting matchup: dedenne vs. stakataka
+|chat|DEBUG|Getting matchup: venusaur vs. stakataka
+|chat|DEBUG|Getting matchup: kingdra vs. stakataka
+|chat|DEBUG|Getting matchup: zeraora vs. stakataka
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['goodra', 'dedenne', 'venusaur', 'kingdra', 'zeraora']}, 'stakataka': {'checks': [], 'counter': ['kingdra', 'zeraora']}}
+|chat|DEBUG|Speed: 261 - 25
+|chat|DEBUG|Most likely moves for: zeraora
+|chat|DEBUG|>['voltswitch', 'knockoff', 'closecombat', 'plasmafists']
+|chat|DEBUG|Most likely moves for: stakataka
+|chat|DEBUG|>['bodypress', 'gyroball', 'stoneedge', 'trickroom']
+|chat|DEBUG|Best own move: ('closecombat', 161.0)
+|chat|DEBUG|Best enemy move: ('stoneedge', 154.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from zeraora against stakataka
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Close Combat|p1a: Stakataka
+|-supereffective|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|-unboost|p2a: Zeraora|def|1
+|-unboost|p2a: Zeraora|spd|1
+|faint|p1a: Stakataka
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|100/100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd goodra zeraora venusaur kingdra
+|chat|DEBUG|Matchup: zeraora vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: goodra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: goodra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: zeraora vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['goodra', 'dedenne', 'venusaur', 'kingdra', 'zeraora']}, 'groudon': {'checks': [], 'counter': ['goodra', 'kingdra']}}
+|chat|DEBUG|Speed: 261 - 174
+|chat|DEBUG|Most likely moves for: zeraora
+|chat|DEBUG|>['voltswitch', 'knockoff', 'closecombat', 'plasmafists']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('closecombat', 62.375)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 342.25)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: goodra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, M|282/282
+|move|p1a: Groudon|Swords Dance|p1a: Groudon
+|-boost|p1a: Groudon|atk|2
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd goodra zeraora venusaur kingdra
+|chat|DEBUG|Matchup: goodra vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: goodra vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: zeraora vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: goodra vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['zeraora', 'dedenne', 'venusaur', 'kingdra', 'goodra']}, 'groudon': {'checks': [], 'counter': ['kingdra', 'goodra']}}
+|chat|DEBUG|Speed: 178 - 174
+|chat|DEBUG|Most likely moves for: goodra
+|chat|DEBUG|>['dracometeor', 'powerwhip', 'sludgebomb', 'earthquake']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('dracometeor', 161.25)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 166.9375)
+|chat|DEBUG|Picking the most damaging move from goodra against groudon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|cmdr.meowmix has 120 seconds left.
+|move|p2a: Goodra|Draco Meteor|p1a: Groudon
+|-damage|p1a: Groudon|37/100
+|-unboost|p2a: Goodra|spa|2
+|move|p1a: Groudon|Precipice Blades|p2a: Goodra
+|-damage|p2a: Goodra|0 fnt
+|faint|p2a: Goodra
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|43/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingdra|Kingdra, L82, F|257/257
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd zeraora venusaur kingdra
+|chat|DEBUG|Matchup: goodra vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: goodra vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: zeraora vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: goodra vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['zeraora', 'dedenne', 'venusaur', 'kingdra', 'goodra']}, 'groudon': {'checks': [], 'counter': ['kingdra', 'goodra']}}
+|chat|DEBUG|>>Switching to counter: kingdra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|cmdr.meowmix has 120 seconds left.
+|switch|p1a: Glaceon|Glaceon, L88, M|100/100
+|move|p2a: Kingdra|Hydro Pump|p1a: Glaceon
+|-damage|p1a: Glaceon|78/100
+|-damage|p2a: Kingdra|232/257|[from] item: Life Orb
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Glaceon|84/100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd zeraora venusaur kingdra
+|chat|DEBUG|Matchup: kingdra vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: zeraora vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['zeraora', 'dedenne', 'venusaur', 'kingdra']}, 'groudon': {'checks': [], 'counter': ['kingdra']}}
+|chat|DEBUG|Speed: 187 - 174
+|chat|DEBUG|Most likely moves for: kingdra
+|chat|DEBUG|>['dracometeor', 'hurricane', 'raindance', 'hydropump']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('hydropump', 245.125)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 134.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('hydropump', 245.125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|cmdr.meowmix has 120 seconds left.
+|switch|p2a: Zeraora|Zeraora, L76|45/259
+|move|p1a: Glaceon|Freeze-Dry|p2a: Zeraora
+|-damage|p2a: Zeraora|0 fnt
+|faint|p2a: Zeraora
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Glaceon|90/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Farfetch’d|Farfetch’d, L90, F|239/239
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd zeraora venusaur kingdra
+|chat|DEBUG|Matchup: kingdra vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: zeraora vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: farfetchd vs. glaceon
+|chat|DEBUG|Getting matchup: zeraora vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Getting matchup: venusaur vs. glaceon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['zeraora', 'dedenne', 'venusaur', 'kingdra']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': ['zeraora']}}
+|chat|DEBUG|Speed: 187 - 165
+|chat|DEBUG|Most likely moves for: kingdra
+|chat|DEBUG|>['dracometeor', 'hurricane', 'raindance', 'hydropump']
+|chat|DEBUG|Most likely moves for: glaceon
+|chat|DEBUG|>['freezedry', 'protect', 'toxic', 'wish']
+|chat|DEBUG|Best own move: ('dracometeor', 115.625)
+|chat|DEBUG|Best enemy move: ('freezedry', 401.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: zeraora
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|cmdr.meowmix has 120 seconds left.
+|move|p1a: Glaceon|Freeze-Dry|p2a: Farfetch’d
+|-supereffective|p2a: Farfetch’d
+|-damage|p2a: Farfetch’d|0 fnt
+|faint|p2a: Farfetch’d
+|-weather|none
+|-heal|p1a: Glaceon|97/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Venusaur|Venusaur, L82, M|265/265
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd venusaur kingdra
+|chat|DEBUG|Matchup: zeraora vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: zeraora vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: zeraora vs. groudon
+|chat|DEBUG|Getting matchup: farfetchd vs. glaceon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Getting matchup: venusaur vs. glaceon
+|chat|DEBUG|Getting matchup: zeraora vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne', 'venusaur', 'zeraora']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': ['zeraora']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|cmdr.meowmix has 120 seconds left.
+|move|p2a: Venusaur|Sludge Bomb|p1a: Glaceon
+|-damage|p1a: Glaceon|62/100
+|-status|p1a: Glaceon|psn
+|move|p1a: Glaceon|Freeze-Dry|p2a: Venusaur
+|-supereffective|p2a: Venusaur
+|-crit|p2a: Venusaur
+|-damage|p2a: Venusaur|0 fnt
+|faint|p2a: Venusaur
+|-heal|p1a: Glaceon|68/100 psn|[from] item: Leftovers
+|-damage|p1a: Glaceon|56/100 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dedenne|Dedenne, L87, M|258/258
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne farfetchd venusaur kingdra
+|chat|DEBUG|Matchup: farfetchd vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leek
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Getting matchup: venusaur vs. glaceon
+|chat|DEBUG|Getting matchup: farfetchd vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne', 'venusaur']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 159 - 165
+|chat|DEBUG|Most likely moves for: farfetchd
+|chat|DEBUG|>['bravebird', 'closecombat', 'leafblade', 'swordsdance']
+|chat|DEBUG|Most likely moves for: glaceon
+|chat|DEBUG|>['freezedry', 'protect', 'toxic', 'wish']
+|chat|DEBUG|Best own move: ('closecombat', 148.875)
+|chat|DEBUG|Best enemy move: ('freezedry', 248.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat glaceon with farfetchd
+|chat|DEBUG|Picking the most damaging move from farfetchd against glaceon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|cmdr.meowmix has 120 seconds left.
+|move|p2a: Dedenne|Thunderbolt|p1a: Glaceon
+|-damage|p1a: Glaceon|23/100 psn
+|move|p1a: Glaceon|Toxic|p2a: Dedenne|[miss]
+|-miss|p1a: Glaceon|p2a: Dedenne
+|-heal|p1a: Glaceon|29/100 psn|[from] item: Leftovers
+|-damage|p1a: Glaceon|16/100 psn|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne venusaur kingdra
+|chat|DEBUG|Matchup: farfetchd vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leek
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: farfetchd vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: farfetchd vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Getting matchup: venusaur vs. glaceon
+|chat|DEBUG|Getting matchup: farfetchd vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne', 'venusaur']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dedenne|Thunderbolt|p1a: Glaceon
+|-damage|p1a: Glaceon|0 fnt
+|faint|p1a: Glaceon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|43/100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne venusaur kingdra
+|chat|DEBUG|Matchup: venusaur vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Getting matchup: venusaur vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne', 'venusaur']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 178 - 165
+|chat|DEBUG|Most likely moves for: venusaur
+|chat|DEBUG|>['leechseed', 'sludgebomb', 'gigadrain', 'substitute']
+|chat|DEBUG|Most likely moves for: glaceon
+|chat|DEBUG|>['freezedry', 'protect', 'toxic', 'wish']
+|chat|DEBUG|Best own move: ('sludgebomb', 83.625)
+|chat|DEBUG|Best enemy move: ('freezedry', 192.375)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat glaceon with venusaur
+|chat|DEBUG|Picking the most damaging move from venusaur against glaceon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingdra|Kingdra, L82, F|232/257
+|move|p1a: Groudon|Precipice Blades|p2a: Kingdra
+|-damage|p2a: Kingdra|90/257
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|49/100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne kingdra
+|chat|DEBUG|Matchup: venusaur vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: venusaur vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: venusaur vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Getting matchup: venusaur vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne', 'venusaur']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Starmie|Starmie, L84|100/100
+|move|p2a: Kingdra|Hydro Pump|p1a: Starmie
+|-resisted|p1a: Starmie
+|-damage|p1a: Starmie|85/100
+|-damage|p2a: Kingdra|65/257|[from] item: Life Orb
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Starmie|90/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne kingdra
+|chat|DEBUG|Matchup: dedenne vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: sitrusberry
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 225 - 165
+|chat|DEBUG|Most likely moves for: dedenne
+|chat|DEBUG|>['protect', 'thunderbolt', 'toxic', 'recycle']
+|chat|DEBUG|Most likely moves for: glaceon
+|chat|DEBUG|>['freezedry', 'protect', 'toxic', 'wish']
+|chat|DEBUG|Best own move: ('thunderbolt', 80.9375)
+|chat|DEBUG|Best enemy move: ('freezedry', 122.5625)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat glaceon with dedenne
+|chat|DEBUG|Picking the most damaging move from dedenne against glaceon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Starmie|Thunderbolt|p2a: Kingdra
+|-damage|p2a: Kingdra|2/257
+|move|p2a: Kingdra|Draco Meteor|p1a: Starmie
+|-damage|p1a: Starmie|15/100
+|-unboost|p2a: Kingdra|spa|2
+|-damage|p2a: Kingdra|0 fnt|[from] item: Life Orb
+|faint|p2a: Kingdra
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Starmie|21/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dedenne|Dedenne, L87, M|258/258
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne kingdra
+|chat|DEBUG|Matchup: dedenne vs glaceon
+|chat|DEBUG|Updating information about glaceon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: sitrusberry
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. glaceon
+|chat|DEBUG|Getting matchup: dedenne vs. glaceon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne']}, 'groudon': {'checks': [], 'counter': ['kingdra']}, 'glaceon': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 225 - 165
+|chat|DEBUG|Most likely moves for: dedenne
+|chat|DEBUG|>['protect', 'thunderbolt', 'toxic', 'recycle']
+|chat|DEBUG|Most likely moves for: glaceon
+|chat|DEBUG|>['freezedry', 'protect', 'toxic', 'wish']
+|chat|DEBUG|Best own move: ('thunderbolt', 80.9375)
+|chat|DEBUG|Best enemy move: ('freezedry', 122.5625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('thunderbolt', 80.9375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|49/100
+|move|p2a: Dedenne|Thunderbolt|p1a: Groudon
+|-immune|p1a: Groudon
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|55/100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne kingdra
+|chat|DEBUG|Matchup: dedenne vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: sitrusberry
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['kingdra', 'dedenne']}, 'groudon': {'checks': [], 'counter': ['kingdra']}}
+|chat|DEBUG|Speed: 225 - 174
+|chat|DEBUG|Most likely moves for: dedenne
+|chat|DEBUG|>['protect', 'thunderbolt', 'toxic', 'recycle']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('recycle', 0.0)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 364.75)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: kingdra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆cmdr.meowmix|dedenne clutch incoming
+|move|p2a: Dedenne|Recycle||[still]
+|-fail|p2a: Dedenne
+|move|p1a: Groudon|Swords Dance|p1a: Groudon
+|-boost|p1a: Groudon|atk|2
+|-weather|none
+|-heal|p1a: Groudon|61/100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne kingdra
+|chat|DEBUG|Matchup: kingdra vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['dedenne', 'kingdra']}, 'groudon': {'checks': [], 'counter': ['kingdra']}}
+|chat|DEBUG|Speed: 187 - 174
+|chat|DEBUG|Most likely moves for: kingdra
+|chat|DEBUG|>['dracometeor', 'hurricane', 'raindance', 'hydropump']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('hydropump', 245.125)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 134.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from kingdra against groudon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dedenne|Recycle||[still]
+|-fail|p2a: Dedenne
+|move|p1a: Groudon|Swords Dance|p1a: Groudon
+|-boost|p1a: Groudon|atk|2
+|-heal|p1a: Groudon|67/100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne kingdra
+|chat|DEBUG|Matchup: kingdra vs starmie
+|chat|DEBUG|Updating information about starmie
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['dedenne', 'kingdra']}, 'groudon': {'checks': [], 'counter': ['kingdra']}}
+|chat|DEBUG|Speed: 187 - 241
+|chat|DEBUG|Most likely moves for: kingdra
+|chat|DEBUG|>['dracometeor', 'hurricane', 'raindance', 'hydropump']
+|chat|DEBUG|Most likely moves for: starmie
+|chat|DEBUG|>['icebeam', 'rapidspin', 'scald', 'thunderbolt']
+|chat|DEBUG|Best own move: ('dracometeor', 131.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 63.375)
+|chat|DEBUG|Picking the most damaging move from kingdra against starmie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dedenne|Recycle||[still]
+|-fail|p2a: Dedenne
+|move|p1a: Groudon|Swords Dance|p1a: Groudon
+|-boost|p1a: Groudon|atk|2
+|-heal|p1a: Groudon|73/100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dedenne
+|chat|DEBUG|Matchup: kingdra vs starmie
+|chat|DEBUG|Updating information about starmie
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: dedenne vs. starmie
+|chat|DEBUG|Getting matchup: kingdra vs. starmie
+|chat|DEBUG|Getting matchup: dedenne vs. groudon
+|chat|DEBUG|Getting matchup: kingdra vs. groudon
+|chat|DEBUG|Checks / Counter: {'starmie': {'checks': [], 'counter': ['dedenne', 'kingdra']}, 'groudon': {'checks': [], 'counter': ['kingdra']}}
+|chat|DEBUG|>>Switching to counter: dedenne
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Groudon|Dynamax
+|-heal|p1a: Groudon|73/100|[silent]
+|move|p2a: Dedenne|Recycle||[still]
+|-fail|p2a: Dedenne
+|move|p1a: Groudon|Max Quake|p2a: Dedenne
+|-supereffective|p2a: Dedenne
+|-damage|p2a: Dedenne|0 fnt
+|-boost|p1a: Groudon|spd|1
+|faint|p2a: Dedenne
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>cmdr.meowmix<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dedenne farfetchd goodra zeraora venusaur kingdra</h1>

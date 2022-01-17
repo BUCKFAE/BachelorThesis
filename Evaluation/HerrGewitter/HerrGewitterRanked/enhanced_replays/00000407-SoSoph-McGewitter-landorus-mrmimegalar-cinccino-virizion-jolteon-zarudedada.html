@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490605466<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490605466|init|battle
+|title|SoSoph vs. McGewitter
+|j|☆SoSoph
+|j|☆McGewitter
+|gametype|singles
+|player|p1|SoSoph|170|1194
+|player|p2|McGewitter|265|1241
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Escavalier|Escavalier, L84, M|100100
+|switch|p2a: Landorus|Landorus, L76, M|260260
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus mrmimegalar cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "escavalier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-mrmimegalar-cinccino-virizion-jolteon-zarudedada -- escavalier
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: drillrun ironhead megahorn swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorus', 'jolteon']
+|chat|DEBUG|Speed: 198 vs 82
+|chat|DEBUG|HP: 260 vs 255
+|chat|DEBUG|Created a new Strategy for landorus vs escavalier:
+|chat|DEBUG|>[earthpower: 132.3125 [121, 144], earthpower: 132.3125 [121, 144], earthpower: 132.3125 [121, 144]]
+|chat|DEBUG|Best move of landorus (p1): earthpower: 132.3125 [121, 144]
+|chat|DEBUG|Best move of escavalier (p2): ironhead: 119.75 [109, 130]
+|chat|DEBUG|Attacking using earthpower
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Landorus|Earth Power|p1a: Escavalier
+|-damage|p1a: Escavalier|46100
+|move|p1a: Escavalier|Iron Head|p2a: Landorus
+|-damage|p2a: Landorus|131260
+|-heal|p1a: Escavalier|52100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus mrmimegalar cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "escavalier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-mrmimegalar-cinccino-virizion-jolteon-zarudedada -- escavalier
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: drillrun ironhead megahorn swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cinccino', 'virizion', 'jolteon']
+|chat|DEBUG|Speed: 198 vs 82
+|chat|DEBUG|HP: 131 vs 132
+|chat|DEBUG|Best move of landorus (p1): earthpower: 132.3125 [121, 144]
+|chat|DEBUG|Best move of escavalier (p2): ironhead: 119.75 [109, 130]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus-Therian, L72, M|100100
+|-ability|p1a: Landorus|Intimidate|boost
+|-unboost|p2a: Landorus|atk|1
+|move|p2a: Landorus|Earth Power|p1a: Landorus
+|-immune|p1a: Landorus
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus mrmimegalar cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-mrmimegalar-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: ['mrmimegalar']
+|chat|DEBUG|Counter: ['mrmimegalar']
+|chat|DEBUG|Speed: 198 vs 173
+|chat|DEBUG|HP: 131 vs 247
+|chat|DEBUG|Created a new Strategy for landorus vs landorustherian:
+|chat|DEBUG|>[sludgewave: 66.6875 [61, 73], sludgewave: 66.6875 [61, 73], sludgewave: 66.6875 [61, 73]]
+|chat|DEBUG|Best move of landorus (p1): sludgewave: 66.6875 [61, 73]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 135.875 [125, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrmimegalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, F|226226
+|move|p1a: Landorus|Stone Edge|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|70226
+|-damage|p1a: Landorus|91100|[from] item: Life Orb
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus mrmimegalar cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-mrmimegalar-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: nastyplot focusblast psychic freezedry
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmimegalar', 'zarudedada']
+|chat|DEBUG|Speed: 221 vs 173
+|chat|DEBUG|HP: 70 vs 224
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs landorustherian:
+|chat|DEBUG|>[freezedry: 367.5 [336, 400], freezedry: 367.5 [336, 400], freezedry: 367.5 [336, 400]]
+|chat|DEBUG|Best move of mrmimegalar (p1): freezedry: 367.5 [336, 400]
+|chat|DEBUG|Best move of landorustherian (p2): stoneedge: 152.75 [140, 166]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Flareon|Flareon, L86, M|100100
+|move|p2a: Mr. Mime|Freeze-Dry|p1a: Flareon
+|-resisted|p1a: Flareon
+|-damage|p1a: Flareon|87100
+|-status|p1a: Flareon|frz
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus mrmimegalar cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "flareon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-mrmimegalar-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian-flareon
+|chat|DEBUG|Own moves: nastyplot focusblast psychic freezedry
+|chat|DEBUG|Enemy moves: facade flamecharge flareblitz superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorus', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 221 vs 161
+|chat|DEBUG|HP: 70 vs 218
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs flareon:
+|chat|DEBUG|>[psychic: 78.1875 [72, 85], psychic: 78.1875 [72, 85], psychic: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 78.1875 [72, 85]
+|chat|DEBUG|Best move of flareon (p2): flareblitz: 274.0 [252, 296]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Psychic|p1a: Flareon
+|-damage|p1a: Flareon|58100 frz
+|-curestatus|p1a: Flareon|frz|[from] move: Flare Blitz
+|move|p1a: Flareon|Flare Blitz|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|-damage|p1a: Flareon|49100|[from] Recoil
+|-status|p1a: Flareon|tox|[from] item: Toxic Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Landorus|Landorus, L76, M|131260
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "flareon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian-flareon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: facade flamecharge flareblitz superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['landorus', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to landorus (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Earth Power|p1a: Flareon
+|-supereffective|p1a: Flareon
+|-damage|p1a: Flareon|0 fnt
+|faint|p1a: Flareon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus-Therian, L72, M|91100
+|-ability|p1a: Landorus|Intimidate|boost
+|-unboost|p2a: Landorus|atk|1
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "flareon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian-flareon
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: facade flamecharge flareblitz superpower
+|chat|DEBUG|Checks: ['jolteon']
+|chat|DEBUG|Counter: ['landorus', 'cinccino', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 198 vs 161
+|chat|DEBUG|HP: 131 vs 122
+|chat|DEBUG|Created a new Strategy for landorus vs flareon:
+|chat|DEBUG|>[earthpower: 250.0625 [229, 273], earthpower: 250.0625 [229, 273], earthpower: 250.0625 [229, 273]]
+|chat|DEBUG|Best move of landorus (p1): earthpower: 250.0625 [229, 273]
+|chat|DEBUG|Best move of flareon (p2): flareblitz: 182.375 [168, 198]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Sludge Wave|p1a: Landorus
+|-resisted|p1a: Landorus
+|-damage|p1a: Landorus|65100
+|move|p1a: Landorus|Stone Edge|p2a: Landorus
+|-damage|p2a: Landorus|31260
+|-damage|p1a: Landorus|55100|[from] item: Life Orb
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarudedada']
+|chat|DEBUG|Speed: 198 vs 173
+|chat|DEBUG|HP: 131 vs 224
+|chat|DEBUG|Created a new Strategy for landorus vs landorustherian:
+|chat|DEBUG|>[sludgewave: 66.6875 [61, 73], sludgewave: 66.6875 [61, 73], sludgewave: 66.6875 [61, 73]]
+|chat|DEBUG|Best move of landorus (p1): sludgewave: 66.6875 [61, 73]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 135.875 [125, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Sludge Wave|p1a: Landorus
+|-resisted|p1a: Landorus
+|-damage|p1a: Landorus|27100
+|move|p1a: Landorus|Fly||[still]
+|-prepare|p1a: Landorus|Fly
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cinccino', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 198 vs 173
+|chat|DEBUG|HP: 31 vs 135
+|chat|DEBUG|Best move of landorus (p1): sludgewave: 66.6875 [61, 73]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 135.875 [125, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Sludge Wave|p1a: Landorus|[miss]
+|-miss|p2a: Landorus|p1a: Landorus
+|move|p1a: Landorus|Fly|p2a: Landorus|[from]lockedmove|[miss]
+|-miss|p1a: Landorus|p2a: Landorus
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: ['cinccino', 'zarudedada']
+|chat|DEBUG|Counter: ['landorus', 'cinccino', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 198 vs 173
+|chat|DEBUG|HP: 31 vs 66
+|chat|DEBUG|Best move of landorus (p1): sludgewave: 66.6875 [61, 73]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 135.875 [125, 148]
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Sludge Wave|p1a: Landorus
+|-resisted|p1a: Landorus
+|-damage|p1a: Landorus|2100
+|move|p1a: Landorus|Stone Edge|p2a: Landorus|[miss]
+|-miss|p1a: Landorus|p2a: Landorus
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: ['cinccino', 'zarudedada']
+|chat|DEBUG|Counter: ['landorus', 'cinccino', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 198 vs 173
+|chat|DEBUG|HP: 31 vs 66
+|chat|DEBUG|Created a new Strategy for landorus vs landorustherian:
+|chat|DEBUG|>[sludgewave: 66.6875 [61, 73], sludgewave: 66.6875 [61, 73], sludgewave: 66.6875 [61, 73]]
+|chat|DEBUG|Best move of landorus (p1): sludgewave: 66.6875 [61, 73]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 135.875 [125, 148]
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Sludge Wave|p1a: Landorus
+|-resisted|p1a: Landorus
+|-damage|p1a: Landorus|0 fnt
+|faint|p1a: Landorus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Escavalier|Escavalier, L84, M|52100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "landorustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier-landorustherian
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: earthquake fly stoneedge swordsdance
+|chat|DEBUG|Checks: ['cinccino', 'zarudedada']
+|chat|DEBUG|Counter: ['landorus', 'cinccino', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 198 vs 173
+|chat|DEBUG|HP: 31 vs 4
+|chat|DEBUG|Best move of landorus (p1): sludgewave: 66.6875 [61, 73]
+|chat|DEBUG|Best move of landorustherian (p2): fly: 135.875 [125, 148]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Landorus|Earth Power|p1a: Escavalier
+|-damage|p1a: Escavalier|1100
+|move|p1a: Escavalier|Iron Head|p2a: Landorus
+|-damage|p2a: Landorus|0 fnt
+|faint|p2a: Landorus
+|-heal|p1a: Escavalier|7100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinccino|Cinccino, L84, F|263263
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>landorus cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "escavalier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>landorus-cinccino-virizion-jolteon-zarudedada -- escavalier
+|chat|DEBUG|Own moves: rockpolish sludgewave earthpower focusblast
+|chat|DEBUG|Enemy moves: drillrun ironhead megahorn swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cinccino', 'virizion', 'jolteon']
+|chat|DEBUG|Speed: 198 vs 82
+|chat|DEBUG|HP: 31 vs 132
+|chat|DEBUG|Created a new Strategy for landorus vs escavalier:
+|chat|DEBUG|>[earthpower: 132.3125 [121, 144], earthpower: 132.3125 [121, 144], earthpower: 132.3125 [121, 144]]
+|chat|DEBUG|Best move of landorus (p1): earthpower: 132.3125 [121, 144]
+|chat|DEBUG|Best move of escavalier (p2): ironhead: 119.75 [109, 130]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|Knock Off|p1a: Escavalier
+|-damage|p1a: Escavalier|0 fnt
+|-enditem|p1a: Escavalier|Leftovers|[from] move: Knock Off|[of] p2a: Cinccino
+|faint|p1a: Escavalier
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Garchomp|Garchomp, L74, F|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "landorus" vs "escavalier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cinccino-virizion-jolteon-zarudedada -- escavalier
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: drillrun ironhead megahorn swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cinccino', 'virizion', 'jolteon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to cinccino (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|Knock Off|p1a: Garchomp
+|-damage|p1a: Garchomp|65100
+|-damage|p2a: Cinccino|231263|[from] ability: Rough Skin|[of] p1a: Garchomp
+|-enditem|p1a: Garchomp|Lum Berry|[from] move: Knock Off|[of] p2a: Cinccino
+|move|p1a: Garchomp|Swords Dance|p1a: Garchomp
+|-boost|p1a: Garchomp|atk|2
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinccino" vs "escavalier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cinccino-virizion-jolteon-zarudedada -- escavalier
+|chat|DEBUG|Own moves: rockblast knockoff uturn tailslap
+|chat|DEBUG|Enemy moves: drillrun ironhead megahorn swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cinccino', 'virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 241 vs 82
+|chat|DEBUG|HP: 263 vs 17
+|chat|DEBUG|Created a new Strategy for cinccino vs escavalier:
+|chat|DEBUG|>[knockoff: 88.5 [81, 96], knockoff: 88.5 [81, 96], knockoff: 88.5 [81, 96]]
+|chat|DEBUG|Best move of cinccino (p1): knockoff: 88.5 [81, 96]
+|chat|DEBUG|Best move of escavalier (p2): megahorn: 323.5625 [297, 351]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|Knock Off|p1a: Garchomp
+|-damage|p1a: Garchomp|38100
+|-damage|p2a: Cinccino|199263|[from] ability: Rough Skin|[of] p1a: Garchomp
+|move|p1a: Garchomp|Outrage|p2a: Cinccino
+|-damage|p2a: Cinccino|0 fnt
+|faint|p2a: Cinccino
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zarude|Zarude-Dada, L78|292292
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinccino" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cinccino-virizion-jolteon-zarudedada -- garchomp
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: earthquake firefang outrage swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarudedada']
+|chat|DEBUG|Speed: 241 vs 194
+|chat|DEBUG|HP: 263 vs 282
+|chat|DEBUG|Created a new Strategy for cinccino vs garchomp:
+|chat|DEBUG|>[knockoff: 107.6875 [99, 117], knockoff: 107.6875 [99, 117], knockoff: 107.6875 [99, 117]]
+|chat|DEBUG|Best move of cinccino (p1): knockoff: 107.6875 [99, 117]
+|chat|DEBUG|Best move of garchomp (p2): outrage: 164.125 [151, 178]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zarude|Power Whip|p1a: Garchomp|[miss]
+|-miss|p2a: Zarude|p1a: Garchomp
+|move|p1a: Garchomp|Outrage|p2a: Zarude|[from]lockedmove
+|-damage|p2a: Zarude|67292
+|-heal|p2a: Zarude|85292|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinccino" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cinccino-virizion-jolteon-zarudedada -- garchomp
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: earthquake firefang outrage swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarudedada']
+|chat|DEBUG|Speed: 241 vs 194
+|chat|DEBUG|HP: 231 vs 183
+|chat|DEBUG|Created a new Strategy for cinccino vs garchomp:
+|chat|DEBUG|>[knockoff: 72.625 [67, 79], knockoff: 72.625 [67, 79], knockoff: 72.625 [67, 79]]
+|chat|DEBUG|Best move of cinccino (p1): knockoff: 72.625 [67, 79]
+|chat|DEBUG|Best move of garchomp (p2): outrage: 326.5 [300, 354]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zarude|Power Whip|p1a: Garchomp
+|-damage|p1a: Garchomp|0 fnt
+|-damage|p2a: Zarude|49292|[from] ability: Rough Skin|[of] p1a: Garchomp
+|faint|p1a: Garchomp
+|-heal|p2a: Zarude|67292|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Regidrago|Regidrago, L78|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cinccino" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>virizion-jolteon-zarudedada -- garchomp
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake firefang outrage swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarudedada']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zarudedada (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zarude|Darkest Lariat|p1a: Regidrago
+|-damage|p1a: Regidrago|68100
+|move|p1a: Regidrago|Fire Fang|p2a: Zarude
+|-supereffective|p2a: Zarude
+|-damage|p2a: Zarude|0 fnt
+|faint|p2a: Zarude
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jolteon|Jolteon, L82, M|241241
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarudedada" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>virizion-jolteon-zarudedada -- garchomp
+|chat|DEBUG|Own moves: junglehealing bulkup powerwhip darkestlariat
+|chat|DEBUG|Enemy moves: earthquake firefang outrage swordsdance
+|chat|DEBUG|Checks: ['zarudedada']
+|chat|DEBUG|Counter: ['virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 209 vs 194
+|chat|DEBUG|HP: 292 vs 107
+|chat|DEBUG|Created a new Strategy for zarudedada vs garchomp:
+|chat|DEBUG|>[powerwhip: 138.5625 [127, 151], powerwhip: 138.5625 [127, 151], powerwhip: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of zarudedada (p1): powerwhip: 138.5625 [127, 151]
+|chat|DEBUG|Best move of garchomp (p2): outrage: 233.5 [214, 253]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆SoSoph|why do you skip so much
+|move|p2a: Jolteon|Hyper Voice|p1a: Regidrago
+|-damage|p1a: Regidrago|43100
+|move|p1a: Regidrago|Outrage|p2a: Jolteon
+|-damage|p2a: Jolteon|9241
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarudedada" vs "garchomp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>virizion-jolteon-zarudedada -- garchomp
+|chat|DEBUG|Own moves: junglehealing bulkup powerwhip darkestlariat
+|chat|DEBUG|Enemy moves: earthquake firefang outrage swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['virizion', 'jolteon', 'zarudedada']
+|chat|DEBUG|Speed: 209 vs 194
+|chat|DEBUG|HP: 85 vs 107
+|chat|DEBUG|Best move of zarudedada (p1): powerwhip: 138.5625 [127, 151]
+|chat|DEBUG|Best move of garchomp (p2): outrage: 233.5 [214, 253]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jolteon|Hyper Voice|p1a: Regidrago
+|-damage|p1a: Regidrago|20100
+|move|p1a: Regidrago|Outrage|p2a: Jolteon|[from]lockedmove
+|-damage|p2a: Jolteon|0 fnt
+|faint|p2a: Jolteon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Virizion|Virizion, L82|283283
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>virizion jolteon zarudedada
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarudedada" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>virizion-jolteon-zarudedada -- regidrago
+|chat|DEBUG|Own moves: junglehealing bulkup powerwhip darkestlariat
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 209 vs 170
+|chat|DEBUG|HP: 67 vs 440
+|chat|DEBUG|Created a new Strategy for zarudedada vs regidrago:
+|chat|DEBUG|>[darkestlariat: 147.5 [135, 160], darkestlariat: 147.5 [135, 160], darkestlariat: 147.5 [135, 160]]
+|chat|DEBUG|Best move of zarudedada (p1): darkestlariat: 147.5 [135, 160]
+|chat|DEBUG|Best move of regidrago (p2): outrage: 160.0 [147, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using darkestlariat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Close Combat|p1a: Regidrago
+|-crit|p1a: Regidrago
+|-damage|p1a: Regidrago|0 fnt
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|faint|p1a: Regidrago
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aegislash|Aegislash, L80, M|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>virizion jolteon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarudedada" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>virizion-jolteon -- regidrago
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: jolteon
+|chat|DEBUG|>Switching to jolteon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆SoSoph|!weak Virizon
+|c| SoSoph|raw <div class="infobox">Virizon isn't a recognized type or Pokemon.<div>
+|c|☆SoSoph|!weak Virizion
+|c| SoSoph|raw <div class="infobox">Virizion (ignoring abilities):<br ><span class="message-effect-weak">Weaknesses<span>: Fairy, Fire, <b>Flying<b>, Ice, Poison, Psychic<br ><span class="message-effect-resist">Resistances<span>: Dark, Electric, Grass, Ground, Rock, Water<br ><span class="message-effect-immune">Immunities<span>: Powder moves<div>
+|-start|p2a: Virizion|Dynamax
+|-heal|p2a: Virizion|566566|[silent]
+|-start|p1a: Aegislash|Dynamax
+|-heal|p1a: Aegislash|100100|[silent]
+|move|p2a: Virizion|Max Overgrowth|p1a: Aegislash
+|-resisted|p1a: Aegislash
+|-damage|p1a: Aegislash|91100
+|-fieldstart|move: Grassy Terrain
+|-formechange|p1a: Aegislash|Aegislash-Blade||[from] ability: Stance Change
+|move|p1a: Aegislash|Max Phantasm|p2a: Virizion
+|-crit|p2a: Virizion
+|-damage|p2a: Virizion|36566
+|-unboost|p2a: Virizion|def|1
+|-damage|p1a: Aegislash|86100|[from] item: Life Orb
+|-heal|p2a: Virizion|53566|[from] Grassy Terrain
+|-heal|p1a: Aegislash|89100|[from] Grassy Terrain
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>virizion jolteon
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "regidrago"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>virizion-jolteon -- regidrago
+|chat|DEBUG|Own moves: thunderbolt voltswitch hypervoice shadowball
+|chat|DEBUG|Enemy moves: dragondance firefang hammerarm outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['virizion', 'jolteon']
+|chat|DEBUG|Speed: 260 vs 170
+|chat|DEBUG|HP: 241 vs 299
+|chat|DEBUG|Created a new Strategy for jolteon vs regidrago:
+|chat|DEBUG|>[hypervoice: 158.625 [146, 172], hypervoice: 158.625 [146, 172], hypervoice: 158.625 [146, 172]]
+|chat|DEBUG|Best move of jolteon (p1): hypervoice: 158.625 [146, 172]
+|chat|DEBUG|Best move of regidrago (p2): outrage: 228.0 [210, 247]
+|chat|DEBUG|Attacking using hypervoice
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Max Overgrowth|p1a: Aegislash
+|-resisted|p1a: Aegislash
+|-damage|p1a: Aegislash|62100
+|move|p1a: Aegislash|Max Phantasm|p2a: Virizion
+|-damage|p2a: Virizion|0 fnt
+|faint|p2a: Virizion
+|-damage|p1a: Aegislash|57100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>SoSoph<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">landorus mrmimegalar cinccino virizion jolteon zarudedada</h1>

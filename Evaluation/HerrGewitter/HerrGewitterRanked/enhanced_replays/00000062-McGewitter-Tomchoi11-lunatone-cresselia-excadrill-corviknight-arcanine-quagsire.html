@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490035982<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490035982|init|battle
+|title|McGewitter vs. Tomchoi11
+|j|☆McGewitter
+|j|☆Tomchoi11
+|gametype|singles
+|player|p1|McGewitter|265|1147
+|player|p2|Tomchoi11|fisherman-gen4|1127
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Lunatone|Lunatone, L86|295295
+|switch|p2a: Latias|Latias, L80, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunatone" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- latias
+|chat|DEBUG|Own moves: nastyplot moonblast powergem psychic
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['corviknight']
+|chat|DEBUG|Counter: ['lunatone', 'cresselia', 'excadrill', 'corviknight']
+|chat|DEBUG|Speed: 170 vs 222
+|chat|DEBUG|HP: 295 vs 259
+|chat|DEBUG|Created a new Strategy for lunatone vs latias:
+|chat|DEBUG|>[moonblast: 140.75 [130, 153], moonblast: 140.75 [130, 153], moonblast: 140.75 [130, 153]]
+|chat|DEBUG|Best move of lunatone (p1): moonblast: 140.75 [130, 153]
+|chat|DEBUG|Best move of latias (p2): psychic: 48.5625 [45, 53]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Latias|Psychic|p1a: Lunatone
+|-resisted|p1a: Lunatone
+|-damage|p1a: Lunatone|243295
+|move|p1a: Lunatone|Moonblast|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|46100
+|-damage|p1a: Lunatone|214295|[from] item: Life Orb
+|-heal|p2a: Latias|53100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunatone" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- latias
+|chat|DEBUG|Own moves: nastyplot moonblast powergem psychic
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['cresselia', 'excadrill', 'corviknight']
+|chat|DEBUG|Counter: ['lunatone', 'cresselia', 'excadrill', 'corviknight']
+|chat|DEBUG|Speed: 170 vs 222
+|chat|DEBUG|HP: 214 vs 137
+|chat|DEBUG|Best move of lunatone (p1): moonblast: 140.75 [130, 153]
+|chat|DEBUG|Best move of latias (p2): psychic: 48.5625 [45, 53]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Draco Meteor|p1a: Lunatone
+|-damage|p1a: Lunatone|70295
+|-unboost|p2a: Latias|spa|2
+|move|p1a: Lunatone|Moonblast|p2a: Latias
+|-supereffective|p2a: Latias
+|-crit|p2a: Latias
+|-damage|p2a: Latias|0 fnt
+|faint|p2a: Latias
+|-damage|p1a: Lunatone|41295|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆Tomchoi11|!weak lunatone
+|c| Tomchoi11|raw <div class="infobox">Lunatone (ignoring abilities):<br ><span class="message-effect-weak">Weaknesses<span>: Bug, Dark, Ghost, Grass, Ground, Steel, Water<br ><span class="message-effect-resist">Resistances<span>: Fire, Flying, Normal, Poison, Psychic<br ><span class="message-effect-immune">Immunities<span>: Sandstorm damage<div>
+|switch|p2a: Volcarona|Volcarona, L76, F|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunatone" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: nastyplot moonblast powergem psychic
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['arcanine']
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Speed: 170 vs 196
+|chat|DEBUG|HP: 41 vs 254
+|chat|DEBUG|Created a new Strategy for lunatone vs volcarona:
+|chat|DEBUG|>[powergem: 442.3125 [406, 484], powergem: 442.3125 [406, 484], powergem: 442.3125 [406, 484]]
+|chat|DEBUG|Best move of lunatone (p1): powergem: 442.3125 [406, 484]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arcanine
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arcanine|Arcanine, L82, F|282282
+|move|p2a: Volcarona|Bug Buzz|p1a: Arcanine
+|-resisted|p1a: Arcanine
+|-damage|p1a: Arcanine|229282
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: wildcharge closecombat morningsun flareblitz
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['arcanine']
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 203 vs 196
+|chat|DEBUG|HP: 229 vs 254
+|chat|DEBUG|Created a new Strategy for arcanine vs volcarona:
+|chat|DEBUG|>[flareblitz: 272.5 [250, 295], flareblitz: 272.5 [250, 295], flareblitz: 272.5 [250, 295]]
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 272.5 [250, 295]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 56.125 [51, 61]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Flare Blitz|p2a: Volcarona
+|-damage|p2a: Volcarona|33100
+|-damage|p1a: Arcanine|173282|[from] Recoil
+|move|p2a: Volcarona|Fire Blast|p1a: Arcanine
+|-start|p1a: Arcanine|ability: Flash Fire
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: wildcharge closecombat morningsun flareblitz
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['cresselia', 'arcanine', 'quagsire']
+|chat|DEBUG|Counter: ['cresselia', 'arcanine', 'quagsire']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 203 vs 196
+|chat|DEBUG|HP: 173 vs 83
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 272.5 [250, 295]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 56.125 [51, 61]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lycanroc|Lycanroc-Midnight, L82, M|100100
+|move|p1a: Arcanine|Flare Blitz|p2a: Lycanroc
+|-resisted|p2a: Lycanroc
+|-damage|p2a: Lycanroc|59100
+|-damage|p1a: Arcanine|135282|[from] Recoil
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "lycanrocmidnight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona-lycanrocmidnight
+|chat|DEBUG|Own moves: wildcharge closecombat morningsun flareblitz
+|chat|DEBUG|Enemy moves: closecombat irontail stoneedge swordsdance
+|chat|DEBUG|Checks: ['quagsire']
+|chat|DEBUG|Counter: ['cresselia', 'corviknight', 'arcanine', 'quagsire']
+|chat|DEBUG|Speed: 203 vs 182
+|chat|DEBUG|HP: 135 vs 161
+|chat|DEBUG|Created a new Strategy for arcanine vs lycanrocmidnight:
+|chat|DEBUG|>[closecombat: 204.375 [188, 222], closecombat: 204.375 [188, 222], closecombat: 204.375 [188, 222]]
+|chat|DEBUG|Best move of arcanine (p1): closecombat: 204.375 [188, 222]
+|chat|DEBUG|Best move of lycanrocmidnight (p2): stoneedge: 329.75 [304, 359]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Close Combat|p2a: Lycanroc
+|-supereffective|p2a: Lycanroc
+|-damage|p2a: Lycanroc|0 fnt
+|-unboost|p1a: Arcanine|def|1
+|-unboost|p1a: Arcanine|spd|1
+|faint|p2a: Lycanroc
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lopunny|Lopunny, L90, M|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "lopunny"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona-lopunny
+|chat|DEBUG|Own moves: wildcharge closecombat morningsun flareblitz
+|chat|DEBUG|Enemy moves: closecombat facade healingwish switcheroo
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia', 'corviknight', 'quagsire']
+|chat|DEBUG|Speed: 203 vs 240
+|chat|DEBUG|HP: 135 vs 263
+|chat|DEBUG|Created a new Strategy for arcanine vs lopunny:
+|chat|DEBUG|>[flareblitz: 191.9375 [177, 208], flareblitz: 191.9375 [177, 208], flareblitz: 191.9375 [177, 208]]
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 191.9375 [177, 208]
+|chat|DEBUG|Best move of lopunny (p2): closecombat: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Tomchoi11 has 120 seconds left.
+|move|p2a: Lopunny|Switcheroo|p1a: Arcanine
+|-activate|p2a: Lopunny|move: Trick|[of] p1a: Arcanine
+|-item|p1a: Arcanine|Toxic Orb|[from] move: Switcheroo
+|-item|p2a: Lopunny|Heavy-Duty Boots|[from] move: Switcheroo
+|move|p1a: Arcanine|Flare Blitz|p2a: Lopunny
+|-damage|p2a: Lopunny|28100
+|-damage|p1a: Arcanine|72282|[from] Recoil
+|-status|p1a: Arcanine|tox|[from] item: Toxic Orb
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "lopunny"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona-lopunny
+|chat|DEBUG|Own moves: wildcharge closecombat morningsun flareblitz
+|chat|DEBUG|Enemy moves: closecombat facade healingwish switcheroo
+|chat|DEBUG|Checks: ['cresselia', 'corviknight', 'quagsire']
+|chat|DEBUG|Counter: ['cresselia', 'excadrill', 'corviknight', 'quagsire']
+|chat|DEBUG|Speed: 203 vs 240
+|chat|DEBUG|HP: 72 vs 73
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 191.9375 [177, 208]
+|chat|DEBUG|Best move of lopunny (p2): closecombat: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cresselia
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Tomchoi11 has 120 seconds left.
+|-end|p1a: Arcanine|ability: Flash Fire|[silent]
+|switch|p1a: Cresselia|Cresselia, L80, F|323323
+|move|p2a: Lopunny|Healing Wish|p2a: Lopunny
+|faint|p2a: Lopunny
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Volcarona|Volcarona, L76, F|33100
+|-heal|p2a: Volcarona|100100|[from] move: Healing Wish
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Speed: 182 vs 196
+|chat|DEBUG|HP: 323 vs 254
+|chat|DEBUG|Created a new Strategy for cresselia vs volcarona:
+|chat|DEBUG|>[psyshock: 89.1875 [82, 97], psyshock: 89.1875 [82, 97], psyshock: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 159.0 [146, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Volcarona|Fire Blast|p1a: Cresselia
+|-damage|p1a: Cresselia|221323
+|move|p1a: Cresselia|Psyshock|p2a: Volcarona
+|-damage|p2a: Volcarona|63100
+|-heal|p1a: Cresselia|241323|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Speed: 182 vs 196
+|chat|DEBUG|HP: 241 vs 160
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 159.0 [146, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Volcarona|Fire Blast|p1a: Cresselia|[miss]
+|-miss|p2a: Volcarona|p1a: Cresselia
+|move|p1a: Cresselia|Psyshock|p2a: Volcarona
+|-damage|p2a: Volcarona|29100
+|-heal|p1a: Cresselia|261323|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['quagsire']
+|chat|DEBUG|Counter: ['cresselia', 'arcanine', 'quagsire']
+|chat|DEBUG|Speed: 182 vs 196
+|chat|DEBUG|HP: 261 vs 73
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 159.0 [146, 174]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Volcarona|Roost|p2a: Volcarona
+|-heal|p2a: Volcarona|79100
+|-singleturn|p2a: Volcarona|move: Roost
+|move|p1a: Cresselia|Psyshock|p2a: Volcarona
+|-damage|p2a: Volcarona|42100
+|-heal|p1a: Cresselia|281323|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['quagsire']
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Speed: 182 vs 196
+|chat|DEBUG|HP: 281 vs 106
+|chat|DEBUG|Created a new Strategy for cresselia vs volcarona:
+|chat|DEBUG|>[psyshock: 89.1875 [82, 97], psyshock: 89.1875 [82, 97], psyshock: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 159.0 [146, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check quagsire
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Quagsire|Quagsire, L84, M|297297
+|move|p2a: Volcarona|Roost|p2a: Volcarona
+|-heal|p2a: Volcarona|92100
+|-singleturn|p2a: Volcarona|move: Roost
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "quagsire" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: recover scald toxic earthquake
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Speed: 107 vs 196
+|chat|DEBUG|HP: 297 vs 233
+|chat|DEBUG|Created a new Strategy for quagsire vs volcarona:
+|chat|DEBUG|>[earthquake: 131.0 [120, 142], earthquake: 131.0 [120, 142], earthquake: 131.0 [120, 142]]
+|chat|DEBUG|Best move of quagsire (p1): earthquake: 131.0 [120, 142]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 128.0625 [118, 139]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Volcarona|Bug Buzz|p1a: Quagsire
+|-damage|p1a: Quagsire|167297
+|move|p1a: Quagsire|Earthquake|p2a: Volcarona
+|-damage|p2a: Volcarona|40100
+|-heal|p1a: Quagsire|185297|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "quagsire" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- volcarona
+|chat|DEBUG|Own moves: recover scald toxic earthquake
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine', 'quagsire']
+|chat|DEBUG|Speed: 107 vs 196
+|chat|DEBUG|HP: 185 vs 101
+|chat|DEBUG|Best move of quagsire (p1): earthquake: 131.0 [120, 142]
+|chat|DEBUG|Best move of volcarona (p2): bugbuzz: 128.0625 [118, 139]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Volcarona|Bug Buzz|p1a: Quagsire
+|-damage|p1a: Quagsire|67297
+|move|p1a: Quagsire|Earthquake|p2a: Volcarona
+|-damage|p2a: Volcarona|0 fnt
+|faint|p2a: Volcarona
+|-heal|p1a: Quagsire|85297|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Umbreon|Umbreon, L82, M|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine quagsire
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "quagsire" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine-quagsire -- umbreon
+|chat|DEBUG|Own moves: recover scald toxic earthquake
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 107 vs 154
+|chat|DEBUG|HP: 85 vs 290
+|chat|DEBUG|Created a new Strategy for quagsire vs umbreon:
+|chat|DEBUG|>[earthquake: 82.4375 [76, 90], earthquake: 82.4375 [76, 90], earthquake: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of quagsire (p1): earthquake: 82.4375 [76, 90]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 90.875 [84, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Umbreon|Foul Play|p1a: Quagsire
+|-damage|p1a: Quagsire|0 fnt
+|faint|p1a: Quagsire
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cresselia|Cresselia, L80, F|281323
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "quagsire" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to cresselia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Umbreon|Protect|p2a: Umbreon
+|-singleturn|p2a: Umbreon|Protect
+|move|p1a: Cresselia|Moonblast|p2a: Umbreon
+|-activate|p2a: Umbreon|move: Protect
+|-heal|p1a: Cresselia|301323|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 182 vs 154
+|chat|DEBUG|HP: 281 vs 290
+|chat|DEBUG|Created a new Strategy for cresselia vs umbreon:
+|chat|DEBUG|>[moonblast: 78.5 [72, 86], moonblast: 78.5 [72, 86], moonblast: 78.5 [72, 86]]
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 78.5 [72, 86]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 90.125 [84, 98]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Talonflame|Talonflame, L81, M|100100
+|move|p1a: Cresselia|Moonblast|p2a: Talonflame
+|-resisted|p2a: Talonflame
+|-damage|p2a: Talonflame|88100
+|-unboost|p2a: Talonflame|spa|1
+|-heal|p1a: Cresselia|321323|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 182 vs 154
+|chat|DEBUG|HP: 301 vs 290
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 78.5 [72, 86]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 90.125 [84, 98]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Talonflame|Dynamax
+|-heal|p2a: Talonflame|88100|[silent]
+|move|p2a: Talonflame|Max Flare|p1a: Cresselia
+|-damage|p1a: Cresselia|222323
+|-weather|SunnyDay
+|move|p1a: Cresselia|Calm Mind|p1a: Cresselia
+|-boost|p1a: Cresselia|spa|1
+|-boost|p1a: Cresselia|spd|1
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Cresselia|242323|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon-talonflame
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 182 vs 251
+|chat|DEBUG|HP: 321 vs 227
+|chat|DEBUG|Created a new Strategy for cresselia vs talonflame:
+|chat|DEBUG|>[psyshock: 78.1875 [72, 85], psyshock: 78.1875 [72, 85], psyshock: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 78.1875 [72, 85]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 86.4375 [79, 94]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Cresselia|Dynamax
+|-heal|p1a: Cresselia|484646|[silent]
+|move|p2a: Talonflame|Max Flare|p1a: Cresselia
+|-damage|p1a: Cresselia|345646
+|move|p1a: Cresselia|Max Mindstorm|p2a: Talonflame
+|-crit|p2a: Talonflame
+|-damage|p2a: Talonflame|35100
+|-fieldstart|move: Psychic Terrain
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Cresselia|365646|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon-talonflame
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 182 vs 251
+|chat|DEBUG|HP: 242 vs 227
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 78.1875 [72, 85]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 86.4375 [79, 94]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Talonflame|Max Airstream|p1a: Cresselia
+|-damage|p1a: Cresselia|265646
+|-boost|p2a: Talonflame|spe|1
+|move|p1a: Cresselia|Max Mindstorm|p2a: Talonflame
+|-damage|p2a: Talonflame|0 fnt
+|faint|p2a: Talonflame
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Cresselia|285646|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Umbreon|Umbreon, L82, M|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon-talonflame
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['cresselia', 'corviknight']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 251
+|chat|DEBUG|HP: 365 vs 90
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 78.1875 [72, 85]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 86.4375 [79, 94]
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Umbreon|Protect|p2a: Umbreon
+|-singleturn|p2a: Umbreon|Protect
+|move|p1a: Cresselia|Max Starfall|p2a: Umbreon
+|-supereffective|p2a: Umbreon
+|-zbroken|p2a: Umbreon
+|-damage|p2a: Umbreon|87100
+|-fieldstart|move: Misty Terrain
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Cresselia|305646|[from] item: Leftovers
+|-heal|p2a: Umbreon|94100|[from] item: Leftovers
+|-end|p1a: Cresselia|Dynamax
+|-heal|p1a: Cresselia|153323|[silent]
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 154
+|chat|DEBUG|HP: 285 vs 290
+|chat|DEBUG|Created a new Strategy for cresselia vs umbreon:
+|chat|DEBUG|>[moonblast: 115.625 [106, 126], moonblast: 115.625 [106, 126], moonblast: 115.625 [106, 126]]
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 115.625 [106, 126]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 90.125 [84, 98]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Umbreon
+|-supereffective|p2a: Umbreon
+|-damage|p2a: Umbreon|54100
+|move|p2a: Umbreon|Foul Play|p1a: Cresselia
+|-supereffective|p1a: Cresselia
+|-damage|p1a: Cresselia|57323
+|-weather|none
+|-heal|p1a: Cresselia|77323|[from] item: Leftovers
+|-heal|p2a: Umbreon|60100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corviknight']
+|chat|DEBUG|Speed: 182 vs 154
+|chat|DEBUG|HP: 153 vs 272
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 115.625 [106, 126]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 90.125 [84, 98]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Umbreon
+|-supereffective|p2a: Umbreon
+|-damage|p2a: Umbreon|20100
+|move|p2a: Umbreon|Foul Play|p1a: Cresselia
+|-supereffective|p1a: Cresselia
+|-damage|p1a: Cresselia|0 fnt
+|faint|p1a: Cresselia
+|-heal|p2a: Umbreon|27100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arcanine|Arcanine, L82, F|72282 tox
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone cresselia excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-cresselia-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: psyshock moonblast calmmind moonlight
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['excadrill', 'corviknight']
+|chat|DEBUG|Speed: 182 vs 154
+|chat|DEBUG|HP: 77 vs 174
+|chat|DEBUG|Best move of cresselia (p1): moonblast: 115.625 [106, 126]
+|chat|DEBUG|Best move of umbreon (p2): foulplay: 90.125 [84, 98]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Umbreon|Protect|p2a: Umbreon
+|-singleturn|p2a: Umbreon|Protect
+|move|p1a: Arcanine|Flare Blitz|p2a: Umbreon
+|-activate|p2a: Umbreon|move: Protect
+|-heal|p2a: Umbreon|33100|[from] item: Leftovers
+|-damage|p1a: Arcanine|55282 tox|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lunatone excadrill corviknight arcanine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "umbreon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lunatone-excadrill-corviknight-arcanine -- umbreon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: foulplay protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['excadrill', 'corviknight']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'lunatone': 41, 'excadrill': 300, 'corviknight': 281, 'arcanine': 72}
+|chat|DEBUG|remaining_hp_team_2={'umbreon': 60}
+|chat|DEBUG|battle.available_switches=[arcanine (pokemon object) [Active: False, Status: TOX], excadrill (pokemon object) [Active: False, Status: None], corviknight (pokemon object) [Active: False, Status: None], lunatone (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'arcanine'
+|chat|DEBUG|>Switching to arcanine (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arcanine|Flare Blitz|p2a: Umbreon
+|-damage|p2a: Umbreon|0 fnt
+|faint|p2a: Umbreon
+|-damage|p1a: Arcanine|24282 tox|[from] Recoil
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Tomchoi11</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lunatone cresselia excadrill corviknight arcanine quagsire</h1>

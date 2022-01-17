@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490106725<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490106725|init|battle
+|title|McGewitter vs. fldsmdfr3
+|j|☆McGewitter
+|j|☆fldsmdfr3
+|gametype|singles
+|player|p1|McGewitter|265|1275
+|player|p2|fldsmdfr3|265|1254
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Sharpedo|Sharpedo, L82, M|249249
+|switch|p2a: Latias|Latias, L80, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias
+|chat|DEBUG|Own moves: crunch closecombat hydropump protect
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['mrrime', 'ferrothorn']
+|chat|DEBUG|Counter: ['mrrime', 'ferrothorn']
+|chat|DEBUG|Speed: 203 vs 222
+|chat|DEBUG|HP: 249 vs 259
+|chat|DEBUG|Created a new Strategy for sharpedo vs latias:
+|chat|DEBUG|>[crunch: 253.8125 [234, 276], crunch: 253.8125 [234, 276], crunch: 253.8125 [234, 276]]
+|chat|DEBUG|Best move of sharpedo (p1): crunch: 253.8125 [234, 276]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 242.0 [222, 262]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrrime
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Mr. Rime|Mr. Rime, L86, M|278278
+|move|p2a: Latias|Draco Meteor|p1a: Mr. Rime
+|-damage|p1a: Mr. Rime|155278
+|-unboost|p2a: Latias|spa|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrrime" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias
+|chat|DEBUG|Own moves: freezedry rapidspin psychic slackoff
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['mrrime', 'ferrothorn']
+|chat|DEBUG|Counter: ['garbodor', 'mrrime', 'ferrothorn', 'palkia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 170 vs 222
+|chat|DEBUG|HP: 155 vs 259
+|chat|DEBUG|Created a new Strategy for mrrime vs latias:
+|chat|DEBUG|>[freezedry: 134.5 [122, 146], freezedry: 134.5 [122, 146], freezedry: 134.5 [122, 146]]
+|chat|DEBUG|Best move of mrrime (p1): freezedry: 134.5 [122, 146]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 62.9375 [58, 69]
+|chat|DEBUG|Healing using slackoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regirock|Regirock, L85|100100
+|move|p1a: Mr. Rime|Slack Off|p1a: Mr. Rime
+|-heal|p1a: Mr. Rime|278278
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrrime" vs "regirock"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: freezedry rapidspin psychic slackoff
+|chat|DEBUG|Enemy moves: bodypress curse earthquake rockslide
+|chat|DEBUG|Checks: ['palkia']
+|chat|DEBUG|Counter: ['palkia', 'nidoking']
+|chat|DEBUG|Speed: 170 vs 134
+|chat|DEBUG|HP: 278 vs 275
+|chat|DEBUG|Created a new Strategy for mrrime vs regirock:
+|chat|DEBUG|>[psychic: 98.9375 [91, 108], psychic: 98.9375 [91, 108], psychic: 98.9375 [91, 108]]
+|chat|DEBUG|Best move of mrrime (p1): psychic: 98.9375 [91, 108]
+|chat|DEBUG|Best move of regirock (p2): rockslide: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check palkia
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|255255
+|-ability|p1a: Palkia|Pressure
+|move|p2a: Regirock|Curse|p2a: Regirock
+|-unboost|p2a: Regirock|spe|1
+|-boost|p2a: Regirock|atk|1
+|-boost|p2a: Regirock|def|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "regirock"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: dracometeor thunderwave hydropump fireblast
+|chat|DEBUG|Enemy moves: bodypress curse earthquake rockslide
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palkia']
+|chat|DEBUG|Speed: 191 vs 134
+|chat|DEBUG|HP: 255 vs 275
+|chat|DEBUG|Created a new Strategy for palkia vs regirock:
+|chat|DEBUG|>[hydropump: 231.25 [212, 252], hydropump: 231.25 [212, 252], hydropump: 231.25 [212, 252]]
+|chat|DEBUG|Best move of palkia (p1): hydropump: 231.25 [212, 252]
+|chat|DEBUG|Best move of regirock (p2): bodypress: 163.25 [150, 177]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Palkia|Hydro Pump|p2a: Regirock
+|-supereffective|p2a: Regirock
+|-damage|p2a: Regirock|15100
+|move|p2a: Regirock|Body Press|p1a: Palkia
+|-damage|p1a: Palkia|105255
+|-heal|p1a: Palkia|120255|[from] item: Leftovers
+|-heal|p2a: Regirock|21100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "regirock"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: dracometeor thunderwave hydropump fireblast
+|chat|DEBUG|Enemy moves: bodypress curse earthquake rockslide
+|chat|DEBUG|Checks: ['mrrime']
+|chat|DEBUG|Counter: ['sharpedo', 'garbodor', 'mrrime', 'palkia', 'nidoking']
+|chat|DEBUG|Speed: 191 vs 134
+|chat|DEBUG|HP: 120 vs 57
+|chat|DEBUG|Best move of palkia (p1): hydropump: 231.25 [212, 252]
+|chat|DEBUG|Best move of regirock (p2): bodypress: 163.25 [150, 177]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|100100
+|move|p1a: Palkia|Hydro Pump|p2a: Latias
+|-resisted|p2a: Latias
+|-damage|p2a: Latias|80100
+|-heal|p2a: Latias|86100|[from] item: Leftovers
+|-heal|p1a: Palkia|135255|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: dracometeor thunderwave hydropump fireblast
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['mrrime', 'ferrothorn']
+|chat|DEBUG|Counter: ['mrrime', 'ferrothorn']
+|chat|DEBUG|Speed: 191 vs 222
+|chat|DEBUG|HP: 135 vs 222
+|chat|DEBUG|Created a new Strategy for palkia vs latias:
+|chat|DEBUG|>[dracometeor: 236.625 [218, 258], dracometeor: 117.25 [108, 128], dracometeor: 78.5 [72, 86]]
+|chat|DEBUG|Best move of palkia (p1): dracometeor: 236.625 [218, 258]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 248.125 [228, 270]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrrime
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mr. Rime|Mr. Rime, L86, M|278278
+|move|p2a: Latias|Draco Meteor|p1a: Mr. Rime
+|-damage|p1a: Mr. Rime|145278
+|-unboost|p2a: Latias|spa|2
+|-heal|p2a: Latias|92100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrrime" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: freezedry rapidspin psychic slackoff
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: ['mrrime', 'ferrothorn']
+|chat|DEBUG|Counter: ['sharpedo', 'garbodor', 'mrrime', 'ferrothorn']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 170 vs 222
+|chat|DEBUG|HP: 145 vs 238
+|chat|DEBUG|Created a new Strategy for mrrime vs latias:
+|chat|DEBUG|>[freezedry: 134.5 [122, 146], freezedry: 134.5 [122, 146], freezedry: 134.5 [122, 146]]
+|chat|DEBUG|Best move of mrrime (p1): freezedry: 134.5 [122, 146]
+|chat|DEBUG|Best move of latias (p2): dracometeor: 62.9375 [58, 69]
+|chat|DEBUG|Healing using slackoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Crustle|Crustle, L82, M|100100
+|move|p1a: Mr. Rime|Slack Off|p1a: Mr. Rime
+|-heal|p1a: Mr. Rime|278278
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrrime" vs "crustle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock-crustle
+|chat|DEBUG|Own moves: freezedry rapidspin psychic slackoff
+|chat|DEBUG|Enemy moves: earthquake shellsmash stoneedge xscissor
+|chat|DEBUG|Checks: ['palkia']
+|chat|DEBUG|Counter: ['sharpedo', 'mrrime', 'ferrothorn', 'palkia', 'nidoking']
+|chat|DEBUG|Speed: 170 vs 121
+|chat|DEBUG|HP: 278 vs 249
+|chat|DEBUG|Created a new Strategy for mrrime vs crustle:
+|chat|DEBUG|>[psychic: 126.8125 [117, 138], psychic: 126.8125 [117, 138], psychic: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of mrrime (p1): psychic: 126.8125 [117, 138]
+|chat|DEBUG|Best move of crustle (p2): stoneedge: 234.0 [216, 254]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Rime|Psychic|p2a: Crustle
+|-damage|p2a: Crustle|52100
+|move|p2a: Crustle|Shell Smash|p2a: Crustle
+|-unboost|p2a: Crustle|def|1
+|-unboost|p2a: Crustle|spd|1
+|-boost|p2a: Crustle|atk|2
+|-boost|p2a: Crustle|spa|2
+|-boost|p2a: Crustle|spe|2
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor mrrime ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrrime" vs "crustle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-mrrime-ferrothorn-palkia-nidoking -- latias-regirock-crustle
+|chat|DEBUG|Own moves: freezedry rapidspin psychic slackoff
+|chat|DEBUG|Enemy moves: earthquake shellsmash stoneedge xscissor
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sharpedo', 'mrrime', 'ferrothorn', 'palkia', 'nidoking']
+|chat|DEBUG|Speed: 170 vs 121
+|chat|DEBUG|HP: 278 vs 129
+|chat|DEBUG|Best move of mrrime (p1): psychic: 126.8125 [117, 138]
+|chat|DEBUG|Best move of crustle (p2): stoneedge: 467.0 [428, 506]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crustle|X-Scissor|p1a: Mr. Rime
+|-supereffective|p1a: Mr. Rime
+|-damage|p1a: Mr. Rime|0 fnt
+|faint|p1a: Mr. Rime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sharpedo|Sharpedo, L82, M|249249
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrrime" vs "crustle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-ferrothorn-palkia-nidoking -- latias-regirock-crustle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake shellsmash stoneedge xscissor
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sharpedo', 'ferrothorn', 'palkia', 'nidoking']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to sharpedo (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crustle|X-Scissor|p1a: Sharpedo
+|-supereffective|p1a: Sharpedo
+|-damage|p1a: Sharpedo|0 fnt
+|faint|p1a: Sharpedo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|244244
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sharpedo garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "crustle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sharpedo-garbodor-ferrothorn-palkia-nidoking -- latias-regirock-crustle
+|chat|DEBUG|Own moves: crunch closecombat hydropump protect
+|chat|DEBUG|Enemy moves: earthquake shellsmash stoneedge xscissor
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sharpedo', 'ferrothorn', 'palkia', 'nidoking']
+|chat|DEBUG|Speed: 203 vs 121
+|chat|DEBUG|HP: 249 vs 129
+|chat|DEBUG|Created a new Strategy for sharpedo vs crustle:
+|chat|DEBUG|>[hydropump: 487.9375 [447, 530], hydropump: 487.9375 [447, 530], hydropump: 487.9375 [447, 530]]
+|chat|DEBUG|Best move of sharpedo (p1): hydropump: 487.9375 [447, 530]
+|chat|DEBUG|Best move of crustle (p2): xscissor: 586.375 [540, 636]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crustle|X-Scissor|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|102244
+|-damage|p2a: Crustle|40100|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Crustle
+|-supereffective|p2a: Crustle
+|-damage|p2a: Crustle|0 fnt
+|faint|p2a: Crustle
+|-heal|p1a: Ferrothorn|117244|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|92100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "crustle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-ferrothorn-palkia-nidoking -- latias-regirock-crustle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake shellsmash stoneedge xscissor
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ferrothorn', 'palkia', 'nidoking']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to ferrothorn (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Calm Mind|p2a: Latias
+|-boost|p2a: Latias|spa|1
+|-boost|p2a: Latias|spd|1
+|move|p1a: Ferrothorn|Spikes|p2a: Latias
+|-sidestart|p2: fldsmdfr3|Spikes
+|-heal|p2a: Latias|98100|[from] item: Leftovers
+|-heal|p1a: Ferrothorn|132244|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "crustle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-ferrothorn-palkia-nidoking -- latias-regirock-crustle
+|chat|DEBUG|Own moves: spikes protect leechseed gyroball
+|chat|DEBUG|Enemy moves: earthquake shellsmash stoneedge xscissor
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ferrothorn', 'palkia', 'nidoking']
+|chat|DEBUG|Speed: 36 vs 121
+|chat|DEBUG|HP: 244 vs 129
+|chat|DEBUG|Created a new Strategy for ferrothorn vs crustle:
+|chat|DEBUG|>[gyroball: 317.125 [290, 344], gyroball: 317.125 [290, 344], gyroball: 317.125 [290, 344]]
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 317.125 [290, 344]
+|chat|DEBUG|Best move of crustle (p2): xscissor: 134.0 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Calm Mind|p2a: Latias
+|-boost|p2a: Latias|spa|1
+|-boost|p2a: Latias|spd|1
+|move|p1a: Ferrothorn|Spikes|p2a: Latias
+|-sidestart|p2: fldsmdfr3|Spikes
+|-heal|p2a: Latias|100100|[from] item: Leftovers
+|-heal|p1a: Ferrothorn|147244|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: spikes protect leechseed gyroball
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ferrothorn']
+|chat|DEBUG|Speed: 36 vs 222
+|chat|DEBUG|HP: 117 vs 238
+|chat|DEBUG|Created a new Strategy for ferrothorn vs latias:
+|chat|DEBUG|>[gyroball: 140.125 [129, 153], gyroball: 140.125 [129, 153], gyroball: 140.125 [129, 153]]
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 140.125 [129, 153]
+|chat|DEBUG|Best move of latias (p2): psychic: 42.25 [39, 46]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Ferrothorn
+|-resisted|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|66244
+|move|p1a: Ferrothorn|Spikes|p2a: Latias
+|-sidestart|p2: fldsmdfr3|Spikes
+|-heal|p1a: Ferrothorn|81244|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: spikes protect leechseed gyroball
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 36 vs 222
+|chat|DEBUG|HP: 132 vs 253
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 140.125 [129, 153]
+|chat|DEBUG|Best move of latias (p2): psychic: 63.1875 [58, 69]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Ferrothorn
+|-resisted|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|0 fnt
+|faint|p1a: Ferrothorn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Garbodor|Garbodor, L87, F|281281
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: spikes protect leechseed gyroball
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 36 vs 222
+|chat|DEBUG|HP: 147 vs 259
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 140.125 [129, 153]
+|chat|DEBUG|Best move of latias (p2): psychic: 83.9375 [77, 91]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|0 fnt
+|faint|p1a: Garbodor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Palkia|Palkia, L74|135255
+|-ability|p1a: Palkia|Pressure
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor ferrothorn palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-ferrothorn-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: spikes protect leechseed gyroball
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 36 vs 222
+|chat|DEBUG|HP: 81 vs 259
+|chat|DEBUG|Created a new Strategy for ferrothorn vs latias:
+|chat|DEBUG|>[gyroball: 140.125 [129, 153], gyroball: 140.125 [129, 153], gyroball: 140.125 [129, 153]]
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 140.125 [129, 153]
+|chat|DEBUG|Best move of latias (p2): psychic: 83.9375 [77, 91]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Draco Meteor|p1a: Palkia|[miss]
+|-miss|p2a: Latias|p1a: Palkia
+|move|p1a: Palkia|Draco Meteor|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|51100
+|-unboost|p1a: Palkia|spa|2
+|-heal|p2a: Latias|57100|[from] item: Leftovers
+|-heal|p1a: Palkia|150255|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: garbodor
+|chat|DEBUG|>Switching to garbodor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Draco Meteor|p1a: Palkia
+|-supereffective|p1a: Palkia
+|-damage|p1a: Palkia|0 fnt
+|-unboost|p2a: Latias|spa|2
+|faint|p1a: Palkia
+|-heal|p2a: Latias|63100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nidoking|Nidoking, L82, M|267267
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: toxicspikes painsplit stompingtantrum gunkshot
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 180 vs 222
+|chat|DEBUG|HP: 281 vs 259
+|chat|DEBUG|Created a new Strategy for garbodor vs latias:
+|chat|DEBUG|>[gunkshot: 137.0 [126, 148], gunkshot: 137.0 [126, 148], gunkshot: 137.0 [126, 148]]
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 137.0 [126, 148]
+|chat|DEBUG|Best move of latias (p2): psychic: 394.75 [362, 428]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Nidoking|Dynamax
+|-heal|p1a: Nidoking|534534|[silent]
+|move|p2a: Latias|Psychic|p1a: Nidoking
+|-supereffective|p1a: Nidoking
+|-damage|p1a: Nidoking|328534
+|move|p1a: Nidoking|Max Hailstorm|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|33100
+|-weather|Hail
+|-damage|p1a: Nidoking|302534|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p2a: Latias|27100|[from] Hail
+|-damage|p1a: Nidoking|286534|[from] Hail
+|-heal|p2a: Latias|33100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: palkia
+|chat|DEBUG|>Switching to palkia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Calm Mind|p2a: Latias
+|-boost|p2a: Latias|spa|1
+|-boost|p2a: Latias|spd|1
+|move|p1a: Nidoking|Max Hailstorm|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|8100
+|-damage|p1a: Nidoking|260534|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p2a: Latias|2100|[from] Hail
+|-damage|p1a: Nidoking|244534|[from] Hail
+|-heal|p2a: Latias|8100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>palkia nidoking
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "latias"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>palkia-nidoking -- latias-regirock
+|chat|DEBUG|Own moves: dracometeor thunderwave hydropump fireblast
+|chat|DEBUG|Enemy moves: calmmind dracometeor psychic roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 222
+|chat|DEBUG|HP: 135 vs 259
+|chat|DEBUG|Created a new Strategy for palkia vs latias:
+|chat|DEBUG|>[dracometeor: 120.25 [110, 132], dracometeor: 59.125 [54, 66], dracometeor: 39.625 [36, 44]]
+|chat|DEBUG|Best move of palkia (p1): dracometeor: 120.25 [110, 132]
+|chat|DEBUG|Best move of latias (p2): psychic: 171.125 [157, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Psychic|p1a: Nidoking
+|-supereffective|p1a: Nidoking
+|-damage|p1a: Nidoking|0 fnt
+|faint|p1a: Nidoking
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>fldsmdfr3</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">sharpedo garbodor mrrime ferrothorn palkia nidoking</h1>

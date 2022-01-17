@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490138023<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490138023|init|battle
+|title|Inv2468 vs. McGewitter
+|j|☆Inv2468
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Inv2468|265|1185
+|player|p2|McGewitter|265|1213
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Machamp|Machamp, L82, M|100100
+|switch|p2a: Scolipede|Scolipede, L80, M|227227
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-dhelmise-coalossal-azumarill-articuno-kommoo -- machamp
+|chat|DEBUG|Own moves: megahorn swordsdance poisonjab earthquake
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['azumarill', 'kommoo']
+|chat|DEBUG|Counter: ['scolipede', 'azumarill', 'kommoo']
+|chat|DEBUG|Speed: 225 vs 137
+|chat|DEBUG|HP: 227 vs 282
+|chat|DEBUG|Created a new Strategy for scolipede vs machamp:
+|chat|DEBUG|>[poisonjab: 114.25 [105, 125], poisonjab: 114.25 [105, 125], poisonjab: 114.25 [105, 125]]
+|chat|DEBUG|Best move of scolipede (p1): poisonjab: 114.25 [105, 125]
+|chat|DEBUG|Best move of machamp (p2): knockoff: 84.6875 [78, 92]
+|chat|DEBUG|Attacking using poisonjab
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Scolipede|Poison Jab|p1a: Machamp
+|-damage|p1a: Machamp|59100
+|-damage|p2a: Scolipede|205227|[from] item: Life Orb
+|move|p1a: Machamp|Knock Off|p2a: Scolipede
+|-damage|p2a: Scolipede|127227
+|-enditem|p2a: Scolipede|Life Orb|[from] move: Knock Off|[of] p1a: Machamp
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|-status|p1a: Machamp|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scolipede dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scolipede-dhelmise-coalossal-azumarill-articuno-kommoo -- machamp
+|chat|DEBUG|Own moves: megahorn swordsdance poisonjab earthquake
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['scolipede', 'azumarill', 'kommoo']
+|chat|DEBUG|Counter: ['scolipede', 'dhelmise', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 225 vs 137
+|chat|DEBUG|HP: 127 vs 166
+|chat|DEBUG|Best move of scolipede (p1): poisonjab: 114.25 [105, 125]
+|chat|DEBUG|Best move of machamp (p2): facade: 61.375 [56, 67]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using poisonjab
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Poison Jab|p1a: Machamp
+|-damage|p1a: Machamp|29100 brn
+|move|p1a: Machamp|Facade|p2a: Scolipede
+|-damage|p2a: Scolipede|0 fnt
+|faint|p2a: Scolipede
+|-damage|p1a: Machamp|23100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azumarill|Azumarill, L84, M|305305
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scolipede" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- machamp
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['azumarill', 'kommoo']
+|chat|DEBUG|Counter: ['dhelmise', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to azumarill (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Machamp|Bullet Punch|p2a: Azumarill
+|-damage|p2a: Azumarill|255305
+|move|p2a: Azumarill|Play Rough|p1a: Machamp
+|-supereffective|p1a: Machamp
+|-crit|p1a: Machamp
+|-damage|p1a: Machamp|0 fnt
+|faint|p1a: Machamp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 120 seconds left.
+|inactive|Inv2468 has 90 seconds left.
+|inactive|Inv2468 has 60 seconds left.
+|switch|p1a: Garbodor|Garbodor, L87, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- machamp
+|chat|DEBUG|Own moves: liquidation knockoff aquajet playrough
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Counter: ['dhelmise', 'coalossal', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 137
+|chat|DEBUG|HP: 305 vs 64
+|chat|DEBUG|Created a new Strategy for azumarill vs machamp:
+|chat|DEBUG|>[playrough: 392.25 [360, 426], playrough: 392.25 [360, 426], playrough: 392.25 [360, 426]]
+|chat|DEBUG|Best move of azumarill (p1): playrough: 392.25 [360, 426]
+|chat|DEBUG|Best move of machamp (p2): closecombat: 80.375 [74, 87]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dhelmise|Dhelmise, L86|261261
+|move|p1a: Garbodor|Toxic Spikes|p2a: Dhelmise
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- garbodor
+|chat|DEBUG|Own moves: playrough
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['dhelmise', 'kommoo']
+|chat|DEBUG|Speed: 132 vs 180
+|chat|DEBUG|HP: 255 vs 281
+|chat|DEBUG|Created a new Strategy for azumarill vs garbodor:
+|chat|DEBUG|>[playrough: 90.1875 [83, 98], playrough: 90.1875 [83, 98], playrough: 90.1875 [83, 98]]
+|chat|DEBUG|Best move of azumarill (p1): playrough: 90.1875 [83, 98]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 283.125 [260, 308]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garbodor|Gunk Shot|p2a: Dhelmise
+|-damage|p2a: Dhelmise|146261
+|move|p2a: Dhelmise|Earthquake|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|0 fnt
+|faint|p1a: Garbodor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Darmanitan|Darmanitan-Galar, L78, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- garbodor
+|chat|DEBUG|Own moves: earthquake powerwhip poltergeist anchorshot
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['dhelmise', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 118 vs 180
+|chat|DEBUG|HP: 261 vs 281
+|chat|DEBUG|Created a new Strategy for dhelmise vs garbodor:
+|chat|DEBUG|>[earthquake: 287.625 [264, 312], earthquake: 287.625 [264, 312], earthquake: 287.625 [264, 312]]
+|chat|DEBUG|Best move of dhelmise (p1): earthquake: 287.625 [264, 312]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 118.3125 [109, 129]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Darmanitan|Icicle Crash|p2a: Dhelmise|[miss]
+|-miss|p1a: Darmanitan|p2a: Dhelmise
+|move|p2a: Dhelmise|Earthquake|p1a: Darmanitan
+|-damage|p1a: Darmanitan|27100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- darmanitangalar
+|chat|DEBUG|Own moves: earthquake
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'azumarill', 'kommoo']
+|chat|DEBUG|Speed: 118 vs 193
+|chat|DEBUG|HP: 146 vs 292
+|chat|DEBUG|Created a new Strategy for dhelmise vs darmanitangalar:
+|chat|DEBUG|>[earthquake: 210.4375 [193, 228], earthquake: 210.4375 [193, 228], earthquake: 210.4375 [193, 228]]
+|chat|DEBUG|Best move of dhelmise (p1): earthquake: 210.4375 [193, 228]
+|chat|DEBUG|Best move of darmanitangalar (p2): iciclecrash: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|switch|p2a: Azumarill|Azumarill, L84, M|255305
+|-status|p2a: Azumarill|psn
+|move|p1a: Darmanitan|Icicle Crash|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|174305 psn
+|-damage|p2a: Azumarill|136305 psn|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- darmanitangalar
+|chat|DEBUG|Own moves: earthquake
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['coalossal', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Speed: 118 vs 193
+|chat|DEBUG|HP: 146 vs 78
+|chat|DEBUG|Created a new Strategy for dhelmise vs darmanitangalar:
+|chat|DEBUG|>[earthquake: 210.4375 [193, 228], earthquake: 210.4375 [193, 228], earthquake: 210.4375 [193, 228]]
+|chat|DEBUG|Best move of dhelmise (p1): earthquake: 210.4375 [193, 228]
+|chat|DEBUG|Best move of darmanitangalar (p2): iciclecrash: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check azumarill
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lanturn|Lanturn, L86, M|100100
+|move|p2a: Azumarill|Liquidation|p1a: Lanturn
+|-resisted|p1a: Lanturn
+|-damage|p1a: Lanturn|68100
+|-heal|p1a: Lanturn|74100|[from] item: Leftovers
+|-damage|p2a: Azumarill|98305 psn|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- darmanitangalar
+|chat|DEBUG|Own moves: liquidation knockoff aquajet playrough
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Speed: 132 vs 193
+|chat|DEBUG|HP: 136 vs 78
+|chat|DEBUG|Created a new Strategy for azumarill vs darmanitangalar:
+|chat|DEBUG|>[liquidation: 250.0625 [229, 271], liquidation: 250.0625 [229, 271], liquidation: 250.0625 [229, 271]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 250.0625 [229, 271]
+|chat|DEBUG|Best move of darmanitangalar (p2): earthquake: 88.5 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dhelmise|Dhelmise, L86|146261
+|-status|p2a: Dhelmise|psn
+|move|p1a: Lanturn|Volt Switch|p2a: Dhelmise
+|-resisted|p2a: Dhelmise
+|-damage|p2a: Dhelmise|116261 psn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Darmanitan|Darmanitan-Galar, L78, M|27100|[from]move: Volt Switch
+|-damage|p2a: Dhelmise|84261 psn|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['dhelmise', 'articuno', 'kommoo']
+|chat|DEBUG|Counter: ['dhelmise', 'articuno', 'kommoo']
+|chat|DEBUG|Speed: 132 vs 164
+|chat|DEBUG|HP: 98 vs 262
+|chat|DEBUG|Created a new Strategy for azumarill vs lanturn:
+|chat|DEBUG|>[liquidation: 110.4375 [102, 120], liquidation: 110.4375 [102, 120], liquidation: 110.4375 [102, 120]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 110.4375 [102, 120]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 178.375 [164, 194]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Darmanitan|Icicle Crash|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|0 fnt
+|faint|p2a: Dhelmise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|333333
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-coalossal-azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: earthquake powerwhip poltergeist anchorshot
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Speed: 118 vs 193
+|chat|DEBUG|HP: 84 vs 78
+|chat|DEBUG|Created a new Strategy for dhelmise vs darmanitangalar:
+|chat|DEBUG|>[anchorshot: 506.0 [464, 548], anchorshot: 506.0 [464, 548], anchorshot: 506.0 [464, 548]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 506.0 [464, 548]
+|chat|DEBUG|Best move of darmanitangalar (p2): iciclecrash: 186.5 [170, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using anchorshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|switch|p1a: Lanturn|Lanturn, L86, M|74100
+|move|p2a: Coalossal|Overheat|p1a: Lanturn
+|-resisted|p1a: Lanturn
+|-damage|p1a: Lanturn|56100
+|-unboost|p2a: Coalossal|spa|2
+|-heal|p1a: Lanturn|62100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>coalossal-azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to coalossal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|move|p1a: Lanturn|Scald|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|41333
+|move|p2a: Coalossal|Spikes|p1a: Lanturn
+|-sidestart|p1: Inv2468|Spikes
+|-heal|p1a: Lanturn|68100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "darmanitangalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>coalossal-azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: stoneedge spikes willowisp overheat
+|chat|DEBUG|Enemy moves: bellydrum earthquake iciclecrash substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'azumarill', 'articuno', 'kommoo']
+|chat|DEBUG|Speed: 102 vs 193
+|chat|DEBUG|HP: 333 vs 78
+|chat|DEBUG|Created a new Strategy for coalossal vs darmanitangalar:
+|chat|DEBUG|>[overheat: 378.25 [348, 410], stoneedge: 289.125 [266, 314], stoneedge: 289.125 [266, 314]]
+|chat|DEBUG|Best move of coalossal (p1): overheat: 378.25 [348, 410]
+|chat|DEBUG|Best move of darmanitangalar (p2): earthquake: 253.5 [232, 276]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|move|p1a: Lanturn|Scald|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-crit|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|faint|p2a: Coalossal
+|-heal|p1a: Lanturn|74100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno, L84|288288
+|-ability|p2a: Articuno|Pressure
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>coalossal-azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: stoneedge spikes willowisp overheat
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['articuno', 'kommoo']
+|chat|DEBUG|Counter: ['articuno', 'kommoo']
+|chat|DEBUG|Speed: 102 vs 164
+|chat|DEBUG|HP: 333 vs 220
+|chat|DEBUG|Created a new Strategy for coalossal vs lanturn:
+|chat|DEBUG|>[stoneedge: 128.0625 [118, 139], stoneedge: 128.0625 [118, 139], stoneedge: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of coalossal (p1): stoneedge: 128.0625 [118, 139]
+|chat|DEBUG|Best move of lanturn (p2): scald: 284.5 [264, 312]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freeze-Dry|p1a: Lanturn
+|-supereffective|p1a: Lanturn
+|-damage|p1a: Lanturn|30100
+|move|p1a: Lanturn|Volt Switch|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|180288
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Walrein|Walrein, L86, F|100100|[from]move: Volt Switch
+|-damage|p1a: Walrein|88100|[from] Spikes
+|-heal|p1a: Walrein|94100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>coalossal azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>coalossal-azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: stoneedge spikes willowisp overheat
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['articuno', 'kommoo']
+|chat|DEBUG|Counter: ['articuno', 'kommoo']
+|chat|DEBUG|Speed: 102 vs 164
+|chat|DEBUG|HP: 41 vs 241
+|chat|DEBUG|Best move of coalossal (p1): stoneedge: 128.0625 [118, 139]
+|chat|DEBUG|Best move of lanturn (p2): scald: 284.5 [264, 312]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Roost|p2a: Articuno
+|-heal|p2a: Articuno|288288
+|-singleturn|p2a: Articuno|move: Roost
+|move|p1a: Walrein|Toxic|p2a: Articuno|[miss]
+|-miss|p1a: Walrein|p2a: Articuno
+|-heal|p1a: Walrein|99100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['articuno', 'kommoo']
+|chat|DEBUG|Counter: ['articuno', 'kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to articuno (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|89100
+|move|p1a: Walrein|Toxic|p2a: Articuno
+|-status|p2a: Articuno|tox
+|-heal|p1a: Walrein|95100|[from] item: Leftovers
+|-damage|p2a: Articuno|270288 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['articuno', 'kommoo']
+|chat|DEBUG|Counter: ['articuno', 'kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 191 vs 164
+|chat|DEBUG|HP: 288 vs 262
+|chat|DEBUG|Created a new Strategy for articuno vs lanturn:
+|chat|DEBUG|>[freezedry: 159.0 [146, 174], freezedry: 159.0 [146, 174], freezedry: 159.0 [146, 174]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 159.0 [146, 174]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 128.5 [116, 140]
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|85100
+|move|p1a: Walrein|Surf|p2a: Articuno
+|-damage|p2a: Articuno|191288 tox
+|-heal|p1a: Walrein|91100|[from] item: Leftovers
+|-damage|p2a: Articuno|155288 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 191 vs 161
+|chat|DEBUG|HP: 180 vs 309
+|chat|DEBUG|Created a new Strategy for articuno vs walrein:
+|chat|DEBUG|>[freezedry: 35.125 [33, 39], freezedry: 35.125 [33, 39], freezedry: 35.125 [33, 39]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 35.125 [33, 39]
+|chat|DEBUG|Best move of walrein (p2): surf: 75.3125 [69, 82]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p1a: Walrein|Protect|p1a: Walrein
+|-singleturn|p1a: Walrein|Protect
+|move|p2a: Articuno|Roost|p2a: Articuno
+|-heal|p2a: Articuno|288288 tox
+|-singleturn|p2a: Articuno|move: Roost
+|-heal|p1a: Walrein|97100|[from] item: Leftovers
+|-damage|p2a: Articuno|234288 tox|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 191 vs 161
+|chat|DEBUG|HP: 288 vs 325
+|chat|DEBUG|Best move of articuno (p1): freezedry: 35.125 [33, 39]
+|chat|DEBUG|Best move of walrein (p2): surf: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|87100
+|move|p1a: Walrein|Ice Beam|p2a: Articuno
+|-damage|p2a: Articuno|156288 tox
+|-heal|p1a: Walrein|93100|[from] item: Leftovers
+|-damage|p2a: Articuno|84288 tox|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 191 vs 161
+|chat|DEBUG|HP: 270 vs 312
+|chat|DEBUG|Best move of articuno (p1): freezedry: 35.125 [33, 39]
+|chat|DEBUG|Best move of walrein (p2): surf: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|83100
+|move|p1a: Walrein|Ice Beam|p2a: Articuno
+|-damage|p2a: Articuno|3288 tox
+|-heal|p1a: Walrein|89100|[from] item: Leftovers
+|-damage|p2a: Articuno|0 fnt|[from] psn
+|faint|p2a: Articuno
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, F|251251
+|-status|p2a: Kommo-o|psn
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 191 vs 161
+|chat|DEBUG|HP: 155 vs 299
+|chat|DEBUG|Created a new Strategy for articuno vs walrein:
+|chat|DEBUG|>[freezedry: 35.125 [33, 39], freezedry: 35.125 [33, 39], freezedry: 35.125 [33, 39]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 35.125 [33, 39]
+|chat|DEBUG|Best move of walrein (p2): surf: 75.3125 [69, 82]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|-start|p2a: Kommo-o|Dynamax
+|-heal|p2a: Kommo-o|502502 psn|[silent]
+|-start|p1a: Walrein|Dynamax
+|-heal|p1a: Walrein|89100|[silent]
+|move|p2a: Kommo-o|Max Knuckle|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|61100
+|-boost|p2a: Kommo-o|atk|1
+|move|p1a: Walrein|Max Hailstorm|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-damage|p2a: Kommo-o|230502 psn
+|-weather|Hail
+|-weather|Hail|[upkeep]
+|-damage|p2a: Kommo-o|215502 psn|[from] Hail
+|-heal|p1a: Walrein|64100|[from] item: Leftovers
+|-damage|p2a: Kommo-o|184502 psn|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 191 vs 161
+|chat|DEBUG|HP: 234 vs 319
+|chat|DEBUG|Best move of articuno (p1): freezedry: 35.125 [33, 39]
+|chat|DEBUG|Best move of walrein (p2): surf: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p1a: Walrein|Max Guard|p1a: Walrein
+|-singleturn|p1a: Walrein|Max Guard
+|move|p2a: Kommo-o|Max Knuckle|p1a: Walrein
+|-activate|p1a: Walrein|move: Max Guard
+|-weather|Hail|[upkeep]
+|-damage|p2a: Kommo-o|169502 psn|[from] Hail
+|-heal|p1a: Walrein|67100|[from] item: Leftovers
+|-damage|p2a: Kommo-o|138502 psn|[from] psn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill articuno kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-articuno-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: freezedry healbell toxic roost
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 191 vs 161
+|chat|DEBUG|HP: 84 vs 305
+|chat|DEBUG|Best move of articuno (p1): freezedry: 35.125 [33, 39]
+|chat|DEBUG|Best move of walrein (p2): surf: 75.3125 [69, 82]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p2a: Kommo-o|Max Knuckle|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|23100
+|-boost|p2a: Kommo-o|atk|1
+|move|p1a: Walrein|Max Hailstorm|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-crit|p2a: Kommo-o
+|-damage|p2a: Kommo-o|0 fnt
+|faint|p2a: Kommo-o
+|-weather|Hail|[upkeep]
+|-heal|p1a: Walrein|26100|[from] item: Leftovers
+|-end|p1a: Walrein|Dynamax
+|-heal|p1a: Walrein|26100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azumarill|Azumarill, L84, M|98305 psn
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to kommoo (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p1a: Walrein|Protect|p1a: Walrein
+|-singleturn|p1a: Walrein|Protect
+|move|p2a: Azumarill|Play Rough|p1a: Walrein
+|-activate|p1a: Walrein|move: Protect
+|-weather|Hail|[upkeep]
+|-damage|p2a: Azumarill|79305 psn|[from] Hail
+|-heal|p1a: Walrein|32100|[from] item: Leftovers
+|-damage|p2a: Azumarill|41305 psn|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: closecombat clangoroussoul clangingscales poisonjab
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 182 vs 161
+|chat|DEBUG|HP: 251 vs 292
+|chat|DEBUG|Created a new Strategy for kommoo vs walrein:
+|chat|DEBUG|>[closecombat: 248.125 [228, 270], closecombat: 248.125 [228, 270], closecombat: 248.125 [228, 270]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 248.125 [228, 270]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 181.75 [168, 198]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Protect||[still]
+|-fail|p1a: Walrein
+|move|p2a: Azumarill|Play Rough|p1a: Walrein
+|-damage|p1a: Walrein|0 fnt
+|faint|p1a: Walrein
+|-weather|none
+|-damage|p2a: Azumarill|3305 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|switch|p1a: Tauros|Tauros, L82, M|100100
+|-damage|p1a: Tauros|88100|[from] Spikes
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill kommoo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "walrein"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-kommoo -- darmanitangalar-lanturn-walrein
+|chat|DEBUG|Own moves: closecombat clangoroussoul clangingscales poisonjab
+|chat|DEBUG|Enemy moves: icebeam protect surf toxic
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 161
+|chat|DEBUG|HP: 184 vs 210
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 248.125 [228, 270]
+|chat|DEBUG|Best move of walrein (p2): icebeam: 181.75 [168, 198]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Throat Chop|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|0 fnt
+|faint|p2a: Azumarill
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Inv2468<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">scolipede dhelmise coalossal azumarill articuno kommoo</h1>

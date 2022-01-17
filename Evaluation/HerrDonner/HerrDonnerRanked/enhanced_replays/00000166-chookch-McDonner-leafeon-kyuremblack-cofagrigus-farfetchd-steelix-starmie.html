@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490243644</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490243644|init|battle
+|title|chookch vs. McDonner
+|j|☆chookch
+|j|☆McDonner
+|gametype|singles
+|player|p1|chookch|marshal|1236
+|player|p2|McDonner|265|1237
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Meowstic|Meowstic-F, L86, F|100/100
+|switch|p2a: Leafeon|Leafeon, L86, F|252/252
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon kyuremblack cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: leafeon vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kyuremblack vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['kyuremblack', 'cofagrigus', 'farfetchd', 'steelix', 'leafeon']}}
+|chat|DEBUG|Speed: 213 - 228
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['synthesis', 'doubleedge', 'xscissor', 'leafblade']
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'psychic', 'shadowball', 'thunderbolt']
+|chat|DEBUG|Best own move: ('xscissor', 143.375)
+|chat|DEBUG|Best enemy move: ('psychic', 108.625)
+|chat|DEBUG|Picking the most damaging move from leafeon against meowsticf
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Crobat|Crobat, L82, F|100/100
+|move|p2a: Leafeon|X-Scissor|p1a: Crobat
+|-resisted|p1a: Crobat
+|-damage|p1a: Crobat|92/100
+|-damage|p2a: Leafeon|227/252|[from] item: Life Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon kyuremblack cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: leafeon vs crobat
+|chat|DEBUG|Updating information about crobat
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: kyuremblack vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: kyuremblack vs. crobat
+|chat|DEBUG|Getting matchup: cofagrigus vs. crobat
+|chat|DEBUG|Getting matchup: farfetchd vs. crobat
+|chat|DEBUG|Getting matchup: steelix vs. crobat
+|chat|DEBUG|Getting matchup: starmie vs. crobat
+|chat|DEBUG|Getting matchup: leafeon vs. crobat
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['kyuremblack', 'cofagrigus', 'farfetchd', 'steelix', 'leafeon']}, 'crobat': {'checks': [], 'counter': ['kyuremblack', 'cofagrigus', 'steelix', 'starmie']}}
+|chat|DEBUG|Speed: 213 - 260
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['synthesis', 'doubleedge', 'xscissor', 'leafblade']
+|chat|DEBUG|Most likely moves for: crobat
+|chat|DEBUG|>['bravebird', 'defog', 'roost', 'toxic']
+|chat|DEBUG|Best own move: ('doubleedge', 107.6875)
+|chat|DEBUG|Best enemy move: ('bravebird', 164.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: kyuremblack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyurem|Kyurem-Black, L73|303/303
+|-ability|p2a: Kyurem|Teravolt
+|move|p1a: Crobat|Brave Bird|p2a: Kyurem
+|-damage|p2a: Kyurem|177/303
+|-damage|p1a: Crobat|77/100|[from] Recoil
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon kyuremblack cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: kyuremblack vs crobat
+|chat|DEBUG|Updating information about crobat
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: kyuremblack vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. crobat
+|chat|DEBUG|Getting matchup: cofagrigus vs. crobat
+|chat|DEBUG|Getting matchup: farfetchd vs. crobat
+|chat|DEBUG|Getting matchup: steelix vs. crobat
+|chat|DEBUG|Getting matchup: starmie vs. crobat
+|chat|DEBUG|Getting matchup: kyuremblack vs. crobat
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['leafeon', 'cofagrigus', 'farfetchd', 'steelix', 'kyuremblack']}, 'crobat': {'checks': [], 'counter': ['cofagrigus', 'steelix', 'starmie', 'kyuremblack']}}
+|chat|DEBUG|Speed: 181 - 260
+|chat|DEBUG|Most likely moves for: kyuremblack
+|chat|DEBUG|>['fusionbolt', 'iciclespear', 'dragondance', 'outrage']
+|chat|DEBUG|Most likely moves for: crobat
+|chat|DEBUG|>['bravebird', 'defog', 'roost', 'toxic']
+|chat|DEBUG|Best own move: ('fusionbolt', 189.125)
+|chat|DEBUG|Best enemy move: ('bravebird', 118.3125)
+|chat|DEBUG|Picking the most damaging move from kyuremblack against crobat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Kyurem
+|-damage|p2a: Kyurem|51/303
+|-damage|p1a: Crobat|61/100|[from] Recoil
+|move|p2a: Kyurem|Fusion Bolt|p1a: Crobat
+|-supereffective|p1a: Crobat
+|-damage|p1a: Crobat|0 fnt
+|faint|p1a: Crobat
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyurem|Kyurem-White, L74|100/100
+|-ability|p1a: Kyurem|Turboblaze
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon kyuremblack cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: kyuremblack vs kyuremwhite
+|chat|DEBUG|Updating information about kyuremwhite
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: kyuremblack vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: kyuremblack vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['leafeon', 'cofagrigus', 'farfetchd', 'steelix', 'kyuremblack']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 181 - 184
+|chat|DEBUG|Most likely moves for: kyuremblack
+|chat|DEBUG|>['fusionbolt', 'iciclespear', 'dragondance', 'outrage']
+|chat|DEBUG|Most likely moves for: kyuremwhite
+|chat|DEBUG|>['dracometeor', 'fusionflare', 'icebeam', 'roost']
+|chat|DEBUG|Best own move: ('outrage', 345.25)
+|chat|DEBUG|Best enemy move: ('dracometeor', 381.125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat kyuremwhite with kyuremblack
+|chat|DEBUG|Picking the most damaging move from kyuremblack against kyuremwhite
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Ice Beam|p2a: Kyurem
+|-damage|p2a: Kyurem|0 fnt
+|faint|p2a: Kyurem
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Starmie|Starmie, L84|238/238
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: kyuremblack vs kyuremwhite
+|chat|DEBUG|Updating information about kyuremwhite
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: kyuremblack vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: kyuremblack vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['leafeon', 'cofagrigus', 'farfetchd', 'steelix', 'kyuremblack']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Starmie|Psyshock|p1a: Kyurem
+|-damage|p1a: Kyurem|57/100
+|-damage|p2a: Starmie|215/238|[from] item: Life Orb
+|move|p1a: Kyurem|Draco Meteor|p2a: Starmie
+|-damage|p2a: Starmie|52/238
+|-unboost|p1a: Kyurem|spa|2
+|-heal|p1a: Kyurem|63/100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: starmie vs kyuremwhite
+|chat|DEBUG|Updating information about kyuremwhite
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['leafeon', 'cofagrigus', 'farfetchd', 'steelix']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 241 - 184
+|chat|DEBUG|Most likely moves for: starmie
+|chat|DEBUG|>['recover', 'psyshock', 'scald', 'thunderbolt']
+|chat|DEBUG|Most likely moves for: kyuremwhite
+|chat|DEBUG|>['dracometeor', 'fusionflare', 'icebeam', 'roost']
+|chat|DEBUG|Best own move: ('psyshock', 96.1875)
+|chat|DEBUG|Best enemy move: ('dracometeor', 173.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat kyuremwhite with starmie
+|chat|DEBUG|Picking the most damaging move from starmie against kyuremwhite
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Meowstic|Meowstic-F, L86, F|100/100
+|move|p2a: Starmie|Psyshock|p1a: Meowstic
+|-resisted|p1a: Meowstic
+|-damage|p1a: Meowstic|72/100
+|-damage|p2a: Starmie|29/238|[from] item: Life Orb
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: starmie vs kyuremwhite
+|chat|DEBUG|Updating information about kyuremwhite
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['leafeon', 'cofagrigus', 'farfetchd', 'steelix']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 241 - 184
+|chat|DEBUG|Most likely moves for: starmie
+|chat|DEBUG|>['recover', 'psyshock', 'scald', 'thunderbolt']
+|chat|DEBUG|Most likely moves for: kyuremwhite
+|chat|DEBUG|>['dracometeor', 'earthpower', 'icebeam', 'roost']
+|chat|DEBUG|Best own move: ('psyshock', 96.1875)
+|chat|DEBUG|Best enemy move: ('dracometeor', 173.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat kyuremwhite with starmie
+|chat|DEBUG|Picking the most damaging move from starmie against kyuremwhite
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Leafeon|Leafeon, L86, F|227/252
+|move|p1a: Meowstic|Shadow Ball|p2a: Leafeon
+|-damage|p2a: Leafeon|133/252
+|-unboost|p2a: Leafeon|spd|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: starmie vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['leafeon', 'cofagrigus', 'farfetchd', 'steelix']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 241 - 228
+|chat|DEBUG|Most likely moves for: starmie
+|chat|DEBUG|>['recover', 'psyshock', 'scald', 'thunderbolt']
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'psychic', 'shadowball', 'thunderbolt']
+|chat|DEBUG|Best own move: ('scald', 90.875)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 122.75)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: leafeon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Shadow Ball|p2a: Leafeon
+|-damage|p2a: Leafeon|0 fnt
+|faint|p2a: Leafeon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cofagrigus|Cofagrigus, L86, F|240/240
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>leafeon cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: leafeon vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['cofagrigus', 'farfetchd', 'steelix', 'leafeon']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 213 - 228
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['synthesis', 'doubleedge', 'xscissor', 'leafblade']
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'psychic', 'shadowball', 'thunderbolt']
+|chat|DEBUG|Best own move: ('xscissor', 143.375)
+|chat|DEBUG|Best enemy move: ('psychic', 108.625)
+|chat|DEBUG|Picking the most damaging move from leafeon against meowsticf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Shadow Ball|p2a: Cofagrigus
+|-supereffective|p2a: Cofagrigus
+|-damage|p2a: Cofagrigus|110/240
+|move|p2a: Cofagrigus|Shadow Ball|p1a: Meowstic
+|-supereffective|p1a: Meowstic
+|-damage|p1a: Meowstic|2/100
+|-heal|p2a: Cofagrigus|125/240|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: leafeon vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: leafeon vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: leafeon vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['cofagrigus', 'farfetchd', 'steelix', 'leafeon']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>Switching to counter: cofagrigus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Shadow Ball|p2a: Cofagrigus
+|-supereffective|p2a: Cofagrigus
+|-damage|p2a: Cofagrigus|0 fnt
+|faint|p2a: Cofagrigus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Farfetch’d|Farfetch’d, L90, M|239/239
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: cofagrigus vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['farfetchd', 'steelix', 'cofagrigus']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 101 - 228
+|chat|DEBUG|Most likely moves for: cofagrigus
+|chat|DEBUG|>['shadowball', 'memento', 'willowisp', 'bodypress']
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'psychic', 'shadowball', 'thunderbolt']
+|chat|DEBUG|Best own move: ('shadowball', 181.75)
+|chat|DEBUG|Best enemy move: ('shadowball', 92.0)
+|chat|DEBUG|Picking the most damaging move from cofagrigus against meowsticf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyurem|Kyurem-White, L74|63/100
+|-ability|p1a: Kyurem|Turboblaze
+|move|p2a: Farfetch’d|Knock Off|p1a: Kyurem
+|-damage|p1a: Kyurem|37/100
+|-enditem|p1a: Kyurem|Leftovers|[from] move: Knock Off|[of] p2a: Farfetch’d
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cofagrigus farfetchd steelix starmie
+|chat|DEBUG|Matchup: cofagrigus vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['farfetchd', 'steelix', 'cofagrigus']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 101 - 228
+|chat|DEBUG|Most likely moves for: cofagrigus
+|chat|DEBUG|>['shadowball', 'memento', 'willowisp', 'bodypress']
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'psychic', 'shadowball', 'thunderbolt']
+|chat|DEBUG|Best own move: ('shadowball', 181.75)
+|chat|DEBUG|Best enemy move: ('shadowball', 92.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('shadowball', 181.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Ice Beam|p2a: Farfetch’d
+|-supereffective|p2a: Farfetch’d
+|-damage|p2a: Farfetch’d|0 fnt
+|faint|p2a: Farfetch’d
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Steelix|Steelix, L84, F|263/263
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd steelix starmie
+|chat|DEBUG|Matchup: cofagrigus vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: cofagrigus vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: cofagrigus vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['farfetchd', 'steelix', 'cofagrigus']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>Switching to counter: farfetchd
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Earth Power|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|69/263
+|move|p2a: Steelix|Head Smash|p1a: Kyurem
+|-supereffective|p1a: Kyurem
+|-damage|p1a: Kyurem|0 fnt
+|faint|p1a: Kyurem
+|-heal|p2a: Steelix|85/263|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mudsdale|Mudsdale, L82, M|100/100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd steelix starmie
+|chat|DEBUG|Matchup: farfetchd vs meowsticf
+|chat|DEBUG|Updating information about meowsticf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leek
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['steelix', 'farfetchd']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 159 - 228
+|chat|DEBUG|Most likely moves for: farfetchd
+|chat|DEBUG|>['leafblade', 'bravebird', 'closecombat', 'knockoff']
+|chat|DEBUG|Most likely moves for: meowsticf
+|chat|DEBUG|>['nastyplot', 'psychic', 'shadowball', 'thunderbolt']
+|chat|DEBUG|Best own move: ('knockoff', 163.75)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 143.375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('knockoff', 163.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Starmie|Starmie, L84|29/238
+|move|p1a: Mudsdale|Earthquake|p2a: Starmie
+|-damage|p2a: Starmie|0 fnt
+|faint|p2a: Starmie
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Steelix|Steelix, L84, F|85/263
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd steelix starmie
+|chat|DEBUG|Matchup: farfetchd vs kyuremwhite
+|chat|DEBUG|Updating information about kyuremwhite
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leek
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: starmie vs. meowsticf
+|chat|DEBUG|Getting matchup: steelix vs. meowsticf
+|chat|DEBUG|Getting matchup: farfetchd vs. meowsticf
+|chat|DEBUG|Getting matchup: starmie vs. kyuremwhite
+|chat|DEBUG|Getting matchup: steelix vs. kyuremwhite
+|chat|DEBUG|Getting matchup: farfetchd vs. kyuremwhite
+|chat|DEBUG|Checks / Counter: {'meowsticf': {'checks': [], 'counter': ['steelix', 'farfetchd']}, 'kyuremwhite': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 159 - 184
+|chat|DEBUG|Most likely moves for: farfetchd
+|chat|DEBUG|>['leafblade', 'bravebird', 'closecombat', 'knockoff']
+|chat|DEBUG|Most likely moves for: kyuremwhite
+|chat|DEBUG|>['dracometeor', 'earthpower', 'icebeam', 'roost']
+|chat|DEBUG|Best own move: ('closecombat', 206.25)
+|chat|DEBUG|Best enemy move: ('icebeam', 280.25)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat kyuremwhite with farfetchd
+|chat|DEBUG|Picking the most damaging move from farfetchd against kyuremwhite
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mudsdale|Earthquake|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|0 fnt
+|faint|p2a: Steelix
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>chookch<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">leafeon kyuremblack cofagrigus farfetchd steelix starmie</h1>

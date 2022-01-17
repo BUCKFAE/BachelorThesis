@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490282113</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490282113|init|battle
+|title|DKkarma vs. McDonner
+|j|☆DKkarma
+|j|☆McDonner
+|gametype|singles
+|player|p1|DKkarma|1|1072
+|player|p2|McDonner|265|1065
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Drapion|Drapion, L82, F|100/100
+|switch|p2a: Grimmsnarl|Grimmsnarl, L82, M|290/290
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid glastrier lopunny scizor virizion
+|chat|DEBUG|Matchup: grimmsnarl vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: glastrier vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['glastrier']}}
+|chat|DEBUG|Speed: 146 - 203
+|chat|DEBUG|Most likely moves for: grimmsnarl
+|chat|DEBUG|>['spiritbreak', 'thunderwave', 'lightscreen', 'reflect']
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('spiritbreak', 76.75)
+|chat|DEBUG|Best enemy move: ('poisonjab', 192.375)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: glastrier
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Glastrier|Glastrier, L82|298/298
+|move|p1a: Drapion|Poison Jab|p2a: Glastrier
+|-damage|p2a: Glastrier|214/298
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid glastrier lopunny scizor virizion
+|chat|DEBUG|Matchup: glastrier vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: glastrier vs. drapion
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['glastrier']}}
+|chat|DEBUG|Speed: 96 - 203
+|chat|DEBUG|Most likely moves for: glastrier
+|chat|DEBUG|>['closecombat', 'iciclecrash', 'highhorsepower', 'swordsdance']
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('highhorsepower', 150.75)
+|chat|DEBUG|Best enemy move: ('knockoff', 69.5625)
+|chat|DEBUG|Picking the most damaging move from glastrier against drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|100/100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|move|p2a: Glastrier|High Horsepower|p1a: Groudon
+|-damage|p1a: Groudon|76/100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|82/100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid glastrier lopunny scizor virizion
+|chat|DEBUG|Matchup: glastrier vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: glastrier vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. groudon
+|chat|DEBUG|Getting matchup: grimmsnarl vs. groudon
+|chat|DEBUG|Getting matchup: lopunny vs. groudon
+|chat|DEBUG|Getting matchup: scizor vs. groudon
+|chat|DEBUG|Getting matchup: virizion vs. groudon
+|chat|DEBUG|Getting matchup: glastrier vs. groudon
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['glastrier']}, 'groudon': {'checks': [], 'counter': ['glastrier']}}
+|chat|DEBUG|Speed: 96 - 174
+|chat|DEBUG|Most likely moves for: glastrier
+|chat|DEBUG|>['closecombat', 'iciclecrash', 'highhorsepower', 'swordsdance']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('iciclecrash', 186.5)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 104.5)
+|chat|DEBUG|Picking the most damaging move from glastrier against groudon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Heat Crash|p2a: Glastrier
+|-supereffective|p2a: Glastrier
+|-damage|p2a: Glastrier|144/298
+|move|p2a: Glastrier|Icicle Crash|p1a: Groudon
+|-supereffective|p1a: Groudon
+|-damage|p1a: Groudon|12/100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|18/100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid glastrier lopunny scizor virizion
+|chat|DEBUG|Matchup: glastrier vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: glastrier vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. groudon
+|chat|DEBUG|Getting matchup: grimmsnarl vs. groudon
+|chat|DEBUG|Getting matchup: lopunny vs. groudon
+|chat|DEBUG|Getting matchup: scizor vs. groudon
+|chat|DEBUG|Getting matchup: virizion vs. groudon
+|chat|DEBUG|Getting matchup: glastrier vs. groudon
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['glastrier']}, 'groudon': {'checks': [], 'counter': ['glastrier']}}
+|chat|DEBUG|Speed: 96 - 174
+|chat|DEBUG|Most likely moves for: glastrier
+|chat|DEBUG|>['closecombat', 'iciclecrash', 'highhorsepower', 'swordsdance']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('iciclecrash', 186.5)
+|chat|DEBUG|Best enemy move: ('precipiceblades', 104.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('iciclecrash', 186.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Precipice Blades|p2a: Glastrier
+|-crit|p2a: Glastrier
+|-damage|p2a: Glastrier|0 fnt
+|faint|p2a: Glastrier
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|24/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Grimmsnarl|Grimmsnarl, L82, M|290/290
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid lopunny scizor virizion
+|chat|DEBUG|Matchup: glastrier vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: glastrier vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. groudon
+|chat|DEBUG|Getting matchup: grimmsnarl vs. groudon
+|chat|DEBUG|Getting matchup: lopunny vs. groudon
+|chat|DEBUG|Getting matchup: scizor vs. groudon
+|chat|DEBUG|Getting matchup: virizion vs. groudon
+|chat|DEBUG|Getting matchup: glastrier vs. groudon
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['glastrier']}, 'groudon': {'checks': [], 'counter': ['glastrier']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Heavy Slam|p2a: Grimmsnarl
+|-supereffective|p2a: Grimmsnarl
+|-damage|p2a: Grimmsnarl|60/290
+|move|p2a: Grimmsnarl|Spirit Break|p1a: Groudon
+|-damage|p1a: Groudon|0 fnt
+|faint|p1a: Groudon
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gardevoir|Gardevoir, L82, M|100/100
+|-ability|p1a: Gardevoir|Prankster|[from] ability: Trace|[of] p2a: Grimmsnarl
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid lopunny scizor virizion
+|chat|DEBUG|Matchup: grimmsnarl vs groudon
+|chat|DEBUG|Updating information about groudon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. groudon
+|chat|DEBUG|Getting matchup: lopunny vs. groudon
+|chat|DEBUG|Getting matchup: scizor vs. groudon
+|chat|DEBUG|Getting matchup: virizion vs. groudon
+|chat|DEBUG|Getting matchup: grimmsnarl vs. groudon
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'groudon': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 146 - 174
+|chat|DEBUG|Most likely moves for: grimmsnarl
+|chat|DEBUG|>['spiritbreak', 'thunderwave', 'lightscreen', 'reflect']
+|chat|DEBUG|Most likely moves for: groudon
+|chat|DEBUG|>['heatcrash', 'heavyslam', 'precipiceblades', 'swordsdance']
+|chat|DEBUG|Best own move: ('spiritbreak', 71.125)
+|chat|DEBUG|Best enemy move: ('heavyslam', 235.875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('spiritbreak', 71.125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Moonblast|p2a: Grimmsnarl
+|-supereffective|p2a: Grimmsnarl
+|-damage|p2a: Grimmsnarl|0 fnt
+|faint|p2a: Grimmsnarl
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Virizion|Virizion, L82|283/283
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grimmsnarl araquanid lopunny scizor virizion
+|chat|DEBUG|Matchup: grimmsnarl vs gardevoir
+|chat|DEBUG|Updating information about gardevoir
+|chat|DEBUG|Ignoring ability of gardevoir for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: virizion vs. gardevoir
+|chat|DEBUG|Getting matchup: grimmsnarl vs. gardevoir
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 146 - 178
+|chat|DEBUG|Most likely moves for: grimmsnarl
+|chat|DEBUG|>['spiritbreak', 'thunderwave', 'lightscreen', 'reflect']
+|chat|DEBUG|Most likely moves for: gardevoir
+|chat|DEBUG|>['calmmind', 'moonblast', 'mysticalfire', 'psyshock']
+|chat|DEBUG|Best own move: ('spiritbreak', 112.8125)
+|chat|DEBUG|Best enemy move: ('moonblast', 268.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat gardevoir with grimmsnarl
+|chat|DEBUG|Picking the most damaging move from grimmsnarl against gardevoir
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, F|100/100
+|move|p2a: Virizion|Leaf Blade|p1a: Drapion
+|-resisted|p1a: Drapion
+|-damage|p1a: Drapion|85/100
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor virizion
+|chat|DEBUG|Matchup: grimmsnarl vs gardevoir
+|chat|DEBUG|Updating information about gardevoir
+|chat|DEBUG|Ignoring ability of gardevoir for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lightclay
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: grimmsnarl vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: virizion vs. gardevoir
+|chat|DEBUG|Getting matchup: grimmsnarl vs. gardevoir
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Virizion|Close Combat|p1a: Drapion
+|-damage|p1a: Drapion|48/100
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|move|p1a: Drapion|Poison Jab|p2a: Virizion
+|-supereffective|p2a: Virizion
+|-damage|p2a: Virizion|0 fnt
+|faint|p2a: Virizion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, M|243/243
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor virizion
+|chat|DEBUG|Matchup: virizion vs gardevoir
+|chat|DEBUG|Updating information about gardevoir
+|chat|DEBUG|Ignoring ability of gardevoir for now!
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: virizion vs. gardevoir
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 224 - 178
+|chat|DEBUG|Most likely moves for: virizion
+|chat|DEBUG|>['swordsdance', 'closecombat', 'stoneedge', 'leafblade']
+|chat|DEBUG|Most likely moves for: gardevoir
+|chat|DEBUG|>['calmmind', 'moonblast', 'mysticalfire', 'psyshock']
+|chat|DEBUG|Best own move: ('leafblade', 108.625)
+|chat|DEBUG|Best enemy move: ('psyshock', 234.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat gardevoir with virizion
+|chat|DEBUG|Picking the most damaging move from virizion against gardevoir
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Manectric|Manectric, L86, M|100/100
+|move|p2a: Scizor|Superpower|p1a: Manectric
+|-damage|p1a: Manectric|51/100
+|-unboost|p2a: Scizor|atk|1
+|-unboost|p2a: Scizor|def|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor virizion
+|chat|DEBUG|Matchup: virizion vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: virizion vs. gardevoir
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 224 - 203
+|chat|DEBUG|Most likely moves for: virizion
+|chat|DEBUG|>['swordsdance', 'closecombat', 'stoneedge', 'leafblade']
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('closecombat', 97.625)
+|chat|DEBUG|Best enemy move: ('poisonjab', 181.75)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat drapion with virizion
+|chat|DEBUG|Picking the most damaging move from virizion against drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lopunny|Lopunny, L90, F|263/263
+|move|p1a: Manectric|Flamethrower|p2a: Lopunny
+|-damage|p2a: Lopunny|199/263
+|-status|p2a: Lopunny|tox|[from] item: Toxic Orb
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: virizion vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: virizion vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: virizion vs. gardevoir
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mesprit|Mesprit, L84|100/100
+|move|p2a: Lopunny|Close Combat|p1a: Mesprit
+|-resisted|p1a: Mesprit
+|-damage|p1a: Mesprit|87/100
+|-unboost|p2a: Lopunny|def|1
+|-unboost|p2a: Lopunny|spd|1
+|-heal|p1a: Mesprit|93/100|[from] item: Leftovers
+|-damage|p2a: Lopunny|183/263 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 150 - 203
+|chat|DEBUG|Most likely moves for: scizor
+|chat|DEBUG|>['bulletpunch', 'superpower', 'uturn', 'roost']
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('superpower', 84.6875)
+|chat|DEBUG|Best enemy move: ('knockoff', 87.9375)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat drapion with scizor
+|chat|DEBUG|Picking the most damaging move from scizor against drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, M|243/243
+|move|p1a: Mesprit|Psychic|p2a: Scizor
+|-resisted|p2a: Scizor
+|-damage|p2a: Scizor|191/243
+|-heal|p1a: Mesprit|99/100|[from] item: Leftovers
+|-heal|p2a: Scizor|206/243|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs manectric
+|chat|DEBUG|Updating information about manectric
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicescarf
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. manectric
+|chat|DEBUG|Getting matchup: lopunny vs. manectric
+|chat|DEBUG|Getting matchup: scizor vs. manectric
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}, 'manectric': {'checks': [], 'counter': ['lopunny']}}
+|chat|DEBUG|Speed: 150 - 230
+|chat|DEBUG|Most likely moves for: scizor
+|chat|DEBUG|>['bulletpunch', 'superpower', 'uturn', 'roost']
+|chat|DEBUG|Most likely moves for: manectric
+|chat|DEBUG|>['overheat', 'switcheroo', 'thunderbolt', 'voltswitch']
+|chat|DEBUG|Best own move: ('superpower', 127.1875)
+|chat|DEBUG|Best enemy move: ('overheat', 461.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: lopunny
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Manectric|Manectric, L86, M|51/100
+|-start|p2a: Scizor|Dynamax
+|-heal|p2a: Scizor|412/486|[silent]
+|move|p2a: Scizor|Max Flutterby|p1a: Manectric
+|-damage|p1a: Manectric|0 fnt
+|faint|p1a: Manectric
+|-heal|p2a: Scizor|427/486|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, F|48/100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: lopunny vs manectric
+|chat|DEBUG|Updating information about manectric
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: toxicorb
+|chat|DEBUG|>Enemy Item: choicescarf
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. manectric
+|chat|DEBUG|Getting matchup: scizor vs. manectric
+|chat|DEBUG|Getting matchup: lopunny vs. manectric
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}, 'manectric': {'checks': [], 'counter': ['lopunny']}}
+|chat|DEBUG|Speed: 240 - 230
+|chat|DEBUG|Most likely moves for: lopunny
+|chat|DEBUG|>['switcheroo', 'closecombat', 'facade', 'healingwish']
+|chat|DEBUG|Most likely moves for: manectric
+|chat|DEBUG|>['overheat', 'switcheroo', 'thunderbolt', 'voltswitch']
+|chat|DEBUG|Best own move: ('closecombat', 105.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 93.25)
+|chat|DEBUG|Picking the most damaging move from lopunny against manectric
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Knock Off|p2a: Scizor
+|-damage|p2a: Scizor|298/486
+|-enditem|p2a: Scizor|Leftovers|[from] move: Knock Off|[of] p1a: Drapion
+|move|p2a: Scizor|Max Knuckle|p1a: Drapion
+|-damage|p1a: Drapion|22/100
+|-boost|p2a: Scizor|atk|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: lopunny vs mesprit
+|chat|DEBUG|Updating information about mesprit
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: toxicorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. manectric
+|chat|DEBUG|Getting matchup: scizor vs. manectric
+|chat|DEBUG|Getting matchup: lopunny vs. manectric
+|chat|DEBUG|Getting matchup: araquanid vs. mesprit
+|chat|DEBUG|Getting matchup: scizor vs. mesprit
+|chat|DEBUG|Getting matchup: lopunny vs. mesprit
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}, 'manectric': {'checks': [], 'counter': ['lopunny']}, 'mesprit': {'checks': [], 'counter': ['scizor']}}
+|chat|DEBUG|Speed: 240 - 183
+|chat|DEBUG|Most likely moves for: lopunny
+|chat|DEBUG|>['switcheroo', 'closecombat', 'facade', 'healingwish']
+|chat|DEBUG|Most likely moves for: mesprit
+|chat|DEBUG|>['energyball', 'icebeam', 'nastyplot', 'psychic']
+|chat|DEBUG|Best own move: ('facade', 62.9375)
+|chat|DEBUG|Best enemy move: ('psychic', 89.1875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: scizor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|DKkarma has 120 seconds left.
+|move|p1a: Drapion|Knock Off|p2a: Scizor
+|-damage|p2a: Scizor|205/486
+|move|p2a: Scizor|Max Knuckle|p1a: Drapion
+|-damage|p1a: Drapion|0 fnt
+|-boost|p2a: Scizor|atk|1
+|faint|p1a: Drapion
+|-end|p2a: Scizor|Dynamax
+|-heal|p2a: Scizor|103/243|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|DKkarma has 90 seconds left.
+|switch|p1a: Mesprit|Mesprit, L84|99/100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs mesprit
+|chat|DEBUG|Updating information about mesprit
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. manectric
+|chat|DEBUG|Getting matchup: lopunny vs. manectric
+|chat|DEBUG|Getting matchup: scizor vs. manectric
+|chat|DEBUG|Getting matchup: araquanid vs. mesprit
+|chat|DEBUG|Getting matchup: lopunny vs. mesprit
+|chat|DEBUG|Getting matchup: scizor vs. mesprit
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': []}, 'gardevoir': {'checks': [], 'counter': []}, 'manectric': {'checks': [], 'counter': ['lopunny']}, 'mesprit': {'checks': [], 'counter': ['scizor']}}
+|chat|DEBUG|Speed: 150 - 183
+|chat|DEBUG|Most likely moves for: scizor
+|chat|DEBUG|>['bulletpunch', 'superpower', 'uturn', 'roost']
+|chat|DEBUG|Most likely moves for: mesprit
+|chat|DEBUG|>['energyball', 'icebeam', 'nastyplot', 'psychic']
+|chat|DEBUG|Best own move: ('uturn', 150.625)
+|chat|DEBUG|Best enemy move: ('psychic', 56.875)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mesprit|Ice Beam|p2a: Scizor
+|-resisted|p2a: Scizor
+|-damage|p2a: Scizor|64/243
+|move|p2a: Scizor|U-turn|p1a: Mesprit
+|-supereffective|p1a: Mesprit
+|-crit|p1a: Mesprit
+|-damage|p1a: Mesprit|0 fnt
+|faint|p1a: Mesprit
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Araquanid|Araquanid, L80, M|240/240
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, F|100/100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. mesprit
+|chat|DEBUG|Getting matchup: lopunny vs. mesprit
+|chat|DEBUG|Getting matchup: scizor vs. mesprit
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['scizor']}, 'gardevoir': {'checks': [], 'counter': []}, 'mesprit': {'checks': [], 'counter': ['scizor']}}
+|chat|DEBUG|Speed: 150 - 203
+|chat|DEBUG|Most likely moves for: scizor
+|chat|DEBUG|>['bulletpunch', 'superpower', 'uturn', 'roost']
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('superpower', 84.6875)
+|chat|DEBUG|Best enemy move: ('knockoff', 87.9375)
+|chat|DEBUG|Picking the most damaging move from scizor against drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Belly Drum|p1a: Linoone
+|-damage|p1a: Linoone|50/100
+|-setboost|p1a: Linoone|atk|6|[from] move: Belly Drum
+|-enditem|p1a: Linoone|Mago Berry|[eat]
+|-heal|p1a: Linoone|83/100|[from] item: Mago Berry
+|move|p2a: Araquanid|Liquidation|p1a: Linoone
+|-damage|p1a: Linoone|19/100
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs drapion
+|chat|DEBUG|Updating information about drapion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. drapion
+|chat|DEBUG|Getting matchup: lopunny vs. drapion
+|chat|DEBUG|Getting matchup: scizor vs. drapion
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Getting matchup: araquanid vs. mesprit
+|chat|DEBUG|Getting matchup: lopunny vs. mesprit
+|chat|DEBUG|Getting matchup: scizor vs. mesprit
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'drapion': {'checks': [], 'counter': ['scizor']}, 'gardevoir': {'checks': [], 'counter': []}, 'mesprit': {'checks': [], 'counter': ['scizor']}}
+|chat|DEBUG|Speed: 150 - 203
+|chat|DEBUG|Most likely moves for: scizor
+|chat|DEBUG|>['bulletpunch', 'superpower', 'uturn', 'roost']
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['earthquake', 'knockoff', 'poisonjab', 'swordsdance']
+|chat|DEBUG|Best own move: ('superpower', 84.6875)
+|chat|DEBUG|Best enemy move: ('earthquake', 60.6875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('superpower', 84.6875)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|DKkarma has 120 seconds left.
+|move|p1a: Linoone|Extreme Speed|p2a: Araquanid
+|-damage|p2a: Araquanid|0 fnt
+|faint|p2a: Araquanid
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, M|64/243
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs mesprit
+|chat|DEBUG|Updating information about mesprit
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. mesprit
+|chat|DEBUG|Getting matchup: lopunny vs. mesprit
+|chat|DEBUG|Getting matchup: scizor vs. mesprit
+|chat|DEBUG|Checks / Counter: {'gardevoir': {'checks': [], 'counter': []}, 'mesprit': {'checks': [], 'counter': ['scizor']}}
+|chat|DEBUG|Speed: 150 - 183
+|chat|DEBUG|Most likely moves for: scizor
+|chat|DEBUG|>['bulletpunch', 'superpower', 'uturn', 'roost']
+|chat|DEBUG|Most likely moves for: mesprit
+|chat|DEBUG|>['energyball', 'icebeam', 'nastyplot', 'psychic']
+|chat|DEBUG|Best own move: ('uturn', 150.625)
+|chat|DEBUG|Best enemy move: ('psychic', 56.875)
+|chat|DEBUG|Picking the most damaging move from scizor against mesprit
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Extreme Speed|p2a: Scizor
+|-resisted|p2a: Scizor
+|-damage|p2a: Scizor|0 fnt
+|faint|p2a: Scizor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lopunny|Lopunny, L90, F|183/263 tox
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>araquanid lopunny scizor
+|chat|DEBUG|Matchup: scizor vs mesprit
+|chat|DEBUG|Updating information about mesprit
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: araquanid vs. gardevoir
+|chat|DEBUG|Getting matchup: lopunny vs. gardevoir
+|chat|DEBUG|Getting matchup: scizor vs. gardevoir
+|chat|DEBUG|Getting matchup: araquanid vs. mesprit
+|chat|DEBUG|Getting matchup: lopunny vs. mesprit
+|chat|DEBUG|Getting matchup: scizor vs. mesprit
+|chat|DEBUG|Checks / Counter: {'gardevoir': {'checks': [], 'counter': []}, 'mesprit': {'checks': [], 'counter': ['scizor']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Linoone|Extreme Speed|p2a: Lopunny
+|-damage|p2a: Lopunny|0 fnt
+|faint|p2a: Lopunny
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>DKkarma<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">grimmsnarl araquanid glastrier lopunny scizor virizion</h1>

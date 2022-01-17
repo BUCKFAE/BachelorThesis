@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492013291</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1492013291|init|battle
+|title|Aivenier vs. McDonner
+|j|☆Aivenier
+|j|☆McDonner
+|gametype|singles
+|player|p1|Aivenier|1|1040
+|player|p2|McDonner|265|1072
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Regidrago|Regidrago, L78|100/100
+|switch|p2a: Perrserker|Perrserker, L86, M|261/261
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle wailord rhyperior
+|chat|DEBUG|Matchup: perrserker vs regidrago
+|chat|DEBUG|Updating information about regidrago
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: moltresgalar vs. regidrago
+|chat|DEBUG|Getting matchup: scyther vs. regidrago
+|chat|DEBUG|Getting matchup: orbeetle vs. regidrago
+|chat|DEBUG|Getting matchup: wailord vs. regidrago
+|chat|DEBUG|Received an unknown ability for Pokémon "wailord"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: waterveil
+|chat|DEBUG|Getting matchup: rhyperior vs. regidrago
+|chat|DEBUG|Getting matchup: perrserker vs. regidrago
+|chat|DEBUG|Checks / Counter: {'regidrago': {'checks': [], 'counter': ['wailord', 'rhyperior']}}
+|chat|DEBUG|Speed: 135 - 170
+|chat|DEBUG|Most likely moves for: perrserker
+|chat|DEBUG|>['fakeout', 'ironhead', 'crunch', 'closecombat']
+|chat|DEBUG|Most likely moves for: regidrago
+|chat|DEBUG|>['dragondance', 'firefang', 'hammerarm', 'outrage']
+|chat|DEBUG|Best own move: ('closecombat', 155.875)
+|chat|DEBUG|Best enemy move: ('hammerarm', 113.75)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: wailord
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Wailord|Wailord, L90, F|452/452
+|move|p1a: Regidrago|Dragon Dance|p1a: Regidrago
+|-boost|p1a: Regidrago|atk|1
+|-boost|p1a: Regidrago|spe|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle wailord rhyperior
+|chat|DEBUG|Matchup: wailord vs regidrago
+|chat|DEBUG|Updating information about regidrago
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicespecs
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: moltresgalar vs. regidrago
+|chat|DEBUG|Getting matchup: scyther vs. regidrago
+|chat|DEBUG|Getting matchup: orbeetle vs. regidrago
+|chat|DEBUG|Getting matchup: perrserker vs. regidrago
+|chat|DEBUG|Getting matchup: rhyperior vs. regidrago
+|chat|DEBUG|Getting matchup: wailord vs. regidrago
+|chat|DEBUG|Received an unknown ability for Pokémon "wailord"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: waterveil
+|chat|DEBUG|Checks / Counter: {'regidrago': {'checks': [], 'counter': ['rhyperior', 'wailord']}}
+|chat|DEBUG|Speed: 159 - 170
+|chat|DEBUG|Received an unknown ability for Pokémon "wailord"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: waterveil
+|chat|DEBUG|Most likely moves for: wailord
+|chat|DEBUG|>['hydropump', 'icebeam', 'waterspout', 'hypervoice']
+|chat|DEBUG|Most likely moves for: regidrago
+|chat|DEBUG|>['dragondance', 'firefang', 'hammerarm', 'outrage']
+|chat|DEBUG|Best own move: ('icebeam', 221.25)
+|chat|DEBUG|Best enemy move: ('outrage', 168.3125)
+|chat|DEBUG|Picking the most damaging move from wailord against regidrago
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regidrago|Dragon Dance|p1a: Regidrago
+|-boost|p1a: Regidrago|atk|1
+|-boost|p1a: Regidrago|spe|1
+|move|p2a: Wailord|Ice Beam|p1a: Regidrago
+|-supereffective|p1a: Regidrago
+|-damage|p1a: Regidrago|31/100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle wailord rhyperior
+|chat|DEBUG|Matchup: wailord vs regidrago
+|chat|DEBUG|Updating information about regidrago
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicespecs
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: moltresgalar vs. regidrago
+|chat|DEBUG|Getting matchup: scyther vs. regidrago
+|chat|DEBUG|Getting matchup: orbeetle vs. regidrago
+|chat|DEBUG|Getting matchup: perrserker vs. regidrago
+|chat|DEBUG|Getting matchup: rhyperior vs. regidrago
+|chat|DEBUG|Getting matchup: wailord vs. regidrago
+|chat|DEBUG|Received an unknown ability for Pokémon "wailord"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: waterveil
+|chat|DEBUG|Checks / Counter: {'regidrago': {'checks': [], 'counter': ['rhyperior', 'wailord']}}
+|chat|DEBUG|Speed: 159 - 170
+|chat|DEBUG|Received an unknown ability for Pokémon "wailord"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: waterveil
+|chat|DEBUG|Most likely moves for: wailord
+|chat|DEBUG|>['icebeam']
+|chat|DEBUG|Most likely moves for: regidrago
+|chat|DEBUG|>['dragondance', 'firefang', 'hammerarm', 'outrage']
+|chat|DEBUG|Best own move: ('icebeam', 221.25)
+|chat|DEBUG|Best enemy move: ('outrage', 168.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('icebeam', 221.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Regidrago|Dynamax
+|-heal|p1a: Regidrago|31/100|[silent]
+|move|p1a: Regidrago|Max Wyrmwind|p2a: Wailord
+|-damage|p2a: Wailord|0 fnt
+|faint|p2a: Wailord
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhyperior|Rhyperior, L82, M|323/323
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: wailord vs regidrago
+|chat|DEBUG|Updating information about regidrago
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choicespecs
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: moltresgalar vs. regidrago
+|chat|DEBUG|Getting matchup: scyther vs. regidrago
+|chat|DEBUG|Getting matchup: orbeetle vs. regidrago
+|chat|DEBUG|Getting matchup: perrserker vs. regidrago
+|chat|DEBUG|Getting matchup: rhyperior vs. regidrago
+|chat|DEBUG|Getting matchup: wailord vs. regidrago
+|chat|DEBUG|Received an unknown ability for Pokémon "wailord"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: waterveil
+|chat|DEBUG|Checks / Counter: {'regidrago': {'checks': [], 'counter': ['rhyperior', 'wailord']}}
+|chat|DEBUG|>>Switching to counter: rhyperior
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Regidrago|Max Knuckle|p2a: Rhyperior
+|-supereffective|p2a: Rhyperior
+|-damage|p2a: Rhyperior|191/323
+|-boost|p1a: Regidrago|atk|1
+|-enditem|p2a: Rhyperior|Weakness Policy
+|-boost|p2a: Rhyperior|atk|2|[from] item: Weakness Policy
+|-boost|p2a: Rhyperior|spa|2|[from] item: Weakness Policy
+|move|p2a: Rhyperior|Stone Edge|p1a: Regidrago
+|-damage|p1a: Regidrago|0 fnt
+|faint|p1a: Regidrago
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Leafeon|Leafeon, L86, M|100/100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: rhyperior vs regidrago
+|chat|DEBUG|Updating information about regidrago
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: weaknesspolicy
+|chat|DEBUG|>Enemy Item: broken_item
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: moltresgalar vs. regidrago
+|chat|DEBUG|Getting matchup: scyther vs. regidrago
+|chat|DEBUG|Getting matchup: orbeetle vs. regidrago
+|chat|DEBUG|Getting matchup: perrserker vs. regidrago
+|chat|DEBUG|Getting matchup: rhyperior vs. regidrago
+|chat|DEBUG|Checks / Counter: {'regidrago': {'checks': [], 'counter': ['rhyperior']}}
+|chat|DEBUG|Speed: 113 - 170
+|chat|DEBUG|Most likely moves for: rhyperior
+|chat|DEBUG|>['megahorn', 'earthquake', 'stoneedge', 'rockpolish']
+|chat|DEBUG|Most likely moves for: regidrago
+|chat|DEBUG|>['dragondance', 'firefang', 'hammerarm', 'outrage']
+|chat|DEBUG|Best own move: ('stoneedge', 214.0)
+|chat|DEBUG|Best enemy move: ('hammerarm', 97.125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('stoneedge', 214.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Moltres|Moltres-Galar, L75|259/259
+|move|p1a: Leafeon|Swords Dance|p1a: Leafeon
+|-boost|p1a: Leafeon|atk|2
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: rhyperior vs leafeon
+|chat|DEBUG|Updating information about leafeon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: moltresgalar vs. leafeon
+|chat|DEBUG|Getting matchup: scyther vs. leafeon
+|chat|DEBUG|Getting matchup: orbeetle vs. leafeon
+|chat|DEBUG|Getting matchup: perrserker vs. leafeon
+|chat|DEBUG|Getting matchup: rhyperior vs. leafeon
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'leafeon': {'checks': [], 'counter': ['moltresgalar', 'perrserker']}}
+|chat|DEBUG|Speed: 113 - 213
+|chat|DEBUG|Most likely moves for: rhyperior
+|chat|DEBUG|>['megahorn', 'earthquake', 'stoneedge', 'rockpolish']
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['doubleedge', 'knockoff', 'leafblade', 'swordsdance']
+|chat|DEBUG|Best own move: ('megahorn', 154.5)
+|chat|DEBUG|Best enemy move: ('leafblade', 334.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: moltresgalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Leafeon|Knock Off|p2a: Moltres
+|-resisted|p2a: Moltres
+|-damage|p2a: Moltres|145/259
+|-enditem|p2a: Moltres|Chesto Berry|[from] move: Knock Off|[of] p1a: Leafeon
+|-damage|p1a: Leafeon|91/100|[from] item: Life Orb
+|move|p2a: Moltres|Hurricane|p1a: Leafeon
+|-supereffective|p1a: Leafeon
+|-damage|p1a: Leafeon|2/100
+|-start|p1a: Leafeon|confusion
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: moltresgalar vs leafeon
+|chat|DEBUG|Updating information about leafeon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: chestoberry
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rhyperior vs. leafeon
+|chat|DEBUG|Getting matchup: scyther vs. leafeon
+|chat|DEBUG|Getting matchup: orbeetle vs. leafeon
+|chat|DEBUG|Getting matchup: perrserker vs. leafeon
+|chat|DEBUG|Getting matchup: moltresgalar vs. leafeon
+|chat|DEBUG|Checks / Counter: {'leafeon': {'checks': [], 'counter': ['perrserker', 'moltresgalar']}}
+|chat|DEBUG|Speed: 179 - 213
+|chat|DEBUG|Most likely moves for: moltresgalar
+|chat|DEBUG|>['fierywrath', 'nastyplot', 'rest', 'hurricane']
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['doubleedge', 'knockoff', 'leafblade', 'swordsdance']
+|chat|DEBUG|Best own move: ('hurricane', 236.625)
+|chat|DEBUG|Best enemy move: ('doubleedge', 106.8125)
+|chat|DEBUG|Picking the most damaging move from moltresgalar against leafeon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p1a: Leafeon|confusion
+|move|p1a: Leafeon|X-Scissor|p2a: Moltres
+|-damage|p2a: Moltres|0 fnt
+|faint|p2a: Moltres
+|-damage|p1a: Leafeon|0 fnt|[from] item: Life Orb
+|faint|p1a: Leafeon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Toxicroak|Toxicroak, L84, M|100/100
+|switch|p2a: Perrserker|Perrserker, L86, M|261/261
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker moltresgalar scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: moltresgalar vs leafeon
+|chat|DEBUG|Updating information about leafeon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rhyperior vs. leafeon
+|chat|DEBUG|Getting matchup: scyther vs. leafeon
+|chat|DEBUG|Getting matchup: orbeetle vs. leafeon
+|chat|DEBUG|Getting matchup: perrserker vs. leafeon
+|chat|DEBUG|Getting matchup: moltresgalar vs. leafeon
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'leafeon': {'checks': [], 'counter': ['perrserker', 'moltresgalar']}}
+|chat|DEBUG|Speed: 179 - 213
+|chat|DEBUG|Most likely moves for: moltresgalar
+|chat|DEBUG|>['fierywrath', 'nastyplot', 'rest', 'hurricane']
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['doubleedge', 'knockoff', 'leafblade', 'swordsdance']
+|chat|DEBUG|Best own move: ('hurricane', 236.625)
+|chat|DEBUG|Best enemy move: ('doubleedge', 106.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('hurricane', 236.625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rhyperior|Rhyperior, L82, M|191/323
+|move|p1a: Toxicroak|Swords Dance|p1a: Toxicroak
+|-boost|p1a: Toxicroak|atk|2
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: moltresgalar vs leafeon
+|chat|DEBUG|Updating information about leafeon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rhyperior vs. leafeon
+|chat|DEBUG|Getting matchup: scyther vs. leafeon
+|chat|DEBUG|Getting matchup: orbeetle vs. leafeon
+|chat|DEBUG|Getting matchup: perrserker vs. leafeon
+|chat|DEBUG|Getting matchup: moltresgalar vs. leafeon
+|chat|DEBUG|Checks / Counter: {'leafeon': {'checks': [], 'counter': ['perrserker', 'moltresgalar']}}
+|chat|DEBUG|>>Switching to counter: perrserker
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxicroak|Drain Punch|p2a: Rhyperior
+|-supereffective|p2a: Rhyperior
+|-damage|p2a: Rhyperior|0 fnt
+|faint|p2a: Rhyperior
+|-damage|p1a: Toxicroak|91/100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Orbeetle|Orbeetle, L86, M|243/243
+|-item|p1a: Toxicroak|Life Orb|[from] ability: Frisk|[of] p2a: Orbeetle|[identify]
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: perrserker vs toxicroak
+|chat|DEBUG|Updating information about toxicroak
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: blacksludge
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rhyperior vs. toxicroak
+|chat|DEBUG|Getting matchup: scyther vs. toxicroak
+|chat|DEBUG|Getting matchup: orbeetle vs. toxicroak
+|chat|DEBUG|Getting matchup: perrserker vs. toxicroak
+|chat|DEBUG|Checks / Counter: {'toxicroak': {'checks': [], 'counter': ['rhyperior', 'orbeetle']}}
+|chat|DEBUG|Speed: 135 - 191
+|chat|DEBUG|Most likely moves for: perrserker
+|chat|DEBUG|>['fakeout', 'ironhead', 'crunch', 'closecombat']
+|chat|DEBUG|Most likely moves for: toxicroak
+|chat|DEBUG|>['drainpunch', 'gunkshot', 'substitute', 'swordsdance']
+|chat|DEBUG|Best own move: ('ironhead', 122.5625)
+|chat|DEBUG|Best enemy move: ('drainpunch', 150.625)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: rhyperior
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Orbeetle|Psychic|p1a: Toxicroak
+|-supereffective|p1a: Toxicroak
+|-damage|p1a: Toxicroak|0 fnt
+|faint|p1a: Toxicroak
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togekiss|Togekiss, L80, M|100/100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle rhyperior
+|chat|DEBUG|Matchup: rhyperior vs toxicroak
+|chat|DEBUG|Updating information about toxicroak
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: blacksludge
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: perrserker vs. toxicroak
+|chat|DEBUG|Getting matchup: scyther vs. toxicroak
+|chat|DEBUG|Getting matchup: orbeetle vs. toxicroak
+|chat|DEBUG|Getting matchup: rhyperior vs. toxicroak
+|chat|DEBUG|Checks / Counter: {'toxicroak': {'checks': [], 'counter': ['orbeetle', 'rhyperior']}}
+|chat|DEBUG|Speed: 113 - 191
+|chat|DEBUG|Most likely moves for: rhyperior
+|chat|DEBUG|>['megahorn', 'earthquake', 'stoneedge', 'rockpolish']
+|chat|DEBUG|Most likely moves for: toxicroak
+|chat|DEBUG|>['drainpunch', 'gunkshot', 'substitute', 'swordsdance']
+|chat|DEBUG|Best own move: ('earthquake', 333.875)
+|chat|DEBUG|Best enemy move: ('drainpunch', 128.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('earthquake', 333.875)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Perrserker|Perrserker, L86, M|261/261
+|move|p1a: Togekiss|Thunder Wave|p2a: Perrserker
+|-status|p2a: Perrserker|par
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: rhyperior vs toxicroak
+|chat|DEBUG|Updating information about toxicroak
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: blacksludge
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: perrserker vs. toxicroak
+|chat|DEBUG|Getting matchup: scyther vs. toxicroak
+|chat|DEBUG|Getting matchup: orbeetle vs. toxicroak
+|chat|DEBUG|Getting matchup: rhyperior vs. toxicroak
+|chat|DEBUG|Checks / Counter: {'toxicroak': {'checks': [], 'counter': ['orbeetle', 'rhyperior']}}
+|chat|DEBUG|>>Switching to counter: orbeetle
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Togekiss|Aura Sphere|p2a: Perrserker
+|-supereffective|p2a: Perrserker
+|-damage|p2a: Perrserker|101/261 par
+|move|p2a: Perrserker|Iron Head|p1a: Togekiss
+|-supereffective|p1a: Togekiss
+|-damage|p1a: Togekiss|0 fnt
+|faint|p1a: Togekiss
+|-damage|p2a: Perrserker|75/261 par|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Virizion|Virizion, L82|100/100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: orbeetle vs toxicroak
+|chat|DEBUG|Updating information about toxicroak
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: blacksludge
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: perrserker vs. toxicroak
+|chat|DEBUG|Getting matchup: scyther vs. toxicroak
+|chat|DEBUG|Getting matchup: orbeetle vs. toxicroak
+|chat|DEBUG|Checks / Counter: {'toxicroak': {'checks': [], 'counter': ['orbeetle']}}
+|chat|DEBUG|Speed: 204 - 191
+|chat|DEBUG|Most likely moves for: orbeetle
+|chat|DEBUG|>['stickyweb', 'recover', 'uturn', 'psychic']
+|chat|DEBUG|Most likely moves for: toxicroak
+|chat|DEBUG|>['drainpunch', 'gunkshot', 'substitute', 'swordsdance']
+|chat|DEBUG|Best own move: ('psychic', 434.5)
+|chat|DEBUG|Best enemy move: ('gunkshot', 111.4375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('psychic', 434.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Orbeetle|Orbeetle, L86, M|243/243
+|-item|p1a: Virizion|Lum Berry|[from] ability: Frisk|[of] p2a: Orbeetle|[identify]
+|move|p1a: Virizion|Swords Dance|p1a: Virizion
+|-boost|p1a: Virizion|atk|2
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: orbeetle vs togekiss
+|chat|DEBUG|Updating information about togekiss
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: perrserker vs. togekiss
+|chat|DEBUG|Getting matchup: scyther vs. togekiss
+|chat|DEBUG|Getting matchup: orbeetle vs. togekiss
+|chat|DEBUG|Checks / Counter: {'togekiss': {'checks': [], 'counter': ['perrserker']}}
+|chat|DEBUG|Speed: 204 - 174
+|chat|DEBUG|Most likely moves for: orbeetle
+|chat|DEBUG|>['stickyweb', 'recover', 'uturn', 'psychic']
+|chat|DEBUG|Most likely moves for: togekiss
+|chat|DEBUG|>['airslash', 'aurasphere', 'nastyplot', 'roost']
+|chat|DEBUG|Best own move: ('psychic', 73.9375)
+|chat|DEBUG|Best enemy move: ('airslash', 134.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: perrserker
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Orbeetle|Dynamax
+|-heal|p2a: Orbeetle|486/486|[silent]
+|move|p1a: Virizion|Stone Edge|p2a: Orbeetle|[miss]
+|-miss|p1a: Virizion|p2a: Orbeetle
+|move|p2a: Orbeetle|Max Mindstorm|p1a: Virizion
+|-supereffective|p1a: Virizion
+|-damage|p1a: Virizion|37/100
+|-fieldstart|move: Psychic Terrain
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: perrserker vs togekiss
+|chat|DEBUG|Updating information about togekiss
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: orbeetle vs. togekiss
+|chat|DEBUG|Getting matchup: scyther vs. togekiss
+|chat|DEBUG|Getting matchup: perrserker vs. togekiss
+|chat|DEBUG|Checks / Counter: {'togekiss': {'checks': [], 'counter': ['perrserker']}}
+|chat|DEBUG|Speed: 135 - 174
+|chat|DEBUG|Most likely moves for: perrserker
+|chat|DEBUG|>['fakeout', 'ironhead', 'crunch', 'closecombat']
+|chat|DEBUG|Most likely moves for: togekiss
+|chat|DEBUG|>['airslash', 'aurasphere', 'nastyplot', 'roost']
+|chat|DEBUG|Best own move: ('ironhead', 195.25)
+|chat|DEBUG|Best enemy move: ('aurasphere', 160.0)
+|chat|DEBUG|Picking the most damaging move from perrserker against togekiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Virizion|Stone Edge|p2a: Orbeetle
+|-supereffective|p2a: Orbeetle
+|-damage|p2a: Orbeetle|282/486
+|move|p2a: Orbeetle|Max Mindstorm|p1a: Virizion
+|-supereffective|p1a: Virizion
+|-damage|p1a: Virizion|0 fnt
+|faint|p1a: Virizion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Raikou|Raikou, L80|100/100
+|-ability|p1a: Raikou|Pressure
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: perrserker vs virizion
+|chat|DEBUG|Updating information about virizion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lumberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: orbeetle vs. virizion
+|chat|DEBUG|Getting matchup: scyther vs. virizion
+|chat|DEBUG|Getting matchup: perrserker vs. virizion
+|chat|DEBUG|Checks / Counter: {'virizion': {'checks': [], 'counter': ['orbeetle']}}
+|chat|DEBUG|Speed: 135 - 224
+|chat|DEBUG|Most likely moves for: perrserker
+|chat|DEBUG|>['fakeout', 'ironhead', 'crunch', 'closecombat']
+|chat|DEBUG|Most likely moves for: virizion
+|chat|DEBUG|>['closecombat', 'leafblade', 'stoneedge', 'swordsdance']
+|chat|DEBUG|Best own move: ('ironhead', 117.0)
+|chat|DEBUG|Best enemy move: ('closecombat', 203.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: orbeetle
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raikou|Thunderbolt|p2a: Orbeetle
+|-damage|p2a: Orbeetle|212/486
+|move|p2a: Orbeetle|Max Mindstorm|p1a: Raikou
+|-damage|p1a: Raikou|40/100
+|-heal|p1a: Raikou|47/100|[from] item: Leftovers
+|-end|p2a: Orbeetle|Dynamax
+|-heal|p2a: Orbeetle|106/243|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: orbeetle vs virizion
+|chat|DEBUG|Updating information about virizion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lumberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: perrserker vs. virizion
+|chat|DEBUG|Getting matchup: scyther vs. virizion
+|chat|DEBUG|Getting matchup: orbeetle vs. virizion
+|chat|DEBUG|Checks / Counter: {'virizion': {'checks': [], 'counter': ['orbeetle']}}
+|chat|DEBUG|Speed: 204 - 224
+|chat|DEBUG|Most likely moves for: orbeetle
+|chat|DEBUG|>['stickyweb', 'recover', 'uturn', 'psychic']
+|chat|DEBUG|Most likely moves for: virizion
+|chat|DEBUG|>['closecombat', 'leafblade', 'stoneedge', 'swordsdance']
+|chat|DEBUG|Best own move: ('psychic', 131.5)
+|chat|DEBUG|Best enemy move: ('stoneedge', 104.625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raikou|Substitute|p1a: Raikou
+|-start|p1a: Raikou|Substitute
+|-damage|p1a: Raikou|22/100
+|move|p2a: Orbeetle|Psychic|p1a: Raikou
+|-end|p1a: Raikou|Substitute
+|-heal|p1a: Raikou|28/100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>perrserker scyther orbeetle
+|chat|DEBUG|Matchup: orbeetle vs virizion
+|chat|DEBUG|Updating information about virizion
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lumberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: perrserker vs. virizion
+|chat|DEBUG|Getting matchup: scyther vs. virizion
+|chat|DEBUG|Getting matchup: orbeetle vs. virizion
+|chat|DEBUG|Checks / Counter: {'virizion': {'checks': [], 'counter': ['orbeetle']}}
+|chat|DEBUG|Speed: 204 - 224
+|chat|DEBUG|Most likely moves for: orbeetle
+|chat|DEBUG|>['stickyweb', 'recover', 'uturn', 'psychic']
+|chat|DEBUG|Most likely moves for: virizion
+|chat|DEBUG|>['closecombat', 'leafblade', 'stoneedge', 'swordsdance']
+|chat|DEBUG|Best own move: ('psychic', 131.5)
+|chat|DEBUG|Best enemy move: ('stoneedge', 104.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('psychic', 131.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Raikou|Thunderbolt|p2a: Orbeetle
+|-damage|p2a: Orbeetle|27/243
+|-status|p2a: Orbeetle|par
+|move|p2a: Orbeetle|Psychic|p1a: Raikou
+|-damage|p1a: Raikou|0 fnt
+|faint|p1a: Raikou
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Aivenier<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">perrserker moltresgalar scyther orbeetle wailord rhyperior</h1>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491955218<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491955218|init|battle
+|title|Jeremy Corbyn72 vs. McGewitter
+|j|☆Jeremy Corbyn72
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Jeremy Corbyn72|rood|1211
+|player|p2|McGewitter|265|1151
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Chandelure|Chandelure, L82, M|100100
+|switch|p2a: Mudsdale|Mudsdale, L82, M|298298
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure
+|chat|DEBUG|Own moves: stealthrock rockslide bodypress earthquake
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['snorlax']
+|chat|DEBUG|Counter: ['mudsdale', 'swampert', 'snorlax', 'kabutops', 'hooh']
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 298 vs 233
+|chat|DEBUG|Created a new Strategy for mudsdale vs chandelure:
+|chat|DEBUG|>[earthquake: 245.125 [224, 266], earthquake: 245.125 [224, 266], earthquake: 245.125 [224, 266]]
+|chat|DEBUG|Best move of mudsdale (p1): earthquake: 245.125 [224, 266]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 237.6875 [219, 258]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Sceptile|Sceptile, L86, M|100100
+|move|p2a: Mudsdale|Stealth Rock|p1a: Sceptile
+|-sidestart|p1: Jeremy Corbyn72|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: stealthrock rockslide bodypress earthquake
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: ['snorlax']
+|chat|DEBUG|Counter: ['snorlax', 'hitmontop']
+|chat|DEBUG|Speed: 105 vs 256
+|chat|DEBUG|HP: 298 vs 261
+|chat|DEBUG|Created a new Strategy for mudsdale vs sceptile:
+|chat|DEBUG|>[earthquake: 74.1875 [68, 81], earthquake: 74.1875 [68, 81], earthquake: 74.1875 [68, 81]]
+|chat|DEBUG|Best move of mudsdale (p1): earthquake: 74.1875 [68, 81]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 186.5 [170, 204]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check snorlax
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Snorlax|Snorlax, L82, F|397397
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: ['snorlax']
+|chat|DEBUG|Counter: ['snorlax', 'hitmontop']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 397 vs 214
+|chat|DEBUG|Created a new Strategy for snorlax vs sceptile:
+|chat|DEBUG|>[bodyslam: 114.3125 [105, 124], bodyslam: 114.3125 [105, 124], bodyslam: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Leech Seed|p2a: Snorlax
+|-start|p2a: Snorlax|move: Leech Seed
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|88100|[from] item: Leftovers
+|-damage|p2a: Snorlax|348397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: ['snorlax']
+|chat|DEBUG|Counter: ['snorlax', 'hitmontop']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 348 vs 261
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|-damage|p2a: Snorlax|299397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['snorlax', 'hitmontop']
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 299 vs 261
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|-damage|p2a: Snorlax|250397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['snorlax', 'hitmontop']
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 250 vs 261
+|chat|DEBUG|Created a new Strategy for snorlax vs sceptile:
+|chat|DEBUG|>[bodyslam: 114.3125 [105, 124], bodyslam: 114.3125 [105, 124], bodyslam: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|-damage|p2a: Snorlax|201397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 201 vs 261
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|-damage|p2a: Snorlax|152397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 152 vs 261
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|-damage|p2a: Snorlax|103397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 103 vs 261
+|chat|DEBUG|Created a new Strategy for snorlax vs sceptile:
+|chat|DEBUG|>[bodyslam: 114.3125 [105, 124], bodyslam: 114.3125 [105, 124], bodyslam: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Snorlax|Body Slam|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|-damage|p2a: Snorlax|54397|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|100100|[silent]
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert snorlax hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-snorlax-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: bodyslam earthquake rest curse
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|Speed: 96 vs 256
+|chat|DEBUG|HP: 54 vs 261
+|chat|DEBUG|Best move of snorlax (p1): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Giga Drain|p2a: Snorlax
+|-damage|p2a: Snorlax|0 fnt
+|faint|p2a: Snorlax
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hitmontop|Hitmontop, L85, M|224224
+|-ability|p2a: Hitmontop|Intimidate|boost
+|-unboost|p1a: Sceptile|atk|1
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "snorlax" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hitmontop (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Leech Seed|p2a: Hitmontop
+|-start|p2a: Hitmontop|move: Leech Seed
+|move|p2a: Hitmontop|Close Combat|p1a: Sceptile
+|-damage|p1a: Sceptile|27100
+|-unboost|p2a: Hitmontop|def|1
+|-unboost|p2a: Hitmontop|spd|1
+|-damage|p2a: Hitmontop|202224|[from] item: Life Orb
+|-heal|p1a: Sceptile|33100|[from] item: Leftovers
+|-damage|p2a: Hitmontop|174224|[from] Leech Seed|[of] p1a: Sceptile
+|-heal|p1a: Sceptile|44100|[silent]
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: toxic suckerpunch earthquake closecombat
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop', 'hooh']
+|chat|DEBUG|Speed: 168 vs 256
+|chat|DEBUG|HP: 224 vs 261
+|chat|DEBUG|Created a new Strategy for hitmontop vs sceptile:
+|chat|DEBUG|>[closecombat: 204.4375 [187, 222], closecombat: 204.4375 [187, 222], closecombat: 204.4375 [187, 222]]
+|chat|DEBUG|Best move of hitmontop (p1): closecombat: 204.4375 [187, 222]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 73.9375 [67, 81]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Giga Drain|p2a: Hitmontop
+|-damage|p2a: Hitmontop|56224
+|-heal|p1a: Sceptile|66100|[from] drain|[of] p2a: Hitmontop
+|move|p2a: Hitmontop|Close Combat|p1a: Sceptile
+|-damage|p1a: Sceptile|0 fnt
+|-unboost|p2a: Hitmontop|def|1
+|-unboost|p2a: Hitmontop|spd|1
+|faint|p1a: Sceptile
+|-damage|p2a: Hitmontop|34224|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Archeops|Archeops, L82, M|100100
+|-damage|p1a: Archeops|76100|[from] Stealth Rock
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-sceptile
+|chat|DEBUG|Own moves: toxic suckerpunch earthquake closecombat
+|chat|DEBUG|Enemy moves: gigadrain leechseed rockslide substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmontop', 'hooh']
+|chat|DEBUG|Speed: 168 vs 256
+|chat|DEBUG|HP: 174 vs 114
+|chat|DEBUG|Best move of hitmontop (p1): closecombat: 204.4375 [187, 222]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 111.4375 [102, 121]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mudsdale|Mudsdale, L82, M|298298
+|move|p1a: Archeops|Dual Wingbeat|p2a: Mudsdale
+|-damage|p2a: Mudsdale|228298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|-damage|p2a: Mudsdale|180298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|-hitcount|p2a: Mudsdale|2
+|-heal|p2a: Mudsdale|198298|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmontop" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops
+|chat|DEBUG|Own moves: toxic suckerpunch earthquake closecombat
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['mudsdale', 'swampert']
+|chat|DEBUG|Counter: ['mudsdale', 'swampert', 'kabutops']
+|chat|DEBUG|Speed: 168 vs 228
+|chat|DEBUG|HP: 34 vs 195
+|chat|DEBUG|Created a new Strategy for hitmontop vs archeops:
+|chat|DEBUG|>[closecombat: 213.3125 [196, 231], closecombat: 213.3125 [196, 231], closecombat: 213.3125 [196, 231]]
+|chat|DEBUG|Best move of hitmontop (p1): closecombat: 213.3125 [196, 231]
+|chat|DEBUG|Best move of archeops (p2): dualwingbeat: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mudsdale
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|100100
+|move|p2a: Mudsdale|Rock Slide|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-damage|p1a: Chandelure|49100
+|-heal|p2a: Mudsdale|216298|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops
+|chat|DEBUG|Own moves: stealthrock rockslide bodypress earthquake
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['mudsdale', 'swampert']
+|chat|DEBUG|Counter: ['mudsdale', 'swampert', 'kabutops']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 105 vs 228
+|chat|DEBUG|HP: 198 vs 195
+|chat|DEBUG|Created a new Strategy for mudsdale vs archeops:
+|chat|DEBUG|>[rockslide: 156.375 [144, 170], rockslide: 156.375 [144, 170], rockslide: 156.375 [144, 170]]
+|chat|DEBUG|Best move of mudsdale (p1): rockslide: 156.375 [144, 170]
+|chat|DEBUG|Best move of archeops (p2): earthquake: 42.125 [39, 46]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Swampert|Swampert, L80, M|291291
+|move|p1a: Chandelure|Shadow Ball|p2a: Swampert
+|-damage|p2a: Swampert|167291
+|-heal|p2a: Swampert|185291|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops
+|chat|DEBUG|Own moves: stealthrock rockslide bodypress earthquake
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['swampert', 'hooh']
+|chat|DEBUG|Counter: ['swampert', 'kabutops', 'hooh']
+|chat|DEBUG|Speed: 105 vs 178
+|chat|DEBUG|HP: 216 vs 114
+|chat|DEBUG|Created a new Strategy for mudsdale vs chandelure:
+|chat|DEBUG|>[earthquake: 245.125 [224, 266], earthquake: 245.125 [224, 266], earthquake: 245.125 [224, 266]]
+|chat|DEBUG|Best move of mudsdale (p1): earthquake: 245.125 [224, 266]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 237.6875 [219, 258]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check swampert
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|100100
+|-damage|p1a: Tornadus|76100|[from] Stealth Rock
+|move|p2a: Swampert|Earthquake|p1a: Tornadus
+|-immune|p1a: Tornadus
+|-heal|p2a: Swampert|203291|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swampert" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops
+|chat|DEBUG|Own moves: toxic protect earthquake scald
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['hooh']
+|chat|DEBUG|Counter: ['swampert', 'kabutops', 'hooh']
+|chat|DEBUG|Speed: 142 vs 178
+|chat|DEBUG|HP: 185 vs 114
+|chat|DEBUG|Created a new Strategy for swampert vs chandelure:
+|chat|DEBUG|>[earthquake: 217.25 [200, 236], earthquake: 217.25 [200, 236], earthquake: 217.25 [200, 236]]
+|chat|DEBUG|Best move of swampert (p1): earthquake: 217.25 [200, 236]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 114.3125 [105, 124]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kabutops|Kabutops, L82, F|233233
+|move|p1a: Tornadus|Knock Off|p2a: Kabutops
+|-damage|p2a: Kabutops|176233
+|-enditem|p2a: Kabutops|Choice Band|[from] move: Knock Off|[of] p1a: Tornadus
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "swampert" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops-tornadustherian
+|chat|DEBUG|Own moves: toxic protect earthquake scald
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['kabutops', 'hooh']
+|chat|DEBUG|Speed: 142 vs 234
+|chat|DEBUG|HP: 203 vs 190
+|chat|DEBUG|Created a new Strategy for swampert vs tornadustherian:
+|chat|DEBUG|>[scald: 50.375 [46, 55], scald: 50.375 [46, 55], scald: 50.375 [46, 55]]
+|chat|DEBUG|Best move of swampert (p1): scald: 50.375 [46, 55]
+|chat|DEBUG|Best move of tornadustherian (p2): hurricane: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kabutops
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|U-turn|p2a: Kabutops
+|-damage|p2a: Kabutops|134233
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Vikavolt|Vikavolt, L82, M|100100|[from]move: U-turn
+|move|p2a: Kabutops|Stone Edge|p1a: Vikavolt
+|-supereffective|p1a: Vikavolt
+|-damage|p1a: Vikavolt|10100
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops-tornadustherian
+|chat|DEBUG|Own moves: knockoff aquajet stoneedge liquidation
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kabutops', 'hooh']
+|chat|DEBUG|Speed: 178 vs 234
+|chat|DEBUG|HP: 176 vs 190
+|chat|DEBUG|Created a new Strategy for kabutops vs tornadustherian:
+|chat|DEBUG|>[stoneedge: 265.0 [242, 288], stoneedge: 265.0 [242, 288], stoneedge: 265.0 [242, 288]]
+|chat|DEBUG|Best move of kabutops (p1): stoneedge: 265.0 [242, 288]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 136.0 [124, 148]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kabutops|Stone Edge|p1a: Vikavolt
+|-supereffective|p1a: Vikavolt
+|-damage|p1a: Vikavolt|0 fnt
+|faint|p1a: Vikavolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|100100
+|-damage|p1a: Tornadus|76100|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "vikavolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops-tornadustherian-vikavolt
+|chat|DEBUG|Own moves: knockoff aquajet stoneedge liquidation
+|chat|DEBUG|Enemy moves: bugbuzz roost thunderbolt voltswitch
+|chat|DEBUG|Checks: ['swampert', 'hooh']
+|chat|DEBUG|Counter: ['mudsdale', 'swampert', 'hitmontop', 'kabutops', 'hooh']
+|chat|DEBUG|Speed: 178 vs 118
+|chat|DEBUG|HP: 134 vs 26
+|chat|DEBUG|Created a new Strategy for kabutops vs vikavolt:
+|chat|DEBUG|>[stoneedge: 231.25 [212, 252], stoneedge: 231.25 [212, 252], stoneedge: 231.25 [212, 252]]
+|chat|DEBUG|Best move of kabutops (p1): stoneedge: 231.25 [212, 252]
+|chat|DEBUG|Best move of vikavolt (p2): thunderbolt: 300.375 [276, 326]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Superpower|p2a: Kabutops
+|-supereffective|p2a: Kabutops
+|-damage|p2a: Kabutops|8233
+|-unboost|p1a: Tornadus|atk|1
+|-unboost|p1a: Tornadus|def|1
+|move|p2a: Kabutops|Stone Edge|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-crit|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|faint|p1a: Tornadus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Archeops|Archeops, L82, M|76100
+|-damage|p1a: Archeops|51100|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops-tornadustherian
+|chat|DEBUG|Own moves: knockoff aquajet stoneedge liquidation
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|Speed: 178 vs 234
+|chat|DEBUG|HP: 134 vs 190
+|chat|DEBUG|Created a new Strategy for kabutops vs tornadustherian:
+|chat|DEBUG|>[stoneedge: 265.0 [242, 288], stoneedge: 265.0 [242, 288], stoneedge: 265.0 [242, 288]]
+|chat|DEBUG|Best move of kabutops (p1): stoneedge: 265.0 [242, 288]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 136.0 [124, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mudsdale|Mudsdale, L82, M|216298
+|move|p1a: Archeops|Dual Wingbeat|p2a: Mudsdale
+|-damage|p2a: Mudsdale|140298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|-damage|p2a: Mudsdale|85298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|-hitcount|p2a: Mudsdale|2
+|-heal|p2a: Mudsdale|103298|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops
+|chat|DEBUG|Own moves: knockoff aquajet stoneedge liquidation
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['mudsdale', 'swampert']
+|chat|DEBUG|Counter: ['mudsdale', 'swampert']
+|chat|DEBUG|Speed: 178 vs 228
+|chat|DEBUG|HP: 8 vs 131
+|chat|DEBUG|Created a new Strategy for kabutops vs archeops:
+|chat|DEBUG|>[liquidation: 248.125 [228, 270], liquidation: 248.125 [228, 270], liquidation: 248.125 [228, 270]]
+|chat|DEBUG|Best move of kabutops (p1): liquidation: 248.125 [228, 270]
+|chat|DEBUG|Best move of archeops (p2): earthquake: 161.875 [148, 176]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mudsdale
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|49100
+|move|p2a: Mudsdale|Rock Slide|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-damage|p1a: Chandelure|0 fnt
+|faint|p1a: Chandelure
+|-heal|p2a: Mudsdale|121298|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heatran|Heatran, L78, F|100100
+|-damage|p1a: Heatran|88100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- chandelure-archeops
+|chat|DEBUG|Own moves: stealthrock rockslide bodypress earthquake
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['mudsdale', 'swampert']
+|chat|DEBUG|Counter: ['mudsdale', 'swampert']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 105 vs 228
+|chat|DEBUG|HP: 103 vs 131
+|chat|DEBUG|Created a new Strategy for mudsdale vs archeops:
+|chat|DEBUG|>[rockslide: 156.375 [144, 170], rockslide: 156.375 [144, 170], rockslide: 156.375 [144, 170]]
+|chat|DEBUG|Best move of mudsdale (p1): rockslide: 156.375 [144, 170]
+|chat|DEBUG|Best move of archeops (p2): earthquake: 42.125 [39, 46]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatran|Lava Plume|p2a: Mudsdale
+|-damage|p2a: Mudsdale|30298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|move|p2a: Mudsdale|Earthquake|p1a: Heatran
+|-supereffective|p1a: Heatran
+|-damage|p1a: Heatran|0 fnt
+|faint|p1a: Heatran
+|-heal|p2a: Mudsdale|48298|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Archeops|Archeops, L82, M|51100
+|-damage|p1a: Archeops|26100|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mudsdale swampert hitmontop kabutops hooh
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mudsdale" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mudsdale-swampert-hitmontop-kabutops-hooh -- archeops-heatran
+|chat|DEBUG|Own moves: stealthrock rockslide bodypress earthquake
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['swampert', 'hooh']
+|chat|DEBUG|Counter: ['swampert', 'hitmontop', 'hooh']
+|chat|DEBUG|Speed: 105 vs 165
+|chat|DEBUG|HP: 121 vs 237
+|chat|DEBUG|Created a new Strategy for mudsdale vs heatran:
+|chat|DEBUG|>[earthquake: 457.25 [420, 496], earthquake: 457.25 [420, 496], earthquake: 457.25 [420, 496]]
+|chat|DEBUG|Best move of mudsdale (p1): earthquake: 457.25 [420, 496]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 147.5 [135, 160]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Archeops|Earthquake|p2a: Mudsdale
+|-damage|p2a: Mudsdale|24298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|move|p2a: Mudsdale|Body Press|p1a: Archeops
+|-damage|p1a: Archeops|0 fnt
+|faint|p1a: Archeops
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Jeremy Corbyn72<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mudsdale swampert snorlax hitmontop kabutops hooh</h1>

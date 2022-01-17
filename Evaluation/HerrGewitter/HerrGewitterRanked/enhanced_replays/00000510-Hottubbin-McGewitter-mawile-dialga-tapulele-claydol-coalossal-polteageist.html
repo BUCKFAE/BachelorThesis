@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490766536<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490766536|init|battle
+|title|Hottubbin vs. McGewitter
+|j|☆Hottubbin
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Hottubbin|266|1145
+|player|p2|McGewitter|265|1183
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Passimian|Passimian, L82, M|100100
+|switch|p2a: Mawile|Mawile, L86, M|226226
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian
+|chat|DEBUG|Own moves: stealthrock ironhead suckerpunch playrough
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: ['tapulele']
+|chat|DEBUG|Counter: ['mawile', 'tapulele']
+|chat|DEBUG|Speed: 135 vs 178
+|chat|DEBUG|HP: 226 vs 298
+|chat|DEBUG|Created a new Strategy for mawile vs passimian:
+|chat|DEBUG|>[playrough: 307.5625 [283, 335], playrough: 307.5625 [283, 335], playrough: 307.5625 [283, 335]]
+|chat|DEBUG|Best move of mawile (p1): playrough: 307.5625 [283, 335]
+|chat|DEBUG|Best move of passimian (p2): closecombat: 143.125 [132, 156]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Passimian|Close Combat|p2a: Mawile
+|-damage|p2a: Mawile|90226
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|move|p2a: Mawile|Stealth Rock|p1a: Passimian
+|-sidestart|p1: Hottubbin|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mawile" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian
+|chat|DEBUG|Own moves: stealthrock ironhead suckerpunch playrough
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: ['tapulele']
+|chat|DEBUG|Counter: ['tapulele', 'claydol']
+|chat|DEBUG|Speed: 135 vs 178
+|chat|DEBUG|HP: 90 vs 298
+|chat|DEBUG|Best move of mawile (p1): playrough: 307.5625 [283, 335]
+|chat|DEBUG|Best move of passimian (p2): closecombat: 143.125 [132, 156]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tapulele
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Hottubbin has 120 seconds left.
+|inactive|Hottubbin has 90 seconds left.
+|switch|p2a: Tapu Lele|Tapu Lele, L80|243243
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Tapu Lele
+|move|p1a: Passimian|Close Combat|p2a: Tapu Lele
+|-resisted|p2a: Tapu Lele
+|-damage|p2a: Tapu Lele|203243
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian
+|chat|DEBUG|Own moves: calmmind psychic moonblast shadowball
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: ['tapulele']
+|chat|DEBUG|Counter: ['tapulele', 'claydol', 'coalossal']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 178
+|chat|DEBUG|HP: 203 vs 298
+|chat|DEBUG|Created a new Strategy for tapulele vs passimian:
+|chat|DEBUG|>[moonblast: 812.5625 [749, 881], moonblast: 812.5625 [749, 881], moonblast: 812.5625 [749, 881]]
+|chat|DEBUG|Best move of tapulele (p1): moonblast: 812.5625 [749, 881]
+|chat|DEBUG|Best move of passimian (p2): knockoff: 90.5 [83, 98]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Hottubbin has 90 seconds left.
+|switch|p1a: Genesect|Genesect-Douse, L74|100100
+|-damage|p1a: Genesect|88100|[from] Stealth Rock
+|-ability|p1a: Genesect|Download|boost
+|-boost|p1a: Genesect|atk|1
+|move|p2a: Tapu Lele|Moonblast|p1a: Genesect
+|-resisted|p1a: Genesect
+|-damage|p1a: Genesect|49100
+|-damage|p2a: Tapu Lele|179243|[from] item: Life Orb
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "genesectdouse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian-genesectdouse
+|chat|DEBUG|Own moves: calmmind psychic moonblast shadowball
+|chat|DEBUG|Enemy moves: flamethrower ironhead technoblast uturn
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['dialga']
+|chat|DEBUG|Speed: 198 vs 190
+|chat|DEBUG|HP: 179 vs 111
+|chat|DEBUG|Created a new Strategy for tapulele vs genesectdouse:
+|chat|DEBUG|>[shadowball: 91.9375 [84, 100], shadowball: 91.9375 [84, 100], shadowball: 91.9375 [84, 100]]
+|chat|DEBUG|Best move of tapulele (p1): shadowball: 91.9375 [84, 100]
+|chat|DEBUG|Best move of genesectdouse (p2): ironhead: 369.5 [338, 402]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dialga
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dialga|Dialga, L74|270270
+|-ability|p2a: Dialga|Pressure
+|move|p1a: Genesect|Iron Head|p2a: Dialga
+|-resisted|p2a: Dialga
+|-crit|p2a: Dialga
+|-damage|p2a: Dialga|197270
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "genesectdouse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian-genesectdouse
+|chat|DEBUG|Own moves: fireblast thunderbolt flashcannon dracometeor
+|chat|DEBUG|Enemy moves: flamethrower ironhead technoblast uturn
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['dialga']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 190
+|chat|DEBUG|HP: 197 vs 111
+|chat|DEBUG|Created a new Strategy for dialga vs genesectdouse:
+|chat|DEBUG|>[fireblast: 370.0 [340, 400], fireblast: 370.0 [340, 400], fireblast: 370.0 [340, 400]]
+|chat|DEBUG|Best move of dialga (p1): fireblast: 370.0 [340, 400]
+|chat|DEBUG|Best move of genesectdouse (p2): flamethrower: 90.5 [83, 98]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Fire Blast|p1a: Genesect
+|-supereffective|p1a: Genesect
+|-damage|p1a: Genesect|0 fnt
+|faint|p1a: Genesect
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Hottubbin has 90 seconds left.
+|switch|p1a: Dragapult|Dragapult, L78, F|100100
+|-damage|p1a: Dragapult|88100|[from] Stealth Rock
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "dragapult"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian-dragapult
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: dracometeor shadowball thunderbolt uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal']
+|chat|DEBUG|Speed: 176 vs 267
+|chat|DEBUG|HP: 197 vs 233
+|chat|DEBUG|Created a new Strategy for dialga vs dragapult:
+|chat|DEBUG|>[fireblast: 51.75 [48, 56], fireblast: 51.75 [48, 56], fireblast: 51.75 [48, 56]]
+|chat|DEBUG|Best move of dialga (p1): fireblast: 51.75 [48, 56]
+|chat|DEBUG|Best move of dragapult (p2): shadowball: 117.0 [108, 127]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dragapult|U-turn|p2a: Dialga
+|-resisted|p2a: Dialga
+|-damage|p2a: Dialga|176270
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hatterene|Hatterene, L86, F|100100|[from]move: U-turn
+|-damage|p1a: Hatterene|88100|[from] Stealth Rock
+|move|p2a: Dialga|Fire Blast|p1a: Hatterene
+|-damage|p1a: Hatterene|55100
+|-heal|p1a: Hatterene|61100|[from] item: Leftovers
+|-fieldend|move: Psychic Terrain
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-hatterene
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire psychic
+|chat|DEBUG|Checks: ['dialga', 'tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Counter: ['mawile', 'dialga', 'tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 99
+|chat|DEBUG|HP: 176 vs 145
+|chat|DEBUG|Created a new Strategy for dialga vs hatterene:
+|chat|DEBUG|>[fireblast: 74.4375 [68, 81], fireblast: 74.4375 [68, 81], fireblast: 74.4375 [68, 81]]
+|chat|DEBUG|Best move of dialga (p1): fireblast: 74.4375 [68, 81]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 119.75 [109, 130]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Fire Blast|p1a: Hatterene
+|-damage|p1a: Hatterene|32100
+|move|p1a: Hatterene|Dazzling Gleam|p2a: Dialga
+|-damage|p2a: Dialga|58270
+|-heal|p1a: Hatterene|38100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile dialga tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-dialga-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-hatterene
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire psychic
+|chat|DEBUG|Checks: ['tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Counter: ['mawile', 'dialga', 'tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Speed: 176 vs 99
+|chat|DEBUG|HP: 58 vs 90
+|chat|DEBUG|Created a new Strategy for dialga vs hatterene:
+|chat|DEBUG|>[fireblast: 74.4375 [68, 81], fireblast: 74.4375 [68, 81], fireblast: 74.4375 [68, 81]]
+|chat|DEBUG|Best move of dialga (p1): fireblast: 74.4375 [68, 81]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 119.75 [109, 130]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Fire Blast|p1a: Hatterene
+|-damage|p1a: Hatterene|7100
+|move|p1a: Hatterene|Dazzling Gleam|p2a: Dialga
+|-crit|p2a: Dialga
+|-damage|p2a: Dialga|0 fnt
+|faint|p2a: Dialga
+|-heal|p1a: Hatterene|13100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tapu Lele|Tapu Lele, L80|179243
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Tapu Lele
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-hatterene
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire psychic
+|chat|DEBUG|Checks: ['tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Counter: ['mawile', 'tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to tapulele (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tapu Lele|Shadow Ball|p1a: Hatterene
+|-supereffective|p1a: Hatterene
+|-damage|p1a: Hatterene|0 fnt
+|faint|p1a: Hatterene
+|-damage|p2a: Tapu Lele|155243|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sigilyph|Sigilyph, L83, F|100100
+|-damage|p1a: Sigilyph|76100|[from] Stealth Rock
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-hatterene
+|chat|DEBUG|Own moves: calmmind psychic moonblast shadowball
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam mysticalfire psychic
+|chat|DEBUG|Checks: ['tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Counter: ['mawile', 'tapulele', 'claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 198 vs 99
+|chat|DEBUG|HP: 179 vs 30
+|chat|DEBUG|Created a new Strategy for tapulele vs hatterene:
+|chat|DEBUG|>[shadowball: 150.3125 [138, 164], shadowball: 150.3125 [138, 164], shadowball: 150.3125 [138, 164]]
+|chat|DEBUG|Best move of tapulele (p1): shadowball: 150.3125 [138, 164]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sigilyph|Air Slash|p2a: Tapu Lele
+|-damage|p2a: Tapu Lele|58243
+|move|p2a: Tapu Lele|Shadow Ball|p1a: Sigilyph
+|-supereffective|p1a: Sigilyph
+|-damage|p1a: Sigilyph|3100
+|-unboost|p1a: Sigilyph|spd|1
+|-damage|p2a: Tapu Lele|34243|[from] item: Life Orb
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "sigilyph"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: calmmind psychic moonblast shadowball
+|chat|DEBUG|Enemy moves: airslash defog energyball psychic
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['tapulele', 'coalossal', 'polteageist']
+|chat|DEBUG|Speed: 198 vs 209
+|chat|DEBUG|HP: 155 vs 193
+|chat|DEBUG|Created a new Strategy for tapulele vs sigilyph:
+|chat|DEBUG|>[shadowball: 186.375 [172, 203], shadowball: 186.375 [172, 203], shadowball: 186.375 [172, 203]]
+|chat|DEBUG|Best move of tapulele (p1): shadowball: 186.375 [172, 203]
+|chat|DEBUG|Best move of sigilyph (p2): airslash: 90.5 [83, 99]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, F|333333
+|move|p1a: Sigilyph|Air Slash|p2a: Coalossal
+|-resisted|p2a: Coalossal
+|-damage|p2a: Coalossal|207333
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "sigilyph"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: calmmind psychic moonblast shadowball
+|chat|DEBUG|Enemy moves: airslash defog energyball psychic
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Speed: 198 vs 209
+|chat|DEBUG|HP: 34 vs 7
+|chat|DEBUG|Best move of tapulele (p1): shadowball: 186.375 [172, 203]
+|chat|DEBUG|Best move of sigilyph (p2): airslash: 90.5 [83, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check coalossal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Passimian|Passimian, L82, M|100100
+|-damage|p1a: Passimian|94100|[from] Stealth Rock
+|move|p2a: Coalossal|Overheat|p1a: Passimian
+|-damage|p1a: Passimian|35100
+|-unboost|p2a: Coalossal|spa|2
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "sigilyph"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: stoneedge rapidspin spikes overheat
+|chat|DEBUG|Enemy moves: airslash defog energyball psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol', 'coalossal', 'polteageist']
+|chat|DEBUG|Speed: 102 vs 209
+|chat|DEBUG|HP: 207 vs 7
+|chat|DEBUG|Created a new Strategy for coalossal vs sigilyph:
+|chat|DEBUG|>[overheat: 206.0 [189, 223], stoneedge: 211.75 [194, 230], stoneedge: 211.75 [194, 230]]
+|chat|DEBUG|Best move of coalossal (p1): overheat: 206.0 [189, 223]
+|chat|DEBUG|Best move of sigilyph (p2): psychic: 121.125 [110, 133]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Close Combat|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|faint|p2a: Coalossal
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tapu Lele|Tapu Lele, L80|34243
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Tapu Lele
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol coalossal polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-coalossal-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: stoneedge rapidspin spikes overheat
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapulele', 'claydol', 'polteageist']
+|chat|DEBUG|Speed: 102 vs 178
+|chat|DEBUG|HP: 207 vs 104
+|chat|DEBUG|Created a new Strategy for coalossal vs passimian:
+|chat|DEBUG|>[overheat: 85.0625 [78, 93], overheat: 57.3125 [52, 63], overheat: 43.5 [40, 48]]
+|chat|DEBUG|Best move of coalossal (p1): overheat: 85.0625 [78, 93]
+|chat|DEBUG|Best move of passimian (p2): closecombat: 214.625 [198, 234]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Close Combat|p2a: Tapu Lele
+|-resisted|p2a: Tapu Lele
+|-damage|p2a: Tapu Lele|0 fnt
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|faint|p2a: Tapu Lele
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Claydol|Claydol, L86|243243
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapulele', 'claydol', 'polteageist']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tapulele (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sigilyph|Sigilyph, L83, F|3100
+|-damage|p1a: Sigilyph|0 fnt|[from] Stealth Rock
+|faint|p1a: Sigilyph
+|move|p2a: Claydol|Psychic|p1: Sigilyph|[notarget]
+|-fail|p2a: Claydol
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Passimian|Passimian, L82, M|35100
+|-damage|p1a: Passimian|29100|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile tapulele claydol polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-tapulele-claydol-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: calmmind psychic moonblast shadowball
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapulele', 'claydol', 'polteageist']
+|chat|DEBUG|Speed: 198 vs 178
+|chat|DEBUG|HP: 34 vs 104
+|chat|DEBUG|Created a new Strategy for tapulele vs passimian:
+|chat|DEBUG|>[moonblast: 614.375 [564, 665], moonblast: 614.375 [564, 665], moonblast: 614.375 [564, 665]]
+|chat|DEBUG|Best move of tapulele (p1): moonblast: 614.375 [564, 665]
+|chat|DEBUG|Best move of passimian (p2): knockoff: 90.5 [83, 98]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Knock Off|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|111243
+|-enditem|p2a: Claydol|Leftovers|[from] move: Knock Off|[of] p1a: Passimian
+|move|p2a: Claydol|Psychic|p1a: Passimian
+|-supereffective|p1a: Passimian
+|-damage|p1a: Passimian|0 fnt
+|faint|p1a: Passimian
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Exeggutor|Exeggutor-Alola, L87, M|100100
+|-damage|p1a: Exeggutor|88100|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile claydol polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapulele" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-claydol-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol', 'polteageist']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to claydol (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Exeggutor|Dynamax
+|-heal|p1a: Exeggutor|88100|[silent]
+|move|p2a: Claydol|Ice Beam|p1a: Exeggutor
+|-supereffective|p1a: Exeggutor
+|-damage|p1a: Exeggutor|52100
+|move|p1a: Exeggutor|Max Overgrowth|p2a: Claydol
+|-supereffective|p2a: Claydol
+|-damage|p2a: Claydol|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Claydol
+|-heal|p1a: Exeggutor|55100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mawile|Mawile, L86, M|90226
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile claydol polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "claydol" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-claydol-polteageist -- passimian-dragapult-sigilyph
+|chat|DEBUG|Own moves: toxic earthquake psychic icebeam
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol', 'polteageist']
+|chat|DEBUG|Speed: 178 vs 178
+|chat|DEBUG|HP: 243 vs 104
+|chat|DEBUG|Created a new Strategy for claydol vs passimian:
+|chat|DEBUG|>[psychic: 419.75 [386, 456], psychic: 419.75 [386, 456], psychic: 419.75 [386, 456]]
+|chat|DEBUG|Best move of claydol (p1): psychic: 419.75 [386, 456]
+|chat|DEBUG|Best move of passimian (p2): knockoff: 130.5 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mawile|Play Rough|p1a: Exeggutor
+|-supereffective|p1a: Exeggutor
+|-damage|p1a: Exeggutor|9100
+|move|p1a: Exeggutor|Max Flare|p2a: Mawile
+|-supereffective|p2a: Mawile
+|-damage|p2a: Mawile|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Mawile
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Exeggutor|12100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Polteageist|Polteageist, L78|222222
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile claydol polteageist
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "claydol" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-claydol-polteageist -- passimian-dragapult
+|chat|DEBUG|Own moves: toxic earthquake psychic icebeam
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['claydol', 'polteageist']
+|chat|DEBUG|Speed: 178 vs 178
+|chat|DEBUG|HP: 243 vs 86
+|chat|DEBUG|Best move of claydol (p1): psychic: 419.75 [386, 456]
+|chat|DEBUG|Best move of passimian (p2): knockoff: 130.5 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Polteageist|Shadow Ball|p1a: Exeggutor
+|-damage|p1a: Exeggutor|0 fnt
+|faint|p1a: Exeggutor
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragapult|Dragapult, L78, F|88100
+|-damage|p1a: Dragapult|76100|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mawile claydol polteageist
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "claydol" vs "exeggutoralola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mawile-claydol-polteageist -- dragapult-exeggutoralola
+|chat|DEBUG|Own moves: toxic earthquake psychic icebeam
+|chat|DEBUG|Enemy moves: dracometeor flamethrower gigadrain leafstorm
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mawile']
+|chat|DEBUG|Speed: 178 vs 128
+|chat|DEBUG|HP: 111 vs 270
+|chat|DEBUG|Created a new Strategy for claydol vs exeggutoralola:
+|chat|DEBUG|>[icebeam: 231.25 [212, 252], icebeam: 231.25 [212, 252], icebeam: 231.25 [212, 252]]
+|chat|DEBUG|Best move of claydol (p1): icebeam: 231.25 [212, 252]
+|chat|DEBUG|Best move of exeggutoralola (p2): gigadrain: 236.625 [218, 258]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dragapult|Shadow Ball|p2a: Polteageist
+|-supereffective|p2a: Polteageist
+|-damage|p2a: Polteageist|16222
+|-start|p1a: Dragapult|Disable|Shadow Ball|[from] ability: Cursed Body|[of] p2a: Polteageist
+|move|p2a: Polteageist|Shadow Ball|p1a: Dragapult
+|-supereffective|p1a: Dragapult
+|-damage|p1a: Dragapult|0 fnt
+|faint|p1a: Dragapult
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Hottubbin<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mawile dialga tapulele claydol coalossal polteageist</h1>

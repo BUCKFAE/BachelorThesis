@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490704802-z944nqbdv1wjdrtdzn8d2ah30er2wrmpw</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490704802-z944nqbdv1wjdrtdzn8d2ah30er2wrmpw<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Eloi0804</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490704802-z944nqbdv1wjdrtdzn8d2ah30er2wrmpw|init|battle
+|title|Eloi0804 vs. McGewitter
+|j|☆Eloi0804
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Eloi0804|170|1232
+|player|p2|McGewitter|265|1236
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Corsola|Corsola-Galar, L84, F|100/100
+|switch|p2a: Excadrill|Excadrill, L78, M|300/300
+|-ability|p2a: Excadrill|Mold Breaker
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Excadrill|Earthquake|p1a: Corsola
+|-damage|p1a: Corsola|59/100
+|-damage|p2a: Excadrill|270/300|[from] item: Life Orb
+|move|p1a: Corsola|Will-O-Wisp|p2a: Excadrill
+|-status|p2a: Excadrill|brn
+|-damage|p2a: Excadrill|252/300 brn|[from] brn
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Excadrill|Earthquake|p1a: Corsola
+|-damage|p1a: Corsola|37/100
+|-damage|p2a: Excadrill|222/300 brn|[from] item: Life Orb
+|move|p1a: Corsola|Stealth Rock|p2a: Excadrill
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|-damage|p2a: Excadrill|204/300 brn|[from] brn
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Excadrill|Earthquake|p1a: Corsola
+|-damage|p1a: Corsola|19/100
+|-damage|p2a: Excadrill|174/300 brn|[from] item: Life Orb
+|move|p1a: Corsola|Strength Sap|p2a: Excadrill
+|-unboost|p2a: Excadrill|atk|1
+|-heal|p1a: Corsola|100/100
+|-damage|p2a: Excadrill|156/300 brn|[from] brn
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kabutops|Kabutops, L82, F|233/233
+|-damage|p2a: Kabutops|204/233|[from] Stealth Rock
+|move|p1a: Corsola|Strength Sap|p2a: Kabutops
+|-unboost|p2a: Kabutops|atk|1
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kabutops|Knock Off|p1a: Corsola
+|-supereffective|p1a: Corsola
+|-damage|p1a: Corsola|63/100
+|-start|p2a: Kabutops|Disable|Knock Off|[from] ability: Cursed Body|[of] p1a: Corsola
+|-enditem|p1a: Corsola|Eviolite|[from] move: Knock Off|[of] p2a: Kabutops
+|move|p1a: Corsola|Will-O-Wisp|p2a: Kabutops
+|-status|p2a: Kabutops|brn
+|-damage|p2a: Kabutops|190/233 brn|[from] brn
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p2a: Kabutops|move: Struggle
+|move|p2a: Kabutops|Struggle|p1a: Corsola
+|-damage|p1a: Corsola|56/100
+|-damage|p2a: Kabutops|132/233 brn|[from] recoil
+|move|p1a: Corsola|Strength Sap|p2a: Kabutops
+|-unboost|p2a: Kabutops|atk|1
+|-heal|p1a: Corsola|100/100
+|-damage|p2a: Kabutops|118/233 brn|[from] brn
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dialga|Dialga, L74|270/270
+|-damage|p2a: Dialga|254/270|[from] Stealth Rock
+|-ability|p2a: Dialga|Pressure
+|move|p1a: Corsola|Night Shade|p2a: Dialga
+|-damage|p2a: Dialga|170/270
+|-heal|p2a: Dialga|186/270|[from] item: Leftovers
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Draco Meteor|p1a: Corsola
+|-damage|p1a: Corsola|46/100
+|-unboost|p2a: Dialga|spa|2
+|-start|p2a: Dialga|Disable|Draco Meteor|[from] ability: Cursed Body|[of] p1a: Corsola
+|move|p1a: Corsola|Will-O-Wisp|p2a: Dialga
+|-status|p2a: Dialga|brn
+|-heal|p2a: Dialga|202/270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|186/270 brn|[from] brn
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Flash Cannon|p1a: Corsola
+|-damage|p1a: Corsola|29/100
+|move|p1a: Corsola|Strength Sap|p2a: Dialga
+|-unboost|p2a: Dialga|atk|1
+|-heal|p1a: Corsola|100/100
+|-heal|p2a: Dialga|202/270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|186/270 brn|[from] brn
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Flash Cannon|p1a: Corsola
+|-damage|p1a: Corsola|82/100
+|move|p1a: Corsola|Will-O-Wisp|p2a: Dialga
+|-fail|p2a: Dialga|brn
+|-heal|p2a: Dialga|202/270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|186/270 brn|[from] brn
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, M|255/255
+|move|p1a: Corsola|Night Shade|p2a: Sigilyph
+|-damage|p2a: Sigilyph|171/255
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Air Slash|p1a: Corsola
+|-damage|p1a: Corsola|42/100
+|-start|p2a: Sigilyph|Disable|Air Slash|[from] ability: Cursed Body|[of] p1a: Corsola
+|move|p1a: Corsola|Will-O-Wisp|p2a: Sigilyph|[miss]
+|-miss|p1a: Corsola|p2a: Sigilyph
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Energy Ball|p1a: Corsola
+|-damage|p1a: Corsola|10/100
+|move|p1a: Corsola|Will-O-Wisp|p2a: Sigilyph
+|-status|p2a: Sigilyph|brn
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Froslass|Froslass, L84, F|100/100
+|move|p2a: Sigilyph|Energy Ball|p1a: Froslass
+|-damage|p1a: Froslass|64/100
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Froslass|Triple Axel|p2a: Sigilyph
+|-supereffective|p2a: Sigilyph
+|-damage|p2a: Sigilyph|133/255 brn
+|-supereffective|p2a: Sigilyph
+|-damage|p2a: Sigilyph|47/255 brn
+|-supereffective|p2a: Sigilyph
+|-damage|p2a: Sigilyph|0 fnt
+|faint|p2a: Sigilyph
+|-hitcount|p2: Sigilyph|3
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dialga|Dialga, L74|186/270 brn
+|-damage|p2a: Dialga|170/270 brn|[from] Stealth Rock
+|-ability|p2a: Dialga|Pressure
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Froslass|Spikes|p2a: Dialga
+|-sidestart|p2: McGewitter|Spikes
+|move|p2a: Dialga|Flash Cannon|p1a: Froslass
+|-supereffective|p1a: Froslass
+|-damage|p1a: Froslass|0 fnt
+|faint|p1a: Froslass
+|-heal|p2a: Dialga|186/270 brn|[from] item: Leftovers
+|-damage|p2a: Dialga|170/270 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Melmetal|Melmetal, L74|100/100
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Fire Blast|p1a: Melmetal
+|-supereffective|p1a: Melmetal
+|-damage|p1a: Melmetal|30/100
+|move|p1a: Melmetal|Earthquake|p2a: Dialga
+|-supereffective|p2a: Dialga
+|-damage|p2a: Dialga|0 fnt
+|faint|p2a: Dialga
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Luxray|Luxray, L84, M|272/272
+|-damage|p2a: Luxray|238/272|[from] Stealth Rock
+|-damage|p2a: Luxray|204/272|[from] Spikes
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Luxray|Superpower|p1a: Melmetal
+|-supereffective|p1a: Melmetal
+|-crit|p1a: Melmetal
+|-damage|p1a: Melmetal|0 fnt
+|-unboost|p2a: Luxray|atk|1
+|-unboost|p2a: Luxray|def|1
+|faint|p1a: Melmetal
+|-status|p2a: Luxray|brn|[from] item: Flame Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonchan|Hitmonchan, L86, M|100/100
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Crobat|Crobat, L82, F|274/274
+|move|p1a: Hitmonchan|Bulk Up|p1a: Hitmonchan
+|-boost|p1a: Hitmonchan|atk|1
+|-boost|p1a: Hitmonchan|def|1
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Crobat|Dynamax
+|-heal|p2a: Crobat|548/548|[silent]
+|move|p2a: Crobat|Max Airstream|p1a: Hitmonchan
+|-supereffective|p1a: Hitmonchan
+|-damage|p1a: Hitmonchan|16/100
+|-boost|p2a: Crobat|spe|1
+|move|p1a: Hitmonchan|Throat Chop|p2a: Crobat
+|-damage|p2a: Crobat|409/548
+|-start|p2a: Crobat|Throat Chop|[silent]
+|-damage|p1a: Hitmonchan|6/100|[from] item: Life Orb
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonchan|Mach Punch|p2a: Crobat
+|-resisted|p2a: Crobat
+|-damage|p2a: Crobat|377/548
+|-damage|p1a: Hitmonchan|0 fnt|[from] item: Life Orb
+|faint|p1a: Hitmonchan
+|move|p2a: Crobat|Max Airstream|p1: Hitmonchan|[notarget]
+|-fail|p2a: Crobat
+|-end|p2a: Crobat|Throat Chop|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togekiss|Togekiss, L80, F|100/100
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Miltank|Miltank, L84, F|100/100
+|move|p2a: Crobat|Max Airstream|p1a: Miltank
+|-damage|p1a: Miltank|59/100
+|-boost|p2a: Crobat|spe|1
+|-heal|p1a: Miltank|65/100|[from] item: Leftovers
+|-end|p2a: Crobat|Dynamax
+|-heal|p2a: Crobat|189/274|[silent]
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Miltank
+|-damage|p1a: Miltank|33/100
+|-damage|p2a: Crobat|157/274|[from] Recoil
+|move|p1a: Miltank|Body Slam|p2a: Crobat
+|-damage|p2a: Crobat|72/274
+|-heal|p1a: Miltank|39/100|[from] item: Leftovers
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Miltank
+|-damage|p1a: Miltank|7/100
+|-damage|p2a: Crobat|40/274|[from] Recoil
+|move|p1a: Miltank|Milk Drink|p1a: Miltank
+|-heal|p1a: Miltank|57/100
+|-heal|p1a: Miltank|63/100|[from] item: Leftovers
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Miltank
+|-damage|p1a: Miltank|30/100
+|-damage|p2a: Crobat|8/274|[from] Recoil
+|move|p1a: Miltank|Milk Drink|p1a: Miltank
+|-heal|p1a: Miltank|81/100
+|-heal|p1a: Miltank|87/100|[from] item: Leftovers
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Crobat|Brave Bird|p1a: Miltank
+|-damage|p1a: Miltank|50/100
+|-damage|p2a: Crobat|0 fnt|[from] Recoil
+|faint|p2a: Crobat
+|move|p1a: Miltank|Milk Drink|p1a: Miltank
+|-heal|p1a: Miltank|100/100
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kabutops|Kabutops, L82, F|118/233 brn
+|-damage|p2a: Kabutops|89/233 brn|[from] Spikes
+|-damage|p2a: Kabutops|60/233 brn|[from] Stealth Rock
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togekiss|Togekiss, L80, F|100/100
+|move|p2a: Kabutops|Liquidation|p1a: Togekiss
+|-damage|p1a: Togekiss|73/100
+|-unboost|p1a: Togekiss|def|1
+|-damage|p2a: Kabutops|46/233 brn|[from] brn
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kabutops|Liquidation|p1a: Togekiss
+|-damage|p1a: Togekiss|32/100
+|move|p1a: Togekiss|Air Slash|p2a: Kabutops
+|-resisted|p2a: Kabutops
+|-damage|p2a: Kabutops|0 fnt
+|faint|p2a: Kabutops
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Luxray|Luxray, L84, M|204/272 brn
+|-damage|p2a: Luxray|170/272 brn|[from] Stealth Rock
+|-damage|p2a: Luxray|136/272 brn|[from] Spikes
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Togekiss|Air Slash|p2a: Luxray
+|-resisted|p2a: Luxray
+|-damage|p2a: Luxray|85/272 brn
+|cant|p2a: Luxray|flinch
+|-damage|p2a: Luxray|68/272 brn|[from] brn
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Togekiss|Aura Sphere|p2a: Luxray
+|-damage|p2a: Luxray|4/272 brn
+|move|p2a: Luxray|Wild Charge|p1a: Togekiss
+|-supereffective|p1a: Togekiss
+|-damage|p1a: Togekiss|0 fnt
+|faint|p1a: Togekiss
+|-damage|p2a: Luxray|0 fnt|[from] Recoil
+|faint|p2a: Luxray
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Miltank|Miltank, L84, F|100/100
+|switch|p2a: Excadrill|Excadrill, L78, M|156/300 brn
+|-damage|p2a: Excadrill|119/300 brn|[from] Spikes
+|-damage|p2a: Excadrill|110/300 brn|[from] Stealth Rock
+|-ability|p2a: Excadrill|Mold Breaker
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Miltank|Milk Drink||[still]
+|-fail|p1a: Miltank|heal
+|move|p2a: Excadrill|Earthquake|p1a: Miltank
+|-crit|p1a: Miltank
+|-damage|p1a: Miltank|64/100
+|-damage|p2a: Excadrill|80/300 brn|[from] item: Life Orb
+|-heal|p1a: Miltank|71/100|[from] item: Leftovers
+|-damage|p2a: Excadrill|62/300 brn|[from] brn
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Miltank|Milk Drink|p1a: Miltank
+|-heal|p1a: Miltank|100/100
+|move|p2a: Excadrill|Earthquake|p1a: Miltank
+|-damage|p1a: Miltank|77/100
+|-damage|p2a: Excadrill|32/300 brn|[from] item: Life Orb
+|-heal|p1a: Miltank|83/100|[from] item: Leftovers
+|-damage|p2a: Excadrill|14/300 brn|[from] brn
+|upkeep
+|turn|33
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Miltank|Milk Drink|p1a: Miltank
+|-heal|p1a: Miltank|100/100
+|move|p2a: Excadrill|Earthquake|p1a: Miltank
+|-damage|p1a: Miltank|78/100
+|-damage|p2a: Excadrill|0 fnt|[from] item: Life Orb
+|faint|p2a: Excadrill
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

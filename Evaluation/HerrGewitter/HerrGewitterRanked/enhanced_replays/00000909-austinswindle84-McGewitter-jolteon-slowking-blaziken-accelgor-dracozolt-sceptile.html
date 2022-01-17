@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491437589<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491437589|init|battle
+|title|austinswindle84 vs. McGewitter
+|j|☆austinswindle84
+|j|☆McGewitter
+|gametype|singles
+|player|p1|austinswindle84|chuck|1208
+|player|p2|McGewitter|265|1209
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Heatran|Heatran, L78, F|100100
+|switch|p2a: Jolteon|Jolteon, L82, M|241241
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: shadowball hypervoice thunderbolt voltswitch
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['jolteon', 'slowking', 'blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 241 vs 270
+|chat|DEBUG|Created a new Strategy for jolteon vs heatran:
+|chat|DEBUG|>[thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 138.5625 [127, 151]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 135.5 [124, 147]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|austinswindle84 also wants the timer to be on.
+|move|p2a: Jolteon|Thunderbolt|p1a: Heatran
+|-damage|p1a: Heatran|52100
+|move|p1a: Heatran|Toxic|p2a: Jolteon
+|-status|p2a: Jolteon|tox
+|-heal|p1a: Heatran|58100|[from] item: Leftovers
+|-damage|p2a: Jolteon|226241 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['jolteon', 'slowking', 'blaziken', 'accelgor', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 226 vs 156
+|chat|DEBUG|Created a new Strategy for jolteon vs heatran:
+|chat|DEBUG|>[thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 138.5625 [127, 151]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 135.5 [124, 147]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatran|Protect|p1a: Heatran
+|-singleturn|p1a: Heatran|Protect
+|move|p2a: Jolteon|Thunderbolt|p1a: Heatran
+|-activate|p1a: Heatran|move: Protect
+|-heal|p1a: Heatran|63100|[from] item: Leftovers
+|-damage|p2a: Jolteon|196241 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['jolteon', 'slowking', 'blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 196 vs 170
+|chat|DEBUG|Created a new Strategy for jolteon vs heatran:
+|chat|DEBUG|>[thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 138.5625 [127, 151]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 135.5 [124, 147]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jolteon|Thunderbolt|p1a: Heatran
+|-damage|p1a: Heatran|11100
+|move|p1a: Heatran|Lava Plume|p2a: Jolteon
+|-damage|p2a: Jolteon|111241 tox
+|-heal|p1a: Heatran|17100|[from] item: Leftovers
+|-damage|p2a: Jolteon|66241 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['jolteon', 'slowking', 'blaziken', 'accelgor', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 66 vs 45
+|chat|DEBUG|Created a new Strategy for jolteon vs heatran:
+|chat|DEBUG|>[thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 138.5625 [127, 151]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 135.5 [124, 147]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatran|Protect|p1a: Heatran
+|-singleturn|p1a: Heatran|Protect
+|move|p2a: Jolteon|Thunderbolt|p1a: Heatran
+|-activate|p1a: Heatran|move: Protect
+|-heal|p1a: Heatran|23100|[from] item: Leftovers
+|-damage|p2a: Jolteon|6241 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['jolteon', 'slowking', 'blaziken', 'accelgor', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 6 vs 62
+|chat|DEBUG|Created a new Strategy for jolteon vs heatran:
+|chat|DEBUG|>[thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151], thunderbolt: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 138.5625 [127, 151]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 135.5 [124, 147]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatran|Protect|p1a: Heatran
+|-singleturn|p1a: Heatran|Protect
+|move|p2a: Jolteon|Thunderbolt|p1a: Heatran
+|-activate|p1a: Heatran|move: Protect
+|-heal|p1a: Heatran|29100|[from] item: Leftovers
+|-damage|p2a: Jolteon|0 fnt|[from] psn
+|faint|p2a: Jolteon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowking|Slowking, L86, F|304304
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['slowking', 'blaziken', 'accelgor', 'dracozolt', 'sceptile']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to slowking (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatran|Toxic|p2a: Slowking
+|-status|p2a: Slowking|tox
+|move|p2a: Slowking|Scald|p1a: Heatran
+|-supereffective|p1a: Heatran
+|-damage|p1a: Heatran|0 fnt
+|faint|p1a: Heatran
+|-damage|p2a: Slowking|285304 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Spiritomb|Spiritomb, L88, F|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slowking-blaziken-accelgor-dracozolt-sceptile -- heatran
+|chat|DEBUG|Own moves: scald psyshock teleport slackoff
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['slowking', 'blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['slowking', 'blaziken', 'accelgor', 'dracozolt', 'sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 101 vs 165
+|chat|DEBUG|HP: 304 vs 78
+|chat|DEBUG|Created a new Strategy for slowking vs heatran:
+|chat|DEBUG|>[scald: 170.125 [156, 186], scald: 170.125 [156, 186], scald: 170.125 [156, 186]]
+|chat|DEBUG|Best move of slowking (p1): scald: 170.125 [156, 186]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 57.5625 [53, 63]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Spiritomb|Poltergeist|p2a: Slowking
+|-activate|p2a: Slowking|move: Poltergeist|Leftovers
+|-supereffective|p2a: Slowking
+|-damage|p2a: Slowking|0 fnt
+|faint|p2a: Slowking
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dracozolt|Dracozolt, L78|268268
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowking blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "spiritomb"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slowking-blaziken-accelgor-dracozolt-sceptile -- spiritomb
+|chat|DEBUG|Own moves: scald psyshock teleport slackoff
+|chat|DEBUG|Enemy moves: foulplay poltergeist suckerpunch trick
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 101 vs 112
+|chat|DEBUG|HP: 285 vs 231
+|chat|DEBUG|Created a new Strategy for slowking vs spiritomb:
+|chat|DEBUG|>[scald: 75.3125 [69, 82], scald: 75.3125 [69, 82], scald: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of slowking (p1): scald: 75.3125 [69, 82]
+|chat|DEBUG|Best move of spiritomb (p2): poltergeist: 386.875 [356, 420]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyurem|Kyurem, L80|100100
+|-ability|p1a: Kyurem|Pressure
+|move|p2a: Dracozolt|Bolt Beak|p1a: Kyurem
+|-resisted|p1a: Kyurem
+|-crit|p1a: Kyurem
+|-damage|p1a: Kyurem|47100
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowking" vs "spiritomb"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: foulplay poltergeist suckerpunch trick
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dracozolt', 'sceptile']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dracozolt (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Accelgor|Accelgor, L86, M|278278
+|move|p1a: Kyurem|Draco Meteor|p2a: Accelgor|[miss]
+|-miss|p1a: Kyurem|p2a: Accelgor
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "spiritomb"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb
+|chat|DEBUG|Own moves: outrage boltbeak earthquake aerialace
+|chat|DEBUG|Enemy moves: foulplay poltergeist suckerpunch trick
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 162 vs 112
+|chat|DEBUG|HP: 268 vs 231
+|chat|DEBUG|Created a new Strategy for dracozolt vs spiritomb:
+|chat|DEBUG|>[boltbeak: 196.125 [180, 213], boltbeak: 196.125 [180, 213], boltbeak: 196.125 [180, 213]]
+|chat|DEBUG|Best move of dracozolt (p1): boltbeak: 196.125 [180, 213]
+|chat|DEBUG|Best move of spiritomb (p2): poltergeist: 194.625 [178, 211]
+|chat|DEBUG|Attacking using boltbeak
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Focus Blast|p1a: Kyurem
+|-supereffective|p1a: Kyurem
+|-damage|p1a: Kyurem|0 fnt
+|faint|p1a: Kyurem
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chansey|Chansey, L84, F|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "kyurem"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-kyurem
+|chat|DEBUG|Own moves: boltbeak
+|chat|DEBUG|Enemy moves: dracometeor icebeam roost substitute
+|chat|DEBUG|Checks: ['accelgor']
+|chat|DEBUG|Counter: ['blaziken', 'accelgor', 'sceptile']
+|chat|DEBUG|Speed: 162 vs 198
+|chat|DEBUG|HP: 268 vs 155
+|chat|DEBUG|Created a new Strategy for dracozolt vs kyurem:
+|chat|DEBUG|>[boltbeak: 123.4375 [114, 134], boltbeak: 123.4375 [114, 134], boltbeak: 123.4375 [114, 134]]
+|chat|DEBUG|Best move of dracozolt (p1): boltbeak: 123.4375 [114, 134]
+|chat|DEBUG|Best move of kyurem (p2): icebeam: 280.25 [258, 306]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check accelgor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Spikes|p1a: Chansey
+|-sidestart|p1: austinswindle84|Spikes
+|move|p1a: Chansey|Toxic|p2a: Accelgor|[miss]
+|-miss|p1a: Chansey|p2a: Accelgor
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "kyurem"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-kyurem
+|chat|DEBUG|Own moves: focusblast spikes sludgebomb bugbuzz
+|chat|DEBUG|Enemy moves: dracometeor icebeam roost substitute
+|chat|DEBUG|Checks: ['accelgor']
+|chat|DEBUG|Counter: ['blaziken', 'accelgor', 'sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 299 vs 198
+|chat|DEBUG|HP: 278 vs 155
+|chat|DEBUG|Created a new Strategy for accelgor vs kyurem:
+|chat|DEBUG|>[focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204]]
+|chat|DEBUG|Best move of accelgor (p1): focusblast: 187.125 [172, 204]
+|chat|DEBUG|Best move of kyurem (p2): icebeam: 143.125 [132, 156]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Spikes|p1a: Chansey
+|-sidestart|p1: austinswindle84|Spikes
+|move|p1a: Chansey|Toxic|p2a: Accelgor
+|-status|p2a: Accelgor|tox
+|-damage|p2a: Accelgor|261278 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-chansey
+|chat|DEBUG|Own moves: focusblast spikes sludgebomb bugbuzz
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 299 vs 132
+|chat|DEBUG|HP: 278 vs 557
+|chat|DEBUG|Created a new Strategy for accelgor vs chansey:
+|chat|DEBUG|>[focusblast: 106.375 [98, 116], focusblast: 106.375 [98, 116], focusblast: 106.375 [98, 116]]
+|chat|DEBUG|Best move of accelgor (p1): focusblast: 106.375 [98, 116]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Spikes|p1a: Chansey
+|-sidestart|p1: austinswindle84|Spikes
+|move|p1a: Chansey|Seismic Toss|p2a: Accelgor
+|-damage|p2a: Accelgor|177278 tox
+|-damage|p2a: Accelgor|143278 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-chansey
+|chat|DEBUG|Own moves: focusblast spikes sludgebomb bugbuzz
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 299 vs 132
+|chat|DEBUG|HP: 278 vs 557
+|chat|DEBUG|Best move of accelgor (p1): focusblast: 106.375 [98, 116]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blaziken|Blaziken, L76, F|247247
+|move|p1a: Chansey|Seismic Toss|p2a: Blaziken
+|-damage|p2a: Blaziken|163247
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-chansey
+|chat|DEBUG|Own moves: focusblast spikes sludgebomb bugbuzz
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 299 vs 132
+|chat|DEBUG|HP: 261 vs 557
+|chat|DEBUG|Best move of accelgor (p1): focusblast: 106.375 [98, 116]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blaziken|Close Combat|p1a: Chansey
+|-supereffective|p1a: Chansey
+|-damage|p1a: Chansey|0 fnt
+|-unboost|p2a: Blaziken|def|1
+|-unboost|p2a: Blaziken|spd|1
+|faint|p1a: Chansey
+|-damage|p2a: Blaziken|139247|[from] item: Life Orb
+|-ability|p2a: Blaziken|Speed Boost|boost
+|-boost|p2a: Blaziken|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Spiritomb|Spiritomb, L88, F|100100
+|-damage|p1a: Spiritomb|76100|[from] Spikes
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-chansey
+|chat|DEBUG|Own moves: focusblast spikes sludgebomb bugbuzz
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 299 vs 132
+|chat|DEBUG|HP: 143 vs 557
+|chat|DEBUG|Created a new Strategy for accelgor vs chansey:
+|chat|DEBUG|>[focusblast: 106.375 [98, 116], focusblast: 106.375 [98, 116], focusblast: 106.375 [98, 116]]
+|chat|DEBUG|Best move of accelgor (p1): focusblast: 106.375 [98, 116]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check blaziken
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dracozolt|Dracozolt, L78|268268
+|move|p1a: Spiritomb|Trick|p2a: Dracozolt
+|-activate|p1a: Spiritomb|move: Trick|[of] p2a: Dracozolt
+|-item|p2a: Dracozolt|Choice Band|[from] move: Trick
+|-item|p1a: Spiritomb|Choice Scarf|[from] move: Trick
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blaziken" vs "chansey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb-chansey
+|chat|DEBUG|Own moves: knockoff flareblitz closecombat swordsdance
+|chat|DEBUG|Enemy moves: healbell seismictoss softboiled toxic
+|chat|DEBUG|Checks: ['blaziken', 'dracozolt']
+|chat|DEBUG|Counter: ['blaziken', 'dracozolt', 'sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 166 vs 132
+|chat|DEBUG|HP: 163 vs 557
+|chat|DEBUG|Created a new Strategy for blaziken vs chansey:
+|chat|DEBUG|>[closecombat: 739.8125 [681, 803], closecombat: 739.8125 [681, 803], closecombat: 739.8125 [681, 803]]
+|chat|DEBUG|Best move of blaziken (p1): closecombat: 739.8125 [681, 803]
+|chat|DEBUG|Best move of chansey (p2): seismictoss: 84.0 [84, 84]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Spiritomb|Poltergeist|p2a: Dracozolt
+|-activate|p2a: Dracozolt|move: Poltergeist|Choice Band
+|-damage|p2a: Dracozolt|144268
+|move|p2a: Dracozolt|Outrage|p1a: Spiritomb
+|-damage|p1a: Spiritomb|0 fnt
+|faint|p1a: Spiritomb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragalge|Dragalge, L86, F|100100
+|-damage|p1a: Dragalge|75100|[from] Spikes
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blaziken" vs "spiritomb"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb
+|chat|DEBUG|Own moves: knockoff flareblitz closecombat swordsdance
+|chat|DEBUG|Enemy moves: foulplay poltergeist suckerpunch trick
+|chat|DEBUG|Checks: ['dracozolt']
+|chat|DEBUG|Counter: ['dracozolt', 'sceptile']
+|chat|DEBUG|Speed: 166 vs 112
+|chat|DEBUG|HP: 139 vs 175
+|chat|DEBUG|Created a new Strategy for blaziken vs spiritomb:
+|chat|DEBUG|>[flareblitz: 132.3125 [121, 144], flareblitz: 132.3125 [121, 144], flareblitz: 132.3125 [121, 144]]
+|chat|DEBUG|Best move of blaziken (p1): flareblitz: 132.3125 [121, 144]
+|chat|DEBUG|Best move of spiritomb (p2): poltergeist: 359.9375 [331, 390]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dracozolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Dragalge|Dynamax
+|-heal|p1a: Dragalge|75100|[silent]
+|move|p2a: Dracozolt|Outrage|p1a: Dragalge|[from]lockedmove|[miss]
+|-miss|p2a: Dracozolt|p1a: Dragalge
+|-start|p2a: Dracozolt|confusion|[fatigue]
+|move|p1a: Dragalge|Max Wyrmwind|p2a: Dracozolt
+|-supereffective|p2a: Dracozolt
+|-damage|p2a: Dracozolt|0 fnt
+|faint|p2a: Dracozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Accelgor|Accelgor, L86, M|143278 tox
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "spiritomb"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- spiritomb
+|chat|DEBUG|There were no possible builds remaining for "spiritomb"
+|chat|DEBUG|>Level: 88
+|chat|DEBUG|>Gender: female
+|chat|DEBUG|>Item: "choicescarf"
+|chat|DEBUG|>Ability: "infiltrator"
+|chat|DEBUG|>Stats: "{}">Using the most likely build from file instead!
+|chat|DEBUG|Own moves: outrage boltbeak earthquake aerialace
+|chat|DEBUG|Enemy moves: foulplay poltergeist suckerpunch trick
+|chat|DEBUG|Checks: ['dracozolt']
+|chat|DEBUG|Counter: ['dracozolt', 'sceptile']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 162 vs 112
+|chat|DEBUG|HP: 268 vs 175
+|chat|DEBUG|Created a new Strategy for dracozolt vs spiritomb:
+|chat|DEBUG|>[outrage: 207.5 [190, 225], outrage: 207.5 [190, 225], outrage: 207.5 [190, 225]]
+|chat|DEBUG|Best move of dracozolt (p1): outrage: 207.5 [190, 225]
+|chat|DEBUG|Best move of spiritomb (p2): poltergeist: 131.0 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Bug Buzz|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|68100
+|-unboost|p1a: Dragalge|spd|1
+|move|p1a: Dragalge|Max Ooze|p2a: Accelgor
+|-damage|p2a: Accelgor|0 fnt
+|-boost|p1a: Dragalge|spa|1
+|faint|p2a: Accelgor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blaziken|Blaziken, L76, F|139247
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor dracozolt sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-dracozolt-sceptile -- dragalge
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dracozolt']
+|chat|DEBUG|Speed: 162 vs 125
+|chat|DEBUG|HP: 144 vs 189
+|chat|DEBUG|Created a new Strategy for dracozolt vs dragalge:
+|chat|DEBUG|>[outrage: 489.125 [450, 530], outrage: 489.125 [450, 530], outrage: 489.125 [450, 530]]
+|chat|DEBUG|Best move of dracozolt (p1): outrage: 489.125 [450, 530]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 179.0 [164, 194]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Blaziken|Knock Off|p1a: Dragalge
+|-damage|p1a: Dragalge|52100
+|-enditem|p1a: Dragalge|Choice Specs|[from] move: Knock Off|[of] p2a: Blaziken
+|-damage|p2a: Blaziken|115247|[from] item: Life Orb
+|move|p1a: Dragalge|Max Geyser|p2a: Blaziken
+|-supereffective|p2a: Blaziken
+|-damage|p2a: Blaziken|0 fnt
+|-weather|RainDance
+|faint|p2a: Blaziken
+|-weather|RainDance|[upkeep]
+|-end|p1a: Dragalge|Dynamax
+|-heal|p1a: Dragalge|52100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, F|261261
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-sceptile -- dragalge
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: accelgor
+|chat|DEBUG|>Switching to accelgor (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sceptile|Earthquake|p1a: Dragalge
+|-supereffective|p1a: Dragalge
+|-damage|p1a: Dragalge|0 fnt
+|faint|p1a: Dragalge
+|-damage|p2a: Sceptile|235261|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Golduck|Golduck, L86, F|100100
+|-damage|p1a: Golduck|76100|[from] Spikes
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blaziken accelgor sceptile
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blaziken-accelgor-sceptile -- dragalge
+|chat|DEBUG|Own moves: focusblast spikes sludgebomb bugbuzz
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 299 vs 125
+|chat|DEBUG|HP: 143 vs 189
+|chat|DEBUG|Created a new Strategy for accelgor vs dragalge:
+|chat|DEBUG|>[bugbuzz: 38.125 [35, 42], bugbuzz: 38.125 [35, 42], bugbuzz: 38.125 [35, 42]]
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 38.125 [35, 42]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 183.0 [168, 198]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bugbuzz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|austinswindle84 has 120 seconds left.
+|inactive|austinswindle84 has 90 seconds left.
+|inactive|austinswindle84 has 60 seconds left.
+|inactive|austinswindle84 has 30 seconds left.
+|move|p1a: Golduck|Focus Blast|p2a: Sceptile
+|-damage|p2a: Sceptile|139261
+|move|p2a: Sceptile|Giga Drain|p1a: Golduck
+|-supereffective|p1a: Golduck
+|-damage|p1a: Golduck|0 fnt
+|-heal|p2a: Sceptile|244261|[from] drain|[of] p1a: Golduck
+|faint|p1a: Golduck
+|-damage|p2a: Sceptile|218261|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>austinswindle84<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">jolteon slowking blaziken accelgor dracozolt sceptile</h1>

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490840494<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490840494|init|battle
+|title|Eel the Eel vs. McGewitter
+|j|☆Eel the Eel
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Eel the Eel|102|1187
+|player|p2|McGewitter|265|1210
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Mr. Mime|Mr. Mime-Galar, L86, M|100100
+|switch|p2a: Beartic|Beartic, L86, F|304304
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "beartic" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- mrmimegalar
+|chat|DEBUG|Own moves: superpower iciclecrash swordsdance stoneedge
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 135 vs 221
+|chat|DEBUG|HP: 304 vs 226
+|chat|DEBUG|Created a new Strategy for beartic vs mrmimegalar:
+|chat|DEBUG|>[stoneedge: 152.75 [140, 166], stoneedge: 152.75 [140, 166], stoneedge: 152.75 [140, 166]]
+|chat|DEBUG|Best move of beartic (p1): stoneedge: 152.75 [140, 166]
+|chat|DEBUG|Best move of mrmimegalar (p2): focusblast: 177.0 [162, 192]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Eel the Eel has 120 seconds left.
+|move|p1a: Mr. Mime|Nasty Plot|p1a: Mr. Mime
+|-boost|p1a: Mr. Mime|spa|2
+|move|p2a: Beartic|Stone Edge|p1a: Mr. Mime
+|-supereffective|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|33100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "beartic" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- mrmimegalar
+|chat|DEBUG|Own moves: superpower iciclecrash swordsdance stoneedge
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 135 vs 221
+|chat|DEBUG|HP: 304 vs 74
+|chat|DEBUG|Best move of beartic (p1): stoneedge: 152.75 [140, 166]
+|chat|DEBUG|Best move of mrmimegalar (p2): focusblast: 350.75 [322, 380]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mr. Mime|Focus Blast|p2a: Beartic|[miss]
+|-miss|p1a: Mr. Mime|p2a: Beartic
+|move|p2a: Beartic|Stone Edge|p1a: Mr. Mime
+|-supereffective|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|0 fnt
+|faint|p1a: Mr. Mime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Swampert|Swampert, L80, M|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "beartic" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: superpower iciclecrash swordsdance stoneedge
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['golisopod']
+|chat|DEBUG|Counter: ['scyther', 'palkia', 'golisopod']
+|chat|DEBUG|Speed: 135 vs 142
+|chat|DEBUG|HP: 304 vs 291
+|chat|DEBUG|Created a new Strategy for beartic vs swampert:
+|chat|DEBUG|>[iciclecrash: 122.5625 [112, 133], iciclecrash: 122.5625 [112, 133], superpower: 116.0625 [107, 126]]
+|chat|DEBUG|Best move of beartic (p1): iciclecrash: 122.5625 [112, 133]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check golisopod
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golisopod|Golisopod, L84, F|263263
+|move|p1a: Swampert|Earthquake|p2a: Golisopod
+|-resisted|p2a: Golisopod
+|-damage|p2a: Golisopod|227263
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: knockoff firstimpression liquidation spikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['golisopod']
+|chat|DEBUG|Counter: ['scyther', 'palkia', 'golisopod']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 115 vs 142
+|chat|DEBUG|HP: 227 vs 291
+|chat|DEBUG|Created a new Strategy for golisopod vs swampert:
+|chat|DEBUG|>[firstimpression: 119.75 [109, 130], firstimpression: 119.75 [109, 130], firstimpression: 119.75 [109, 130]]
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 119.75 [109, 130]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 37.4375 [34, 41]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swampert|Stealth Rock|p2a: Golisopod
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|move|p2a: Golisopod|Spikes|p1a: Swampert
+|-sidestart|p1: Eel the Eel|Spikes
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: knockoff firstimpression liquidation spikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['golisopod']
+|chat|DEBUG|Counter: ['scyther', 'palkia', 'golisopod']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 115 vs 142
+|chat|DEBUG|HP: 227 vs 291
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 119.75 [109, 130]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 37.4375 [34, 41]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swampert|Toxic|p2a: Golisopod
+|-status|p2a: Golisopod|tox
+|move|p2a: Golisopod|Spikes|p1a: Swampert
+|-sidestart|p1: Eel the Eel|Spikes
+|-damage|p2a: Golisopod|211263 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: knockoff firstimpression liquidation spikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['golisopod']
+|chat|DEBUG|Counter: ['scyther', 'palkia', 'golisopod']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 115 vs 142
+|chat|DEBUG|HP: 211 vs 291
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 119.75 [109, 130]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 37.4375 [34, 41]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swampert|Scald|p2a: Golisopod
+|-resisted|p2a: Golisopod
+|-damage|p2a: Golisopod|175263 tox
+|move|p2a: Golisopod|Spikes|p1a: Swampert
+|-sidestart|p1: Eel the Eel|Spikes
+|-damage|p2a: Golisopod|143263 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: knockoff firstimpression liquidation spikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'palkia', 'golisopod']
+|chat|DEBUG|Speed: 115 vs 142
+|chat|DEBUG|HP: 143 vs 291
+|chat|DEBUG|Created a new Strategy for golisopod vs swampert:
+|chat|DEBUG|>[firstimpression: 119.75 [109, 130], firstimpression: 119.75 [109, 130], firstimpression: 119.75 [109, 130]]
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 119.75 [109, 130]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 37.4375 [34, 41]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Attacking using firstimpression
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Golisopod|First Impression||[still]
+|-hint|First Impression only works on your first turn out.
+|-fail|p2a: Golisopod
+|move|p1a: Swampert|Scald|p2a: Golisopod
+|-resisted|p2a: Golisopod
+|-damage|p2a: Golisopod|110263 tox
+|-activate|p2a: Golisopod|ability: Emergency Exit
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, F|246246
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'palkia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scyther (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scyther|U-turn|p1a: Swampert
+|-damage|p1a: Swampert|73100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Palkia|Palkia, L74|255255
+|-damage|p2a: Palkia|224255|[from] Stealth Rock
+|-ability|p2a: Palkia|Pressure
+|move|p1a: Swampert|Toxic|p2a: Palkia
+|-status|p2a: Palkia|tox
+|-heal|p2a: Palkia|239255 tox|[from] item: Leftovers
+|-heal|p1a: Swampert|80100|[from] item: Leftovers
+|-damage|p2a: Palkia|224255 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: dualwingbeat roost knockoff uturn
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'palkia']
+|chat|DEBUG|Speed: 217 vs 142
+|chat|DEBUG|HP: 246 vs 291
+|chat|DEBUG|Created a new Strategy for scyther vs swampert:
+|chat|DEBUG|>[uturn: 79.5 [73, 87], uturn: 79.5 [73, 87], uturn: 79.5 [73, 87]]
+|chat|DEBUG|Best move of scyther (p1): uturn: 79.5 [73, 87]
+|chat|DEBUG|Best move of swampert (p2): scald: 79.5 [73, 87]
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Palkia|Spacial Rend|p1a: Swampert
+|-damage|p1a: Swampert|36100
+|move|p1a: Swampert|Earthquake|p2a: Palkia
+|-damage|p2a: Palkia|110255 tox
+|-heal|p2a: Palkia|125255 tox|[from] item: Leftovers
+|-heal|p1a: Swampert|42100|[from] item: Leftovers
+|-damage|p2a: Palkia|95255 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'palkia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to palkia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Beartic|Beartic, L86, F|304304
+|move|p1a: Swampert|Earthquake|p2a: Beartic
+|-damage|p2a: Beartic|181304
+|-heal|p1a: Swampert|48100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: fireblast spacialrend thunderwave hydropump
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['scyther']
+|chat|DEBUG|Counter: ['scyther', 'palkia']
+|chat|DEBUG|Speed: 191 vs 142
+|chat|DEBUG|HP: 224 vs 232
+|chat|DEBUG|Created a new Strategy for palkia vs swampert:
+|chat|DEBUG|>[spacialrend: 121.1875 [111, 132], spacialrend: 121.1875 [111, 132], spacialrend: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of palkia (p1): spacialrend: 121.1875 [111, 132]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 111.4375 [102, 121]
+|chat|DEBUG|Attacking using spacialrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, F|246246
+|move|p1a: Swampert|Toxic|p2a: Scyther
+|-status|p2a: Scyther|tox
+|-heal|p1a: Swampert|54100|[from] item: Leftovers
+|-damage|p2a: Scyther|231246 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palkia" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: fireblast spacialrend thunderwave hydropump
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['beartic', 'scyther']
+|chat|DEBUG|Counter: ['beartic', 'scyther', 'toxicroak', 'golisopod', 'darmanitan']
+|chat|DEBUG|Speed: 191 vs 142
+|chat|DEBUG|HP: 95 vs 122
+|chat|DEBUG|Best move of palkia (p1): spacialrend: 121.1875 [111, 132]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check beartic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scyther|U-turn|p1a: Swampert
+|-damage|p1a: Swampert|28100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Toxicroak|Toxicroak, L84, F|277277
+|-damage|p2a: Toxicroak|260277|[from] Stealth Rock
+|move|p1a: Swampert|Earthquake|p2a: Toxicroak
+|-supereffective|p2a: Toxicroak
+|-damage|p2a: Toxicroak|8277
+|-heal|p1a: Swampert|34100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "beartic" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: superpower iciclecrash swordsdance stoneedge
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['scyther']
+|chat|DEBUG|Counter: ['scyther', 'toxicroak', 'golisopod']
+|chat|DEBUG|Speed: 135 vs 142
+|chat|DEBUG|HP: 181 vs 139
+|chat|DEBUG|Created a new Strategy for beartic vs swampert:
+|chat|DEBUG|>[iciclecrash: 122.5625 [112, 133], iciclecrash: 122.5625 [112, 133], superpower: 116.0625 [107, 126]]
+|chat|DEBUG|Best move of beartic (p1): iciclecrash: 122.5625 [112, 133]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scyther
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, F|231246 tox
+|move|p1a: Swampert|Earthquake|p2a: Scyther
+|-immune|p2a: Scyther
+|-heal|p1a: Swampert|40100|[from] item: Leftovers
+|-damage|p2a: Scyther|216246 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: dualwingbeat roost knockoff uturn
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'toxicroak', 'golisopod']
+|chat|DEBUG|Speed: 217 vs 142
+|chat|DEBUG|HP: 231 vs 157
+|chat|DEBUG|Created a new Strategy for scyther vs swampert:
+|chat|DEBUG|>[uturn: 79.5 [73, 87], uturn: 79.5 [73, 87], uturn: 79.5 [73, 87]]
+|chat|DEBUG|Best move of scyther (p1): uturn: 79.5 [73, 87]
+|chat|DEBUG|Best move of swampert (p2): scald: 79.5 [73, 87]
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scyther|U-turn|p1a: Swampert
+|-damage|p1a: Swampert|11100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golisopod|Golisopod, L84, F|110263 tox
+|move|p1a: Swampert|Scald|p2a: Golisopod
+|-resisted|p2a: Golisopod
+|-damage|p2a: Golisopod|61263 tox
+|-heal|p1a: Swampert|17100|[from] item: Leftovers
+|-damage|p2a: Golisopod|45263 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scyther', 'toxicroak', 'golisopod']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to toxicroak (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, F|100100
+|-damage|p1a: Drapion|76100|[from] Spikes
+|switch|p2a: Scyther|Scyther, L81, F|216246 tox
+|-damage|p2a: Scyther|201246 tox|[from] psn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: gunkshot knockoff icepunch drainpunch
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['scyther', 'golisopod']
+|chat|DEBUG|Counter: ['beartic', 'scyther', 'palkia', 'golisopod', 'darmanitan']
+|chat|DEBUG|Speed: 191 vs 142
+|chat|DEBUG|HP: 8 vs 98
+|chat|DEBUG|Created a new Strategy for toxicroak vs swampert:
+|chat|DEBUG|>[drainpunch: 87.9375 [81, 96], drainpunch: 87.9375 [81, 96], drainpunch: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 87.9375 [81, 96]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 271.0 [248, 294]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scyther
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scyther|U-turn|p1a: Drapion
+|-damage|p1a: Drapion|50100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Toxicroak|Toxicroak, L84, F|8277
+|-damage|p2a: Toxicroak|0 fnt|[from] Stealth Rock
+|faint|p2a: Toxicroak
+|move|p1a: Drapion|Swords Dance|p1a: Drapion
+|-boost|p1a: Drapion|atk|2
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Beartic|Beartic, L86, F|181304
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: dualwingbeat roost knockoff uturn
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['scyther', 'golisopod']
+|chat|DEBUG|Counter: ['beartic', 'scyther', 'palkia', 'golisopod', 'darmanitan']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 217 vs 142
+|chat|DEBUG|HP: 216 vs 116
+|chat|DEBUG|Created a new Strategy for scyther vs swampert:
+|chat|DEBUG|>[uturn: 79.5 [73, 87], uturn: 79.5 [73, 87], uturn: 79.5 [73, 87]]
+|chat|DEBUG|Best move of scyther (p1): uturn: 79.5 [73, 87]
+|chat|DEBUG|Best move of swampert (p2): scald: 79.5 [73, 87]
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Swords Dance|p1a: Drapion
+|-boost|p1a: Drapion|atk|2
+|move|p2a: Beartic|Icicle Crash|p1a: Drapion
+|-crit|p1a: Drapion
+|-damage|p1a: Drapion|0 fnt
+|faint|p1a: Drapion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mewtwo|Mewtwo, L72|100100
+|-ability|p1a: Mewtwo|Unnerve
+|-damage|p1a: Mewtwo|75100|[from] Spikes
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['scyther', 'golisopod']
+|chat|DEBUG|Counter: ['beartic', 'scyther', 'palkia', 'golisopod', 'darmanitan']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to golisopod (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Fire Blast|p2a: Beartic
+|-supereffective|p2a: Beartic
+|-damage|p2a: Beartic|0 fnt
+|faint|p2a: Beartic
+|-heal|p1a: Mewtwo|82100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan, L80, F|299299
+|-damage|p2a: Darmanitan|225299|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golisopod" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert
+|chat|DEBUG|Own moves: knockoff firstimpression liquidation spikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['scyther']
+|chat|DEBUG|Counter: ['beartic', 'scyther', 'palkia', 'toxicroak', 'darmanitan']
+|chat|DEBUG|Speed: 115 vs 142
+|chat|DEBUG|HP: 45 vs 49
+|chat|DEBUG|Created a new Strategy for golisopod vs swampert:
+|chat|DEBUG|>[firstimpression: 119.75 [109, 130], firstimpression: 119.75 [109, 130], firstimpression: 119.75 [109, 130]]
+|chat|DEBUG|Best move of golisopod (p1): firstimpression: 119.75 [109, 130]
+|chat|DEBUG|Best move of swampert (p2): scald: 52.0 [48, 57]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scyther
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Eel the Eel has 120 seconds left.
+|inactive|Eel the Eel has 90 seconds left.
+|move|p1a: Mewtwo|Psystrike|p2a: Darmanitan
+|-damage|p2a: Darmanitan|54299
+|move|p2a: Darmanitan|Flare Blitz|p1a: Mewtwo
+|-damage|p1a: Mewtwo|0 fnt
+|faint|p1a: Mewtwo
+|-damage|p2a: Darmanitan|0 fnt|[from] Recoil
+|faint|p2a: Darmanitan
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Vanilluxe|Vanilluxe, L82, F|100100
+|switch|p2a: Palkia|Palkia, L74|95255 tox
+|-damage|p2a: Palkia|64255 tox|[from] Stealth Rock
+|-ability|p2a: Palkia|Pressure
+|-damage|p1a: Vanilluxe|76100|[from] Spikes
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Vanilluxe
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert-drapion
+|chat|DEBUG|Own moves: dualwingbeat roost knockoff uturn
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 217 vs 203
+|chat|DEBUG|HP: 201 vs 189
+|chat|DEBUG|Created a new Strategy for scyther vs drapion:
+|chat|DEBUG|>[uturn: 65.75 [60, 72], uturn: 65.75 [60, 72], uturn: 65.75 [60, 72]]
+|chat|DEBUG|Best move of scyther (p1): uturn: 65.75 [60, 72]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 134.25 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Palkia|Fire Blast|p1a: Vanilluxe
+|-supereffective|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|32100
+|move|p1a: Vanilluxe|Freeze-Dry|p2a: Palkia
+|-supereffective|p2a: Palkia
+|-damage|p2a: Palkia|0 fnt
+|faint|p2a: Palkia
+|-weather|Hail|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, F|201246 tox
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia toxicroak golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scyther" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-toxicroak-golisopod-darmanitan -- swampert-drapion
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: toxicroak
+|chat|DEBUG|>Switching to toxicroak (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scyther|U-turn|p1a: Vanilluxe
+|-damage|p1a: Vanilluxe|0 fnt
+|faint|p1a: Vanilluxe
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golisopod|Golisopod, L84, F|45263 tox
+|-weather|Hail|[upkeep]
+|-damage|p2a: Golisopod|29263 tox|[from] Hail
+|-damage|p2a: Golisopod|13263 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Volcanion|Volcanion, L80|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-golisopod-darmanitan -- swampert-drapion
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['beartic', 'scyther']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to beartic (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcanion|Steam Eruption|p2a: Golisopod|[miss]
+|-miss|p1a: Volcanion|p2a: Golisopod
+|move|p2a: Golisopod|Knock Off|p1a: Volcanion
+|-damage|p1a: Volcanion|72100
+|-enditem|p1a: Volcanion|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Golisopod
+|-weather|Hail|[upkeep]
+|-damage|p1a: Volcanion|65100|[from] Hail
+|-damage|p2a: Golisopod|0 fnt|[from] Hail
+|faint|p2a: Golisopod
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scyther|Scyther, L81, F|201246 tox
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "beartic" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-golisopod-darmanitan -- swampert-drapion
+|chat|DEBUG|Own moves: superpower iciclecrash swordsdance stoneedge
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 135 vs 203
+|chat|DEBUG|HP: 181 vs 124
+|chat|DEBUG|Created a new Strategy for beartic vs drapion:
+|chat|DEBUG|>[iciclecrash: 103.25 [94, 112], iciclecrash: 103.25 [94, 112], superpower: 96.5625 [89, 105]]
+|chat|DEBUG|Best move of beartic (p1): iciclecrash: 103.25 [94, 112]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 249.375 [230, 270]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Scyther|Dynamax
+|-heal|p2a: Scyther|402492 tox|[silent]
+|move|p2a: Scyther|Max Airstream|p1a: Volcanion
+|-damage|p1a: Volcanion|22100
+|-boost|p2a: Scyther|spe|1
+|move|p1a: Volcanion|Flamethrower|p2a: Scyther
+|-supereffective|p2a: Scyther
+|-damage|p2a: Scyther|132492 tox
+|-weather|Hail|[upkeep]
+|-damage|p2a: Scyther|117492 tox|[from] Hail
+|-damage|p1a: Volcanion|16100|[from] Hail
+|-damage|p2a: Scyther|102492 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>beartic scyther palkia golisopod darmanitan
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "beartic" vs "mewtwo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>beartic-scyther-palkia-golisopod-darmanitan -- swampert-mewtwo
+|chat|DEBUG|Own moves: superpower iciclecrash swordsdance stoneedge
+|chat|DEBUG|Enemy moves: fireblast nastyplot psystrike recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitan']
+|chat|DEBUG|Speed: 135 vs 229
+|chat|DEBUG|HP: 181 vs 204
+|chat|DEBUG|Created a new Strategy for beartic vs mewtwo:
+|chat|DEBUG|>[iciclecrash: 137.0 [126, 148], iciclecrash: 137.0 [126, 148], iciclecrash: 137.0 [126, 148]]
+|chat|DEBUG|Best move of beartic (p1): iciclecrash: 137.0 [126, 148]
+|chat|DEBUG|Best move of mewtwo (p2): fireblast: 175.0 [160, 190]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using iciclecrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Eel the Eel has 120 seconds left.
+|move|p2a: Scyther|Max Airstream|p1a: Volcanion
+|-damage|p1a: Volcanion|0 fnt
+|-boost|p2a: Scyther|spe|1
+|faint|p1a: Volcanion
+|-weather|none
+|-damage|p2a: Scyther|72492 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Swampert|Swampert, L80, M|17100
+|-damage|p1a: Swampert|0 fnt|[from] Spikes
+|faint|p1a: Swampert
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Eel the Eel<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">beartic scyther palkia toxicroak golisopod darmanitan</h1>

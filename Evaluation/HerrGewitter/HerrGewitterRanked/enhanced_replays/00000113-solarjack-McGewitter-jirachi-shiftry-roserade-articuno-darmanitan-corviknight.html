@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490128176<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490128176|init|battle
+|title|solarjack vs. McGewitter
+|j|☆solarjack
+|j|☆McGewitter
+|gametype|singles
+|player|p1|solarjack|dexio|1260
+|player|p2|McGewitter|265|1230
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Salazzle|Salazzle, L82, F|100100
+|switch|p2a: Jirachi|Jirachi, L79|288288
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno darmanitan corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jirachi" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-darmanitan-corviknight -- salazzle
+|chat|DEBUG|Own moves: toxic ironhead stealthrock firepunch
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['darmanitan']
+|chat|DEBUG|Counter: ['darmanitan']
+|chat|DEBUG|Speed: 204 vs 239
+|chat|DEBUG|HP: 288 vs 246
+|chat|DEBUG|Created a new Strategy for jirachi vs salazzle:
+|chat|DEBUG|>[ironhead: 51.375 [47, 56], ironhead: 51.375 [47, 56], ironhead: 51.375 [47, 56]]
+|chat|DEBUG|Best move of jirachi (p1): ironhead: 51.375 [47, 56]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 192.375 [176, 210]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|76100
+|move|p2a: Jirachi|Stealth Rock|p1a: Salazzle
+|-sidestart|p1: solarjack|move: Stealth Rock
+|-heal|p1a: Salazzle|82100|[from] item: Black Sludge
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno darmanitan corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jirachi" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-darmanitan-corviknight -- salazzle
+|chat|DEBUG|Own moves: toxic ironhead stealthrock firepunch
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['darmanitan']
+|chat|DEBUG|Counter: ['darmanitan']
+|chat|DEBUG|Speed: 204 vs 239
+|chat|DEBUG|HP: 288 vs 201
+|chat|DEBUG|Best move of jirachi (p1): ironhead: 51.375 [47, 56]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 192.375 [176, 210]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check darmanitan
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan, L80, M|299299
+|move|p1a: Salazzle|Toxic|p2a: Darmanitan
+|-status|p2a: Darmanitan|tox
+|-heal|p1a: Salazzle|88100|[from] item: Black Sludge
+|-damage|p2a: Darmanitan|281299 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno darmanitan corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitan" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-darmanitan-corviknight -- salazzle
+|chat|DEBUG|Own moves: rockslide superpower flareblitz uturn
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['darmanitan']
+|chat|DEBUG|Counter: ['darmanitan']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 239
+|chat|DEBUG|HP: 281 vs 216
+|chat|DEBUG|Created a new Strategy for darmanitan vs salazzle:
+|chat|DEBUG|>[rockslide: 299.75 [276, 325], rockslide: 299.75 [276, 325], rockslide: 299.75 [276, 325]]
+|chat|DEBUG|Best move of darmanitan (p1): rockslide: 299.75 [276, 325]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 72.8125 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Protect|p1a: Salazzle
+|-singleturn|p1a: Salazzle|Protect
+|move|p2a: Darmanitan|Rock Slide|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Protect
+|-heal|p1a: Salazzle|94100|[from] item: Black Sludge
+|-damage|p2a: Darmanitan|245299 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno darmanitan corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitan" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-darmanitan-corviknight -- salazzle
+|chat|DEBUG|Own moves: rockslide superpower flareblitz uturn
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['darmanitan']
+|chat|DEBUG|Counter: ['darmanitan']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 198 vs 239
+|chat|DEBUG|HP: 245 vs 231
+|chat|DEBUG|Best move of darmanitan (p1): rockslide: 299.75 [276, 325]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 72.8125 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Darmanitan
+|-resisted|p2a: Darmanitan
+|-damage|p2a: Darmanitan|173299 tox
+|move|p2a: Darmanitan|Rock Slide|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|99100|[from] item: Black Sludge
+|-damage|p2a: Darmanitan|119299 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno darmanitan corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitan" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-darmanitan-corviknight -- salazzle
+|chat|DEBUG|Own moves: rockslide superpower flareblitz uturn
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitan']
+|chat|DEBUG|Speed: 198 vs 239
+|chat|DEBUG|HP: 119 vs 243
+|chat|DEBUG|Best move of darmanitan (p1): rockslide: 299.75 [276, 325]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 72.8125 [67, 79]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|75100
+|move|p2a: Darmanitan|Rock Slide|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-crit|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|81100|[from] item: Black Sludge
+|-damage|p2a: Darmanitan|47299 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno darmanitan corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitan" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-darmanitan-corviknight -- salazzle
+|chat|DEBUG|Own moves: rockslide superpower flareblitz uturn
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 198 vs 239
+|chat|DEBUG|HP: 47 vs 199
+|chat|DEBUG|Created a new Strategy for darmanitan vs salazzle:
+|chat|DEBUG|>[rockslide: 299.75 [276, 325], rockslide: 299.75 [276, 325], rockslide: 299.75 [276, 325]]
+|chat|DEBUG|Best move of darmanitan (p1): rockslide: 299.75 [276, 325]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 72.8125 [67, 79]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Protect|p1a: Salazzle
+|-singleturn|p1a: Salazzle|Protect
+|move|p2a: Darmanitan|Rock Slide|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Protect
+|-heal|p1a: Salazzle|87100|[from] item: Black Sludge
+|-damage|p2a: Darmanitan|0 fnt|[from] psn
+|faint|p2a: Darmanitan
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno, L84|288288
+|-ability|p2a: Articuno|Pressure
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitan" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-corviknight -- salazzle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: articuno
+|chat|DEBUG|>Switching to articuno (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|63100
+|move|p2a: Articuno|Freeze-Dry|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Substitute|[damage]
+|-heal|p1a: Salazzle|69100|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-corviknight -- salazzle
+|chat|DEBUG|Own moves: defog roost toxic freezedry
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 239
+|chat|DEBUG|HP: 288 vs 214
+|chat|DEBUG|Created a new Strategy for articuno vs salazzle:
+|chat|DEBUG|>[freezedry: 48.5625 [45, 53], freezedry: 48.5625 [45, 53], freezedry: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Toxic|p2a: Articuno
+|-status|p2a: Articuno|tox
+|move|p2a: Articuno|Freeze-Dry|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|75100|[from] item: Black Sludge
+|-damage|p2a: Articuno|270288 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-corviknight -- salazzle
+|chat|DEBUG|Own moves: defog roost toxic freezedry
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 239
+|chat|DEBUG|HP: 288 vs 169
+|chat|DEBUG|Best move of articuno (p1): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|50100
+|move|p2a: Articuno|Freeze-Dry|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Substitute|[damage]
+|-heal|p1a: Salazzle|56100|[from] item: Black Sludge
+|-damage|p2a: Articuno|234288 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-corviknight -- salazzle
+|chat|DEBUG|Own moves: defog roost toxic freezedry
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 239
+|chat|DEBUG|HP: 270 vs 184
+|chat|DEBUG|Best move of articuno (p1): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|84288 tox
+|move|p2a: Articuno|Freeze-Dry|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|62100|[from] item: Black Sludge
+|-damage|p2a: Articuno|30288 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-corviknight -- salazzle
+|chat|DEBUG|Own moves: defog roost toxic freezedry
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry', 'corviknight']
+|chat|DEBUG|Speed: 191 vs 239
+|chat|DEBUG|HP: 234 vs 137
+|chat|DEBUG|Created a new Strategy for articuno vs salazzle:
+|chat|DEBUG|>[freezedry: 48.5625 [45, 53], freezedry: 48.5625 [45, 53], freezedry: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of articuno (p1): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|37100
+|move|p2a: Articuno|Freeze-Dry|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Substitute|[damage]
+|-heal|p1a: Salazzle|44100|[from] item: Black Sludge
+|-damage|p2a: Articuno|0 fnt|[from] psn
+|faint|p2a: Articuno
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jirachi|Jirachi, L79|288288
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade articuno corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-articuno-corviknight -- salazzle
+|chat|DEBUG|Own moves: defog roost toxic freezedry
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 239
+|chat|DEBUG|HP: 30 vs 152
+|chat|DEBUG|Best move of articuno (p1): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 153.5 [140, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Jirachi
+|-supereffective|p2a: Jirachi
+|-damage|p2a: Jirachi|100288
+|move|p2a: Jirachi|Iron Head|p1a: Salazzle
+|-resisted|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|50100|[from] item: Black Sludge
+|-heal|p2a: Jirachi|118288|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articuno" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-corviknight -- salazzle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: jirachi
+|chat|DEBUG|>Switching to jirachi (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Jirachi
+|-supereffective|p2a: Jirachi
+|-damage|p2a: Jirachi|0 fnt
+|faint|p2a: Jirachi
+|-heal|p1a: Salazzle|56100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shiftry|Shiftry, L86, M|295295
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jirachi" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-corviknight -- salazzle
+|chat|DEBUG|Own moves: toxic ironhead stealthrock firepunch
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry', 'corviknight']
+|chat|DEBUG|Speed: 204 vs 239
+|chat|DEBUG|HP: 288 vs 108
+|chat|DEBUG|Created a new Strategy for jirachi vs salazzle:
+|chat|DEBUG|>[ironhead: 51.375 [47, 56], ironhead: 51.375 [47, 56], ironhead: 51.375 [47, 56]]
+|chat|DEBUG|Best move of jirachi (p1): ironhead: 51.375 [47, 56]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 192.375 [176, 210]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Shiftry
+|-supereffective|p2a: Shiftry
+|-damage|p2a: Shiftry|43295
+|move|p2a: Shiftry|Dark Pulse|p1a: Salazzle
+|-crit|p1a: Salazzle
+|-damage|p1a: Salazzle|0 fnt
+|faint|p1a: Salazzle
+|-damage|p2a: Shiftry|14295|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Flareon|Flareon, L86, F|100100
+|-damage|p1a: Flareon|76100|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jirachi shiftry roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jirachi" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jirachi-shiftry-roserade-corviknight -- salazzle
+|chat|DEBUG|Own moves: toxic ironhead stealthrock firepunch
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry', 'corviknight']
+|chat|DEBUG|Speed: 204 vs 239
+|chat|DEBUG|HP: 118 vs 123
+|chat|DEBUG|Best move of jirachi (p1): ironhead: 51.375 [47, 56]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 192.375 [176, 210]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Flareon|Quick Attack|p2a: Shiftry
+|-damage|p2a: Shiftry|0 fnt
+|faint|p2a: Shiftry
+|-status|p1a: Flareon|tox|[from] item: Toxic Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Roserade|Roserade, L84, F|238238
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jirachi" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-roserade-corviknight -- salazzle
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry', 'corviknight']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to shiftry (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Roserade|Toxic Spikes|p1a: Flareon
+|-sidestart|p1: solarjack|move: Toxic Spikes
+|move|p1a: Flareon|Facade|p2a: Roserade
+|-damage|p2a: Roserade|4238
+|-heal|p2a: Roserade|18238|[from] item: Black Sludge
+|-damage|p1a: Flareon|70100 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shiftry" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-roserade-corviknight -- salazzle
+|chat|DEBUG|Own moves: darkpulse nastyplot leafstorm heatwave
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry', 'corviknight']
+|chat|DEBUG|Speed: 187 vs 239
+|chat|DEBUG|HP: 295 vs 137
+|chat|DEBUG|Created a new Strategy for shiftry vs salazzle:
+|chat|DEBUG|>[darkpulse: 146.5 [134, 160], darkpulse: 146.5 [134, 160], darkpulse: 146.5 [134, 160]]
+|chat|DEBUG|Best move of shiftry (p1): darkpulse: 146.5 [134, 160]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 259.0 [236, 282]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Roserade|Toxic Spikes|p1a: Flareon
+|-sidestart|p1: solarjack|move: Toxic Spikes
+|move|p1a: Flareon|Flare Blitz|p2a: Roserade
+|-supereffective|p2a: Roserade
+|-damage|p2a: Roserade|0 fnt
+|faint|p2a: Roserade
+|-damage|p1a: Flareon|67100 tox|[from] Recoil
+|-damage|p1a: Flareon|55100 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corviknight|Corviknight, L78, M|281281
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>shiftry roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shiftry" vs "flareon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>shiftry-roserade-corviknight -- flareon
+|chat|DEBUG|Own moves: darkpulse nastyplot leafstorm heatwave
+|chat|DEBUG|Enemy moves: facade flamecharge flareblitz superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['shiftry', 'roserade']
+|chat|DEBUG|Speed: 187 vs 161
+|chat|DEBUG|HP: 14 vs 190
+|chat|DEBUG|Created a new Strategy for shiftry vs flareon:
+|chat|DEBUG|>[darkpulse: 90.5 [83, 99], darkpulse: 90.5 [83, 99], darkpulse: 90.5 [83, 99]]
+|chat|DEBUG|Best move of shiftry (p1): darkpulse: 90.5 [83, 99]
+|chat|DEBUG|Best move of flareon (p2): flareblitz: 433.875 [398, 470]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Corviknight|Dynamax
+|-heal|p2a: Corviknight|562562|[silent]
+|move|p1a: Flareon|Flare Blitz|p2a: Corviknight
+|-supereffective|p2a: Corviknight
+|-damage|p2a: Corviknight|68562
+|-damage|p1a: Flareon|0 fnt|[from] Recoil
+|faint|p1a: Flareon
+|move|p2a: Corviknight|Max Airstream|p1: Flareon|[notarget]
+|-fail|p2a: Corviknight
+|-heal|p2a: Corviknight|85562|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Togedemaru|Togedemaru, L86, M|100100
+|-damage|p1a: Togedemaru|95100|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>roserade corviknight
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shiftry" vs "flareon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>roserade-corviknight -- flareon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: facade flamecharge flareblitz superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['roserade']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to roserade (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Togedemaru|Zing Zap|p2a: Corviknight
+|-supereffective|p2a: Corviknight
+|-damage|p2a: Corviknight|0 fnt
+|faint|p2a: Corviknight
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>solarjack<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">jirachi shiftry roserade articuno darmanitan corviknight</h1>

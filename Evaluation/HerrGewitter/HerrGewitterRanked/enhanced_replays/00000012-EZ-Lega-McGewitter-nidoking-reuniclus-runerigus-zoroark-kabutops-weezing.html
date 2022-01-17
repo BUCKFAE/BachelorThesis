@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1489974407<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1489974407|init|battle
+|title|EZ-Lega vs. McGewitter
+|j|☆EZ-Lega
+|j|☆McGewitter
+|gametype|singles
+|player|p1|EZ-Lega|1|1117
+|player|p2|McGewitter|265|1127
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Ninjask|Ninjask, L86, F|100100
+|switch|p2a: Nidoking|Nidoking, L82, M|267267
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['nidoking', 'zoroark', 'kabutops', 'weezing']
+|chat|DEBUG|Speed: 187 vs 324
+|chat|DEBUG|HP: 267 vs 245
+|chat|DEBUG|Created a new Strategy for nidoking vs ninjask:
+|chat|DEBUG|>[icebeam: 268.125 [247, 291], icebeam: 268.125 [247, 291], icebeam: 268.125 [247, 291]]
+|chat|DEBUG|Best move of nidoking (p1): icebeam: 268.125 [247, 291]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 131.0 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|100100
+|move|p2a: Nidoking|Ice Beam|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|69100
+|-heal|p1a: Ferrothorn|75100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Speed: 187 vs 36
+|chat|DEBUG|HP: 267 vs 183
+|chat|DEBUG|Created a new Strategy for nidoking vs ferrothorn:
+|chat|DEBUG|>[superpower: 171.9375 [159, 187], earthpower: 119.375 [109, 130], earthpower: 119.375 [109, 130]]
+|chat|DEBUG|Best move of nidoking (p1): superpower: 171.9375 [159, 187]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 132.5 [121, 144]
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ferrothorn|Protect|p1a: Ferrothorn
+|-singleturn|p1a: Ferrothorn|Protect
+|move|p2a: Nidoking|Superpower|p1a: Ferrothorn
+|-activate|p1a: Ferrothorn|move: Protect
+|-heal|p1a: Ferrothorn|81100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Speed: 187 vs 36
+|chat|DEBUG|HP: 267 vs 197
+|chat|DEBUG|Best move of nidoking (p1): earthpower: 119.375 [109, 130]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 132.5 [121, 144]
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Polteageist|Polteageist, L78|100100
+|move|p2a: Nidoking|Earth Power|p1a: Polteageist
+|-damage|p1a: Polteageist|46100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "polteageist"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn-polteageist
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: gigadrain shadowball shellsmash strengthsap
+|chat|DEBUG|Checks: ['nidoking', 'zoroark']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'runerigus', 'zoroark', 'kabutops', 'weezing']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 187 vs 154
+|chat|DEBUG|HP: 267 vs 102
+|chat|DEBUG|Created a new Strategy for nidoking vs polteageist:
+|chat|DEBUG|>[earthpower: 121.125 [110, 133], earthpower: 121.125 [110, 133], earthpower: 121.125 [110, 133]]
+|chat|DEBUG|Best move of nidoking (p1): earthpower: 121.125 [110, 133]
+|chat|DEBUG|Best move of polteageist (p2): shadowball: 110.25 [102, 120]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nidoking|Earth Power|p1a: Polteageist
+|-damage|p1a: Polteageist|0 fnt
+|faint|p1a: Polteageist
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Passimian|Passimian, L82, M|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "passimian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn-passimian
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: closecombat knockoff rockslide uturn
+|chat|DEBUG|Checks: ['nidoking', 'weezing']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'weezing']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 187 vs 178
+|chat|DEBUG|HP: 267 vs 298
+|chat|DEBUG|Created a new Strategy for nidoking vs passimian:
+|chat|DEBUG|>[sludgewave: 195.1875 [179, 212], sludgewave: 195.1875 [179, 212], sludgewave: 195.1875 [179, 212]]
+|chat|DEBUG|Best move of nidoking (p1): sludgewave: 195.1875 [179, 212]
+|chat|DEBUG|Best move of passimian (p2): knockoff: 87.5 [80, 95]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Close Combat|p2a: Nidoking
+|-resisted|p2a: Nidoking
+|-damage|p2a: Nidoking|192267
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|move|p2a: Nidoking|Sludge Wave|p1a: Passimian
+|-damage|p1a: Passimian|0 fnt
+|faint|p1a: Passimian
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|81100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Speed: 187 vs 36
+|chat|DEBUG|HP: 192 vs 197
+|chat|DEBUG|Created a new Strategy for nidoking vs ferrothorn:
+|chat|DEBUG|>[superpower: 171.9375 [159, 187], earthpower: 119.375 [109, 130], earthpower: 119.375 [109, 130]]
+|chat|DEBUG|Best move of nidoking (p1): superpower: 171.9375 [159, 187]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 132.5 [121, 144]
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nidoking|Superpower|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|14100
+|-unboost|p2a: Nidoking|atk|1
+|-unboost|p2a: Nidoking|def|1
+|-damage|p2a: Nidoking|159267|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|-damage|p2a: Nidoking|133267|[from] item: Life Orb
+|move|p1a: Ferrothorn|Leech Seed|p2a: Nidoking
+|-start|p2a: Nidoking|move: Leech Seed
+|-heal|p1a: Ferrothorn|20100|[from] item: Leftovers
+|-damage|p2a: Nidoking|100267|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|33100|[silent]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['reuniclus', 'runerigus', 'zoroark', 'weezing']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'runerigus', 'zoroark', 'weezing']
+|chat|DEBUG|Speed: 187 vs 36
+|chat|DEBUG|HP: 100 vs 80
+|chat|DEBUG|Best move of nidoking (p1): earthpower: 119.375 [109, 130]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 198.875 [183, 216]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ferrothorn|Protect|p1a: Ferrothorn
+|-singleturn|p1a: Ferrothorn|Protect
+|move|p2a: Nidoking|Earth Power|p1a: Ferrothorn
+|-activate|p1a: Ferrothorn|move: Protect
+|-heal|p1a: Ferrothorn|39100|[from] item: Leftovers
+|-damage|p2a: Nidoking|67267|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|53100|[silent]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Counter: ['reuniclus', 'runerigus', 'zoroark', 'weezing']
+|chat|DEBUG|Speed: 187 vs 36
+|chat|DEBUG|HP: 67 vs 129
+|chat|DEBUG|Best move of nidoking (p1): earthpower: 119.375 [109, 130]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 198.875 [183, 216]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check reuniclus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Reuniclus|Reuniclus, L84, M|322322
+|move|p1a: Ferrothorn|Protect||[still]
+|-fail|p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|59100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-ferrothorn
+|chat|DEBUG|Own moves: recover trickroom focusblast psychic
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['reuniclus', 'zoroark', 'weezing']
+|chat|DEBUG|Counter: ['reuniclus', 'runerigus', 'zoroark', 'weezing']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 55 vs 36
+|chat|DEBUG|HP: 322 vs 143
+|chat|DEBUG|Created a new Strategy for reuniclus vs ferrothorn:
+|chat|DEBUG|>[focusblast: 232.6875 [213, 252], focusblast: 232.6875 [213, 252], focusblast: 232.6875 [213, 252]]
+|chat|DEBUG|Best move of reuniclus (p1): focusblast: 232.6875 [213, 252]
+|chat|DEBUG|Best move of ferrothorn (p2): powerwhip: 122.5625 [112, 133]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ferrothorn|Spikes|p2a: Reuniclus
+|-sidestart|p2: McGewitter|Spikes
+|move|p2a: Reuniclus|Focus Blast|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|0 fnt
+|faint|p1a: Ferrothorn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hatterene|Hatterene, L86, F|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-hatterene
+|chat|DEBUG|Own moves: recover trickroom focusblast psychic
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['nidoking', 'runerigus', 'kabutops']
+|chat|DEBUG|Speed: 55 vs 54
+|chat|DEBUG|HP: 322 vs 238
+|chat|DEBUG|Created a new Strategy for reuniclus vs hatterene:
+|chat|DEBUG|>[psychic: 64.875 [60, 70], psychic: 64.875 [60, 70], psychic: 64.875 [60, 70]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 64.875 [60, 70]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 155.625 [142, 169]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Reuniclus|Psychic|p1a: Hatterene
+|-resisted|p1a: Hatterene
+|-damage|p1a: Hatterene|71100
+|-unboost|p1a: Hatterene|spd|1
+|move|p1a: Hatterene|Mystical Fire|p2a: Reuniclus
+|-damage|p2a: Reuniclus|223322
+|-unboost|p2a: Reuniclus|spa|1
+|-damage|p1a: Hatterene|61100|[from] item: Life Orb
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-hatterene
+|chat|DEBUG|Own moves: recover trickroom focusblast psychic
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: ['runerigus']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'runerigus', 'zoroark', 'kabutops', 'weezing']
+|chat|DEBUG|Speed: 55 vs 54
+|chat|DEBUG|HP: 223 vs 145
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 64.875 [60, 70]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 155.625 [142, 169]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Reuniclus|Psychic|p1a: Hatterene
+|-resisted|p1a: Hatterene
+|-damage|p1a: Hatterene|32100
+|move|p1a: Hatterene|Trick Room|p1a: Hatterene
+|-fieldstart|move: Trick Room|[of] p1a: Hatterene
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-hatterene
+|chat|DEBUG|Own moves: recover trickroom focusblast psychic
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: ['reuniclus', 'runerigus', 'kabutops']
+|chat|DEBUG|Counter: ['nidoking', 'reuniclus', 'runerigus', 'zoroark', 'kabutops', 'weezing']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 55 vs 54
+|chat|DEBUG|HP: 223 vs 76
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 64.875 [60, 70]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 155.625 [142, 169]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hatterene|Dazzling Gleam|p2a: Reuniclus
+|-damage|p2a: Reuniclus|63322
+|-damage|p1a: Hatterene|22100|[from] item: Life Orb
+|move|p2a: Reuniclus|Psychic|p1a: Hatterene
+|-resisted|p1a: Hatterene
+|-damage|p1a: Hatterene|0 fnt
+|faint|p1a: Hatterene
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Indeedee|Indeedee, L82, M|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Indeedee
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking reuniclus runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "reuniclus" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-reuniclus-runerigus-zoroark-kabutops-weezing -- ninjask-indeedee
+|chat|DEBUG|Own moves: recover trickroom focusblast psychic
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['zoroark']
+|chat|DEBUG|Counter: ['runerigus', 'zoroark', 'kabutops']
+|chat|DEBUG|Speed: 55 vs 203
+|chat|DEBUG|HP: 63 vs 233
+|chat|DEBUG|Created a new Strategy for reuniclus vs indeedee:
+|chat|DEBUG|>[focusblast: 87.1875 [81, 95], focusblast: 87.1875 [81, 95], focusblast: 87.1875 [81, 95]]
+|chat|DEBUG|Best move of reuniclus (p1): focusblast: 87.1875 [81, 95]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 128.625 [118, 140]
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Reuniclus|Focus Blast|p1a: Indeedee
+|-damage|p1a: Indeedee|66100
+|move|p1a: Indeedee|Expanding Force|p2a: Reuniclus
+|-resisted|p2a: Reuniclus
+|-damage|p2a: Reuniclus|0 fnt
+|faint|p2a: Reuniclus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Runerigus|Runerigus, L84, F|235235
+|-damage|p2a: Runerigus|206235|[from] Spikes
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "reuniclus" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops-weezing -- ninjask-indeedee
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['zoroark']
+|chat|DEBUG|Counter: ['runerigus', 'zoroark', 'kabutops']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'nidoking': 67, 'runerigus': 235, 'zoroark': 243, 'kabutops': 233, 'weezing': 252}
+|chat|DEBUG|remaining_hp_team_2={'ninjask': 100, 'indeedee': 100}
+|chat|DEBUG|battle.available_switches=[nidoking (pokemon object) [Active: False, Status: None], runerigus (pokemon object) [Active: False, Status: None], zoroark (pokemon object) [Active: False, Status: None], kabutops (pokemon object) [Active: False, Status: None], weezing (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'runerigus'
+|chat|DEBUG|>Switching to runerigus (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Runerigus|Dynamax
+|-heal|p2a: Runerigus|412470|[silent]
+|move|p2a: Runerigus|Max Quake|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|-boost|p2a: Runerigus|spd|1
+|faint|p1a: Indeedee
+|-heal|p2a: Runerigus|426470|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninjask|Ninjask, L86, F|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "runerigus" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops-weezing -- ninjask-indeedee
+|chat|DEBUG|Own moves: stealthrock haze poltergeist earthquake
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['runerigus', 'zoroark']
+|chat|DEBUG|Counter: ['runerigus', 'zoroark', 'kabutops']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 99 vs 203
+|chat|DEBUG|HP: 206 vs 153
+|chat|DEBUG|Created a new Strategy for runerigus vs indeedee:
+|chat|DEBUG|>[earthquake: 148.8125 [136, 162], earthquake: 148.8125 [136, 162], earthquake: 148.8125 [136, 162]]
+|chat|DEBUG|Best move of runerigus (p1): earthquake: 148.8125 [136, 162]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 96.125 [87, 105]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-end|p2a: Runerigus|Dynamax
+|-heal|p2a: Runerigus|213235|[silent]
+|switch|p2a: Weezing|Weezing, L86, M|252252
+|-start|p1a: Ninjask|Dynamax
+|-heal|p1a: Ninjask|100100|[silent]
+|move|p1a: Ninjask|Max Flutterby|p2a: Weezing
+|-resisted|p2a: Weezing
+|-damage|p2a: Weezing|205252
+|-unboost|p2a: Weezing|spa|1
+|-heal|p2a: Weezing|220252|[from] item: Black Sludge
+|-fieldend|move: Trick Room
+|-ability|p1a: Ninjask|Speed Boost|boost
+|-boost|p1a: Ninjask|spe|1
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "runerigus" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops-weezing -- ninjask
+|chat|DEBUG|Own moves: stealthrock haze poltergeist earthquake
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops', 'weezing']
+|chat|DEBUG|Speed: 99 vs 324
+|chat|DEBUG|HP: 426 vs 245
+|chat|DEBUG|Created a new Strategy for runerigus vs ninjask:
+|chat|DEBUG|>[earthquake: 0.0 [0, 0], earthquake: 0.0 [0, 0], earthquake: 0.0 [0, 0]]
+|chat|DEBUG|Best move of runerigus (p1): earthquake: 0.0 [0, 0]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 78.1875 [72, 85]
+|chat|DEBUG|Switching to weezing as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Max Airstream|p2a: Weezing
+|-damage|p2a: Weezing|123252
+|-boost|p1a: Ninjask|spe|1
+|move|p2a: Weezing|Fire Blast|p1a: Ninjask
+|-supereffective|p1a: Ninjask
+|-damage|p1a: Ninjask|69100
+|-heal|p2a: Weezing|138252|[from] item: Black Sludge
+|-ability|p1a: Ninjask|Speed Boost|boost
+|-boost|p1a: Ninjask|spe|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezing" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops-weezing -- ninjask
+|chat|DEBUG|Own moves: painsplit toxicspikes sludgebomb fireblast
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops', 'weezing']
+|chat|DEBUG|Speed: 152 vs 324
+|chat|DEBUG|HP: 220 vs 245
+|chat|DEBUG|Created a new Strategy for weezing vs ninjask:
+|chat|DEBUG|>[fireblast: 143.375 [132, 156], fireblast: 143.375 [132, 156], fireblast: 143.375 [132, 156]]
+|chat|DEBUG|Best move of weezing (p1): fireblast: 143.375 [132, 156]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 89.1875 [82, 97]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Max Airstream|p2a: Weezing
+|-damage|p2a: Weezing|42252
+|-boost|p1a: Ninjask|spe|1
+|move|p2a: Weezing|Fire Blast|p1a: Ninjask
+|-supereffective|p1a: Ninjask
+|-damage|p1a: Ninjask|41100
+|-heal|p2a: Weezing|57252|[from] item: Black Sludge
+|-fieldend|move: Psychic Terrain
+|-ability|p1a: Ninjask|Speed Boost|boost
+|-boost|p1a: Ninjask|spe|1
+|-end|p1a: Ninjask|Dynamax
+|-heal|p1a: Ninjask|41100|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezing" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops-weezing -- ninjask
+|chat|DEBUG|Own moves: painsplit toxicspikes sludgebomb fireblast
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops']
+|chat|DEBUG|Speed: 152 vs 324
+|chat|DEBUG|HP: 138 vs 169
+|chat|DEBUG|Best move of weezing (p1): fireblast: 143.375 [132, 156]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 89.1875 [82, 97]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Acrobatics|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|faint|p2a: Weezing
+|-ability|p1a: Ninjask|Speed Boost|boost
+|-boost|p1a: Ninjask|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Nidoking|Nidoking, L82, M|67267
+|-damage|p2a: Nidoking|34267|[from] Spikes
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops weezing
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezing" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops-weezing -- ninjask
+|chat|DEBUG|Own moves: painsplit toxicspikes sludgebomb fireblast
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops']
+|chat|DEBUG|Speed: 152 vs 324
+|chat|DEBUG|HP: 57 vs 100
+|chat|DEBUG|Best move of weezing (p1): fireblast: 143.375 [132, 156]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 89.1875 [82, 97]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Leech Life|p2a: Nidoking
+|-resisted|p2a: Nidoking
+|-damage|p2a: Nidoking|0 fnt
+|-heal|p1a: Ninjask|48100|[from] drain|[of] p2a: Nidoking
+|faint|p2a: Nidoking
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Runerigus|Runerigus, L86, F|243243
+|-damage|p2a: Runerigus|213243|[from] Spikes
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezing" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops -- ninjask
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'nidoking': 67, 'runerigus': 213, 'zoroark': 243, 'kabutops': 233}
+|chat|DEBUG|remaining_hp_team_2={'ninjask': 41}
+|chat|DEBUG|battle.available_switches=[nidoking (pokemon object) [Active: False, Status: None], zoroark (pokemon object) [Active: False, Status: None], kabutops (pokemon object) [Active: False, Status: None], runerigus (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'nidoking'
+|chat|DEBUG|>Switching to nidoking (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Runerigus|Runerigus, L84, F|213235
+|-damage|p2a: Runerigus|184235|[from] Spikes
+|move|p1a: Ninjask|Acrobatics|p2a: Runerigus
+|-damage|p2a: Runerigus|112235
+|-activate|p2a: Runerigus|ability: Wandering Spirit|Speed Boost|Wandering Spirit|[of] p1a: Ninjask
+|-heal|p2a: Runerigus|126235|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking runerigus zoroark kabutops
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nidoking" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-runerigus-zoroark-kabutops -- ninjask
+|chat|DEBUG|Own moves: icebeam sludgewave earthpower superpower
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops']
+|chat|DEBUG|Speed: 187 vs 324
+|chat|DEBUG|HP: 34 vs 100
+|chat|DEBUG|Created a new Strategy for nidoking vs ninjask:
+|chat|DEBUG|>[icebeam: 268.125 [247, 291], icebeam: 268.125 [247, 291], icebeam: 268.125 [247, 291]]
+|chat|DEBUG|Best move of nidoking (p1): icebeam: 268.125 [247, 291]
+|chat|DEBUG|Best move of ninjask (p2): acrobatics: 131.0 [120, 142]
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Runerigus|Runerigus, L86, F|213243
+|-damage|p2a: Runerigus|183243|[from] Spikes
+|move|p1a: Ninjask|Leech Life|p2a: Runerigus
+|-supereffective|p2a: Runerigus
+|-damage|p2a: Runerigus|0 fnt
+|-heal|p1a: Ninjask|86100|[from] drain|[of] p2a: Runerigus
+|replace|p2a: Zoroark|Zoroark, L86, F
+|-end|p2a: Zoroark|Illusion
+|faint|p2a: Zoroark
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kabutops|Kabutops, L82, M|233233
+|-damage|p2a: Kabutops|204233|[from] Spikes
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>runerigus zoroark kabutops
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "nidoking" vs "ninjask"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>runerigus-zoroark-kabutops -- ninjask
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: acrobatics leechlife swordsdance uturn
+|chat|DEBUG|Checks: ['kabutops']
+|chat|DEBUG|Counter: ['zoroark', 'kabutops']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'runerigus': 213, 'zoroark': 243, 'kabutops': 233}
+|chat|DEBUG|remaining_hp_team_2={'ninjask': 41}
+|chat|DEBUG|battle.available_switches=[zoroark (pokemon object) [Active: False, Status: None], kabutops (pokemon object) [Active: False, Status: None], runerigus (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'zoroark'
+|chat|DEBUG|>Switching to zoroark (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninjask|Leech Life|p2a: Kabutops
+|-damage|p2a: Kabutops|132233
+|-heal|p1a: Ninjask|100100|[from] drain|[of] p2a: Kabutops
+|move|p2a: Kabutops|Stone Edge|p1a: Ninjask
+|-supereffective|p1a: Ninjask
+|-damage|p1a: Ninjask|0 fnt
+|faint|p1a: Ninjask
+|-damage|p2a: Kabutops|109233|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>EZ-Lega<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">nidoking reuniclus runerigus zoroark kabutops weezing</h1>

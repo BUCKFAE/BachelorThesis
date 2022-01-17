@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492077826<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492077826|init|battle
+|title|Grunter22 vs. McGewitter
+|j|☆Grunter22
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Grunter22|bugcatcher|1292
+|player|p2|McGewitter|265|1348
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Ninetales|Ninetales-Alola, L79, F|100100
+|switch|p2a: Accelgor|Accelgor, L86, M|278278
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Ninetales
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "ninetalesalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- ninetalesalola
+|chat|DEBUG|Own moves: bugbuzz toxic focusblast sludgebomb
+|chat|DEBUG|Enemy moves: auroraveil blizzard moonblast nastyplot
+|chat|DEBUG|Checks: ['accelgor', 'mrmimegalar', 'cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'bisharp', 'mrmimegalar', 'stonjourner', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 299 vs 218
+|chat|DEBUG|HP: 278 vs 245
+|chat|DEBUG|Created a new Strategy for accelgor vs ninetalesalola:
+|chat|DEBUG|>[sludgebomb: 132.25 [122, 144], sludgebomb: 132.25 [122, 144], sludgebomb: 132.25 [122, 144]]
+|chat|DEBUG|Best move of accelgor (p1): sludgebomb: 132.25 [122, 144]
+|chat|DEBUG|Best move of ninetalesalola (p2): moonblast: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Grunter22 also wants the timer to be on.
+|move|p2a: Accelgor|Sludge Bomb|p1a: Ninetales
+|-supereffective|p1a: Ninetales
+|-damage|p1a: Ninetales|51100
+|move|p1a: Ninetales|Aurora Veil|p1a: Ninetales
+|-sidestart|p1: Grunter22|move: Aurora Veil
+|-weather|Hail|[upkeep]
+|-damage|p2a: Accelgor|261278|[from] Hail
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "ninetalesalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- ninetalesalola
+|chat|DEBUG|Own moves: bugbuzz toxic focusblast sludgebomb
+|chat|DEBUG|Enemy moves: auroraveil blizzard moonblast nastyplot
+|chat|DEBUG|Checks: ['accelgor', 'mrmimegalar', 'cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'bisharp', 'mrmimegalar', 'stonjourner', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 299 vs 218
+|chat|DEBUG|HP: 261 vs 124
+|chat|DEBUG|Best move of accelgor (p1): sludgebomb: 132.25 [122, 144]
+|chat|DEBUG|Best move of ninetalesalola (p2): moonblast: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Sludge Bomb|p1a: Ninetales
+|-supereffective|p1a: Ninetales
+|-crit|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|faint|p1a: Ninetales
+|-weather|Hail|[upkeep]
+|-damage|p2a: Accelgor|244278|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Garbodor|Garbodor, L87, F|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: bugbuzz toxic focusblast sludgebomb
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['mrmimegalar']
+|chat|DEBUG|Counter: ['mrmimegalar', 'stonjourner', 'thundurustherian']
+|chat|DEBUG|Speed: 299 vs 180
+|chat|DEBUG|HP: 244 vs 281
+|chat|DEBUG|Created a new Strategy for accelgor vs garbodor:
+|chat|DEBUG|>[bugbuzz: 52.0 [48, 57], bugbuzz: 52.0 [48, 57], bugbuzz: 52.0 [48, 57]]
+|chat|DEBUG|Best move of accelgor (p1): bugbuzz: 52.0 [48, 57]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 219.625 [202, 238]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrmimegalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, M|226226
+|move|p1a: Garbodor|Stomping Tantrum|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|179226
+|-weather|Hail|[upkeep]
+|-damage|p1a: Garbodor|94100|[from] Hail
+|-heal|p1a: Garbodor|100100|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: freezedry focusblast psychic rapidspin
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmimegalar', 'stonjourner', 'thundurustherian']
+|chat|DEBUG|Speed: 221 vs 180
+|chat|DEBUG|HP: 179 vs 281
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs garbodor:
+|chat|DEBUG|>[psychic: 192.375 [176, 210], psychic: 192.375 [176, 210], psychic: 192.375 [176, 210]]
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 192.375 [176, 210]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 108.625 [100, 118]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Psychic|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|66100
+|move|p1a: Garbodor|Toxic Spikes|p2a: Mr. Mime
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-weather|Hail|[upkeep]
+|-damage|p1a: Garbodor|60100|[from] Hail
+|-heal|p1a: Garbodor|66100|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: freezedry focusblast psychic rapidspin
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['mrmimegalar', 'stonjourner']
+|chat|DEBUG|Counter: ['mrmimegalar', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 180
+|chat|DEBUG|HP: 179 vs 185
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 192.375 [176, 210]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 108.625 [100, 118]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Psychic|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|34100
+|move|p1a: Garbodor|Toxic Spikes|p2a: Mr. Mime
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-weather|none
+|-heal|p1a: Garbodor|40100|[from] item: Black Sludge
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: freezedry focusblast psychic rapidspin
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['mrmimegalar', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['bisharp', 'mrmimegalar', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 180
+|chat|DEBUG|HP: 179 vs 112
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 192.375 [176, 210]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 108.625 [100, 118]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Psychic|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|8100
+|move|p1a: Garbodor|Pain Split|p2a: Mr. Mime
+|-sethp|p2a: Mr. Mime|99226|[from] move: Pain Split|[silent]
+|-sethp|p1a: Garbodor|36100|[from] move: Pain Split
+|-heal|p1a: Garbodor|42100|[from] item: Black Sludge
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-mrmimegalar-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: freezedry focusblast psychic rapidspin
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['bisharp', 'mrmimegalar', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Speed: 221 vs 180
+|chat|DEBUG|HP: 99 vs 118
+|chat|DEBUG|Created a new Strategy for mrmimegalar vs garbodor:
+|chat|DEBUG|>[psychic: 192.375 [176, 210], psychic: 192.375 [176, 210], psychic: 192.375 [176, 210]]
+|chat|DEBUG|Best move of mrmimegalar (p1): psychic: 192.375 [176, 210]
+|chat|DEBUG|Best move of garbodor (p2): gunkshot: 108.625 [100, 118]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Psychic|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|8100
+|move|p1a: Garbodor|Gunk Shot|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|-heal|p1a: Garbodor|14100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Stonjourner|Stonjourner, L88, M|319319
+|-status|p2a: Stonjourner|tox
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmimegalar" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['bisharp', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to stonjourner (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garbodor|Pain Split|p2a: Stonjourner
+|-sethp|p2a: Stonjourner|179319 tox|[from] move: Pain Split|[silent]
+|-sethp|p1a: Garbodor|64100|[from] move: Pain Split
+|move|p2a: Stonjourner|Earthquake|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|15100
+|-damage|p2a: Stonjourner|148319 tox|[from] item: Life Orb
+|-heal|p1a: Garbodor|21100|[from] item: Black Sludge
+|-damage|p2a: Stonjourner|129319 tox|[from] psn
+|-sideend|p1: Grunter22|move: Aurora Veil
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stonjourner" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: heatcrash stealthrock stoneedge earthquake
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['accelgor', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'bisharp', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 180
+|chat|DEBUG|HP: 319 vs 39
+|chat|DEBUG|Created a new Strategy for stonjourner vs garbodor:
+|chat|DEBUG|>[earthquake: 253.6875 [234, 276], earthquake: 253.6875 [234, 276], earthquake: 253.6875 [234, 276]]
+|chat|DEBUG|Best move of stonjourner (p1): earthquake: 253.6875 [234, 276]
+|chat|DEBUG|Best move of garbodor (p2): stompingtantrum: 76.75 [70, 84]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garbodor|Stomping Tantrum|p2a: Stonjourner
+|-supereffective|p2a: Stonjourner
+|-damage|p2a: Stonjourner|55319 tox
+|move|p2a: Stonjourner|Earthquake|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|0 fnt
+|faint|p1a: Garbodor
+|-damage|p2a: Stonjourner|24319 tox|[from] item: Life Orb
+|-damage|p2a: Stonjourner|0 fnt|[from] psn
+|faint|p2a: Stonjourner
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Luxray|Luxray, L84, M|100100
+|switch|p2a: Thundurus|Thundurus-Therian, L80, M|258258
+|-ability|p1a: Luxray|Intimidate|boost
+|-unboost|p2a: Thundurus|atk|1
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp stonjourner thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stonjourner" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-stonjourner-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: heatcrash stealthrock stoneedge earthquake
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'bisharp', 'stonjourner', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Speed: 173 vs 180
+|chat|DEBUG|HP: 129 vs 59
+|chat|DEBUG|Best move of stonjourner (p1): earthquake: 253.6875 [234, 276]
+|chat|DEBUG|Best move of garbodor (p2): stompingtantrum: 76.75 [70, 84]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Psychic|p1a: Luxray
+|-damage|p1a: Luxray|67100
+|move|p1a: Luxray|Agility|p1a: Luxray
+|-boost|p1a: Luxray|spe|2
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stonjourner" vs "garbodor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-thundurustherian-cobalion -- garbodor
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gunkshot painsplit spikes stompingtantrum
+|chat|DEBUG|Checks: ['thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'bisharp', 'thundurustherian', 'cobalion']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to thundurustherian (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Luxray|Crunch|p2a: Thundurus
+|-damage|p2a: Thundurus|146258
+|-damage|p1a: Luxray|57100|[from] item: Life Orb
+|move|p2a: Thundurus|Psychic|p1a: Luxray
+|-damage|p1a: Luxray|28100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-thundurustherian-cobalion -- luxray
+|chat|DEBUG|Own moves: thunderbolt nastyplot psychic grassknot
+|chat|DEBUG|Enemy moves: agility crunch superpower wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['accelgor', 'thundurustherian']
+|chat|DEBUG|Speed: 208 vs 166
+|chat|DEBUG|HP: 258 vs 272
+|chat|DEBUG|Created a new Strategy for thundurustherian vs luxray:
+|chat|DEBUG|>[psychic: 87.5 [80, 95], psychic: 87.5 [80, 95], psychic: 87.5 [80, 95]]
+|chat|DEBUG|Best move of thundurustherian (p1): psychic: 87.5 [80, 95]
+|chat|DEBUG|Best move of luxray (p2): crunch: 107.6875 [99, 117]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Luxray|Crunch|p2a: Thundurus
+|-damage|p2a: Thundurus|38258
+|-unboost|p2a: Thundurus|def|1
+|-damage|p1a: Luxray|18100|[from] item: Life Orb
+|move|p2a: Thundurus|Psychic|p1a: Luxray
+|-damage|p1a: Luxray|0 fnt
+|faint|p1a: Luxray
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-thundurustherian-cobalion -- luxray
+|chat|DEBUG|Own moves: thunderbolt nastyplot psychic grassknot
+|chat|DEBUG|Enemy moves: agility crunch superpower wildcharge
+|chat|DEBUG|Checks: ['accelgor', 'thundurustherian']
+|chat|DEBUG|Counter: ['accelgor', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 166
+|chat|DEBUG|HP: 258 vs 182
+|chat|DEBUG|Best move of thundurustherian (p1): psychic: 87.5 [80, 95]
+|chat|DEBUG|Best move of luxray (p2): crunch: 107.6875 [99, 117]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Chandelure|Shadow Ball|p2a: Thundurus
+|-damage|p2a: Thundurus|0 fnt
+|faint|p2a: Thundurus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Accelgor|Accelgor, L86, M|244278
+|-status|p2a: Accelgor|tox
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "luxray"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-thundurustherian-cobalion -- luxray
+|chat|DEBUG|Own moves: thunderbolt nastyplot psychic grassknot
+|chat|DEBUG|Enemy moves: agility crunch superpower wildcharge
+|chat|DEBUG|Checks: ['accelgor', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'thundurustherian', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 208 vs 166
+|chat|DEBUG|HP: 146 vs 76
+|chat|DEBUG|Best move of thundurustherian (p1): psychic: 87.5 [80, 95]
+|chat|DEBUG|Best move of luxray (p2): crunch: 107.6875 [99, 117]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|move|p2a: Accelgor|Sludge Bomb|p1a: Nihilego
+|-resisted|p1a: Nihilego
+|-damage|p1a: Nihilego|96100
+|-heal|p1a: Nihilego|100100|[from] item: Black Sludge
+|-damage|p2a: Accelgor|227278 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp thundurustherian cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-thundurustherian-cobalion -- chandelure
+|chat|DEBUG|Own moves: thunderbolt nastyplot psychic grassknot
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 208 vs 178
+|chat|DEBUG|HP: 38 vs 233
+|chat|DEBUG|Created a new Strategy for thundurustherian vs chandelure:
+|chat|DEBUG|>[thunderbolt: 122.5625 [112, 133], thunderbolt: 122.5625 [112, 133], thunderbolt: 122.5625 [112, 133]]
+|chat|DEBUG|Best move of thundurustherian (p1): thunderbolt: 122.5625 [112, 133]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 255.75 [235, 277]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bisharp|Bisharp, L80, M|235235
+|move|p1a: Nihilego|Stealth Rock|p2a: Bisharp
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- chandelure
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: accelgor
+|chat|DEBUG|>Switching to accelgor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, F|100100
+|move|p2a: Bisharp|Iron Head|p1a: Chandelure
+|-resisted|p1a: Chandelure
+|-damage|p1a: Chandelure|74100
+|-damage|p2a: Bisharp|212235|[from] item: Life Orb
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- chandelure
+|chat|DEBUG|Own moves: bugbuzz toxic focusblast sludgebomb
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 299 vs 178
+|chat|DEBUG|HP: 244 vs 233
+|chat|DEBUG|Created a new Strategy for accelgor vs chandelure:
+|chat|DEBUG|>[sludgebomb: 34.25 [31, 37], sludgebomb: 34.25 [31, 37], sludgebomb: 34.25 [31, 37]]
+|chat|DEBUG|Best move of accelgor (p1): sludgebomb: 34.25 [31, 37]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 586.375 [540, 636]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Chandelure|Fire Blast|p2a: Bisharp|[miss]
+|-miss|p1a: Chandelure|p2a: Bisharp
+|move|p2a: Bisharp|Knock Off|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-damage|p1a: Chandelure|0 fnt
+|-enditem|p1a: Chandelure|Choice Scarf|[from] move: Knock Off|[of] p2a: Bisharp
+|faint|p1a: Chandelure
+|-damage|p2a: Bisharp|189235|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rayquaza|Rayquaza, L74|100100
+|-ability|p1a: Rayquaza|Air Lock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "accelgor" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- chandelure-nihilego
+|chat|DEBUG|Own moves: bugbuzz toxic focusblast sludgebomb
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['bisharp', 'cobalion']
+|chat|DEBUG|Counter: ['bisharp', 'cobalion']
+|chat|DEBUG|Speed: 299 vs 211
+|chat|DEBUG|HP: 227 vs 306
+|chat|DEBUG|Created a new Strategy for accelgor vs nihilego:
+|chat|DEBUG|>[focusblast: 71.6875 [66, 78], focusblast: 71.6875 [66, 78], focusblast: 71.6875 [66, 78]]
+|chat|DEBUG|Best move of accelgor (p1): focusblast: 71.6875 [66, 78]
+|chat|DEBUG|Best move of nihilego (p2): powergem: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check bisharp
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Bisharp|Dynamax
+|-heal|p2a: Bisharp|378470|[silent]
+|move|p1a: Rayquaza|Earthquake|p2a: Bisharp
+|-supereffective|p2a: Bisharp
+|-crit|p2a: Bisharp
+|-damage|p2a: Bisharp|152470
+|move|p2a: Bisharp|Max Darkness|p1a: Rayquaza
+|-damage|p1a: Rayquaza|23100
+|-unboost|p1a: Rayquaza|spd|1
+|-damage|p2a: Bisharp|129470|[from] item: Life Orb
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- chandelure-nihilego
+|chat|DEBUG|Own moves: swordsdance ironhead suckerpunch knockoff
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['bisharp', 'cobalion']
+|chat|DEBUG|Counter: ['bisharp', 'cobalion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 158 vs 211
+|chat|DEBUG|HP: 235 vs 306
+|chat|DEBUG|Created a new Strategy for bisharp vs nihilego:
+|chat|DEBUG|>[ironhead: 401.5 [369, 437], ironhead: 401.5 [369, 437], ironhead: 401.5 [369, 437]]
+|chat|DEBUG|Best move of bisharp (p1): ironhead: 401.5 [369, 437]
+|chat|DEBUG|Best move of nihilego (p2): powergem: 59.625 [54, 65]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Rayquaza|Dynamax
+|-heal|p1a: Rayquaza|23100|[silent]
+|move|p1a: Rayquaza|Max Quake|p2a: Bisharp
+|-supereffective|p2a: Bisharp
+|-damage|p2a: Bisharp|0 fnt
+|-boost|p1a: Rayquaza|spd|1
+|faint|p2a: Bisharp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Accelgor|Accelgor, L86, M|227278 tox
+|-damage|p2a: Accelgor|158278 tox|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- chandelure-nihilego
+|chat|DEBUG|Own moves: swordsdance ironhead suckerpunch knockoff
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 178
+|chat|DEBUG|HP: 212 vs 172
+|chat|DEBUG|Created a new Strategy for bisharp vs chandelure:
+|chat|DEBUG|>[knockoff: 304.1875 [281, 330], knockoff: 304.1875 [281, 330], knockoff: 304.1875 [281, 330]]
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 304.1875 [281, 330]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 563.25 [518, 612]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Accelgor|Sludge Bomb|p1a: Rayquaza
+|-damage|p1a: Rayquaza|13100
+|move|p1a: Rayquaza|Max Airstream|p2a: Accelgor
+|-supereffective|p2a: Accelgor
+|-damage|p2a: Accelgor|0 fnt
+|-boost|p1a: Rayquaza|spe|1
+|faint|p2a: Accelgor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cobalion|Cobalion, L78|270270
+|-damage|p2a: Cobalion|262270|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "bisharp" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- nihilego-rayquaza
+|chat|DEBUG|Own moves: swordsdance ironhead suckerpunch knockoff
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 184
+|chat|DEBUG|HP: 189 vs 277
+|chat|DEBUG|Created a new Strategy for bisharp vs rayquaza:
+|chat|DEBUG|>[knockoff: 168.3125 [153, 183], knockoff: 168.3125 [153, 183], knockoff: 168.3125 [153, 183]]
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 168.3125 [153, 183]
+|chat|DEBUG|Best move of rayquaza (p2): vcreate: 267.375 [246, 290]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rayquaza|Max Quake|p2a: Cobalion
+|-supereffective|p2a: Cobalion
+|-damage|p2a: Cobalion|92270
+|-boost|p1a: Rayquaza|spd|1
+|move|p2a: Cobalion|Stone Edge|p1a: Rayquaza
+|-supereffective|p1a: Rayquaza
+|-damage|p1a: Rayquaza|0 fnt
+|faint|p1a: Rayquaza
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor bisharp cobalion
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "bisharp" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-bisharp-cobalion -- nihilego-rayquaza
+|chat|DEBUG|Own moves: swordsdance ironhead suckerpunch knockoff
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'cobalion']
+|chat|DEBUG|Speed: 158 vs 184
+|chat|DEBUG|HP: 129 vs 63
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 168.3125 [153, 183]
+|chat|DEBUG|Best move of rayquaza (p2): vcreate: 267.375 [246, 290]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cobalion|Iron Head|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|25100
+|move|p1a: Nihilego|Thunderbolt|p2a: Cobalion
+|-damage|p2a: Cobalion|2270
+|-heal|p1a: Nihilego|32100|[from] item: Black Sludge
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>accelgor cobalion
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "bisharp" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>accelgor-cobalion -- nihilego-rayquaza
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: ['cobalion']
+|chat|DEBUG|Counter: ['accelgor', 'cobalion']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'accelgor': 227, 'cobalion': 270}
+|chat|DEBUG|remaining_hp_team_2={'nihilego': 100, 'rayquaza': 23}
+|chat|DEBUG|battle.available_switches=[accelgor (pokemon object) [Active: False, Status: TOX], cobalion (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'accelgor'
+|chat|DEBUG|>Switching to accelgor (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cobalion|Iron Head|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|0 fnt
+|faint|p1a: Nihilego
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Grunter22<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">accelgor bisharp mrmimegalar stonjourner thundurustherian cobalion</h1>

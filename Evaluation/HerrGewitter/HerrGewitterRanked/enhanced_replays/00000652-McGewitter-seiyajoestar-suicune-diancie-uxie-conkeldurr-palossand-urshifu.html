@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491056140<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491056140|init|battle
+|title|McGewitter vs. seiyajoestar
+|j|☆McGewitter
+|j|☆seiyajoestar
+|gametype|singles
+|player|p1|McGewitter|265|1293
+|player|p2|seiyajoestar|169|1329
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Suicune|Suicune, L80|291291
+|switch|p2a: Kangaskhan|Kangaskhan, L84, F|100100
+|-ability|p1a: Suicune|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['conkeldurr', 'urshifu']
+|chat|DEBUG|Counter: ['conkeldurr', 'urshifu']
+|chat|DEBUG|Speed: 182 vs 199
+|chat|DEBUG|HP: 291 vs 314
+|chat|DEBUG|Created a new Strategy for suicune vs kangaskhan:
+|chat|DEBUG|>[scald: 53.125 [49, 58], scald: 53.125 [49, 58], scald: 53.125 [49, 58]]
+|chat|DEBUG|Best move of suicune (p1): scald: 53.125 [49, 58]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 105.875 [97, 115]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check conkeldurr
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Conkeldurr|Conkeldurr, L80, M|299299
+|move|p2a: Kangaskhan|Fake Out|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|259299
+|-status|p1a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "kangaskhan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan
+|chat|DEBUG|Own moves: facade machpunch closecombat knockoff
+|chat|DEBUG|Enemy moves: doubleedge earthquake fakeout suckerpunch
+|chat|DEBUG|Checks: ['conkeldurr', 'urshifu']
+|chat|DEBUG|Counter: ['conkeldurr', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 199
+|chat|DEBUG|HP: 259 vs 314
+|chat|DEBUG|Created a new Strategy for conkeldurr vs kangaskhan:
+|chat|DEBUG|>[closecombat: 336.625 [308, 366], closecombat: 336.625 [308, 366], closecombat: 336.625 [308, 366]]
+|chat|DEBUG|Best move of conkeldurr (p1): closecombat: 336.625 [308, 366]
+|chat|DEBUG|Best move of kangaskhan (p2): doubleedge: 124.0625 [114, 135]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 120 seconds left.
+|switch|p2a: Milotic|Milotic, L82, F|100100
+|move|p1a: Conkeldurr|Close Combat|p2a: Milotic
+|-damage|p2a: Milotic|7100
+|-unboost|p1a: Conkeldurr|def|1
+|-unboost|p1a: Conkeldurr|spd|1
+|-heal|p2a: Milotic|14100|[from] item: Leftovers
+|-damage|p1a: Conkeldurr|241299 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "milotic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-milotic
+|chat|DEBUG|Own moves: facade machpunch closecombat knockoff
+|chat|DEBUG|Enemy moves: haze recover scald toxic
+|chat|DEBUG|Checks: ['suicune', 'diancie', 'uxie', 'urshifu']
+|chat|DEBUG|Counter: ['suicune', 'diancie', 'uxie', 'conkeldurr', 'palossand', 'urshifu']
+|chat|DEBUG|Speed: 118 vs 180
+|chat|DEBUG|HP: 241 vs 40
+|chat|DEBUG|Created a new Strategy for conkeldurr vs milotic:
+|chat|DEBUG|>[closecombat: 173.875 [160, 189], closecombat: 173.875 [160, 189], closecombat: 173.875 [160, 189]]
+|chat|DEBUG|Best move of conkeldurr (p1): closecombat: 173.875 [160, 189]
+|chat|DEBUG|Best move of milotic (p2): scald: 160.0 [147, 174]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 120 seconds left.
+|switch|p2a: Scizor|Scizor, L80, F|100100
+|move|p1a: Conkeldurr|Close Combat|p2a: Scizor
+|-damage|p2a: Scizor|8100
+|-unboost|p1a: Conkeldurr|def|1
+|-unboost|p1a: Conkeldurr|spd|1
+|-damage|p1a: Conkeldurr|223299 brn|[from] brn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-milotic-scizor
+|chat|DEBUG|Own moves: facade machpunch closecombat knockoff
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: ['suicune', 'uxie', 'urshifu']
+|chat|DEBUG|Counter: ['suicune', 'uxie', 'palossand', 'urshifu']
+|chat|DEBUG|Speed: 118 vs 150
+|chat|DEBUG|HP: 223 vs 19
+|chat|DEBUG|Created a new Strategy for conkeldurr vs scizor:
+|chat|DEBUG|>[closecombat: 148.8125 [136, 162], closecombat: 148.8125 [136, 162], closecombat: 148.8125 [136, 162]]
+|chat|DEBUG|Best move of conkeldurr (p1): closecombat: 148.8125 [136, 162]
+|chat|DEBUG|Best move of scizor (p2): dualwingbeat: 253.6875 [234, 276]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check suicune
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Suicune|Suicune, L80|291291
+|-ability|p1a: Suicune|Pressure
+|move|p2a: Scizor|Dual Wingbeat|p1a: Suicune|[miss]
+|-miss|p2a: Scizor|p1a: Suicune
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-milotic-scizor
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: ['suicune', 'uxie', 'urshifu']
+|chat|DEBUG|Counter: ['suicune', 'uxie', 'palossand', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 150
+|chat|DEBUG|HP: 291 vs 19
+|chat|DEBUG|Created a new Strategy for suicune vs scizor:
+|chat|DEBUG|>[scald: 83.625 [76, 91], scald: 83.625 [76, 91], scald: 83.625 [76, 91]]
+|chat|DEBUG|Best move of suicune (p1): scald: 83.625 [76, 91]
+|chat|DEBUG|Best move of scizor (p2): knockoff: 88.3125 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Milotic|Milotic, L82, F|14100
+|move|p1a: Suicune|Scald|p2a: Milotic
+|-resisted|p2a: Milotic
+|-damage|p2a: Milotic|3100
+|-heal|p2a: Milotic|9100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "milotic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-milotic-scizor
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: haze recover scald toxic
+|chat|DEBUG|Checks: ['suicune', 'diancie', 'uxie', 'urshifu']
+|chat|DEBUG|Counter: ['suicune', 'diancie', 'uxie', 'conkeldurr', 'palossand', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 180
+|chat|DEBUG|HP: 291 vs 26
+|chat|DEBUG|Created a new Strategy for suicune vs milotic:
+|chat|DEBUG|>[scald: 29.0625 [27, 32], scald: 29.0625 [27, 32], scald: 29.0625 [27, 32]]
+|chat|DEBUG|Best move of suicune (p1): scald: 29.0625 [27, 32]
+|chat|DEBUG|Best move of milotic (p2): scald: 34.5625 [32, 38]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|move|p1a: Suicune|Scald|p2a: Milotic
+|-resisted|p2a: Milotic
+|-damage|p2a: Milotic|0 fnt
+|faint|p2a: Milotic
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, F|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu']
+|chat|DEBUG|Speed: 182 vs 178
+|chat|DEBUG|HP: 291 vs 282
+|chat|DEBUG|Created a new Strategy for suicune vs goodra:
+|chat|DEBUG|>[icebeam: 50.875 [46, 56], icebeam: 50.875 [46, 56], icebeam: 50.875 [46, 56]]
+|chat|DEBUG|Best move of suicune (p1): icebeam: 50.875 [46, 56]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 139.625 [128, 152]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Ice Beam|p2a: Goodra
+|-supereffective|p2a: Goodra
+|-damage|p2a: Goodra|83100
+|move|p2a: Goodra|Power Whip|p1a: Suicune
+|-supereffective|p1a: Suicune
+|-damage|p1a: Suicune|153291
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['urshifu']
+|chat|DEBUG|Counter: ['diancie', 'urshifu']
+|chat|DEBUG|Speed: 182 vs 178
+|chat|DEBUG|HP: 153 vs 234
+|chat|DEBUG|Best move of suicune (p1): icebeam: 50.875 [46, 56]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 139.625 [128, 152]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check urshifu
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|switch|p1a: Urshifu|Urshifu, L76, M|277277
+|move|p2a: Goodra|Power Whip|p1a: Urshifu
+|-damage|p1a: Urshifu|202277
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra
+|chat|DEBUG|Own moves: suckerpunch wickedblow closecombat uturn
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['urshifu']
+|chat|DEBUG|Counter: ['diancie', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 191 vs 178
+|chat|DEBUG|HP: 202 vs 234
+|chat|DEBUG|Created a new Strategy for urshifu vs goodra:
+|chat|DEBUG|>[closecombat: 240.5 [220, 261], closecombat: 240.5 [220, 261], closecombat: 240.5 [220, 261]]
+|chat|DEBUG|Best move of urshifu (p1): closecombat: 240.5 [220, 261]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 117.9375 [108, 128]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|switch|p2a: Articuno|Articuno-Galar, L80|100100
+|move|p1a: Urshifu|Close Combat|p2a: Articuno
+|-resisted|p2a: Articuno
+|-damage|p2a: Articuno|82100
+|-unboost|p1a: Urshifu|def|1
+|-unboost|p1a: Urshifu|spd|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diancie', 'palossand']
+|chat|DEBUG|Speed: 191 vs 198
+|chat|DEBUG|HP: 202 vs 225
+|chat|DEBUG|Created a new Strategy for urshifu vs articunogalar:
+|chat|DEBUG|>[closecombat: 53.25 [49, 58], closecombat: 53.25 [49, 58], closecombat: 53.25 [49, 58]]
+|chat|DEBUG|Best move of urshifu (p1): closecombat: 53.25 [49, 58]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 389.25 [356, 422]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|move|p2a: Articuno|Air Slash|p1a: Urshifu|[miss]
+|-miss|p2a: Articuno|p1a: Urshifu
+|move|p1a: Urshifu|Close Combat|p2a: Articuno
+|-resisted|p2a: Articuno
+|-crit|p2a: Articuno
+|-damage|p2a: Articuno|54100
+|-unboost|p1a: Urshifu|def|1
+|-unboost|p1a: Urshifu|spd|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: ['diancie', 'palossand']
+|chat|DEBUG|Counter: ['diancie', 'palossand']
+|chat|DEBUG|Speed: 191 vs 198
+|chat|DEBUG|HP: 202 vs 148
+|chat|DEBUG|Created a new Strategy for urshifu vs articunogalar:
+|chat|DEBUG|>[closecombat: 53.25 [49, 58], closecombat: 53.25 [49, 58], closecombat: 53.25 [49, 58]]
+|chat|DEBUG|Best move of urshifu (p1): closecombat: 53.25 [49, 58]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 522.5 [480, 566]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check diancie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diancie|Diancie, L82|216216
+|move|p2a: Articuno|Recover|p2a: Articuno
+|-heal|p2a: Articuno|100100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: moonblast toxic diamondstorm earthpower
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diancie', 'palossand']
+|chat|DEBUG|Speed: 129 vs 198
+|chat|DEBUG|HP: 216 vs 275
+|chat|DEBUG|Created a new Strategy for diancie vs articunogalar:
+|chat|DEBUG|>[diamondstorm: 220.5 [204, 240], diamondstorm: 220.5 [204, 240], diamondstorm: 220.5 [204, 240]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 220.5 [204, 240]
+|chat|DEBUG|Best move of articunogalar (p2): freezingglare: 72.5625 [67, 79]
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|switch|p2a: Scizor|Scizor, L80, F|8100
+|move|p1a: Diancie|Diamond Storm|p2a: Scizor|[miss]
+|-miss|p1a: Diancie|p2a: Scizor
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: moonblast toxic diamondstorm earthpower
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: ['suicune', 'uxie']
+|chat|DEBUG|Counter: ['suicune', 'uxie', 'palossand', 'urshifu']
+|chat|DEBUG|Speed: 129 vs 150
+|chat|DEBUG|HP: 216 vs 19
+|chat|DEBUG|Created a new Strategy for diancie vs scizor:
+|chat|DEBUG|>[diamondstorm: 97.625 [90, 106], diamondstorm: 97.625 [90, 106], diamondstorm: 97.625 [90, 106]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 97.625 [90, 106]
+|chat|DEBUG|Best move of scizor (p2): bulletpunch: 261.9375 [239, 286]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check suicune
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|switch|p1a: Suicune|Suicune, L80|153291
+|-ability|p1a: Suicune|Pressure
+|move|p2a: Scizor|Bullet Punch|p1a: Suicune
+|-resisted|p1a: Suicune
+|-damage|p1a: Suicune|108291
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "scizor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: bulletpunch dualwingbeat knockoff swordsdance
+|chat|DEBUG|Checks: ['suicune', 'uxie']
+|chat|DEBUG|Counter: ['suicune', 'uxie', 'palossand', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 150
+|chat|DEBUG|HP: 108 vs 19
+|chat|DEBUG|Created a new Strategy for suicune vs scizor:
+|chat|DEBUG|>[scald: 83.625 [76, 91], scald: 83.625 [76, 91], scald: 83.625 [76, 91]]
+|chat|DEBUG|Best move of suicune (p1): scald: 83.625 [76, 91]
+|chat|DEBUG|Best move of scizor (p2): knockoff: 88.3125 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 90 seconds left.
+|switch|p2a: Goodra|Goodra, L82, F|83100
+|move|p1a: Suicune|Scald|p2a: Goodra
+|-resisted|p2a: Goodra
+|-damage|p2a: Goodra|78100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: icebeam rest calmmind scald
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diancie', 'urshifu']
+|chat|DEBUG|Speed: 182 vs 178
+|chat|DEBUG|HP: 108 vs 219
+|chat|DEBUG|Created a new Strategy for suicune vs goodra:
+|chat|DEBUG|>[icebeam: 50.875 [46, 56], icebeam: 50.875 [46, 56], icebeam: 50.875 [46, 56]]
+|chat|DEBUG|Best move of suicune (p1): icebeam: 50.875 [46, 56]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 139.625 [128, 152]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Ice Beam|p2a: Goodra
+|-supereffective|p2a: Goodra
+|-damage|p2a: Goodra|59100
+|move|p2a: Goodra|Power Whip|p1a: Suicune
+|-supereffective|p1a: Suicune
+|-damage|p1a: Suicune|0 fnt
+|faint|p1a: Suicune
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diancie|Diancie, L82|216216
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diancie', 'urshifu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to diancie (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Power Whip|p1a: Diancie
+|-supereffective|p1a: Diancie
+|-damage|p1a: Diancie|108216
+|move|p1a: Diancie|Diamond Storm|p2a: Goodra
+|-damage|p2a: Goodra|15100
+|-boost|p1a: Diancie|def|2
+|-heal|p1a: Diancie|121216|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: moonblast toxic diamondstorm earthpower
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diancie', 'urshifu']
+|chat|DEBUG|Speed: 129 vs 178
+|chat|DEBUG|HP: 216 vs 166
+|chat|DEBUG|Created a new Strategy for diancie vs goodra:
+|chat|DEBUG|>[diamondstorm: 124.0625 [114, 135], diamondstorm: 124.0625 [114, 135], diamondstorm: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 124.0625 [114, 135]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 110.25 [102, 120]
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Power Whip|p1a: Diancie
+|-supereffective|p1a: Diancie
+|-crit|p1a: Diancie
+|-damage|p1a: Diancie|0 fnt
+|faint|p1a: Diancie
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Uxie|Uxie, L82|257257
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: moonblast toxic diamondstorm earthpower
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['diancie', 'uxie', 'palossand']
+|chat|DEBUG|Counter: ['diancie', 'uxie', 'palossand', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 129 vs 178
+|chat|DEBUG|HP: 121 vs 42
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 124.0625 [114, 135]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 56.375 [52, 62]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sharpedo|Sharpedo, L82, F|100100
+|move|p1a: Uxie|Stealth Rock|p2a: Sharpedo
+|-sidestart|p2: seiyajoestar|move: Stealth Rock
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['uxie', 'palossand']
+|chat|DEBUG|Counter: ['uxie', 'palossand', 'urshifu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to uxie (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Uxie|Dynamax
+|-heal|p1a: Uxie|514514|[silent]
+|move|p1a: Uxie|Max Guard|p1a: Uxie
+|-singleturn|p1a: Uxie|Max Guard
+|move|p2a: Sharpedo|Crunch|p1a: Uxie
+|-activate|p1a: Uxie|move: Max Guard
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "uxie" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar
+|chat|DEBUG|Own moves: healbell yawn psychic stealthrock
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['uxie', 'palossand']
+|chat|DEBUG|Counter: ['uxie', 'palossand', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 203 vs 178
+|chat|DEBUG|HP: 257 vs 42
+|chat|DEBUG|Created a new Strategy for uxie vs goodra:
+|chat|DEBUG|>[psychic: 33.875 [31, 37], psychic: 33.875 [31, 37], psychic: 33.875 [31, 37]]
+|chat|DEBUG|Best move of uxie (p1): psychic: 33.875 [31, 37]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 62.375 [57, 68]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-end|p1a: Uxie|Dynamax
+|-heal|p1a: Uxie|257257|[silent]
+|switch|p1a: Palossand|Palossand, L86, M|286286
+|-start|p2a: Sharpedo|Dynamax
+|-heal|p2a: Sharpedo|100100|[silent]
+|move|p2a: Sharpedo|Max Guard||[still]
+|-fail|p2a: Sharpedo
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "uxie" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar-sharpedo
+|chat|DEBUG|Own moves: healbell yawn psychic stealthrock
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 203 vs 203
+|chat|DEBUG|HP: 257 vs 249
+|chat|DEBUG|Created a new Strategy for uxie vs sharpedo:
+|chat|DEBUG|>[stealthrock: 0.0 [0, 0], stealthrock: 0.0 [0, 0], stealthrock: 0.0 [0, 0]]
+|chat|DEBUG|Best move of uxie (p1): stealthrock: 0.0 [0, 0]
+|chat|DEBUG|Best move of sharpedo (p2): crunch: 188.625 [174, 205]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Max Geyser|p1a: Palossand
+|-supereffective|p1a: Palossand
+|-damage|p1a: Palossand|0 fnt
+|-weather|RainDance
+|faint|p1a: Palossand
+|-damage|p2a: Sharpedo|96100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Urshifu|Urshifu, L76, M|202277
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "uxie" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar-sharpedo
+|chat|DEBUG|Own moves: healbell yawn psychic stealthrock
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 203 vs 203
+|chat|DEBUG|HP: 514 vs 249
+|chat|DEBUG|Best move of uxie (p1): stealthrock: 0.0 [0, 0]
+|chat|DEBUG|Best move of sharpedo (p2): crunch: 188.625 [174, 205]
+|chat|DEBUG|Switching to palossand as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Max Knuckle|p1a: Urshifu
+|-supereffective|p1a: Urshifu
+|-damage|p1a: Urshifu|0 fnt
+|-boost|p2a: Sharpedo|atk|1
+|faint|p1a: Urshifu
+|-damage|p2a: Sharpedo|91100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|-end|p2a: Sharpedo|Dynamax
+|-heal|p2a: Sharpedo|91100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Conkeldurr|Conkeldurr, L80, M|223299 brn
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>uxie conkeldurr palossand urshifu
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "palossand" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>uxie-conkeldurr-palossand-urshifu -- kangaskhan-scizor-goodra-articunogalar-sharpedo
+|chat|DEBUG|Own moves: shoreup shadowball earthpower toxic
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 109 vs 203
+|chat|DEBUG|HP: 286 vs 249
+|chat|DEBUG|Created a new Strategy for palossand vs sharpedo:
+|chat|DEBUG|>[earthpower: 176.6875 [162, 192], earthpower: 176.6875 [162, 192], earthpower: 176.6875 [162, 192]]
+|chat|DEBUG|Best move of palossand (p1): earthpower: 176.6875 [162, 192]
+|chat|DEBUG|Best move of sharpedo (p2): hydropump: 311.3125 [283, 338]
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 120 seconds left.
+|move|p2a: Sharpedo|Hydro Pump|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|0 fnt
+|faint|p1a: Conkeldurr
+|-damage|p2a: Sharpedo|81100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Uxie|Uxie, L82|257257
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>uxie conkeldurr urshifu
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "palossand" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>uxie-conkeldurr-urshifu -- kangaskhan-scizor-goodra-articunogalar-sharpedo
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'uxie': 257, 'conkeldurr': 223, 'urshifu': 202}
+|chat|DEBUG|remaining_hp_team_2={'kangaskhan': 100, 'scizor': 8, 'goodra': 15, 'articunogalar': 100, 'sharpedo': 100}
+|chat|DEBUG|battle.available_switches=[urshifu (pokemon object) [Active: False, Status: None], conkeldurr (pokemon object) [Active: False, Status: BRN], uxie (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'urshifu'
+|chat|DEBUG|>Switching to urshifu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|seiyajoestar has 120 seconds left.
+|move|p2a: Sharpedo|Crunch|p1a: Uxie
+|-supereffective|p1a: Uxie
+|-damage|p1a: Uxie|0 fnt
+|faint|p1a: Uxie
+|-damage|p2a: Sharpedo|72100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>seiyajoestar</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">suicune diancie uxie conkeldurr palossand urshifu</h1>

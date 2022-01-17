@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490434016<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490434016|init|battle
+|title|McGewitter vs. akaLHY
+|j|☆McGewitter
+|j|☆akaLHY
+|gametype|singles
+|player|p1|McGewitter|265|1168
+|player|p2|akaLHY|1|1218
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Crobat|Crobat, L82, F|274274
+|switch|p2a: Articuno|Articuno, L84|100100
+|-ability|p2a: Articuno|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['cryogonal']
+|chat|DEBUG|Counter: ['cryogonal', 'excadrill']
+|chat|DEBUG|Speed: 260 vs 191
+|chat|DEBUG|HP: 274 vs 288
+|chat|DEBUG|Created a new Strategy for crobat vs articuno:
+|chat|DEBUG|>[bravebird: 103.25 [94, 112], bravebird: 103.25 [94, 112], bravebird: 103.25 [94, 112]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 103.25 [94, 112]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 161.875 [150, 176]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cryogonal
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Cryogonal|Cryogonal, L86|278278
+|move|p2a: Articuno|Freeze-Dry|p1a: Cryogonal
+|-resisted|p1a: Cryogonal
+|-damage|p1a: Cryogonal|252278
+|-heal|p1a: Cryogonal|269278|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno
+|chat|DEBUG|Own moves: haze recover toxic freezedry
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['cryogonal']
+|chat|DEBUG|Counter: ['cryogonal', 'excadrill']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 230 vs 191
+|chat|DEBUG|HP: 269 vs 288
+|chat|DEBUG|Created a new Strategy for cryogonal vs articuno:
+|chat|DEBUG|>[freezedry: 58.625 [54, 64], freezedry: 58.625 [54, 64], freezedry: 58.625 [54, 64]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 58.625 [54, 64]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 25.625 [24, 28]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Heat, L82|100100
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Rotom
+|-resisted|p2a: Rotom
+|-damage|p2a: Rotom|84100
+|-heal|p1a: Cryogonal|278278|[from] item: Leftovers
+|-heal|p2a: Rotom|90100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "rotomheat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno-rotomheat
+|chat|DEBUG|Own moves: haze recover toxic freezedry
+|chat|DEBUG|Enemy moves: nastyplot overheat thunderbolt willowisp
+|chat|DEBUG|Checks: ['kommoo', 'giratinaorigin']
+|chat|DEBUG|Counter: ['kommoo', 'giratinaorigin']
+|chat|DEBUG|Speed: 230 vs 188
+|chat|DEBUG|HP: 278 vs 193
+|chat|DEBUG|Created a new Strategy for cryogonal vs rotomheat:
+|chat|DEBUG|>[freezedry: 34.125 [31, 37], freezedry: 34.125 [31, 37], freezedry: 34.125 [31, 37]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 34.125 [31, 37]
+|chat|DEBUG|Best move of rotomheat (p2): thunderbolt: 67.25 [61, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kommoo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kommo-o|Kommo-o, L80, M|251251
+|move|p2a: Rotom|Nasty Plot|p2a: Rotom
+|-boost|p2a: Rotom|spa|2
+|-heal|p2a: Rotom|96100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "rotomheat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno-rotomheat
+|chat|DEBUG|Own moves: clangoroussoul clangingscales closecombat poisonjab
+|chat|DEBUG|Enemy moves: nastyplot overheat thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo', 'giratinaorigin']
+|chat|DEBUG|Speed: 182 vs 188
+|chat|DEBUG|HP: 251 vs 206
+|chat|DEBUG|Created a new Strategy for kommoo vs rotomheat:
+|chat|DEBUG|>[closecombat: 114.3125 [105, 124], closecombat: 114.3125 [105, 124], closecombat: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 114.3125 [105, 124]
+|chat|DEBUG|Best move of rotomheat (p2): thunderbolt: 87.375 [80, 95]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Will-O-Wisp|p1a: Kommo-o
+|-status|p1a: Kommo-o|brn
+|move|p1a: Kommo-o|Close Combat|p2a: Rotom
+|-damage|p2a: Rotom|70100
+|-unboost|p1a: Kommo-o|def|1
+|-unboost|p1a: Kommo-o|spd|1
+|-heal|p2a: Rotom|76100|[from] item: Leftovers
+|-damage|p1a: Kommo-o|236251 brn|[from] brn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kommoo" vs "rotomheat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno-rotomheat
+|chat|DEBUG|Own moves: clangoroussoul clangingscales closecombat poisonjab
+|chat|DEBUG|Enemy moves: nastyplot overheat thunderbolt willowisp
+|chat|DEBUG|Checks: ['giratinaorigin']
+|chat|DEBUG|Counter: ['giratinaorigin']
+|chat|DEBUG|Speed: 182 vs 188
+|chat|DEBUG|HP: 236 vs 163
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 114.3125 [105, 124]
+|chat|DEBUG|Best move of rotomheat (p2): thunderbolt: 131.1875 [120, 142]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check giratinaorigin
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Giratina|Giratina-Origin, L74|344344
+|move|p2a: Rotom|Thunderbolt|p1a: Giratina
+|-resisted|p1a: Giratina
+|-damage|p1a: Giratina|252344
+|-status|p1a: Giratina|par
+|-heal|p2a: Rotom|82100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "rotomheat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno-rotomheat
+|chat|DEBUG|Own moves: honeclaws poltergeist shadowsneak outrage
+|chat|DEBUG|Enemy moves: nastyplot overheat thunderbolt willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['giratinaorigin']
+|chat|DEBUG|Speed: 176 vs 188
+|chat|DEBUG|HP: 252 vs 176
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs rotomheat:
+|chat|DEBUG|>[outrage: 103.25 [94, 112], outrage: 103.25 [94, 112], outrage: 103.25 [94, 112]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 103.25 [94, 112]
+|chat|DEBUG|Best move of rotomheat (p2): thunderbolt: 97.8125 [90, 106]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Overheat|p1a: Giratina|[miss]
+|-miss|p2a: Rotom|p1a: Giratina
+|move|p1a: Giratina|Outrage|p2a: Rotom
+|-damage|p2a: Rotom|29100
+|-heal|p2a: Rotom|35100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "rotomheat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno-rotomheat
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: nastyplot overheat thunderbolt willowisp
+|chat|DEBUG|Checks: ['giratinaorigin']
+|chat|DEBUG|Counter: ['kommoo', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 188
+|chat|DEBUG|HP: 252 vs 75
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs rotomheat:
+|chat|DEBUG|>[outrage: 103.25 [94, 112], outrage: 103.25 [94, 112], outrage: 103.25 [94, 112]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 103.25 [94, 112]
+|chat|DEBUG|Best move of rotomheat (p2): thunderbolt: 97.8125 [90, 106]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Overheat|p1a: Giratina
+|-resisted|p1a: Giratina
+|-damage|p1a: Giratina|102344 par
+|-unboost|p2a: Rotom|spa|2
+|move|p1a: Giratina|Outrage|p2a: Rotom|[from]lockedmove
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whimsicott|Whimsicott, L84, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise giratinaorigin excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "whimsicott"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-giratinaorigin-excadrill -- articuno-whimsicott
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: energyball leechseed moonblast stunspore
+|chat|DEBUG|Checks: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Speed: 176 vs 243
+|chat|DEBUG|HP: 102 vs 238
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs whimsicott:
+|chat|DEBUG|>[outrage: 0.0 [0, 0], outrage: 0.0 [0, 0], outrage: 0.0 [0, 0]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 0.0 [0, 0]
+|chat|DEBUG|Best move of whimsicott (p2): moonblast: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Whimsicott|Moonblast|p1a: Giratina
+|-supereffective|p1a: Giratina
+|-damage|p1a: Giratina|0 fnt
+|faint|p1a: Giratina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crobat|Crobat, L82, F|274274
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "whimsicott"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- articuno-whimsicott
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball leechseed moonblast stunspore
+|chat|DEBUG|Checks: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to crobat (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno, L84|100100
+|-ability|p2a: Articuno|Pressure
+|move|p1a: Crobat|Brave Bird|p2a: Articuno
+|-damage|p2a: Articuno|68100
+|-damage|p1a: Crobat|243274|[from] Recoil
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "whimsicott"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- articuno-whimsicott
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: energyball leechseed moonblast stunspore
+|chat|DEBUG|Checks: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 260 vs 243
+|chat|DEBUG|HP: 274 vs 238
+|chat|DEBUG|Created a new Strategy for crobat vs whimsicott:
+|chat|DEBUG|>[bravebird: 234.0 [216, 254], bravebird: 234.0 [216, 254], bravebird: 234.0 [216, 254]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 234.0 [216, 254]
+|chat|DEBUG|Best move of whimsicott (p2): moonblast: 46.375 [42, 51]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Articuno
+|-damage|p2a: Articuno|33100
+|-damage|p1a: Crobat|210274|[from] Recoil
+|move|p2a: Articuno|Toxic|p1a: Crobat
+|-immune|p1a: Crobat
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- articuno-whimsicott
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['cryogonal', 'excadrill']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Speed: 260 vs 191
+|chat|DEBUG|HP: 243 vs 195
+|chat|DEBUG|Created a new Strategy for crobat vs articuno:
+|chat|DEBUG|>[bravebird: 103.25 [94, 112], bravebird: 103.25 [94, 112], bravebird: 103.25 [94, 112]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 103.25 [94, 112]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 161.875 [150, 176]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Articuno
+|-damage|p2a: Articuno|0 fnt
+|faint|p2a: Articuno
+|-damage|p1a: Crobat|179274|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Seismitoad|Seismitoad, L84, M|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "articuno"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- articuno-whimsicott
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: freezedry healbell roost toxic
+|chat|DEBUG|Checks: ['crobat', 'cryogonal', 'excadrill']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'kommoo', 'dhelmise', 'excadrill']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 260 vs 191
+|chat|DEBUG|HP: 210 vs 95
+|chat|DEBUG|Best move of crobat (p1): bravebird: 103.25 [94, 112]
+|chat|DEBUG|Best move of articuno (p2): freezedry: 161.875 [150, 176]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Seismitoad
+|-damage|p2a: Seismitoad|59100
+|-damage|p1a: Crobat|136274|[from] Recoil
+|move|p2a: Seismitoad|Stealth Rock|p1a: Crobat
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- whimsicott-seismitoad
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: ['cryogonal', 'dhelmise']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'kommoo', 'dhelmise']
+|chat|DEBUG|Speed: 260 vs 173
+|chat|DEBUG|HP: 179 vs 314
+|chat|DEBUG|Created a new Strategy for crobat vs seismitoad:
+|chat|DEBUG|>[bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of seismitoad (p2): liquidation: 126.9375 [117, 138]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cryogonal|Cryogonal, L86|278278
+|-damage|p1a: Cryogonal|209278|[from] Stealth Rock
+|move|p2a: Seismitoad|Rain Dance|p2a: Seismitoad
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Cryogonal|226278|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "crobat" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- whimsicott-seismitoad
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: ['cryogonal', 'dhelmise']
+|chat|DEBUG|Counter: ['cryogonal', 'kommoo', 'dhelmise', 'excadrill']
+|chat|DEBUG|Speed: 260 vs 173
+|chat|DEBUG|HP: 136 vs 185
+|chat|DEBUG|Best move of crobat (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of seismitoad (p2): liquidation: 126.9375 [117, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cryogonal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|100100
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Zeraora
+|-damage|p2a: Zeraora|78100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Cryogonal|243278|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- whimsicott-seismitoad
+|chat|DEBUG|Own moves: haze recover toxic freezedry
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: ['cryogonal', 'dhelmise']
+|chat|DEBUG|Counter: ['cryogonal', 'kommoo', 'dhelmise', 'excadrill']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 230 vs 173
+|chat|DEBUG|HP: 226 vs 185
+|chat|DEBUG|Created a new Strategy for cryogonal vs seismitoad:
+|chat|DEBUG|>[freezedry: 345.75 [316, 376], freezedry: 345.75 [316, 376], freezedry: 345.75 [316, 376]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 345.75 [316, 376]
+|chat|DEBUG|Best move of seismitoad (p2): liquidation: 166.4375 [153, 181]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dhelmise|Dhelmise, L86|261261
+|-damage|p1a: Dhelmise|229261|[from] Stealth Rock
+|move|p2a: Zeraora|Knock Off|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|123261
+|-enditem|p1a: Dhelmise|Lum Berry|[from] move: Knock Off|[of] p2a: Zeraora
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- whimsicott-seismitoad-zeraora
+|chat|DEBUG|Own moves: haze recover toxic freezedry
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['dhelmise']
+|chat|DEBUG|Speed: 230 vs 261
+|chat|DEBUG|HP: 243 vs 202
+|chat|DEBUG|Created a new Strategy for cryogonal vs zeraora:
+|chat|DEBUG|>[freezedry: 90.875 [84, 99], freezedry: 90.875 [84, 99], freezedry: 90.875 [84, 99]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 90.875 [84, 99]
+|chat|DEBUG|Best move of zeraora (p2): closecombat: 294.625 [270, 320]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Volt Switch|p1a: Dhelmise
+|-resisted|p1a: Dhelmise
+|-damage|p1a: Dhelmise|90261
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whimsicott|Whimsicott, L84, F|100100|[from]move: Volt Switch
+|move|p1a: Dhelmise|Power Whip|p2a: Whimsicott
+|-resisted|p2a: Whimsicott
+|-damage|p2a: Whimsicott|64100
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Whimsicott|70100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- whimsicott-seismitoad-zeraora
+|chat|DEBUG|Own moves: powerwhip poltergeist swordsdance anchorshot
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 261
+|chat|DEBUG|HP: 123 vs 202
+|chat|DEBUG|Created a new Strategy for dhelmise vs zeraora:
+|chat|DEBUG|>[powerwhip: 209.875 [193, 228], powerwhip: 209.875 [193, 228], powerwhip: 209.875 [193, 228]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 209.875 [193, 228]
+|chat|DEBUG|Best move of zeraora (p2): blazekick: 128.5625 [117, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Whimsicott|Moonblast|p1a: Dhelmise
+|-damage|p1a: Dhelmise|14261
+|move|p1a: Dhelmise|Anchor Shot|p2a: Whimsicott
+|-supereffective|p2a: Whimsicott
+|-damage|p2a: Whimsicott|0 fnt
+|faint|p2a: Whimsicott
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinderace|Cinderace, L74, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "whimsicott"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- whimsicott-seismitoad-zeraora
+|chat|DEBUG|Own moves: powerwhip poltergeist swordsdance anchorshot
+|chat|DEBUG|Enemy moves: energyball leechseed moonblast stunspore
+|chat|DEBUG|Checks: ['crobat', 'cryogonal', 'excadrill']
+|chat|DEBUG|Counter: ['crobat', 'cryogonal', 'dhelmise', 'excadrill']
+|chat|DEBUG|Speed: 118 vs 243
+|chat|DEBUG|HP: 90 vs 166
+|chat|DEBUG|Created a new Strategy for dhelmise vs whimsicott:
+|chat|DEBUG|>[anchorshot: 232.125 [214, 252], anchorshot: 232.125 [214, 252], anchorshot: 232.125 [214, 252]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 232.125 [214, 252]
+|chat|DEBUG|Best move of whimsicott (p2): moonblast: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using anchorshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Pyro Ball|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|faint|p1a: Dhelmise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crobat|Crobat, L82, F|136274
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo dhelmise excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-dhelmise-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: powerwhip poltergeist swordsdance anchorshot
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 219
+|chat|DEBUG|HP: 14 vs 240
+|chat|DEBUG|Created a new Strategy for dhelmise vs cinderace:
+|chat|DEBUG|>[poltergeist: 197.375 [181, 214], poltergeist: 197.375 [181, 214], poltergeist: 197.375 [181, 214]]
+|chat|DEBUG|Best move of dhelmise (p1): poltergeist: 197.375 [181, 214]
+|chat|DEBUG|Best move of cinderace (p2): pyroball: 203.5 [186, 222]
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crobat|Brave Bird|p2a: Cinderace
+|-damage|p2a: Cinderace|40100
+|-damage|p1a: Crobat|88274|[from] Recoil
+|move|p2a: Cinderace|Zen Headbutt|p1a: Crobat
+|-start|p2a: Cinderace|typechange|Psychic|[from] ability: Libero
+|-supereffective|p1a: Crobat
+|-damage|p1a: Crobat|0 fnt
+|faint|p1a: Crobat
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cryogonal|Cryogonal, L86|243278
+|-damage|p1a: Cryogonal|174278|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dhelmise" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'crobat': 136, 'cryogonal': 243, 'kommoo': 236, 'excadrill': 300}
+|chat|DEBUG|remaining_hp_team_2={'seismitoad': 59, 'zeraora': 78, 'cinderace': 100}
+|chat|DEBUG|battle.available_switches=[crobat (pokemon object) [Active: False, Status: None], cryogonal (pokemon object) [Active: False, Status: None], kommoo (pokemon object) [Active: False, Status: BRN], excadrill (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'crobat'
+|chat|DEBUG|>Switching to crobat (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cryogonal|Freeze-Dry|p2a: Cinderace
+|-damage|p2a: Cinderace|3100
+|move|p2a: Cinderace|Pyro Ball|p1a: Cryogonal
+|-start|p2a: Cinderace|typechange|Fire|[from] ability: Libero
+|-supereffective|p1a: Cryogonal
+|-damage|p1a: Cryogonal|0 fnt
+|faint|p1a: Cryogonal
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kommo-o|Kommo-o, L80, M|236251 brn
+|-damage|p1a: Kommo-o|221251 brn|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>crobat cryogonal kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "crobat" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>crobat-cryogonal-kommoo-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: bravebird toxic superfang roost
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 219
+|chat|DEBUG|HP: 136 vs 240
+|chat|DEBUG|Created a new Strategy for crobat vs cinderace:
+|chat|DEBUG|>[bravebird: 144.5625 [133, 157], bravebird: 144.5625 [133, 157], bravebird: 144.5625 [133, 157]]
+|chat|DEBUG|Best move of crobat (p1): bravebird: 144.5625 [133, 157]
+|chat|DEBUG|Best move of cinderace (p2): pyroball: 125.375 [115, 136]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinderace|Zen Headbutt|p1a: Kommo-o|[miss]
+|-start|p2a: Cinderace|typechange|Psychic|[from] ability: Libero
+|-miss|p2a: Cinderace|p1a: Kommo-o
+|move|p1a: Kommo-o|Close Combat|p2a: Cinderace
+|-resisted|p2a: Cinderace
+|-damage|p2a: Cinderace|0 fnt
+|-unboost|p1a: Kommo-o|def|1
+|-unboost|p1a: Kommo-o|spd|1
+|faint|p2a: Cinderace
+|-damage|p1a: Kommo-o|206251 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Seismitoad|Seismitoad, L84, M|59100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cryogonal kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "crobat" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cryogonal-kommoo-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'cryogonal': 243, 'kommoo': 236, 'excadrill': 300}
+|chat|DEBUG|remaining_hp_team_2={'seismitoad': 59, 'zeraora': 78, 'cinderace': 100}
+|chat|DEBUG|battle.available_switches=[cryogonal (pokemon object) [Active: False, Status: None], kommoo (pokemon object) [Active: False, Status: BRN], excadrill (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'cryogonal'
+|chat|DEBUG|>Switching to cryogonal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Kommo-o|Dynamax
+|-heal|p1a: Kommo-o|412502 brn|[silent]
+|move|p1a: Kommo-o|Max Knuckle|p2a: Seismitoad
+|-damage|p2a: Seismitoad|42100
+|-boost|p1a: Kommo-o|atk|1
+|move|p2a: Seismitoad|Rain Dance|p2a: Seismitoad
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Kommo-o|397502 brn|[from] brn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cryogonal kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cryogonal" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cryogonal-kommoo-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: haze recover toxic freezedry
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Speed: 230 vs 219
+|chat|DEBUG|HP: 174 vs 96
+|chat|DEBUG|Created a new Strategy for cryogonal vs cinderace:
+|chat|DEBUG|>[freezedry: 48.5625 [45, 53], freezedry: 48.5625 [45, 53], freezedry: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 359.0 [330, 390]
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Seismitoad|Dynamax
+|-heal|p2a: Seismitoad|42100|[silent]
+|move|p2a: Seismitoad|Max Guard|p2a: Seismitoad
+|-singleturn|p2a: Seismitoad|Max Guard
+|move|p1a: Kommo-o|Max Knuckle|p2a: Seismitoad
+|-activate|p2a: Seismitoad|move: Max Guard
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Kommo-o|382502 brn|[from] brn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cryogonal" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kommoo-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'kommoo': 236, 'excadrill': 300}
+|chat|DEBUG|remaining_hp_team_2={'seismitoad': 59, 'zeraora': 78, 'cinderace': 40}
+|chat|DEBUG|battle.available_switches=[kommoo (pokemon object) [Active: False, Status: BRN], excadrill (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'kommoo'
+|chat|DEBUG|>Switching to kommoo (pokemon object) [Active: False, Status: BRN]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Seismitoad|Max Quake|p1a: Kommo-o
+|-damage|p1a: Kommo-o|183502 brn
+|-boost|p2a: Seismitoad|spd|1
+|-damage|p2a: Seismitoad|37100|[from] item: Life Orb
+|move|p1a: Kommo-o|Max Knuckle|p2a: Seismitoad
+|-damage|p2a: Seismitoad|23100
+|-boost|p1a: Kommo-o|atk|1
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Kommo-o|168502 brn|[from] brn
+|-end|p1a: Kommo-o|Dynamax
+|-heal|p1a: Kommo-o|84251 brn|[silent]
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "kommoo" vs "cinderace"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kommoo-excadrill -- seismitoad-zeraora-cinderace
+|chat|DEBUG|Own moves: clangoroussoul clangingscales closecombat poisonjab
+|chat|DEBUG|Enemy moves: bulkup highjumpkick pyroball suckerpunch
+|chat|DEBUG|Checks: ['kommoo']
+|chat|DEBUG|Counter: ['kommoo']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 219
+|chat|DEBUG|HP: 221 vs 7
+|chat|DEBUG|Created a new Strategy for kommoo vs cinderace:
+|chat|DEBUG|>[closecombat: 164.125 [151, 178], closecombat: 164.125 [151, 178], closecombat: 164.125 [151, 178]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 164.125 [151, 178]
+|chat|DEBUG|Best move of cinderace (p2): highjumpkick: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Seismitoad|Max Quake|p1a: Kommo-o
+|-damage|p1a: Kommo-o|0 fnt
+|-boost|p2a: Seismitoad|spd|1
+|faint|p1a: Kommo-o
+|-damage|p2a: Seismitoad|18100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-end|p2a: Seismitoad|Dynamax
+|-heal|p2a: Seismitoad|18100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Excadrill|Excadrill, L78, F|300300
+|-damage|p1a: Excadrill|291300|[from] Stealth Rock
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kommoo excadrill
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "kommoo" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kommoo-excadrill -- seismitoad-zeraora
+|chat|DEBUG|Own moves: clangoroussoul clangingscales closecombat poisonjab
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kommoo', 'excadrill']
+|chat|DEBUG|Speed: 182 vs 173
+|chat|DEBUG|HP: 206 vs 185
+|chat|DEBUG|Created a new Strategy for kommoo vs seismitoad:
+|chat|DEBUG|>[closecombat: 146.125 [135, 159], closecombat: 146.125 [135, 159], closecombat: 146.125 [135, 159]]
+|chat|DEBUG|Best move of kommoo (p1): closecombat: 146.125 [135, 159]
+|chat|DEBUG|Best move of seismitoad (p2): earthquake: 161.1875 [148, 175]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Seismitoad|Earthquake|p1a: Excadrill
+|-supereffective|p1a: Excadrill
+|-damage|p1a: Excadrill|0 fnt
+|faint|p1a: Excadrill
+|-damage|p2a: Seismitoad|8100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>akaLHY</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">crobat cryogonal kommoo dhelmise giratinaorigin excadrill</h1>

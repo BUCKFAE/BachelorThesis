@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490198537<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490198537|init|battle
+|title|groudonisapokemon vs. McGewitter
+|j|☆groudonisapokemon
+|j|☆McGewitter
+|gametype|singles
+|player|p1|groudonisapokemon|pokemaniac|1172
+|player|p2|McGewitter|265|1181
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|switch|p2a: Electivire|Electivire, L82, F|257257
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "electivire" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- nihilego
+|chat|DEBUG|Own moves: wildcharge voltswitch icepunch crosschop
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['keldeoresolute']
+|chat|DEBUG|Counter: ['keldeoresolute']
+|chat|DEBUG|Speed: 203 vs 211
+|chat|DEBUG|HP: 257 vs 306
+|chat|DEBUG|Created a new Strategy for electivire vs nihilego:
+|chat|DEBUG|>[wildcharge: 227.6875 [208, 247], wildcharge: 227.6875 [208, 247], wildcharge: 227.6875 [208, 247]]
+|chat|DEBUG|Best move of electivire (p1): wildcharge: 227.6875 [208, 247]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 121.1875 [111, 132]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check keldeoresolute
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|groudonisapokemon also wants the timer to be on.
+|switch|p2a: Keldeo|Keldeo-Resolute, L79|273273
+|move|p1a: Nihilego|Stealth Rock|p2a: Keldeo
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- nihilego
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['keldeoresolute']
+|chat|DEBUG|Counter: ['keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 211
+|chat|DEBUG|HP: 273 vs 306
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs nihilego:
+|chat|DEBUG|>[secretsword: 161.25 [148, 175], secretsword: 161.25 [148, 175], secretsword: 161.25 [148, 175]]
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 161.25 [148, 175]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 119.75 [109, 130]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Secret Sword|p1a: Nihilego
+|-damage|p1a: Nihilego|50100
+|move|p1a: Nihilego|Toxic Spikes|p2a: Keldeo
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-heal|p1a: Nihilego|56100|[from] item: Black Sludge
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- nihilego
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['keldeoresolute']
+|chat|DEBUG|Counter: ['electivire', 'sharpedo', 'lunatone', 'goodra', 'sigilyph', 'keldeoresolute']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 216 vs 211
+|chat|DEBUG|HP: 273 vs 171
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 161.25 [148, 175]
+|chat|DEBUG|Best move of nihilego (p2): sludgewave: 119.75 [109, 130]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Secret Sword|p1a: Nihilego
+|-crit|p1a: Nihilego
+|-damage|p1a: Nihilego|0 fnt
+|faint|p1a: Nihilego
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|switch|p1a: Duraludon|Duraludon, L84, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- duraludon
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['electivire', 'keldeoresolute']
+|chat|DEBUG|Speed: 216 vs 191
+|chat|DEBUG|HP: 273 vs 255
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs duraludon:
+|chat|DEBUG|>[secretsword: 161.875 [150, 176], secretsword: 161.875 [150, 176], secretsword: 161.875 [150, 176]]
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 161.875 [150, 176]
+|chat|DEBUG|Best move of duraludon (p2): thunderbolt: 156.375 [144, 170]
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|move|p2a: Keldeo|Secret Sword|p1a: Duraludon
+|-supereffective|p1a: Duraludon
+|-damage|p1a: Duraludon|31100
+|move|p1a: Duraludon|Thunderbolt|p2a: Keldeo
+|-supereffective|p2a: Keldeo
+|-damage|p2a: Keldeo|115273
+|-heal|p2a: Keldeo|132273|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- duraludon
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: ['electivire']
+|chat|DEBUG|Counter: ['electivire', 'sharpedo', 'lunatone', 'goodra', 'sigilyph', 'keldeoresolute']
+|chat|DEBUG|Speed: 216 vs 191
+|chat|DEBUG|HP: 132 vs 79
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 161.875 [150, 176]
+|chat|DEBUG|Best move of duraludon (p2): thunderbolt: 156.375 [144, 170]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|move|p2a: Keldeo|Secret Sword|p1a: Duraludon
+|-supereffective|p1a: Duraludon
+|-damage|p1a: Duraludon|0 fnt
+|faint|p1a: Duraludon
+|-heal|p2a: Keldeo|149273|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|switch|p1a: Terrakion|Terrakion, L78|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- terrakion
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunatone']
+|chat|DEBUG|Speed: 216 vs 214
+|chat|DEBUG|HP: 149 vs 270
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs terrakion:
+|chat|DEBUG|>[secretsword: 211.75 [194, 230], secretsword: 211.75 [194, 230], secretsword: 211.75 [194, 230]]
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 211.75 [194, 230]
+|chat|DEBUG|Best move of terrakion (p2): closecombat: 187.8125 [173, 204]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|move|p2a: Keldeo|Secret Sword|p1a: Terrakion
+|-supereffective|p1a: Terrakion
+|-damage|p1a: Terrakion|24100
+|move|p1a: Terrakion|Earthquake|p2a: Keldeo
+|-damage|p2a: Keldeo|50273
+|-damage|p1a: Terrakion|14100|[from] item: Life Orb
+|-heal|p2a: Keldeo|67273|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- terrakion
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunatone', 'goodra', 'keldeoresolute']
+|chat|DEBUG|Speed: 216 vs 214
+|chat|DEBUG|HP: 67 vs 37
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 211.75 [194, 230]
+|chat|DEBUG|Best move of terrakion (p2): closecombat: 187.8125 [173, 204]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Secret Sword|p1a: Terrakion
+|-supereffective|p1a: Terrakion
+|-damage|p1a: Terrakion|0 fnt
+|faint|p1a: Terrakion
+|-heal|p2a: Keldeo|84273|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Registeel|Registeel, L83|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- registeel
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: ['electivire']
+|chat|DEBUG|Counter: ['electivire', 'goodra', 'keldeoresolute']
+|chat|DEBUG|Speed: 216 vs 131
+|chat|DEBUG|HP: 84 vs 268
+|chat|DEBUG|Created a new Strategy for keldeoresolute vs registeel:
+|chat|DEBUG|>[secretsword: 134.5 [122, 146], secretsword: 134.5 [122, 146], secretsword: 134.5 [122, 146]]
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 134.5 [122, 146]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 82.875 [76, 90]
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Secret Sword|p1a: Registeel
+|-supereffective|p1a: Registeel
+|-damage|p1a: Registeel|53100
+|move|p1a: Registeel|Curse|p1a: Registeel
+|-unboost|p1a: Registeel|spe|1
+|-boost|p1a: Registeel|atk|1
+|-boost|p1a: Registeel|def|1
+|-heal|p2a: Keldeo|101273|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- registeel
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['electivire', 'lunatone', 'goodra']
+|chat|DEBUG|Speed: 216 vs 131
+|chat|DEBUG|HP: 101 vs 142
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 134.5 [122, 146]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 123.375 [113, 134]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Secret Sword|p1a: Registeel
+|-supereffective|p1a: Registeel
+|-damage|p1a: Registeel|18100
+|move|p1a: Registeel|Rest|p1a: Registeel
+|-status|p1a: Registeel|slp|[from] move: Rest
+|-heal|p1a: Registeel|100100 slp|[silent]
+|-enditem|p1a: Registeel|Chesto Berry|[eat]
+|-curestatus|p1a: Registeel|slp|[msg]
+|-heal|p2a: Keldeo|118273|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph keldeoresolute
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph-keldeoresolute -- registeel
+|chat|DEBUG|Own moves: calmmind scald secretsword substitute
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 216 vs 131
+|chat|DEBUG|HP: 118 vs 268
+|chat|DEBUG|Best move of keldeoresolute (p1): secretsword: 134.5 [122, 146]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 123.375 [113, 134]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using secretsword
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Keldeo|Secret Sword|p1a: Registeel
+|-supereffective|p1a: Registeel
+|-damage|p1a: Registeel|67100
+|move|p1a: Registeel|Body Press|p2a: Keldeo
+|-damage|p2a: Keldeo|0 fnt
+|faint|p2a: Keldeo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, F|255255
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "keldeoresolute" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- registeel
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: sigilyph
+|chat|DEBUG|>Switching to sigilyph (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Psychic|p1a: Registeel
+|-resisted|p1a: Registeel
+|-damage|p1a: Registeel|52100
+|move|p1a: Registeel|Iron Head|p2a: Sigilyph
+|-damage|p2a: Sigilyph|138255
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- registeel
+|chat|DEBUG|Own moves: psychic energyball defog airslash
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['electivire', 'lunatone', 'goodra']
+|chat|DEBUG|Speed: 209 vs 131
+|chat|DEBUG|HP: 255 vs 179
+|chat|DEBUG|Created a new Strategy for sigilyph vs registeel:
+|chat|DEBUG|>[psychic: 42.375 [39, 47], psychic: 42.375 [39, 47], psychic: 42.375 [39, 47]]
+|chat|DEBUG|Best move of sigilyph (p1): psychic: 42.375 [39, 47]
+|chat|DEBUG|Best move of registeel (p2): ironhead: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Psychic|p1a: Registeel
+|-resisted|p1a: Registeel
+|-damage|p1a: Registeel|38100
+|move|p1a: Registeel|Curse|p1a: Registeel
+|-unboost|p1a: Registeel|spe|1
+|-boost|p1a: Registeel|atk|1
+|-boost|p1a: Registeel|def|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- registeel
+|chat|DEBUG|Own moves: psychic energyball defog airslash
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['electivire', 'lunatone', 'goodra']
+|chat|DEBUG|Speed: 209 vs 131
+|chat|DEBUG|HP: 138 vs 139
+|chat|DEBUG|Best move of sigilyph (p1): psychic: 42.375 [39, 47]
+|chat|DEBUG|Best move of registeel (p2): ironhead: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, M|282282
+|-damage|p2a: Goodra|247282|[from] Stealth Rock
+|-status|p2a: Goodra|psn
+|move|p1a: Registeel|Iron Head|p2a: Goodra
+|-damage|p2a: Goodra|91282 psn
+|-damage|p2a: Goodra|56282 psn|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- registeel
+|chat|DEBUG|Own moves: psychic energyball defog airslash
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: ['goodra']
+|chat|DEBUG|Counter: ['electivire', 'lunatone', 'goodra']
+|chat|DEBUG|Speed: 209 vs 131
+|chat|DEBUG|HP: 138 vs 101
+|chat|DEBUG|Best move of sigilyph (p1): psychic: 42.375 [39, 47]
+|chat|DEBUG|Best move of registeel (p2): ironhead: 150.1875 [138, 163]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check goodra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Goodra|Fire Blast|p1a: Registeel
+|-supereffective|p1a: Registeel
+|-damage|p1a: Registeel|0 fnt
+|faint|p1a: Registeel
+|-damage|p2a: Goodra|21282 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sableye|Sableye, L88, F|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "registeel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- registeel
+|chat|DEBUG|Own moves: thunderbolt sludgebomb fireblast dracometeor
+|chat|DEBUG|Enemy moves: bodypress curse ironhead rest
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['electivire', 'lunatone', 'goodra']
+|chat|DEBUG|Speed: 178 vs 131
+|chat|DEBUG|HP: 56 vs 101
+|chat|DEBUG|Created a new Strategy for goodra vs registeel:
+|chat|DEBUG|>[fireblast: 108.25 [100, 118], fireblast: 108.25 [100, 118], fireblast: 108.25 [100, 118]]
+|chat|DEBUG|Best move of goodra (p1): fireblast: 108.25 [100, 118]
+|chat|DEBUG|Best move of registeel (p2): bodypress: 191.0 [175, 207]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sharpedo|Sharpedo, L82, F|249249
+|-damage|p2a: Sharpedo|218249|[from] Stealth Rock
+|-status|p2a: Sharpedo|psn
+|move|p1a: Sableye|Recover||[still]
+|-fail|p1a: Sableye|heal
+|-damage|p2a: Sharpedo|187249 psn|[from] psn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "goodra" vs "sableye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- sableye
+|chat|DEBUG|Own moves: fireblast
+|chat|DEBUG|Enemy moves: knockoff recover taunt toxic
+|chat|DEBUG|Checks: ['sharpedo']
+|chat|DEBUG|Counter: ['electivire', 'sharpedo', 'lunatone']
+|chat|DEBUG|Speed: 178 vs 138
+|chat|DEBUG|HP: 21 vs 231
+|chat|DEBUG|Created a new Strategy for goodra vs sableye:
+|chat|DEBUG|>[fireblast: 96.5625 [89, 105], fireblast: 96.5625 [89, 105], fireblast: 96.5625 [89, 105]]
+|chat|DEBUG|Best move of goodra (p1): fireblast: 96.5625 [89, 105]
+|chat|DEBUG|Best move of sableye (p2): knockoff: 112.8125 [103, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check sharpedo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sableye|Will-O-Wisp|p2a: Sharpedo
+|-hint|Since gen 7, Dark is immune to Prankster moves.
+|-immune|p2a: Sharpedo
+|move|p2a: Sharpedo|Hydro Pump|p1a: Sableye
+|-damage|p1a: Sableye|26100
+|-damage|p2a: Sharpedo|163249 psn|[from] item: Life Orb
+|-heal|p1a: Sableye|32100|[from] item: Leftovers
+|-damage|p2a: Sharpedo|132249 psn|[from] psn
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "sableye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- sableye
+|chat|DEBUG|Own moves: hydropump closecombat crunch protect
+|chat|DEBUG|Enemy moves: knockoff recover taunt toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['electivire', 'sharpedo', 'lunatone']
+|chat|DEBUG|Speed: 203 vs 138
+|chat|DEBUG|HP: 187 vs 231
+|chat|DEBUG|Created a new Strategy for sharpedo vs sableye:
+|chat|DEBUG|>[hydropump: 168.3125 [153, 183], hydropump: 168.3125 [153, 183], hydropump: 168.3125 [153, 183]]
+|chat|DEBUG|Best move of sharpedo (p1): hydropump: 168.3125 [153, 183]
+|chat|DEBUG|Best move of sableye (p2): knockoff: 80.375 [74, 87]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sharpedo|Hydro Pump|p1a: Sableye
+|-damage|p1a: Sableye|0 fnt
+|faint|p1a: Sableye
+|-damage|p2a: Sharpedo|108249 psn|[from] item: Life Orb
+|-damage|p2a: Sharpedo|77249 psn|[from] psn
+|-ability|p2a: Sharpedo|Speed Boost|boost
+|-boost|p2a: Sharpedo|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Haxorus|Haxorus, L77, M|100100
+|-ability|p1a: Haxorus|Mold Breaker
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sharpedo" vs "sableye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- sableye
+|chat|DEBUG|Own moves: hydropump closecombat crunch protect
+|chat|DEBUG|Enemy moves: knockoff recover taunt toxic
+|chat|DEBUG|Checks: ['electivire', 'sharpedo', 'lunatone']
+|chat|DEBUG|Counter: ['electivire', 'sharpedo', 'lunatone', 'goodra', 'sigilyph']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 203 vs 138
+|chat|DEBUG|HP: 132 vs 73
+|chat|DEBUG|Best move of sharpedo (p1): hydropump: 168.3125 [153, 183]
+|chat|DEBUG|Best move of sableye (p2): knockoff: 80.375 [74, 87]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|-start|p1a: Haxorus|Dynamax
+|-heal|p1a: Haxorus|100100|[silent]
+|move|p2a: Sharpedo|Crunch|p1a: Haxorus
+|-damage|p1a: Haxorus|72100
+|-damage|p2a: Sharpedo|53249 psn|[from] item: Life Orb
+|move|p1a: Haxorus|Max Knuckle|p2a: Sharpedo
+|-supereffective|p2a: Sharpedo
+|-damage|p2a: Sharpedo|0 fnt
+|-boost|p1a: Haxorus|atk|1
+|faint|p2a: Sharpedo
+|-damage|p1a: Haxorus|67100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Goodra|Goodra, L82, M|21282 psn
+|-damage|p2a: Goodra|0 fnt|[from] Stealth Rock
+|faint|p2a: Goodra
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lunatone|Lunatone, L86|295295
+|-damage|p2a: Lunatone|259295|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>electivire sharpedo lunatone goodra sigilyph
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sharpedo" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>electivire-sharpedo-lunatone-goodra-sigilyph -- haxorus
+|chat|DEBUG|Own moves: hydropump closecombat crunch protect
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunatone']
+|chat|DEBUG|Speed: 203 vs 194
+|chat|DEBUG|HP: 77 vs 244
+|chat|DEBUG|Created a new Strategy for sharpedo vs haxorus:
+|chat|DEBUG|>[crunch: 132.3125 [121, 144], crunch: 132.3125 [121, 144], crunch: 132.3125 [121, 144]]
+|chat|DEBUG|Best move of sharpedo (p1): crunch: 132.3125 [121, 144]
+|chat|DEBUG|Best move of haxorus (p2): closecombat: 446.0625 [411, 484]
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|groudonisapokemon has 120 seconds left.
+|-start|p2a: Lunatone|Dynamax
+|-heal|p2a: Lunatone|518590|[silent]
+|move|p1a: Haxorus|Max Ooze|p2a: Lunatone
+|-resisted|p2a: Lunatone
+|-damage|p2a: Lunatone|431590
+|-boost|p1a: Haxorus|spa|1
+|-damage|p1a: Haxorus|62100|[from] item: Life Orb
+|move|p2a: Lunatone|Max Starfall|p1a: Haxorus
+|-supereffective|p1a: Haxorus
+|-damage|p1a: Haxorus|0 fnt
+|-fieldstart|move: Misty Terrain
+|faint|p1a: Haxorus
+|-damage|p2a: Lunatone|402590|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>groudonisapokemon<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">electivire sharpedo lunatone goodra sigilyph keldeoresolute</h1>

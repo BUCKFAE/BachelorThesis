@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490322511<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490322511|init|battle
+|title|Jshafandjbs vs. McGewitter
+|j|☆Jshafandjbs
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Jshafandjbs|1|1219
+|player|p2|McGewitter|265|1221
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Rotom|Rotom-Frost, L84|100100
+|switch|p2a: Kingler|Kingler, L84, F|230230
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus uxie victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingler" vs "rotomfrost"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-uxie-victini-mudsdale -- rotomfrost
+|chat|DEBUG|Own moves: swordsdance agility rockslide liquidation
+|chat|DEBUG|Enemy moves: blizzard nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['spectrier', 'uxie', 'victini']
+|chat|DEBUG|Speed: 174 vs 193
+|chat|DEBUG|HP: 230 vs 221
+|chat|DEBUG|Created a new Strategy for kingler vs rotomfrost:
+|chat|DEBUG|>[rockslide: 195.9375 [179, 213], rockslide: 195.9375 [179, 213], rockslide: 195.9375 [179, 213]]
+|chat|DEBUG|Best move of kingler (p1): rockslide: 195.9375 [179, 213]
+|chat|DEBUG|Best move of rotomfrost (p2): thunderbolt: 300.375 [276, 326]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check victini
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Victini|Victini, L78|283283
+|move|p1a: Rotom|Volt Switch|p2a: Victini
+|-damage|p2a: Victini|234283
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunala|Lunala, L72|100100|[from]move: Volt Switch
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus uxie victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-uxie-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: vcreate uturn glaciate energyball
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['spectrier']
+|chat|DEBUG|Speed: 201 vs 182
+|chat|DEBUG|HP: 234 vs 316
+|chat|DEBUG|Created a new Strategy for victini vs lunala:
+|chat|DEBUG|>[vcreate: 97.8125 [90, 106], vcreate: 97.8125 [90, 106], vcreate: 97.8125 [90, 106]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 97.8125 [90, 106]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using vcreate
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|V-create|p1a: Lunala
+|-damage|p1a: Lunala|69100
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|move|p1a: Lunala|Moongeist Beam|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|46283
+|-heal|p1a: Lunala|75100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus uxie victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-uxie-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: vcreate uturn glaciate energyball
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: ['spectrier', 'uxie']
+|chat|DEBUG|Counter: ['spectrier', 'haxorus', 'uxie', 'mudsdale']
+|chat|DEBUG|Speed: 201 vs 182
+|chat|DEBUG|HP: 46 vs 237
+|chat|DEBUG|Best move of victini (p1): vcreate: 97.8125 [90, 106]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 200.75 [186, 218]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check spectrier
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Spectrier|Spectrier, L74|270270
+|move|p1a: Lunala|Moongeist Beam|p2a: Spectrier
+|-supereffective|p2a: Spectrier
+|-damage|p2a: Spectrier|34270
+|-heal|p2a: Spectrier|50270|[from] item: Leftovers
+|-heal|p1a: Lunala|81100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus uxie victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-uxie-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: nastyplot substitute darkpulse shadowball
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['spectrier', 'haxorus', 'uxie', 'mudsdale']
+|chat|DEBUG|Speed: 235 vs 182
+|chat|DEBUG|HP: 50 vs 255
+|chat|DEBUG|Created a new Strategy for spectrier vs lunala:
+|chat|DEBUG|>[shadowball: 367.5 [336, 400], shadowball: 367.5 [336, 400], shadowball: 367.5 [336, 400]]
+|chat|DEBUG|Best move of spectrier (p1): shadowball: 367.5 [336, 400]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 250.75 [230, 272]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Frost, L84|100100
+|move|p2a: Spectrier|Shadow Ball|p1a: Rotom
+|-damage|p1a: Rotom|62100
+|-heal|p2a: Spectrier|66270|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus uxie victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "rotomfrost"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-uxie-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: nastyplot substitute darkpulse shadowball
+|chat|DEBUG|Enemy moves: blizzard nastyplot thunderbolt willowisp
+|chat|DEBUG|Checks: ['uxie']
+|chat|DEBUG|Counter: ['haxorus', 'uxie', 'victini', 'mudsdale']
+|chat|DEBUG|Speed: 235 vs 193
+|chat|DEBUG|HP: 66 vs 137
+|chat|DEBUG|Created a new Strategy for spectrier vs rotomfrost:
+|chat|DEBUG|>[shadowball: 79.5 [73, 87], shadowball: 79.5 [73, 87], shadowball: 79.5 [73, 87]]
+|chat|DEBUG|Best move of spectrier (p1): shadowball: 79.5 [73, 87]
+|chat|DEBUG|Best move of rotomfrost (p2): thunderbolt: 124.0625 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check uxie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Uxie|Uxie, L82|257257
+|move|p1a: Rotom|Volt Switch|p2a: Uxie
+|-damage|p2a: Uxie|193257
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunala|Lunala, L72|81100|[from]move: Volt Switch
+|-heal|p2a: Uxie|209257|[from] item: Leftovers
+|-heal|p1a: Lunala|87100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus uxie victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "uxie" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-uxie-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: yawn knockoff healbell psychic
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['spectrier', 'haxorus', 'uxie', 'mudsdale']
+|chat|DEBUG|Speed: 203 vs 182
+|chat|DEBUG|HP: 209 vs 274
+|chat|DEBUG|Created a new Strategy for uxie vs lunala:
+|chat|DEBUG|>[knockoff: 245.5 [224, 268], knockoff: 245.5 [224, 268], knockoff: 245.5 [224, 268]]
+|chat|DEBUG|Best move of uxie (p1): knockoff: 245.5 [224, 268]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 156.375 [144, 170]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Uxie|Knock Off|p1a: Lunala
+|-supereffective|p1a: Lunala
+|-damage|p1a: Lunala|13100
+|-enditem|p1a: Lunala|Leftovers|[from] move: Knock Off|[of] p2a: Uxie
+|move|p1a: Lunala|Moongeist Beam|p2a: Uxie
+|-supereffective|p2a: Uxie
+|-crit|p2a: Uxie
+|-damage|p2a: Uxie|0 fnt
+|faint|p2a: Uxie
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Spectrier|Spectrier, L74|66270
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "uxie" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['spectrier', 'haxorus', 'mudsdale']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to spectrier (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Glastrier|Glastrier, L82|100100
+|move|p2a: Spectrier|Shadow Ball|p1a: Glastrier
+|-damage|p1a: Glastrier|71100
+|-heal|p2a: Spectrier|82270|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "lunala"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- rotomfrost-lunala
+|chat|DEBUG|Own moves: nastyplot substitute darkpulse shadowball
+|chat|DEBUG|Enemy moves: calmmind moongeistbeam psyshock roost
+|chat|DEBUG|Checks: ['haxorus', 'mudsdale']
+|chat|DEBUG|Counter: ['kingler', 'spectrier', 'haxorus', 'victini', 'mudsdale']
+|chat|DEBUG|Speed: 235 vs 182
+|chat|DEBUG|HP: 66 vs 41
+|chat|DEBUG|Created a new Strategy for spectrier vs lunala:
+|chat|DEBUG|>[shadowball: 367.5 [336, 400], shadowball: 367.5 [336, 400], shadowball: 367.5 [336, 400]]
+|chat|DEBUG|Best move of spectrier (p1): shadowball: 367.5 [336, 400]
+|chat|DEBUG|Best move of lunala (p2): moongeistbeam: 250.75 [230, 272]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingler|Kingler, L84, F|230230
+|move|p1a: Glastrier|Icicle Crash|p2a: Kingler
+|-resisted|p2a: Kingler
+|-damage|p2a: Kingler|185230
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spectrier" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- rotomfrost-lunala-glastrier
+|chat|DEBUG|Own moves: nastyplot substitute darkpulse shadowball
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: ['kingler']
+|chat|DEBUG|Counter: ['kingler', 'victini', 'mudsdale']
+|chat|DEBUG|Speed: 235 vs 96
+|chat|DEBUG|HP: 82 vs 211
+|chat|DEBUG|Created a new Strategy for spectrier vs glastrier:
+|chat|DEBUG|>[shadowball: 79.5 [73, 87], shadowball: 79.5 [73, 87], shadowball: 79.5 [73, 87]]
+|chat|DEBUG|Best move of spectrier (p1): shadowball: 79.5 [73, 87]
+|chat|DEBUG|Best move of glastrier (p2): iciclecrash: 173.875 [160, 189]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kingler
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Frost, L84|62100
+|move|p2a: Kingler|Rock Slide|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Toxtricity|Toxtricity, L82, M|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingler" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- rotomfrost-lunala-glastrier
+|chat|DEBUG|Own moves: swordsdance agility rockslide liquidation
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler', 'victini', 'mudsdale']
+|chat|DEBUG|Speed: 174 vs 96
+|chat|DEBUG|HP: 185 vs 211
+|chat|DEBUG|Created a new Strategy for kingler vs glastrier:
+|chat|DEBUG|>[rockslide: 171.9375 [159, 187], rockslide: 171.9375 [159, 187], rockslide: 171.9375 [159, 187]]
+|chat|DEBUG|Best move of kingler (p1): rockslide: 171.9375 [159, 187]
+|chat|DEBUG|Best move of glastrier (p2): closecombat: 90.5 [83, 98]
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Haxorus|Haxorus, L77, F|244244
+|-ability|p2a: Haxorus|Mold Breaker
+|move|p1a: Toxtricity|Shift Gear|p1a: Toxtricity
+|-boost|p1a: Toxtricity|spe|2
+|-boost|p1a: Toxtricity|atk|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingler" vs "toxtricity"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- lunala-glastrier-toxtricity
+|chat|DEBUG|Own moves: swordsdance agility rockslide liquidation
+|chat|DEBUG|Enemy moves: boomburst overdrive shiftgear sludgewave
+|chat|DEBUG|Checks: ['haxorus', 'mudsdale']
+|chat|DEBUG|Counter: ['haxorus', 'mudsdale']
+|chat|DEBUG|Speed: 174 vs 170
+|chat|DEBUG|HP: 185 vs 257
+|chat|DEBUG|Created a new Strategy for kingler vs toxtricity:
+|chat|DEBUG|>[liquidation: 233.3125 [214, 253], liquidation: 233.3125 [214, 253], liquidation: 233.3125 [214, 253]]
+|chat|DEBUG|Best move of kingler (p1): liquidation: 233.3125 [214, 253]
+|chat|DEBUG|Best move of toxtricity (p2): overdrive: 352.25 [322, 382]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check haxorus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxtricity|Boomburst|p2a: Haxorus
+|-damage|p2a: Haxorus|68244
+|-enditem|p1a: Toxtricity|Throat Spray
+|-boost|p1a: Toxtricity|spa|1|[from] item: Throat Spray
+|move|p2a: Haxorus|Earthquake|p1a: Toxtricity
+|-supereffective|p1a: Toxtricity
+|-damage|p1a: Toxtricity|0 fnt
+|faint|p1a: Toxtricity
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Clefable|Clefable, L82, F|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "toxtricity"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- lunala-glastrier-toxtricity
+|chat|DEBUG|Own moves: earthquake outrage closecombat poisonjab
+|chat|DEBUG|Enemy moves: boomburst overdrive shiftgear sludgewave
+|chat|DEBUG|Checks: ['haxorus', 'mudsdale']
+|chat|DEBUG|Counter: ['haxorus', 'mudsdale']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 194 vs 170
+|chat|DEBUG|HP: 244 vs 257
+|chat|DEBUG|Created a new Strategy for haxorus vs toxtricity:
+|chat|DEBUG|>[earthquake: 401.25 [368, 436], earthquake: 401.25 [368, 436], earthquake: 401.25 [368, 436]]
+|chat|DEBUG|Best move of haxorus (p1): earthquake: 401.25 [368, 436]
+|chat|DEBUG|Best move of toxtricity (p2): boomburst: 177.5 [163, 192]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mudsdale|Mudsdale, L82, F|298298
+|move|p1a: Clefable|Moonblast|p2a: Mudsdale
+|-damage|p2a: Mudsdale|162298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- lunala-glastrier-clefable
+|chat|DEBUG|Own moves: earthquake
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: ['mudsdale']
+|chat|DEBUG|Counter: ['mudsdale']
+|chat|DEBUG|Speed: 194 vs 146
+|chat|DEBUG|HP: 68 vs 290
+|chat|DEBUG|Created a new Strategy for haxorus vs clefable:
+|chat|DEBUG|>[earthquake: 96.5625 [89, 105], earthquake: 96.5625 [89, 105], earthquake: 96.5625 [89, 105]]
+|chat|DEBUG|Best move of haxorus (p1): earthquake: 96.5625 [89, 105]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 315.0625 [289, 343]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mudsdale
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Clefable|Moonblast|p2a: Mudsdale
+|-damage|p2a: Mudsdale|37298
+|-ability|p2a: Mudsdale|Stamina|boost
+|-boost|p2a: Mudsdale|def|1
+|move|p2a: Mudsdale|Heavy Slam|p1a: Clefable
+|-supereffective|p1a: Clefable
+|-damage|p1a: Clefable|0 fnt
+|faint|p1a: Clefable
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Terrakion|Terrakion, L78|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mudsdale" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- lunala-glastrier-clefable
+|chat|DEBUG|Own moves: rockslide bodypress heavyslam earthquake
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mudsdale']
+|chat|DEBUG|Speed: 105 vs 146
+|chat|DEBUG|HP: 162 vs 290
+|chat|DEBUG|Created a new Strategy for mudsdale vs clefable:
+|chat|DEBUG|>[heavyslam: 343.125 [316, 372], heavyslam: 343.125 [316, 372], heavyslam: 343.125 [316, 372]]
+|chat|DEBUG|Best move of mudsdale (p1): heavyslam: 343.125 [316, 372]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 128.625 [118, 140]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Terrakion|Earthquake|p2a: Mudsdale
+|-damage|p2a: Mudsdale|0 fnt
+|faint|p2a: Mudsdale
+|-damage|p1a: Terrakion|90100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|46283
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini mudsdale
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mudsdale" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini-mudsdale -- lunala-glastrier-terrakion
+|chat|DEBUG|Own moves: heavyslam
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler']
+|chat|DEBUG|Speed: 105 vs 214
+|chat|DEBUG|HP: 37 vs 270
+|chat|DEBUG|Created a new Strategy for mudsdale vs terrakion:
+|chat|DEBUG|>[heavyslam: 208.125 [192, 226], heavyslam: 208.125 [192, 226], heavyslam: 208.125 [192, 226]]
+|chat|DEBUG|Best move of mudsdale (p1): heavyslam: 208.125 [192, 226]
+|chat|DEBUG|Best move of terrakion (p2): closecombat: 85.5 [78, 94]
+|chat|DEBUG|Attacking using heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunala|Lunala, L72|13100
+|move|p2a: Victini|Energy Ball|p1a: Lunala
+|-damage|p1a: Lunala|0 fnt
+|faint|p1a: Lunala
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Glastrier|Glastrier, L82|71100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mudsdale" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini -- lunala-glastrier-terrakion
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'kingler': 185, 'spectrier': 82, 'haxorus': 68, 'victini': 46}
+|chat|DEBUG|remaining_hp_team_2={'lunala': 13, 'glastrier': 71, 'terrakion': 100}
+|chat|DEBUG|battle.available_switches=[victini (pokemon object) [Active: False, Status: None], kingler (pokemon object) [Active: False, Status: None], spectrier (pokemon object) [Active: False, Status: None], haxorus (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'victini'
+|chat|DEBUG|>Switching to victini (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|V-create|p1a: Glastrier
+|-supereffective|p1a: Glastrier
+|-damage|p1a: Glastrier|0 fnt
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|faint|p1a: Glastrier
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Terrakion|Terrakion, L78|90100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "victini" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini -- lunala-glastrier-terrakion
+|chat|DEBUG|Own moves: vcreate uturn glaciate energyball
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler']
+|chat|DEBUG|Speed: 201 vs 214
+|chat|DEBUG|HP: 46 vs 243
+|chat|DEBUG|Created a new Strategy for victini vs terrakion:
+|chat|DEBUG|>[energyball: 121.375 [112, 132], energyball: 121.375 [112, 132], energyball: 121.375 [112, 132]]
+|chat|DEBUG|Best move of victini (p1): energyball: 121.375 [112, 132]
+|chat|DEBUG|Best move of terrakion (p2): stoneedge: 293.375 [268, 320]
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Terrakion|Earthquake|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|0 fnt
+|faint|p2a: Victini
+|-damage|p1a: Terrakion|80100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingler|Kingler, L84, F|185230
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "victini" vs "glastrier"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini -- glastrier-terrakion
+|chat|DEBUG|Own moves: vcreate uturn glaciate energyball
+|chat|DEBUG|Enemy moves: closecombat highhorsepower iciclecrash swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler', 'victini']
+|chat|DEBUG|Speed: 201 vs 96
+|chat|DEBUG|HP: 46 vs 211
+|chat|DEBUG|Created a new Strategy for victini vs glastrier:
+|chat|DEBUG|>[vcreate: 256.125 [236, 278], vcreate: 256.125 [236, 278], vcreate: 256.125 [236, 278]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 256.125 [236, 278]
+|chat|DEBUG|Best move of glastrier (p2): highhorsepower: 171.125 [158, 186]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Terrakion|Dynamax
+|-heal|p1a: Terrakion|80100|[silent]
+|move|p1a: Terrakion|Max Rockfall|p2a: Kingler
+|-damage|p2a: Kingler|12230
+|-weather|Sandstorm
+|-damage|p1a: Terrakion|75100|[from] item: Life Orb
+|move|p2a: Kingler|Liquidation|p1a: Terrakion
+|-supereffective|p1a: Terrakion
+|-damage|p1a: Terrakion|3100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Kingler|0 fnt|[from] Sandstorm
+|faint|p2a: Kingler
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Spectrier|Spectrier, L74|82270
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler spectrier haxorus victini
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "victini" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-spectrier-haxorus-victini -- terrakion
+|chat|DEBUG|Own moves: vcreate uturn glaciate energyball
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler']
+|chat|DEBUG|Speed: 201 vs 214
+|chat|DEBUG|HP: 46 vs 243
+|chat|DEBUG|Created a new Strategy for victini vs terrakion:
+|chat|DEBUG|>[energyball: 121.375 [112, 132], energyball: 121.375 [112, 132], energyball: 121.375 [112, 132]]
+|chat|DEBUG|Best move of victini (p1): energyball: 121.375 [112, 132]
+|chat|DEBUG|Best move of terrakion (p2): stoneedge: 441.1875 [406, 478]
+|chat|DEBUG|Attacking using energyball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Spectrier|Shadow Ball|p1a: Terrakion
+|-damage|p1a: Terrakion|0 fnt
+|faint|p1a: Terrakion
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Jshafandjbs<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">kingler spectrier haxorus uxie victini mudsdale</h1>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490714327<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490714327|init|battle
+|title|totolapin vs. McGewitter
+|j|☆totolapin
+|j|☆McGewitter
+|gametype|singles
+|player|p1|totolapin|veteran|1149
+|player|p2|McGewitter|265|1157
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Marshadow|Marshadow, L70|100100
+|switch|p2a: Carbink|Carbink, L86|226226
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "marshadow"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow
+|chat|DEBUG|Own moves: reflect moonblast lightscreen stealthrock
+|chat|DEBUG|Enemy moves: bulkup closecombat shadowsneak spectralthief
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['carbink', 'exeggutoralola']
+|chat|DEBUG|Speed: 135 vs 216
+|chat|DEBUG|HP: 226 vs 242
+|chat|DEBUG|Created a new Strategy for carbink vs marshadow:
+|chat|DEBUG|>[moonblast: 156.375 [144, 170], moonblast: 156.375 [144, 170], moonblast: 156.375 [144, 170]]
+|chat|DEBUG|Best move of carbink (p1): moonblast: 156.375 [144, 170]
+|chat|DEBUG|Best move of marshadow (p2): closecombat: 92.5 [86, 101]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen-stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Roserade|Roserade, L84, F|100100
+|move|p2a: Carbink|Reflect|p2a: Carbink
+|-sidestart|p2: McGewitter|Reflect
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade
+|chat|DEBUG|Own moves: reflect moonblast lightscreen stealthrock
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Speed: 135 vs 199
+|chat|DEBUG|HP: 226 vs 238
+|chat|DEBUG|Created a new Strategy for carbink vs roserade:
+|chat|DEBUG|>[moonblast: 29.0625 [27, 32], moonblast: 29.0625 [27, 32], moonblast: 29.0625 [27, 32]]
+|chat|DEBUG|Best move of carbink (p1): moonblast: 29.0625 [27, 32]
+|chat|DEBUG|Best move of roserade (p2): sludgebomb: 73.9375 [67, 81]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen-stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Toxic Spikes|p2a: Carbink
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Carbink|Light Screen|p2a: Carbink
+|-sidestart|p2: McGewitter|move: Light Screen
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade
+|chat|DEBUG|Own moves: reflect moonblast lightscreen stealthrock
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Speed: 135 vs 199
+|chat|DEBUG|HP: 226 vs 238
+|chat|DEBUG|Best move of carbink (p1): moonblast: 29.0625 [27, 32]
+|chat|DEBUG|Best move of roserade (p2): sludgebomb: 73.9375 [67, 81]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen-stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Spikes|p2a: Carbink
+|-sidestart|p2: McGewitter|Spikes
+|move|p2a: Carbink|Stealth Rock|p1a: Roserade
+|-sidestart|p1: totolapin|move: Stealth Rock
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade
+|chat|DEBUG|Own moves: reflect moonblast lightscreen stealthrock
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Speed: 135 vs 199
+|chat|DEBUG|HP: 226 vs 238
+|chat|DEBUG|Best move of carbink (p1): moonblast: 29.0625 [27, 32]
+|chat|DEBUG|Best move of roserade (p2): sludgebomb: 73.9375 [67, 81]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen-stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kyuremwhite
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyurem|Kyurem-White, L74|307307
+|-damage|p2a: Kyurem|269307|[from] Spikes
+|-status|p2a: Kyurem|psn
+|-ability|p2a: Kyurem|Turboblaze
+|move|p1a: Roserade|Toxic Spikes|p2a: Kyurem
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-damage|p2a: Kyurem|231307 psn|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade
+|chat|DEBUG|Own moves: dracometeor icebeam earthpower fusionflare
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'registeel']
+|chat|DEBUG|Speed: 184 vs 199
+|chat|DEBUG|HP: 231 vs 238
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs roserade:
+|chat|DEBUG|>[icebeam: 306.0 [282, 332], icebeam: 306.0 [282, 332], icebeam: 306.0 [282, 332]]
+|chat|DEBUG|Best move of kyuremwhite (p1): icebeam: 306.0 [282, 332]
+|chat|DEBUG|Best move of roserade (p2): sludgebomb: 119.75 [109, 130]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonlee|Hitmonlee, L84, M|100100
+|-damage|p1a: Hitmonlee|95100|[from] Stealth Rock
+|move|p2a: Kyurem|Ice Beam|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|32100
+|-damage|p2a: Kyurem|193307 psn|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremwhite" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee
+|chat|DEBUG|Own moves: icebeam
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: ['carbink', 'exeggutoralola']
+|chat|DEBUG|Counter: ['carbink', 'exeggutoralola', 'cloyster', 'registeel']
+|chat|DEBUG|Speed: 184 vs 194
+|chat|DEBUG|HP: 193 vs 70
+|chat|DEBUG|Created a new Strategy for kyuremwhite vs hitmonlee:
+|chat|DEBUG|>[icebeam: 147.5 [135, 160], icebeam: 147.5 [135, 160], icebeam: 147.5 [135, 160]]
+|chat|DEBUG|Best move of kyuremwhite (p1): icebeam: 147.5 [135, 160]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 333.875 [306, 362]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check carbink
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carbink|Carbink, L86|226226
+|-status|p2a: Carbink|tox
+|-damage|p2a: Carbink|198226 tox|[from] Spikes
+|move|p1a: Hitmonlee|High Jump Kick|p2a: Carbink
+|-damage|p2a: Carbink|111226 tox
+|-damage|p2a: Carbink|97226 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee
+|chat|DEBUG|Own moves: reflect moonblast lightscreen stealthrock
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: ['exeggutoralola']
+|chat|DEBUG|Counter: ['carbink', 'exeggutoralola', 'cloyster', 'registeel']
+|chat|DEBUG|Speed: 135 vs 194
+|chat|DEBUG|HP: 97 vs 70
+|chat|DEBUG|Created a new Strategy for carbink vs hitmonlee:
+|chat|DEBUG|>[moonblast: 111.875 [102, 122], moonblast: 111.875 [102, 122], moonblast: 111.875 [102, 122]]
+|chat|DEBUG|Best move of carbink (p1): moonblast: 111.875 [102, 122]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 96.1875 [88, 105]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen-stealthrock
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Roserade|Roserade, L84, F|100100
+|-damage|p1a: Roserade|88100|[from] Stealth Rock
+|move|p2a: Carbink|Moonblast|p1a: Roserade
+|-resisted|p1a: Roserade
+|-damage|p1a: Roserade|75100
+|-heal|p1a: Roserade|81100|[from] item: Black Sludge
+|-damage|p2a: Carbink|69226 tox|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee
+|chat|DEBUG|Own moves: reflect moonblast lightscreen stealthrock
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'exeggutoralola', 'registeel']
+|chat|DEBUG|Speed: 135 vs 199
+|chat|DEBUG|HP: 69 vs 192
+|chat|DEBUG|Created a new Strategy for carbink vs roserade:
+|chat|DEBUG|>[moonblast: 29.0625 [27, 32], moonblast: 29.0625 [27, 32], moonblast: 29.0625 [27, 32]]
+|chat|DEBUG|Best move of carbink (p1): moonblast: 29.0625 [27, 32]
+|chat|DEBUG|Best move of roserade (p2): sludgebomb: 73.9375 [67, 81]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|reflect-lightscreen-stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check registeel
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Registeel|Registeel, L83|268268
+|-damage|p2a: Registeel|235268|[from] Spikes
+|move|p1a: Roserade|Spikes|p2a: Registeel
+|-sidestart|p2: McGewitter|Spikes
+|-heal|p1a: Roserade|87100|[from] item: Black Sludge
+|-sideend|p2: McGewitter|Reflect
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee
+|chat|DEBUG|Own moves: toxic ironhead rest bodypress
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'exeggutoralola', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 131 vs 199
+|chat|DEBUG|HP: 235 vs 207
+|chat|DEBUG|Created a new Strategy for registeel vs roserade:
+|chat|DEBUG|>[ironhead: 86.4375 [79, 94], ironhead: 86.4375 [79, 94], ironhead: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 86.4375 [79, 94]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 55.5 [51, 60]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['marshadow']
+|chat|DEBUG|Expected enemy: marshadow
+|chat|DEBUG|Using move ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Spikes|p2a: Registeel
+|-sidestart|p2: McGewitter|Spikes
+|move|p2a: Registeel|Iron Head|p1a: Roserade
+|-crit|p1a: Roserade
+|-damage|p1a: Roserade|29100
+|-heal|p1a: Roserade|35100|[from] item: Black Sludge
+|-sideend|p2: McGewitter|move: Light Screen
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee
+|chat|DEBUG|Own moves: toxic ironhead rest bodypress
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['registeel']
+|chat|DEBUG|Counter: ['kyuremwhite', 'shuckle', 'exeggutoralola', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 131 vs 199
+|chat|DEBUG|HP: 235 vs 83
+|chat|DEBUG|Best move of registeel (p1): ironhead: 86.4375 [79, 94]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 55.5 [51, 60]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['marshadow']
+|chat|DEBUG|Expected enemy: marshadow
+|chat|DEBUG|Using move ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres, L80|100100
+|move|p2a: Registeel|Iron Head|p1a: Moltres
+|-resisted|p1a: Moltres
+|-damage|p1a: Moltres|87100
+|-status|p2a: Registeel|brn|[from] ability: Flame Body|[of] p1a: Moltres
+|-damage|p2a: Registeel|219268 brn|[from] brn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: toxic ironhead rest bodypress
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola']
+|chat|DEBUG|Speed: 131 vs 190
+|chat|DEBUG|HP: 219 vs 239
+|chat|DEBUG|Created a new Strategy for registeel vs moltres:
+|chat|DEBUG|>[bodypress: 40.6875 [37, 44], bodypress: 40.6875 [37, 44], bodypress: 40.6875 [37, 44]]
+|chat|DEBUG|Best move of registeel (p1): bodypress: 40.6875 [37, 44]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Fire Blast|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|45268 brn
+|move|p2a: Registeel|Body Press|p1a: Moltres
+|-resisted|p1a: Moltres
+|-damage|p1a: Moltres|80100
+|-damage|p2a: Registeel|29268 brn|[from] brn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: toxic ironhead rest bodypress
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola']
+|chat|DEBUG|Speed: 131 vs 190
+|chat|DEBUG|HP: 29 vs 220
+|chat|DEBUG|Best move of registeel (p1): bodypress: 40.6875 [37, 44]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Roost|p1a: Moltres
+|-heal|p1a: Moltres|100100
+|-singleturn|p1a: Moltres|move: Roost
+|move|p2a: Registeel|Body Press|p1a: Moltres
+|-damage|p1a: Moltres|87100
+|-damage|p2a: Registeel|13268 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster-registeel -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: toxic ironhead rest bodypress
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola']
+|chat|DEBUG|Speed: 131 vs 190
+|chat|DEBUG|HP: 13 vs 239
+|chat|DEBUG|Best move of registeel (p1): bodypress: 40.6875 [37, 44]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Roost|p1a: Moltres
+|-heal|p1a: Moltres|100100
+|-singleturn|p1a: Moltres|move: Roost
+|move|p2a: Registeel|Body Press|p1a: Moltres
+|-damage|p1a: Moltres|87100
+|-damage|p2a: Registeel|0 fnt|[from] brn
+|faint|p2a: Registeel
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|307307
+|-damage|p2a: Exeggutor|231307|[from] Spikes
+|-status|p2a: Exeggutor|tox
+|-item|p1a: Moltres|Heavy-Duty Boots|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to exeggutoralola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Air Slash|p2a: Exeggutor
+|-supereffective|p2a: Exeggutor
+|-damage|p2a: Exeggutor|49307 tox
+|cant|p2a: Exeggutor|flinch
+|-damage|p2a: Exeggutor|30307 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: gigadrain flamethrower dracometeor leafstorm
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['exeggutoralola']
+|chat|DEBUG|Speed: 128 vs 190
+|chat|DEBUG|HP: 231 vs 239
+|chat|DEBUG|Created a new Strategy for exeggutoralola vs moltres:
+|chat|DEBUG|>[dracometeor: 286.4375 [262, 310], dracometeor: 143.125 [132, 156], dracometeor: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of exeggutoralola (p1): dracometeor: 286.4375 [262, 310]
+|chat|DEBUG|Best move of moltres (p2): airslash: 195.25 [180, 212]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|c|☆totolapin|gg
+|move|p1a: Moltres|Roost|p1a: Moltres
+|-heal|p1a: Moltres|100100
+|-singleturn|p1a: Moltres|move: Roost
+|move|p2a: Exeggutor|Draco Meteor|p1a: Moltres
+|-damage|p1a: Moltres|3100
+|-unboost|p2a: Exeggutor|spa|2
+|-damage|p2a: Exeggutor|0 fnt|[from] psn
+|faint|p2a: Exeggutor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shuckle|Shuckle, L86, F|175175
+|-status|p2a: Shuckle|tox
+|-damage|p2a: Shuckle|132175 tox|[from] Spikes
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle exeggutoralola cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-exeggutoralola-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: gigadrain flamethrower dracometeor leafstorm
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 128 vs 190
+|chat|DEBUG|HP: 30 vs 239
+|chat|DEBUG|Best move of exeggutoralola (p1): dracometeor: 143.125 [132, 156]
+|chat|DEBUG|Best move of moltres (p2): airslash: 195.25 [180, 212]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Roost|p1a: Moltres
+|-heal|p1a: Moltres|54100
+|-singleturn|p1a: Moltres|move: Roost
+|move|p2a: Shuckle|Knock Off|p1a: Moltres
+|-damage|p1a: Moltres|45100
+|-enditem|p1a: Moltres|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Shuckle
+|-damage|p2a: Shuckle|122175 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "exeggutoralola" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: shuckle
+|chat|DEBUG|Early game switch: shuckle
+|chat|DEBUG|>Switching to shuckle (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Roost|p1a: Moltres
+|-heal|p1a: Moltres|95100
+|-singleturn|p1a: Moltres|move: Roost
+|move|p2a: Shuckle|Sticky Web|p1a: Moltres
+|-sidestart|p1: totolapin|move: Sticky Web
+|-damage|p2a: Shuckle|102175 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shuckle" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: knockoff toxic stickyweb encore
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['shuckle']
+|chat|DEBUG|Counter: ['carbink', 'kyuremwhite', 'shuckle']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 58 vs 190
+|chat|DEBUG|HP: 132 vs 8
+|chat|DEBUG|Created a new Strategy for shuckle vs moltres:
+|chat|DEBUG|>[knockoff: 23.5625 [22, 26], knockoff: 23.5625 [22, 26], knockoff: 23.5625 [22, 26]]
+|chat|DEBUG|Best move of shuckle (p1): knockoff: 23.5625 [22, 26]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 58.625 [54, 64]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carbink|Carbink, L86|69226 tox
+|-damage|p2a: Carbink|13226 tox|[from] Spikes
+|move|p1a: Moltres|Fire Blast|p2a: Carbink|[miss]
+|-miss|p1a: Moltres|p2a: Carbink
+|-damage|p2a: Carbink|0 fnt|[from] psn
+|faint|p2a: Carbink
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shuckle|Shuckle, L86, F|102175 tox
+|-damage|p2a: Shuckle|59175 tox|[from] Spikes
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shuckle" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: knockoff toxic stickyweb encore
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyuremwhite']
+|chat|DEBUG|Speed: 58 vs 190
+|chat|DEBUG|HP: 122 vs 123
+|chat|DEBUG|Best move of shuckle (p1): knockoff: 23.5625 [22, 26]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 58.625 [54, 64]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Setting Sticky web
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cloyster|Cloyster, L80, F|211211
+|-damage|p2a: Cloyster|159211|[from] Spikes
+|-status|p2a: Cloyster|tox
+|move|p1a: Moltres|Air Slash|p2a: Cloyster
+|-damage|p2a: Cloyster|8211 tox
+|-damage|p2a: Cloyster|0 fnt|[from] psn
+|faint|p2a: Cloyster
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shuckle|Shuckle, L86, F|59175 tox
+|-damage|p2a: Shuckle|16175 tox|[from] Spikes
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink kyuremwhite shuckle cloyster
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shuckle" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-kyuremwhite-shuckle-cloyster -- marshadow-roserade-hitmonlee-moltres
+|chat|DEBUG|Own moves: knockoff toxic stickyweb encore
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 58 vs 190
+|chat|DEBUG|HP: 102 vs 261
+|chat|DEBUG|Best move of shuckle (p1): knockoff: 23.5625 [22, 26]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 58.625 [54, 64]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to carbink as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyurem|Kyurem-White, L74|193307 psn
+|-damage|p2a: Kyurem|117307 psn|[from] Spikes
+|-ability|p2a: Kyurem|Turboblaze
+|move|p1a: Moltres|Air Slash|p2a: Kyurem
+|-damage|p2a: Kyurem|24307 psn
+|-damage|p2a: Kyurem|0 fnt|[from] psn
+|faint|p2a: Kyurem
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shuckle|Shuckle, L86, F|16175 tox
+|-damage|p2a: Shuckle|0 fnt|[from] Spikes
+|faint|p2a: Shuckle
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>totolapin<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">carbink kyuremwhite shuckle exeggutoralola cloyster registeel</h1>

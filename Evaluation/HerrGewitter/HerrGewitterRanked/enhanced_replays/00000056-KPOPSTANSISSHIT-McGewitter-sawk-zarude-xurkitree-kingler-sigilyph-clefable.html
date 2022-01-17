@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490030934<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490030934|init|battle
+|title|KPOP STANS IS SHIT vs. McGewitter
+|j|☆KPOP STANS IS SHIT
+|j|☆McGewitter
+|gametype|singles
+|player|p1|KPOP STANS IS SHIT|chuck|1150
+|player|p2|McGewitter|265|1149
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Porygon2|Porygon2, L82|100100
+|switch|p2a: Sawk|Sawk, L86, M|269269
+|-ability|p2a: Sawk|Mold Breaker
+|-ability|p1a: Porygon2|Mold Breaker|[from] ability: Trace|[of] p2a: Sawk
+|-ability|p1a: Porygon2|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sawk zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sawk-zarude-xurkitree-kingler-sigilyph-clefable -- porygon2
+|chat|DEBUG|Own moves: knockoff closecombat stoneedge bulkup
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['sawk', 'zarude']
+|chat|DEBUG|Counter: ['sawk', 'zarude']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 195 vs 146
+|chat|DEBUG|HP: 269 vs 274
+|chat|DEBUG|Created a new Strategy for sawk vs porygon2:
+|chat|DEBUG|>[closecombat: 286.625 [265, 312], closecombat: 286.625 [265, 312], closecombat: 286.625 [265, 312]]
+|chat|DEBUG|Best move of sawk (p1): closecombat: 286.625 [265, 312]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 93.25 [85, 102]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Dhelmise|Dhelmise, L86|100100
+|move|p2a: Sawk|Close Combat|p1a: Dhelmise
+|-immune|p1a: Dhelmise
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sawk zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sawk-zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-dhelmise
+|chat|DEBUG|Own moves: knockoff closecombat stoneedge bulkup
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: ['zarude']
+|chat|DEBUG|Counter: ['sawk', 'zarude']
+|chat|DEBUG|Speed: 195 vs 118
+|chat|DEBUG|HP: 269 vs 261
+|chat|DEBUG|Created a new Strategy for sawk vs dhelmise:
+|chat|DEBUG|>[knockoff: 203.25 [187, 221], knockoff: 203.25 [187, 221], knockoff: 203.25 [187, 221]]
+|chat|DEBUG|Best move of sawk (p1): knockoff: 203.25 [187, 221]
+|chat|DEBUG|Best move of dhelmise (p2): powerwhip: 186.375 [171, 202]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sawk|Knock Off|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-crit|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|-enditem|p1a: Dhelmise|Lum Berry|[from] move: Knock Off|[of] p2a: Sawk
+|faint|p1a: Dhelmise
+|-damage|p2a: Sawk|243269|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Lele|Tapu Lele, L80|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Tapu Lele
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sawk zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "tapulele"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sawk-zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-tapulele
+|chat|DEBUG|Own moves: knockoff closecombat stoneedge bulkup
+|chat|DEBUG|Enemy moves: calmmind focusblast moonblast psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 195 vs 198
+|chat|DEBUG|HP: 243 vs 243
+|chat|DEBUG|Created a new Strategy for sawk vs tapulele:
+|chat|DEBUG|>[knockoff: 135.25 [125, 147], knockoff: 135.25 [125, 147], knockoff: 135.25 [125, 147]]
+|chat|DEBUG|Best move of sawk (p1): knockoff: 135.25 [125, 147]
+|chat|DEBUG|Best move of tapulele (p2): moonblast: 336.75 [307, 367]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Lele|Psychic|p2a: Sawk
+|-supereffective|p2a: Sawk
+|-damage|p2a: Sawk|0 fnt
+|faint|p2a: Sawk
+|-damage|p1a: Tapu Lele|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, M|255255
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sawk" vs "tapulele"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-tapulele
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind focusblast moonblast psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: sigilyph
+|chat|DEBUG|>Switching to sigilyph (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Air Slash|p1a: Tapu Lele
+|-damage|p1a: Tapu Lele|54100
+|move|p1a: Tapu Lele|Calm Mind|p1a: Tapu Lele
+|-boost|p1a: Tapu Lele|spa|1
+|-boost|p1a: Tapu Lele|spd|1
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "tapulele"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-tapulele
+|chat|DEBUG|Own moves: defog heatwave psychic airslash
+|chat|DEBUG|Enemy moves: calmmind focusblast moonblast psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sigilyph']
+|chat|DEBUG|Speed: 209 vs 198
+|chat|DEBUG|HP: 255 vs 221
+|chat|DEBUG|Created a new Strategy for sigilyph vs tapulele:
+|chat|DEBUG|>[airslash: 90.5 [83, 99], airslash: 90.5 [83, 99], airslash: 90.5 [83, 99]]
+|chat|DEBUG|Best move of sigilyph (p1): airslash: 90.5 [83, 99]
+|chat|DEBUG|Best move of tapulele (p2): moonblast: 166.4375 [153, 181]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Air Slash|p1a: Tapu Lele
+|-damage|p1a: Tapu Lele|30100
+|cant|p1a: Tapu Lele|flinch
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "tapulele"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-tapulele
+|chat|DEBUG|Own moves: defog heatwave psychic airslash
+|chat|DEBUG|Enemy moves: calmmind focusblast moonblast psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarude']
+|chat|DEBUG|Speed: 209 vs 198
+|chat|DEBUG|HP: 255 vs 131
+|chat|DEBUG|Best move of sigilyph (p1): airslash: 90.5 [83, 99]
+|chat|DEBUG|Best move of tapulele (p2): moonblast: 247.75 [227, 269]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Air Slash|p1a: Tapu Lele
+|-damage|p1a: Tapu Lele|3100
+|cant|p1a: Tapu Lele|flinch
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "tapulele"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-tapulele
+|chat|DEBUG|Own moves: defog heatwave psychic airslash
+|chat|DEBUG|Enemy moves: calmmind focusblast moonblast psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarude', 'sigilyph', 'clefable']
+|chat|DEBUG|Speed: 209 vs 198
+|chat|DEBUG|HP: 255 vs 72
+|chat|DEBUG|Best move of sigilyph (p1): airslash: 90.5 [83, 99]
+|chat|DEBUG|Best move of tapulele (p2): moonblast: 247.75 [227, 269]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Air Slash|p1a: Tapu Lele
+|-damage|p1a: Tapu Lele|0 fnt
+|faint|p1a: Tapu Lele
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Porygon2|Porygon2, L82|100100
+|-ability|p1a: Porygon2|Magic Guard|[from] ability: Trace|[of] p2a: Sigilyph
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "tapulele"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-tapulele
+|chat|DEBUG|Own moves: defog heatwave psychic airslash
+|chat|DEBUG|Enemy moves: calmmind focusblast moonblast psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarude', 'sigilyph', 'clefable']
+|chat|DEBUG|Speed: 209 vs 198
+|chat|DEBUG|HP: 255 vs 7
+|chat|DEBUG|Created a new Strategy for sigilyph vs tapulele:
+|chat|DEBUG|>[airslash: 61.75 [56, 68], airslash: 61.75 [56, 68], airslash: 61.75 [56, 68]]
+|chat|DEBUG|Best move of sigilyph (p1): airslash: 61.75 [56, 68]
+|chat|DEBUG|Best move of tapulele (p2): moonblast: 247.75 [227, 269]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zarude|Zarude, L78|292292
+|move|p1a: Porygon2|Toxic|p2a: Zarude
+|-status|p2a: Zarude|tox
+|-damage|p2a: Zarude|274292 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sigilyph" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2
+|chat|DEBUG|Own moves: defog heatwave psychic airslash
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['zarude']
+|chat|DEBUG|Counter: ['zarude']
+|chat|DEBUG|Speed: 209 vs 146
+|chat|DEBUG|HP: 255 vs 274
+|chat|DEBUG|Created a new Strategy for sigilyph vs porygon2:
+|chat|DEBUG|>[psychic: 83.5 [75, 91], psychic: 83.5 [75, 91], psychic: 83.5 [75, 91]]
+|chat|DEBUG|Best move of sigilyph (p1): psychic: 83.5 [75, 91]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 124.75 [114, 136]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zarude
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Machamp|Machamp, L82, M|100100
+|move|p2a: Zarude|Bulk Up|p2a: Zarude
+|-boost|p2a: Zarude|atk|1
+|-boost|p2a: Zarude|def|1
+|-heal|p2a: Zarude|292292 tox|[from] item: Leftovers
+|-damage|p2a: Zarude|256292 tox|[from] psn
+|-status|p1a: Machamp|brn|[from] item: Flame Orb
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarude" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2
+|chat|DEBUG|Own moves: closecombat darkestlariat powerwhip bulkup
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['zarude']
+|chat|DEBUG|Counter: ['zarude']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 209 vs 146
+|chat|DEBUG|HP: 274 vs 274
+|chat|DEBUG|Created a new Strategy for zarude vs porygon2:
+|chat|DEBUG|>[closecombat: 117.5 [108, 128], closecombat: 117.5 [108, 128], closecombat: 117.5 [108, 128]]
+|chat|DEBUG|Best move of zarude (p1): closecombat: 117.5 [108, 128]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 86.4375 [79, 94]
+|chat|DEBUG|Boost Moves: [bulkup (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zarude|Power Whip|p1a: Machamp
+|-damage|p1a: Machamp|24100 brn
+|move|p1a: Machamp|Close Combat|p2a: Zarude
+|-supereffective|p2a: Zarude
+|-damage|p2a: Zarude|0 fnt
+|-unboost|p1a: Machamp|def|1
+|-unboost|p1a: Machamp|spd|1
+|faint|p2a: Zarude
+|-damage|p1a: Machamp|18100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Clefable|Clefable, L82, M|290290
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarude" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-xurkitree-kingler-sigilyph-clefable -- porygon2-machamp
+|chat|DEBUG|Own moves: closecombat darkestlariat powerwhip bulkup
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['clefable']
+|chat|DEBUG|Counter: ['zarude', 'xurkitree', 'kingler', 'sigilyph', 'clefable']
+|chat|DEBUG|Speed: 209 vs 137
+|chat|DEBUG|HP: 256 vs 282
+|chat|DEBUG|Created a new Strategy for zarude vs machamp:
+|chat|DEBUG|>[powerwhip: 215.5 [198, 234], powerwhip: 215.5 [198, 234], powerwhip: 215.5 [198, 234]]
+|chat|DEBUG|Best move of zarude (p1): powerwhip: 215.5 [198, 234]
+|chat|DEBUG|Best move of machamp (p2): closecombat: 189.75 [174, 206]
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Machamp|Bullet Punch|p2a: Clefable
+|-supereffective|p2a: Clefable
+|-damage|p2a: Clefable|172290
+|move|p2a: Clefable|Moonblast|p1a: Machamp
+|-supereffective|p1a: Machamp
+|-damage|p1a: Machamp|0 fnt
+|faint|p1a: Machamp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lurantis|Lurantis, L86, M|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarude" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph-clefable -- porygon2-machamp
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['clefable']
+|chat|DEBUG|Counter: ['xurkitree', 'kingler', 'sigilyph', 'clefable']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to clefable (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Clefable|Fire Blast|p1a: Lurantis
+|-supereffective|p1a: Lurantis
+|-damage|p1a: Lurantis|32100
+|move|p1a: Lurantis|Knock Off|p2a: Clefable
+|-resisted|p2a: Clefable
+|-damage|p2a: Clefable|115290
+|-enditem|p2a: Clefable|Life Orb|[from] move: Knock Off|[of] p1a: Lurantis
+|-damage|p1a: Lurantis|22100|[from] item: Life Orb
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clefable" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph-clefable -- porygon2-machamp
+|chat|DEBUG|Own moves: softboiled moonblast calmmind fireblast
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['xurkitree', 'kingler', 'sigilyph', 'clefable']
+|chat|DEBUG|Counter: ['xurkitree', 'kingler', 'sigilyph', 'clefable']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 137
+|chat|DEBUG|HP: 290 vs 50
+|chat|DEBUG|Created a new Strategy for clefable vs machamp:
+|chat|DEBUG|>[moonblast: 383.5 [351, 416], moonblast: 383.5 [351, 416], moonblast: 383.5 [351, 416]]
+|chat|DEBUG|Best move of clefable (p1): moonblast: 383.5 [351, 416]
+|chat|DEBUG|Best move of machamp (p2): closecombat: 88.625 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Clefable|Fire Blast|p1a: Lurantis
+|-supereffective|p1a: Lurantis
+|-damage|p1a: Lurantis|0 fnt
+|faint|p1a: Lurantis
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Porygon2|Porygon2, L82|100100
+|-ability|p1a: Porygon2|Magic Guard|[from] ability: Trace|[of] p2a: Clefable
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clefable" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph-clefable -- porygon2-lurantis
+|chat|DEBUG|Own moves: softboiled moonblast calmmind fireblast
+|chat|DEBUG|Enemy moves: knockoff leafstorm superpower synthesis
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['sigilyph', 'clefable']
+|chat|DEBUG|Speed: 146 vs 127
+|chat|DEBUG|HP: 172 vs 261
+|chat|DEBUG|Created a new Strategy for clefable vs lurantis:
+|chat|DEBUG|>[fireblast: 181.5 [166, 198], fireblast: 181.5 [166, 198], fireblast: 181.5 [166, 198]]
+|chat|DEBUG|Best move of clefable (p1): fireblast: 181.5 [166, 198]
+|chat|DEBUG|Best move of lurantis (p2): superpower: 71.5625 [66, 78]
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Clefable|Moonblast|p1a: Porygon2
+|-crit|p1a: Porygon2
+|-damage|p1a: Porygon2|68100
+|move|p1a: Porygon2|Tri Attack|p2a: Clefable
+|-damage|p2a: Clefable|28290
+|-status|p2a: Clefable|par
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clefable" vs "lurantis"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph-clefable -- porygon2-lurantis
+|chat|DEBUG|Own moves: softboiled moonblast calmmind fireblast
+|chat|DEBUG|Enemy moves: knockoff leafstorm superpower synthesis
+|chat|DEBUG|Checks: ['xurkitree', 'sigilyph']
+|chat|DEBUG|Counter: ['xurkitree', 'kingler', 'sigilyph', 'clefable']
+|chat|DEBUG|Speed: 146 vs 127
+|chat|DEBUG|HP: 115 vs 57
+|chat|DEBUG|Best move of clefable (p1): fireblast: 181.5 [166, 198]
+|chat|DEBUG|Best move of lurantis (p2): leafstorm: 162.9375 [149, 177]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Discharge|p2a: Clefable
+|-damage|p2a: Clefable|0 fnt
+|faint|p2a: Clefable
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Xurkitree|Xurkitree, L76|251251
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clefable" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph-clefable -- porygon2
+|chat|DEBUG|Own moves: softboiled moonblast calmmind fireblast
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 146
+|chat|DEBUG|HP: 115 vs 274
+|chat|DEBUG|Created a new Strategy for clefable vs porygon2:
+|chat|DEBUG|>[moonblast: 61.5625 [57, 67], moonblast: 61.5625 [57, 67], moonblast: 61.5625 [57, 67]]
+|chat|DEBUG|Best move of clefable (p1): moonblast: 61.5625 [57, 67]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 86.4375 [79, 94]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Porygon2
+|-damage|p1a: Porygon2|40100
+|move|p1a: Porygon2|Tri Attack|p2a: Xurkitree
+|-damage|p2a: Xurkitree|149251
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph clefable
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clefable" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph-clefable -- porygon2
+|chat|DEBUG|Own moves: softboiled moonblast calmmind fireblast
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'kingler']
+|chat|DEBUG|Speed: 146 vs 146
+|chat|DEBUG|HP: 28 vs 186
+|chat|DEBUG|Best move of clefable (p1): moonblast: 61.5625 [57, 67]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 86.4375 [79, 94]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Porygon2
+|-damage|p1a: Porygon2|10100
+|-status|p1a: Porygon2|par
+|move|p1a: Porygon2|Recover|p1a: Porygon2
+|-heal|p1a: Porygon2|60100 par
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clefable" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph -- porygon2
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'kingler']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to xurkitree (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Porygon2
+|-damage|p1a: Porygon2|29100 par
+|move|p1a: Porygon2|Tri Attack|p2a: Xurkitree
+|-damage|p2a: Xurkitree|34251
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph -- porygon2
+|chat|DEBUG|Own moves: voltswitch energyball thunderbolt dazzlinggleam
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'kingler']
+|chat|DEBUG|Speed: 170 vs 146
+|chat|DEBUG|HP: 251 vs 186
+|chat|DEBUG|Created a new Strategy for xurkitree vs porygon2:
+|chat|DEBUG|>[thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 82.4375 [76, 90]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 110.25 [102, 120]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Porygon2
+|-damage|p1a: Porygon2|0 fnt
+|faint|p1a: Porygon2
+|-ability|p2a: Xurkitree|Beast Boost|boost
+|-boost|p2a: Xurkitree|spa|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hydreigon|Hydreigon, L80, F|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph -- porygon2
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['kingler']
+|chat|DEBUG|Counter: ['xurkitree', 'kingler', 'sigilyph']
+|chat|DEBUG|Speed: 170 vs 146
+|chat|DEBUG|HP: 149 vs 109
+|chat|DEBUG|Created a new Strategy for xurkitree vs porygon2:
+|chat|DEBUG|>[thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 82.4375 [76, 90]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 110.25 [102, 120]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Hydreigon|Dynamax
+|-heal|p1a: Hydreigon|100100|[silent]
+|move|p2a: Xurkitree|Thunderbolt|p1a: Hydreigon
+|-resisted|p1a: Hydreigon
+|-damage|p1a: Hydreigon|84100
+|move|p1a: Hydreigon|Max Darkness|p2a: Xurkitree
+|-damage|p2a: Xurkitree|0 fnt
+|faint|p2a: Xurkitree
+|-heal|p1a: Hydreigon|87100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sigilyph|Sigilyph, L83, M|255255
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph -- porygon2
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'kingler', 'sigilyph']
+|chat|DEBUG|Speed: 170 vs 146
+|chat|DEBUG|HP: 149 vs 164
+|chat|DEBUG|Created a new Strategy for xurkitree vs porygon2:
+|chat|DEBUG|>[thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 82.4375 [76, 90]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 110.25 [102, 120]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Sigilyph|Dynamax
+|-heal|p2a: Sigilyph|510510|[silent]
+|move|p2a: Sigilyph|Max Airstream|p1a: Hydreigon
+|-damage|p1a: Hydreigon|54100
+|-boost|p2a: Sigilyph|spe|1
+|move|p1a: Hydreigon|Max Darkness|p2a: Sigilyph
+|-supereffective|p2a: Sigilyph
+|-damage|p2a: Sigilyph|150510
+|-unboost|p2a: Sigilyph|spd|1
+|-heal|p1a: Hydreigon|57100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph -- porygon2
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['kingler', 'sigilyph']
+|chat|DEBUG|Counter: ['xurkitree', 'kingler', 'sigilyph']
+|chat|DEBUG|Speed: 170 vs 146
+|chat|DEBUG|HP: 34 vs 79
+|chat|DEBUG|Created a new Strategy for xurkitree vs porygon2:
+|chat|DEBUG|>[thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90], thunderbolt: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 82.4375 [76, 90]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 110.25 [102, 120]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sigilyph|Max Airstream|p1a: Hydreigon
+|-damage|p1a: Hydreigon|21100
+|-boost|p2a: Sigilyph|spe|1
+|move|p1a: Hydreigon|Max Wyrmwind|p2a: Sigilyph
+|-damage|p2a: Sigilyph|0 fnt
+|faint|p2a: Sigilyph
+|-heal|p1a: Hydreigon|24100|[from] item: Leftovers
+|-end|p1a: Hydreigon|Dynamax
+|-heal|p1a: Hydreigon|24100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingler|Kingler, L84, F|230230
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree kingler sigilyph
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xurkitree" vs "hydreigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-kingler-sigilyph -- hydreigon
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: darkpulse dracometeor nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 203
+|chat|DEBUG|HP: 34 vs 278
+|chat|DEBUG|Created a new Strategy for xurkitree vs hydreigon:
+|chat|DEBUG|>[thunderbolt: 97.0625 [89, 105], thunderbolt: 97.0625 [89, 105], thunderbolt: 97.0625 [89, 105]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 97.0625 [89, 105]
+|chat|DEBUG|Best move of hydreigon (p2): darkpulse: 124.0625 [114, 135]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hydreigon|Roost|p1a: Hydreigon
+|-heal|p1a: Hydreigon|74100
+|-singleturn|p1a: Hydreigon|move: Roost
+|move|p2a: Kingler|X-Scissor|p1a: Hydreigon
+|-supereffective|p1a: Hydreigon
+|-damage|p1a: Hydreigon|11100
+|-damage|p2a: Kingler|207230|[from] item: Life Orb
+|-heal|p1a: Hydreigon|17100|[from] item: Leftovers
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler sigilyph
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xurkitree" vs "hydreigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-sigilyph -- hydreigon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse dracometeor nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'kingler': 230, 'sigilyph': 255}
+|chat|DEBUG|remaining_hp_team_2={'hydreigon': 100}
+|chat|DEBUG|battle.available_switches=[sigilyph (pokemon object) [Active: False, Status: None], kingler (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'sigilyph'
+|chat|DEBUG|>Switching to sigilyph (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hydreigon|Roost|p1a: Hydreigon
+|-heal|p1a: Hydreigon|67100
+|-singleturn|p1a: Hydreigon|move: Roost
+|move|p2a: Kingler|X-Scissor|p1a: Hydreigon
+|-supereffective|p1a: Hydreigon
+|-damage|p1a: Hydreigon|1100
+|-damage|p2a: Kingler|184230|[from] item: Life Orb
+|-heal|p1a: Hydreigon|7100|[from] item: Leftovers
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kingler sigilyph
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sigilyph" vs "hydreigon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kingler-sigilyph -- hydreigon
+|chat|DEBUG|Own moves: defog heatwave psychic airslash
+|chat|DEBUG|Enemy moves: darkpulse dracometeor nastyplot roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 209 vs 203
+|chat|DEBUG|HP: 255 vs 241
+|chat|DEBUG|Created a new Strategy for sigilyph vs hydreigon:
+|chat|DEBUG|>[airslash: 110.5 [101, 121], airslash: 110.5 [101, 121], airslash: 110.5 [101, 121]]
+|chat|DEBUG|Best move of sigilyph (p1): airslash: 110.5 [101, 121]
+|chat|DEBUG|Best move of hydreigon (p2): darkpulse: 209.0 [192, 228]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hydreigon|Roost|p1a: Hydreigon
+|-heal|p1a: Hydreigon|57100
+|-singleturn|p1a: Hydreigon|move: Roost
+|move|p2a: Kingler|X-Scissor|p1a: Hydreigon
+|-supereffective|p1a: Hydreigon
+|-damage|p1a: Hydreigon|0 fnt
+|faint|p1a: Hydreigon
+|-damage|p2a: Kingler|161230|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>KPOP STANS IS SHIT<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">sawk zarude xurkitree kingler sigilyph clefable</h1>

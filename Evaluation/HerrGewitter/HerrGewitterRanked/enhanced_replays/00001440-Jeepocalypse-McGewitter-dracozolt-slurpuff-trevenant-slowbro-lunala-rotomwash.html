@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492270230<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492270230|init|battle
+|title|Jeepocalypse vs. McGewitter
+|j|☆Jeepocalypse
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Jeepocalypse|101|1346
+|player|p2|McGewitter|265|1292
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Amoonguss|Amoonguss, L84, M|100100
+|switch|p2a: Dracozolt|Dracozolt, L78|268268
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracozolt slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracozolt-slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss
+|chat|DEBUG|Own moves: earthquake aerialace boltbeak outrage
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: ['dracozolt', 'trevenant', 'lunala']
+|chat|DEBUG|Counter: ['dracozolt', 'trevenant', 'slowbro', 'lunala']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 162 vs 99
+|chat|DEBUG|HP: 268 vs 329
+|chat|DEBUG|Created a new Strategy for dracozolt vs amoonguss:
+|chat|DEBUG|>[outrage: 200.25 [184, 217], outrage: 200.25 [184, 217], outrage: 200.25 [184, 217]]
+|chat|DEBUG|Best move of dracozolt (p1): outrage: 200.25 [184, 217]
+|chat|DEBUG|Best move of amoonguss (p2): sludgebomb: 110.25 [102, 120]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Jeepocalypse also wants the timer to be on.
+|inactive|Jeepocalypse has 120 seconds left.
+|move|p2a: Dracozolt|Outrage|p1a: Amoonguss
+|-damage|p1a: Amoonguss|12100
+|replace|p1a: Zoroark|Zoroark, L84, M
+|-end|p1a: Zoroark|Illusion
+|move|p1a: Zoroark|Nasty Plot|p1a: Zoroark
+|-boost|p1a: Zoroark|spa|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracozolt slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracozolt-slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-zoroark
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 162 vs 225
+|chat|DEBUG|HP: 268 vs 28
+|chat|DEBUG|Created a new Strategy for dracozolt vs zoroark:
+|chat|DEBUG|>[outrage: 222.4375 [204, 241], outrage: 222.4375 [204, 241], outrage: 222.4375 [204, 241]]
+|chat|DEBUG|Best move of dracozolt (p1): outrage: 222.4375 [204, 241]
+|chat|DEBUG|Best move of zoroark (p2): darkpulse: 328.8125 [302, 356]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dracozolt|Outrage|p1a: Zoroark|[from]lockedmove|[miss]
+|-miss|p2a: Dracozolt|p1a: Zoroark
+|move|p1a: Zoroark|Dark Pulse|p2a: Dracozolt
+|-damage|p2a: Dracozolt|36268
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dracozolt slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dracozolt-slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-zoroark
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 162 vs 225
+|chat|DEBUG|HP: 36 vs 28
+|chat|DEBUG|Created a new Strategy for dracozolt vs zoroark:
+|chat|DEBUG|>[outrage: 222.4375 [204, 241], outrage: 222.4375 [204, 241], outrage: 222.4375 [204, 241]]
+|chat|DEBUG|Best move of dracozolt (p1): outrage: 222.4375 [204, 241]
+|chat|DEBUG|Best move of zoroark (p2): darkpulse: 328.8125 [302, 356]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dracozolt|Outrage|p1a: Zoroark|[miss]
+|-miss|p2a: Dracozolt|p1a: Zoroark
+|move|p1a: Zoroark|Sludge Bomb|p2a: Dracozolt
+|-damage|p2a: Dracozolt|0 fnt
+|faint|p2a: Dracozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Wash, L82|216216
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dracozolt" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-zoroark
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: rotomwash
+|chat|DEBUG|>Switching to rotomwash (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zoroark|Dark Pulse|p2a: Rotom
+|-damage|p2a: Rotom|53216
+|move|p2a: Rotom|Thunderbolt|p1a: Zoroark
+|-damage|p1a: Zoroark|0 fnt
+|faint|p1a: Zoroark
+|-heal|p2a: Rotom|66216|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Durant|Durant, L78, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-zoroark
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 225
+|chat|DEBUG|HP: 216 vs 28
+|chat|DEBUG|Created a new Strategy for rotomwash vs zoroark:
+|chat|DEBUG|>[thunderbolt: 125.375 [115, 136], thunderbolt: 125.375 [115, 136], thunderbolt: 125.375 [115, 136]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 125.375 [115, 136]
+|chat|DEBUG|Best move of zoroark (p2): darkpulse: 227.6875 [208, 247]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro, L84, F|297297
+|move|p1a: Durant|Hone Claws|p1a: Durant
+|-boost|p1a: Durant|atk|1
+|-boost|p1a: Durant|accuracy|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: ['slowbro', 'lunala']
+|chat|DEBUG|Counter: ['slowbro', 'lunala']
+|chat|DEBUG|Speed: 188 vs 215
+|chat|DEBUG|HP: 66 vs 219
+|chat|DEBUG|Created a new Strategy for rotomwash vs durant:
+|chat|DEBUG|>[thunderbolt: 155.8125 [144, 169], thunderbolt: 155.8125 [144, 169], thunderbolt: 155.8125 [144, 169]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 155.8125 [144, 169]
+|chat|DEBUG|Best move of durant (p2): rockslide: 87.1875 [81, 95]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check slowbro
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|200297
+|-damage|p1a: Durant|91100|[from] item: Life Orb
+|cant|p2a: Slowbro|flinch
+|-heal|p2a: Slowbro|218297|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowbro" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: teleport slackoff futuresight scald
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slowbro', 'lunala']
+|chat|DEBUG|Speed: 99 vs 215
+|chat|DEBUG|HP: 297 vs 219
+|chat|DEBUG|Created a new Strategy for slowbro vs durant:
+|chat|DEBUG|>[scald: 140.125 [129, 153], scald: 140.125 [129, 153], scald: 140.125 [129, 153]]
+|chat|DEBUG|Best move of slowbro (p1): scald: 140.125 [129, 153]
+|chat|DEBUG|Best move of durant (p2): rockslide: 124.1875 [114, 135]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|113297
+|-damage|p1a: Durant|81100|[from] item: Life Orb
+|move|p2a: Slowbro|Scald|p1a: Durant
+|-damage|p1a: Durant|22100
+|-heal|p2a: Slowbro|131297|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowbro" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: teleport slackoff futuresight scald
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lunala']
+|chat|DEBUG|Speed: 99 vs 215
+|chat|DEBUG|HP: 218 vs 199
+|chat|DEBUG|Best move of slowbro (p1): scald: 140.125 [129, 153]
+|chat|DEBUG|Best move of durant (p2): rockslide: 124.1875 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|34297
+|-damage|p1a: Durant|12100|[from] item: Life Orb
+|cant|p2a: Slowbro|flinch
+|-heal|p2a: Slowbro|52297|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowbro" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: teleport slackoff futuresight scald
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: ['lunala']
+|chat|DEBUG|Counter: ['trevenant', 'slowbro', 'lunala']
+|chat|DEBUG|Speed: 99 vs 215
+|chat|DEBUG|HP: 131 vs 48
+|chat|DEBUG|Best move of slowbro (p1): scald: 140.125 [129, 153]
+|chat|DEBUG|Best move of durant (p2): rockslide: 124.1875 [114, 135]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lunala|Lunala, L72|316316
+|move|p1a: Durant|Iron Head|p2a: Lunala
+|-damage|p2a: Lunala|183316
+|-damage|p1a: Durant|3100|[from] item: Life Orb
+|-heal|p2a: Lunala|202316|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowbro" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: teleport slackoff futuresight scald
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: ['lunala']
+|chat|DEBUG|Counter: ['trevenant', 'lunala']
+|chat|DEBUG|Speed: 99 vs 215
+|chat|DEBUG|HP: 52 vs 26
+|chat|DEBUG|Created a new Strategy for slowbro vs durant:
+|chat|DEBUG|>[scald: 140.125 [129, 153], scald: 140.125 [129, 153], scald: 140.125 [129, 153]]
+|chat|DEBUG|Best move of slowbro (p1): scald: 140.125 [129, 153]
+|chat|DEBUG|Best move of durant (p2): rockslide: 124.1875 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lunala
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Durant|Iron Head|p2a: Lunala
+|-damage|p2a: Lunala|0 fnt
+|faint|p2a: Lunala
+|-damage|p1a: Durant|0 fnt|[from] item: Life Orb
+|faint|p1a: Durant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Corviknight|Corviknight, L78, M|100100
+|switch|p2a: Trevenant|Trevenant, L86, M|286286
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro lunala rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-lunala-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: calmmind moonblast roost moongeistbeam
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['trevenant', 'slowbro']
+|chat|DEBUG|Speed: 182 vs 215
+|chat|DEBUG|HP: 202 vs 6
+|chat|DEBUG|Created a new Strategy for lunala vs durant:
+|chat|DEBUG|>[moongeistbeam: 166.9375 [153, 181], moongeistbeam: 166.9375 [153, 181], moongeistbeam: 166.9375 [153, 181]]
+|chat|DEBUG|Best move of lunala (p1): moongeistbeam: 166.9375 [153, 181]
+|chat|DEBUG|Best move of durant (p2): ironhead: 272.75 [251, 296]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moongeistbeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Corviknight|Bulk Up|p1a: Corviknight
+|-boost|p1a: Corviknight|atk|1
+|-boost|p1a: Corviknight|def|1
+|move|p2a: Trevenant|Poltergeist|p1a: Corviknight
+|-activate|p1a: Corviknight|move: Poltergeist|Leftovers
+|-damage|p1a: Corviknight|59100
+|-damage|p2a: Trevenant|258286|[from] item: Life Orb
+|-heal|p1a: Corviknight|65100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-rotomwash -- amoonguss-durant
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['trevenant', 'slowbro']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to trevenant (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Corviknight|Brave Bird|p2a: Trevenant
+|-supereffective|p2a: Trevenant
+|-damage|p2a: Trevenant|0 fnt
+|faint|p2a: Trevenant
+|-damage|p1a: Corviknight|35100|[from] Recoil
+|-heal|p1a: Corviknight|41100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rotom|Rotom-Wash, L82|66216
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "corviknight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: poltergeist trickroom woodhammer rockslide
+|chat|DEBUG|Enemy moves: bodypress bravebird bulkup roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|Speed: 101 vs 150
+|chat|DEBUG|HP: 286 vs 281
+|chat|DEBUG|Created a new Strategy for trevenant vs corviknight:
+|chat|DEBUG|>[poltergeist: 164.8125 [152, 179], poltergeist: 164.8125 [152, 179], poltergeist: 164.8125 [152, 179]]
+|chat|DEBUG|Best move of trevenant (p1): poltergeist: 164.8125 [152, 179]
+|chat|DEBUG|Best move of corviknight (p2): bravebird: 222.875 [204, 242]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Amoonguss|Amoonguss, L84, M|100100
+|move|p2a: Rotom|Thunderbolt|p1a: Amoonguss
+|-resisted|p1a: Amoonguss
+|-damage|p1a: Amoonguss|86100
+|-heal|p2a: Rotom|79216|[from] item: Leftovers
+|-heal|p1a: Amoonguss|92100|[from] item: Black Sludge
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff trevenant slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "corviknight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-trevenant-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: poltergeist trickroom woodhammer rockslide
+|chat|DEBUG|Enemy moves: bodypress bravebird bulkup roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|Speed: 101 vs 150
+|chat|DEBUG|HP: 258 vs 182
+|chat|DEBUG|Best move of trevenant (p1): poltergeist: 164.8125 [152, 179]
+|chat|DEBUG|Best move of corviknight (p2): bravebird: 333.875 [306, 362]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rotom|Thunderbolt|p1a: Amoonguss
+|-resisted|p1a: Amoonguss
+|-damage|p1a: Amoonguss|76100
+|move|p1a: Amoonguss|Spore|p2a: Rotom
+|-status|p2a: Rotom|slp|[from] move: Spore
+|-heal|p2a: Rotom|92216 slp|[from] item: Leftovers
+|-heal|p1a: Amoonguss|82100|[from] item: Black Sludge
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "trevenant" vs "corviknight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress bravebird bulkup roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to rotomwash (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Rotom|slp
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Rotom
+|-damage|p2a: Rotom|17216 slp
+|-heal|p2a: Rotom|30216 slp|[from] item: Leftovers
+|-heal|p1a: Amoonguss|88100|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "corviknight"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: bodypress bravebird bulkup roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slurpuff', 'slowbro', 'rotomwash']
+|chat|DEBUG|Speed: 188 vs 150
+|chat|DEBUG|HP: 66 vs 115
+|chat|DEBUG|Created a new Strategy for rotomwash vs corviknight:
+|chat|DEBUG|>[thunderbolt: 211.75 [194, 230], thunderbolt: 211.75 [194, 230], thunderbolt: 211.75 [194, 230]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 211.75 [194, 230]
+|chat|DEBUG|Best move of corviknight (p2): bodypress: 69.8125 [64, 76]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Rotom|slp
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|-heal|p1a: Amoonguss|94100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slurpuff|Slurpuff, L80, F|262262
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 99
+|chat|DEBUG|HP: 79 vs 302
+|chat|DEBUG|Created a new Strategy for rotomwash vs amoonguss:
+|chat|DEBUG|>[thunderbolt: 51.375 [47, 56], thunderbolt: 51.375 [47, 56], thunderbolt: 51.375 [47, 56]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 51.375 [47, 56]
+|chat|DEBUG|Best move of amoonguss (p2): gigadrain: 125.875 [116, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Slurpuff|Dynamax
+|-heal|p2a: Slurpuff|524524|[silent]
+|move|p2a: Slurpuff|Max Strike|p1a: Amoonguss
+|-damage|p1a: Amoonguss|71100
+|-unboost|p1a: Amoonguss|spe|1
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Slurpuff
+|-supereffective|p2a: Slurpuff
+|-damage|p2a: Slurpuff|330524
+|-heal|p1a: Amoonguss|77100|[from] item: Black Sludge
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 99
+|chat|DEBUG|HP: 92 vs 269
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 51.375 [47, 56]
+|chat|DEBUG|Best move of amoonguss (p2): gigadrain: 125.875 [116, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Slurpuff|Max Strike|p1a: Amoonguss
+|-damage|p1a: Amoonguss|55100
+|-unboost|p1a: Amoonguss|spe|1
+|move|p1a: Amoonguss|Spore|p2a: Slurpuff
+|-status|p2a: Slurpuff|slp|[from] move: Spore
+|-heal|p1a: Amoonguss|61100|[from] item: Black Sludge
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro rotomwash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro-rotomwash -- amoonguss-corviknight
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 99
+|chat|DEBUG|HP: 30 vs 289
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 51.375 [47, 56]
+|chat|DEBUG|Best move of amoonguss (p2): gigadrain: 125.875 [116, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Slurpuff|slp
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Slurpuff
+|-supereffective|p2a: Slurpuff
+|-crit|p2a: Slurpuff
+|-damage|p2a: Slurpuff|6524 slp
+|-enditem|p2a: Slurpuff|Sitrus Berry|[eat]
+|-heal|p2a: Slurpuff|71524 slp|[from] item: Sitrus Berry
+|-heal|p1a: Amoonguss|67100|[from] item: Black Sludge
+|-end|p2a: Slurpuff|Dynamax
+|-heal|p2a: Slurpuff|36262 slp|[silent]
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro -- amoonguss-corviknight
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: slurpuff
+|chat|DEBUG|>Switching to slurpuff (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-curestatus|p2a: Slurpuff|slp|[msg]
+|move|p2a: Slurpuff|Facade|p1a: Amoonguss
+|-damage|p1a: Amoonguss|53100
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Slurpuff
+|-supereffective|p2a: Slurpuff
+|-damage|p2a: Slurpuff|0 fnt
+|faint|p2a: Slurpuff
+|-heal|p1a: Amoonguss|59100|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro, L84, F|151297
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro -- amoonguss-corviknight
+|chat|DEBUG|Own moves: facade playrough drainpunch bellydrum
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 161 vs 99
+|chat|DEBUG|HP: 262 vs 309
+|chat|DEBUG|Created a new Strategy for slurpuff vs amoonguss:
+|chat|DEBUG|>[facade: 46.5625 [43, 51], facade: 46.5625 [43, 51], facade: 46.5625 [43, 51]]
+|chat|DEBUG|Best move of slurpuff (p1): facade: 46.5625 [43, 51]
+|chat|DEBUG|Best move of amoonguss (p2): sludgebomb: 203.5 [186, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Slowbro|Future Sight|p1a: Amoonguss
+|-start|p2a: Slowbro|move: Future Sight
+|move|p1a: Amoonguss|Toxic|p2a: Slowbro
+|-status|p2a: Slowbro|tox
+|-heal|p2a: Slowbro|169297 tox|[from] item: Leftovers
+|-heal|p1a: Amoonguss|65100|[from] item: Black Sludge
+|-damage|p2a: Slowbro|151297 tox|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro -- amoonguss-corviknight
+|chat|DEBUG|Own moves: facade playrough drainpunch bellydrum
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 161 vs 99
+|chat|DEBUG|HP: 330 vs 253
+|chat|DEBUG|Best move of slurpuff (p1): facade: 46.5625 [43, 51]
+|chat|DEBUG|Best move of amoonguss (p2): sludgebomb: 203.5 [186, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Slowbro|Future Sight||[still]
+|-fail|p2a: Slowbro
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Slowbro
+|-damage|p2a: Slowbro|61297 tox
+|-heal|p2a: Slowbro|79297 tox|[from] item: Leftovers
+|-heal|p1a: Amoonguss|71100|[from] item: Black Sludge
+|-damage|p2a: Slowbro|43297 tox|[from] psn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slurpuff slowbro
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slurpuff" vs "amoonguss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>slurpuff-slowbro -- amoonguss-corviknight
+|chat|DEBUG|Own moves: facade playrough drainpunch bellydrum
+|chat|DEBUG|Enemy moves: gigadrain sludgebomb spore toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 161 vs 99
+|chat|DEBUG|HP: 330 vs 200
+|chat|DEBUG|Best move of slurpuff (p1): facade: 46.5625 [43, 51]
+|chat|DEBUG|Best move of amoonguss (p2): sludgebomb: 203.5 [186, 222]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Slowbro|Future Sight||[still]
+|-fail|p2a: Slowbro
+|move|p1a: Amoonguss|Sludge Bomb|p2a: Slowbro
+|-damage|p2a: Slowbro|0 fnt
+|faint|p2a: Slowbro
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Jeepocalypse<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dracozolt slurpuff trevenant slowbro lunala rotomwash</h1>

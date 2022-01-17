@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490023126<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490023126|init|battle
+|title|Askete vs. McGewitter
+|j|☆Askete
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Askete|unknown|1210
+|player|p2|McGewitter|265|1196
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Lanturn|Lanturn, L86, M|100100
+|switch|p2a: Conkeldurr|Conkeldurr, L80, F|299299
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn
+|chat|DEBUG|Own moves: drainpunch facade machpunch knockoff
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['glastrier', 'raichualola', 'urshifu']
+|chat|DEBUG|Counter: ['comfey', 'glastrier', 'raichualola', 'urshifu']
+|chat|DEBUG|Speed: 118 vs 164
+|chat|DEBUG|HP: 299 vs 355
+|chat|DEBUG|Created a new Strategy for conkeldurr vs lanturn:
+|chat|DEBUG|>[drainpunch: 129.5 [118, 141], drainpunch: 129.5 [118, 141], drainpunch: 129.5 [118, 141]]
+|chat|DEBUG|Best move of conkeldurr (p1): drainpunch: 129.5 [118, 141]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 108.625 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check glastrier
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Askete also wants the timer to be on.
+|switch|p2a: Glastrier|Glastrier, L82|298298
+|move|p1a: Lanturn|Toxic|p2a: Glastrier
+|-status|p2a: Glastrier|tox
+|-damage|p2a: Glastrier|280298 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "glastrier" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn
+|chat|DEBUG|Own moves: swordsdance closecombat highhorsepower iciclecrash
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['glastrier', 'raichualola', 'urshifu']
+|chat|DEBUG|Counter: ['comfey', 'glastrier', 'raichualola', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 96 vs 164
+|chat|DEBUG|HP: 280 vs 355
+|chat|DEBUG|Created a new Strategy for glastrier vs lanturn:
+|chat|DEBUG|>[highhorsepower: 230.5 [212, 250], highhorsepower: 230.5 [212, 250], highhorsepower: 230.5 [212, 250]]
+|chat|DEBUG|Best move of glastrier (p1): highhorsepower: 230.5 [212, 250]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 72.5625 [67, 79]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lanturn|Volt Switch|p2a: Glastrier
+|-damage|p2a: Glastrier|222298 tox
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres, L80|100100|[from]move: Volt Switch
+|move|p2a: Glastrier|Swords Dance|p2a: Glastrier
+|-boost|p2a: Glastrier|atk|2
+|-damage|p2a: Glastrier|186298 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "glastrier" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: swordsdance closecombat highhorsepower iciclecrash
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['wailord', 'raichualola']
+|chat|DEBUG|Counter: ['wailord', 'raichualola', 'urshifu']
+|chat|DEBUG|Speed: 96 vs 190
+|chat|DEBUG|HP: 186 vs 275
+|chat|DEBUG|Created a new Strategy for glastrier vs moltres:
+|chat|DEBUG|>[iciclecrash: 242.0 [222, 262], iciclecrash: 242.0 [222, 262], iciclecrash: 242.0 [222, 262]]
+|chat|DEBUG|Best move of glastrier (p1): iciclecrash: 242.0 [222, 262]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 225.625 [206, 246]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check wailord
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wailord|Wailord, L90, F|452452
+|-start|p1a: Moltres|Dynamax
+|-heal|p1a: Moltres|100100|[silent]
+|move|p1a: Moltres|Max Flare|p2a: Wailord
+|-resisted|p2a: Wailord
+|-damage|p2a: Wailord|338452
+|-weather|SunnyDay
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wailord" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: hypervoice icebeam hydropump waterspout
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['wailord', 'raichualola']
+|chat|DEBUG|Counter: ['wailord', 'raichualola', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 159 vs 190
+|chat|DEBUG|HP: 338 vs 275
+|chat|DEBUG|Created a new Strategy for wailord vs moltres:
+|chat|DEBUG|>[waterspout: 416.625 [384, 452], waterspout: 416.625 [384, 452], waterspout: 416.625 [384, 452]]
+|chat|DEBUG|Best move of wailord (p1): waterspout: 416.625 [384, 452]
+|chat|DEBUG|Best move of moltres (p2): airslash: 134.0 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Max Airstream|p2a: Wailord
+|-damage|p2a: Wailord|122452
+|-boost|p1a: Moltres|spe|1
+|move|p2a: Wailord|Water Spout|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|87100
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wailord" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: waterspout
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['raichualola']
+|chat|DEBUG|Counter: ['raichualola', 'urshifu']
+|chat|DEBUG|Speed: 159 vs 190
+|chat|DEBUG|HP: 122 vs 239
+|chat|DEBUG|Created a new Strategy for wailord vs moltres:
+|chat|DEBUG|>[waterspout: 150.625 [138, 164], waterspout: 150.625 [138, 164], waterspout: 150.625 [138, 164]]
+|chat|DEBUG|Best move of wailord (p1): waterspout: 150.625 [138, 164]
+|chat|DEBUG|Best move of moltres (p2): airslash: 134.0 [123, 145]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raichualola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raichu|Raichu-Alola, L84, M|238238
+|move|p1a: Moltres|Max Airstream|p2a: Raichu
+|-resisted|p2a: Raichu
+|-damage|p2a: Raichu|159238
+|-boost|p1a: Moltres|spe|1
+|-weather|SunnyDay|[upkeep]
+|-end|p1a: Moltres|Dynamax
+|-heal|p1a: Moltres|87100|[silent]
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: voltswitch focusblast grassknot thunderbolt
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['raichualola']
+|chat|DEBUG|Counter: ['raichualola', 'urshifu']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 233 vs 190
+|chat|DEBUG|HP: 159 vs 239
+|chat|DEBUG|Created a new Strategy for raichualola vs moltres:
+|chat|DEBUG|>[thunderbolt: 303.25 [278, 330], thunderbolt: 303.25 [278, 330], thunderbolt: 303.25 [278, 330]]
+|chat|DEBUG|Best move of raichualola (p1): thunderbolt: 303.25 [278, 330]
+|chat|DEBUG|Best move of moltres (p2): uturn: 139.625 [128, 152]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lanturn|Lanturn, L86, M|100100
+|move|p2a: Raichu|Thunderbolt|p1a: Lanturn
+|-immune|p1a: Lanturn|[from] ability: Volt Absorb
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['glastrier', 'urshifu']
+|chat|DEBUG|Counter: ['comfey', 'glastrier', 'raichualola', 'urshifu']
+|chat|DEBUG|Speed: 233 vs 164
+|chat|DEBUG|HP: 159 vs 355
+|chat|DEBUG|Created a new Strategy for raichualola vs lanturn:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of raichualola (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of lanturn (p2): scald: 76.75 [70, 84]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Raichu|Thunderbolt|p1a: Lanturn
+|-immune|p1a: Lanturn|[from] ability: Volt Absorb
+|move|p1a: Lanturn|Toxic|p2a: Raichu
+|-status|p2a: Raichu|tox
+|-weather|none
+|-damage|p2a: Raichu|145238 tox|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['glastrier', 'urshifu']
+|chat|DEBUG|Counter: ['comfey', 'glastrier', 'urshifu']
+|chat|DEBUG|Speed: 233 vs 164
+|chat|DEBUG|HP: 145 vs 355
+|chat|DEBUG|Created a new Strategy for raichualola vs lanturn:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of raichualola (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of lanturn (p2): scald: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check glastrier
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Glastrier|Glastrier, L82|186298 tox
+|move|p1a: Lanturn|Scald|p2a: Glastrier
+|-damage|p2a: Glastrier|120298 tox
+|-damage|p2a: Glastrier|102298 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "glastrier" vs "lanturn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: swordsdance closecombat highhorsepower iciclecrash
+|chat|DEBUG|Enemy moves: scald thunderbolt toxic voltswitch
+|chat|DEBUG|Checks: ['urshifu']
+|chat|DEBUG|Counter: ['comfey', 'urshifu']
+|chat|DEBUG|Speed: 96 vs 164
+|chat|DEBUG|HP: 102 vs 355
+|chat|DEBUG|Created a new Strategy for glastrier vs lanturn:
+|chat|DEBUG|>[highhorsepower: 230.5 [212, 250], highhorsepower: 230.5 [212, 250], highhorsepower: 230.5 [212, 250]]
+|chat|DEBUG|Best move of glastrier (p1): highhorsepower: 230.5 [212, 250]
+|chat|DEBUG|Best move of lanturn (p2): thunderbolt: 72.5625 [67, 79]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check urshifu
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres, L80|87100
+|switch|p2a: Urshifu|Urshifu, L76, F|277277
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: uturn wickedblow ironhead closecombat
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['raichualola']
+|chat|DEBUG|Counter: ['raichualola', 'urshifu']
+|chat|DEBUG|Speed: 191 vs 190
+|chat|DEBUG|HP: 277 vs 239
+|chat|DEBUG|Created a new Strategy for urshifu vs moltres:
+|chat|DEBUG|>[wickedblow: 204.5 [187, 222], wickedblow: 204.5 [187, 222], wickedblow: 204.5 [187, 222]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 204.5 [187, 222]
+|chat|DEBUG|Best move of moltres (p2): airslash: 259.0 [236, 282]
+|chat|DEBUG|Attacking using wickedblow
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Urshifu|Wicked Blow|p1a: Moltres
+|-crit|p1a: Moltres
+|-damage|p1a: Moltres|12100
+|move|p1a: Moltres|Air Slash|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|29277
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: wickedblow
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['comfey', 'raichualola']
+|chat|DEBUG|Counter: ['conkeldurr', 'comfey', 'raichualola', 'urshifu']
+|chat|DEBUG|Speed: 191 vs 190
+|chat|DEBUG|HP: 29 vs 33
+|chat|DEBUG|Created a new Strategy for urshifu vs moltres:
+|chat|DEBUG|>[wickedblow: 204.5 [187, 222], wickedblow: 204.5 [187, 222], wickedblow: 204.5 [187, 222]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 204.5 [187, 222]
+|chat|DEBUG|Best move of moltres (p2): airslash: 259.0 [236, 282]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|switch|p1a: Comfey|Comfey, L86, F|100100
+|move|p2a: Urshifu|Wicked Blow|p1a: Comfey
+|-resisted|p1a: Comfey
+|-crit|p1a: Comfey
+|-damage|p1a: Comfey|61100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: wickedblow
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: ['raichualola']
+|chat|DEBUG|Counter: ['raichualola']
+|chat|DEBUG|Speed: 191 vs 221
+|chat|DEBUG|HP: 29 vs 139
+|chat|DEBUG|Created a new Strategy for urshifu vs comfey:
+|chat|DEBUG|>[wickedblow: 95.6875 [88, 104], wickedblow: 95.6875 [88, 104], wickedblow: 95.6875 [88, 104]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 95.6875 [88, 104]
+|chat|DEBUG|Best move of comfey (p2): drainingkiss: 369.8125 [343, 406]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raichualola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|switch|p2a: Raichu|Raichu-Alola, L84, M|145238 tox
+|move|p1a: Comfey|Draining Kiss|p2a: Raichu
+|-damage|p2a: Raichu|77238 tox
+|-heal|p1a: Comfey|84100|[from] drain|[of] p2a: Raichu
+|-damage|p1a: Comfey|74100|[from] item: Life Orb
+|-damage|p2a: Raichu|63238 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier raichualola urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-raichualola-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: voltswitch focusblast grassknot thunderbolt
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 233 vs 221
+|chat|DEBUG|HP: 63 vs 168
+|chat|DEBUG|Created a new Strategy for raichualola vs comfey:
+|chat|DEBUG|>[thunderbolt: 115.625 [106, 126], thunderbolt: 115.625 [106, 126], thunderbolt: 115.625 [106, 126]]
+|chat|DEBUG|Best move of raichualola (p1): thunderbolt: 115.625 [106, 126]
+|chat|DEBUG|Best move of comfey (p2): gigadrain: 65.4375 [60, 71]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p1a: Comfey|Draining Kiss|p2a: Raichu
+|-damage|p2a: Raichu|0 fnt
+|-heal|p1a: Comfey|95100|[from] drain|[of] p2a: Raichu
+|faint|p2a: Raichu
+|-damage|p1a: Comfey|85100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Comfey|Comfey, L86, F|228228
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: comfey
+|chat|DEBUG|>Switching to comfey (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p2a: Comfey|Giga Drain|p1a: Comfey
+|-damage|p1a: Comfey|61100
+|-damage|p2a: Comfey|206228|[from] item: Life Orb
+|move|p1a: Comfey|Calm Mind|p1a: Comfey
+|-boost|p1a: Comfey|spa|1
+|-boost|p1a: Comfey|spd|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: storedpower calmmind drainingkiss gigadrain
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 221
+|chat|DEBUG|HP: 228 vs 193
+|chat|DEBUG|Created a new Strategy for comfey vs comfey:
+|chat|DEBUG|>[gigadrain: 53.5 [49, 58], gigadrain: 53.5 [49, 58], gigadrain: 53.5 [49, 58]]
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 53.5 [49, 58]
+|chat|DEBUG|Best move of comfey (p2): gigadrain: 53.5 [49, 58]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p2a: Comfey|Giga Drain|p1a: Comfey
+|-damage|p1a: Comfey|44100
+|-heal|p2a: Comfey|225228|[from] drain|[of] p1a: Comfey
+|-damage|p2a: Comfey|203228|[from] item: Life Orb
+|move|p1a: Comfey|Calm Mind|p1a: Comfey
+|-boost|p1a: Comfey|spa|1
+|-boost|p1a: Comfey|spd|1
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: storedpower calmmind drainingkiss gigadrain
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 221
+|chat|DEBUG|HP: 206 vs 139
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 53.5 [49, 58]
+|chat|DEBUG|Best move of comfey (p2): drainingkiss: 36.4375 [32, 40]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p2a: Comfey|Giga Drain|p1a: Comfey
+|-crit|p1a: Comfey
+|-damage|p1a: Comfey|8100
+|-heal|p2a: Comfey|228228|[from] drain|[of] p1a: Comfey
+|-damage|p2a: Comfey|206228|[from] item: Life Orb
+|move|p1a: Comfey|Calm Mind|p1a: Comfey
+|-boost|p1a: Comfey|spa|1
+|-boost|p1a: Comfey|spd|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: storedpower calmmind drainingkiss gigadrain
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 221
+|chat|DEBUG|HP: 203 vs 100
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 53.5 [49, 58]
+|chat|DEBUG|Best move of comfey (p2): drainingkiss: 27.625 [25, 31]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p1a: Comfey|Giga Drain|p2a: Comfey
+|-damage|p2a: Comfey|72228
+|-heal|p1a: Comfey|37100|[from] drain|[of] p2a: Comfey
+|-damage|p1a: Comfey|28100|[from] item: Life Orb
+|move|p2a: Comfey|Giga Drain|p1a: Comfey
+|-damage|p1a: Comfey|18100
+|-heal|p2a: Comfey|83228|[from] drain|[of] p1a: Comfey
+|-damage|p2a: Comfey|61228|[from] item: Life Orb
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: storedpower calmmind drainingkiss gigadrain
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 221
+|chat|DEBUG|HP: 206 vs 18
+|chat|DEBUG|Created a new Strategy for comfey vs comfey:
+|chat|DEBUG|>[gigadrain: 22.1875 [21, 25], gigadrain: 22.1875 [21, 25], gigadrain: 22.1875 [21, 25]]
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 22.1875 [21, 25]
+|chat|DEBUG|Best move of comfey (p2): gigadrain: 22.1875 [21, 25]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p1a: Comfey|Giga Drain|p2a: Comfey
+|-damage|p2a: Comfey|0 fnt
+|-heal|p1a: Comfey|32100|[from] drain|[of] p2a: Comfey
+|faint|p2a: Comfey
+|-damage|p1a: Comfey|22100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Conkeldurr|Conkeldurr, L80, F|299299
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord comfey glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-comfey-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: storedpower calmmind drainingkiss gigadrain
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 221
+|chat|DEBUG|HP: 61 vs 41
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 22.1875 [21, 25]
+|chat|DEBUG|Best move of comfey (p2): gigadrain: 22.1875 [21, 25]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Conkeldurr|Dynamax
+|-heal|p2a: Conkeldurr|598598|[silent]
+|move|p1a: Comfey|Giga Drain|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|407598
+|-heal|p1a: Comfey|65100|[from] drain|[of] p2a: Conkeldurr
+|-damage|p1a: Comfey|55100|[from] item: Life Orb
+|move|p2a: Conkeldurr|Max Strike|p1a: Comfey
+|-damage|p1a: Comfey|13100
+|-unboost|p1a: Comfey|spe|1
+|-status|p2a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: conkeldurr
+|chat|DEBUG|>Switching to conkeldurr (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Comfey|Giga Drain|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|187598 brn
+|-heal|p1a: Comfey|61100|[from] drain|[of] p2a: Conkeldurr
+|-damage|p1a: Comfey|52100|[from] item: Life Orb
+|move|p2a: Conkeldurr|Max Strike|p1a: Comfey
+|-damage|p1a: Comfey|0 fnt
+|faint|p1a: Comfey
+|-damage|p2a: Conkeldurr|169598 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|switch|p1a: Moltres|Moltres, L80|12100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: drainpunch facade machpunch knockoff
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 221
+|chat|DEBUG|HP: 299 vs 50
+|chat|DEBUG|Created a new Strategy for conkeldurr vs comfey:
+|chat|DEBUG|>[facade: 59.6875 [55, 65], facade: 59.6875 [55, 65], facade: 59.6875 [55, 65]]
+|chat|DEBUG|Best move of conkeldurr (p1): facade: 59.6875 [55, 65]
+|chat|DEBUG|Best move of comfey (p2): storedpower: 770.5 [707, 834]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|Air Slash|p2a: Conkeldurr
+|-supereffective|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|0 fnt
+|faint|p2a: Conkeldurr
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu, L76, F|29277
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "comfey"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-glastrier-urshifu -- lanturn-moltres-comfey
+|chat|DEBUG|Own moves: drainpunch facade machpunch knockoff
+|chat|DEBUG|Enemy moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 221
+|chat|DEBUG|HP: 407 vs 29
+|chat|DEBUG|Best move of conkeldurr (p1): facade: 59.6875 [55, 65]
+|chat|DEBUG|Best move of comfey (p2): storedpower: 770.5 [707, 834]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using facade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|move|p2a: Urshifu|Wicked Blow|p1a: Tapu Fini
+|-resisted|p1a: Tapu Fini
+|-crit|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|65100
+|-heal|p1a: Tapu Fini|71100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>conkeldurr wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>conkeldurr-wailord-glastrier-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: drainpunch facade machpunch knockoff
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu']
+|chat|DEBUG|Speed: 118 vs 190
+|chat|DEBUG|HP: 169 vs 33
+|chat|DEBUG|Created a new Strategy for conkeldurr vs moltres:
+|chat|DEBUG|>[knockoff: 87.5 [80, 95], knockoff: 87.5 [80, 95], knockoff: 87.5 [80, 95]]
+|chat|DEBUG|Best move of conkeldurr (p1): knockoff: 87.5 [80, 95]
+|chat|DEBUG|Best move of moltres (p2): airslash: 234.0 [216, 254]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|move|p2a: Urshifu|Wicked Blow|p1a: Tapu Fini
+|-resisted|p1a: Tapu Fini
+|-crit|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|36100
+|move|p1a: Tapu Fini|Moonblast|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|faint|p2a: Urshifu
+|-heal|p1a: Tapu Fini|42100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Glastrier|Glastrier, L82|102298 tox
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-glastrier-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to urshifu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 120 seconds left.
+|inactive|Askete has 90 seconds left.
+|move|p1a: Tapu Fini|Moonblast|p2a: Glastrier
+|-damage|p2a: Glastrier|26298 tox
+|move|p2a: Glastrier|High Horsepower|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|11100
+|-heal|p1a: Tapu Fini|17100|[from] item: Leftovers
+|-damage|p2a: Glastrier|8298 tox|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-glastrier-urshifu -- lanturn-moltres
+|chat|DEBUG|Own moves: uturn wickedblow ironhead closecombat
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu']
+|chat|DEBUG|Speed: 191 vs 190
+|chat|DEBUG|HP: 29 vs 33
+|chat|DEBUG|Created a new Strategy for urshifu vs moltres:
+|chat|DEBUG|>[wickedblow: 204.5 [187, 222], wickedblow: 204.5 [187, 222], wickedblow: 204.5 [187, 222]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 204.5 [187, 222]
+|chat|DEBUG|Best move of moltres (p2): airslash: 259.0 [236, 282]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Askete has 90 seconds left.
+|move|p1a: Tapu Fini|Moonblast|p2a: Glastrier
+|-damage|p2a: Glastrier|0 fnt
+|faint|p2a: Glastrier
+|-heal|p1a: Tapu Fini|23100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wailord|Wailord, L90, F|122452
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord glastrier urshifu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-glastrier-urshifu -- lanturn-moltres-tapufini
+|chat|DEBUG|Own moves: wickedblow
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 178
+|chat|DEBUG|HP: 29 vs 168
+|chat|DEBUG|Created a new Strategy for urshifu vs tapufini:
+|chat|DEBUG|>[wickedblow: 86.6875 [80, 94], wickedblow: 86.6875 [80, 94], wickedblow: 86.6875 [80, 94]]
+|chat|DEBUG|Best move of urshifu (p1): wickedblow: 86.6875 [80, 94]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 501.5 [460, 544]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using wickedblow
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Fini|Moonblast|p2a: Wailord
+|-damage|p2a: Wailord|0 fnt
+|faint|p2a: Wailord
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Askete<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">conkeldurr wailord comfey glastrier raichualola urshifu</h1>

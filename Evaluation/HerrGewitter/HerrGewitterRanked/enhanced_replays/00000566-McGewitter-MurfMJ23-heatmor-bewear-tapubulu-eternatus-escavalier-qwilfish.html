@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490898367<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490898367|init|battle
+|title|McGewitter vs. MurfMJ23
+|j|☆McGewitter
+|j|☆MurfMJ23
+|gametype|singles
+|player|p1|McGewitter|265|1263
+|player|p2|MurfMJ23|ghetsis-gen5bw|1258
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Heatmor|Heatmor, L90, M|299299
+|switch|p2a: Torkoal|Torkoal, L86, M|100100
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Torkoal
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier qwilfish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier-qwilfish -- torkoal
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu', 'qwilfish']
+|chat|DEBUG|Speed: 168 vs 84
+|chat|DEBUG|HP: 299 vs 261
+|chat|DEBUG|Created a new Strategy for heatmor vs torkoal:
+|chat|DEBUG|>[knockoff: 54.125 [50, 59], knockoff: 54.125 [50, 59], superpower: 67.0625 [62, 73]]
+|chat|DEBUG|Best move of heatmor (p1): knockoff: 54.125 [50, 59]
+|chat|DEBUG|Best move of torkoal (p2): earthquake: 154.5 [142, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Heatmor|Knock Off|p2a: Torkoal
+|-damage|p2a: Torkoal|80100
+|-enditem|p2a: Torkoal|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Heatmor
+|move|p2a: Torkoal|Stealth Rock|p1a: Heatmor
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier qwilfish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier-qwilfish -- torkoal
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['qwilfish']
+|chat|DEBUG|Counter: ['tapubulu', 'eternatus', 'qwilfish']
+|chat|DEBUG|Speed: 168 vs 84
+|chat|DEBUG|HP: 299 vs 208
+|chat|DEBUG|Best move of heatmor (p1): knockoff: 54.125 [50, 59]
+|chat|DEBUG|Best move of torkoal (p2): earthquake: 154.5 [142, 168]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check qwilfish
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Qwilfish|Qwilfish, L84, F|246246
+|-damage|p1a: Qwilfish|216246|[from] Stealth Rock
+|-ability|p1a: Qwilfish|Intimidate|boost
+|-unboost|p2a: Torkoal|atk|1
+|move|p2a: Torkoal|Earthquake|p1a: Qwilfish
+|-supereffective|p1a: Qwilfish
+|-damage|p1a: Qwilfish|128246
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Qwilfish|143246|[from] item: Black Sludge
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier qwilfish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "qwilfish" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier-qwilfish -- torkoal
+|chat|DEBUG|Own moves: toxicspikes waterfall taunt thunderwave
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['eternatus']
+|chat|DEBUG|Counter: ['tapubulu', 'eternatus', 'qwilfish']
+|chat|DEBUG|Speed: 191 vs 84
+|chat|DEBUG|HP: 143 vs 208
+|chat|DEBUG|Created a new Strategy for qwilfish vs torkoal:
+|chat|DEBUG|>[waterfall: 114.625 [104, 126], waterfall: 114.625 [104, 126], waterfall: 114.625 [104, 126]]
+|chat|DEBUG|Best move of qwilfish (p1): waterfall: 114.625 [104, 126]
+|chat|DEBUG|Best move of torkoal (p2): solarbeam: 111.4375 [102, 121]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, M|100100
+|move|p1a: Qwilfish|Toxic Spikes|p2a: Mr. Mime
+|-sidestart|p2: MurfMJ23|move: Toxic Spikes
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Qwilfish|158246|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier qwilfish
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "qwilfish" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier-qwilfish -- torkoal-mrmimegalar
+|chat|DEBUG|Own moves: toxicspikes waterfall taunt thunderwave
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['heatmor', 'escavalier']
+|chat|DEBUG|Counter: ['heatmor', 'tapubulu', 'escavalier']
+|chat|DEBUG|Speed: 191 vs 221
+|chat|DEBUG|HP: 158 vs 226
+|chat|DEBUG|Created a new Strategy for qwilfish vs mrmimegalar:
+|chat|DEBUG|>[waterfall: 68.75 [63, 75], waterfall: 68.75 [63, 75], waterfall: 68.75 [63, 75]]
+|chat|DEBUG|Best move of qwilfish (p1): waterfall: 68.75 [63, 75]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 262.0 [240, 284]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Psychic|p1a: Qwilfish
+|-supereffective|p1a: Qwilfish
+|-damage|p1a: Qwilfish|0 fnt
+|faint|p1a: Qwilfish
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heatmor|Heatmor, L90, M|299299
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "qwilfish" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- torkoal-mrmimegalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['heatmor', 'escavalier']
+|chat|DEBUG|Counter: ['heatmor', 'tapubulu', 'escavalier']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to heatmor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Torkoal|Torkoal, L86, M|80100
+|-status|p2a: Torkoal|psn
+|move|p1a: Heatmor|Fire Lash|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|59100 psn
+|-unboost|p2a: Torkoal|def|1
+|-weather|none
+|-damage|p2a: Torkoal|47100 psn|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- torkoal-mrmimegalar
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['heatmor', 'escavalier']
+|chat|DEBUG|Counter: ['heatmor', 'tapubulu', 'escavalier']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 168 vs 221
+|chat|DEBUG|HP: 299 vs 226
+|chat|DEBUG|Created a new Strategy for heatmor vs mrmimegalar:
+|chat|DEBUG|>[firelash: 239.5 [218, 260], firelash: 239.5 [218, 260], firelash: 239.5 [218, 260]]
+|chat|DEBUG|Best move of heatmor (p1): firelash: 239.5 [218, 260]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 108.625 [100, 118]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using firelash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatmor|Fire Lash|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|28100 psn
+|-unboost|p2a: Torkoal|def|1
+|move|p2a: Torkoal|Rapid Spin|p1a: Heatmor
+|-damage|p1a: Heatmor|260299
+|-boost|p2a: Torkoal|spe|1
+|-sideend|p2: MurfMJ23|Toxic Spikes|[from] move: Rapid Spin|[of] p2a: Torkoal
+|-damage|p2a: Torkoal|15100 psn|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- torkoal-mrmimegalar
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['bewear', 'tapubulu']
+|chat|DEBUG|Counter: ['heatmor', 'bewear', 'tapubulu', 'eternatus']
+|chat|DEBUG|Speed: 168 vs 84
+|chat|DEBUG|HP: 299 vs 122
+|chat|DEBUG|Created a new Strategy for heatmor vs torkoal:
+|chat|DEBUG|>[firelash: 74.1875 [68, 81], firelash: 74.1875 [68, 81], superpower: 99.375 [91, 108]]
+|chat|DEBUG|Best move of heatmor (p1): firelash: 74.1875 [68, 81]
+|chat|DEBUG|Best move of torkoal (p2): earthquake: 154.5 [142, 168]
+|chat|DEBUG|Attacking using firelash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heatmor|Fire Lash|p2a: Torkoal
+|-resisted|p2a: Torkoal
+|-damage|p2a: Torkoal|0 fnt
+|faint|p2a: Torkoal
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mantine|Mantine, L86, M|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- torkoal-mrmimegalar
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['heatmor', 'bewear', 'tapubulu', 'eternatus']
+|chat|DEBUG|Counter: ['heatmor', 'bewear', 'tapubulu', 'eternatus']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 168 vs 84
+|chat|DEBUG|HP: 260 vs 39
+|chat|DEBUG|Best move of heatmor (p1): firelash: 74.1875 [68, 81]
+|chat|DEBUG|Best move of torkoal (p2): earthquake: 154.5 [142, 168]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Heatmor
+|-supereffective|p1a: Heatmor
+|-damage|p1a: Heatmor|96299
+|move|p1a: Heatmor|Knock Off|p2a: Mantine
+|-damage|p2a: Mantine|71100
+|-enditem|p2a: Mantine|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Heatmor
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['escavalier']
+|chat|DEBUG|Speed: 168 vs 170
+|chat|DEBUG|HP: 260 vs 286
+|chat|DEBUG|Created a new Strategy for heatmor vs mantine:
+|chat|DEBUG|>[knockoff: 92.5 [85, 100], knockoff: 92.5 [85, 100], knockoff: 92.5 [85, 100]]
+|chat|DEBUG|Best move of heatmor (p1): knockoff: 92.5 [85, 100]
+|chat|DEBUG|Best move of mantine (p2): scald: 178.375 [164, 194]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Escavalier|Escavalier, L84, F|255255
+|-damage|p1a: Escavalier|224255|[from] Stealth Rock
+|move|p2a: Mantine|Scald|p1a: Escavalier
+|-crit|p1a: Escavalier
+|-damage|p1a: Escavalier|115255
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['escavalier']
+|chat|DEBUG|Counter: ['eternatus', 'escavalier']
+|chat|DEBUG|Speed: 168 vs 170
+|chat|DEBUG|HP: 96 vs 203
+|chat|DEBUG|Best move of heatmor (p1): knockoff: 92.5 [85, 100]
+|chat|DEBUG|Best move of mantine (p2): scald: 178.375 [164, 194]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check escavalier
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Escavalier
+|-damage|p1a: Escavalier|51255
+|-status|p1a: Escavalier|brn
+|move|p1a: Escavalier|Megahorn|p2a: Mantine
+|-resisted|p2a: Mantine
+|-damage|p2a: Mantine|35100
+|-damage|p1a: Escavalier|36255 brn|[from] brn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "escavalier" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: closecombat drillrun ironhead megahorn
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eternatus']
+|chat|DEBUG|Speed: 82 vs 170
+|chat|DEBUG|HP: 115 vs 203
+|chat|DEBUG|Created a new Strategy for escavalier vs mantine:
+|chat|DEBUG|>[megahorn: 141.5 [130, 153], megahorn: 141.5 [130, 153], megahorn: 141.5 [130, 153]]
+|chat|DEBUG|Best move of escavalier (p1): megahorn: 141.5 [130, 153]
+|chat|DEBUG|Best move of mantine (p2): scald: 67.25 [61, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Eternatus|Eternatus, L69|308308
+|-damage|p1a: Eternatus|270308|[from] Stealth Rock
+|-ability|p1a: Eternatus|Pressure
+|move|p2a: Mantine|Roost|p2a: Mantine
+|-heal|p2a: Mantine|85100
+|-singleturn|p2a: Mantine|move: Roost
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "escavalier" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: megahorn
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['eternatus']
+|chat|DEBUG|Counter: ['eternatus']
+|chat|DEBUG|Speed: 82 vs 170
+|chat|DEBUG|HP: 36 vs 100
+|chat|DEBUG|Created a new Strategy for escavalier vs mantine:
+|chat|DEBUG|>[megahorn: 212.3125 [195, 230], megahorn: 212.3125 [195, 230], megahorn: 212.3125 [195, 230]]
+|chat|DEBUG|Best move of escavalier (p1): megahorn: 212.3125 [195, 230]
+|chat|DEBUG|Best move of mantine (p2): scald: 67.25 [61, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check eternatus
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Mantine
+|-damage|p2a: Mantine|61100
+|move|p2a: Mantine|Scald|p1a: Eternatus
+|-resisted|p1a: Eternatus
+|-damage|p1a: Eternatus|224308
+|-status|p1a: Eternatus|brn
+|-damage|p1a: Eternatus|205308 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: flamethrower sludgewave recover dynamaxcannon
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 220 vs 170
+|chat|DEBUG|HP: 270 vs 243
+|chat|DEBUG|Created a new Strategy for eternatus vs mantine:
+|chat|DEBUG|>[dynamaxcannon: 68.75 [63, 75], dynamaxcannon: 68.75 [63, 75], dynamaxcannon: 68.75 [63, 75]]
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 68.75 [63, 75]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 121.1875 [111, 132]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dynamaxcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Mantine
+|-damage|p2a: Mantine|32100
+|move|p2a: Mantine|Scald|p1a: Eternatus
+|-resisted|p1a: Eternatus
+|-damage|p1a: Eternatus|158308 brn
+|-damage|p1a: Eternatus|139308 brn|[from] brn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: flamethrower sludgewave recover dynamaxcannon
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 220 vs 170
+|chat|DEBUG|HP: 205 vs 174
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 68.75 [63, 75]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 121.1875 [111, 132]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dynamaxcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Eternatus|Dynamax Cannon|p2a: Mantine
+|-damage|p2a: Mantine|0 fnt
+|faint|p2a: Mantine
+|-damage|p1a: Eternatus|120308 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime-Galar, L86, M|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar-mantine
+|chat|DEBUG|Own moves: flamethrower sludgewave recover dynamaxcannon
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eternatus']
+|chat|DEBUG|Speed: 220 vs 170
+|chat|DEBUG|HP: 139 vs 91
+|chat|DEBUG|Best move of eternatus (p1): dynamaxcannon: 68.75 [63, 75]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 121.1875 [111, 132]
+|chat|DEBUG|Attacking using dynamaxcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Freeze-Dry|p1a: Eternatus
+|-supereffective|p1a: Eternatus
+|-damage|p1a: Eternatus|0 fnt
+|faint|p1a: Eternatus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|249249
+|-damage|p1a: Tapu Bulu|218249|[from] Stealth Rock
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Tapu Bulu
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu eternatus escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-eternatus-escavalier -- mrmimegalar
+|chat|DEBUG|Own moves: flamethrower sludgewave recover dynamaxcannon
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|Speed: 220 vs 221
+|chat|DEBUG|HP: 120 vs 226
+|chat|DEBUG|Created a new Strategy for eternatus vs mrmimegalar:
+|chat|DEBUG|>[flamethrower: 76.75 [70, 84], flamethrower: 76.75 [70, 84], flamethrower: 76.75 [70, 84]]
+|chat|DEBUG|Best move of eternatus (p1): flamethrower: 76.75 [70, 84]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 217.25 [200, 236]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flamethrower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Freeze-Dry|p1a: Tapu Bulu
+|-supereffective|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|80249
+|move|p1a: Tapu Bulu|Megahorn|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|-heal|p1a: Tapu Bulu|95249|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Suicune|Suicune, L80|100100
+|-ability|p2a: Suicune|Pressure
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eternatus" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-escavalier -- mrmimegalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tapubulu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Suicune|Ice Beam|p1a: Tapu Bulu
+|-supereffective|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|0 fnt
+|faint|p1a: Tapu Bulu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heatmor|Heatmor, L90, M|96299
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-escavalier -- mrmimegalar
+|chat|DEBUG|Own moves: woodhammer hornleech stoneedge megahorn
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu']
+|chat|DEBUG|Speed: 170 vs 221
+|chat|DEBUG|HP: 218 vs 226
+|chat|DEBUG|Created a new Strategy for tapubulu vs mrmimegalar:
+|chat|DEBUG|>[megahorn: 246.75 [226, 268], megahorn: 246.75 [226, 268], megahorn: 246.75 [226, 268]]
+|chat|DEBUG|Best move of tapubulu (p1): megahorn: 246.75 [226, 268]
+|chat|DEBUG|Best move of mrmimegalar (p2): freezedry: 142.25 [132, 156]
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Suicune|Scald|p1a: Heatmor
+|-supereffective|p1a: Heatmor
+|-damage|p1a: Heatmor|0 fnt
+|faint|p1a: Heatmor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Bewear|Bewear, L82, F|331331
+|-damage|p1a: Bewear|311331|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear tapubulu escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "suicune"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-tapubulu-escavalier -- suicune
+|chat|DEBUG|Own moves: megahorn
+|chat|DEBUG|Enemy moves: airslash calmmind icebeam scald
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 182
+|chat|DEBUG|HP: 95 vs 291
+|chat|DEBUG|Created a new Strategy for tapubulu vs suicune:
+|chat|DEBUG|>[megahorn: 129.125 [119, 140], megahorn: 129.125 [119, 140], megahorn: 129.125 [119, 140]]
+|chat|DEBUG|Best move of tapubulu (p1): megahorn: 129.125 [119, 140]
+|chat|DEBUG|Best move of suicune (p2): icebeam: 108.25 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using megahorn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Bewear|Close Combat|p2a: Suicune
+|-damage|p2a: Suicune|59100
+|-unboost|p1a: Bewear|def|1
+|-unboost|p1a: Bewear|spd|1
+|move|p2a: Suicune|Air Slash|p1a: Bewear
+|-supereffective|p1a: Bewear
+|-damage|p1a: Bewear|137331
+|-heal|p1a: Bewear|157331|[from] Grassy Terrain
+|-heal|p2a: Suicune|65100|[from] Grassy Terrain
+|-heal|p2a: Suicune|71100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "suicune"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-escavalier -- suicune
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash calmmind icebeam scald
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: heatmor
+|chat|DEBUG|>Switching to heatmor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Bewear|Close Combat|p2a: Suicune
+|-damage|p2a: Suicune|27100
+|-unboost|p1a: Bewear|def|1
+|-unboost|p1a: Bewear|spd|1
+|move|p2a: Suicune|Air Slash|p1a: Bewear
+|-supereffective|p1a: Bewear
+|-damage|p1a: Bewear|0 fnt
+|faint|p1a: Bewear
+|-heal|p2a: Suicune|33100|[from] Grassy Terrain
+|-heal|p2a: Suicune|39100|[from] item: Leftovers
+|-fieldend|move: Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Escavalier|Escavalier, L84, F|36255 brn
+|-damage|p1a: Escavalier|5255 brn|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heatmor bewear escavalier
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatmor" vs "suicune"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heatmor-bewear-escavalier -- suicune
+|chat|DEBUG|Own moves: knockoff gigadrain firelash superpower
+|chat|DEBUG|Enemy moves: airslash calmmind icebeam scald
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 168 vs 182
+|chat|DEBUG|HP: 96 vs 291
+|chat|DEBUG|Created a new Strategy for heatmor vs suicune:
+|chat|DEBUG|>[gigadrain: 111.875 [102, 122], gigadrain: 111.875 [102, 122], gigadrain: 111.875 [102, 122]]
+|chat|DEBUG|Best move of heatmor (p1): gigadrain: 111.875 [102, 122]
+|chat|DEBUG|Best move of suicune (p2): scald: 170.125 [156, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Suicune|Scald|p1a: Escavalier
+|-damage|p1a: Escavalier|0 fnt
+|faint|p1a: Escavalier
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>MurfMJ23</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">heatmor bewear tapubulu eternatus escavalier qwilfish</h1>

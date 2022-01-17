@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490226214<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490226214|init|battle
+|title|MastermindHuntR vs. McGewitter
+|j|☆MastermindHuntR
+|j|☆McGewitter
+|gametype|singles
+|player|p1|MastermindHuntR|266|1092
+|player|p2|McGewitter|265|1124
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Pinsir|Pinsir, L84, M|100100
+|switch|p2a: Corsola|Corsola, L93, M|272272
+|-ability|p1a: Pinsir|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola palossand silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsola" vs "pinsir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-palossand-silvallyrock-dragalge-conkeldurr-zeraora -- pinsir
+|chat|DEBUG|Own moves: recover scald powergem toxic
+|chat|DEBUG|Enemy moves: knockoff stealthrock stoneedge xscissor
+|chat|DEBUG|Checks: ['corsola', 'silvallyrock', 'dragalge', 'conkeldurr', 'zeraora']
+|chat|DEBUG|Counter: ['corsola', 'silvallyrock', 'dragalge', 'conkeldurr', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 191
+|chat|DEBUG|HP: 272 vs 246
+|chat|DEBUG|Created a new Strategy for corsola vs pinsir:
+|chat|DEBUG|>[powergem: 183.75 [168, 200], powergem: 183.75 [168, 200], powergem: 183.75 [168, 200]]
+|chat|DEBUG|Best move of corsola (p1): powergem: 183.75 [168, 200]
+|chat|DEBUG|Best move of pinsir (p2): xscissor: 87.9375 [81, 96]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using powergem
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Pinsir|X-Scissor|p2a: Corsola
+|-damage|p2a: Corsola|191272
+|-damage|p1a: Pinsir|84100|[from] item: Rocky Helmet|[of] p2a: Corsola
+|move|p2a: Corsola|Power Gem|p1a: Pinsir
+|-supereffective|p1a: Pinsir
+|-damage|p1a: Pinsir|12100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola palossand silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsola" vs "pinsir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-palossand-silvallyrock-dragalge-conkeldurr-zeraora -- pinsir
+|chat|DEBUG|Own moves: recover scald powergem toxic
+|chat|DEBUG|Enemy moves: knockoff stealthrock stoneedge xscissor
+|chat|DEBUG|Checks: ['corsola', 'palossand', 'silvallyrock', 'dragalge', 'conkeldurr', 'zeraora']
+|chat|DEBUG|Counter: ['corsola', 'palossand', 'silvallyrock', 'dragalge', 'conkeldurr', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 191
+|chat|DEBUG|HP: 191 vs 29
+|chat|DEBUG|Best move of corsola (p1): powergem: 183.75 [168, 200]
+|chat|DEBUG|Best move of pinsir (p2): xscissor: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pinsir|Earthquake|p2a: Corsola
+|-supereffective|p2a: Corsola
+|-damage|p2a: Corsola|55272
+|move|p2a: Corsola|Power Gem|p1a: Pinsir
+|-supereffective|p1a: Pinsir
+|-damage|p1a: Pinsir|0 fnt
+|faint|p1a: Pinsir
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Buzzwole|Buzzwole, L77|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola palossand silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsola" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-palossand-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: recover scald powergem toxic
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['palossand']
+|chat|DEBUG|Counter: ['palossand', 'dragalge']
+|chat|DEBUG|Speed: 118 vs 166
+|chat|DEBUG|HP: 55 vs 291
+|chat|DEBUG|Created a new Strategy for corsola vs buzzwole:
+|chat|DEBUG|>[powergem: 121.1875 [111, 132], powergem: 121.1875 [111, 132], powergem: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of corsola (p1): powergem: 121.1875 [111, 132]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 361.375 [332, 392]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check palossand
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Palossand|Palossand, L86, M|286286
+|move|p1a: Buzzwole|Dual Wingbeat|p2a: Palossand|[miss]
+|-miss|p1a: Buzzwole|p2a: Palossand
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola palossand silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-palossand-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: earthpower toxic shoreup shadowball
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['palossand']
+|chat|DEBUG|Counter: ['palossand', 'dragalge']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 109 vs 166
+|chat|DEBUG|HP: 286 vs 291
+|chat|DEBUG|Created a new Strategy for palossand vs buzzwole:
+|chat|DEBUG|>[shadowball: 141.5625 [130, 154], shadowball: 141.5625 [130, 154], shadowball: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of palossand (p1): shadowball: 141.5625 [130, 154]
+|chat|DEBUG|Best move of buzzwole (p2): leechlife: 58.25 [54, 63]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Metagross|Metagross, L79|100100
+|move|p2a: Palossand|Shadow Ball|p1a: Metagross
+|-supereffective|p1a: Metagross
+|-damage|p1a: Metagross|28100
+|-enditem|p1a: Metagross|Weakness Policy
+|-boost|p1a: Metagross|atk|2|[from] item: Weakness Policy
+|-boost|p1a: Metagross|spa|2|[from] item: Weakness Policy
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola palossand silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "metagross"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-palossand-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole-metagross
+|chat|DEBUG|Own moves: earthpower toxic shoreup shadowball
+|chat|DEBUG|Enemy moves: agility earthquake meteormash thunderpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['palossand', 'conkeldurr', 'zeraora']
+|chat|DEBUG|Speed: 109 vs 156
+|chat|DEBUG|HP: 286 vs 71
+|chat|DEBUG|Created a new Strategy for palossand vs metagross:
+|chat|DEBUG|>[earthpower: 214.625 [198, 234], earthpower: 214.625 [198, 234], earthpower: 214.625 [198, 234]]
+|chat|DEBUG|Best move of palossand (p1): earthpower: 214.625 [198, 234]
+|chat|DEBUG|Best move of metagross (p2): meteormash: 180.6875 [166, 196]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Metagross|Meteor Mash|p2a: Palossand
+|-damage|p2a: Palossand|120286
+|move|p2a: Palossand|Earth Power|p1a: Metagross
+|-supereffective|p1a: Metagross
+|-damage|p1a: Metagross|0 fnt
+|faint|p1a: Metagross
+|-heal|p2a: Palossand|137286|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Buzzwole|Buzzwole, L77|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola palossand silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-palossand-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: earthpower toxic shoreup shadowball
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragalge']
+|chat|DEBUG|Speed: 109 vs 166
+|chat|DEBUG|HP: 137 vs 291
+|chat|DEBUG|Created a new Strategy for palossand vs buzzwole:
+|chat|DEBUG|>[shadowball: 141.5625 [130, 154], shadowball: 141.5625 [130, 154], shadowball: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of palossand (p1): shadowball: 141.5625 [130, 154]
+|chat|DEBUG|Best move of buzzwole (p2): leechlife: 58.25 [54, 63]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Darkest Lariat|p2a: Palossand
+|-supereffective|p2a: Palossand
+|-damage|p2a: Palossand|0 fnt
+|faint|p2a: Palossand
+|-ability|p1a: Buzzwole|Beast Boost|boost
+|-boost|p1a: Buzzwole|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dragalge|Dragalge, L86, M|252252
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "palossand" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragalge']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dragalge (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Darkest Lariat|p2a: Dragalge
+|-damage|p2a: Dragalge|105252
+|move|p2a: Dragalge|Toxic Spikes|p1a: Buzzwole
+|-sidestart|p1: MastermindHuntR|move: Toxic Spikes
+|-heal|p2a: Dragalge|120252|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: dracometeor toxicspikes focusblast sludgewave
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 125 vs 166
+|chat|DEBUG|HP: 252 vs 291
+|chat|DEBUG|Created a new Strategy for dragalge vs buzzwole:
+|chat|DEBUG|>[sludgewave: 219.25 [202, 238], sludgewave: 219.25 [202, 238], dracometeor: 298.75 [274, 324]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 219.25 [202, 238]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 152.5625 [140, 165]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Darkest Lariat|p2a: Dragalge
+|-damage|p2a: Dragalge|0 fnt
+|faint|p2a: Dragalge
+|-ability|p1a: Buzzwole|Beast Boost|boost
+|-boost|p1a: Buzzwole|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Conkeldurr|Conkeldurr, L80, M|299299
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock dragalge conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-dragalge-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: dracometeor toxicspikes focusblast sludgewave
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 125 vs 166
+|chat|DEBUG|HP: 120 vs 291
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 219.25 [202, 238]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 152.5625 [140, 165]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Buzzwole|Dynamax
+|-heal|p1a: Buzzwole|100100|[silent]
+|move|p1a: Buzzwole|Max Knuckle|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|65299
+|-boost|p1a: Buzzwole|atk|1
+|move|p2a: Conkeldurr|Close Combat|p1a: Buzzwole
+|-resisted|p1a: Buzzwole
+|-damage|p1a: Buzzwole|90100
+|-unboost|p2a: Conkeldurr|def|1
+|-unboost|p2a: Conkeldurr|spd|1
+|-status|p2a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: conkeldurr
+|chat|DEBUG|>Switching to conkeldurr (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Max Knuckle|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|0 fnt
+|-boost|p1a: Buzzwole|atk|1
+|faint|p2a: Conkeldurr
+|-ability|p1a: Buzzwole|Beast Boost|boost
+|-boost|p1a: Buzzwole|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Silvally|Silvally-Rock, L84|297297
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: closecombat knockoff machpunch facade
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 166
+|chat|DEBUG|HP: 299 vs 291
+|chat|DEBUG|Created a new Strategy for conkeldurr vs buzzwole:
+|chat|DEBUG|>[closecombat: 59.625 [54, 65], closecombat: 59.625 [54, 65], closecombat: 59.625 [54, 65]]
+|chat|DEBUG|Best move of conkeldurr (p1): closecombat: 59.625 [54, 65]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 419.0625 [385, 454]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Silvally|Multi-Attack|p1a: Buzzwole
+|-damage|p1a: Buzzwole|74100
+|move|p1a: Buzzwole|Max Darkness|p2a: Silvally
+|-damage|p2a: Silvally|0 fnt
+|faint|p2a: Silvally
+|-ability|p1a: Buzzwole|Beast Boost|boost
+|-boost|p1a: Buzzwole|atk|1
+|-end|p1a: Buzzwole|Dynamax
+|-heal|p1a: Buzzwole|74100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Corsola|Corsola, L93, M|145272
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock conkeldurr zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-conkeldurr-zeraora -- buzzwole
+|chat|DEBUG|Own moves: closecombat knockoff machpunch facade
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 118 vs 166
+|chat|DEBUG|HP: 65 vs 261
+|chat|DEBUG|Best move of conkeldurr (p1): closecombat: 59.625 [54, 65]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 784.5625 [721, 849]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Buzzwole|Darkest Lariat|p2a: Corsola
+|-damage|p2a: Corsola|0 fnt
+|-damage|p1a: Buzzwole|58100|[from] item: Rocky Helmet|[of] p2a: Corsola
+|faint|p2a: Corsola
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|259259
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "conkeldurr" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-zeraora -- buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: silvallyrock
+|chat|DEBUG|>Switching to silvallyrock (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Zeraora|Dynamax
+|-heal|p2a: Zeraora|518518|[silent]
+|move|p2a: Zeraora|Max Flare|p1a: Buzzwole
+|-supereffective|p1a: Buzzwole
+|-damage|p1a: Buzzwole|15100
+|-weather|SunnyDay
+|move|p1a: Buzzwole|Darkest Lariat|p2a: Zeraora
+|-damage|p2a: Zeraora|24518
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola silvallyrock zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyrock" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-silvallyrock-zeraora -- buzzwole
+|chat|DEBUG|Own moves: partingshot multiattack psychicfangs swordsdance
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 208 vs 166
+|chat|DEBUG|HP: 297 vs 261
+|chat|DEBUG|Created a new Strategy for silvallyrock vs buzzwole:
+|chat|DEBUG|>[multiattack: 94.875 [87, 103], multiattack: 94.875 [87, 103], multiattack: 94.875 [87, 103]]
+|chat|DEBUG|Best move of silvallyrock (p1): multiattack: 94.875 [87, 103]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 1393.125 [1280, 1508]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using multiattack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Max Flare|p1a: Buzzwole
+|-supereffective|p1a: Buzzwole
+|-damage|p1a: Buzzwole|0 fnt
+|faint|p1a: Buzzwole
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jolteon|Jolteon, L82, M|100100
+|-status|p1a: Jolteon|psn
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsola zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyrock" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsola-zeraora -- buzzwole
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: corsola
+|chat|DEBUG|>Switching to corsola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Max Knuckle|p1a: Jolteon
+|-damage|p1a: Jolteon|63100 psn
+|-boost|p2a: Zeraora|atk|1
+|move|p1a: Jolteon|Shadow Ball|p2a: Zeraora
+|-damage|p2a: Zeraora|0 fnt
+|faint|p2a: Zeraora
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>MastermindHuntR<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">corsola palossand silvallyrock dragalge conkeldurr zeraora</h1>

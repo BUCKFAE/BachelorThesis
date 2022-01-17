@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490655074</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490655074<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Llkieowek</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490655074|init|battle
+|title|Llkieowek vs. McGewitter
+|j|☆Llkieowek
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Llkieowek|102|1287
+|player|p2|McGewitter|265|1241
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Ninetales|Ninetales-Alola, L79, F|100/100
+|switch|p2a: Rapidash|Rapidash-Galar, L84, F|246/246
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Ninetales
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Llkieowek also wants the timer to be on.
+|move|p2a: Rapidash|Play Rough|p1a: Ninetales
+|-damage|p1a: Ninetales|55/100
+|move|p1a: Ninetales|Aurora Veil|p1a: Ninetales
+|-sidestart|p1: Llkieowek|move: Aurora Veil
+|-weather|Hail|[upkeep]
+|-damage|p2a: Rapidash|231/246|[from] Hail
+|-heal|p2a: Rapidash|246/246|[from] item: Leftovers
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rapidash|Play Rough|p1a: Ninetales
+|-crit|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|faint|p1a: Ninetales
+|-weather|Hail|[upkeep]
+|-damage|p2a: Rapidash|231/246|[from] Hail
+|-heal|p2a: Rapidash|246/246|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jirachi|Jirachi, L79|100/100
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garchomp|Garchomp, L74, M|282/282
+|move|p1a: Jirachi|Iron Head|p2a: Garchomp
+|-crit|p2a: Garchomp
+|-damage|p2a: Garchomp|152/282
+|-damage|p1a: Jirachi|88/100|[from] ability: Rough Skin|[of] p2a: Garchomp
+|-weather|Hail|[upkeep]
+|-damage|p1a: Jirachi|82/100|[from] Hail
+|-damage|p2a: Garchomp|135/282|[from] Hail
+|-heal|p1a: Jirachi|88/100|[from] item: Leftovers
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Landorus|Landorus, L76, M|260/260
+|move|p1a: Jirachi|Iron Head|p2a: Landorus
+|-damage|p2a: Landorus|181/260
+|-weather|Hail|[upkeep]
+|-damage|p1a: Jirachi|82/100|[from] Hail
+|-damage|p2a: Landorus|165/260|[from] Hail
+|-heal|p1a: Jirachi|88/100|[from] item: Leftovers
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Landorus
+|-damage|p2a: Landorus|81/260
+|move|p2a: Landorus|Earth Power|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|33/100
+|-weather|none
+|-heal|p1a: Jirachi|40/100|[from] item: Leftovers
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Landorus
+|-damage|p2a: Landorus|0 fnt
+|faint|p2a: Landorus
+|-heal|p1a: Jirachi|46/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyrantrum|Tyrantrum, L82, M|269/269
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Tyrantrum
+|-supereffective|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|149/269
+|move|p2a: Tyrantrum|Close Combat|p1a: Jirachi
+|-damage|p1a: Jirachi|26/100
+|-unboost|p2a: Tyrantrum|def|1
+|-unboost|p2a: Tyrantrum|spd|1
+|-damage|p2a: Tyrantrum|123/269|[from] item: Life Orb
+|-heal|p1a: Jirachi|32/100|[from] item: Leftovers
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Tyrantrum
+|-supereffective|p2a: Tyrantrum
+|-damage|p2a: Tyrantrum|0 fnt
+|faint|p2a: Tyrantrum
+|-heal|p1a: Jirachi|38/100|[from] item: Leftovers
+|-sideend|p1: Llkieowek|move: Aurora Veil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garchomp|Garchomp, L74, M|135/282
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Garchomp
+|-damage|p2a: Garchomp|47/282
+|-damage|p1a: Jirachi|26/100|[from] ability: Rough Skin|[of] p2a: Garchomp
+|cant|p2a: Garchomp|flinch
+|-heal|p1a: Jirachi|32/100|[from] item: Leftovers
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Iron Head|p2a: Garchomp
+|-damage|p2a: Garchomp|0 fnt
+|-damage|p1a: Jirachi|20/100|[from] ability: Rough Skin|[of] p2a: Garchomp
+|faint|p2a: Garchomp
+|-heal|p1a: Jirachi|26/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Solgaleo|Solgaleo, L72|316/316
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jirachi|Fire Punch|p2a: Solgaleo
+|-supereffective|p2a: Solgaleo
+|-damage|p2a: Solgaleo|216/316
+|move|p2a: Solgaleo|Flare Blitz|p1a: Jirachi
+|-supereffective|p1a: Jirachi
+|-damage|p1a: Jirachi|0 fnt
+|faint|p1a: Jirachi
+|-damage|p2a: Solgaleo|192/316|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cresselia|Cresselia, L80, F|100/100
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Thunder Wave|p2a: Solgaleo|[miss]
+|-miss|p1a: Cresselia|p2a: Solgaleo
+|move|p2a: Solgaleo|Flare Blitz|p1a: Cresselia
+|-damage|p1a: Cresselia|69/100
+|-damage|p2a: Solgaleo|159/316|[from] Recoil
+|-heal|p1a: Cresselia|75/100|[from] item: Leftovers
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Solgaleo|Flare Blitz|p1a: Cresselia
+|-damage|p1a: Cresselia|46/100
+|-damage|p2a: Solgaleo|127/316|[from] Recoil
+|move|p1a: Cresselia|Thunder Wave|p2a: Solgaleo
+|-status|p2a: Solgaleo|par
+|-heal|p1a: Cresselia|52/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Solgaleo
+|-resisted|p2a: Solgaleo
+|-damage|p2a: Solgaleo|100/316 par
+|move|p2a: Solgaleo|Flare Blitz|p1a: Cresselia
+|-damage|p1a: Cresselia|21/100
+|-damage|p2a: Solgaleo|67/316 par|[from] Recoil
+|-heal|p1a: Cresselia|27/100|[from] item: Leftovers
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonlight|p1a: Cresselia
+|-heal|p1a: Cresselia|77/100
+|cant|p2a: Solgaleo|par
+|-heal|p1a: Cresselia|83/100|[from] item: Leftovers
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Psyshock|p2a: Solgaleo
+|-resisted|p2a: Solgaleo
+|-damage|p2a: Solgaleo|52/316 par
+|move|p2a: Solgaleo|Flare Blitz|p1a: Cresselia
+|-damage|p1a: Cresselia|50/100
+|-status|p1a: Cresselia|brn
+|-damage|p2a: Solgaleo|17/316 par|[from] Recoil
+|-heal|p1a: Cresselia|57/100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|50/100 brn|[from] brn
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rapidash|Rapidash-Galar, L84, F|246/246
+|move|p1a: Cresselia|Moonblast|p2a: Rapidash
+|-damage|p2a: Rapidash|187/246
+|-heal|p2a: Rapidash|202/246|[from] item: Leftovers
+|-heal|p1a: Cresselia|57/100 brn|[from] item: Leftovers
+|-damage|p1a: Cresselia|50/100 brn|[from] brn
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Rapidash|Swords Dance|p2a: Rapidash
+|-boost|p2a: Rapidash|atk|2
+|move|p1a: Cresselia|Thunder Wave|p2a: Rapidash
+|-status|p2a: Rapidash|par
+|-heal|p1a: Cresselia|57/100 brn|[from] item: Leftovers
+|-heal|p2a: Rapidash|217/246 par|[from] item: Leftovers
+|-damage|p1a: Cresselia|50/100 brn|[from] brn
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonlight|p1a: Cresselia
+|-heal|p1a: Cresselia|99/100 brn
+|move|p2a: Rapidash|Play Rough|p1a: Cresselia
+|-damage|p1a: Cresselia|52/100 brn
+|-heal|p1a: Cresselia|58/100 brn|[from] item: Leftovers
+|-heal|p2a: Rapidash|232/246 par|[from] item: Leftovers
+|-damage|p1a: Cresselia|52/100 brn|[from] brn
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonlight|p1a: Cresselia
+|-heal|p1a: Cresselia|100/100 brn
+|move|p2a: Rapidash|Play Rough|p1a: Cresselia|[miss]
+|-miss|p2a: Rapidash|p1a: Cresselia
+|-heal|p2a: Rapidash|246/246 par|[from] item: Leftovers
+|-damage|p1a: Cresselia|94/100 brn|[from] brn
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Rapidash
+|-damage|p2a: Rapidash|195/246 par
+|cant|p2a: Rapidash|par
+|-heal|p1a: Cresselia|100/100 brn|[from] item: Leftovers
+|-heal|p2a: Rapidash|210/246 par|[from] item: Leftovers
+|-damage|p1a: Cresselia|94/100 brn|[from] brn
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Psyshock|p2a: Rapidash
+|-resisted|p2a: Rapidash
+|-damage|p2a: Rapidash|171/246 par
+|move|p2a: Rapidash|Play Rough|p1a: Cresselia
+|-damage|p1a: Cresselia|44/100 brn
+|-heal|p1a: Cresselia|50/100 brn|[from] item: Leftovers
+|-heal|p2a: Rapidash|186/246 par|[from] item: Leftovers
+|-damage|p1a: Cresselia|44/100 brn|[from] brn
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Moonblast|p2a: Rapidash
+|-damage|p2a: Rapidash|133/246 par
+|move|p2a: Rapidash|Play Rough|p1a: Cresselia
+|-damage|p1a: Cresselia|0 fnt
+|faint|p1a: Cresselia
+|-heal|p2a: Rapidash|148/246 par|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kingler|Kingler, L84, F|100/100
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Venusaur|Venusaur, L82, M|265/265
+|move|p1a: Kingler|X-Scissor|p2a: Venusaur
+|-damage|p2a: Venusaur|165/265
+|-damage|p1a: Kingler|90/100|[from] item: Life Orb
+|-heal|p2a: Venusaur|181/265|[from] item: Black Sludge
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Venusaur|Giga Drain|p1a: Kingler
+|-supereffective|p1a: Kingler
+|-damage|p1a: Kingler|0 fnt
+|-heal|p2a: Venusaur|265/265|[from] drain|[of] p1a: Kingler
+|faint|p1a: Kingler
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mienshao|Mienshao, L82, F|100/100
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Venusaur|Dynamax
+|-heal|p2a: Venusaur|530/530|[silent]
+|move|p1a: Mienshao|Swords Dance|p1a: Mienshao
+|-boost|p1a: Mienshao|atk|2
+|move|p2a: Venusaur|Max Ooze|p1a: Mienshao
+|-damage|p1a: Mienshao|50/100
+|-boost|p2a: Venusaur|spa|1
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Knock Off|p2a: Venusaur
+|-damage|p2a: Venusaur|292/530
+|-enditem|p2a: Venusaur|Black Sludge|[from] move: Knock Off|[of] p1a: Mienshao
+|-damage|p1a: Mienshao|40/100|[from] item: Life Orb
+|move|p2a: Venusaur|Max Ooze|p1a: Mienshao
+|-damage|p1a: Mienshao|0 fnt
+|-boost|p2a: Venusaur|spa|1
+|faint|p1a: Mienshao
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Thundurus|Thundurus-Therian, L80, M|100/100
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Thundurus|Dynamax
+|-heal|p1a: Thundurus|100/100|[silent]
+|move|p1a: Thundurus|Max Mindstorm|p2a: Venusaur
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|68/530
+|-fieldstart|move: Psychic Terrain
+|move|p2a: Venusaur|Max Ooze|p1a: Thundurus
+|-damage|p1a: Thundurus|57/100
+|-boost|p2a: Venusaur|spa|1
+|-end|p2a: Venusaur|Dynamax
+|-heal|p2a: Venusaur|34/265|[silent]
+|upkeep
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Max Lightning|p2a: Venusaur
+|-resisted|p2a: Venusaur
+|-damage|p2a: Venusaur|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Venusaur
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Solgaleo|Solgaleo, L72|17/316 par
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Max Lightning|p2a: Solgaleo
+|-damage|p2a: Solgaleo|0 fnt
+|faint|p2a: Solgaleo
+|-end|p1a: Thundurus|Dynamax
+|-heal|p1a: Thundurus|57/100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Rapidash|Rapidash-Galar, L84, F|148/246 par
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Thunderbolt|p2a: Rapidash
+|-damage|p2a: Rapidash|18/246 par
+|move|p2a: Rapidash|Play Rough|p1a: Thundurus|[miss]
+|-miss|p2a: Rapidash|p1a: Thundurus
+|-heal|p2a: Rapidash|33/246 par|[from] item: Leftovers
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Thundurus|Thunderbolt|p2a: Rapidash
+|-damage|p2a: Rapidash|0 fnt
+|faint|p2a: Rapidash
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490348770<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490348770|init|battle
+|title|isoverparty vs. McGewitter
+|j|☆isoverparty
+|j|☆McGewitter
+|gametype|singles
+|player|p1|isoverparty|caitlin|1147
+|player|p2|McGewitter|265|1172
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Silvally|Silvally-Fire, L84|100100
+|switch|p2a: Raichu|Raichu, L86, F|243243
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "silvallyfire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- silvallyfire
+|chat|DEBUG|Own moves: focusblast nastyplot thunderbolt surf
+|chat|DEBUG|Enemy moves: crunch ironhead multiattack swordsdance
+|chat|DEBUG|Checks: ['volcanion']
+|chat|DEBUG|Counter: ['volcanion']
+|chat|DEBUG|Speed: 238 vs 208
+|chat|DEBUG|HP: 243 vs 297
+|chat|DEBUG|Created a new Strategy for raichu vs silvallyfire:
+|chat|DEBUG|>[surf: 119.375 [110, 130], surf: 119.375 [110, 130], surf: 119.375 [110, 130]]
+|chat|DEBUG|Best move of raichu (p1): surf: 119.375 [110, 130]
+|chat|DEBUG|Best move of silvallyfire (p2): multiattack: 169.6875 [156, 184]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check volcanion
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Volcanion|Volcanion, L80|259259
+|move|p1a: Silvally|Swords Dance|p1a: Silvally
+|-boost|p1a: Silvally|atk|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "volcanion" vs "silvallyfire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- silvallyfire
+|chat|DEBUG|Own moves: flamethrower defog steameruption earthpower
+|chat|DEBUG|Enemy moves: crunch ironhead multiattack swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['volcanion']
+|chat|DEBUG|Speed: 158 vs 208
+|chat|DEBUG|HP: 259 vs 297
+|chat|DEBUG|Created a new Strategy for volcanion vs silvallyfire:
+|chat|DEBUG|>[steameruption: 256.125 [236, 278], steameruption: 256.125 [236, 278], steameruption: 256.125 [236, 278]]
+|chat|DEBUG|Best move of volcanion (p1): steameruption: 256.125 [236, 278]
+|chat|DEBUG|Best move of silvallyfire (p2): crunch: 91.5 [84, 99]
+|chat|DEBUG|Attacking using steameruption
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Silvally|Crunch|p2a: Volcanion
+|-damage|p2a: Volcanion|168259
+|move|p2a: Volcanion|Steam Eruption|p1a: Silvally
+|-supereffective|p1a: Silvally
+|-damage|p1a: Silvally|14100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "volcanion" vs "silvallyfire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- silvallyfire
+|chat|DEBUG|Own moves: flamethrower defog steameruption earthpower
+|chat|DEBUG|Enemy moves: crunch ironhead multiattack swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raichu', 'hooh', 'volcanion', 'meowstic', 'ninjask']
+|chat|DEBUG|Speed: 158 vs 208
+|chat|DEBUG|HP: 168 vs 41
+|chat|DEBUG|Best move of volcanion (p1): steameruption: 256.125 [236, 278]
+|chat|DEBUG|Best move of silvallyfire (p2): crunch: 91.5 [84, 99]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Silvally|Iron Head|p2a: Volcanion
+|-resisted|p2a: Volcanion
+|-damage|p2a: Volcanion|145259
+|cant|p2a: Volcanion|flinch
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "volcanion" vs "silvallyfire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- silvallyfire
+|chat|DEBUG|Own moves: flamethrower defog steameruption earthpower
+|chat|DEBUG|Enemy moves: crunch ironhead multiattack swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raichu', 'hooh', 'volcanion', 'meowstic', 'ninjask']
+|chat|DEBUG|Speed: 158 vs 208
+|chat|DEBUG|HP: 145 vs 41
+|chat|DEBUG|Best move of volcanion (p1): steameruption: 256.125 [236, 278]
+|chat|DEBUG|Best move of silvallyfire (p2): crunch: 91.5 [84, 99]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Silvally|Crunch|p2a: Volcanion
+|-damage|p2a: Volcanion|61259
+|move|p2a: Volcanion|Steam Eruption|p1a: Silvally
+|-supereffective|p1a: Silvally
+|-damage|p1a: Silvally|0 fnt
+|faint|p1a: Silvally
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cramorant|Cramorant, L84, M|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "volcanion" vs "cramorant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- cramorant
+|chat|DEBUG|Own moves: flamethrower defog steameruption earthpower
+|chat|DEBUG|Enemy moves: bravebird defog roost surf
+|chat|DEBUG|Checks: ['raichu']
+|chat|DEBUG|Counter: ['raichu', 'meowstic', 'decidueye', 'ninjask']
+|chat|DEBUG|Speed: 158 vs 191
+|chat|DEBUG|HP: 61 vs 255
+|chat|DEBUG|Created a new Strategy for volcanion vs cramorant:
+|chat|DEBUG|>[steameruption: 63.8125 [59, 69], steameruption: 63.8125 [59, 69], steameruption: 63.8125 [59, 69]]
+|chat|DEBUG|Best move of volcanion (p1): steameruption: 63.8125 [59, 69]
+|chat|DEBUG|Best move of cramorant (p2): bravebird: 94.875 [87, 103]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raichu
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|isoverparty has 120 seconds left.
+|switch|p1a: Araquanid|Araquanid, L80, F|100100
+|switch|p2a: Raichu|Raichu, L86, F|243243
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-araquanid
+|chat|DEBUG|Own moves: focusblast nastyplot thunderbolt surf
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: ['decidueye']
+|chat|DEBUG|Counter: ['raichu', 'decidueye', 'ninjask']
+|chat|DEBUG|Speed: 238 vs 113
+|chat|DEBUG|HP: 243 vs 240
+|chat|DEBUG|Created a new Strategy for raichu vs araquanid:
+|chat|DEBUG|>[thunderbolt: 145.125 [134, 158], thunderbolt: 145.125 [134, 158], thunderbolt: 145.125 [134, 158]]
+|chat|DEBUG|Best move of raichu (p1): thunderbolt: 145.125 [134, 158]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 176.6875 [162, 192]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|isoverparty has 120 seconds left.
+|move|p2a: Raichu|Thunderbolt|p1a: Araquanid
+|-supereffective|p1a: Araquanid
+|-damage|p1a: Araquanid|40100
+|move|p1a: Araquanid|Mirror Coat|p2a: Raichu
+|-enditem|p2a: Raichu|Focus Sash
+|-damage|p2a: Raichu|1243
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-araquanid
+|chat|DEBUG|Own moves: focusblast nastyplot thunderbolt surf
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: ['volcanion', 'decidueye', 'ninjask']
+|chat|DEBUG|Counter: ['raichu', 'hooh', 'volcanion', 'meowstic', 'decidueye', 'ninjask']
+|chat|DEBUG|Speed: 238 vs 113
+|chat|DEBUG|HP: 1 vs 96
+|chat|DEBUG|Best move of raichu (p1): thunderbolt: 145.125 [134, 158]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 176.6875 [162, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|isoverparty has 120 seconds left.
+|switch|p1a: Arctozolt|Arctozolt, L86|100100
+|move|p2a: Raichu|Thunderbolt|p1a: Arctozolt
+|-immune|p1a: Arctozolt|[from] ability: Volt Absorb
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raichu hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raichu-hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-araquanid-arctozolt
+|chat|DEBUG|Own moves: focusblast nastyplot thunderbolt surf
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|Speed: 238 vs 144
+|chat|DEBUG|HP: 1 vs 295
+|chat|DEBUG|Created a new Strategy for raichu vs arctozolt:
+|chat|DEBUG|>[focusblast: 177.0 [162, 192], focusblast: 177.0 [162, 192], focusblast: 177.0 [162, 192]]
+|chat|DEBUG|Best move of raichu (p1): focusblast: 177.0 [162, 192]
+|chat|DEBUG|Best move of arctozolt (p2): iciclecrash: 131.0 [120, 142]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Raichu|Focus Blast|p1a: Arctozolt
+|-supereffective|p1a: Arctozolt
+|-damage|p1a: Arctozolt|60100
+|move|p1a: Arctozolt|Stomping Tantrum|p2a: Raichu
+|-supereffective|p2a: Raichu
+|-damage|p2a: Raichu|0 fnt
+|faint|p2a: Raichu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ho-Oh|Ho-Oh, L72|272272
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichu" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-araquanid-arctozolt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hooh']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hooh (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Sacred Fire|p1a: Arctozolt
+|-supereffective|p1a: Arctozolt
+|-damage|p1a: Arctozolt|0 fnt
+|faint|p1a: Arctozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Araquanid|Araquanid, L80, F|40100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-araquanid-arctozolt
+|chat|DEBUG|Own moves: roost toxic sacredfire bravebird
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['hooh', 'meowstic']
+|chat|DEBUG|Counter: ['hooh', 'volcanion', 'meowstic', 'decidueye']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 172 vs 144
+|chat|DEBUG|HP: 272 vs 177
+|chat|DEBUG|Created a new Strategy for hooh vs arctozolt:
+|chat|DEBUG|>[sacredfire: 189.75 [174, 206], sacredfire: 189.75 [174, 206], sacredfire: 189.75 [174, 206]]
+|chat|DEBUG|Best move of hooh (p1): sacredfire: 189.75 [174, 206]
+|chat|DEBUG|Best move of arctozolt (p2): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sacredfire
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Brave Bird|p1a: Araquanid
+|-supereffective|p1a: Araquanid
+|-damage|p1a: Araquanid|0 fnt
+|faint|p1a: Araquanid
+|-damage|p2a: Ho-Oh|241272|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drampa|Drampa, L86, M|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-araquanid
+|chat|DEBUG|Own moves: roost toxic sacredfire bravebird
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: ['volcanion', 'decidueye', 'ninjask']
+|chat|DEBUG|Counter: ['hooh', 'volcanion', 'meowstic', 'decidueye', 'ninjask']
+|chat|DEBUG|Speed: 172 vs 113
+|chat|DEBUG|HP: 272 vs 96
+|chat|DEBUG|Created a new Strategy for hooh vs araquanid:
+|chat|DEBUG|>[bravebird: 239.5 [218, 260], bravebird: 239.5 [218, 260], bravebird: 239.5 [218, 260]]
+|chat|DEBUG|Best move of hooh (p1): bravebird: 239.5 [218, 260]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 297.625 [272, 324]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Brave Bird|p1a: Drampa
+|-damage|p1a: Drampa|61100
+|-damage|p2a: Ho-Oh|205272|[from] Recoil
+|move|p1a: Drampa|Thunderbolt|p2a: Ho-Oh
+|-supereffective|p2a: Ho-Oh
+|-damage|p2a: Ho-Oh|83272
+|-heal|p1a: Drampa|67100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost toxic sacredfire bravebird
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 172 vs 111
+|chat|DEBUG|HP: 241 vs 274
+|chat|DEBUG|Created a new Strategy for hooh vs drampa:
+|chat|DEBUG|>[bravebird: 118.3125 [109, 129], bravebird: 118.3125 [109, 129], bravebird: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of hooh (p1): bravebird: 118.3125 [109, 129]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 96.1875 [88, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Brave Bird|p1a: Drampa
+|-damage|p1a: Drampa|25100
+|-damage|p2a: Ho-Oh|45272|[from] Recoil
+|-ability|p1a: Drampa|Berserk|boost
+|-boost|p1a: Drampa|spa|1
+|move|p1a: Drampa|Roost|p1a: Drampa
+|-heal|p1a: Drampa|75100
+|-singleturn|p1a: Drampa|move: Roost
+|-heal|p1a: Drampa|82100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost toxic sacredfire bravebird
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ninjask']
+|chat|DEBUG|Speed: 172 vs 111
+|chat|DEBUG|HP: 83 vs 183
+|chat|DEBUG|Best move of hooh (p1): bravebird: 118.3125 [109, 129]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 96.1875 [88, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Brave Bird|p1a: Drampa
+|-damage|p1a: Drampa|36100
+|-damage|p2a: Ho-Oh|4272|[from] Recoil
+|-ability|p1a: Drampa|Berserk|boost
+|-boost|p1a: Drampa|spa|1
+|move|p1a: Drampa|Roost|p1a: Drampa
+|-heal|p1a: Drampa|86100
+|-singleturn|p1a: Drampa|move: Roost
+|-heal|p1a: Drampa|92100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost toxic sacredfire bravebird
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 172 vs 111
+|chat|DEBUG|HP: 45 vs 224
+|chat|DEBUG|Best move of hooh (p1): bravebird: 118.3125 [109, 129]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 144.5625 [133, 157]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ho-Oh|Brave Bird|p1a: Drampa
+|-damage|p1a: Drampa|53100
+|-damage|p2a: Ho-Oh|0 fnt|[from] Recoil
+|faint|p2a: Ho-Oh
+|move|p1a: Drampa|Roost|p1a: Drampa
+|-heal|p1a: Drampa|100100
+|-singleturn|p1a: Drampa|move: Roost
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Volcanion|Volcanion, L80|61259
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hooh volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hooh-volcanion-meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost toxic sacredfire bravebird
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 172 vs 111
+|chat|DEBUG|HP: 4 vs 252
+|chat|DEBUG|Created a new Strategy for hooh vs drampa:
+|chat|DEBUG|>[bravebird: 118.3125 [109, 129], bravebird: 118.3125 [109, 129], bravebird: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of hooh (p1): bravebird: 118.3125 [109, 129]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 191.9375 [177, 208]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Volcanion|Earth Power|p1a: Drampa
+|-damage|p1a: Drampa|76100
+|move|p1a: Drampa|Thunderbolt|p2a: Volcanion
+|-supereffective|p2a: Volcanion
+|-damage|p2a: Volcanion|0 fnt
+|faint|p2a: Volcanion
+|-heal|p1a: Drampa|83100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Meowstic|Meowstic, L84, M|262262
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hooh" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>volcanion-meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: volcanion
+|chat|DEBUG|>Switching to volcanion (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Light Screen|p2a: Meowstic
+|-sidestart|p2: McGewitter|move: Light Screen
+|move|p1a: Drampa|Thunderbolt|p2a: Meowstic
+|-damage|p2a: Meowstic|170262
+|-heal|p1a: Drampa|89100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>volcanion meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "volcanion" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>volcanion-meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: flamethrower defog steameruption earthpower
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 111
+|chat|DEBUG|HP: 61 vs 274
+|chat|DEBUG|Created a new Strategy for volcanion vs drampa:
+|chat|DEBUG|>[earthpower: 70.75 [65, 77], earthpower: 70.75 [65, 77], earthpower: 70.75 [65, 77]]
+|chat|DEBUG|Best move of volcanion (p1): earthpower: 70.75 [65, 77]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 266.625 [246, 289]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Reflect|p2a: Meowstic
+|-sidestart|p2: McGewitter|Reflect
+|move|p1a: Drampa|Thunderbolt|p2a: Meowstic
+|-damage|p2a: Meowstic|71262
+|-heal|p1a: Drampa|95100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "volcanion" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: meowstic
+|chat|DEBUG|>Switching to meowstic (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Psychic|p1a: Drampa
+|-damage|p1a: Drampa|66100
+|move|p1a: Drampa|Thunderbolt|p2a: Meowstic
+|-damage|p2a: Meowstic|0 fnt
+|faint|p2a: Meowstic
+|-heal|p1a: Drampa|72100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Decidueye|Decidueye, L86, F|274274
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: psychic lightscreen yawn reflect
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 223 vs 111
+|chat|DEBUG|HP: 262 vs 227
+|chat|DEBUG|Created a new Strategy for meowstic vs drampa:
+|chat|DEBUG|>[psychic: 80.9375 [75, 88], psychic: 80.9375 [75, 88], psychic: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 80.9375 [75, 88]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 275.5 [253, 298]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Decidueye|Leaf Blade|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|52100
+|move|p1a: Drampa|Fire Blast|p2a: Decidueye|[miss]
+|-miss|p1a: Drampa|p2a: Decidueye
+|-heal|p1a: Drampa|58100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: psychic lightscreen yawn reflect
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 223 vs 111
+|chat|DEBUG|HP: 170 vs 243
+|chat|DEBUG|Best move of meowstic (p1): psychic: 80.9375 [75, 88]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 275.5 [253, 298]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Decidueye|Leaf Blade|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|38100
+|-ability|p1a: Drampa|Berserk|boost
+|-boost|p1a: Drampa|spa|1
+|move|p1a: Drampa|Fire Blast|p2a: Decidueye
+|-supereffective|p2a: Decidueye
+|-damage|p2a: Decidueye|57274
+|-heal|p1a: Drampa|44100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: psychic lightscreen yawn reflect
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 223 vs 111
+|chat|DEBUG|HP: 71 vs 260
+|chat|DEBUG|Best move of meowstic (p1): psychic: 80.9375 [75, 88]
+|chat|DEBUG|Best move of drampa (p2): hypervoice: 275.5 [253, 298]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Decidueye|Leaf Blade|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|13100
+|move|p1a: Drampa|Roost|p1a: Drampa
+|-heal|p1a: Drampa|63100
+|-singleturn|p1a: Drampa|move: Roost
+|-heal|p1a: Drampa|69100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: decidueye
+|chat|DEBUG|>Switching to decidueye (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Decidueye|Leaf Blade|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|38100
+|-ability|p1a: Drampa|Berserk|boost
+|-boost|p1a: Drampa|spa|1
+|move|p1a: Drampa|Fire Blast|p2a: Decidueye|[miss]
+|-miss|p1a: Drampa|p2a: Decidueye
+|-heal|p1a: Drampa|45100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "decidueye" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost poltergeist swordsdance leafblade
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 111
+|chat|DEBUG|HP: 274 vs 197
+|chat|DEBUG|Created a new Strategy for decidueye vs drampa:
+|chat|DEBUG|>[leafblade: 54.125 [50, 59], leafblade: 54.125 [50, 59], leafblade: 54.125 [50, 59]]
+|chat|DEBUG|Best move of decidueye (p1): leafblade: 54.125 [50, 59]
+|chat|DEBUG|Best move of drampa (p2): dracometeor: 332.25 [306, 360]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using leafblade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Decidueye|Leaf Blade|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|16100
+|move|p1a: Drampa|Fire Blast|p2a: Decidueye
+|-supereffective|p2a: Decidueye
+|-damage|p2a: Decidueye|0 fnt
+|faint|p2a: Decidueye
+|-heal|p1a: Drampa|22100|[from] item: Leftovers
+|-sideend|p2: McGewitter|move: Light Screen
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ninjask|Ninjask, L86, F|245245
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "decidueye" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost poltergeist swordsdance leafblade
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 111
+|chat|DEBUG|HP: 274 vs 158
+|chat|DEBUG|Best move of decidueye (p1): leafblade: 54.125 [50, 59]
+|chat|DEBUG|Best move of drampa (p2): dracometeor: 332.25 [306, 360]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using leafblade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Ninjask|Acrobatics|p1a: Drampa
+|-damage|p1a: Drampa|0 fnt
+|faint|p1a: Drampa
+|-sideend|p2: McGewitter|Reflect
+|-ability|p2a: Ninjask|Speed Boost|boost
+|-boost|p2a: Ninjask|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cramorant|Cramorant, L84, M|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "decidueye" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost poltergeist swordsdance leafblade
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 111
+|chat|DEBUG|HP: 57 vs 120
+|chat|DEBUG|Best move of decidueye (p1): leafblade: 54.125 [50, 59]
+|chat|DEBUG|Best move of drampa (p2): dracometeor: 414.5 [381, 448]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using leafblade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Ninjask|Dynamax
+|-heal|p2a: Ninjask|490490|[silent]
+|move|p2a: Ninjask|Max Airstream|p1a: Cramorant
+|-damage|p1a: Cramorant|40100
+|-boost|p2a: Ninjask|spe|1
+|move|p1a: Cramorant|Brave Bird|p2a: Ninjask
+|-supereffective|p2a: Ninjask
+|-damage|p2a: Ninjask|134490
+|-damage|p1a: Cramorant|0 fnt|[from] Recoil
+|faint|p1a: Cramorant
+|-ability|p2a: Ninjask|Speed Boost|boost
+|-boost|p2a: Ninjask|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Weezing|Weezing, L86, F|100100
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>decidueye ninjask
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "decidueye" vs "drampa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>decidueye-ninjask -- cramorant-drampa
+|chat|DEBUG|Own moves: roost poltergeist swordsdance leafblade
+|chat|DEBUG|Enemy moves: dracometeor glare hypervoice roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 111
+|chat|DEBUG|HP: 57 vs 189
+|chat|DEBUG|Created a new Strategy for decidueye vs drampa:
+|chat|DEBUG|>[leafblade: 80.375 [74, 87], leafblade: 80.375 [74, 87], leafblade: 80.375 [74, 87]]
+|chat|DEBUG|Best move of decidueye (p1): leafblade: 80.375 [74, 87]
+|chat|DEBUG|Best move of drampa (p2): dracometeor: 414.5 [381, 448]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using leafblade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Weezing|Dynamax
+|-heal|p1a: Weezing|100100|[silent]
+|move|p2a: Ninjask|Max Airstream|p1a: Weezing
+|-damage|p1a: Weezing|84100
+|-boost|p2a: Ninjask|spe|1
+|move|p1a: Weezing|Max Flare|p2a: Ninjask
+|-supereffective|p2a: Ninjask
+|-damage|p2a: Ninjask|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Ninjask
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>isoverparty<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">raichu hooh volcanion meowstic decidueye ninjask</h1>

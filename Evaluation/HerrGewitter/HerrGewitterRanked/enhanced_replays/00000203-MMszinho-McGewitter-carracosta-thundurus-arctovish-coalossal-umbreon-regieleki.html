@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490307341<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490307341|init|battle
+|title|MMszinho vs. McGewitter
+|j|☆MMszinho
+|j|☆McGewitter
+|gametype|singles
+|player|p1|MMszinho|marshal|1235
+|player|p2|McGewitter|265|1176
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Carbink|Carbink, L86|100100
+|switch|p2a: Carracosta|Carracosta, L84, M|262262
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- carbink
+|chat|DEBUG|Own moves: superpower stoneedge aquajet shellsmash
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['thundurus', 'arctovish']
+|chat|DEBUG|Speed: 102 vs 135
+|chat|DEBUG|HP: 262 vs 226
+|chat|DEBUG|Created a new Strategy for carracosta vs carbink:
+|chat|DEBUG|>[stoneedge: 73.9375 [67, 81], stoneedge: 73.9375 [67, 81], stoneedge: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of carracosta (p1): stoneedge: 73.9375 [67, 81]
+|chat|DEBUG|Best move of carbink (p2): bodypress: 91.875 [84, 100]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Arctovish|Arctovish, L86|295295
+|move|p1a: Carbink|Stealth Rock|p2a: Arctovish
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- carbink
+|chat|DEBUG|Own moves: bodyslam iciclecrash freezedry fishiousrend
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['thundurus', 'arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 135
+|chat|DEBUG|HP: 295 vs 226
+|chat|DEBUG|Created a new Strategy for arctovish vs carbink:
+|chat|DEBUG|>[fishiousrend: 228.625 [210, 248], fishiousrend: 228.625 [210, 248], fishiousrend: 228.625 [210, 248]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 228.625 [210, 248]
+|chat|DEBUG|Best move of carbink (p2): bodypress: 150.75 [138, 164]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fishiousrend
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Arctovish|Fishious Rend|p1a: Carbink
+|-supereffective|p1a: Carbink
+|-ability|p1a: Carbink|Sturdy
+|-damage|p1a: Carbink|1100
+|move|p1a: Carbink|Light Screen|p1a: Carbink
+|-sidestart|p1: MMszinho|move: Light Screen
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "carbink"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- carbink
+|chat|DEBUG|Own moves: bodyslam iciclecrash freezedry fishiousrend
+|chat|DEBUG|Enemy moves: bodypress lightscreen moonblast reflect
+|chat|DEBUG|Checks: ['carracosta', 'thundurus', 'arctovish', 'coalossal', 'umbreon', 'regieleki']
+|chat|DEBUG|Counter: ['carracosta', 'thundurus', 'arctovish', 'coalossal', 'umbreon', 'regieleki']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 135
+|chat|DEBUG|HP: 295 vs 2
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 228.625 [210, 248]
+|chat|DEBUG|Best move of carbink (p2): bodypress: 150.75 [138, 164]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|move|p2a: Arctovish|Fishious Rend|p1a: Carbink
+|-supereffective|p1a: Carbink
+|-damage|p1a: Carbink|0 fnt
+|faint|p1a: Carbink
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|switch|p1a: Exeggutor|Exeggutor-Alola, L87, F|100100
+|-item|p2a: Arctovish|Assault Vest|[from] ability: Frisk|[of] p1a: Exeggutor|[identify]
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "exeggutoralola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- exeggutoralola
+|chat|DEBUG|Own moves: bodyslam iciclecrash freezedry fishiousrend
+|chat|DEBUG|Enemy moves: dracometeor flamethrower gigadrain leafstorm
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Speed: 144 vs 128
+|chat|DEBUG|HP: 295 vs 307
+|chat|DEBUG|Created a new Strategy for arctovish vs exeggutoralola:
+|chat|DEBUG|>[iciclecrash: 356.75 [328, 388], iciclecrash: 356.75 [328, 388], iciclecrash: 356.75 [328, 388]]
+|chat|DEBUG|Best move of arctovish (p1): iciclecrash: 356.75 [328, 388]
+|chat|DEBUG|Best move of exeggutoralola (p2): leafstorm: 342.25 [314, 372]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|move|p2a: Arctovish|Icicle Crash|p1a: Exeggutor
+|-supereffective|p1a: Exeggutor
+|-damage|p1a: Exeggutor|0 fnt
+|faint|p1a: Exeggutor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Barbaracle|Barbaracle, L80, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- barbaracle
+|chat|DEBUG|Own moves: bodyslam iciclecrash freezedry fishiousrend
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: ['carracosta', 'regieleki']
+|chat|DEBUG|Counter: ['carracosta', 'thundurus', 'regieleki']
+|chat|DEBUG|Speed: 144 vs 155
+|chat|DEBUG|HP: 295 vs 246
+|chat|DEBUG|Created a new Strategy for arctovish vs barbaracle:
+|chat|DEBUG|>[freezedry: 145.125 [134, 158], freezedry: 145.125 [134, 158], freezedry: 145.125 [134, 158]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 145.125 [134, 158]
+|chat|DEBUG|Best move of barbaracle (p2): stoneedge: 183.75 [168, 200]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check carracosta
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carracosta|Carracosta, L84, M|262262
+|-damage|p2a: Carracosta|230262|[from] Stealth Rock
+|move|p1a: Barbaracle|Shell Smash|p1a: Barbaracle
+|-unboost|p1a: Barbaracle|def|1
+|-unboost|p1a: Barbaracle|spd|1
+|-boost|p1a: Barbaracle|atk|2
+|-boost|p1a: Barbaracle|spa|2
+|-boost|p1a: Barbaracle|spe|2
+|-enditem|p1a: Barbaracle|White Herb
+|-clearnegativeboost|p1a: Barbaracle|[silent]
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- barbaracle
+|chat|DEBUG|Own moves: superpower stoneedge aquajet shellsmash
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['thundurus', 'regieleki']
+|chat|DEBUG|Speed: 102 vs 155
+|chat|DEBUG|HP: 230 vs 246
+|chat|DEBUG|Created a new Strategy for carracosta vs barbaracle:
+|chat|DEBUG|>[superpower: 158.125 [146, 172], superpower: 104.625 [96, 114], superpower: 80.5 [74, 88]]
+|chat|DEBUG|Best move of carracosta (p1): superpower: 158.125 [146, 172]
+|chat|DEBUG|Best move of barbaracle (p2): liquidation: 165.75 [153, 180]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|move|p1a: Barbaracle|Cross Chop|p2a: Carracosta|[miss]
+|-miss|p1a: Barbaracle|p2a: Carracosta
+|move|p2a: Carracosta|Superpower|p1a: Barbaracle
+|-supereffective|p1a: Barbaracle
+|-damage|p1a: Barbaracle|41100
+|-unboost|p2a: Carracosta|atk|1
+|-unboost|p2a: Carracosta|def|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "barbaracle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- barbaracle
+|chat|DEBUG|Own moves: superpower stoneedge aquajet shellsmash
+|chat|DEBUG|Enemy moves: earthquake liquidation shellsmash stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['thundurus', 'umbreon', 'regieleki']
+|chat|DEBUG|Speed: 102 vs 155
+|chat|DEBUG|HP: 230 vs 100
+|chat|DEBUG|Best move of carracosta (p1): superpower: 104.625 [96, 114]
+|chat|DEBUG|Best move of barbaracle (p2): liquidation: 249.0 [229, 270]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|-start|p1a: Barbaracle|Dynamax
+|-heal|p1a: Barbaracle|41100|[silent]
+|move|p1a: Barbaracle|Max Knuckle|p2a: Carracosta
+|-supereffective|p2a: Carracosta
+|-damage|p2a: Carracosta|44262
+|-boost|p1a: Barbaracle|atk|1
+|-enditem|p2a: Carracosta|Weakness Policy
+|-boost|p2a: Carracosta|atk|2|[from] item: Weakness Policy
+|-boost|p2a: Carracosta|spa|2|[from] item: Weakness Policy
+|move|p2a: Carracosta|Superpower|p1a: Barbaracle
+|-supereffective|p1a: Barbaracle
+|-damage|p1a: Barbaracle|0 fnt
+|-unboost|p2a: Carracosta|atk|1
+|-unboost|p2a: Carracosta|def|1
+|faint|p1a: Barbaracle
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|switch|p1a: Tauros|Tauros, L82, M|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carracosta thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carracosta-thundurus-arctovish-coalossal-umbreon-regieleki -- tauros
+|chat|DEBUG|Own moves: superpower stoneedge aquajet shellsmash
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'regieleki']
+|chat|DEBUG|Speed: 102 vs 228
+|chat|DEBUG|HP: 44 vs 257
+|chat|DEBUG|Created a new Strategy for carracosta vs tauros:
+|chat|DEBUG|>[superpower: 179.0 [164, 194], superpower: 119.375 [110, 130], superpower: 90.0 [82, 98]]
+|chat|DEBUG|Best move of carracosta (p1): superpower: 179.0 [164, 194]
+|chat|DEBUG|Best move of tauros (p2): closecombat: 229.9375 [211, 250]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using superpower
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Body Slam|p2a: Carracosta
+|-resisted|p2a: Carracosta
+|-damage|p2a: Carracosta|0 fnt
+|faint|p2a: Carracosta
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|333333
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-coalossal-umbreon-regieleki -- tauros
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'regieleki']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to coalossal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|MMszinho has 120 seconds left.
+|move|p1a: Tauros|Close Combat|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|156333
+|-unboost|p1a: Tauros|def|1
+|-unboost|p1a: Tauros|spd|1
+|-damage|p1a: Tauros|91100|[from] item: Life Orb
+|move|p2a: Coalossal|Spikes|p1a: Tauros
+|-sidestart|p1: MMszinho|Spikes
+|-sideend|p1: MMszinho|move: Light Screen
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-coalossal-umbreon-regieleki -- tauros
+|chat|DEBUG|Own moves: spikes stoneedge willowisp overheat
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'regieleki']
+|chat|DEBUG|Speed: 102 vs 228
+|chat|DEBUG|HP: 333 vs 257
+|chat|DEBUG|Created a new Strategy for coalossal vs tauros:
+|chat|DEBUG|>[overheat: 153.0 [141, 166], stoneedge: 94.875 [87, 103], stoneedge: 94.875 [87, 103]]
+|chat|DEBUG|Best move of coalossal (p1): overheat: 153.0 [141, 166]
+|chat|DEBUG|Best move of tauros (p2): closecombat: 162.1875 [148, 177]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Close Combat|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|-unboost|p1a: Tauros|def|1
+|-unboost|p1a: Tauros|spd|1
+|faint|p2a: Coalossal
+|-damage|p1a: Tauros|81100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regieleki|Regieleki, L78|253253
+|-damage|p2a: Regieleki|222253|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish coalossal umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-coalossal-umbreon-regieleki -- tauros
+|chat|DEBUG|Own moves: spikes stoneedge willowisp overheat
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: ['regieleki']
+|chat|DEBUG|Counter: ['regieleki']
+|chat|DEBUG|Speed: 102 vs 228
+|chat|DEBUG|HP: 156 vs 233
+|chat|DEBUG|Best move of coalossal (p1): stoneedge: 94.875 [87, 103]
+|chat|DEBUG|Best move of tauros (p2): closecombat: 162.1875 [148, 177]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Diggersby|Diggersby, L80, M|100100
+|-damage|p1a: Diggersby|88100|[from] Spikes
+|move|p2a: Regieleki|Thunderbolt|p1a: Diggersby
+|-immune|p1a: Diggersby
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-umbreon-regieleki -- tauros
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: ['regieleki']
+|chat|DEBUG|Counter: ['regieleki']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to regieleki (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Umbreon|Umbreon, L82, M|290290
+|-damage|p2a: Umbreon|254290|[from] Stealth Rock
+|move|p1a: Diggersby|Swords Dance|p1a: Diggersby
+|-boost|p1a: Diggersby|atk|2
+|-heal|p2a: Umbreon|272290|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regieleki" vs "tauros"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-umbreon-regieleki -- tauros
+|chat|DEBUG|Own moves: substitute voltswitch explosion thunderbolt
+|chat|DEBUG|Enemy moves: bodyslam closecombat rockslide throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['thundurus', 'umbreon', 'regieleki']
+|chat|DEBUG|Speed: 357 vs 228
+|chat|DEBUG|HP: 222 vs 208
+|chat|DEBUG|Created a new Strategy for regieleki vs tauros:
+|chat|DEBUG|>[thunderbolt: 368.375 [339, 399], thunderbolt: 368.375 [339, 399], thunderbolt: 368.375 [339, 399]]
+|chat|DEBUG|Best move of regieleki (p1): thunderbolt: 368.375 [339, 399]
+|chat|DEBUG|Best move of tauros (p2): bodyslam: 234.875 [216, 255]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Earthquake|p2a: Umbreon
+|-damage|p2a: Umbreon|0 fnt
+|faint|p2a: Umbreon
+|-damage|p1a: Diggersby|78100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Regieleki|Regieleki, L78|222253
+|-damage|p2a: Regieleki|191253|[from] Stealth Rock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regieleki" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-umbreon-regieleki -- tauros-diggersby
+|chat|DEBUG|Own moves: substitute voltswitch explosion thunderbolt
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['thundurus']
+|chat|DEBUG|Speed: 357 vs 171
+|chat|DEBUG|HP: 222 vs 234
+|chat|DEBUG|Created a new Strategy for regieleki vs diggersby:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of regieleki (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 545.6875 [502, 593]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: umbreon
+|chat|DEBUG|Switching to umbreon as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Regieleki|Thunderbolt|p1a: Diggersby
+|-immune|p1a: Diggersby
+|move|p1a: Diggersby|Earthquake|p2a: Regieleki
+|-supereffective|p2a: Regieleki
+|-damage|p2a: Regieleki|0 fnt
+|faint|p2a: Regieleki
+|-damage|p1a: Diggersby|69100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thundurus|Thundurus, L80, M|258258
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish umbreon regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "umbreon" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-umbreon-regieleki -- tauros-diggersby
+|chat|DEBUG|Own moves: wish toxic foulplay protect
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 154 vs 171
+|chat|DEBUG|HP: 272 vs 234
+|chat|DEBUG|Created a new Strategy for umbreon vs diggersby:
+|chat|DEBUG|>[foulplay: 144.5625 [133, 157], foulplay: 144.5625 [133, 157], foulplay: 144.5625 [133, 157]]
+|chat|DEBUG|Best move of umbreon (p1): foulplay: 144.5625 [133, 157]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 294.5 [270, 320]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using foulplay
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Grass Knot|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|28100
+|move|p1a: Diggersby|Body Slam|p2a: Thundurus
+|-damage|p2a: Thundurus|0 fnt
+|faint|p2a: Thundurus
+|-damage|p1a: Diggersby|18100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arctovish|Arctovish, L86|295295
+|-damage|p2a: Arctovish|222295|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurus arctovish regieleki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "umbreon" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurus-arctovish-regieleki -- tauros-diggersby
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: regieleki
+|chat|DEBUG|>Switching to regieleki (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Diggersby|Earthquake|p2a: Arctovish
+|-damage|p2a: Arctovish|0 fnt
+|faint|p2a: Arctovish
+|-damage|p1a: Diggersby|9100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>MMszinho<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">carracosta thundurus arctovish coalossal umbreon regieleki</h1>

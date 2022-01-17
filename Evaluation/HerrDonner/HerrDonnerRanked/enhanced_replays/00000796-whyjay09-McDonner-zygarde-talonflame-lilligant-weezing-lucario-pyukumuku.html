@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491291201</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1491291201|init|battle
+|title|whyjay09 vs. McDonner
+|j|☆whyjay09
+|j|☆McDonner
+|gametype|singles
+|player|p1|whyjay09|1|1077
+|player|p2|McDonner|265|1114
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Salamence|Salamence, L76, M|100/100
+|switch|p2a: Zygarde|Zygarde, L70|267/267
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygarde talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: zygarde vs salamence
+|chat|DEBUG|Updating information about salamence
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: talonflame vs. salamence
+|chat|DEBUG|Getting matchup: lilligant vs. salamence
+|chat|DEBUG|Getting matchup: weezing vs. salamence
+|chat|DEBUG|Getting matchup: lucario vs. salamence
+|chat|DEBUG|Getting matchup: pyukumuku vs. salamence
+|chat|DEBUG|Getting matchup: zygarde vs. salamence
+|chat|DEBUG|Checks / Counter: {'salamence': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 174 - 196
+|chat|DEBUG|Most likely moves for: zygarde
+|chat|DEBUG|>['thousandarrows', 'dragondance', 'outrage', 'substitute']
+|chat|DEBUG|Most likely moves for: salamence
+|chat|DEBUG|>['dragondance', 'dualwingbeat', 'earthquake', 'outrage']
+|chat|DEBUG|Best own move: ('outrage', 220.5)
+|chat|DEBUG|Best enemy move: ('outrage', 256.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat salamence with zygarde
+|chat|DEBUG|Picking the most damaging move from zygarde against salamence
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Salamence|Outrage|p2a: Zygarde
+|-supereffective|p2a: Zygarde
+|-damage|p2a: Zygarde|27/267
+|move|p2a: Zygarde|Outrage|p1a: Salamence
+|-supereffective|p1a: Salamence
+|-damage|p1a: Salamence|13/100
+|-heal|p2a: Zygarde|43/267|[from] item: Leftovers
+|-activate|p2a: Zygarde|ability: Power Construct
+|detailschange|p2a: Zygarde|Zygarde-Complete, L70
+|-heal|p2a: Zygarde|194/418|[silent]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zygardecomplete talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: zygardecomplete vs salamence
+|chat|DEBUG|Updating information about salamence
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zygardecomplete vs. salamence
+|chat|DEBUG|Checks / Counter: {'salamence': {'checks': [], 'counter': ['zygardecomplete']}}
+|chat|DEBUG|Speed: 160 - 196
+|chat|DEBUG|Most likely moves for: zygardecomplete
+|chat|DEBUG|>['outrage']
+|chat|DEBUG|Most likely moves for: salamence
+|chat|DEBUG|>['dragondance', 'dualwingbeat', 'earthquake', 'outrage']
+|chat|DEBUG|Best own move: ('outrage', 220.5)
+|chat|DEBUG|Best enemy move: ('outrage', 256.125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from zygardecomplete against salamence
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salamence|Outrage|p2a: Zygarde|[from]lockedmove
+|-supereffective|p2a: Zygarde
+|-crit|p2a: Zygarde
+|-damage|p2a: Zygarde|0 fnt
+|faint|p2a: Zygarde
+|-ability|p1a: Salamence|Moxie|boost
+|-boost|p1a: Salamence|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lucario|Lucario, L82, M|249/249
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: zygardecomplete vs salamence
+|chat|DEBUG|Updating information about salamence
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: talonflame vs. salamence
+|chat|DEBUG|Getting matchup: lilligant vs. salamence
+|chat|DEBUG|Getting matchup: weezing vs. salamence
+|chat|DEBUG|Getting matchup: lucario vs. salamence
+|chat|DEBUG|Getting matchup: pyukumuku vs. salamence
+|chat|DEBUG|Getting matchup: zygardecomplete vs. salamence
+|chat|DEBUG|Checks / Counter: {'salamence': {'checks': [], 'counter': ['zygardecomplete']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salamence|Outrage|p2a: Lucario|[from]lockedmove
+|-resisted|p2a: Lucario
+|-damage|p2a: Lucario|120/249
+|-start|p1a: Salamence|confusion|[fatigue]
+|move|p2a: Lucario|Meteor Mash|p1a: Salamence
+|-damage|p1a: Salamence|0 fnt
+|faint|p1a: Salamence
+|-damage|p2a: Lucario|96/249|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heracross|Heracross, L82, F|100/100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: lucario vs salamence
+|chat|DEBUG|Updating information about salamence
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: talonflame vs. salamence
+|chat|DEBUG|Getting matchup: lilligant vs. salamence
+|chat|DEBUG|Getting matchup: weezing vs. salamence
+|chat|DEBUG|Getting matchup: pyukumuku vs. salamence
+|chat|DEBUG|Getting matchup: lucario vs. salamence
+|chat|DEBUG|Checks / Counter: {'salamence': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 195 - 196
+|chat|DEBUG|Most likely moves for: lucario
+|chat|DEBUG|>['meteormash', 'swordsdance', 'extremespeed', 'closecombat']
+|chat|DEBUG|Most likely moves for: salamence
+|chat|DEBUG|>['dragondance', 'dualwingbeat', 'earthquake', 'outrage']
+|chat|DEBUG|Best own move: ('meteormash', 118.3125)
+|chat|DEBUG|Best enemy move: ('earthquake', 185.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('meteormash', 118.3125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Talonflame|Talonflame, L81, F|259/259
+|move|p1a: Heracross|Close Combat|p2a: Talonflame
+|-resisted|p2a: Talonflame
+|-damage|p2a: Talonflame|168/259
+|-unboost|p1a: Heracross|def|1
+|-unboost|p1a: Heracross|spd|1
+|-status|p1a: Heracross|brn|[from] item: Flame Orb
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: lucario vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['talonflame', 'weezing']}}
+|chat|DEBUG|Speed: 195 - 187
+|chat|DEBUG|Most likely moves for: lucario
+|chat|DEBUG|>['meteormash', 'swordsdance', 'extremespeed', 'closecombat']
+|chat|DEBUG|Most likely moves for: heracross
+|chat|DEBUG|>['closecombat', 'facade', 'knockoff', 'megahorn']
+|chat|DEBUG|Best own move: ('meteormash', 115.625)
+|chat|DEBUG|Best enemy move: ('closecombat', 353.375)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: talonflame
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Regirock|Regirock, L85|100/100
+|move|p2a: Talonflame|Brave Bird|p1a: Regirock
+|-resisted|p1a: Regirock
+|-damage|p1a: Regirock|92/100
+|-damage|p2a: Talonflame|160/259|[from] Recoil
+|-heal|p1a: Regirock|98/100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: talonflame vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['weezing', 'talonflame']}}
+|chat|DEBUG|Speed: 251 - 187
+|chat|DEBUG|Most likely moves for: talonflame
+|chat|DEBUG|>['bravebird', 'swordsdance', 'roost', 'flareblitz']
+|chat|DEBUG|Most likely moves for: heracross
+|chat|DEBUG|>['closecombat', 'facade', 'knockoff', 'megahorn']
+|chat|DEBUG|Best own move: ('bravebird', 479.0)
+|chat|DEBUG|Best enemy move: ('knockoff', 95.5625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bravebird', 479.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lilligant|Lilligant, L84, F|255/255
+|move|p1a: Regirock|Curse|p1a: Regirock
+|-unboost|p1a: Regirock|spe|1
+|-boost|p1a: Regirock|atk|1
+|-boost|p1a: Regirock|def|1
+|-heal|p1a: Regirock|100/100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: talonflame vs regirock
+|chat|DEBUG|Updating information about regirock
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. regirock
+|chat|DEBUG|Getting matchup: lilligant vs. regirock
+|chat|DEBUG|Getting matchup: weezing vs. regirock
+|chat|DEBUG|Getting matchup: pyukumuku vs. regirock
+|chat|DEBUG|Getting matchup: talonflame vs. regirock
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['weezing', 'talonflame']}, 'regirock': {'checks': [], 'counter': ['lilligant']}}
+|chat|DEBUG|Speed: 251 - 134
+|chat|DEBUG|Most likely moves for: talonflame
+|chat|DEBUG|>['bravebird', 'swordsdance', 'roost', 'flareblitz']
+|chat|DEBUG|Most likely moves for: regirock
+|chat|DEBUG|>['bodypress', 'curse', 'earthquake', 'rockslide']
+|chat|DEBUG|Best own move: ('flareblitz', 26.25)
+|chat|DEBUG|Best enemy move: ('rockslide', 413.0)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: lilligant
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lilligant|Petal Dance|p1a: Regirock
+|-supereffective|p1a: Regirock
+|-crit|p1a: Regirock
+|-ability|p1a: Regirock|Sturdy
+|-damage|p1a: Regirock|1/100
+|move|p1a: Regirock|Body Press|p2a: Lilligant
+|-damage|p2a: Lilligant|67/255
+|-heal|p2a: Lilligant|82/255|[from] item: Leftovers
+|-heal|p1a: Regirock|7/100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: lilligant vs regirock
+|chat|DEBUG|Updating information about regirock
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. regirock
+|chat|DEBUG|Getting matchup: talonflame vs. regirock
+|chat|DEBUG|Getting matchup: weezing vs. regirock
+|chat|DEBUG|Getting matchup: pyukumuku vs. regirock
+|chat|DEBUG|Getting matchup: lilligant vs. regirock
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['talonflame', 'weezing']}, 'regirock': {'checks': [], 'counter': ['lilligant']}}
+|chat|DEBUG|Speed: 199 - 134
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['quiverdance', 'sleeppowder', 'petaldance', 'gigadrain']
+|chat|DEBUG|Most likely moves for: regirock
+|chat|DEBUG|>['bodypress', 'curse', 'earthquake', 'rockslide']
+|chat|DEBUG|Best own move: ('petaldance', 250.75)
+|chat|DEBUG|Best enemy move: ('bodypress', 119.8125)
+|chat|DEBUG|Picking the most damaging move from lilligant against regirock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|move|p2a: Lilligant|Petal Dance|p1a: Regirock|[from]lockedmove
+|-supereffective|p1a: Regirock
+|-damage|p1a: Regirock|0 fnt
+|faint|p1a: Regirock
+|-heal|p2a: Lilligant|97/255|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|switch|p1a: Mewtwo|Mewtwo, L72|100/100
+|-ability|p1a: Mewtwo|Unnerve
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: lilligant vs regirock
+|chat|DEBUG|Updating information about regirock
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. regirock
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': []}, 'regirock': {'checks': [], 'counter': ['lilligant']}}
+|chat|DEBUG|Speed: 199 - 134
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['petaldance']
+|chat|DEBUG|Most likely moves for: regirock
+|chat|DEBUG|>['bodypress', 'curse', 'earthquake', 'rockslide']
+|chat|DEBUG|Best own move: ('petaldance', 250.75)
+|chat|DEBUG|Best enemy move: ('bodypress', 119.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from lilligant against regirock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mewtwo|Psystrike|p2a: Lilligant
+|-damage|p2a: Lilligant|0 fnt
+|faint|p2a: Lilligant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pyukumuku|Pyukumuku, L84, F|230/230
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame lilligant weezing lucario pyukumuku
+|chat|DEBUG|Matchup: lilligant vs mewtwo
+|chat|DEBUG|Updating information about mewtwo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': []}, 'mewtwo': {'checks': [], 'counter': ['lilligant']}}
+|chat|DEBUG|Speed: 199 - 229
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['petaldance']
+|chat|DEBUG|Most likely moves for: mewtwo
+|chat|DEBUG|>['nastyplot', 'psystrike', 'recover', 'shadowball']
+|chat|DEBUG|Best own move: ('petaldance', 158.5625)
+|chat|DEBUG|Best enemy move: ('psystrike', 128.0625)
+|chat|DEBUG|Picking the most damaging move from lilligant against mewtwo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heracross|Heracross, L82, F|100/100 brn
+|move|p2a: Pyukumuku|Counter||[still]
+|-fail|p2a: Pyukumuku
+|-damage|p1a: Heracross|94/100 brn|[from] brn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame weezing lucario pyukumuku
+|chat|DEBUG|Matchup: lilligant vs mewtwo
+|chat|DEBUG|Updating information about mewtwo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: lilligant vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: talonflame vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Getting matchup: lilligant vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['talonflame', 'weezing']}, 'mewtwo': {'checks': [], 'counter': ['lilligant']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Talonflame|Talonflame, L81, F|160/259
+|move|p1a: Heracross|Facade|p2a: Talonflame
+|-damage|p2a: Talonflame|0 fnt
+|faint|p2a: Talonflame
+|-damage|p1a: Heracross|88/100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Weezing|Weezing, L86, M|252/252
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame weezing lucario pyukumuku
+|chat|DEBUG|Matchup: pyukumuku vs mewtwo
+|chat|DEBUG|Updating information about mewtwo
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: talonflame vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['talonflame', 'weezing']}, 'mewtwo': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 57 - 229
+|chat|DEBUG|Most likely moves for: pyukumuku
+|chat|DEBUG|>['recover', 'toxic', 'mirrorcoat', 'counter']
+|chat|DEBUG|Most likely moves for: mewtwo
+|chat|DEBUG|>['nastyplot', 'psystrike', 'recover', 'shadowball']
+|chat|DEBUG|Best own move: ('counter', 0.0)
+|chat|DEBUG|Best enemy move: ('psystrike', 83.625)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat mewtwo with pyukumuku
+|chat|DEBUG|Picking the most damaging move from pyukumuku against mewtwo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heracross|Facade|p2a: Weezing
+|-damage|p2a: Weezing|112/252
+|move|p2a: Weezing|Fire Blast|p1a: Heracross
+|-supereffective|p1a: Heracross
+|-damage|p1a: Heracross|35/100 brn
+|-heal|p2a: Weezing|127/252|[from] item: Black Sludge
+|-damage|p1a: Heracross|29/100 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>talonflame weezing lucario pyukumuku
+|chat|DEBUG|Matchup: pyukumuku vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: talonflame vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['talonflame', 'weezing']}, 'mewtwo': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 57 - 187
+|chat|DEBUG|Most likely moves for: pyukumuku
+|chat|DEBUG|>['recover', 'toxic', 'mirrorcoat', 'counter']
+|chat|DEBUG|Most likely moves for: heracross
+|chat|DEBUG|>['closecombat', 'facade', 'knockoff', 'megahorn']
+|chat|DEBUG|Best own move: ('counter', 0.0)
+|chat|DEBUG|Best enemy move: ('megahorn', 108.625)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: talonflame
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heracross|Facade|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|faint|p2a: Weezing
+|-damage|p1a: Heracross|23/100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lucario|Lucario, L82, M|96/249
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>weezing lucario pyukumuku
+|chat|DEBUG|Matchup: talonflame vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: talonflame vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Getting matchup: talonflame vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['weezing', 'talonflame']}, 'mewtwo': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>Switching to counter: weezing
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|move|p2a: Lucario|Meteor Mash|p1a: Heracross
+|-damage|p1a: Heracross|0 fnt
+|faint|p1a: Heracross
+|-damage|p2a: Lucario|72/249|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Machamp|Machamp, L82, F|100/100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>weezing lucario pyukumuku
+|chat|DEBUG|Matchup: weezing vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['weezing']}, 'mewtwo': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 152 - 187
+|chat|DEBUG|Most likely moves for: weezing
+|chat|DEBUG|>['sludgebomb', 'painsplit', 'willowisp', 'fireblast']
+|chat|DEBUG|Most likely moves for: heracross
+|chat|DEBUG|>['closecombat', 'facade', 'knockoff', 'megahorn']
+|chat|DEBUG|Best own move: ('fireblast', 143.375)
+|chat|DEBUG|Best enemy move: ('knockoff', 60.6875)
+|chat|DEBUG|Picking the most damaging move from weezing against heracross
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|move|p2a: Lucario|Close Combat|p1a: Machamp
+|-damage|p1a: Machamp|30/100
+|-unboost|p2a: Lucario|def|1
+|-unboost|p2a: Lucario|spd|1
+|-damage|p2a: Lucario|48/249|[from] item: Life Orb
+|move|p1a: Machamp|Knock Off|p2a: Lucario
+|-resisted|p2a: Lucario
+|-damage|p2a: Lucario|0 fnt
+|-enditem|p2a: Lucario|Life Orb|[from] move: Knock Off|[of] p1a: Machamp
+|faint|p2a: Lucario
+|-status|p1a: Machamp|brn|[from] item: Flame Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pyukumuku|Pyukumuku, L84, F|230/230
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>weezing lucario pyukumuku
+|chat|DEBUG|Matchup: weezing vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['weezing']}, 'mewtwo': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 152 - 187
+|chat|DEBUG|Most likely moves for: weezing
+|chat|DEBUG|>['sludgebomb', 'painsplit', 'willowisp', 'fireblast']
+|chat|DEBUG|Most likely moves for: heracross
+|chat|DEBUG|>['closecombat', 'facade', 'knockoff', 'megahorn']
+|chat|DEBUG|Best own move: ('fireblast', 143.375)
+|chat|DEBUG|Best enemy move: ('knockoff', 60.6875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('fireblast', 143.375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|move|p1a: Machamp|Close Combat|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|77/230
+|-unboost|p1a: Machamp|def|1
+|-unboost|p1a: Machamp|spd|1
+|move|p2a: Pyukumuku|Counter|p1a: Machamp
+|-damage|p1a: Machamp|0 fnt
+|faint|p1a: Machamp
+|-heal|p2a: Pyukumuku|91/230|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|switch|p1a: Latios|Latios, L78, M|100/100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lucario pyukumuku
+|chat|DEBUG|Matchup: weezing vs heracross
+|chat|DEBUG|Updating information about heracross
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: blacksludge
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lucario vs. heracross
+|chat|DEBUG|Getting matchup: pyukumuku vs. heracross
+|chat|DEBUG|Getting matchup: weezing vs. heracross
+|chat|DEBUG|Getting matchup: lucario vs. mewtwo
+|chat|DEBUG|Getting matchup: pyukumuku vs. mewtwo
+|chat|DEBUG|Getting matchup: weezing vs. mewtwo
+|chat|DEBUG|Checks / Counter: {'heracross': {'checks': [], 'counter': ['weezing']}, 'mewtwo': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|whyjay09 has 120 seconds left.
+|move|p1a: Latios|Draco Meteor|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|0 fnt
+|-unboost|p1a: Latios|spa|2
+|faint|p2a: Pyukumuku
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>whyjay09<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">zygarde talonflame lilligant weezing lucario pyukumuku</h1>

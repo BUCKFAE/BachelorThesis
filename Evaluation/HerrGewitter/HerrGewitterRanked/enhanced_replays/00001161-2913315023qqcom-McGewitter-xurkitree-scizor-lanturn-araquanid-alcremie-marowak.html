@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491866281<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491866281|init|battle
+|title|2913315023qqcom vs. McGewitter
+|j|☆2913315023qqcom
+|j|☆McGewitter
+|gametype|singles
+|player|p1|2913315023qqcom|266|1128
+|player|p2|McGewitter|265|1098
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Lunatone|Lunatone, L86|100100
+|switch|p2a: Xurkitree|Xurkitree, L76|251251
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "lunatone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone
+|chat|DEBUG|Own moves: dazzlinggleam thunderbolt voltswitch energyball
+|chat|DEBUG|Enemy moves: moonblast nastyplot powergem psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scizor', 'lanturn', 'araquanid', 'marowak']
+|chat|DEBUG|Speed: 170 vs 170
+|chat|DEBUG|HP: 251 vs 295
+|chat|DEBUG|Created a new Strategy for xurkitree vs lunatone:
+|chat|DEBUG|>[energyball: 252.5 [232, 274], energyball: 252.5 [232, 274], energyball: 252.5 [232, 274]]
+|chat|DEBUG|Best move of xurkitree (p1): energyball: 252.5 [232, 274]
+|chat|DEBUG|Best move of lunatone (p2): psychic: 164.8125 [152, 179]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using energyball
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|2913315023qqcom also wants the timer to be on.
+|move|p1a: Lunatone|Sludge Bomb|p2a: Xurkitree
+|-damage|p2a: Xurkitree|142251
+|-status|p2a: Xurkitree|psn
+|move|p2a: Xurkitree|Energy Ball|p1a: Lunatone
+|-damage|p1a: Lunatone|33100
+|replace|p1a: Zoroark|Zoroark, L86, M
+|-end|p1a: Zoroark|Illusion
+|-damage|p2a: Xurkitree|111251 psn|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark
+|chat|DEBUG|Own moves: energyball
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: ['lanturn', 'araquanid']
+|chat|DEBUG|Counter: ['lanturn', 'araquanid', 'alcremie', 'marowak']
+|chat|DEBUG|Speed: 170 vs 230
+|chat|DEBUG|HP: 111 vs 80
+|chat|DEBUG|Created a new Strategy for xurkitree vs zoroark:
+|chat|DEBUG|>[energyball: 162.3125 [149, 176], energyball: 162.3125 [149, 176], energyball: 162.3125 [149, 176]]
+|chat|DEBUG|Best move of xurkitree (p1): energyball: 162.3125 [149, 176]
+|chat|DEBUG|Best move of zoroark (p2): darkpulse: 178.0625 [164, 192]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lanturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lanturn|Lanturn, L86, M|355355
+|move|p1a: Zoroark|Sludge Bomb|p2a: Lanturn
+|-damage|p2a: Lanturn|263355
+|-heal|p2a: Lanturn|285355|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark
+|chat|DEBUG|Own moves: toxic voltswitch thunderbolt scald
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: ['lanturn', 'araquanid']
+|chat|DEBUG|Counter: ['lanturn', 'araquanid', 'alcremie', 'marowak']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 230
+|chat|DEBUG|HP: 285 vs 80
+|chat|DEBUG|Created a new Strategy for lanturn vs zoroark:
+|chat|DEBUG|>[thunderbolt: 107.3125 [99, 117], thunderbolt: 107.3125 [99, 117], thunderbolt: 107.3125 [99, 117]]
+|chat|DEBUG|Best move of lanturn (p1): thunderbolt: 107.3125 [99, 117]
+|chat|DEBUG|Best move of zoroark (p2): darkpulse: 148.5 [136, 161]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lapras|Lapras, L86, M|100100
+|move|p2a: Lanturn|Thunderbolt|p1a: Lapras
+|-supereffective|p1a: Lapras
+|-damage|p1a: Lapras|61100
+|-heal|p2a: Lanturn|307355|[from] item: Leftovers
+|-heal|p1a: Lapras|67100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "lapras"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-lapras
+|chat|DEBUG|Own moves: toxic voltswitch thunderbolt scald
+|chat|DEBUG|Enemy moves: icebeam protect sparklingaria toxic
+|chat|DEBUG|Checks: ['lanturn', 'alcremie']
+|chat|DEBUG|Counter: ['xurkitree', 'scizor', 'lanturn', 'alcremie']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 152
+|chat|DEBUG|HP: 307 vs 243
+|chat|DEBUG|Created a new Strategy for lanturn vs lapras:
+|chat|DEBUG|>[thunderbolt: 153.5 [140, 168], thunderbolt: 153.5 [140, 168], thunderbolt: 153.5 [140, 168]]
+|chat|DEBUG|Best move of lanturn (p1): thunderbolt: 153.5 [140, 168]
+|chat|DEBUG|Best move of lapras (p2): sparklingaria: 49.1875 [45, 54]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|move|p2a: Lanturn|Thunderbolt|p1a: Lapras
+|-supereffective|p1a: Lapras
+|-damage|p1a: Lapras|23100
+|move|p1a: Lapras|Toxic|p2a: Lanturn
+|-status|p2a: Lanturn|tox
+|-heal|p2a: Lanturn|329355 tox|[from] item: Leftovers
+|-heal|p1a: Lapras|29100|[from] item: Leftovers
+|-damage|p2a: Lanturn|307355 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "lapras"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-lapras
+|chat|DEBUG|Own moves: toxic voltswitch thunderbolt scald
+|chat|DEBUG|Enemy moves: icebeam protect sparklingaria toxic
+|chat|DEBUG|Checks: ['scizor', 'lanturn', 'alcremie']
+|chat|DEBUG|Counter: ['xurkitree', 'scizor', 'lanturn', 'alcremie', 'marowak']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 152
+|chat|DEBUG|HP: 307 vs 105
+|chat|DEBUG|Best move of lanturn (p1): thunderbolt: 153.5 [140, 168]
+|chat|DEBUG|Best move of lapras (p2): sparklingaria: 49.1875 [45, 54]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|move|p1a: Lapras|Protect|p1a: Lapras
+|-singleturn|p1a: Lapras|Protect
+|move|p2a: Lanturn|Thunderbolt|p1a: Lapras
+|-activate|p1a: Lapras|move: Protect
+|-heal|p2a: Lanturn|329355 tox|[from] item: Leftovers
+|-heal|p1a: Lapras|35100|[from] item: Leftovers
+|-damage|p2a: Lanturn|285355 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "lapras"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-lapras
+|chat|DEBUG|Own moves: toxic voltswitch thunderbolt scald
+|chat|DEBUG|Enemy moves: icebeam protect sparklingaria toxic
+|chat|DEBUG|Checks: ['scizor', 'lanturn', 'alcremie']
+|chat|DEBUG|Counter: ['xurkitree', 'scizor', 'lanturn', 'alcremie', 'marowak']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 152
+|chat|DEBUG|HP: 285 vs 127
+|chat|DEBUG|Best move of lanturn (p1): thunderbolt: 153.5 [140, 168]
+|chat|DEBUG|Best move of lapras (p2): sparklingaria: 49.1875 [45, 54]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|switch|p1a: Steelix|Steelix, L84, M|100100
+|move|p2a: Lanturn|Thunderbolt|p1a: Steelix
+|-immune|p1a: Steelix
+|-heal|p2a: Lanturn|307355 tox|[from] item: Leftovers
+|-damage|p2a: Lanturn|241355 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-lapras-steelix
+|chat|DEBUG|Own moves: toxic voltswitch thunderbolt scald
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['marowak']
+|chat|DEBUG|Counter: ['araquanid', 'marowak']
+|chat|DEBUG|Speed: 164 vs 99
+|chat|DEBUG|HP: 241 vs 263
+|chat|DEBUG|Created a new Strategy for lanturn vs steelix:
+|chat|DEBUG|>[scald: 186.5 [170, 204], scald: 186.5 [170, 204], scald: 186.5 [170, 204]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 186.5 [170, 204]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check marowak
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|switch|p2a: Marowak|Marowak, L86, F|243243
+|switch|p1a: Lapras|Lapras, L86, M|35100
+|-heal|p1a: Lapras|42100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowak" vs "lapras"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-lapras-steelix
+|chat|DEBUG|Own moves: doubleedge swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: icebeam protect sparklingaria toxic
+|chat|DEBUG|Checks: ['scizor', 'lanturn', 'alcremie']
+|chat|DEBUG|Counter: ['xurkitree', 'scizor', 'lanturn', 'alcremie', 'marowak']
+|chat|DEBUG|Speed: 127 vs 152
+|chat|DEBUG|HP: 243 vs 152
+|chat|DEBUG|Created a new Strategy for marowak vs lapras:
+|chat|DEBUG|>[earthquake: 201.6875 [186, 219], earthquake: 201.6875 [186, 219], earthquake: 201.6875 [186, 219]]
+|chat|DEBUG|Best move of marowak (p1): earthquake: 201.6875 [186, 219]
+|chat|DEBUG|Best move of lapras (p2): sparklingaria: 189.75 [174, 206]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|move|p1a: Lapras|Ice Beam|p2a: Marowak
+|-supereffective|p2a: Marowak
+|-damage|p2a: Marowak|43243
+|move|p2a: Marowak|Earthquake|p1a: Lapras
+|-damage|p1a: Lapras|0 fnt
+|faint|p1a: Lapras
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|switch|p1a: Lunatone|Lunatone, L86|33100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowak" vs "lunatone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: doubleedge swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: moonblast nastyplot powergem psychic
+|chat|DEBUG|Checks: ['scizor', 'alcremie']
+|chat|DEBUG|Counter: ['scizor', 'lanturn', 'araquanid', 'alcremie']
+|chat|DEBUG|Speed: 127 vs 170
+|chat|DEBUG|HP: 43 vs 97
+|chat|DEBUG|Created a new Strategy for marowak vs lunatone:
+|chat|DEBUG|>[knockoff: 302.5 [278, 328], knockoff: 302.5 [278, 328], knockoff: 302.5 [278, 328]]
+|chat|DEBUG|Best move of marowak (p1): knockoff: 302.5 [278, 328]
+|chat|DEBUG|Best move of lunatone (p2): psychic: 134.25 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scizor
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, M|243243
+|move|p1a: Lunatone|Dark Pulse|p2a: Scizor
+|-damage|p2a: Scizor|128243
+|-heal|p2a: Scizor|143243|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "lunatone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: superpower bulletpunch roost uturn
+|chat|DEBUG|Enemy moves: moonblast nastyplot powergem psychic
+|chat|DEBUG|Checks: ['alcremie']
+|chat|DEBUG|Counter: ['scizor', 'lanturn', 'araquanid', 'alcremie']
+|chat|DEBUG|Speed: 150 vs 170
+|chat|DEBUG|HP: 143 vs 97
+|chat|DEBUG|Created a new Strategy for scizor vs lunatone:
+|chat|DEBUG|>[uturn: 211.75 [194, 230], uturn: 211.75 [194, 230], uturn: 211.75 [194, 230]]
+|chat|DEBUG|Best move of scizor (p1): uturn: 211.75 [194, 230]
+|chat|DEBUG|Best move of lunatone (p2): powergem: 128.625 [118, 140]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|switch|p1a: Steelix|Steelix, L84, M|100100
+|move|p2a: Scizor|U-turn|p1a: Steelix
+|-resisted|p1a: Steelix
+|-crit|p1a: Steelix
+|-damage|p1a: Steelix|87100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|252252
+|-heal|p1a: Steelix|93100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scizor" vs "lunatone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: moonblast nastyplot powergem psychic
+|chat|DEBUG|Checks: ['alcremie']
+|chat|DEBUG|Counter: ['scizor', 'lanturn', 'araquanid', 'alcremie']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to alcremie (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Steelix
+|-resisted|p1a: Steelix
+|-damage|p1a: Steelix|70100
+|move|p1a: Steelix|Heavy Slam|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|0 fnt
+|faint|p2a: Alcremie
+|-heal|p1a: Steelix|76100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Araquanid|Araquanid, L80, M|240240
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid alcremie marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-alcremie-marowak -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: psychic recover calmmind dazzlinggleam
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['araquanid']
+|chat|DEBUG|Speed: 159 vs 99
+|chat|DEBUG|HP: 252 vs 244
+|chat|DEBUG|Created a new Strategy for alcremie vs steelix:
+|chat|DEBUG|>[dazzlinggleam: 61.0625 [56, 66], dazzlinggleam: 61.0625 [56, 66], dazzlinggleam: 61.0625 [56, 66]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 61.0625 [56, 66]
+|chat|DEBUG|Best move of steelix (p2): heavyslam: 253.625 [234, 276]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|switch|p1a: Tentacruel|Tentacruel, L84, F|100100
+|move|p2a: Araquanid|Sticky Web|p1a: Tentacruel
+|-sidestart|p1: 2913315023qqcom|move: Sticky Web
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['araquanid']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to araquanid (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|-start|p2a: Araquanid|Dynamax
+|-heal|p2a: Araquanid|480480|[silent]
+|move|p1a: Tentacruel|Knock Off|p2a: Araquanid
+|-damage|p2a: Araquanid|423480
+|-enditem|p2a: Araquanid|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Tentacruel
+|move|p2a: Araquanid|Max Geyser|p1a: Tentacruel
+|-resisted|p1a: Tentacruel
+|-crit|p1a: Tentacruel
+|-damage|p1a: Tentacruel|33100
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "araquanid" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: liquidation stickyweb mirrorcoat toxic
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['araquanid']
+|chat|DEBUG|Counter: ['araquanid']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 113 vs 99
+|chat|DEBUG|HP: 240 vs 199
+|chat|DEBUG|Created a new Strategy for araquanid vs steelix:
+|chat|DEBUG|>[liquidation: 134.5 [122, 146], liquidation: 134.5 [122, 146], liquidation: 134.5 [122, 146]]
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 134.5 [122, 146]
+|chat|DEBUG|Best move of steelix (p2): headsmash: 193.125 [178, 210]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Setting Sticky web
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 120 seconds left.
+|move|p1a: Tentacruel|Rapid Spin|p2a: Araquanid
+|-damage|p2a: Araquanid|392480
+|-boost|p1a: Tentacruel|spe|1
+|-sideend|p1: 2913315023qqcom|Sticky Web|[from] move: Rapid Spin|[of] p1a: Tentacruel
+|move|p2a: Araquanid|Max Geyser|p1a: Tentacruel
+|-resisted|p1a: Tentacruel
+|-damage|p1a: Tentacruel|0 fnt
+|faint|p1a: Tentacruel
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Necrozma|Necrozma-Dawn-Wings, L76|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "araquanid" vs "tentacruel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix-tentacruel
+|chat|DEBUG|Own moves: liquidation stickyweb mirrorcoat toxic
+|chat|DEBUG|Enemy moves: haze knockoff scald sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree']
+|chat|DEBUG|Speed: 113 vs 216
+|chat|DEBUG|HP: 240 vs 272
+|chat|DEBUG|Created a new Strategy for araquanid vs tentacruel:
+|chat|DEBUG|>[liquidation: 81.125 [75, 88], liquidation: 81.125 [75, 88], liquidation: 81.125 [75, 88]]
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 81.125 [75, 88]
+|chat|DEBUG|Best move of tentacruel (p2): sludgebomb: 62.9375 [58, 69]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Necrozma|Dynamax
+|-heal|p1a: Necrozma|100100|[silent]
+|move|p1a: Necrozma|Max Mindstorm|p2a: Araquanid
+|-damage|p2a: Araquanid|274480
+|-fieldstart|move: Psychic Terrain
+|move|p2a: Araquanid|Max Geyser|p1a: Necrozma
+|-damage|p1a: Necrozma|48100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Necrozma|51100|[from] item: Leftovers
+|-end|p2a: Araquanid|Dynamax
+|-heal|p2a: Araquanid|137240|[silent]
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "araquanid" vs "tentacruel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix-tentacruel
+|chat|DEBUG|Own moves: liquidation stickyweb mirrorcoat toxic
+|chat|DEBUG|Enemy moves: haze knockoff scald sludgebomb
+|chat|DEBUG|Checks: ['lanturn', 'araquanid']
+|chat|DEBUG|Counter: ['xurkitree', 'lanturn', 'araquanid']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 113 vs 216
+|chat|DEBUG|HP: 423 vs 89
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 81.125 [75, 88]
+|chat|DEBUG|Best move of tentacruel (p2): sludgebomb: 62.9375 [58, 69]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Necrozma|Max Flare|p2a: Araquanid
+|-damage|p2a: Araquanid|117240
+|-weather|SunnyDay
+|move|p2a: Araquanid|Liquidation|p1a: Necrozma
+|-damage|p1a: Necrozma|40100
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Necrozma|43100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "araquanid" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: liquidation stickyweb mirrorcoat toxic
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['araquanid']
+|chat|DEBUG|Speed: 113 vs 161
+|chat|DEBUG|HP: 392 vs 272
+|chat|DEBUG|Created a new Strategy for araquanid vs necrozmadawnwings:
+|chat|DEBUG|>[liquidation: 121.1875 [111, 132], liquidation: 121.1875 [111, 132], liquidation: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 121.1875 [111, 132]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 98.9375 [91, 108]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|move|p1a: Necrozma|Max Mindstorm|p2a: Araquanid
+|-damage|p2a: Araquanid|0 fnt
+|faint|p2a: Araquanid
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Necrozma|46100|[from] item: Leftovers
+|-end|p1a: Necrozma|Dynamax
+|-heal|p1a: Necrozma|46100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Marowak|Marowak, L86, F|43243
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "araquanid" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: liquidation stickyweb mirrorcoat toxic
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree']
+|chat|DEBUG|Speed: 113 vs 161
+|chat|DEBUG|HP: 137 vs 138
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 121.1875 [111, 132]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 98.9375 [91, 108]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|move|p1a: Necrozma|Photon Geyser|p2a: Marowak
+|-damage|p2a: Marowak|0 fnt
+|faint|p2a: Marowak
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Necrozma|52100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Xurkitree|Xurkitree, L76|111251 psn
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn araquanid marowak
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "araquanid" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-araquanid-marowak -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: liquidation stickyweb mirrorcoat toxic
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'lanturn', 'araquanid']
+|chat|DEBUG|Speed: 113 vs 161
+|chat|DEBUG|HP: 117 vs 116
+|chat|DEBUG|Best move of araquanid (p1): liquidation: 121.1875 [111, 132]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 98.9375 [91, 108]
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|move|p2a: Xurkitree|Thunderbolt|p1a: Necrozma
+|-damage|p1a: Necrozma|0 fnt
+|faint|p1a: Necrozma
+|-ability|p2a: Xurkitree|Beast Boost|boost
+|-boost|p2a: Xurkitree|spa|1
+|-weather|SunnyDay|[upkeep]
+|-damage|p2a: Xurkitree|80251 psn|[from] psn
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|switch|p1a: Steelix|Steelix, L84, M|76100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn marowak
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "araquanid" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-marowak -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'lanturn']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'xurkitree': 111, 'scizor': 143, 'lanturn': 241, 'marowak': 43}
+|chat|DEBUG|remaining_hp_team_2={'lunatone': 33, 'zoroark': 33, 'steelix': 76, 'necrozmadawnwings': 43}
+|chat|DEBUG|battle.available_switches=[marowak (pokemon object) [Active: False, Status: None], xurkitree (pokemon object) [Active: False, Status: PSN], scizor (pokemon object) [Active: False, Status: None], lanturn (pokemon object) [Active: False, Status: TOX]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'marowak'
+|chat|DEBUG|>Switching to marowak (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xurkitree|Thunderbolt|p1a: Steelix
+|-immune|p1a: Steelix
+|move|p1a: Steelix|Earthquake|p2a: Xurkitree
+|-supereffective|p2a: Xurkitree
+|-damage|p2a: Xurkitree|0 fnt
+|faint|p2a: Xurkitree
+|-weather|none
+|-heal|p1a: Steelix|82100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scizor|Scizor, L80, M|143243
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn marowak
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "marowak" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn-marowak -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: doubleedge swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'lanturn']
+|chat|DEBUG|Speed: 127 vs 161
+|chat|DEBUG|HP: 43 vs 125
+|chat|DEBUG|Created a new Strategy for marowak vs necrozmadawnwings:
+|chat|DEBUG|>[knockoff: 348.1875 [321, 378], knockoff: 348.1875 [321, 378], knockoff: 348.1875 [321, 378]]
+|chat|DEBUG|Best move of marowak (p1): knockoff: 348.1875 [321, 378]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 135.5 [124, 147]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scizor|Superpower|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|47100
+|-unboost|p2a: Scizor|atk|1
+|-unboost|p2a: Scizor|def|1
+|move|p1a: Steelix|Dragon Dance|p1a: Steelix
+|-boost|p1a: Steelix|atk|1
+|-boost|p1a: Steelix|spe|1
+|-heal|p2a: Scizor|158243|[from] item: Leftovers
+|-heal|p1a: Steelix|53100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "marowak" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree', 'lanturn']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'xurkitree': 111, 'scizor': 143, 'lanturn': 241}
+|chat|DEBUG|remaining_hp_team_2={'lunatone': 33, 'zoroark': 33, 'steelix': 76, 'necrozmadawnwings': 46}
+|chat|DEBUG|battle.available_switches=[xurkitree (pokemon object) [Active: False, Status: PSN], scizor (pokemon object) [Active: False, Status: None], lanturn (pokemon object) [Active: False, Status: TOX]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'xurkitree'
+|chat|DEBUG|>Switching to xurkitree (pokemon object) [Active: False, Status: PSN]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scizor|Superpower|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|25100
+|-unboost|p2a: Scizor|atk|1
+|-unboost|p2a: Scizor|def|1
+|move|p1a: Steelix|Earthquake|p2a: Scizor
+|-damage|p2a: Scizor|0 fnt
+|faint|p2a: Scizor
+|-heal|p1a: Steelix|31100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lanturn|Lanturn, L86, M|241355 tox
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xurkitree" vs "necrozmadawnwings"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn -- lunatone-zoroark-steelix-necrozmadawnwings
+|chat|DEBUG|Own moves: dazzlinggleam thunderbolt voltswitch energyball
+|chat|DEBUG|Enemy moves: calmmind heatwave moongeistbeam photongeyser
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree']
+|chat|DEBUG|Speed: 170 vs 161
+|chat|DEBUG|HP: 111 vs 141
+|chat|DEBUG|Created a new Strategy for xurkitree vs necrozmadawnwings:
+|chat|DEBUG|>[thunderbolt: 155.8125 [144, 169], thunderbolt: 155.8125 [144, 169], thunderbolt: 155.8125 [144, 169]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 155.8125 [144, 169]
+|chat|DEBUG|Best move of necrozmadawnwings (p2): photongeyser: 166.9375 [153, 181]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|move|p2a: Lanturn|Scald|p1a: Steelix
+|-supereffective|p1a: Steelix
+|-damage|p1a: Steelix|0 fnt
+|faint|p1a: Steelix
+|-heal|p2a: Lanturn|263355 tox|[from] item: Leftovers
+|-damage|p2a: Lanturn|241355 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|switch|p1a: Lunatone|Lunatone, L86|33100
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree scizor lanturn
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xurkitree" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-scizor-lanturn -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['xurkitree']
+|chat|DEBUG|Speed: 170 vs 99
+|chat|DEBUG|HP: 80 vs 199
+|chat|DEBUG|Created a new Strategy for xurkitree vs steelix:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 245.125 [224, 266]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|2913315023qqcom has 90 seconds left.
+|move|p1a: Lunatone|Dark Pulse|p2a: Lanturn
+|-damage|p2a: Lanturn|124355 tox
+|move|p2a: Lanturn|Scald|p1a: Lunatone
+|-damage|p1a: Lunatone|0 fnt
+|replace|p1a: Zoroark|Zoroark, L86, M
+|-end|p1a: Zoroark|Illusion
+|faint|p1a: Zoroark
+|-heal|p2a: Lanturn|146355 tox|[from] item: Leftovers
+|-damage|p2a: Lanturn|102355 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunatone|Lunatone, L86|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scizor lanturn
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "xurkitree" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scizor-lanturn -- lunatone-zoroark-steelix
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'scizor': 143, 'lanturn': 241}
+|chat|DEBUG|remaining_hp_team_2={'lunatone': 33, 'zoroark': 33, 'steelix': 76}
+|chat|DEBUG|battle.available_switches=[scizor (pokemon object) [Active: False, Status: None], lanturn (pokemon object) [Active: False, Status: TOX]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'scizor'
+|chat|DEBUG|>Switching to scizor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lunatone|Psychic|p2a: Lanturn
+|-damage|p2a: Lanturn|0 fnt
+|faint|p2a: Lanturn
+|-damage|p1a: Lunatone|91100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>2913315023qqcom<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">xurkitree scizor lanturn araquanid alcremie marowak</h1>

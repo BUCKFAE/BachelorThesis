@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490102331<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490102331|init|battle
+|title|Petutsu vs. McGewitter
+|j|☆Petutsu
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Petutsu|266|1273
+|player|p2|McGewitter|265|1255
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Crawdaunt|Crawdaunt, L84, M|100100
+|switch|p2a: Sceptile|Sceptile, L86, F|261261
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt
+|chat|DEBUG|Own moves: leechseed earthquake substitute leafstorm
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['sceptile', 'raikou', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'vikavolt', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 256 vs 141
+|chat|DEBUG|HP: 261 vs 243
+|chat|DEBUG|Created a new Strategy for sceptile vs crawdaunt:
+|chat|DEBUG|>[leafstorm: 425.375 [390, 462], leafstorm: 214.625 [198, 234], leafstorm: 142.25 [132, 156]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 425.375 [390, 462]
+|chat|DEBUG|Best move of crawdaunt (p2): knockoff: 256.0625 [234, 278]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Chandelure|Chandelure, L82, M|100100
+|move|p2a: Sceptile|Leaf Storm|p1a: Chandelure
+|-resisted|p1a: Chandelure
+|-damage|p1a: Chandelure|67100
+|-unboost|p2a: Sceptile|spa|2
+|-heal|p1a: Chandelure|73100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: leechseed earthquake substitute leafstorm
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['raikou', 'primarina']
+|chat|DEBUG|Counter: ['raikou', 'zygarde', 'primarina']
+|chat|DEBUG|Speed: 256 vs 178
+|chat|DEBUG|HP: 261 vs 170
+|chat|DEBUG|Created a new Strategy for sceptile vs chandelure:
+|chat|DEBUG|>[earthquake: 136.0 [124, 148], earthquake: 136.0 [124, 148], earthquake: 136.0 [124, 148]]
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 136.0 [124, 148]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 456.0 [420, 494]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check raikou
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raikou|Raikou, L80|275275
+|-ability|p2a: Raikou|Pressure
+|move|p1a: Chandelure|Substitute|p1a: Chandelure
+|-start|p1a: Chandelure|Substitute
+|-damage|p1a: Chandelure|48100
+|-heal|p1a: Chandelure|54100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: scald aurasphere thunderbolt voltswitch
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['raikou', 'zygarde', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 230 vs 178
+|chat|DEBUG|HP: 275 vs 125
+|chat|DEBUG|Created a new Strategy for raikou vs chandelure:
+|chat|DEBUG|>[scald: 181.0 [166, 196], scald: 181.0 [166, 196], scald: 181.0 [166, 196]]
+|chat|DEBUG|Best move of raikou (p1): scald: 181.0 [166, 196]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 216.9375 [199, 235]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Raikou|Scald|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-end|p1a: Chandelure|Substitute
+|move|p1a: Chandelure|Fire Blast|p2a: Raikou
+|-damage|p2a: Raikou|124275
+|-heal|p1a: Chandelure|60100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: scald
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['zygarde', 'primarina']
+|chat|DEBUG|Counter: ['raikou', 'zygarde', 'primarina']
+|chat|DEBUG|Speed: 230 vs 178
+|chat|DEBUG|HP: 124 vs 139
+|chat|DEBUG|Created a new Strategy for raikou vs chandelure:
+|chat|DEBUG|>[scald: 181.0 [166, 196], scald: 181.0 [166, 196], scald: 181.0 [166, 196]]
+|chat|DEBUG|Best move of raikou (p1): scald: 181.0 [166, 196]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 216.9375 [199, 235]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Giratina|Giratina-Origin, L74|100100
+|move|p2a: Raikou|Scald|p1a: Giratina
+|-resisted|p1a: Giratina
+|-damage|p1a: Giratina|88100
+|-status|p1a: Giratina|brn
+|-damage|p1a: Giratina|82100 brn|[from] brn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "giratinaorigin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure-giratinaorigin
+|chat|DEBUG|Own moves: scald
+|chat|DEBUG|Enemy moves: dualwingbeat honeclaws outrage poltergeist
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitangalar', 'primarina']
+|chat|DEBUG|Speed: 230 vs 176
+|chat|DEBUG|HP: 124 vs 282
+|chat|DEBUG|Created a new Strategy for raikou vs giratinaorigin:
+|chat|DEBUG|>[scald: 46.0 [42, 50], scald: 46.0 [42, 50], scald: 46.0 [42, 50]]
+|chat|DEBUG|Best move of raikou (p1): scald: 46.0 [42, 50]
+|chat|DEBUG|Best move of giratinaorigin (p2): outrage: 138.5625 [127, 151]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Raikou|Scald|p1a: Giratina
+|-resisted|p1a: Giratina
+|-damage|p1a: Giratina|67100 brn
+|move|p1a: Giratina|Poltergeist|p2a: Raikou
+|-activate|p2a: Raikou|move: Poltergeist|Choice Specs
+|-damage|p2a: Raikou|42275
+|-damage|p1a: Giratina|61100 brn|[from] brn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raikou" vs "giratinaorigin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure-giratinaorigin
+|chat|DEBUG|Own moves: scald
+|chat|DEBUG|Enemy moves: dualwingbeat honeclaws outrage poltergeist
+|chat|DEBUG|Checks: ['darmanitangalar', 'primarina']
+|chat|DEBUG|Counter: ['darmanitangalar', 'primarina']
+|chat|DEBUG|Speed: 230 vs 176
+|chat|DEBUG|HP: 42 vs 209
+|chat|DEBUG|Created a new Strategy for raikou vs giratinaorigin:
+|chat|DEBUG|>[scald: 46.0 [42, 50], scald: 46.0 [42, 50], scald: 46.0 [42, 50]]
+|chat|DEBUG|Best move of raikou (p1): scald: 46.0 [42, 50]
+|chat|DEBUG|Best move of giratinaorigin (p2): outrage: 138.5625 [127, 151]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check darmanitangalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan-Galar, L78, M|292292
+|move|p1a: Giratina|Poltergeist|p2a: Darmanitan
+|-activate|p2a: Darmanitan|move: Poltergeist|Salac Berry
+|-damage|p2a: Darmanitan|195292
+|-damage|p1a: Giratina|55100 brn|[from] brn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitangalar" vs "giratinaorigin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure-giratinaorigin
+|chat|DEBUG|Own moves: substitute firepunch iciclecrash bellydrum
+|chat|DEBUG|Enemy moves: dualwingbeat honeclaws outrage poltergeist
+|chat|DEBUG|Checks: ['darmanitangalar', 'primarina']
+|chat|DEBUG|Counter: ['zygarde', 'darmanitangalar', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 193 vs 176
+|chat|DEBUG|HP: 195 vs 189
+|chat|DEBUG|Created a new Strategy for darmanitangalar vs giratinaorigin:
+|chat|DEBUG|>[iciclecrash: 217.25 [200, 236], iciclecrash: 217.25 [200, 236], iciclecrash: 217.25 [200, 236]]
+|chat|DEBUG|Best move of darmanitangalar (p1): iciclecrash: 217.25 [200, 236]
+|chat|DEBUG|Best move of giratinaorigin (p2): outrage: 175.1875 [160, 190]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Darmanitan|Icicle Crash|p1a: Giratina
+|-supereffective|p1a: Giratina
+|-damage|p1a: Giratina|0 fnt
+|faint|p1a: Giratina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aggron|Aggron, L85, F|100100
+|-item|p1a: Aggron|Air Balloon
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitangalar" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure-aggron
+|chat|DEBUG|Own moves: substitute firepunch iciclecrash bellydrum
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['zygarde', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'darmanitangalar', 'primarina']
+|chat|DEBUG|Speed: 193 vs 134
+|chat|DEBUG|HP: 195 vs 258
+|chat|DEBUG|Created a new Strategy for darmanitangalar vs aggron:
+|chat|DEBUG|>[firepunch: 34.6875 [32, 38], firepunch: 34.6875 [32, 38], firepunch: 34.6875 [32, 38]]
+|chat|DEBUG|Best move of darmanitangalar (p1): firepunch: 34.6875 [32, 38]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 543.0 [498, 588]
+|chat|DEBUG|Attacking using firepunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Darmanitan|Fire Punch|p1a: Aggron
+|-damage|p1a: Aggron|87100
+|-enditem|p1a: Aggron|Air Balloon
+|move|p1a: Aggron|Rock Polish|p1a: Aggron
+|-boost|p1a: Aggron|spe|2
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitangalar" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure-aggron
+|chat|DEBUG|Own moves: substitute firepunch iciclecrash bellydrum
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sceptile', 'zygarde', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'darmanitangalar', 'primarina']
+|chat|DEBUG|Speed: 193 vs 134
+|chat|DEBUG|HP: 195 vs 224
+|chat|DEBUG|Best move of darmanitangalar (p1): firepunch: 34.6875 [32, 38]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 543.0 [498, 588]
+|chat|DEBUG|Attacking using firepunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aggron|Head Smash|p2a: Darmanitan|[miss]
+|-miss|p1a: Aggron|p2a: Darmanitan
+|move|p2a: Darmanitan|Fire Punch|p1a: Aggron
+|-damage|p1a: Aggron|73100
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt darmanitangalar primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitangalar" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-darmanitangalar-primarina -- crawdaunt-chandelure-aggron
+|chat|DEBUG|Own moves: substitute firepunch iciclecrash bellydrum
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sceptile', 'zygarde', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'darmanitangalar', 'primarina']
+|chat|DEBUG|Speed: 193 vs 134
+|chat|DEBUG|HP: 195 vs 188
+|chat|DEBUG|Best move of darmanitangalar (p1): firepunch: 34.6875 [32, 38]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 543.0 [498, 588]
+|chat|DEBUG|Attacking using firepunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aggron|Head Smash|p2a: Darmanitan
+|-supereffective|p2a: Darmanitan
+|-damage|p2a: Darmanitan|0 fnt
+|faint|p2a: Darmanitan
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, F|261261
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitangalar" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure-aggron
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sceptile', 'zygarde', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'primarina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to sceptile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aggron|Heavy Slam|p2a: Sceptile
+|-damage|p2a: Sceptile|87261
+|move|p2a: Sceptile|Leaf Storm|p1a: Aggron
+|-damage|p1a: Aggron|0 fnt
+|-unboost|p2a: Sceptile|spa|2
+|faint|p1a: Aggron
+|-heal|p2a: Sceptile|103261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|60100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "aggron"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure-aggron
+|chat|DEBUG|Own moves: leechseed earthquake substitute leafstorm
+|chat|DEBUG|Enemy moves: bodypress headsmash heavyslam rockpolish
+|chat|DEBUG|Checks: ['sceptile', 'zygarde', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 256 vs 134
+|chat|DEBUG|HP: 261 vs 188
+|chat|DEBUG|Created a new Strategy for sceptile vs aggron:
+|chat|DEBUG|>[leafstorm: 198.875 [183, 216], earthquake: 149.75 [136, 164], earthquake: 149.75 [136, 164]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 198.875 [183, 216]
+|chat|DEBUG|Best move of aggron (p2): headsmash: 221.25 [204, 240]
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zygarde|Zygarde, L70|267267
+|move|p1a: Chandelure|Fire Blast|p2a: Zygarde
+|-resisted|p2a: Zygarde
+|-damage|p2a: Zygarde|187267
+|-heal|p1a: Chandelure|66100|[from] item: Leftovers
+|-heal|p2a: Zygarde|203267|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: leechseed earthquake substitute leafstorm
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['zygarde', 'primarina']
+|chat|DEBUG|Counter: ['raikou', 'zygarde', 'primarina']
+|chat|DEBUG|Speed: 256 vs 178
+|chat|DEBUG|HP: 103 vs 139
+|chat|DEBUG|Created a new Strategy for sceptile vs chandelure:
+|chat|DEBUG|>[earthquake: 136.0 [124, 148], earthquake: 136.0 [124, 148], earthquake: 136.0 [124, 148]]
+|chat|DEBUG|Best move of sceptile (p1): earthquake: 136.0 [124, 148]
+|chat|DEBUG|Best move of chandelure (p2): fireblast: 456.0 [420, 494]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zygarde
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Primarina|Primarina, L82, F|265265
+|move|p1a: Chandelure|Shadow Ball|p2a: Primarina
+|-damage|p2a: Primarina|169265
+|-unboost|p2a: Primarina|spd|1
+|-heal|p1a: Chandelure|72100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zygarde" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: dragondance substitute thousandarrows outrage
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: ['primarina']
+|chat|DEBUG|Counter: ['raikou', 'primarina']
+|chat|DEBUG|Speed: 174 vs 178
+|chat|DEBUG|HP: 203 vs 153
+|chat|DEBUG|Created a new Strategy for zygarde vs chandelure:
+|chat|DEBUG|>[thousandarrows: 142.25 [132, 156], thousandarrows: 142.25 [132, 156], thousandarrows: 142.25 [132, 156]]
+|chat|DEBUG|Best move of zygarde (p1): thousandarrows: 142.25 [132, 156]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 125.375 [115, 136]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check primarina
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Qwilfish|Qwilfish, L84, F|100100
+|-ability|p1a: Qwilfish|Intimidate|boost
+|-unboost|p2a: Primarina|atk|1
+|move|p2a: Primarina|Sparkling Aria|p1a: Qwilfish
+|-resisted|p1a: Qwilfish
+|-damage|p1a: Qwilfish|68100
+|-heal|p1a: Qwilfish|74100|[from] item: Black Sludge
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: sparklingaria moonblast hydropump energyball
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raikou', 'primarina']
+|chat|DEBUG|Speed: 146 vs 178
+|chat|DEBUG|HP: 169 vs 167
+|chat|DEBUG|Created a new Strategy for primarina vs chandelure:
+|chat|DEBUG|>[sparklingaria: 222.875 [204, 242], sparklingaria: 222.875 [204, 242], sparklingaria: 222.875 [204, 242]]
+|chat|DEBUG|Best move of primarina (p1): sparklingaria: 222.875 [204, 242]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 138.5 [127, 150]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Sparkling Aria|p1a: Qwilfish
+|-resisted|p1a: Qwilfish
+|-damage|p1a: Qwilfish|42100
+|move|p1a: Qwilfish|Toxic Spikes|p2a: Primarina
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-heal|p1a: Qwilfish|48100|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure-qwilfish
+|chat|DEBUG|Own moves: sparklingaria
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['sceptile', 'vikavolt', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'vikavolt', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 191
+|chat|DEBUG|HP: 169 vs 182
+|chat|DEBUG|Created a new Strategy for primarina vs qwilfish:
+|chat|DEBUG|>[sparklingaria: 77.0 [71, 84], sparklingaria: 77.0 [71, 84], sparklingaria: 77.0 [71, 84]]
+|chat|DEBUG|Best move of primarina (p1): sparklingaria: 77.0 [71, 84]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 47.875 [44, 52]
+|chat|DEBUG|Attacking using sparklingaria
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Sparkling Aria|p1a: Qwilfish
+|-resisted|p1a: Qwilfish
+|-damage|p1a: Qwilfish|17100
+|move|p1a: Qwilfish|Toxic Spikes|p2a: Primarina
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|-heal|p1a: Qwilfish|23100|[from] item: Black Sludge
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure-qwilfish
+|chat|DEBUG|Own moves: sparklingaria
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['sceptile', 'vikavolt', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'vikavolt', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 191
+|chat|DEBUG|HP: 169 vs 118
+|chat|DEBUG|Created a new Strategy for primarina vs qwilfish:
+|chat|DEBUG|>[sparklingaria: 77.0 [71, 84], sparklingaria: 77.0 [71, 84], sparklingaria: 77.0 [71, 84]]
+|chat|DEBUG|Best move of primarina (p1): sparklingaria: 77.0 [71, 84]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 47.875 [44, 52]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sparklingaria
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Sparkling Aria|p1a: Qwilfish
+|-resisted|p1a: Qwilfish
+|-damage|p1a: Qwilfish|0 fnt
+|faint|p1a: Qwilfish
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Chandelure|Chandelure, L82, M|72100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure-qwilfish
+|chat|DEBUG|Own moves: sparklingaria
+|chat|DEBUG|Enemy moves: destinybond spikes thunderwave waterfall
+|chat|DEBUG|Checks: ['sceptile', 'zygarde', 'vikavolt', 'primarina']
+|chat|DEBUG|Counter: ['sceptile', 'raikou', 'zygarde', 'vikavolt', 'primarina']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 191
+|chat|DEBUG|HP: 169 vs 56
+|chat|DEBUG|Created a new Strategy for primarina vs qwilfish:
+|chat|DEBUG|>[sparklingaria: 77.0 [71, 84], sparklingaria: 77.0 [71, 84], sparklingaria: 77.0 [71, 84]]
+|chat|DEBUG|Best move of primarina (p1): sparklingaria: 77.0 [71, 84]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 47.875 [44, 52]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Primarina|Sparkling Aria|p1a: Chandelure
+|-supereffective|p1a: Chandelure
+|-damage|p1a: Chandelure|0 fnt
+|faint|p1a: Chandelure
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "primarina" vs "chandelure"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-chandelure
+|chat|DEBUG|Own moves: sparklingaria
+|chat|DEBUG|Enemy moves: calmmind fireblast shadowball substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['raikou', 'primarina']
+|chat|DEBUG|Speed: 146 vs 178
+|chat|DEBUG|HP: 169 vs 167
+|chat|DEBUG|Created a new Strategy for primarina vs chandelure:
+|chat|DEBUG|>[sparklingaria: 222.875 [204, 242], sparklingaria: 222.875 [204, 242], sparklingaria: 222.875 [204, 242]]
+|chat|DEBUG|Best move of primarina (p1): sparklingaria: 222.875 [204, 242]
+|chat|DEBUG|Best move of chandelure (p2): shadowball: 138.5 [127, 150]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Tornadus|Dynamax
+|-heal|p1a: Tornadus|100100|[silent]
+|move|p1a: Tornadus|Max Airstream|p2a: Primarina
+|-damage|p2a: Primarina|0 fnt
+|-boost|p1a: Tornadus|spe|1
+|faint|p2a: Primarina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sceptile|Sceptile, L86, F|103261
+|-status|p2a: Sceptile|tox
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt primarina
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "primarina" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt-primarina -- crawdaunt-tornadustherian
+|chat|DEBUG|Own moves: sparklingaria
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vikavolt']
+|chat|DEBUG|Speed: 146 vs 234
+|chat|DEBUG|HP: 169 vs 251
+|chat|DEBUG|Created a new Strategy for primarina vs tornadustherian:
+|chat|DEBUG|>[sparklingaria: 79.5 [73, 87], sparklingaria: 79.5 [73, 87], sparklingaria: 79.5 [73, 87]]
+|chat|DEBUG|Best move of primarina (p1): sparklingaria: 79.5 [73, 87]
+|chat|DEBUG|Best move of tornadustherian (p2): hurricane: 138.5625 [127, 151]
+|chat|DEBUG|Attacking using sparklingaria
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Max Airstream|p2a: Sceptile
+|-supereffective|p2a: Sceptile
+|-damage|p2a: Sceptile|0 fnt
+|-boost|p1a: Tornadus|spe|1
+|faint|p2a: Sceptile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raikou|Raikou, L80|42275
+|-status|p2a: Raikou|tox
+|-ability|p2a: Raikou|Pressure
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "primarina" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt -- crawdaunt-tornadustherian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vikavolt']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'sceptile': 103, 'raikou': 42, 'zygarde': 203, 'vikavolt': 260}
+|chat|DEBUG|remaining_hp_team_2={'crawdaunt': 100, 'tornadustherian': 100}
+|chat|DEBUG|battle.available_switches=[sceptile (pokemon object) [Active: False, Status: None], vikavolt (pokemon object) [Active: False, Status: None], raikou (pokemon object) [Active: False, Status: None], zygarde (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'sceptile'
+|chat|DEBUG|>Switching to sceptile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Max Knuckle|p2a: Raikou
+|-damage|p2a: Raikou|0 fnt
+|-boost|p1a: Tornadus|atk|1
+|faint|p2a: Raikou
+|-end|p1a: Tornadus|Dynamax
+|-heal|p1a: Tornadus|100100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vikavolt|Vikavolt, L82, F|260260
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>sceptile raikou zygarde vikavolt
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sceptile" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>sceptile-raikou-zygarde-vikavolt -- crawdaunt-tornadustherian
+|chat|DEBUG|Own moves: leechseed earthquake substitute leafstorm
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vikavolt']
+|chat|DEBUG|Speed: 256 vs 234
+|chat|DEBUG|HP: 103 vs 251
+|chat|DEBUG|Created a new Strategy for sceptile vs tornadustherian:
+|chat|DEBUG|>[leafstorm: 54.125 [50, 59], leafstorm: 27.125 [25, 30], leafstorm: 18.0 [16, 20]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 54.125 [50, 59]
+|chat|DEBUG|Best move of tornadustherian (p2): hurricane: 225.625 [206, 246]
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Vikavolt|Dynamax
+|-heal|p2a: Vikavolt|520520|[silent]
+|move|p1a: Tornadus|Hurricane|p2a: Vikavolt
+|-damage|p2a: Vikavolt|387520
+|move|p2a: Vikavolt|Max Lightning|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p1a: Tornadus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crawdaunt|Crawdaunt, L84, M|100100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>raikou zygarde vikavolt
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "sceptile" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>raikou-zygarde-vikavolt -- crawdaunt-tornadustherian
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vikavolt']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'raikou': 42, 'zygarde': 203, 'vikavolt': 260}
+|chat|DEBUG|remaining_hp_team_2={'crawdaunt': 100, 'tornadustherian': 100}
+|chat|DEBUG|battle.available_switches=[vikavolt (pokemon object) [Active: False, Status: None], raikou (pokemon object) [Active: False, Status: None], zygarde (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'raikou'
+|chat|DEBUG|>Switching to raikou (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crawdaunt|Crabhammer|p2a: Vikavolt
+|-damage|p2a: Vikavolt|157520
+|move|p2a: Vikavolt|Max Lightning|p1a: Crawdaunt
+|-supereffective|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|0 fnt
+|faint|p1a: Crawdaunt
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Petutsu<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">sceptile raikou zygarde vikavolt darmanitangalar primarina</h1>

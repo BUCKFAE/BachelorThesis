@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490623141<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490623141|init|battle
+|title|McGewitter vs. ElekkT
+|j|☆McGewitter
+|j|☆ElekkT
+|gametype|singles
+|player|p1|McGewitter|265|1274
+|player|p2|ElekkT|102|1318
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Haxorus|Haxorus, L77, M|244244
+|switch|p2a: Pangoro|Pangoro, L84, F|100100
+|-ability|p1a: Haxorus|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "pangoro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- pangoro
+|chat|DEBUG|Own moves: outrage closecombat earthquake poisonjab
+|chat|DEBUG|Enemy moves: closecombat icepunch knockoff partingshot
+|chat|DEBUG|Checks: ['tapufini', 'whimsicott']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'whimsicott', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 146
+|chat|DEBUG|HP: 244 vs 297
+|chat|DEBUG|Created a new Strategy for haxorus vs pangoro:
+|chat|DEBUG|>[closecombat: 324.625 [298, 352], closecombat: 324.625 [298, 352], closecombat: 324.625 [298, 352]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 324.625 [298, 352]
+|chat|DEBUG|Best move of pangoro (p2): closecombat: 246.0625 [226, 267]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Haxorus|Close Combat|p2a: Pangoro
+|-supereffective|p2a: Pangoro
+|-damage|p2a: Pangoro|0 fnt
+|-unboost|p1a: Haxorus|def|1
+|-unboost|p1a: Haxorus|spd|1
+|faint|p2a: Pangoro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cofagrigus|Cofagrigus, L86, M|100100
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 101
+|chat|DEBUG|HP: 244 vs 240
+|chat|DEBUG|Created a new Strategy for haxorus vs cofagrigus:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 169.6875 [156, 184]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Close Combat|p2a: Cofagrigus
+|-immune|p2a: Cofagrigus
+|move|p2a: Cofagrigus|Will-O-Wisp|p1a: Haxorus
+|-status|p1a: Haxorus|brn
+|-damage|p1a: Haxorus|229244 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 101
+|chat|DEBUG|HP: 229 vs 240
+|chat|DEBUG|Created a new Strategy for haxorus vs cofagrigus:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 169.6875 [156, 184]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Close Combat|p2a: Cofagrigus
+|-immune|p2a: Cofagrigus
+|move|p2a: Cofagrigus|Toxic Spikes|p1a: Haxorus
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|-damage|p1a: Haxorus|214244 brn|[from] brn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 101
+|chat|DEBUG|HP: 214 vs 240
+|chat|DEBUG|Created a new Strategy for haxorus vs cofagrigus:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 169.6875 [156, 184]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Close Combat|p2a: Cofagrigus
+|-immune|p2a: Cofagrigus
+|move|p2a: Cofagrigus|Toxic Spikes|p1a: Haxorus
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|-damage|p1a: Haxorus|199244 brn|[from] brn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 101
+|chat|DEBUG|HP: 199 vs 240
+|chat|DEBUG|Created a new Strategy for haxorus vs cofagrigus:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 169.6875 [156, 184]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Close Combat|p2a: Cofagrigus
+|-immune|p2a: Cofagrigus
+|move|p2a: Cofagrigus|Toxic Spikes||[still]
+|-fail|p2a: Cofagrigus
+|-damage|p1a: Haxorus|184244 brn|[from] brn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 101
+|chat|DEBUG|HP: 184 vs 240
+|chat|DEBUG|Created a new Strategy for haxorus vs cofagrigus:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 169.6875 [156, 184]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Haxorus|Close Combat|p2a: Cofagrigus
+|-immune|p2a: Cofagrigus
+|move|p2a: Cofagrigus|Toxic Spikes||[still]
+|-fail|p2a: Cofagrigus
+|-damage|p1a: Haxorus|169244 brn|[from] brn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 194 vs 101
+|chat|DEBUG|HP: 169 vs 240
+|chat|DEBUG|Created a new Strategy for haxorus vs cofagrigus:
+|chat|DEBUG|>[closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0], closecombat: 0.0 [0, 0]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 0.0 [0, 0]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 169.6875 [156, 184]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check centiskorch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Centiskorch|Centiskorch, L84, M|305305
+|move|p2a: Cofagrigus|Will-O-Wisp|p1a: Centiskorch
+|-start|p1a: Centiskorch|ability: Flash Fire
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "centiskorch" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: firelash coil leechlife knockoff
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 157 vs 101
+|chat|DEBUG|HP: 305 vs 240
+|chat|DEBUG|Created a new Strategy for centiskorch vs cofagrigus:
+|chat|DEBUG|>[knockoff: 102.625 [94, 112], knockoff: 102.625 [94, 112], knockoff: 102.625 [94, 112]]
+|chat|DEBUG|Best move of centiskorch (p1): knockoff: 102.625 [94, 112]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 86.4375 [79, 94]
+|chat|DEBUG|Boost Moves: [coil (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Centiskorch|Coil|p1a: Centiskorch
+|-boost|p1a: Centiskorch|atk|1
+|-boost|p1a: Centiskorch|def|1
+|-boost|p1a: Centiskorch|accuracy|1
+|move|p2a: Cofagrigus|Shadow Ball|p1a: Centiskorch
+|-damage|p1a: Centiskorch|214305
+|-unboost|p1a: Centiskorch|spd|1
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "centiskorch" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: firelash coil leechlife knockoff
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapufini', 'seismitoad', 'centiskorch']
+|chat|DEBUG|Speed: 157 vs 101
+|chat|DEBUG|HP: 214 vs 240
+|chat|DEBUG|Best move of centiskorch (p1): knockoff: 102.625 [94, 112]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 129.5 [118, 141]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Centiskorch|Knock Off|p2a: Cofagrigus
+|-supereffective|p2a: Cofagrigus
+|-damage|p2a: Cofagrigus|39100
+|-end|p1a: Centiskorch|ability: Flash Fire|[silent]
+|-activate|p2a: Cofagrigus|ability: Mummy|Flash Fire|[of] p1a: Centiskorch
+|-enditem|p2a: Cofagrigus|Leftovers|[from] move: Knock Off|[of] p1a: Centiskorch
+|move|p2a: Cofagrigus|Shadow Ball|p1a: Centiskorch
+|-damage|p1a: Centiskorch|94305
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "centiskorch" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- cofagrigus
+|chat|DEBUG|Own moves: firelash coil leechlife knockoff
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['tapufini', 'seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'whimsicott', 'centiskorch', 'cradily']
+|chat|DEBUG|Speed: 157 vs 101
+|chat|DEBUG|HP: 94 vs 93
+|chat|DEBUG|Best move of centiskorch (p1): knockoff: 102.625 [94, 112]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 129.5 [118, 141]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Centiskorch|Knock Off|p2a: Cofagrigus
+|-supereffective|p2a: Cofagrigus
+|-damage|p2a: Cofagrigus|0 fnt
+|faint|p2a: Cofagrigus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, F|100100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Tyranitar
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "centiskorch" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: firelash coil leechlife knockoff
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: ['tapufini', 'seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|Speed: 157 vs 140
+|chat|DEBUG|HP: 94 vs 284
+|chat|DEBUG|Created a new Strategy for centiskorch vs tyranitar:
+|chat|DEBUG|>[leechlife: 262.0 [240, 284], leechlife: 262.0 [240, 284], leechlife: 262.0 [240, 284]]
+|chat|DEBUG|Best move of centiskorch (p1): leechlife: 262.0 [240, 284]
+|chat|DEBUG|Best move of tyranitar (p2): stoneedge: 401.5 [372, 436]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tapufini
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Fini|Tapu Fini, L78|237237
+|-status|p1a: Tapu Fini|tox
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|move|p2a: Tyranitar|Dragon Dance|p2a: Tyranitar
+|-boost|p2a: Tyranitar|atk|1
+|-boost|p2a: Tyranitar|spe|1
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Tapu Fini|223237 tox|[from] Sandstorm
+|-heal|p1a: Tapu Fini|237237 tox|[from] item: Leftovers
+|-damage|p1a: Tapu Fini|223237 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus tapufini seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapufini" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-tapufini-seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: taunt surf moonblast defog
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['haxorus', 'tapufini', 'seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|Speed: 178 vs 140
+|chat|DEBUG|HP: 223 vs 284
+|chat|DEBUG|Created a new Strategy for tapufini vs tyranitar:
+|chat|DEBUG|>[moonblast: 170.125 [156, 186], moonblast: 170.125 [156, 186], moonblast: 170.125 [156, 186]]
+|chat|DEBUG|Best move of tapufini (p1): moonblast: 170.125 [156, 186]
+|chat|DEBUG|Best move of tyranitar (p2): stoneedge: 157.3125 [144, 171]
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Tyranitar|Dynamax
+|-heal|p2a: Tyranitar|100100|[silent]
+|move|p2a: Tyranitar|Max Rockfall|p1a: Tapu Fini
+|-crit|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|0 fnt
+|faint|p1a: Tapu Fini
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Haxorus|Haxorus, L77, M|169244 brn
+|-ability|p1a: Haxorus|Mold Breaker
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapufini" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['haxorus', 'seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to haxorus (pokemon object) [Active: False, Status: BRN]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tyranitar|Max Quake|p1a: Haxorus
+|-damage|p1a: Haxorus|16244 brn
+|-boost|p2a: Tyranitar|spd|1
+|move|p1a: Haxorus|Close Combat|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|54100
+|-unboost|p1a: Haxorus|def|1
+|-unboost|p1a: Haxorus|spd|1
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Haxorus|1244 brn|[from] Sandstorm
+|-damage|p1a: Haxorus|0 fnt|[from] brn
+|faint|p1a: Haxorus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Seismitoad|Seismitoad, L84, F|314314
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>haxorus seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>haxorus-seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: outrage closecombat earthquake poisonjab
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['haxorus', 'seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|Speed: 194 vs 140
+|chat|DEBUG|HP: 169 vs 284
+|chat|DEBUG|Created a new Strategy for haxorus vs tyranitar:
+|chat|DEBUG|>[closecombat: 534.75 [492, 580], closecombat: 534.75 [492, 580], closecombat: 534.75 [492, 580]]
+|chat|DEBUG|Best move of haxorus (p1): closecombat: 534.75 [492, 580]
+|chat|DEBUG|Best move of tyranitar (p2): stoneedge: 191.9375 [177, 208]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tyranitar|Max Quake|p1a: Seismitoad
+|-damage|p1a: Seismitoad|135314
+|-boost|p2a: Tyranitar|spd|1
+|move|p1a: Seismitoad|Earthquake|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|10100
+|-damage|p1a: Seismitoad|104314|[from] item: Life Orb
+|-weather|Sandstorm|[upkeep]
+|-end|p2a: Tyranitar|Dynamax
+|-heal|p2a: Tyranitar|10100|[silent]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "haxorus" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['seismitoad', 'whimsicott', 'cradily']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to seismitoad (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tyranitar|Crunch|p1a: Seismitoad
+|-damage|p1a: Seismitoad|0 fnt
+|faint|p1a: Seismitoad
+|-weather|none
+|-fieldend|Misty Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Whimsicott|Whimsicott, L84, M|238238
+|-status|p1a: Whimsicott|tox
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: liquidation raindance sludgebomb earthquake
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: ['seismitoad', 'cradily']
+|chat|DEBUG|Counter: ['seismitoad', 'whimsicott', 'centiskorch', 'cradily']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 173 vs 140
+|chat|DEBUG|HP: 314 vs 153
+|chat|DEBUG|Created a new Strategy for seismitoad vs tyranitar:
+|chat|DEBUG|>[earthquake: 246.6875 [226, 268], earthquake: 246.6875 [226, 268], earthquake: 246.6875 [226, 268]]
+|chat|DEBUG|Best move of seismitoad (p1): earthquake: 246.6875 [226, 268]
+|chat|DEBUG|Best move of tyranitar (p2): crunch: 161.25 [148, 175]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Durant|Durant, L78, F|100100
+|move|p1a: Whimsicott|Moonblast|p2a: Durant
+|-resisted|p2a: Durant
+|-damage|p2a: Durant|66100
+|-unboost|p2a: Durant|spa|1
+|-damage|p1a: Whimsicott|224238 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>seismitoad whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>seismitoad-whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: liquidation raindance sludgebomb earthquake
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: ['whimsicott', 'cradily']
+|chat|DEBUG|Counter: ['seismitoad', 'whimsicott', 'centiskorch', 'cradily']
+|chat|DEBUG|Speed: 173 vs 140
+|chat|DEBUG|HP: 104 vs 28
+|chat|DEBUG|Best move of seismitoad (p1): earthquake: 246.6875 [226, 268]
+|chat|DEBUG|Best move of tyranitar (p2): crunch: 161.25 [148, 175]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Whimsicott|Moonblast|p2a: Durant
+|-resisted|p2a: Durant
+|-damage|p2a: Durant|37100
+|move|p2a: Durant|Iron Head|p1a: Whimsicott
+|-supereffective|p1a: Whimsicott
+|-damage|p1a: Whimsicott|0 fnt
+|faint|p1a: Whimsicott
+|-damage|p2a: Durant|27100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cradily|Cradily, L86, M|288288
+|-status|p1a: Cradily|tox
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: ['whimsicott', 'cradily']
+|chat|DEBUG|Counter: ['whimsicott', 'centiskorch', 'cradily']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to whimsicott (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Cradily|Dynamax
+|-heal|p1a: Cradily|576576 tox|[silent]
+|move|p2a: Durant|Iron Head|p1a: Cradily|[miss]
+|-miss|p2a: Durant|p1a: Cradily
+|move|p1a: Cradily|Max Rockfall|p2a: Durant
+|-damage|p2a: Durant|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Durant
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Cradily|558576 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, F|10100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whimsicott" vs "tyranitar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whimsicott-centiskorch-cradily -- tyranitar
+|chat|DEBUG|Own moves: leechseed energyball moonblast stunspore
+|chat|DEBUG|Enemy moves: crunch dragondance earthquake stoneedge
+|chat|DEBUG|Checks: ['whimsicott', 'cradily']
+|chat|DEBUG|Counter: ['whimsicott', 'centiskorch', 'cradily']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 243 vs 140
+|chat|DEBUG|HP: 238 vs 28
+|chat|DEBUG|Created a new Strategy for whimsicott vs tyranitar:
+|chat|DEBUG|>[moonblast: 84.125 [78, 92], moonblast: 84.125 [78, 92], moonblast: 84.125 [78, 92]]
+|chat|DEBUG|Best move of whimsicott (p1): moonblast: 84.125 [78, 92]
+|chat|DEBUG|Best move of tyranitar (p2): stoneedge: 183.6875 [169, 199]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tyranitar|Earthquake|p1a: Cradily
+|-damage|p1a: Cradily|487576 tox
+|move|p1a: Cradily|Max Overgrowth|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Tyranitar
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Cradily|505576 tox|[from] Grassy Terrain
+|-heal|p1a: Cradily|523576 tox|[from] item: Leftovers
+|-damage|p1a: Cradily|487576 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magmortar|Magmortar, L86, F|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>whimsicott centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whimsicott" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>whimsicott-centiskorch-cradily -- tyranitar-durant
+|chat|DEBUG|Own moves: leechseed energyball moonblast stunspore
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 243 vs 215
+|chat|DEBUG|HP: 224 vs 144
+|chat|DEBUG|Created a new Strategy for whimsicott vs durant:
+|chat|DEBUG|>[moonblast: 69.0 [63, 75], moonblast: 69.0 [63, 75], moonblast: 69.0 [63, 75]]
+|chat|DEBUG|Best move of whimsicott (p1): moonblast: 69.0 [63, 75]
+|chat|DEBUG|Best move of durant (p2): ironhead: 326.0 [299, 354]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magmortar|Fire Blast|p1a: Cradily|[miss]
+|-miss|p2a: Magmortar|p1a: Cradily
+|move|p1a: Cradily|Max Rockfall|p2a: Magmortar
+|-supereffective|p2a: Magmortar
+|-damage|p2a: Magmortar|0 fnt
+|faint|p2a: Magmortar
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Cradily|505576 tox|[from] Grassy Terrain
+|-heal|p1a: Cradily|523576 tox|[from] item: Leftovers
+|-damage|p1a: Cradily|469576 tox|[from] psn
+|-end|p1a: Cradily|Dynamax
+|-heal|p1a: Cradily|235288 tox|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gengar|Gengar, L80, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whimsicott" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>centiskorch-cradily -- tyranitar-durant
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: cradily
+|chat|DEBUG|>Switching to cradily (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gengar|Sludge Wave|p1a: Cradily
+|-damage|p1a: Cradily|148288 tox
+|-damage|p2a: Gengar|91100|[from] item: Life Orb
+|move|p1a: Cradily|Stone Edge|p2a: Gengar
+|-damage|p2a: Gengar|31100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Gengar|25100|[from] Sandstorm
+|-heal|p2a: Gengar|31100|[from] Grassy Terrain
+|-heal|p1a: Cradily|166288 tox|[from] Grassy Terrain
+|-heal|p1a: Cradily|184288 tox|[from] item: Leftovers
+|-damage|p1a: Cradily|112288 tox|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>centiskorch cradily
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cradily" vs "durant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>centiskorch-cradily -- tyranitar-durant
+|chat|DEBUG|Own moves: swordsdance powerwhip stoneedge recover
+|chat|DEBUG|Enemy moves: honeclaws ironhead rockslide superpower
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cradily']
+|chat|DEBUG|Speed: 123 vs 215
+|chat|DEBUG|HP: 288 vs 59
+|chat|DEBUG|Created a new Strategy for cradily vs durant:
+|chat|DEBUG|>[stoneedge: 86.4375 [79, 94], stoneedge: 86.4375 [79, 94], stoneedge: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of cradily (p1): stoneedge: 86.4375 [79, 94]
+|chat|DEBUG|Best move of durant (p2): ironhead: 286.625 [265, 312]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gengar|Shadow Ball|p1a: Cradily
+|-damage|p1a: Cradily|46288 tox
+|-damage|p2a: Gengar|22100|[from] item: Life Orb
+|move|p1a: Cradily|Stone Edge|p2a: Gengar
+|-damage|p2a: Gengar|0 fnt
+|faint|p2a: Gengar
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>ElekkT</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">haxorus tapufini seismitoad whimsicott centiskorch cradily</h1>

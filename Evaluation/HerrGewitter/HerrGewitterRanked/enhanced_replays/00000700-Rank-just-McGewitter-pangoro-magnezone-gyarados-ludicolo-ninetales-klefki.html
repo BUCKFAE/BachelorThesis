@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491141020<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491141020|init|battle
+|title|Rank-just vs. McGewitter
+|j|☆Rank-just
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Rank-just|richboy|1335
+|player|p2|McGewitter|265|1300
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Basculin|Basculin, L86, F|100100
+|switch|p2a: Pangoro|Pangoro, L84, F|297297
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pangoro magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pangoro-magnezone-gyarados-ludicolo-ninetales-klefki -- basculin
+|chat|DEBUG|Own moves: icepunch closecombat gunkshot knockoff
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pangoro', 'magnezone', 'ludicolo']
+|chat|DEBUG|Speed: 146 vs 218
+|chat|DEBUG|HP: 297 vs 261
+|chat|DEBUG|Created a new Strategy for pangoro vs basculin:
+|chat|DEBUG|>[closecombat: 278.625 [256, 303], closecombat: 278.625 [256, 303], closecombat: 278.625 [256, 303]]
+|chat|DEBUG|Best move of pangoro (p1): closecombat: 278.625 [256, 303]
+|chat|DEBUG|Best move of basculin (p2): liquidation: 197.0 [180, 214]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Basculin|Liquidation|p2a: Pangoro
+|-damage|p2a: Pangoro|117297
+|move|p2a: Pangoro|Close Combat|p1a: Basculin
+|-damage|p1a: Basculin|0 fnt
+|-unboost|p2a: Pangoro|def|1
+|-unboost|p2a: Pangoro|spd|1
+|faint|p1a: Basculin
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zekrom|Zekrom, L69|100100
+|-ability|p1a: Zekrom|Teravolt
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pangoro magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pangoro-magnezone-gyarados-ludicolo-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['magnezone', 'ludicolo', 'klefki']
+|chat|DEBUG|Speed: 146 vs 165
+|chat|DEBUG|HP: 117 vs 252
+|chat|DEBUG|Created a new Strategy for pangoro vs zekrom:
+|chat|DEBUG|>[closecombat: 218.3125 [201, 237], closecombat: 218.3125 [201, 237], closecombat: 218.3125 [201, 237]]
+|chat|DEBUG|Best move of pangoro (p1): closecombat: 218.3125 [201, 237]
+|chat|DEBUG|Best move of zekrom (p2): outrage: 201.6875 [186, 219]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Bolt Strike|p2a: Pangoro
+|-damage|p2a: Pangoro|0 fnt
+|faint|p2a: Pangoro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magnezone|Magnezone, L84|255255
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pangoro" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ludicolo-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['magnezone', 'ludicolo', 'klefki']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to magnezone (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Dragon Dance|p1a: Zekrom
+|-boost|p1a: Zekrom|atk|1
+|-boost|p1a: Zekrom|spe|1
+|move|p2a: Magnezone|Flash Cannon|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|77100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magnezone" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ludicolo-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: thunderbolt mirrorcoat voltswitch flashcannon
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['magnezone', 'ludicolo', 'klefki']
+|chat|DEBUG|Speed: 149 vs 165
+|chat|DEBUG|HP: 255 vs 252
+|chat|DEBUG|Created a new Strategy for magnezone vs zekrom:
+|chat|DEBUG|>[flashcannon: 58.875 [54, 64], flashcannon: 58.875 [54, 64], flashcannon: 58.875 [54, 64]]
+|chat|DEBUG|Best move of magnezone (p1): flashcannon: 58.875 [54, 64]
+|chat|DEBUG|Best move of zekrom (p2): outrage: 49.9375 [46, 54]
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Outrage|p2a: Magnezone
+|-resisted|p2a: Magnezone
+|-damage|p2a: Magnezone|174255
+|move|p2a: Magnezone|Flash Cannon|p1a: Zekrom
+|-resisted|p1a: Zekrom
+|-damage|p1a: Zekrom|55100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magnezone" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ludicolo-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: thunderbolt mirrorcoat voltswitch flashcannon
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ludicolo', 'klefki']
+|chat|DEBUG|Speed: 149 vs 165
+|chat|DEBUG|HP: 255 vs 194
+|chat|DEBUG|Best move of magnezone (p1): flashcannon: 58.875 [54, 64]
+|chat|DEBUG|Best move of zekrom (p2): outrage: 74.1875 [68, 81]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ludicolo|Ludicolo, L86, M|278278
+|move|p1a: Zekrom|Outrage|p2a: Ludicolo|[from]lockedmove
+|-damage|p2a: Ludicolo|74278
+|-start|p1a: Zekrom|confusion|[fatigue]
+|-enditem|p1a: Zekrom|Lum Berry|[eat]
+|-end|p1a: Zekrom|confusion
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magnezone" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ludicolo-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: thunderbolt mirrorcoat voltswitch flashcannon
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: ['ludicolo', 'klefki']
+|chat|DEBUG|Counter: ['ludicolo', 'klefki']
+|chat|DEBUG|Speed: 149 vs 165
+|chat|DEBUG|HP: 174 vs 138
+|chat|DEBUG|Best move of magnezone (p1): flashcannon: 58.875 [54, 64]
+|chat|DEBUG|Best move of zekrom (p2): outrage: 74.1875 [68, 81]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check ludicolo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zekrom|Bolt Strike|p2a: Ludicolo
+|-damage|p2a: Ludicolo|0 fnt
+|faint|p2a: Ludicolo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Klefki|Klefki, L82, F|228228
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ludicolo ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ludicolo" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ludicolo-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: scald icebeam raindance gigadrain
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: ['klefki']
+|chat|DEBUG|Counter: ['ludicolo', 'klefki']
+|chat|DEBUG|Speed: 170 vs 165
+|chat|DEBUG|HP: 74 vs 138
+|chat|DEBUG|Created a new Strategy for ludicolo vs zekrom:
+|chat|DEBUG|>[icebeam: 181.5 [166, 198], icebeam: 181.5 [166, 198], icebeam: 181.5 [166, 198]]
+|chat|DEBUG|Best move of ludicolo (p1): icebeam: 181.5 [166, 198]
+|chat|DEBUG|Best move of zekrom (p2): outrage: 211.3125 [195, 229]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Bronzong|Bronzong, L82|100100
+|move|p2a: Klefki|Spikes|p1a: Bronzong
+|-sidestart|p1: Rank-just|Spikes
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ludicolo" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: ['klefki']
+|chat|DEBUG|Counter: ['klefki']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to klefki (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Klefki|Spikes|p1a: Bronzong
+|-sidestart|p1: Rank-just|Spikes
+|move|p1a: Bronzong|Stealth Rock|p2a: Klefki
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom
+|chat|DEBUG|Own moves: spikes playrough thunderwave magnetrise
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: ['klefki']
+|chat|DEBUG|Counter: ['klefki']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 170 vs 165
+|chat|DEBUG|HP: 228 vs 138
+|chat|DEBUG|Created a new Strategy for klefki vs zekrom:
+|chat|DEBUG|>[playrough: 147.875 [134, 162], playrough: 147.875 [134, 162], playrough: 147.875 [134, 162]]
+|chat|DEBUG|Best move of klefki (p1): playrough: 147.875 [134, 162]
+|chat|DEBUG|Best move of zekrom (p2): boltstrike: 198.875 [183, 216]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Klefki|Spikes|p1a: Bronzong
+|-sidestart|p1: Rank-just|Spikes
+|move|p1a: Bronzong|Earthquake|p2a: Klefki
+|-supereffective|p2a: Klefki
+|-damage|p2a: Klefki|112228
+|-heal|p2a: Klefki|126228|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: spikes playrough thunderwave magnetrise
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['gyarados']
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 228 vs 244
+|chat|DEBUG|Created a new Strategy for klefki vs bronzong:
+|chat|DEBUG|>[magnetrise: 0.0 [0, 0], playrough: 31.875 [29, 35], playrough: 31.875 [29, 35]]
+|chat|DEBUG|Best move of klefki (p1): magnetrise: 0.0 [0, 0]
+|chat|DEBUG|Best move of bronzong (p2): earthquake: 124.75 [114, 136]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gyarados|Gyarados, L76, M|269269
+|move|p1a: Bronzong|Earthquake|p2a: Gyarados
+|-immune|p2a: Gyarados
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: spikes playrough thunderwave magnetrise
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['gyarados']
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 228 vs 244
+|chat|DEBUG|Best move of klefki (p1): playrough: 31.875 [29, 35]
+|chat|DEBUG|Best move of bronzong (p2): earthquake: 124.75 [114, 136]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gyarados|Dragon Dance|p2a: Gyarados
+|-boost|p2a: Gyarados|atk|1
+|-boost|p2a: Gyarados|spe|1
+|move|p1a: Bronzong|Toxic|p2a: Gyarados
+|-status|p2a: Gyarados|tox
+|-damage|p2a: Gyarados|253269 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "klefki" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: spikes playrough thunderwave magnetrise
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['gyarados']
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 126 vs 244
+|chat|DEBUG|Best move of klefki (p1): playrough: 31.875 [29, 35]
+|chat|DEBUG|Best move of bronzong (p2): earthquake: 124.75 [114, 136]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check gyarados
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gyarados|Dragon Dance|p2a: Gyarados
+|-boost|p2a: Gyarados|atk|1
+|-boost|p2a: Gyarados|spe|1
+|move|p1a: Bronzong|Iron Head|p2a: Gyarados
+|-resisted|p2a: Gyarados
+|-damage|p2a: Gyarados|208269 tox
+|-damage|p2a: Gyarados|176269 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: powerwhip bounce waterfall dragondance
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['gyarados']
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 167 vs 101
+|chat|DEBUG|HP: 269 vs 244
+|chat|DEBUG|Created a new Strategy for gyarados vs bronzong:
+|chat|DEBUG|>[waterfall: 71.125 [66, 78], waterfall: 71.125 [66, 78], waterfall: 71.125 [66, 78]]
+|chat|DEBUG|Best move of gyarados (p1): waterfall: 71.125 [66, 78]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 45.1875 [42, 49]
+|chat|DEBUG|Boost Moves: [dragondance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Rank-just has 120 seconds left.
+|-start|p1a: Bronzong|Dynamax
+|-heal|p1a: Bronzong|100100|[silent]
+|move|p2a: Gyarados|Waterfall|p1a: Bronzong
+|-damage|p1a: Bronzong|70100
+|move|p1a: Bronzong|Max Steelspike|p2a: Gyarados
+|-resisted|p2a: Gyarados
+|-damage|p2a: Gyarados|107269 tox
+|-boost|p1a: Bronzong|def|1
+|-heal|p1a: Bronzong|73100|[from] item: Leftovers
+|-damage|p2a: Gyarados|59269 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: powerwhip bounce waterfall dragondance
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['gyarados']
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 167 vs 101
+|chat|DEBUG|HP: 253 vs 244
+|chat|DEBUG|Best move of gyarados (p1): waterfall: 71.125 [66, 78]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 45.1875 [42, 49]
+|chat|DEBUG|Boost Moves: [dragondance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Rank-just has 120 seconds left.
+|move|p2a: Gyarados|Waterfall|p1a: Bronzong
+|-damage|p1a: Bronzong|53100
+|move|p1a: Bronzong|Max Steelspike|p2a: Gyarados
+|-resisted|p2a: Gyarados
+|-damage|p2a: Gyarados|0 fnt
+|-boost|p1a: Bronzong|def|1
+|faint|p2a: Gyarados
+|-heal|p1a: Bronzong|56100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ninetales|Ninetales, L82, F|254254
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Ninetales
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: powerwhip bounce waterfall dragondance
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['gyarados']
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 167 vs 101
+|chat|DEBUG|HP: 176 vs 244
+|chat|DEBUG|Best move of gyarados (p1): waterfall: 71.125 [66, 78]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 45.1875 [42, 49]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['zekrom']
+|chat|DEBUG|Expected enemy: zekrom
+|chat|DEBUG|Using move waterfall
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Ninetales|Dynamax
+|-heal|p2a: Ninetales|508508|[silent]
+|move|p2a: Ninetales|Max Flare|p1a: Bronzong
+|-supereffective|p1a: Bronzong
+|-damage|p1a: Bronzong|0 fnt
+|faint|p1a: Bronzong
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Latios|Latios, L78, M|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone gyarados ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-gyarados-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: powerwhip bounce waterfall dragondance
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gyarados', 'ninetales']
+|chat|DEBUG|Speed: 167 vs 101
+|chat|DEBUG|HP: 59 vs 178
+|chat|DEBUG|Created a new Strategy for gyarados vs bronzong:
+|chat|DEBUG|>[waterfall: 94.875 [87, 103], waterfall: 94.875 [87, 103], waterfall: 94.875 [87, 103]]
+|chat|DEBUG|Best move of gyarados (p1): waterfall: 94.875 [87, 103]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 45.1875 [42, 49]
+|chat|DEBUG|Attacking using waterfall
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Calm Mind|p1a: Latios
+|-boost|p1a: Latios|spa|1
+|-boost|p1a: Latios|spd|1
+|move|p2a: Ninetales|Max Flare|p1a: Latios
+|-resisted|p1a: Latios
+|-crit|p1a: Latios
+|-damage|p1a: Latios|48100
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ninetales']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to ninetales (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Roost|p1a: Latios
+|-heal|p1a: Latios|98100
+|-singleturn|p1a: Latios|move: Roost
+|move|p2a: Ninetales|Max Flare|p1a: Latios
+|-resisted|p1a: Latios
+|-damage|p1a: Latios|76100
+|-weather|SunnyDay|[upkeep]
+|-end|p2a: Ninetales|Dynamax
+|-heal|p2a: Ninetales|254254|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-bronzong
+|chat|DEBUG|Own moves: fireblast willowisp nastyplot solarbeam
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['ninetales']
+|chat|DEBUG|Counter: ['ninetales']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 254 vs 136
+|chat|DEBUG|Created a new Strategy for ninetales vs bronzong:
+|chat|DEBUG|>[fireblast: 159.0 [146, 174], fireblast: 159.0 [146, 174], fireblast: 159.0 [146, 174]]
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 159.0 [146, 174]
+|chat|DEBUG|Best move of bronzong (p2): earthquake: 145.25 [134, 158]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Calm Mind|p1a: Latios
+|-boost|p1a: Latios|spa|1
+|-boost|p1a: Latios|spd|1
+|move|p2a: Ninetales|Fire Blast|p1a: Latios
+|-resisted|p1a: Latios
+|-damage|p1a: Latios|63100
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-latios
+|chat|DEBUG|Own moves: fireblast willowisp nastyplot solarbeam
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['magnezone', 'klefki']
+|chat|DEBUG|Speed: 211 vs 217
+|chat|DEBUG|HP: 508 vs 253
+|chat|DEBUG|Created a new Strategy for ninetales vs latios:
+|chat|DEBUG|>[fireblast: 43.75 [40, 48], fireblast: 43.75 [40, 48], fireblast: 43.75 [40, 48]]
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 43.75 [40, 48]
+|chat|DEBUG|Best move of latios (p2): psyshock: 129.5 [118, 141]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Roost|p1a: Latios
+|-heal|p1a: Latios|100100
+|-singleturn|p1a: Latios|move: Roost
+|move|p2a: Ninetales|Solar Beam||[still]
+|-prepare|p2a: Ninetales|Solar Beam
+|-anim|p2a: Ninetales|Solar Beam|p1a: Latios
+|-resisted|p1a: Latios
+|-damage|p1a: Latios|94100
+|-weather|none
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-latios
+|chat|DEBUG|Own moves: fireblast willowisp nastyplot solarbeam
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['magnezone', 'klefki']
+|chat|DEBUG|Speed: 211 vs 217
+|chat|DEBUG|HP: 508 vs 121
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 43.75 [40, 48]
+|chat|DEBUG|Best move of latios (p2): psyshock: 193.4375 [178, 210]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magnezone|Magnezone, L84|174255
+|-damage|p2a: Magnezone|159255|[from] Stealth Rock
+|move|p1a: Latios|Calm Mind|p1a: Latios
+|-boost|p1a: Latios|spa|1
+|-boost|p1a: Latios|spd|1
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-latios
+|chat|DEBUG|Own moves: fireblast willowisp nastyplot solarbeam
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 211 vs 217
+|chat|DEBUG|HP: 254 vs 192
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 43.75 [40, 48]
+|chat|DEBUG|Best move of latios (p2): psyshock: 193.4375 [178, 210]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Psyshock|p2a: Magnezone
+|-resisted|p2a: Magnezone
+|-damage|p2a: Magnezone|39255
+|move|p2a: Magnezone|Flash Cannon|p1a: Latios
+|-damage|p1a: Latios|78100
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-latios
+|chat|DEBUG|Own moves: fireblast willowisp nastyplot solarbeam
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['klefki']
+|chat|DEBUG|Speed: 211 vs 217
+|chat|DEBUG|HP: 254 vs 159
+|chat|DEBUG|Created a new Strategy for ninetales vs latios:
+|chat|DEBUG|>[solarbeam: 15.6875 [14, 17], fireblast: 22.3125 [21, 24], fireblast: 22.3125 [21, 24]]
+|chat|DEBUG|Best move of ninetales (p1): solarbeam: 15.6875 [14, 17]
+|chat|DEBUG|Best move of latios (p2): psyshock: 257.125 [237, 279]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using solarbeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Psyshock|p2a: Magnezone
+|-resisted|p2a: Magnezone
+|-damage|p2a: Magnezone|0 fnt
+|faint|p2a: Magnezone
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ninetales|Ninetales, L82, F|254254
+|-weather|SunnyDay|[from] ability: Drought|[of] p2a: Ninetales
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-latios
+|chat|DEBUG|Own moves: fireblast willowisp nastyplot solarbeam
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 211 vs 217
+|chat|DEBUG|HP: 254 vs 237
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 22.3125 [21, 24]
+|chat|DEBUG|Best move of latios (p2): psyshock: 257.125 [237, 279]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to magnezone as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Klefki|Klefki, L82, F|126228
+|-damage|p2a: Klefki|112228|[from] Stealth Rock
+|move|p1a: Latios|Psyshock|p2a: Klefki
+|-resisted|p2a: Klefki
+|-damage|p2a: Klefki|0 fnt
+|faint|p2a: Klefki
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ninetales|Ninetales, L82, F|254254
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magnezone ninetales klefki
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magnezone" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magnezone-ninetales-klefki -- zekrom-latios
+|chat|DEBUG|Own moves: thunderbolt mirrorcoat voltswitch flashcannon
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 149 vs 217
+|chat|DEBUG|HP: 159 vs 237
+|chat|DEBUG|Created a new Strategy for magnezone vs latios:
+|chat|DEBUG|>[flashcannon: 39.25 [36, 43], flashcannon: 39.25 [36, 43], flashcannon: 39.25 [36, 43]]
+|chat|DEBUG|Best move of magnezone (p1): flashcannon: 39.25 [36, 43]
+|chat|DEBUG|Best move of latios (p2): psyshock: 113.75 [105, 123]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Latios|Psyshock|p2a: Ninetales
+|-damage|p2a: Ninetales|0 fnt
+|faint|p2a: Ninetales
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Rank-just<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">pangoro magnezone gyarados ludicolo ninetales klefki</h1>

@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490138023</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490138023<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Inv2468</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490138023|init|battle
+|title|Inv2468 vs. McGewitter
+|j|☆Inv2468
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Inv2468|265|1185
+|player|p2|McGewitter|265|1213
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Machamp|Machamp, L82, M|100/100
+|switch|p2a: Scolipede|Scolipede, L80, M|227/227
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Scolipede|Poison Jab|p1a: Machamp
+|-damage|p1a: Machamp|59/100
+|-damage|p2a: Scolipede|205/227|[from] item: Life Orb
+|move|p1a: Machamp|Knock Off|p2a: Scolipede
+|-damage|p2a: Scolipede|127/227
+|-enditem|p2a: Scolipede|Life Orb|[from] move: Knock Off|[of] p1a: Machamp
+|-ability|p2a: Scolipede|Speed Boost|boost
+|-boost|p2a: Scolipede|spe|1
+|-status|p1a: Machamp|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Scolipede|Poison Jab|p1a: Machamp
+|-damage|p1a: Machamp|29/100 brn
+|move|p1a: Machamp|Facade|p2a: Scolipede
+|-damage|p2a: Scolipede|0 fnt
+|faint|p2a: Scolipede
+|-damage|p1a: Machamp|23/100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azumarill|Azumarill, L84, M|305/305
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Machamp|Bullet Punch|p2a: Azumarill
+|-damage|p2a: Azumarill|255/305
+|move|p2a: Azumarill|Play Rough|p1a: Machamp
+|-supereffective|p1a: Machamp
+|-crit|p1a: Machamp
+|-damage|p1a: Machamp|0 fnt
+|faint|p1a: Machamp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 120 seconds left.
+|inactive|Inv2468 has 90 seconds left.
+|inactive|Inv2468 has 60 seconds left.
+|switch|p1a: Garbodor|Garbodor, L87, M|100/100
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dhelmise|Dhelmise, L86|261/261
+|move|p1a: Garbodor|Toxic Spikes|p2a: Dhelmise
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Garbodor|Gunk Shot|p2a: Dhelmise
+|-damage|p2a: Dhelmise|146/261
+|move|p2a: Dhelmise|Earthquake|p1a: Garbodor
+|-supereffective|p1a: Garbodor
+|-damage|p1a: Garbodor|0 fnt
+|faint|p1a: Garbodor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Darmanitan|Darmanitan-Galar, L78, M|100/100
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Darmanitan|Icicle Crash|p2a: Dhelmise|[miss]
+|-miss|p1a: Darmanitan|p2a: Dhelmise
+|move|p2a: Dhelmise|Earthquake|p1a: Darmanitan
+|-damage|p1a: Darmanitan|27/100
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|switch|p2a: Azumarill|Azumarill, L84, M|255/305
+|-status|p2a: Azumarill|psn
+|move|p1a: Darmanitan|Icicle Crash|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|174/305 psn
+|-damage|p2a: Azumarill|136/305 psn|[from] psn
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lanturn|Lanturn, L86, M|100/100
+|move|p2a: Azumarill|Liquidation|p1a: Lanturn
+|-resisted|p1a: Lanturn
+|-damage|p1a: Lanturn|68/100
+|-heal|p1a: Lanturn|74/100|[from] item: Leftovers
+|-damage|p2a: Azumarill|98/305 psn|[from] psn
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dhelmise|Dhelmise, L86|146/261
+|-status|p2a: Dhelmise|psn
+|move|p1a: Lanturn|Volt Switch|p2a: Dhelmise
+|-resisted|p2a: Dhelmise
+|-damage|p2a: Dhelmise|116/261 psn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Darmanitan|Darmanitan-Galar, L78, M|27/100|[from]move: Volt Switch
+|-damage|p2a: Dhelmise|84/261 psn|[from] psn
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Darmanitan|Icicle Crash|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|0 fnt
+|faint|p2a: Dhelmise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|333/333
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|switch|p1a: Lanturn|Lanturn, L86, M|74/100
+|move|p2a: Coalossal|Overheat|p1a: Lanturn
+|-resisted|p1a: Lanturn
+|-damage|p1a: Lanturn|56/100
+|-unboost|p2a: Coalossal|spa|2
+|-heal|p1a: Lanturn|62/100|[from] item: Leftovers
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|move|p1a: Lanturn|Scald|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|41/333
+|move|p2a: Coalossal|Spikes|p1a: Lanturn
+|-sidestart|p1: Inv2468|Spikes
+|-heal|p1a: Lanturn|68/100|[from] item: Leftovers
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 60 seconds left.
+|move|p1a: Lanturn|Scald|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-crit|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|faint|p2a: Coalossal
+|-heal|p1a: Lanturn|74/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno, L84|288/288
+|-ability|p2a: Articuno|Pressure
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freeze-Dry|p1a: Lanturn
+|-supereffective|p1a: Lanturn
+|-damage|p1a: Lanturn|30/100
+|move|p1a: Lanturn|Volt Switch|p2a: Articuno
+|-supereffective|p2a: Articuno
+|-damage|p2a: Articuno|180/288
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Walrein|Walrein, L86, F|100/100|[from]move: Volt Switch
+|-damage|p1a: Walrein|88/100|[from] Spikes
+|-heal|p1a: Walrein|94/100|[from] item: Leftovers
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Roost|p2a: Articuno
+|-heal|p2a: Articuno|288/288
+|-singleturn|p2a: Articuno|move: Roost
+|move|p1a: Walrein|Toxic|p2a: Articuno|[miss]
+|-miss|p1a: Walrein|p2a: Articuno
+|-heal|p1a: Walrein|99/100|[from] item: Leftovers
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|89/100
+|move|p1a: Walrein|Toxic|p2a: Articuno
+|-status|p2a: Articuno|tox
+|-heal|p1a: Walrein|95/100|[from] item: Leftovers
+|-damage|p2a: Articuno|270/288 tox|[from] psn
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|85/100
+|move|p1a: Walrein|Surf|p2a: Articuno
+|-damage|p2a: Articuno|191/288 tox
+|-heal|p1a: Walrein|91/100|[from] item: Leftovers
+|-damage|p2a: Articuno|155/288 tox|[from] psn
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p1a: Walrein|Protect|p1a: Walrein
+|-singleturn|p1a: Walrein|Protect
+|move|p2a: Articuno|Roost|p2a: Articuno
+|-heal|p2a: Articuno|288/288 tox
+|-singleturn|p2a: Articuno|move: Roost
+|-heal|p1a: Walrein|97/100|[from] item: Leftovers
+|-damage|p2a: Articuno|234/288 tox|[from] psn
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|87/100
+|move|p1a: Walrein|Ice Beam|p2a: Articuno
+|-damage|p2a: Articuno|156/288 tox
+|-heal|p1a: Walrein|93/100|[from] item: Leftovers
+|-damage|p2a: Articuno|84/288 tox|[from] psn
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p2a: Articuno|Freeze-Dry|p1a: Walrein
+|-damage|p1a: Walrein|83/100
+|move|p1a: Walrein|Ice Beam|p2a: Articuno
+|-damage|p2a: Articuno|3/288 tox
+|-heal|p1a: Walrein|89/100|[from] item: Leftovers
+|-damage|p2a: Articuno|0 fnt|[from] psn
+|faint|p2a: Articuno
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kommo-o|Kommo-o, L80, F|251/251
+|-status|p2a: Kommo-o|psn
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|-start|p2a: Kommo-o|Dynamax
+|-heal|p2a: Kommo-o|502/502 psn|[silent]
+|-start|p1a: Walrein|Dynamax
+|-heal|p1a: Walrein|89/100|[silent]
+|move|p2a: Kommo-o|Max Knuckle|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|61/100
+|-boost|p2a: Kommo-o|atk|1
+|move|p1a: Walrein|Max Hailstorm|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-damage|p2a: Kommo-o|230/502 psn
+|-weather|Hail
+|-weather|Hail|[upkeep]
+|-damage|p2a: Kommo-o|215/502 psn|[from] Hail
+|-heal|p1a: Walrein|64/100|[from] item: Leftovers
+|-damage|p2a: Kommo-o|184/502 psn|[from] psn
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p1a: Walrein|Max Guard|p1a: Walrein
+|-singleturn|p1a: Walrein|Max Guard
+|move|p2a: Kommo-o|Max Knuckle|p1a: Walrein
+|-activate|p1a: Walrein|move: Max Guard
+|-weather|Hail|[upkeep]
+|-damage|p2a: Kommo-o|169/502 psn|[from] Hail
+|-heal|p1a: Walrein|67/100|[from] item: Leftovers
+|-damage|p2a: Kommo-o|138/502 psn|[from] psn
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p2a: Kommo-o|Max Knuckle|p1a: Walrein
+|-supereffective|p1a: Walrein
+|-damage|p1a: Walrein|23/100
+|-boost|p2a: Kommo-o|atk|1
+|move|p1a: Walrein|Max Hailstorm|p2a: Kommo-o
+|-supereffective|p2a: Kommo-o
+|-crit|p2a: Kommo-o
+|-damage|p2a: Kommo-o|0 fnt
+|faint|p2a: Kommo-o
+|-weather|Hail|[upkeep]
+|-heal|p1a: Walrein|26/100|[from] item: Leftovers
+|-end|p1a: Walrein|Dynamax
+|-heal|p1a: Walrein|26/100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Azumarill|Azumarill, L84, M|98/305 psn
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|move|p1a: Walrein|Protect|p1a: Walrein
+|-singleturn|p1a: Walrein|Protect
+|move|p2a: Azumarill|Play Rough|p1a: Walrein
+|-activate|p1a: Walrein|move: Protect
+|-weather|Hail|[upkeep]
+|-damage|p2a: Azumarill|79/305 psn|[from] Hail
+|-heal|p1a: Walrein|32/100|[from] item: Leftovers
+|-damage|p2a: Azumarill|41/305 psn|[from] psn
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Walrein|Protect||[still]
+|-fail|p1a: Walrein
+|move|p2a: Azumarill|Play Rough|p1a: Walrein
+|-damage|p1a: Walrein|0 fnt
+|faint|p1a: Walrein
+|-weather|none
+|-damage|p2a: Azumarill|3/305 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Inv2468 has 90 seconds left.
+|switch|p1a: Tauros|Tauros, L82, M|100/100
+|-damage|p1a: Tauros|88/100|[from] Spikes
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tauros|Throat Chop|p2a: Azumarill
+|-resisted|p2a: Azumarill
+|-damage|p2a: Azumarill|0 fnt
+|faint|p2a: Azumarill
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

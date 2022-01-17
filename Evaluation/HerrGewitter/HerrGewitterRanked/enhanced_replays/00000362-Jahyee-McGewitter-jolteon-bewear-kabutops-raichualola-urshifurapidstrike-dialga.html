@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490552620<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490552620|init|battle
+|title|Jah yee vs. McGewitter
+|j|☆Jah yee
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Jah yee|caitlin|1108
+|player|p2|McGewitter|265|1157
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Mesprit|Mesprit, L84|100100
+|switch|p2a: Jolteon|Jolteon, L82, F|241241
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit
+|chat|DEBUG|Own moves: thunderbolt hypervoice shadowball voltswitch
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: ['jolteon']
+|chat|DEBUG|Counter: ['jolteon', 'raichualola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 260 vs 183
+|chat|DEBUG|HP: 241 vs 272
+|chat|DEBUG|Created a new Strategy for jolteon vs mesprit:
+|chat|DEBUG|>[shadowball: 154.5 [142, 168], shadowball: 154.5 [142, 168], shadowball: 154.5 [142, 168]]
+|chat|DEBUG|Best move of jolteon (p1): shadowball: 154.5 [142, 168]
+|chat|DEBUG|Best move of mesprit (p2): psychic: 97.625 [90, 106]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Rhyperior|Rhyperior, L82, F|100100
+|move|p2a: Jolteon|Shadow Ball|p1a: Rhyperior
+|-damage|p1a: Rhyperior|60100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior
+|chat|DEBUG|Own moves: shadowball
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['bewear', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 260 vs 113
+|chat|DEBUG|HP: 241 vs 193
+|chat|DEBUG|Created a new Strategy for jolteon vs rhyperior:
+|chat|DEBUG|>[shadowball: 126.25 [116, 137], shadowball: 126.25 [116, 137], shadowball: 126.25 [116, 137]]
+|chat|DEBUG|Best move of jolteon (p1): shadowball: 126.25 [116, 137]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 361.375 [332, 392]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check bewear
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bewear|Bewear, L82, F|331331
+|move|p1a: Rhyperior|Earthquake|p2a: Bewear
+|-damage|p2a: Bewear|183331
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior
+|chat|DEBUG|Own moves: swordsdance icepunch doubleedge closecombat
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['bewear', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 113
+|chat|DEBUG|HP: 183 vs 193
+|chat|DEBUG|Created a new Strategy for bewear vs rhyperior:
+|chat|DEBUG|>[closecombat: 217.3125 [199, 236], closecombat: 217.3125 [199, 236], closecombat: 217.3125 [199, 236]]
+|chat|DEBUG|Best move of bewear (p1): closecombat: 217.3125 [199, 236]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 147.5 [135, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mesprit|Mesprit, L84|100100
+|move|p2a: Bewear|Close Combat|p1a: Mesprit
+|-resisted|p1a: Mesprit
+|-damage|p1a: Mesprit|71100
+|-unboost|p2a: Bewear|def|1
+|-unboost|p2a: Bewear|spd|1
+|-damage|p2a: Bewear|150331|[from] item: Life Orb
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior
+|chat|DEBUG|Own moves: swordsdance icepunch doubleedge closecombat
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: ['jolteon', 'raichualola']
+|chat|DEBUG|Counter: ['jolteon', 'raichualola', 'dialga']
+|chat|DEBUG|Speed: 146 vs 183
+|chat|DEBUG|HP: 150 vs 193
+|chat|DEBUG|Created a new Strategy for bewear vs mesprit:
+|chat|DEBUG|>[doubleedge: 166.4375 [153, 181], doubleedge: 166.4375 [153, 181], doubleedge: 166.4375 [153, 181]]
+|chat|DEBUG|Best move of bewear (p1): doubleedge: 166.4375 [153, 181]
+|chat|DEBUG|Best move of mesprit (p2): psychic: 409.0 [374, 444]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check jolteon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jolteon|Jolteon, L82, F|241241
+|move|p1a: Mesprit|U-turn|p2a: Jolteon
+|-damage|p2a: Jolteon|172241
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rhyperior|Rhyperior, L82, F|60100|[from]move: U-turn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior
+|chat|DEBUG|Own moves: thunderbolt hypervoice shadowball voltswitch
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['urshifurapidstrike', 'dialga']
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 260 vs 113
+|chat|DEBUG|HP: 172 vs 193
+|chat|DEBUG|Created a new Strategy for jolteon vs rhyperior:
+|chat|DEBUG|>[shadowball: 126.25 [116, 137], shadowball: 126.25 [116, 137], shadowball: 126.25 [116, 137]]
+|chat|DEBUG|Best move of jolteon (p1): shadowball: 126.25 [116, 137]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 361.375 [332, 392]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check urshifurapidstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, F|284284
+|switch|p1a: Mantine|Mantine, L86, M|100100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: surgingstrikes drainpunch substitute bulkup
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Counter: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Speed: 196 vs 170
+|chat|DEBUG|HP: 284 vs 286
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs mantine:
+|chat|DEBUG|>[drainpunch: 50.625 [46, 55], drainpunch: 50.625 [46, 55], drainpunch: 50.625 [46, 55]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): drainpunch: 50.625 [46, 55]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 297.625 [272, 324]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check jolteon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jolteon|Jolteon, L82, F|172241
+|move|p1a: Mantine|Toxic|p2a: Jolteon
+|-status|p2a: Jolteon|tox
+|-damage|p2a: Jolteon|157241 tox|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: thunderbolt hypervoice shadowball voltswitch
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Counter: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 260 vs 170
+|chat|DEBUG|HP: 157 vs 286
+|chat|DEBUG|Created a new Strategy for jolteon vs mantine:
+|chat|DEBUG|>[thunderbolt: 407.0 [372, 444], thunderbolt: 407.0 [372, 444], thunderbolt: 407.0 [372, 444]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 407.0 [372, 444]
+|chat|DEBUG|Best move of mantine (p2): scald: 75.3125 [69, 82]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rhyperior|Rhyperior, L82, F|60100
+|move|p2a: Jolteon|Thunderbolt|p1a: Rhyperior
+|-immune|p1a: Rhyperior
+|-damage|p2a: Jolteon|127241 tox|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['urshifurapidstrike', 'dialga']
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 260 vs 113
+|chat|DEBUG|HP: 127 vs 193
+|chat|DEBUG|Created a new Strategy for jolteon vs rhyperior:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 361.375 [332, 392]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check urshifurapidstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, F|284284
+|move|p1a: Rhyperior|Earthquake|p2a: Urshifu
+|-damage|p2a: Urshifu|149284
+|-heal|p2a: Urshifu|166284|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: surgingstrikes drainpunch substitute bulkup
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 196 vs 113
+|chat|DEBUG|HP: 166 vs 193
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs rhyperior:
+|chat|DEBUG|>[surgingstrikes: 101.625 [93, 111], surgingstrikes: 101.625 [93, 111], surgingstrikes: 101.625 [93, 111]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): surgingstrikes: 101.625 [93, 111]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 131.0 [120, 142]
+|chat|DEBUG|Attacking using surgingstrikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mantine|Mantine, L86, M|100100
+|move|p2a: Urshifu|Surging Strikes|p1a: Mantine
+|-immune|p1a: Mantine|[from] ability: Water Absorb
+|-heal|p2a: Urshifu|183284|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: surgingstrikes drainpunch substitute bulkup
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Counter: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Speed: 196 vs 170
+|chat|DEBUG|HP: 183 vs 286
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs mantine:
+|chat|DEBUG|>[drainpunch: 50.625 [46, 55], drainpunch: 50.625 [46, 55], drainpunch: 50.625 [46, 55]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): drainpunch: 50.625 [46, 55]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 297.625 [272, 324]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check jolteon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jolteon|Jolteon, L82, F|127241 tox
+|move|p1a: Mantine|Scald|p2a: Jolteon
+|-damage|p2a: Jolteon|48241 tox
+|-damage|p2a: Jolteon|33241 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: thunderbolt hypervoice shadowball voltswitch
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Counter: ['jolteon', 'kabutops', 'raichualola', 'dialga']
+|chat|DEBUG|Speed: 260 vs 170
+|chat|DEBUG|HP: 33 vs 286
+|chat|DEBUG|Created a new Strategy for jolteon vs mantine:
+|chat|DEBUG|>[thunderbolt: 407.0 [372, 444], thunderbolt: 407.0 [372, 444], thunderbolt: 407.0 [372, 444]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 407.0 [372, 444]
+|chat|DEBUG|Best move of mantine (p2): scald: 75.3125 [69, 82]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rhyperior|Rhyperior, L82, F|60100
+|move|p2a: Jolteon|Thunderbolt|p1a: Rhyperior
+|-immune|p1a: Rhyperior
+|-damage|p2a: Jolteon|3241 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: ['dialga']
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 260 vs 113
+|chat|DEBUG|HP: 3 vs 193
+|chat|DEBUG|Created a new Strategy for jolteon vs rhyperior:
+|chat|DEBUG|>[thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0], thunderbolt: 0.0 [0, 0]]
+|chat|DEBUG|Best move of jolteon (p1): thunderbolt: 0.0 [0, 0]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 361.375 [332, 392]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dialga
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dialga|Dialga, L74|270270
+|-ability|p2a: Dialga|Pressure
+|move|p1a: Rhyperior|Earthquake|p2a: Dialga
+|-supereffective|p2a: Dialga
+|-damage|p2a: Dialga|40270
+|-heal|p2a: Dialga|56270|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: toxic flashcannon fireblast dracometeor
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 176 vs 113
+|chat|DEBUG|HP: 56 vs 193
+|chat|DEBUG|Created a new Strategy for dialga vs rhyperior:
+|chat|DEBUG|>[flashcannon: 200.75 [184, 217], flashcannon: 200.75 [184, 217], flashcannon: 200.75 [184, 217]]
+|chat|DEBUG|Best move of dialga (p1): flashcannon: 200.75 [184, 217]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 239.5 [218, 260]
+|chat|DEBUG|Attacking using flashcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Flash Cannon|p1a: Rhyperior
+|-supereffective|p1a: Rhyperior
+|-damage|p1a: Rhyperior|1100
+|-enditem|p1a: Rhyperior|Weakness Policy
+|-boost|p1a: Rhyperior|atk|2|[from] item: Weakness Policy
+|-boost|p1a: Rhyperior|spa|2|[from] item: Weakness Policy
+|move|p1a: Rhyperior|Rock Polish|p1a: Rhyperior
+|-boost|p1a: Rhyperior|spe|2
+|-heal|p2a: Dialga|72270|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike dialga
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike-dialga -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: toxic flashcannon fireblast dracometeor
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon', 'bewear', 'kabutops', 'raichualola', 'urshifurapidstrike', 'dialga']
+|chat|DEBUG|Speed: 176 vs 113
+|chat|DEBUG|HP: 72 vs 3
+|chat|DEBUG|Best move of dialga (p1): flashcannon: 200.75 [184, 217]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 475.375 [438, 516]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rhyperior|Earthquake|p2a: Dialga
+|-supereffective|p2a: Dialga
+|-damage|p2a: Dialga|0 fnt
+|faint|p2a: Dialga
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jolteon|Jolteon, L82, F|3241 tox
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon', 'bewear', 'kabutops', 'raichualola', 'urshifurapidstrike']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to jolteon (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mantine|Mantine, L86, M|100100
+|move|p2a: Jolteon|Shadow Ball|p1a: Mantine
+|-damage|p1a: Mantine|79100
+|-damage|p2a: Jolteon|0 fnt|[from] psn
+|faint|p2a: Jolteon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bewear|Bewear, L82, F|150331
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jolteon bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jolteon-bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: thunderbolt hypervoice shadowball voltswitch
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jolteon', 'bewear', 'kabutops', 'raichualola', 'urshifurapidstrike']
+|chat|DEBUG|Speed: 260 vs 113
+|chat|DEBUG|HP: 3 vs 3
+|chat|DEBUG|Created a new Strategy for jolteon vs rhyperior:
+|chat|DEBUG|>[shadowball: 126.25 [116, 137], shadowball: 126.25 [116, 137], shadowball: 126.25 [116, 137]]
+|chat|DEBUG|Best move of jolteon (p1): shadowball: 126.25 [116, 137]
+|chat|DEBUG|Best move of rhyperior (p2): earthquake: 719.875 [662, 780]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kabutops|Kabutops, L82, F|233233
+|move|p1a: Mantine|Hurricane|p2a: Kabutops|[miss]
+|-miss|p1a: Mantine|p2a: Kabutops
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jolteon" vs "rhyperior"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake megahorn rockpolish stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bewear', 'kabutops', 'raichualola', 'urshifurapidstrike']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to bewear (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kabutops|Stone Edge|p1a: Mantine
+|-supereffective|p1a: Mantine
+|-damage|p1a: Mantine|0 fnt
+|faint|p1a: Mantine
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sceptile|Sceptile, L86, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: swordsdance icepunch doubleedge closecombat
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['kabutops', 'raichualola']
+|chat|DEBUG|Counter: ['kabutops', 'raichualola']
+|chat|DEBUG|Speed: 146 vs 170
+|chat|DEBUG|HP: 150 vs 225
+|chat|DEBUG|Created a new Strategy for bewear vs mantine:
+|chat|DEBUG|>[doubleedge: 218.8125 [200, 238], doubleedge: 218.8125 [200, 238], doubleedge: 218.8125 [200, 238]]
+|chat|DEBUG|Best move of bewear (p1): doubleedge: 218.8125 [200, 238]
+|chat|DEBUG|Best move of mantine (p2): hurricane: 283.125 [260, 308]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kabutops
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Substitute|p1a: Sceptile
+|-start|p1a: Sceptile|Substitute
+|-damage|p1a: Sceptile|76100
+|move|p2a: Kabutops|Stone Edge|p1a: Sceptile
+|-end|p1a: Sceptile|Substitute
+|-heal|p1a: Sceptile|82100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "mantine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-mantine
+|chat|DEBUG|Own moves: liquidation aquajet knockoff stoneedge
+|chat|DEBUG|Enemy moves: hurricane roost scald toxic
+|chat|DEBUG|Checks: ['kabutops', 'raichualola']
+|chat|DEBUG|Counter: ['kabutops', 'raichualola']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 170
+|chat|DEBUG|HP: 233 vs 225
+|chat|DEBUG|Created a new Strategy for kabutops vs mantine:
+|chat|DEBUG|>[stoneedge: 394.75 [362, 428], stoneedge: 394.75 [362, 428], stoneedge: 394.75 [362, 428]]
+|chat|DEBUG|Best move of kabutops (p1): stoneedge: 394.75 [362, 428]
+|chat|DEBUG|Best move of mantine (p2): scald: 93.25 [85, 102]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Leaf Storm|p2a: Kabutops
+|-supereffective|p2a: Kabutops
+|-damage|p2a: Kabutops|0 fnt
+|-unboost|p1a: Sceptile|spa|2
+|faint|p2a: Kabutops
+|-heal|p1a: Sceptile|88100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, F|183284
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-sceptile
+|chat|DEBUG|Own moves: stoneedge
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 178 vs 256
+|chat|DEBUG|HP: 233 vs 261
+|chat|DEBUG|Created a new Strategy for kabutops vs sceptile:
+|chat|DEBUG|>[stoneedge: 208.3125 [192, 226], stoneedge: 208.3125 [192, 226], stoneedge: 208.3125 [192, 226]]
+|chat|DEBUG|Best move of kabutops (p1): stoneedge: 208.3125 [192, 226]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 429.25 [396, 468]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rhyperior|Rhyperior, L82, F|1100
+|move|p2a: Urshifu|Drain Punch|p1a: Rhyperior
+|-supereffective|p1a: Rhyperior
+|-damage|p1a: Rhyperior|0 fnt
+|-heal|p2a: Urshifu|184284|[from] drain|[of] p1a: Rhyperior
+|faint|p1a: Rhyperior
+|-heal|p2a: Urshifu|201284|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sceptile|Sceptile, L86, F|88100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear kabutops raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-kabutops-raichualola-urshifurapidstrike -- mesprit-rhyperior-sceptile
+|chat|DEBUG|Own moves: stoneedge
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 178 vs 256
+|chat|DEBUG|HP: 233 vs 214
+|chat|DEBUG|Created a new Strategy for kabutops vs sceptile:
+|chat|DEBUG|>[stoneedge: 208.3125 [192, 226], stoneedge: 208.3125 [192, 226], stoneedge: 208.3125 [192, 226]]
+|chat|DEBUG|Best move of kabutops (p1): stoneedge: 208.3125 [192, 226]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 429.25 [396, 468]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Leaf Storm|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|-unboost|p1a: Sceptile|spa|2
+|faint|p2a: Urshifu
+|-heal|p1a: Sceptile|94100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Raichu|Raichu-Alola, L84, M|238238
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kabutops" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-raichualola-urshifurapidstrike -- mesprit-rhyperior-sceptile
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: urshifurapidstrike
+|chat|DEBUG|>Switching to urshifurapidstrike (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Raichu|Dynamax
+|-heal|p2a: Raichu|476476|[silent]
+|move|p1a: Sceptile|Earthquake|p2a: Raichu
+|-supereffective|p2a: Raichu
+|-damage|p2a: Raichu|266476
+|move|p2a: Raichu|Max Mindstorm|p1a: Sceptile
+|-damage|p1a: Sceptile|25100
+|-fieldstart|move: Psychic Terrain
+|-damage|p2a: Raichu|243476|[from] item: Life Orb
+|-heal|p1a: Sceptile|31100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-raichualola-urshifurapidstrike -- mesprit-rhyperior-sceptile
+|chat|DEBUG|Own moves: surgingstrikes drainpunch substitute bulkup
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bewear']
+|chat|DEBUG|Speed: 196 vs 256
+|chat|DEBUG|HP: 183 vs 229
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs sceptile:
+|chat|DEBUG|>[drainpunch: 107.3125 [99, 117], drainpunch: 107.3125 [99, 117], drainpunch: 107.3125 [99, 117]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): drainpunch: 107.3125 [99, 117]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 125.875 [116, 138]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Earthquake|p2a: Raichu
+|-supereffective|p2a: Raichu
+|-damage|p2a: Raichu|51476
+|move|p2a: Raichu|Max Mindstorm|p1a: Sceptile
+|-damage|p1a: Sceptile|0 fnt
+|faint|p1a: Sceptile
+|-damage|p2a: Raichu|28476|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Entei|Entei, L78|100100
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear raichualola urshifurapidstrike
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-raichualola-urshifurapidstrike -- mesprit-sceptile
+|chat|DEBUG|Own moves: surgingstrikes drainpunch substitute bulkup
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 196 vs 256
+|chat|DEBUG|HP: 201 vs 229
+|chat|DEBUG|Best move of urshifurapidstrike (p1): drainpunch: 107.3125 [99, 117]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Extreme Speed|p2a: Raichu
+|-activate|p2a: Raichu|move: Psychic Terrain
+|move|p2a: Raichu|Max Lightning|p1a: Entei
+|-damage|p1a: Entei|29100
+|-fieldstart|move: Electric Terrain
+|-damage|p2a: Raichu|5476|[from] item: Life Orb
+|-end|p2a: Raichu|Dynamax
+|-heal|p2a: Raichu|3238|[silent]
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear raichualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-raichualola -- mesprit-sceptile
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: raichualola
+|chat|DEBUG|>Switching to raichualola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Extreme Speed|p2a: Raichu
+|-damage|p2a: Raichu|0 fnt
+|faint|p2a: Raichu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bewear|Bewear, L82, F|150331
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear raichualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-raichualola -- mesprit-sceptile
+|chat|DEBUG|Own moves: grassknot nastyplot psyshock thunderbolt
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 233 vs 256
+|chat|DEBUG|HP: 238 vs 245
+|chat|DEBUG|Created a new Strategy for raichualola vs sceptile:
+|chat|DEBUG|>[psyshock: 132.3125 [121, 144], psyshock: 132.3125 [121, 144], psyshock: 132.3125 [121, 144]]
+|chat|DEBUG|Best move of raichualola (p1): psyshock: 132.3125 [121, 144]
+|chat|DEBUG|Best move of sceptile (p2): earthquake: 198.75 [182, 216]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Entei|Extreme Speed|p2a: Bewear
+|-damage|p2a: Bewear|105331
+|move|p2a: Bewear|Close Combat|p1a: Entei
+|-damage|p1a: Entei|0 fnt
+|-unboost|p2a: Bewear|def|1
+|-unboost|p2a: Bewear|spd|1
+|faint|p1a: Entei
+|-damage|p2a: Bewear|72331|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mesprit|Mesprit, L84|71100
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bewear raichualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "raichualola" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bewear-raichualola -- mesprit-sceptile
+|chat|DEBUG|Own moves: grassknot nastyplot psyshock thunderbolt
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bewear']
+|chat|DEBUG|Speed: 233 vs 256
+|chat|DEBUG|HP: 243 vs 80
+|chat|DEBUG|Best move of raichualola (p1): psyshock: 132.3125 [121, 144]
+|chat|DEBUG|Best move of sceptile (p2): earthquake: 198.75 [182, 216]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mesprit|Psychic|p2a: Bewear
+|-supereffective|p2a: Bewear
+|-damage|p2a: Bewear|0 fnt
+|faint|p2a: Bewear
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Jah yee<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">jolteon bewear kabutops raichualola urshifurapidstrike dialga</h1>

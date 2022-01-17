@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490046525</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490046525|init|battle
+|title|Marcusiiii vs. McDonner
+|j|☆Marcusiiii
+|j|☆McDonner
+|gametype|singles
+|player|p1|Marcusiiii|volkner|1124
+|player|p2|McDonner|265|1174
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Slowbro|Slowbro-Galar, L86, M|100/100
+|switch|p2a: Duraludon|Duraludon, L84, F|255/255
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: duraludon vs slowbrogalar
+|chat|DEBUG|Updating information about slowbrogalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. slowbrogalar
+|chat|DEBUG|Getting matchup: leafeon vs. slowbrogalar
+|chat|DEBUG|Getting matchup: klefki vs. slowbrogalar
+|chat|DEBUG|Getting matchup: pelipper vs. slowbrogalar
+|chat|DEBUG|Getting matchup: slowbrogalar vs. slowbrogalar
+|chat|DEBUG|Getting matchup: duraludon vs. slowbrogalar
+|chat|DEBUG|Checks / Counter: {'slowbrogalar': {'checks': [], 'counter': ['duraludon']}}
+|chat|DEBUG|Speed: 191 - 56
+|chat|DEBUG|Most likely moves for: duraludon
+|chat|DEBUG|>['thunderbolt', 'flashcannon', 'bodypress', 'dracometeor']
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'psychic', 'shellsidearm', 'trickroom']
+|chat|DEBUG|Best own move: ('dracometeor', 186.375)
+|chat|DEBUG|Best enemy move: ('flamethrower', 101.25)
+|chat|DEBUG|Picking the most damaging move from duraludon against slowbrogalar
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Duraludon|Draco Meteor|p1a: Slowbro
+|-damage|p1a: Slowbro|43/100
+|-unboost|p2a: Duraludon|spa|2
+|move|p1a: Slowbro|Flamethrower|p2a: Duraludon
+|-damage|p2a: Duraludon|150/255
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: duraludon vs slowbrogalar
+|chat|DEBUG|Updating information about slowbrogalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. slowbrogalar
+|chat|DEBUG|Getting matchup: leafeon vs. slowbrogalar
+|chat|DEBUG|Getting matchup: klefki vs. slowbrogalar
+|chat|DEBUG|Getting matchup: pelipper vs. slowbrogalar
+|chat|DEBUG|Getting matchup: slowbrogalar vs. slowbrogalar
+|chat|DEBUG|Getting matchup: duraludon vs. slowbrogalar
+|chat|DEBUG|Checks / Counter: {'slowbrogalar': {'checks': [], 'counter': ['duraludon']}}
+|chat|DEBUG|Speed: 191 - 56
+|chat|DEBUG|Most likely moves for: duraludon
+|chat|DEBUG|>['thunderbolt', 'flashcannon', 'bodypress', 'dracometeor']
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'psychic', 'shellsidearm', 'trickroom']
+|chat|DEBUG|Best own move: ('dracometeor', 186.375)
+|chat|DEBUG|Best enemy move: ('flamethrower', 101.25)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('dracometeor', 186.375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Duraludon|Draco Meteor|p1a: Slowbro
+|-damage|p1a: Slowbro|11/100
+|-unboost|p2a: Duraludon|spa|2
+|move|p1a: Slowbro|Flamethrower|p2a: Duraludon
+|-damage|p2a: Duraludon|46/255
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: duraludon vs slowbrogalar
+|chat|DEBUG|Updating information about slowbrogalar
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. slowbrogalar
+|chat|DEBUG|Getting matchup: leafeon vs. slowbrogalar
+|chat|DEBUG|Getting matchup: klefki vs. slowbrogalar
+|chat|DEBUG|Getting matchup: pelipper vs. slowbrogalar
+|chat|DEBUG|Getting matchup: slowbrogalar vs. slowbrogalar
+|chat|DEBUG|Getting matchup: duraludon vs. slowbrogalar
+|chat|DEBUG|Checks / Counter: {'slowbrogalar': {'checks': [], 'counter': ['duraludon']}}
+|chat|DEBUG|Speed: 191 - 56
+|chat|DEBUG|Most likely moves for: duraludon
+|chat|DEBUG|>['thunderbolt', 'flashcannon', 'bodypress', 'dracometeor']
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'psychic', 'shellsidearm', 'trickroom']
+|chat|DEBUG|Best own move: ('dracometeor', 186.375)
+|chat|DEBUG|Best enemy move: ('flamethrower', 101.25)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from duraludon against slowbrogalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Duraludon|Draco Meteor|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|-unboost|p2a: Duraludon|spa|2
+|faint|p1a: Slowbro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pheromosa|Pheromosa, L76|100/100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: duraludon vs pheromosa
+|chat|DEBUG|Updating information about pheromosa
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. pheromosa
+|chat|DEBUG|Getting matchup: leafeon vs. pheromosa
+|chat|DEBUG|Getting matchup: klefki vs. pheromosa
+|chat|DEBUG|Getting matchup: pelipper vs. pheromosa
+|chat|DEBUG|Getting matchup: slowbrogalar vs. pheromosa
+|chat|DEBUG|Getting matchup: duraludon vs. pheromosa
+|chat|DEBUG|Checks / Counter: {'pheromosa': {'checks': [], 'counter': ['klefki', 'pelipper', 'slowbrogalar', 'duraludon']}}
+|chat|DEBUG|Speed: 191 - 274
+|chat|DEBUG|Most likely moves for: duraludon
+|chat|DEBUG|>['thunderbolt', 'flashcannon', 'bodypress', 'dracometeor']
+|chat|DEBUG|Most likely moves for: pheromosa
+|chat|DEBUG|>['closecombat', 'poisonjab', 'throatchop', 'uturn']
+|chat|DEBUG|Best own move: ('dracometeor', 316.75)
+|chat|DEBUG|Best enemy move: ('closecombat', 225.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from duraludon against pheromosa
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pheromosa|Ice Beam|p2a: Duraludon
+|-damage|p2a: Duraludon|0 fnt
+|faint|p2a: Duraludon
+|-ability|p1a: Pheromosa|Beast Boost|boost
+|-boost|p1a: Pheromosa|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Klefki|Klefki, L82, F|228/228
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: duraludon vs pheromosa
+|chat|DEBUG|Updating information about pheromosa
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: assaultvest
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. pheromosa
+|chat|DEBUG|Getting matchup: leafeon vs. pheromosa
+|chat|DEBUG|Getting matchup: klefki vs. pheromosa
+|chat|DEBUG|Getting matchup: pelipper vs. pheromosa
+|chat|DEBUG|Getting matchup: slowbrogalar vs. pheromosa
+|chat|DEBUG|Getting matchup: duraludon vs. pheromosa
+|chat|DEBUG|Checks / Counter: {'pheromosa': {'checks': [], 'counter': ['klefki', 'pelipper', 'slowbrogalar', 'duraludon']}}
+|chat|DEBUG|>>Switching to counter: klefki
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pheromosa|Poison Jab|p2a: Klefki
+|-immune|p2a: Klefki
+|move|p2a: Klefki|Play Rough|p1a: Pheromosa
+|-supereffective|p1a: Pheromosa
+|-damage|p1a: Pheromosa|0 fnt
+|faint|p1a: Pheromosa
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Suicune|Suicune, L80|100/100
+|-ability|p1a: Suicune|Pressure
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: klefki vs pheromosa
+|chat|DEBUG|Updating information about pheromosa
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choiceband
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. pheromosa
+|chat|DEBUG|Getting matchup: leafeon vs. pheromosa
+|chat|DEBUG|Getting matchup: pelipper vs. pheromosa
+|chat|DEBUG|Getting matchup: slowbrogalar vs. pheromosa
+|chat|DEBUG|Getting matchup: klefki vs. pheromosa
+|chat|DEBUG|Checks / Counter: {'pheromosa': {'checks': [], 'counter': ['pelipper', 'slowbrogalar', 'klefki']}}
+|chat|DEBUG|Speed: 170 - 274
+|chat|DEBUG|Most likely moves for: klefki
+|chat|DEBUG|>['spikes', 'magnetrise', 'thunderwave', 'playrough']
+|chat|DEBUG|Most likely moves for: pheromosa
+|chat|DEBUG|>['closecombat', 'poisonjab', 'throatchop', 'uturn']
+|chat|DEBUG|Best own move: ('playrough', 303.25)
+|chat|DEBUG|Best enemy move: ('closecombat', 138.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('playrough', 303.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Leafeon|Leafeon, L86, F|252/252
+|move|p1a: Suicune|Calm Mind|p1a: Suicune
+|-boost|p1a: Suicune|spa|1
+|-boost|p1a: Suicune|spd|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: klefki vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: leafeon vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['leafeon', 'pelipper', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 170 - 182
+|chat|DEBUG|Most likely moves for: klefki
+|chat|DEBUG|>['spikes', 'magnetrise', 'thunderwave', 'playrough']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('playrough', 67.25)
+|chat|DEBUG|Best enemy move: ('scald', 76.75)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: leafeon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Leafeon|Leaf Blade|p1a: Suicune
+|-supereffective|p1a: Suicune
+|-damage|p1a: Suicune|14/100
+|-damage|p2a: Leafeon|227/252|[from] item: Life Orb
+|move|p1a: Suicune|Ice Beam|p2a: Leafeon
+|-supereffective|p2a: Leafeon
+|-damage|p2a: Leafeon|39/252
+|-status|p2a: Leafeon|frz
+|-heal|p1a: Suicune|20/100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: leafeon vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: leafeon vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['pelipper', 'slowbrogalar', 'leafeon']}}
+|chat|DEBUG|Speed: 213 - 182
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['xscissor', 'knockoff', 'leafblade', 'synthesis']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('leafblade', 189.75)
+|chat|DEBUG|Best enemy move: ('icebeam', 136.0)
+|chat|DEBUG|Picking the most damaging move from leafeon against suicune
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Leafeon|frz
+|move|p1a: Suicune|Ice Beam|p2a: Leafeon
+|-supereffective|p2a: Leafeon
+|-damage|p2a: Leafeon|0 fnt
+|faint|p2a: Leafeon
+|-heal|p1a: Suicune|26/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pelipper|Pelipper, L86, F|243/243
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino leafeon klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: leafeon vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: leafeon vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['pelipper', 'slowbrogalar', 'leafeon']}}
+|chat|DEBUG|Speed: 213 - 182
+|chat|DEBUG|Most likely moves for: leafeon
+|chat|DEBUG|>['xscissor', 'knockoff', 'leafblade', 'synthesis']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('leafblade', 189.75)
+|chat|DEBUG|Best enemy move: ('icebeam', 136.0)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from leafeon against suicune
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Ice Beam|p2a: Pelipper
+|-damage|p2a: Pelipper|141/243
+|move|p2a: Pelipper|Hurricane|p1a: Suicune
+|-damage|p1a: Suicune|4/100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Suicune|10/100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: leafeon vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: leafeon vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['pelipper', 'slowbrogalar', 'leafeon']}}
+|chat|DEBUG|>>Switching to counter: pelipper
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Ice Beam|p2a: Pelipper
+|-damage|p2a: Pelipper|53/243
+|-status|p2a: Pelipper|frz
+|cant|p2a: Pelipper|frz
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Suicune|17/100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: pelipper vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['slowbrogalar', 'pelipper']}}
+|chat|DEBUG|Speed: 161 - 182
+|chat|DEBUG|Most likely moves for: pelipper
+|chat|DEBUG|>['defog', 'hydropump', 'hurricane', 'roost']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('hurricane', 103.25)
+|chat|DEBUG|Best enemy move: ('icebeam', 64.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('hurricane', 103.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Ice Beam|p2a: Pelipper
+|-damage|p2a: Pelipper|0 fnt
+|faint|p2a: Pelipper
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Suicune|23/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro-Galar, L86, M|304/304
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: pelipper vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['slowbrogalar', 'pelipper']}}
+|chat|DEBUG|Speed: 161 - 182
+|chat|DEBUG|Most likely moves for: pelipper
+|chat|DEBUG|>['defog', 'hydropump', 'hurricane', 'roost']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('hurricane', 103.25)
+|chat|DEBUG|Best enemy move: ('icebeam', 64.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('hurricane', 103.25)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Suicune|Ice Beam|p2a: Slowbro
+|-damage|p2a: Slowbro|209/304
+|move|p2a: Slowbro|Psychic|p1a: Suicune
+|-damage|p1a: Suicune|0 fnt
+|faint|p1a: Suicune
+|-damage|p2a: Slowbro|179/304|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian-Alola, L82, F|100/100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki pelipper slowbrogalar
+|chat|DEBUG|Matchup: pelipper vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['slowbrogalar', 'pelipper']}}
+|chat|DEBUG|Speed: 161 - 182
+|chat|DEBUG|Most likely moves for: pelipper
+|chat|DEBUG|>['defog', 'hydropump', 'hurricane', 'roost']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('hurricane', 103.25)
+|chat|DEBUG|Best enemy move: ('icebeam', 64.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from pelipper against suicune
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Nasty Plot|p1a: Persian
+|-boost|p1a: Persian|spa|2
+|move|p2a: Slowbro|Shell Side Arm|p1a: Persian|[anim] Shell Side Arm Physical
+|-damage|p1a: Persian|61/100
+|-hint|Physical Shell Side Arm
+|-damage|p2a: Slowbro|149/304|[from] item: Life Orb
+|-weather|none
+|-heal|p1a: Persian|67/100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki slowbrogalar
+|chat|DEBUG|Matchup: pelipper vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Getting matchup: pelipper vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['slowbrogalar', 'pelipper']}}
+|chat|DEBUG|>>Switching to counter: slowbrogalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Dark Pulse|p2a: Slowbro
+|-supereffective|p2a: Slowbro
+|-damage|p2a: Slowbro|0 fnt
+|faint|p2a: Slowbro
+|-heal|p1a: Persian|74/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinccino|Cinccino, L84, M|263/263
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki slowbrogalar
+|chat|DEBUG|Matchup: slowbrogalar vs suicune
+|chat|DEBUG|Updating information about suicune
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. suicune
+|chat|DEBUG|Getting matchup: klefki vs. suicune
+|chat|DEBUG|Getting matchup: slowbrogalar vs. suicune
+|chat|DEBUG|Checks / Counter: {'suicune': {'checks': [], 'counter': ['slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 182
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['shellsidearm', 'flamethrower', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: suicune
+|chat|DEBUG|>['airslash', 'calmmind', 'icebeam', 'scald']
+|chat|DEBUG|Best own move: ('psychic', 87.9375)
+|chat|DEBUG|Best enemy move: ('scald', 85.0625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('psychic', 87.9375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|U-turn|p1a: Persian
+|-supereffective|p1a: Persian
+|-damage|p1a: Persian|31/100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Klefki|Klefki, L82, F|228/228
+|move|p1a: Persian|Thunderbolt|p2a: Klefki
+|-damage|p2a: Klefki|127/228
+|-heal|p1a: Persian|37/100|[from] item: Leftovers
+|-heal|p2a: Klefki|141/228|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki slowbrogalar
+|chat|DEBUG|Matchup: slowbrogalar vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Getting matchup: slowbrogalar vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['cinccino', 'klefki', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 236
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['shellsidearm', 'flamethrower', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: persianalola
+|chat|DEBUG|>['darkpulse', 'hypnosis', 'nastyplot', 'thunderbolt']
+|chat|DEBUG|Best own move: ('shellsidearm', 138.5)
+|chat|DEBUG|Best enemy move: ('darkpulse', 153.5)
+|chat|DEBUG|Picking the most damaging move from slowbrogalar against persianalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Hypnosis|p2a: Klefki
+|-status|p2a: Klefki|slp|[from] move: Hypnosis
+|cant|p2a: Klefki|slp
+|-heal|p1a: Persian|44/100|[from] item: Leftovers
+|-heal|p2a: Klefki|155/228 slp|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki slowbrogalar
+|chat|DEBUG|Matchup: slowbrogalar vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Getting matchup: slowbrogalar vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['cinccino', 'klefki', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 236
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['shellsidearm', 'flamethrower', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: persianalola
+|chat|DEBUG|>['darkpulse', 'hypnosis', 'nastyplot', 'thunderbolt']
+|chat|DEBUG|Best own move: ('shellsidearm', 138.5)
+|chat|DEBUG|Best enemy move: ('darkpulse', 153.5)
+|chat|DEBUG|Picking the most damaging move from slowbrogalar against persianalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Nasty Plot|p1a: Persian
+|-boost|p1a: Persian|spa|2
+|cant|p2a: Klefki|slp
+|-heal|p1a: Persian|50/100|[from] item: Leftovers
+|-heal|p2a: Klefki|169/228 slp|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki
+|chat|DEBUG|Matchup: slowbrogalar vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Getting matchup: slowbrogalar vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['cinccino', 'klefki', 'slowbrogalar']}}
+|chat|DEBUG|>>Switching to counter: cinccino
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Thunderbolt|p2a: Klefki
+|-damage|p2a: Klefki|25/228 slp
+|cant|p2a: Klefki|slp
+|-heal|p1a: Persian|56/100|[from] item: Leftovers
+|-heal|p2a: Klefki|39/228 slp|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki
+|chat|DEBUG|Matchup: cinccino vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['klefki', 'cinccino']}}
+|chat|DEBUG|Speed: 241 - 236
+|chat|DEBUG|Most likely moves for: cinccino
+|chat|DEBUG|>['bulletseed', 'uturn', 'tailslap', 'rockblast']
+|chat|DEBUG|Most likely moves for: persianalola
+|chat|DEBUG|>['darkpulse', 'hypnosis', 'nastyplot', 'thunderbolt']
+|chat|DEBUG|Best own move: ('uturn', 130.5)
+|chat|DEBUG|Best enemy move: ('darkpulse', 87.9375)
+|chat|DEBUG|Picking the most damaging move from cinccino against persianalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Thunderbolt|p2a: Klefki
+|-damage|p2a: Klefki|0 fnt
+|faint|p2a: Klefki
+|-heal|p1a: Persian|62/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cinccino|Cinccino, L84, M|263/263
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki
+|chat|DEBUG|Matchup: cinccino vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['klefki', 'cinccino']}}
+|chat|DEBUG|>>Switching to counter: klefki
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|U-turn|p1a: Persian
+|-supereffective|p1a: Persian
+|-damage|p1a: Persian|22/100
+|move|p1a: Persian|Hypnosis|p2a: Cinccino|[miss]
+|-miss|p1a: Persian|p2a: Cinccino
+|-heal|p1a: Persian|29/100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki
+|chat|DEBUG|Matchup: klefki vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['cinccino', 'klefki']}}
+|chat|DEBUG|Speed: 170 - 236
+|chat|DEBUG|Most likely moves for: klefki
+|chat|DEBUG|>['spikes', 'magnetrise', 'thunderwave', 'playrough']
+|chat|DEBUG|Most likely moves for: persianalola
+|chat|DEBUG|>['darkpulse', 'hypnosis', 'nastyplot', 'thunderbolt']
+|chat|DEBUG|Best own move: ('playrough', 209.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 51.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('playrough', 209.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|U-turn|p1a: Persian
+|-supereffective|p1a: Persian
+|-damage|p1a: Persian|0 fnt
+|faint|p1a: Persian
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Linoone|Linoone, L84, M|100/100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki
+|chat|DEBUG|Matchup: klefki vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['cinccino', 'klefki']}}
+|chat|DEBUG|Speed: 170 - 236
+|chat|DEBUG|Most likely moves for: klefki
+|chat|DEBUG|>['spikes', 'magnetrise', 'thunderwave', 'playrough']
+|chat|DEBUG|Most likely moves for: persianalola
+|chat|DEBUG|>['darkpulse', 'hypnosis', 'nastyplot', 'thunderbolt']
+|chat|DEBUG|Best own move: ('playrough', 209.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 51.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('playrough', 209.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|U-turn|p1a: Linoone
+|-damage|p1a: Linoone|67/100
+|move|p1a: Linoone|Belly Drum|p1a: Linoone
+|-damage|p1a: Linoone|17/100
+|-setboost|p1a: Linoone|atk|6|[from] move: Belly Drum
+|-enditem|p1a: Linoone|Wiki Berry|[eat]
+|-heal|p1a: Linoone|50/100|[from] item: Wiki Berry
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cinccino klefki
+|chat|DEBUG|Matchup: klefki vs persianalola
+|chat|DEBUG|Updating information about persianalola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: cinccino vs. persianalola
+|chat|DEBUG|Getting matchup: klefki vs. persianalola
+|chat|DEBUG|Checks / Counter: {'persianalola': {'checks': [], 'counter': ['cinccino', 'klefki']}}
+|chat|DEBUG|Speed: 170 - 236
+|chat|DEBUG|Most likely moves for: klefki
+|chat|DEBUG|>['spikes', 'magnetrise', 'thunderwave', 'playrough']
+|chat|DEBUG|Most likely moves for: persianalola
+|chat|DEBUG|>['darkpulse', 'hypnosis', 'nastyplot', 'thunderbolt']
+|chat|DEBUG|Best own move: ('playrough', 209.0)
+|chat|DEBUG|Best enemy move: ('thunderbolt', 51.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('playrough', 209.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Linoone|Dynamax
+|-heal|p1a: Linoone|50/100|[silent]
+|move|p2a: Cinccino|U-turn|p1a: Linoone
+|-damage|p1a: Linoone|31/100
+|move|p1a: Linoone|Max Quake|p2a: Cinccino
+|-damage|p2a: Cinccino|0 fnt
+|-boost|p1a: Linoone|spd|1
+|faint|p2a: Cinccino
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Marcusiiii<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">duraludon cinccino leafeon klefki pelipper slowbrogalar</h1>

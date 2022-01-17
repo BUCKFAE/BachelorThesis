@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491692355<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491692355|init|battle
+|title|McGewitter vs. conor1999
+|j|☆McGewitter
+|j|☆conor1999
+|gametype|singles
+|player|p1|McGewitter|265|1221
+|player|p2|conor1999|lance|1237
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dhelmise|Dhelmise, L86|261261
+|switch|p2a: Yveltal|Yveltal, L69|100100
+|-ability|p2a: Yveltal|Dark Aura
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola pikachu drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-pikachu-drednaw-stakataka -- yveltal
+|chat|DEBUG|Own moves: swordsdance poltergeist powerwhip anchorshot
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mamoswine', 'pikachu', 'drednaw', 'stakataka']
+|chat|DEBUG|Speed: 118 vs 177
+|chat|DEBUG|HP: 261 vs 288
+|chat|DEBUG|Created a new Strategy for dhelmise vs yveltal:
+|chat|DEBUG|>[anchorshot: 129.125 [119, 140], anchorshot: 129.125 [119, 140], anchorshot: 129.125 [119, 140]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 129.125 [119, 140]
+|chat|DEBUG|Best move of yveltal (p2): knockoff: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stakataka
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Stakataka|Stakataka, L80|229229
+|-item|p1a: Stakataka|Air Balloon
+|move|p2a: Yveltal|Knock Off|p1a: Stakataka
+|-damage|p1a: Stakataka|163229
+|-enditem|p1a: Stakataka|Air Balloon
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola pikachu drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-pikachu-drednaw-stakataka -- yveltal
+|chat|DEBUG|Own moves: gyroball trickroom stoneedge bodypress
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mamoswine', 'pikachu', 'drednaw', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 25 vs 177
+|chat|DEBUG|HP: 163 vs 288
+|chat|DEBUG|Created a new Strategy for stakataka vs yveltal:
+|chat|DEBUG|>[stoneedge: 283.125 [260, 308], stoneedge: 283.125 [260, 308], stoneedge: 283.125 [260, 308]]
+|chat|DEBUG|Best move of stakataka (p1): stoneedge: 283.125 [260, 308]
+|chat|DEBUG|Best move of yveltal (p2): suckerpunch: 45.0625 [42, 49]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Electivire|Electivire, L82, M|100100
+|move|p1a: Stakataka|Stone Edge|p2a: Electivire
+|-damage|p2a: Electivire|37100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola pikachu drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "electivire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-pikachu-drednaw-stakataka -- yveltal-electivire
+|chat|DEBUG|Own moves: gyroball trickroom stoneedge bodypress
+|chat|DEBUG|Enemy moves: crosschop icepunch voltswitch wildcharge
+|chat|DEBUG|Checks: ['pikachu']
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola', 'pikachu']
+|chat|DEBUG|Speed: 25 vs 203
+|chat|DEBUG|HP: 163 vs 95
+|chat|DEBUG|Created a new Strategy for stakataka vs electivire:
+|chat|DEBUG|>[bodypress: 124.375 [114, 135], bodypress: 124.375 [114, 135], bodypress: 124.375 [114, 135]]
+|chat|DEBUG|Best move of stakataka (p1): bodypress: 124.375 [114, 135]
+|chat|DEBUG|Best move of electivire (p2): crosschop: 219.0625 [203, 239]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check pikachu
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pikachu|Pikachu, L92, F|214214
+|move|p2a: Electivire|Earthquake|p1a: Pikachu
+|-supereffective|p1a: Pikachu
+|-damage|p1a: Pikachu|0 fnt
+|faint|p1a: Pikachu
+|-damage|p2a: Electivire|28100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dhelmise|Dhelmise, L86|261261
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachu" vs "electivire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crosschop icepunch voltswitch wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dhelmise (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Electivire|Volt Switch|p1a: Dhelmise
+|-resisted|p1a: Dhelmise
+|-damage|p1a: Dhelmise|216261
+|-damage|p2a: Electivire|18100|[from] item: Life Orb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Yveltal|Yveltal, L69|100100|[from]move: Volt Switch
+|-ability|p2a: Yveltal|Dark Aura
+|move|p1a: Dhelmise|Power Whip|p2a: Yveltal
+|-resisted|p2a: Yveltal
+|-damage|p2a: Yveltal|67100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "electivire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire
+|chat|DEBUG|Own moves: swordsdance poltergeist powerwhip anchorshot
+|chat|DEBUG|Enemy moves: crosschop icepunch voltswitch wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola']
+|chat|DEBUG|Speed: 118 vs 203
+|chat|DEBUG|HP: 261 vs 71
+|chat|DEBUG|Created a new Strategy for dhelmise vs electivire:
+|chat|DEBUG|>[powerwhip: 211.3125 [195, 229], powerwhip: 211.3125 [195, 229], powerwhip: 211.3125 [195, 229]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 211.3125 [195, 229]
+|chat|DEBUG|Best move of electivire (p2): icepunch: 140.75 [130, 153]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stakataka|Stakataka, L80|163229
+|move|p2a: Yveltal|Knock Off|p1a: Stakataka
+|-damage|p1a: Stakataka|121229
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire
+|chat|DEBUG|Own moves: swordsdance poltergeist powerwhip anchorshot
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw', 'stakataka']
+|chat|DEBUG|Speed: 118 vs 177
+|chat|DEBUG|HP: 216 vs 192
+|chat|DEBUG|Created a new Strategy for dhelmise vs yveltal:
+|chat|DEBUG|>[anchorshot: 129.125 [119, 140], anchorshot: 129.125 [119, 140], anchorshot: 129.125 [119, 140]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 129.125 [119, 140]
+|chat|DEBUG|Best move of yveltal (p2): knockoff: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stakataka
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sandslash|Sandslash-Alola, L86, M|100100
+|move|p1a: Stakataka|Stone Edge|p2a: Sandslash
+|-damage|p2a: Sandslash|63100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire
+|chat|DEBUG|Own moves: gyroball trickroom stoneedge bodypress
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 25 vs 177
+|chat|DEBUG|HP: 121 vs 192
+|chat|DEBUG|Created a new Strategy for stakataka vs yveltal:
+|chat|DEBUG|>[stoneedge: 283.125 [260, 308], stoneedge: 283.125 [260, 308], stoneedge: 283.125 [260, 308]]
+|chat|DEBUG|Best move of stakataka (p1): stoneedge: 283.125 [260, 308]
+|chat|DEBUG|Best move of yveltal (p2): suckerpunch: 45.0625 [42, 49]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Iron Head|p1a: Stakataka
+|-damage|p1a: Stakataka|61229
+|-damage|p2a: Sandslash|53100|[from] item: Life Orb
+|move|p1a: Stakataka|Body Press|p2a: Sandslash
+|-supereffective|p2a: Sandslash
+|-damage|p2a: Sandslash|0 fnt
+|faint|p2a: Sandslash
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thundurus|Thundurus-Therian, L80, M|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "sandslashalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire-sandslashalola
+|chat|DEBUG|Own moves: gyroball trickroom stoneedge bodypress
+|chat|DEBUG|Enemy moves: ironhead rapidspin swordsdance tripleaxel
+|chat|DEBUG|Checks: ['mamoswine', 'drednaw', 'stakataka']
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola', 'drednaw', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 25 vs 161
+|chat|DEBUG|HP: 121 vs 169
+|chat|DEBUG|Created a new Strategy for stakataka vs sandslashalola:
+|chat|DEBUG|>[bodypress: 305.5 [280, 332], bodypress: 305.5 [280, 332], bodypress: 305.5 [280, 332]]
+|chat|DEBUG|Best move of stakataka (p1): bodypress: 305.5 [280, 332]
+|chat|DEBUG|Best move of sandslashalola (p2): ironhead: 47.5625 [43, 52]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Focus Blast|p1a: Stakataka|[miss]
+|-miss|p2a: Thundurus|p1a: Stakataka
+|move|p1a: Stakataka|Stone Edge|p2a: Thundurus
+|-supereffective|p2a: Thundurus
+|-damage|p2a: Thundurus|0 fnt
+|faint|p2a: Thundurus
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Electivire|Electivire, L82, M|18100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "thundurustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire-thundurustherian
+|chat|DEBUG|Own moves: gyroball trickroom stoneedge bodypress
+|chat|DEBUG|Enemy moves: grassknot nastyplot psychic thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dhelmise']
+|chat|DEBUG|Speed: 25 vs 208
+|chat|DEBUG|HP: 61 vs 258
+|chat|DEBUG|Created a new Strategy for stakataka vs thundurustherian:
+|chat|DEBUG|>[stoneedge: 308.875 [284, 336], stoneedge: 308.875 [284, 336], stoneedge: 308.875 [284, 336]]
+|chat|DEBUG|Best move of stakataka (p1): stoneedge: 308.875 [284, 336]
+|chat|DEBUG|Best move of thundurustherian (p2): thunderbolt: 114.3125 [105, 124]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Electivire|Earthquake|p1a: Stakataka
+|-supereffective|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|faint|p1a: Stakataka
+|-damage|p2a: Electivire|8100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dhelmise|Dhelmise, L86|216261
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "electivire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw-stakataka -- yveltal-electivire
+|chat|DEBUG|Own moves: gyroball trickroom stoneedge bodypress
+|chat|DEBUG|Enemy moves: crosschop icepunch voltswitch wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola']
+|chat|DEBUG|Speed: 25 vs 203
+|chat|DEBUG|HP: 61 vs 46
+|chat|DEBUG|Created a new Strategy for stakataka vs electivire:
+|chat|DEBUG|>[bodypress: 247.375 [227, 268], bodypress: 247.375 [227, 268], bodypress: 247.375 [227, 268]]
+|chat|DEBUG|Best move of stakataka (p1): bodypress: 247.375 [227, 268]
+|chat|DEBUG|Best move of electivire (p2): crosschop: 113.0625 [104, 125]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodypress
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Electivire|Wild Charge|p1a: Dhelmise
+|-resisted|p1a: Dhelmise
+|-damage|p1a: Dhelmise|151261
+|-damage|p2a: Electivire|2100|[from] Recoil
+|-damage|p2a: Electivire|0 fnt|[from] item: Life Orb
+|faint|p2a: Electivire
+|move|p1a: Dhelmise|Power Whip|p2: Electivire|[notarget]
+|-fail|p1a: Dhelmise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Yveltal|Yveltal, L69|67100
+|-ability|p2a: Yveltal|Dark Aura
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "electivire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw -- yveltal-electivire
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: crosschop icepunch voltswitch wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dhelmise (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Oblivion Wing|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|17261
+|-heal|p2a: Yveltal|100100|[from] drain|[of] p1a: Dhelmise
+|move|p1a: Dhelmise|Anchor Shot|p2a: Yveltal
+|-damage|p2a: Yveltal|54100
+|-activate|p2a: Yveltal|trapped
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "electivire"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw -- yveltal-electivire
+|chat|DEBUG|Own moves: swordsdance poltergeist powerwhip anchorshot
+|chat|DEBUG|Enemy moves: crosschop icepunch voltswitch wildcharge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dhelmise', 'mamoswine', 'marowakalola']
+|chat|DEBUG|Speed: 118 vs 203
+|chat|DEBUG|HP: 216 vs 20
+|chat|DEBUG|Created a new Strategy for dhelmise vs electivire:
+|chat|DEBUG|>[powerwhip: 211.3125 [195, 229], powerwhip: 211.3125 [195, 229], powerwhip: 211.3125 [195, 229]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 211.3125 [195, 229]
+|chat|DEBUG|Best move of electivire (p2): icepunch: 140.75 [130, 153]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Oblivion Wing|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|-heal|p2a: Yveltal|58100|[from] drain|[of] p1a: Dhelmise
+|faint|p1a: Dhelmise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mamoswine|Mamoswine, L80, F|307307
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw -- yveltal
+|chat|DEBUG|Own moves: swordsdance poltergeist powerwhip anchorshot
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw']
+|chat|DEBUG|Speed: 118 vs 177
+|chat|DEBUG|HP: 151 vs 192
+|chat|DEBUG|Created a new Strategy for dhelmise vs yveltal:
+|chat|DEBUG|>[anchorshot: 129.125 [119, 140], anchorshot: 129.125 [119, 140], anchorshot: 129.125 [119, 140]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 129.125 [119, 140]
+|chat|DEBUG|Best move of yveltal (p2): knockoff: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using anchorshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Yveltal|Knock Off|p1a: Mamoswine
+|-damage|p1a: Mamoswine|163307
+|-enditem|p1a: Mamoswine|Life Orb|[from] move: Knock Off|[of] p2a: Yveltal
+|move|p1a: Mamoswine|Icicle Crash|p2a: Yveltal|[miss]
+|-miss|p1a: Mamoswine|p2a: Yveltal
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dhelmise mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dhelmise-mamoswine-marowakalola-drednaw -- yveltal
+|chat|DEBUG|Own moves: swordsdance poltergeist powerwhip anchorshot
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw']
+|chat|DEBUG|Speed: 118 vs 177
+|chat|DEBUG|HP: 17 vs 155
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 129.125 [119, 140]
+|chat|DEBUG|Best move of yveltal (p2): knockoff: 211.75 [194, 230]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using anchorshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|100100
+|move|p1a: Mamoswine|Icicle Crash|p2a: Coalossal
+|-resisted|p2a: Coalossal
+|-damage|p2a: Coalossal|88100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-marowakalola-drednaw -- yveltal
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to mamoswine (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mamoswine|Stealth Rock|p2a: Coalossal
+|-sidestart|p2: conor1999|move: Stealth Rock
+|move|p2a: Coalossal|Overheat|p1a: Mamoswine
+|-supereffective|p1a: Mamoswine
+|-damage|p1a: Mamoswine|0 fnt
+|-unboost|p2a: Coalossal|spa|2
+|faint|p1a: Mamoswine
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drednaw|Drednaw, L84, F|288288
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-marowakalola-drednaw -- yveltal
+|chat|DEBUG|Own moves: iciclecrash stealthrock earthquake iceshard
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw']
+|chat|DEBUG|Speed: 174 vs 177
+|chat|DEBUG|HP: 307 vs 167
+|chat|DEBUG|Created a new Strategy for mamoswine vs yveltal:
+|chat|DEBUG|>[iciclecrash: 311.3125 [283, 338], iciclecrash: 311.3125 [283, 338], iciclecrash: 311.3125 [283, 338]]
+|chat|DEBUG|Best move of mamoswine (p1): iciclecrash: 311.3125 [283, 338]
+|chat|DEBUG|Best move of yveltal (p2): knockoff: 134.0 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro-Galar, L86, M|100100
+|-damage|p2a: Slowbro|88100|[from] Stealth Rock
+|move|p1a: Drednaw|Liquidation|p2a: Slowbro
+|-damage|p2a: Slowbro|50100
+|-damage|p1a: Drednaw|260288|[from] item: Life Orb
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "yveltal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-marowakalola-drednaw -- yveltal
+|chat|DEBUG|Own moves: iciclecrash stealthrock earthquake iceshard
+|chat|DEBUG|Enemy moves: knockoff oblivionwing roost suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw']
+|chat|DEBUG|Speed: 174 vs 177
+|chat|DEBUG|HP: 163 vs 167
+|chat|DEBUG|Best move of mamoswine (p1): iciclecrash: 311.3125 [283, 338]
+|chat|DEBUG|Best move of yveltal (p2): oblivionwing: 101.75 [93, 111]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Drednaw|Dynamax
+|-heal|p1a: Drednaw|520576|[silent]
+|-start|p2a: Slowbro|Dynamax
+|-heal|p2a: Slowbro|50100|[silent]
+|move|p1a: Drednaw|Max Geyser|p2a: Slowbro
+|-damage|p2a: Slowbro|21100
+|-weather|RainDance
+|-damage|p1a: Drednaw|492576|[from] item: Life Orb
+|move|p2a: Slowbro|Max Mindstorm|p1a: Drednaw
+|-damage|p1a: Drednaw|278576
+|-fieldstart|move: Psychic Terrain
+|-damage|p2a: Slowbro|16100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mamoswine marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mamoswine-marowakalola-drednaw -- yveltal-coalossal
+|chat|DEBUG|Own moves: iciclecrash stealthrock earthquake iceshard
+|chat|DEBUG|Enemy moves: overheat spikes stoneedge willowisp
+|chat|DEBUG|Checks: ['mamoswine', 'drednaw']
+|chat|DEBUG|Counter: ['mamoswine', 'drednaw']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 174 vs 102
+|chat|DEBUG|HP: 163 vs 293
+|chat|DEBUG|Created a new Strategy for mamoswine vs coalossal:
+|chat|DEBUG|>[earthquake: 373.0 [340, 408], earthquake: 373.0 [340, 408], earthquake: 373.0 [340, 408]]
+|chat|DEBUG|Best move of mamoswine (p1): earthquake: 373.0 [340, 408]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 110.25 [102, 120]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drednaw|Max Geyser|p2a: Slowbro
+|-damage|p2a: Slowbro|0 fnt
+|faint|p2a: Slowbro
+|-damage|p1a: Drednaw|250576|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|88100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mamoswine" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>marowakalola-drednaw -- yveltal-coalossal
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: overheat spikes stoneedge willowisp
+|chat|DEBUG|Checks: ['drednaw']
+|chat|DEBUG|Counter: ['drednaw']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to drednaw (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drednaw|Max Geyser|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|faint|p2a: Coalossal
+|-damage|p1a: Drednaw|222576|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|-end|p1a: Drednaw|Dynamax
+|-heal|p1a: Drednaw|111288|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Yveltal|Yveltal, L69|58100
+|-ability|p2a: Yveltal|Dark Aura
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>marowakalola drednaw
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drednaw" vs "coalossal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>marowakalola-drednaw -- yveltal-coalossal
+|chat|DEBUG|Own moves: stoneedge liquidation swordsdance superpower
+|chat|DEBUG|Enemy moves: overheat spikes stoneedge willowisp
+|chat|DEBUG|Checks: ['drednaw']
+|chat|DEBUG|Counter: ['drednaw']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 102
+|chat|DEBUG|HP: 288 vs 293
+|chat|DEBUG|Created a new Strategy for drednaw vs coalossal:
+|chat|DEBUG|>[liquidation: 406.5625 [374, 442], liquidation: 406.5625 [374, 442], liquidation: 406.5625 [374, 442]]
+|chat|DEBUG|Best move of drednaw (p1): liquidation: 406.5625 [374, 442]
+|chat|DEBUG|Best move of coalossal (p2): stoneedge: 96.1875 [88, 105]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drednaw|Stone Edge|p2a: Yveltal
+|-supereffective|p2a: Yveltal
+|-damage|p2a: Yveltal|0 fnt
+|faint|p2a: Yveltal
+|-damage|p1a: Drednaw|83288|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>conor1999</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dhelmise mamoswine marowakalola pikachu drednaw stakataka</h1>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491966109<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491966109|init|battle
+|title|Haskus vs. McGewitter
+|j|☆Haskus
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Haskus|benga|1183
+|player|p2|McGewitter|265|1228
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Roserade|Roserade, L84, F|100100
+|switch|p2a: Gastrodon|Gastrodon-East, L84, M|324324
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-diggersby-solgaleo -- roserade
+|chat|DEBUG|Own moves: toxic recover scald earthquake
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['solgaleo']
+|chat|DEBUG|Counter: ['spiritomb', 'solgaleo']
+|chat|DEBUG|Speed: 114 vs 199
+|chat|DEBUG|HP: 324 vs 238
+|chat|DEBUG|Created a new Strategy for gastrodoneast vs roserade:
+|chat|DEBUG|>[earthquake: 117.0 [108, 127], earthquake: 117.0 [108, 127], earthquake: 117.0 [108, 127]]
+|chat|DEBUG|Best move of gastrodoneast (p1): earthquake: 117.0 [108, 127]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 706.75 [648, 768]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check solgaleo
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Haskus also wants the timer to be on.
+|switch|p2a: Solgaleo|Solgaleo, L72|316316
+|move|p1a: Roserade|Leaf Storm|p2a: Solgaleo
+|-resisted|p2a: Solgaleo
+|-damage|p2a: Solgaleo|217316
+|-unboost|p1a: Roserade|spa|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-diggersby-solgaleo -- roserade
+|chat|DEBUG|Own moves: closecombat knockoff sunsteelstrike flamecharge
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['spiritomb', 'solgaleo']
+|chat|DEBUG|Counter: ['zarude', 'spiritomb', 'sirfetchd', 'solgaleo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 199
+|chat|DEBUG|HP: 217 vs 238
+|chat|DEBUG|Created a new Strategy for solgaleo vs roserade:
+|chat|DEBUG|>[sunsteelstrike: 128.0625 [118, 139], sunsteelstrike: 128.0625 [118, 139], sunsteelstrike: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of solgaleo (p1): sunsteelstrike: 128.0625 [118, 139]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 48.5625 [45, 53]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sunsteelstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Toxic Spikes|p2a: Solgaleo
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Solgaleo|Sunsteel Strike|p1a: Roserade
+|-damage|p1a: Roserade|43100
+|-heal|p1a: Roserade|48100|[from] item: Black Sludge
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-diggersby-solgaleo -- roserade
+|chat|DEBUG|Own moves: closecombat knockoff sunsteelstrike flamecharge
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['zarude', 'spiritomb', 'solgaleo']
+|chat|DEBUG|Counter: ['zarude', 'spiritomb', 'sirfetchd', 'diggersby', 'solgaleo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 199
+|chat|DEBUG|HP: 217 vs 114
+|chat|DEBUG|Best move of solgaleo (p1): sunsteelstrike: 128.0625 [118, 139]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 48.5625 [45, 53]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sunsteelstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Synthesis|p1a: Roserade
+|-heal|p1a: Roserade|98100
+|move|p2a: Solgaleo|Sunsteel Strike|p1a: Roserade
+|-damage|p1a: Roserade|42100
+|-heal|p1a: Roserade|48100|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "roserade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-diggersby-solgaleo -- roserade
+|chat|DEBUG|Own moves: closecombat knockoff sunsteelstrike flamecharge
+|chat|DEBUG|Enemy moves: leafstorm sleeppowder sludgebomb synthesis
+|chat|DEBUG|Checks: ['zarude', 'spiritomb', 'solgaleo']
+|chat|DEBUG|Counter: ['zarude', 'spiritomb', 'sirfetchd', 'diggersby', 'solgaleo']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 199
+|chat|DEBUG|HP: 217 vs 114
+|chat|DEBUG|Best move of solgaleo (p1): sunsteelstrike: 128.0625 [118, 139]
+|chat|DEBUG|Best move of roserade (p2): leafstorm: 48.5625 [45, 53]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using sunsteelstrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Roserade|Leaf Storm|p2a: Solgaleo
+|-resisted|p2a: Solgaleo
+|-damage|p2a: Solgaleo|170316
+|-unboost|p1a: Roserade|spa|2
+|move|p2a: Solgaleo|Sunsteel Strike|p1a: Roserade
+|-damage|p1a: Roserade|0 fnt
+|faint|p1a: Roserade
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dracozolt|Dracozolt, L78|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-diggersby-solgaleo -- dracozolt
+|chat|DEBUG|Own moves: closecombat knockoff sunsteelstrike flamecharge
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: ['diggersby']
+|chat|DEBUG|Counter: ['diggersby']
+|chat|DEBUG|Speed: 182 vs 162
+|chat|DEBUG|HP: 170 vs 268
+|chat|DEBUG|Created a new Strategy for solgaleo vs dracozolt:
+|chat|DEBUG|>[closecombat: 87.5 [80, 95], closecombat: 87.5 [80, 95], closecombat: 87.5 [80, 95]]
+|chat|DEBUG|Best move of solgaleo (p1): closecombat: 87.5 [80, 95]
+|chat|DEBUG|Best move of dracozolt (p2): boltbeak: 240.5 [220, 261]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check diggersby
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Diggersby|Diggersby, L80, F|267267
+|-status|p2a: Diggersby|psn
+|move|p1a: Dracozolt|Low Kick|p2a: Diggersby
+|-supereffective|p2a: Diggersby
+|-damage|p2a: Diggersby|125267 psn
+|-damage|p2a: Diggersby|92267 psn|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diggersby" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-diggersby-solgaleo -- dracozolt
+|chat|DEBUG|Own moves: swordsdance bodyslam earthquake knockoff
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['diggersby']
+|chat|DEBUG|Speed: 171 vs 162
+|chat|DEBUG|HP: 92 vs 268
+|chat|DEBUG|Created a new Strategy for diggersby vs dracozolt:
+|chat|DEBUG|>[earthquake: 360.25 [330, 393], earthquake: 360.25 [330, 393], earthquake: 360.25 [330, 393]]
+|chat|DEBUG|Best move of diggersby (p1): earthquake: 360.25 [330, 393]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 197.375 [181, 214]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Low Kick|p2a: Diggersby
+|-supereffective|p2a: Diggersby
+|-damage|p2a: Diggersby|0 fnt
+|faint|p2a: Diggersby
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Solgaleo|Solgaleo, L72|170316
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diggersby" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-solgaleo -- dracozolt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: solgaleo
+|chat|DEBUG|>Switching to solgaleo (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Low Kick|p2a: Solgaleo
+|-damage|p2a: Solgaleo|62316
+|move|p2a: Solgaleo|Close Combat|p1a: Dracozolt
+|-damage|p1a: Dracozolt|68100
+|-unboost|p2a: Solgaleo|def|1
+|-unboost|p2a: Solgaleo|spd|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-solgaleo -- dracozolt
+|chat|DEBUG|Own moves: closecombat knockoff sunsteelstrike flamecharge
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 182 vs 162
+|chat|DEBUG|HP: 170 vs 268
+|chat|DEBUG|Created a new Strategy for solgaleo vs dracozolt:
+|chat|DEBUG|>[closecombat: 87.5 [80, 95], closecombat: 87.5 [80, 95], closecombat: 87.5 [80, 95]]
+|chat|DEBUG|Best move of solgaleo (p1): closecombat: 87.5 [80, 95]
+|chat|DEBUG|Best move of dracozolt (p2): boltbeak: 240.5 [220, 261]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Low Kick|p2a: Solgaleo
+|-damage|p2a: Solgaleo|0 fnt
+|faint|p2a: Solgaleo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gastrodon|Gastrodon-East, L84, M|324324
+|-status|p2a: Gastrodon|psn
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd solgaleo
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd-solgaleo -- dracozolt
+|chat|DEBUG|Own moves: closecombat knockoff sunsteelstrike flamecharge
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gastrodoneast', 'zarude', 'spiritomb']
+|chat|DEBUG|Speed: 182 vs 162
+|chat|DEBUG|HP: 62 vs 182
+|chat|DEBUG|Best move of solgaleo (p1): closecombat: 87.5 [80, 95]
+|chat|DEBUG|Best move of dracozolt (p2): boltbeak: 361.125 [331, 391]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dracozolt|Low Kick|p2a: Gastrodon
+|-damage|p2a: Gastrodon|251324 psn
+|move|p2a: Gastrodon|Earthquake|p1a: Dracozolt
+|-supereffective|p1a: Dracozolt
+|-damage|p1a: Dracozolt|0 fnt
+|faint|p1a: Dracozolt
+|-heal|p2a: Gastrodon|271324 psn|[from] item: Leftovers
+|-damage|p2a: Gastrodon|231324 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Haskus has 120 seconds left.
+|switch|p1a: Hatterene|Hatterene, L86, F|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "solgaleo" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd -- dracozolt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gastrodoneast', 'zarude', 'spiritomb']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to gastrodoneast (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Haskus has 120 seconds left.
+|move|p2a: Gastrodon|Earthquake|p1a: Hatterene
+|-damage|p1a: Hatterene|66100
+|move|p1a: Hatterene|Dazzling Gleam|p2a: Gastrodon
+|-damage|p2a: Gastrodon|85324 psn
+|-damage|p1a: Hatterene|56100|[from] item: Life Orb
+|-heal|p2a: Gastrodon|105324 psn|[from] item: Leftovers
+|-damage|p2a: Gastrodon|65324 psn|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "dracozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd -- dracozolt
+|chat|DEBUG|Own moves: toxic recover scald earthquake
+|chat|DEBUG|Enemy moves: aerialace boltbeak lowkick outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gastrodoneast', 'zarude', 'spiritomb']
+|chat|DEBUG|Speed: 114 vs 162
+|chat|DEBUG|HP: 324 vs 182
+|chat|DEBUG|Created a new Strategy for gastrodoneast vs dracozolt:
+|chat|DEBUG|>[earthquake: 200.75 [186, 218], earthquake: 200.75 [186, 218], earthquake: 200.75 [186, 218]]
+|chat|DEBUG|Best move of gastrodoneast (p1): earthquake: 200.75 [186, 218]
+|chat|DEBUG|Best move of dracozolt (p2): outrage: 206.0 [189, 223]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gastrodon|Earthquake|p1a: Hatterene
+|-damage|p1a: Hatterene|21100
+|move|p1a: Hatterene|Psychic|p2a: Gastrodon
+|-damage|p2a: Gastrodon|0 fnt
+|faint|p2a: Gastrodon
+|-damage|p1a: Hatterene|11100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zarude|Zarude, L78|292292
+|-status|p2a: Zarude|psn
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd -- hatterene
+|chat|DEBUG|Own moves: toxic recover scald earthquake
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['spiritomb']
+|chat|DEBUG|Speed: 114 vs 54
+|chat|DEBUG|HP: 231 vs 238
+|chat|DEBUG|Created a new Strategy for gastrodoneast vs hatterene:
+|chat|DEBUG|>[earthquake: 86.4375 [79, 94], earthquake: 86.4375 [79, 94], earthquake: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of gastrodoneast (p1): earthquake: 86.4375 [79, 94]
+|chat|DEBUG|Best move of hatterene (p2): psychic: 180.0 [165, 195]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zarude|Power Whip|p1a: Hatterene
+|-damage|p1a: Hatterene|0 fnt
+|faint|p1a: Hatterene
+|-damage|p2a: Zarude|256292 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mienshao|Mienshao, L82, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gastrodoneast zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gastrodoneast-zarude-spiritomb-sirfetchd -- hatterene
+|chat|DEBUG|Own moves: toxic recover scald earthquake
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarude', 'spiritomb', 'sirfetchd']
+|chat|DEBUG|Speed: 114 vs 54
+|chat|DEBUG|HP: 65 vs 133
+|chat|DEBUG|Best move of gastrodoneast (p1): earthquake: 86.4375 [79, 94]
+|chat|DEBUG|Best move of hatterene (p2): psychic: 180.0 [165, 195]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Spiritomb|Spiritomb, L88, F|231231
+|-status|p2a: Spiritomb|psn
+|move|p1a: Mienshao|Close Combat|p2a: Spiritomb
+|-immune|p2a: Spiritomb
+|-damage|p2a: Spiritomb|203231 psn|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-spiritomb-sirfetchd -- hatterene
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarude', 'spiritomb', 'sirfetchd']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zarude (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Mienshao|Dynamax
+|-heal|p1a: Mienshao|100100|[silent]
+|move|p1a: Mienshao|Max Darkness|p2a: Spiritomb
+|-damage|p2a: Spiritomb|122231 psn
+|-unboost|p2a: Spiritomb|spd|1
+|move|p2a: Spiritomb|Poltergeist|p1a: Mienshao
+|-activate|p1a: Mienshao|move: Poltergeist|Choice Band
+|-damage|p1a: Mienshao|50100
+|-damage|p2a: Spiritomb|94231 psn|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarude" vs "hatterene"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-spiritomb-sirfetchd -- hatterene
+|chat|DEBUG|Own moves: darkestlariat bulkup junglehealing powerwhip
+|chat|DEBUG|Enemy moves: dazzlinggleam mysticalfire psychic trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zarude', 'spiritomb', 'sirfetchd']
+|chat|DEBUG|Speed: 209 vs 54
+|chat|DEBUG|HP: 292 vs 26
+|chat|DEBUG|Created a new Strategy for zarude vs hatterene:
+|chat|DEBUG|>[powerwhip: 121.1875 [111, 132], powerwhip: 121.1875 [111, 132], powerwhip: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of zarude (p1): powerwhip: 121.1875 [111, 132]
+|chat|DEBUG|Best move of hatterene (p2): dazzlinggleam: 307.5625 [283, 335]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Max Darkness|p2a: Spiritomb
+|-damage|p2a: Spiritomb|7231 psn
+|-unboost|p2a: Spiritomb|spd|1
+|move|p2a: Spiritomb|Poltergeist|p1a: Mienshao|[miss]
+|-miss|p2a: Spiritomb|p1a: Mienshao
+|-damage|p2a: Spiritomb|0 fnt|[from] psn
+|faint|p2a: Spiritomb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zarude|Zarude, L78|256292 psn
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zarude" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-spiritomb-sirfetchd -- mienshao
+|chat|DEBUG|Own moves: darkestlariat bulkup junglehealing powerwhip
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['spiritomb']
+|chat|DEBUG|Counter: ['spiritomb']
+|chat|DEBUG|Speed: 209 vs 219
+|chat|DEBUG|HP: 256 vs 241
+|chat|DEBUG|Created a new Strategy for zarude vs mienshao:
+|chat|DEBUG|>[powerwhip: 175.1875 [160, 190], powerwhip: 175.1875 [160, 190], powerwhip: 175.1875 [160, 190]]
+|chat|DEBUG|Best move of zarude (p1): powerwhip: 175.1875 [160, 190]
+|chat|DEBUG|Best move of mienshao (p2): closecombat: 360.0625 [330, 390]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check spiritomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Max Knuckle|p2a: Zarude
+|-supereffective|p2a: Zarude
+|-damage|p2a: Zarude|32292 psn
+|-boost|p1a: Mienshao|atk|1
+|move|p2a: Zarude|Power Whip|p1a: Mienshao
+|-damage|p1a: Mienshao|11100
+|-heal|p2a: Zarude|50292 psn|[from] item: Leftovers
+|-damage|p2a: Zarude|14292 psn|[from] psn
+|-end|p1a: Mienshao|Dynamax
+|-heal|p1a: Mienshao|11100|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spiritomb" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-spiritomb-sirfetchd -- mienshao
+|chat|DEBUG|Own moves: foulplay poltergeist shadowsneak suckerpunch
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['spiritomb']
+|chat|DEBUG|Counter: ['spiritomb']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 112 vs 219
+|chat|DEBUG|HP: 203 vs 241
+|chat|DEBUG|Created a new Strategy for spiritomb vs mienshao:
+|chat|DEBUG|>[poltergeist: 247.375 [228, 268], poltergeist: 247.375 [228, 268], poltergeist: 247.375 [228, 268]]
+|chat|DEBUG|Best move of spiritomb (p1): poltergeist: 247.375 [228, 268]
+|chat|DEBUG|Best move of mienshao (p2): knockoff: 84.75 [78, 92]
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Close Combat|p2a: Zarude
+|-supereffective|p2a: Zarude
+|-damage|p2a: Zarude|0 fnt
+|-unboost|p1a: Mienshao|def|1
+|-unboost|p1a: Mienshao|spd|1
+|faint|p2a: Zarude
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sirfetch’d|Sirfetch’d, L82, M|236236
+|-status|p2a: Sirfetch’d|psn
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude spiritomb sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spiritomb" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-spiritomb-sirfetchd -- mienshao
+|chat|DEBUG|Own moves: poltergeist
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['spiritomb']
+|chat|DEBUG|Speed: 112 vs 219
+|chat|DEBUG|HP: 94 vs 120
+|chat|DEBUG|Created a new Strategy for spiritomb vs mienshao:
+|chat|DEBUG|>[poltergeist: 247.375 [228, 268], poltergeist: 247.375 [228, 268], poltergeist: 247.375 [228, 268]]
+|chat|DEBUG|Best move of spiritomb (p1): poltergeist: 247.375 [228, 268]
+|chat|DEBUG|Best move of mienshao (p2): knockoff: 84.75 [78, 92]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Sirfetch’d|Dynamax
+|-heal|p2a: Sirfetch’d|472472 psn|[silent]
+|move|p1a: Mienshao|Close Combat|p2a: Sirfetch’d
+|-damage|p2a: Sirfetch’d|139472 psn
+|-unboost|p1a: Mienshao|def|1
+|-unboost|p1a: Mienshao|spd|1
+|move|p2a: Sirfetch’d|Max Airstream|p1a: Mienshao
+|-supereffective|p1a: Mienshao
+|-damage|p1a: Mienshao|0 fnt
+|-boost|p2a: Sirfetch’d|spe|1
+|faint|p1a: Mienshao
+|-damage|p2a: Sirfetch’d|116472 psn|[from] item: Life Orb
+|-damage|p2a: Sirfetch’d|87472 psn|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Musharna|Musharna, L86, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zarude sirfetchd
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "spiritomb" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>zarude-sirfetchd -- mienshao
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: zarude
+|chat|DEBUG|>Switching to zarude (pokemon object) [Active: False, Status: PSN]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sirfetch’d|Max Darkness|p1a: Musharna
+|-supereffective|p1a: Musharna
+|-damage|p1a: Musharna|19100
+|-unboost|p1a: Musharna|spd|1
+|-damage|p2a: Sirfetch’d|64472 psn|[from] item: Life Orb
+|move|p1a: Musharna|Psychic|p2a: Sirfetch’d
+|-supereffective|p2a: Sirfetch’d
+|-damage|p2a: Sirfetch’d|0 fnt
+|faint|p2a: Sirfetch’d
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Haskus<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">gastrodoneast zarude spiritomb sirfetchd diggersby solgaleo</h1>

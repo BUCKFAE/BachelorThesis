@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491071021<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491071021|init|battle
+|title|McGewitter vs. Qwerfghnm
+|j|☆McGewitter
+|j|☆Qwerfghnm
+|gametype|singles
+|player|p1|McGewitter|265|1201
+|player|p2|Qwerfghnm|266|1236
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Wigglytuff|Wigglytuff, L90, F|398398
+|switch|p2a: Jellicent|Jellicent, L84, F|100100
+|-item|p2a: Jellicent|Leftovers|[from] ability: Frisk|[of] p1a: Wigglytuff|[identify]
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wigglytuff" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent
+|chat|DEBUG|Own moves: dazzlinggleam lightscreen stealthrock reflect
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Speed: 132 vs 149
+|chat|DEBUG|HP: 398 vs 305
+|chat|DEBUG|Created a new Strategy for wigglytuff vs jellicent:
+|chat|DEBUG|>[dazzlinggleam: 78.1875 [72, 85], dazzlinggleam: 78.1875 [72, 85], dazzlinggleam: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of wigglytuff (p1): dazzlinggleam: 78.1875 [72, 85]
+|chat|DEBUG|Best move of jellicent (p2): scald: 105.875 [97, 115]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-stealthrock-reflect
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Jellicent|Ice Beam|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|315398
+|move|p1a: Wigglytuff|Light Screen|p1a: Wigglytuff
+|-sidestart|p1: McGewitter|move: Light Screen
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wigglytuff" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent
+|chat|DEBUG|Own moves: dazzlinggleam lightscreen stealthrock reflect
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Speed: 132 vs 149
+|chat|DEBUG|HP: 315 vs 305
+|chat|DEBUG|Best move of wigglytuff (p1): dazzlinggleam: 78.1875 [72, 85]
+|chat|DEBUG|Best move of jellicent (p2): scald: 105.875 [97, 115]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-stealthrock-reflect
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Scald|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|259398
+|move|p1a: Wigglytuff|Stealth Rock|p2a: Jellicent
+|-sidestart|p2: Qwerfghnm|move: Stealth Rock
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wigglytuff" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent
+|chat|DEBUG|Own moves: dazzlinggleam lightscreen stealthrock reflect
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Speed: 132 vs 149
+|chat|DEBUG|HP: 259 vs 305
+|chat|DEBUG|Best move of wigglytuff (p1): dazzlinggleam: 78.1875 [72, 85]
+|chat|DEBUG|Best move of jellicent (p2): scald: 105.875 [97, 115]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-stealthrock-reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Ice Beam|p1a: Wigglytuff
+|-damage|p1a: Wigglytuff|219398
+|move|p1a: Wigglytuff|Reflect|p1a: Wigglytuff
+|-sidestart|p1: McGewitter|Reflect
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wigglytuff" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent
+|chat|DEBUG|Own moves: dazzlinggleam lightscreen stealthrock reflect
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Speed: 132 vs 149
+|chat|DEBUG|HP: 219 vs 305
+|chat|DEBUG|Created a new Strategy for wigglytuff vs jellicent:
+|chat|DEBUG|>[dazzlinggleam: 78.1875 [72, 85], dazzlinggleam: 78.1875 [72, 85], dazzlinggleam: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of wigglytuff (p1): dazzlinggleam: 78.1875 [72, 85]
+|chat|DEBUG|Best move of jellicent (p2): scald: 105.875 [97, 115]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-stealthrock-reflect
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomwash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|216216
+|move|p2a: Jellicent|Ice Beam|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|203216
+|-heal|p1a: Rotom|216216|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 188 vs 149
+|chat|DEBUG|HP: 216 vs 305
+|chat|DEBUG|Created a new Strategy for rotomwash vs jellicent:
+|chat|DEBUG|>[thunderbolt: 167.25 [152, 182], thunderbolt: 167.25 [152, 182], thunderbolt: 167.25 [152, 182]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 167.25 [152, 182]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 67.25 [61, 73]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Jellicent
+|-supereffective|p2a: Jellicent
+|-damage|p2a: Jellicent|45100
+|move|p2a: Jellicent|Shadow Ball|p1a: Rotom
+|-damage|p1a: Rotom|184216
+|-heal|p1a: Rotom|197216|[from] item: Leftovers
+|-heal|p2a: Jellicent|52100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 188 vs 149
+|chat|DEBUG|HP: 197 vs 158
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 167.25 [152, 182]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 67.25 [61, 73]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magnezone|Magnezone, L84|100100
+|-damage|p2a: Magnezone|95100|[from] Stealth Rock
+|move|p1a: Rotom|Thunderbolt|p2a: Magnezone
+|-resisted|p2a: Magnezone
+|-damage|p2a: Magnezone|83100
+|-heal|p1a: Rotom|210216|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "magnezone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: flashcannon mirrorcoat thunderbolt voltswitch
+|chat|DEBUG|Checks: ['groudon']
+|chat|DEBUG|Counter: ['groudon', 'rotomwash']
+|chat|DEBUG|Speed: 188 vs 149
+|chat|DEBUG|HP: 210 vs 211
+|chat|DEBUG|Created a new Strategy for rotomwash vs magnezone:
+|chat|DEBUG|>[hydropump: 76.75 [70, 84], hydropump: 76.75 [70, 84], hydropump: 76.75 [70, 84]]
+|chat|DEBUG|Best move of rotomwash (p1): hydropump: 76.75 [70, 84]
+|chat|DEBUG|Best move of magnezone (p2): thunderbolt: 105.875 [97, 115]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Hydro Pump|p2a: Magnezone
+|-damage|p2a: Magnezone|52100
+|move|p2a: Magnezone|Thunderbolt|p1a: Rotom
+|-damage|p1a: Rotom|160216
+|-heal|p1a: Rotom|173216|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "magnezone"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: flashcannon mirrorcoat thunderbolt voltswitch
+|chat|DEBUG|Checks: ['groudon']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'rotomwash']
+|chat|DEBUG|Speed: 188 vs 149
+|chat|DEBUG|HP: 173 vs 132
+|chat|DEBUG|Best move of rotomwash (p1): hydropump: 76.75 [70, 84]
+|chat|DEBUG|Best move of magnezone (p2): thunderbolt: 105.875 [97, 115]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Hydro Pump|p2a: Magnezone
+|-damage|p2a: Magnezone|21100
+|move|p2a: Magnezone|Volt Switch|p1a: Rotom
+|-damage|p1a: Rotom|130216
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Qwerfghnm has 120 seconds left.
+|switch|p2a: Qwilfish|Qwilfish, L84, M|100100|[from]move: Volt Switch
+|-damage|p2a: Qwilfish|88100|[from] Stealth Rock
+|-ability|p2a: Qwilfish|Intimidate|boost
+|-unboost|p1a: Rotom|atk|1
+|-heal|p2a: Qwilfish|94100|[from] item: Black Sludge
+|-heal|p1a: Rotom|143216|[from] item: Leftovers
+|-sideend|p1: McGewitter|move: Light Screen
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "qwilfish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-qwilfish
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: destinybond thunderwave toxicspikes waterfall
+|chat|DEBUG|Checks: ['celebi', 'rotomwash', 'meowstic']
+|chat|DEBUG|Counter: ['groudon', 'celebi', 'rotomwash', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 188 vs 191
+|chat|DEBUG|HP: 143 vs 231
+|chat|DEBUG|Created a new Strategy for rotomwash vs qwilfish:
+|chat|DEBUG|>[thunderbolt: 268.0 [246, 290], thunderbolt: 268.0 [246, 290], thunderbolt: 268.0 [246, 290]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 268.0 [246, 290]
+|chat|DEBUG|Best move of qwilfish (p2): waterfall: 36.6875 [33, 40]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Qwerfghnm has 120 seconds left.
+|move|p2a: Qwilfish|Taunt|p1a: Rotom
+|-start|p1a: Rotom|move: Taunt
+|move|p1a: Rotom|Thunderbolt|p2a: Qwilfish
+|-supereffective|p2a: Qwilfish
+|-damage|p2a: Qwilfish|0 fnt
+|faint|p2a: Qwilfish
+|-heal|p1a: Rotom|156216|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Qwerfghnm has 120 seconds left.
+|switch|p2a: Bewear|Bewear, L82, M|100100
+|-damage|p2a: Bewear|94100|[from] Stealth Rock
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "bewear"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-bewear
+|chat|DEBUG|Own moves: hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: closecombat doubleedge icepunch swordsdance
+|chat|DEBUG|Checks: ['celebi', 'meowstic']
+|chat|DEBUG|Counter: ['groudon', 'celebi', 'meowstic']
+|chat|DEBUG|Speed: 188 vs 146
+|chat|DEBUG|HP: 156 vs 311
+|chat|DEBUG|Created a new Strategy for rotomwash vs bewear:
+|chat|DEBUG|>[thunderbolt: 128.0625 [118, 139], thunderbolt: 128.0625 [118, 139], thunderbolt: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 128.0625 [118, 139]
+|chat|DEBUG|Best move of bewear (p2): doubleedge: 168.3125 [153, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check celebi
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Celebi|Celebi, L82|298298
+|move|p2a: Bewear|Close Combat|p1a: Celebi
+|-resisted|p1a: Celebi
+|-damage|p1a: Celebi|264298
+|-unboost|p2a: Bewear|def|1
+|-unboost|p2a: Bewear|spd|1
+|-heal|p1a: Celebi|282298|[from] item: Leftovers
+|-sideend|p1: McGewitter|Reflect
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "bewear"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-bewear
+|chat|DEBUG|Own moves: nastyplot recover gigadrain psychic
+|chat|DEBUG|Enemy moves: closecombat doubleedge icepunch swordsdance
+|chat|DEBUG|Checks: ['groudon', 'celebi', 'meowstic']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 211 vs 146
+|chat|DEBUG|HP: 282 vs 311
+|chat|DEBUG|Created a new Strategy for celebi vs bewear:
+|chat|DEBUG|>[psychic: 372.75 [342, 404], psychic: 372.75 [342, 404], psychic: 372.75 [342, 404]]
+|chat|DEBUG|Best move of celebi (p1): psychic: 372.75 [342, 404]
+|chat|DEBUG|Best move of bewear (p2): doubleedge: 178.0625 [164, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Bewear|Dynamax
+|-heal|p2a: Bewear|94100|[silent]
+|move|p1a: Celebi|Psychic|p2a: Bewear
+|-supereffective|p2a: Bewear
+|-damage|p2a: Bewear|41100
+|move|p2a: Bewear|Max Hailstorm|p1a: Celebi
+|-supereffective|p1a: Celebi
+|-damage|p1a: Celebi|94298
+|-weather|Hail
+|-weather|Hail|[upkeep]
+|-damage|p1a: Celebi|76298|[from] Hail
+|-damage|p2a: Bewear|38100|[from] Hail
+|-heal|p1a: Celebi|94298|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "bewear"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-bewear
+|chat|DEBUG|Own moves: nastyplot recover gigadrain psychic
+|chat|DEBUG|Enemy moves: closecombat doubleedge icepunch swordsdance
+|chat|DEBUG|Checks: ['groudon', 'corviknight', 'meowstic']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'celebi', 'rotomwash', 'meowstic']
+|chat|DEBUG|Speed: 211 vs 146
+|chat|DEBUG|HP: 94 vs 125
+|chat|DEBUG|Best move of celebi (p1): psychic: 372.75 [342, 404]
+|chat|DEBUG|Best move of bewear (p2): doubleedge: 178.0625 [164, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Celebi|Psychic|p2a: Bewear
+|-supereffective|p2a: Bewear
+|-damage|p2a: Bewear|0 fnt
+|faint|p2a: Bewear
+|-weather|Hail|[upkeep]
+|-damage|p1a: Celebi|76298|[from] Hail
+|-heal|p1a: Celebi|94298|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Togekiss|Togekiss, L80, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-togekiss
+|chat|DEBUG|Own moves: nastyplot recover gigadrain psychic
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['corviknight', 'rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'rotomwash']
+|chat|DEBUG|Speed: 211 vs 174
+|chat|DEBUG|HP: 94 vs 267
+|chat|DEBUG|Created a new Strategy for celebi vs togekiss:
+|chat|DEBUG|>[psychic: 79.5 [73, 87], psychic: 79.5 [73, 87], psychic: 79.5 [73, 87]]
+|chat|DEBUG|Best move of celebi (p1): psychic: 79.5 [73, 87]
+|chat|DEBUG|Best move of togekiss (p2): airslash: 161.875 [150, 176]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check corviknight
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Corviknight|Corviknight, L78, M|281281
+|move|p2a: Togekiss|Aura Sphere|p1a: Corviknight
+|-damage|p1a: Corviknight|213281
+|-weather|Hail|[upkeep]
+|-damage|p2a: Togekiss|95100|[from] Hail
+|-damage|p1a: Corviknight|196281|[from] Hail
+|-heal|p1a: Corviknight|213281|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corviknight" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-togekiss
+|chat|DEBUG|Own moves: bulkup bravebird bodypress roost
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'rotomwash']
+|chat|DEBUG|Speed: 150 vs 174
+|chat|DEBUG|HP: 213 vs 253
+|chat|DEBUG|Created a new Strategy for corviknight vs togekiss:
+|chat|DEBUG|>[bravebird: 101.75 [93, 111], bravebird: 101.75 [93, 111], bravebird: 101.75 [93, 111]]
+|chat|DEBUG|Best move of corviknight (p1): bravebird: 101.75 [93, 111]
+|chat|DEBUG|Best move of togekiss (p2): aurasphere: 68.0 [62, 74]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomwash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rotom|Rotom-Wash, L82|156216
+|move|p2a: Togekiss|Thunder Wave|p1a: Rotom
+|-immune|p1a: Rotom
+|-weather|Hail|[upkeep]
+|-damage|p1a: Rotom|143216|[from] Hail
+|-damage|p2a: Togekiss|89100|[from] Hail
+|-heal|p1a: Rotom|156216|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-togekiss
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['groudon', 'rotomwash']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 188 vs 174
+|chat|DEBUG|HP: 156 vs 237
+|chat|DEBUG|Created a new Strategy for rotomwash vs togekiss:
+|chat|DEBUG|>[thunderbolt: 164.875 [152, 180], thunderbolt: 164.875 [152, 180], thunderbolt: 164.875 [152, 180]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 164.875 [152, 180]
+|chat|DEBUG|Best move of togekiss (p2): aurasphere: 55.125 [51, 60]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Togekiss
+|-supereffective|p2a: Togekiss
+|-damage|p2a: Togekiss|32100
+|-status|p2a: Togekiss|par
+|move|p2a: Togekiss|Air Slash|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|121216
+|-weather|none
+|-heal|p1a: Rotom|134216|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "togekiss"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-togekiss
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: airslash aurasphere nastyplot roost
+|chat|DEBUG|Checks: ['groudon', 'corviknight', 'rotomwash', 'meowstic']
+|chat|DEBUG|Counter: ['groudon', 'corviknight', 'rotomwash', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 188 vs 174
+|chat|DEBUG|HP: 134 vs 85
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 164.875 [152, 180]
+|chat|DEBUG|Best move of togekiss (p2): aurasphere: 55.125 [51, 60]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Togekiss
+|-supereffective|p2a: Togekiss
+|-damage|p2a: Togekiss|0 fnt
+|faint|p2a: Togekiss
+|-heal|p1a: Rotom|147216|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Flapple|Flapple, L84, F|100100
+|-damage|p2a: Flapple|88100|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-flapple
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corviknight']
+|chat|DEBUG|Speed: 188 vs 166
+|chat|DEBUG|HP: 147 vs 224
+|chat|DEBUG|Created a new Strategy for rotomwash vs flapple:
+|chat|DEBUG|>[thunderbolt: 31.0 [28, 34], thunderbolt: 31.0 [28, 34], thunderbolt: 31.0 [28, 34]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 31.0 [28, 34]
+|chat|DEBUG|Best move of flapple (p2): gravapple: 318.625 [291, 346]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Rotom|Thunderbolt|p2a: Flapple
+|-resisted|p2a: Flapple
+|-damage|p2a: Flapple|75100
+|move|p2a: Flapple|Dragon Dance|p2a: Flapple
+|-boost|p2a: Flapple|atk|1
+|-boost|p2a: Flapple|spe|1
+|-heal|p1a: Rotom|160216|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-flapple
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 166
+|chat|DEBUG|HP: 160 vs 191
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 31.0 [28, 34]
+|chat|DEBUG|Best move of flapple (p2): gravapple: 477.5625 [439, 517]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Rotom|Dynamax
+|-heal|p1a: Rotom|320432|[silent]
+|move|p2a: Flapple|Sucker Punch|p1a: Rotom
+|-damage|p1a: Rotom|182432
+|-damage|p2a: Flapple|66100|[from] item: Life Orb
+|move|p1a: Rotom|Max Lightning|p2a: Flapple
+|-resisted|p2a: Flapple
+|-damage|p2a: Flapple|48100
+|-fieldstart|move: Electric Terrain
+|-heal|p1a: Rotom|195432|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi rotomwash meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-rotomwash-meowstic -- jellicent-magnezone-flapple
+|chat|DEBUG|Own moves: willowisp hydropump voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon', 'celebi', 'meowstic']
+|chat|DEBUG|Speed: 188 vs 166
+|chat|DEBUG|HP: 195 vs 122
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 31.0 [28, 34]
+|chat|DEBUG|Best move of flapple (p2): gravapple: 477.5625 [439, 517]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Flapple|Grav Apple|p1a: Rotom
+|-supereffective|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|-damage|p2a: Flapple|39100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Groudon|Groudon, L73|266266
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Groudon
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-meowstic -- jellicent-magnezone-flapple
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon', 'celebi', 'meowstic']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'wigglytuff': 219, 'groudon': 266, 'corviknight': 213, 'celebi': 94, 'meowstic': 262}
+|chat|DEBUG|remaining_hp_team_2={'jellicent': 52, 'magnezone': 21, 'flapple': 48}
+|chat|DEBUG|battle.available_switches=[groudon (pokemon object) [Active: False, Status: None], celebi (pokemon object) [Active: False, Status: None], corviknight (pokemon object) [Active: False, Status: None], wigglytuff (pokemon object) [Active: False, Status: None], meowstic (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'groudon'
+|chat|DEBUG|>Switching to groudon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Flapple|Grav Apple|p1a: Groudon|[miss]
+|-miss|p2a: Flapple|p1a: Groudon
+|move|p1a: Groudon|Heat Crash|p2a: Flapple
+|-damage|p2a: Flapple|0 fnt
+|faint|p2a: Flapple
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jellicent|Jellicent, L84, F|52100
+|-damage|p2a: Jellicent|39100|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "groudon" vs "flapple"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-meowstic -- jellicent-magnezone-flapple
+|chat|DEBUG|Own moves: stoneedge heatcrash precipiceblades swordsdance
+|chat|DEBUG|Enemy moves: dragondance gravapple outrage suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['groudon', 'celebi', 'meowstic']
+|chat|DEBUG|Speed: 174 vs 166
+|chat|DEBUG|HP: 266 vs 99
+|chat|DEBUG|Created a new Strategy for groudon vs flapple:
+|chat|DEBUG|>[heatcrash: 99.375 [91, 108], heatcrash: 99.375 [91, 108], heatcrash: 99.375 [91, 108]]
+|chat|DEBUG|Best move of groudon (p1): heatcrash: 99.375 [91, 108]
+|chat|DEBUG|Best move of flapple (p2): gravapple: 430.9375 [398, 468]
+|chat|DEBUG|Attacking using heatcrash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Precipice Blades|p2a: Jellicent|[miss]
+|-miss|p1a: Groudon|p2a: Jellicent
+|move|p2a: Jellicent|Scald|p1a: Groudon
+|-supereffective|p1a: Groudon
+|-damage|p1a: Groudon|176266
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|192266|[from] item: Leftovers
+|-heal|p2a: Jellicent|45100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "groudon" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-meowstic -- jellicent-magnezone
+|chat|DEBUG|Own moves: stoneedge heatcrash precipiceblades swordsdance
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['groudon', 'corviknight']
+|chat|DEBUG|Counter: ['wigglytuff', 'groudon', 'corviknight', 'celebi', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 174 vs 149
+|chat|DEBUG|HP: 266 vs 118
+|chat|DEBUG|Created a new Strategy for groudon vs jellicent:
+|chat|DEBUG|>[precipiceblades: 162.8125 [150, 177], precipiceblades: 162.8125 [150, 177], precipiceblades: 162.8125 [150, 177]]
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 162.8125 [150, 177]
+|chat|DEBUG|Best move of jellicent (p2): scald: 172.875 [158, 188]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using precipiceblades
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Precipice Blades|p2a: Jellicent
+|-damage|p2a: Jellicent|0 fnt
+|faint|p2a: Jellicent
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Groudon|208266|[from] item: Leftovers
+|-fieldend|move: Electric Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magnezone|Magnezone, L84|21100
+|-damage|p2a: Magnezone|15100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wigglytuff groudon corviknight celebi meowstic
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "groudon" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wigglytuff-groudon-corviknight-celebi-meowstic -- jellicent-magnezone
+|chat|DEBUG|Own moves: stoneedge heatcrash precipiceblades swordsdance
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['groudon']
+|chat|DEBUG|Counter: ['wigglytuff', 'groudon', 'corviknight', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 174 vs 149
+|chat|DEBUG|HP: 192 vs 137
+|chat|DEBUG|Best move of groudon (p1): precipiceblades: 162.8125 [150, 177]
+|chat|DEBUG|Best move of jellicent (p2): scald: 172.875 [158, 188]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Groudon|Precipice Blades|p2a: Magnezone
+|-supereffective|p2a: Magnezone
+|-damage|p2a: Magnezone|0 fnt
+|faint|p2a: Magnezone
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Qwerfghnm</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">wigglytuff groudon corviknight celebi rotomwash meowstic</h1>

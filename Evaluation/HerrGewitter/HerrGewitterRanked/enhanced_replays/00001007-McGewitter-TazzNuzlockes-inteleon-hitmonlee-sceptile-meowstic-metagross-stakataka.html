@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491630903<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491630903|init|battle
+|title|McGewitter vs. TazzNuzlockes
+|j|☆McGewitter
+|j|☆TazzNuzlockes
+|gametype|singles
+|player|p1|McGewitter|265|1308
+|player|p2|TazzNuzlockes|265|1304
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Inteleon|Inteleon, L80, M|243243
+|switch|p2a: Zeraora|Zeraora, L76|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic metagross stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-metagross-stakataka -- zeraora
+|chat|DEBUG|Own moves: icebeam surf focusenergy airslash
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['metagross']
+|chat|DEBUG|Speed: 238 vs 261
+|chat|DEBUG|HP: 243 vs 259
+|chat|DEBUG|Created a new Strategy for inteleon vs zeraora:
+|chat|DEBUG|>[surf: 126.8125 [117, 138], surf: 126.8125 [117, 138], surf: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of inteleon (p1): surf: 126.8125 [117, 138]
+|chat|DEBUG|Best move of zeraora (p2): plasmafists: 333.0 [307, 361]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using surf
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Zeraora|Knock Off|p1a: Inteleon
+|-damage|p1a: Inteleon|153243
+|-enditem|p1a: Inteleon|Scope Lens|[from] move: Knock Off|[of] p2a: Zeraora
+|move|p1a: Inteleon|Surf|p2a: Zeraora
+|-damage|p2a: Zeraora|65100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic metagross stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-metagross-stakataka -- zeraora
+|chat|DEBUG|Own moves: icebeam surf focusenergy airslash
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: ['metagross']
+|chat|DEBUG|Counter: ['hitmonlee', 'sceptile', 'metagross', 'stakataka']
+|chat|DEBUG|Speed: 238 vs 261
+|chat|DEBUG|HP: 153 vs 168
+|chat|DEBUG|Best move of inteleon (p1): surf: 126.8125 [117, 138]
+|chat|DEBUG|Best move of zeraora (p2): plasmafists: 333.0 [307, 361]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check metagross
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Metagross|Metagross, L79|256256
+|move|p2a: Zeraora|Plasma Fists|p1a: Metagross
+|-damage|p1a: Metagross|174256
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|-heal|p1a: Metagross|190256|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic metagross stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "metagross" vs "zeraora"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-metagross-stakataka -- zeraora
+|chat|DEBUG|Own moves: earthquake stealthrock bulletpunch meteormash
+|chat|DEBUG|Enemy moves: blazekick bulkup closecombat plasmafists
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmonlee', 'sceptile', 'metagross', 'stakataka']
+|chat|DEBUG|Speed: 156 vs 261
+|chat|DEBUG|HP: 190 vs 168
+|chat|DEBUG|Created a new Strategy for metagross vs zeraora:
+|chat|DEBUG|>[earthquake: 202.5 [186, 220], earthquake: 202.5 [186, 220], earthquake: 202.5 [186, 220]]
+|chat|DEBUG|Best move of metagross (p1): earthquake: 202.5 [186, 220]
+|chat|DEBUG|Best move of zeraora (p2): blazekick: 114.4375 [104, 125]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Knock Off|p1a: Metagross
+|-supereffective|p1a: Metagross
+|-damage|p1a: Metagross|90256
+|-enditem|p1a: Metagross|Leftovers|[from] move: Knock Off|[of] p2a: Zeraora
+|move|p1a: Metagross|Earthquake|p2a: Zeraora
+|-supereffective|p2a: Zeraora
+|-damage|p2a: Zeraora|0 fnt
+|faint|p2a: Zeraora
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sandslash|Sandslash, L86, F|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic metagross stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "metagross" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-metagross-stakataka -- sandslash
+|chat|DEBUG|Own moves: earthquake stealthrock bulletpunch meteormash
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: ['sceptile', 'stakataka']
+|chat|DEBUG|Counter: ['inteleon', 'hitmonlee', 'sceptile', 'meowstic', 'stakataka']
+|chat|DEBUG|Speed: 156 vs 161
+|chat|DEBUG|HP: 90 vs 269
+|chat|DEBUG|Created a new Strategy for metagross vs sandslash:
+|chat|DEBUG|>[meteormash: 90.875 [84, 99], meteormash: 90.875 [84, 99], meteormash: 90.875 [84, 99]]
+|chat|DEBUG|Best move of metagross (p1): meteormash: 90.875 [84, 99]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 231.875 [213, 252]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Earthquake|p1a: Metagross
+|-supereffective|p1a: Metagross
+|-damage|p1a: Metagross|0 fnt
+|faint|p1a: Metagross
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sceptile|Sceptile, L86, F|261261
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "metagross" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-stakataka -- sandslash
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: ['sceptile', 'stakataka']
+|chat|DEBUG|Counter: ['inteleon', 'hitmonlee', 'sceptile', 'meowstic', 'stakataka']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to sceptile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hitmonchan|Hitmonchan, L86, M|100100
+|move|p1a: Sceptile|Leaf Storm|p2a: Hitmonchan
+|-damage|p2a: Hitmonchan|46100
+|-unboost|p1a: Sceptile|spa|2
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-stakataka -- sandslash
+|chat|DEBUG|Own moves: leechseed rockslide substitute leafstorm
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: ['sceptile', 'stakataka']
+|chat|DEBUG|Counter: ['inteleon', 'hitmonlee', 'sceptile', 'meowstic', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 256 vs 161
+|chat|DEBUG|HP: 261 vs 269
+|chat|DEBUG|Created a new Strategy for sceptile vs sandslash:
+|chat|DEBUG|>[leafstorm: 416.625 [384, 452], leafstorm: 209.0 [192, 228], leafstorm: 139.125 [128, 152]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 416.625 [384, 452]
+|chat|DEBUG|Best move of sandslash (p2): knockoff: 116.3125 [107, 126]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Leaf Storm|p2a: Hitmonchan
+|-damage|p2a: Hitmonchan|19100
+|-unboost|p1a: Sceptile|spa|2
+|move|p2a: Hitmonchan|Ice Punch|p1a: Sceptile
+|-supereffective|p1a: Sceptile
+|-damage|p1a: Sceptile|1261
+|-heal|p1a: Sceptile|17261|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-stakataka -- sandslash-hitmonchan
+|chat|DEBUG|Own moves: leechseed rockslide substitute leafstorm
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: ['hitmonlee', 'meowstic']
+|chat|DEBUG|Counter: ['inteleon', 'hitmonlee', 'sceptile', 'meowstic']
+|chat|DEBUG|Speed: 256 vs 180
+|chat|DEBUG|HP: 261 vs 103
+|chat|DEBUG|Created a new Strategy for sceptile vs hitmonchan:
+|chat|DEBUG|>[leafstorm: 64.25 [58, 70], leafstorm: 42.0625 [39, 46], leafstorm: 32.375 [30, 36]]
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 64.25 [58, 70]
+|chat|DEBUG|Best move of hitmonchan (p2): drainpunch: 168.3125 [153, 183]
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Leaf Storm|p2a: Hitmonchan
+|-damage|p2a: Hitmonchan|0 fnt
+|-unboost|p1a: Sceptile|spa|2
+|faint|p2a: Hitmonchan
+|-heal|p1a: Sceptile|33261|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thievul|Thievul, L86, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-stakataka -- sandslash-hitmonchan
+|chat|DEBUG|Own moves: leechseed rockslide substitute leafstorm
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: ['hitmonlee', 'meowstic']
+|chat|DEBUG|Counter: ['inteleon', 'hitmonlee', 'sceptile', 'meowstic']
+|chat|DEBUG|Speed: 256 vs 180
+|chat|DEBUG|HP: 17 vs 42
+|chat|DEBUG|Best move of sceptile (p1): leafstorm: 42.0625 [39, 46]
+|chat|DEBUG|Best move of hitmonchan (p2): drainpunch: 168.3125 [153, 183]
+|chat|DEBUG|Attacking using leafstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sceptile|Rock Slide|p2a: Thievul
+|-damage|p2a: Thievul|73100
+|move|p2a: Thievul|Dark Pulse|p1a: Sceptile
+|-damage|p1a: Sceptile|0 fnt
+|faint|p1a: Sceptile
+|-damage|p2a: Thievul|63100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonlee|Hitmonlee, L84, M|221221
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee sceptile meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "thievul"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-sceptile-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: leechseed rockslide substitute leafstorm
+|chat|DEBUG|Enemy moves: darkpulse nastyplot partingshot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmonlee']
+|chat|DEBUG|Speed: 256 vs 204
+|chat|DEBUG|HP: 33 vs 261
+|chat|DEBUG|Created a new Strategy for sceptile vs thievul:
+|chat|DEBUG|>[rockslide: 66.125 [61, 72], rockslide: 66.125 [61, 72], rockslide: 66.125 [61, 72]]
+|chat|DEBUG|Best move of sceptile (p1): rockslide: 66.125 [61, 72]
+|chat|DEBUG|Best move of thievul (p2): darkpulse: 164.125 [151, 178]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using rockslide
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Suicune|Suicune, L80|100100
+|-ability|p2a: Suicune|Pressure
+|move|p1a: Hitmonlee|Close Combat|p2a: Suicune
+|-damage|p2a: Suicune|53100
+|-unboost|p1a: Hitmonlee|def|1
+|-unboost|p1a: Hitmonlee|spd|1
+|-enditem|p1a: Hitmonlee|White Herb
+|-clearnegativeboost|p1a: Hitmonlee|[silent]
+|-heal|p2a: Suicune|59100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "sceptile" vs "thievul"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse nastyplot partingshot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['hitmonlee']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to hitmonlee (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonlee|Close Combat|p2a: Suicune
+|-crit|p2a: Suicune
+|-damage|p2a: Suicune|0 fnt
+|-unboost|p1a: Hitmonlee|def|1
+|-unboost|p1a: Hitmonlee|spd|1
+|faint|p2a: Suicune
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Sandslash|Sandslash, L86, F|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmonlee" vs "thievul"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: curse stoneedge poisonjab closecombat
+|chat|DEBUG|Enemy moves: darkpulse grassknot nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|Speed: 194 vs 204
+|chat|DEBUG|HP: 221 vs 164
+|chat|DEBUG|Created a new Strategy for hitmonlee vs thievul:
+|chat|DEBUG|>[closecombat: 392.25 [360, 426], closecombat: 392.25 [360, 426], closecombat: 392.25 [360, 426]]
+|chat|DEBUG|Best move of hitmonlee (p1): closecombat: 392.25 [360, 426]
+|chat|DEBUG|Best move of thievul (p2): psychic: 268.125 [247, 291]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stakataka|Stakataka, L80|229229
+|-item|p1a: Stakataka|Air Balloon
+|move|p2a: Sandslash|Earthquake|p1a: Stakataka
+|-immune|p1a: Stakataka
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmonlee" vs "suicune"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul-suicune
+|chat|DEBUG|Own moves: curse stoneedge poisonjab closecombat
+|chat|DEBUG|Enemy moves: airslash calmmind icebeam scald
+|chat|DEBUG|Checks: ['hitmonlee', 'meowstic']
+|chat|DEBUG|Counter: ['hitmonlee', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 194 vs 182
+|chat|DEBUG|HP: 221 vs 171
+|chat|DEBUG|Created a new Strategy for hitmonlee vs suicune:
+|chat|DEBUG|>[closecombat: 128.0625 [118, 139], closecombat: 128.0625 [118, 139], closecombat: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of hitmonlee (p1): closecombat: 128.0625 [118, 139]
+|chat|DEBUG|Best move of suicune (p2): airslash: 78.5 [72, 86]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Rapid Spin|p1a: Stakataka
+|-resisted|p1a: Stakataka
+|-damage|p1a: Stakataka|225229
+|-boost|p2a: Sandslash|spe|1
+|-enditem|p1a: Stakataka|Air Balloon
+|move|p1a: Stakataka|Gyro Ball|p2a: Sandslash
+|-damage|p2a: Sandslash|48100
+|-heal|p2a: Sandslash|54100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "hitmonlee" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: curse stoneedge poisonjab closecombat
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['inteleon', 'meowstic', 'stakataka']
+|chat|DEBUG|Speed: 194 vs 161
+|chat|DEBUG|HP: 221 vs 269
+|chat|DEBUG|Created a new Strategy for hitmonlee vs sandslash:
+|chat|DEBUG|>[closecombat: 124.0625 [114, 135], closecombat: 124.0625 [114, 135], closecombat: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of hitmonlee (p1): closecombat: 124.0625 [114, 135]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 316.125 [290, 343]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check stakataka
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Inteleon|Inteleon, L80, M|153243
+|move|p2a: Sandslash|Earthquake|p1a: Inteleon
+|-damage|p1a: Inteleon|5243
+|-heal|p2a: Sandslash|60100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: gyroball earthquake trickroom stoneedge
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: ['stakataka']
+|chat|DEBUG|Counter: ['inteleon', 'meowstic', 'stakataka']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 25 vs 161
+|chat|DEBUG|HP: 229 vs 269
+|chat|DEBUG|Created a new Strategy for stakataka vs sandslash:
+|chat|DEBUG|>[gyroball: 153.0 [141, 166], gyroball: 153.0 [141, 166], gyroball: 153.0 [141, 166]]
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 153.0 [141, 166]
+|chat|DEBUG|Best move of sandslash (p2): knockoff: 49.875 [45, 55]
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Earthquake|p1a: Inteleon
+|-damage|p1a: Inteleon|0 fnt
+|faint|p1a: Inteleon
+|-heal|p2a: Sandslash|66100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Meowstic|Meowstic, L84, M|262262
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: gyroball earthquake trickroom stoneedge
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['inteleon', 'meowstic']
+|chat|DEBUG|Counter: ['inteleon', 'meowstic']
+|chat|DEBUG|Speed: 25 vs 161
+|chat|DEBUG|HP: 225 vs 145
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 153.0 [141, 166]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 234.5 [216, 256]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check inteleon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Light Screen|p1a: Meowstic
+|-sidestart|p1: McGewitter|move: Light Screen
+|move|p2a: Sandslash|Stealth Rock|p1a: Meowstic
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|-heal|p2a: Sandslash|72100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>inteleon hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>inteleon-hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: icebeam surf focusenergy airslash
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['inteleon', 'meowstic']
+|chat|DEBUG|Speed: 238 vs 161
+|chat|DEBUG|HP: 5 vs 161
+|chat|DEBUG|Created a new Strategy for inteleon vs sandslash:
+|chat|DEBUG|>[surf: 292.25 [270, 318], surf: 292.25 [270, 318], surf: 292.25 [270, 318]]
+|chat|DEBUG|Best move of inteleon (p1): surf: 292.25 [270, 318]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 148.8125 [136, 162]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Reflect|p1a: Meowstic
+|-sidestart|p1: McGewitter|Reflect
+|move|p2a: Sandslash|Spikes|p1a: Meowstic
+|-sidestart|p1: McGewitter|Spikes
+|-heal|p2a: Sandslash|77100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "inteleon" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to meowstic (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Reflect||[still]
+|-fail|p1a: Meowstic
+|move|p2a: Sandslash|Spikes|p1a: Meowstic
+|-sidestart|p1: McGewitter|Spikes
+|-heal|p2a: Sandslash|83100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 223 vs 161
+|chat|DEBUG|HP: 262 vs 177
+|chat|DEBUG|Created a new Strategy for meowstic vs sandslash:
+|chat|DEBUG|>[psychic: 115.625 [106, 126], psychic: 115.625 [106, 126], psychic: 115.625 [106, 126]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 115.625 [106, 126]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 126.8125 [117, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Spikes|p1a: Meowstic
+|-sidestart|p1: McGewitter|Spikes
+|move|p1a: Meowstic|Psychic|p2a: Sandslash
+|-damage|p2a: Sandslash|41100
+|-heal|p2a: Sandslash|47100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 223 vs 161
+|chat|DEBUG|HP: 262 vs 193
+|chat|DEBUG|Best move of meowstic (p1): psychic: 115.625 [106, 126]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 126.8125 [117, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Earthquake|p1a: Meowstic
+|-damage|p1a: Meowstic|194262
+|move|p1a: Meowstic|Psychic|p2a: Sandslash
+|-damage|p2a: Sandslash|6100
+|-heal|p2a: Sandslash|12100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 223 vs 161
+|chat|DEBUG|HP: 262 vs 207
+|chat|DEBUG|Best move of meowstic (p1): psychic: 115.625 [106, 126]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 126.8125 [117, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['thievul']
+|chat|DEBUG|Expected enemy: thievul
+|chat|DEBUG|Using move reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sandslash|Spikes||[still]
+|-fail|p2a: Sandslash
+|move|p1a: Meowstic|Psychic|p2a: Sandslash
+|-damage|p2a: Sandslash|0 fnt
+|faint|p2a: Sandslash
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Thievul|Thievul, L86, F|63100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|Speed: 223 vs 161
+|chat|DEBUG|HP: 262 vs 223
+|chat|DEBUG|Created a new Strategy for meowstic vs sandslash:
+|chat|DEBUG|>[psychic: 115.625 [106, 126], psychic: 115.625 [106, 126], psychic: 115.625 [106, 126]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 115.625 [106, 126]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 126.8125 [117, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Reflect||[still]
+|-fail|p1a: Meowstic
+|move|p2a: Thievul|Dark Pulse|p1a: Meowstic
+|-supereffective|p1a: Meowstic
+|-damage|p1a: Meowstic|72262
+|-damage|p2a: Thievul|53100|[from] item: Life Orb
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 223 vs 161
+|chat|DEBUG|HP: 262 vs 126
+|chat|DEBUG|Best move of meowstic (p1): psychic: 115.625 [106, 126]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 126.8125 [117, 138]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Meowstic|Reflect||[still]
+|-fail|p1a: Meowstic
+|move|p2a: Thievul|Dark Pulse|p1a: Meowstic
+|-supereffective|p1a: Meowstic
+|-damage|p1a: Meowstic|0 fnt
+|faint|p1a: Meowstic
+|-damage|p2a: Thievul|43100|[from] item: Life Orb
+|-sideend|p1: McGewitter|move: Light Screen
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Stakataka|Stakataka, L80|225229
+|-damage|p1a: Stakataka|211229|[from] Stealth Rock
+|-damage|p1a: Stakataka|154229|[from] Spikes
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- sandslash-thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['hitmonlee', 'meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 223 vs 161
+|chat|DEBUG|HP: 194 vs 32
+|chat|DEBUG|Best move of meowstic (p1): psychic: 115.625 [106, 126]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 126.8125 [117, 138]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thievul|Grass Knot|p1a: Stakataka
+|-crit|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|faint|p1a: Stakataka
+|-damage|p2a: Thievul|33100|[from] item: Life Orb
+|-sideend|p1: McGewitter|Reflect
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonlee|Hitmonlee, L84, M|221221
+|-damage|p1a: Hitmonlee|166221|[from] Spikes
+|-damage|p1a: Hitmonlee|153221|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "thievul"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: darkpulse grassknot nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|Speed: 223 vs 204
+|chat|DEBUG|HP: 194 vs 164
+|chat|DEBUG|Created a new Strategy for meowstic vs thievul:
+|chat|DEBUG|>[reflect: 0.0 [0, 0], reflect: 0.0 [0, 0], reflect: 0.0 [0, 0]]
+|chat|DEBUG|Best move of meowstic (p1): reflect: 0.0 [0, 0]
+|chat|DEBUG|Best move of thievul (p2): darkpulse: 452.0625 [416, 491]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thievul|Psychic|p1a: Hitmonlee
+|-supereffective|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|20221
+|-damage|p2a: Thievul|23100|[from] item: Life Orb
+|move|p1a: Hitmonlee|Close Combat|p2a: Thievul
+|-supereffective|p2a: Thievul
+|-crit|p2a: Thievul
+|-damage|p2a: Thievul|0 fnt
+|-unboost|p1a: Hitmonlee|def|1
+|-unboost|p1a: Hitmonlee|spd|1
+|faint|p2a: Thievul
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Araquanid|Araquanid, L80, F|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>hitmonlee meowstic stakataka
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "thievul"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>hitmonlee-meowstic-stakataka -- thievul
+|chat|DEBUG|Own moves: psychic thunderwave lightscreen reflect
+|chat|DEBUG|Enemy moves: darkpulse grassknot nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|Speed: 223 vs 204
+|chat|DEBUG|HP: 72 vs 138
+|chat|DEBUG|Best move of meowstic (p1): reflect: 0.0 [0, 0]
+|chat|DEBUG|Best move of thievul (p2): darkpulse: 452.0625 [416, 491]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using reflect
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonlee|Stone Edge|p2a: Araquanid
+|-supereffective|p2a: Araquanid
+|-damage|p2a: Araquanid|34100
+|move|p2a: Araquanid|Leech Life|p1a: Hitmonlee
+|-resisted|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|0 fnt
+|-heal|p2a: Araquanid|38100|[from] drain|[of] p1a: Hitmonlee
+|faint|p1a: Hitmonlee
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>TazzNuzlockes</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">inteleon hitmonlee sceptile meowstic metagross stakataka</h1>

@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490611350<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490611350|init|battle
+|title|McGewitter vs. RobinGT10
+|j|☆McGewitter
+|j|☆RobinGT10
+|gametype|singles
+|player|p1|McGewitter|265|1271
+|player|p2|RobinGT10|nate|1228
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Nihilego|Nihilego, L80|306306
+|switch|p2a: Lilligant|Lilligant, L84, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nihilego xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nihilego" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nihilego-xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant
+|chat|DEBUG|Own moves: grassknot sludgewave stealthrock powergem
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['nihilego', 'venusaur', 'mantine']
+|chat|DEBUG|Counter: ['nihilego', 'venusaur', 'zapdosgalar', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 199
+|chat|DEBUG|HP: 306 vs 255
+|chat|DEBUG|Created a new Strategy for nihilego vs lilligant:
+|chat|DEBUG|>[sludgewave: 259.0 [236, 282], sludgewave: 259.0 [236, 282], sludgewave: 259.0 [236, 282]]
+|chat|DEBUG|Best move of nihilego (p1): sludgewave: 259.0 [236, 282]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 110.25 [102, 120]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|RobinGT10 has 120 seconds left.
+|switch|p2a: Arctozolt|Arctozolt, L86|100100
+|move|p1a: Nihilego|Stealth Rock|p2a: Arctozolt
+|-sidestart|p2: RobinGT10|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nihilego xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nihilego" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nihilego-xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-arctozolt
+|chat|DEBUG|Own moves: grassknot sludgewave stealthrock powergem
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['nihilego', 'xurkitree', 'zapdosgalar']
+|chat|DEBUG|Speed: 211 vs 144
+|chat|DEBUG|HP: 306 vs 295
+|chat|DEBUG|Created a new Strategy for nihilego vs arctozolt:
+|chat|DEBUG|>[powergem: 203.5 [186, 222], powergem: 203.5 [186, 222], powergem: 203.5 [186, 222]]
+|chat|DEBUG|Best move of nihilego (p1): powergem: 203.5 [186, 222]
+|chat|DEBUG|Best move of arctozolt (p2): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using powergem
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Nihilego|Power Gem|p2a: Arctozolt
+|-supereffective|p2a: Arctozolt
+|-damage|p2a: Arctozolt|35100
+|move|p2a: Arctozolt|Stomping Tantrum|p1a: Nihilego
+|-supereffective|p1a: Nihilego
+|-damage|p1a: Nihilego|0 fnt
+|faint|p1a: Nihilego
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zapdos|Zapdos-Galar, L76|262262
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nihilego" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-arctozolt
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['zapdosgalar']
+|chat|DEBUG|Counter: ['xurkitree', 'zapdosgalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to zapdosgalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zapdos|Close Combat|p2a: Arctozolt
+|-supereffective|p2a: Arctozolt
+|-damage|p2a: Arctozolt|0 fnt
+|-unboost|p1a: Zapdos|def|1
+|-unboost|p1a: Zapdos|spd|1
+|faint|p2a: Arctozolt
+|-damage|p1a: Zapdos|236262|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos, L78|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdosgalar" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-arctozolt
+|chat|DEBUG|Own moves: bulkup closecombat bravebird throatchop
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['xurkitree', 'zapdosgalar', 'persianalola']
+|chat|DEBUG|Counter: ['xurkitree', 'venusaur', 'zapdosgalar', 'persianalola']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 196 vs 144
+|chat|DEBUG|HP: 262 vs 103
+|chat|DEBUG|Created a new Strategy for zapdosgalar vs arctozolt:
+|chat|DEBUG|>[closecombat: 322.5625 [296, 351], closecombat: 322.5625 [296, 351], closecombat: 322.5625 [296, 351]]
+|chat|DEBUG|Best move of zapdosgalar (p1): closecombat: 322.5625 [296, 351]
+|chat|DEBUG|Best move of arctozolt (p2): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xurkitree|Xurkitree, L76|251251
+|move|p2a: Zapdos|Discharge|p1a: Xurkitree
+|-resisted|p1a: Xurkitree
+|-damage|p1a: Xurkitree|191251
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdosgalar" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: bulkup closecombat bravebird throatchop
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: ['xurkitree']
+|chat|DEBUG|Counter: ['xurkitree']
+|chat|DEBUG|Speed: 196 vs 201
+|chat|DEBUG|HP: 236 vs 268
+|chat|DEBUG|Created a new Strategy for zapdosgalar vs zapdos:
+|chat|DEBUG|>[bravebird: 90.75 [83, 99], bravebird: 90.75 [83, 99], bravebird: 90.75 [83, 99]]
+|chat|DEBUG|Best move of zapdosgalar (p1): bravebird: 90.75 [83, 99]
+|chat|DEBUG|Best move of zapdos (p2): discharge: 295.0 [270, 320]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check xurkitree
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|RobinGT10 has 120 seconds left.
+|move|p2a: Zapdos|U-turn|p1a: Xurkitree
+|-damage|p1a: Xurkitree|142251
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|RobinGT10 has 120 seconds left.
+|switch|p2a: Lilligant|Lilligant, L84, F|100100|[from]move: U-turn
+|-damage|p2a: Lilligant|88100|[from] Stealth Rock
+|move|p1a: Xurkitree|Thunderbolt|p2a: Lilligant
+|-resisted|p2a: Lilligant
+|-damage|p2a: Lilligant|44100
+|-heal|p2a: Lilligant|50100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: dazzlinggleam voltswitch energyball thunderbolt
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: ['xurkitree']
+|chat|DEBUG|Counter: ['xurkitree']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 170 vs 201
+|chat|DEBUG|HP: 191 vs 268
+|chat|DEBUG|Created a new Strategy for xurkitree vs zapdos:
+|chat|DEBUG|>[thunderbolt: 200.25 [184, 217], thunderbolt: 200.25 [184, 217], thunderbolt: 200.25 [184, 217]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 200.25 [184, 217]
+|chat|DEBUG|Best move of zapdos (p2): discharge: 58.25 [54, 63]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|RobinGT10 has 120 seconds left.
+|switch|p1a: Venusaur|Venusaur, L82, M|265265
+|move|p2a: Lilligant|Sleep Powder|p1a: Venusaur
+|-immune|p1a: Venusaur
+|-heal|p2a: Lilligant|56100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['venusaur', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'persianalola', 'mantine']
+|chat|DEBUG|Speed: 170 vs 199
+|chat|DEBUG|HP: 142 vs 127
+|chat|DEBUG|Created a new Strategy for xurkitree vs lilligant:
+|chat|DEBUG|>[thunderbolt: 106.0625 [97, 115], thunderbolt: 106.0625 [97, 115], thunderbolt: 106.0625 [97, 115]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 106.0625 [97, 115]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 179.5 [165, 195]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check venusaur
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos, L78|100100
+|move|p1a: Venusaur|Sludge Bomb|p2a: Zapdos
+|-damage|p2a: Zapdos|61100
+|-status|p2a: Zapdos|psn
+|-damage|p2a: Zapdos|49100 psn|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['venusaur', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 199
+|chat|DEBUG|HP: 265 vs 142
+|chat|DEBUG|Created a new Strategy for venusaur vs lilligant:
+|chat|DEBUG|>[sludgebomb: 209.0 [192, 228], sludgebomb: 209.0 [192, 228], sludgebomb: 209.0 [192, 228]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 209.0 [192, 228]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 32.0 [29, 35]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xurkitree|Xurkitree, L76|142251
+|move|p2a: Zapdos|Heat Wave|p1a: Xurkitree
+|-damage|p1a: Xurkitree|41251
+|-damage|p2a: Zapdos|36100 psn|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: ['xurkitree', 'persianalola']
+|chat|DEBUG|Counter: ['xurkitree', 'persianalola']
+|chat|DEBUG|Speed: 178 vs 201
+|chat|DEBUG|HP: 265 vs 131
+|chat|DEBUG|Created a new Strategy for venusaur vs zapdos:
+|chat|DEBUG|>[sludgebomb: 97.625 [90, 106], sludgebomb: 97.625 [90, 106], sludgebomb: 97.625 [90, 106]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 97.625 [90, 106]
+|chat|DEBUG|Best move of zapdos (p2): hurricane: 231.25 [212, 252]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check xurkitree
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian-Alola, L82, M|241241
+|move|p2a: Zapdos|Discharge|p1a: Persian
+|-damage|p1a: Persian|124241
+|-heal|p1a: Persian|139241|[from] item: Leftovers
+|-damage|p2a: Zapdos|24100 psn|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xurkitree" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: dazzlinggleam voltswitch energyball thunderbolt
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: ['persianalola']
+|chat|DEBUG|Counter: ['venusaur', 'persianalola', 'mantine']
+|chat|DEBUG|Speed: 170 vs 201
+|chat|DEBUG|HP: 41 vs 96
+|chat|DEBUG|Created a new Strategy for xurkitree vs zapdos:
+|chat|DEBUG|>[thunderbolt: 200.25 [184, 217], thunderbolt: 200.25 [184, 217], thunderbolt: 200.25 [184, 217]]
+|chat|DEBUG|Best move of xurkitree (p1): thunderbolt: 200.25 [184, 217]
+|chat|DEBUG|Best move of zapdos (p2): discharge: 58.25 [54, 63]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check persianalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Dark Pulse|p2a: Zapdos
+|-damage|p2a: Zapdos|0 fnt
+|faint|p2a: Zapdos
+|-heal|p1a: Persian|154241|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|RobinGT10 has 90 seconds left.
+|switch|p2a: Lilligant|Lilligant, L84, F|56100
+|-damage|p2a: Lilligant|44100|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "zapdos"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-zapdos
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: discharge hurricane roost uturn
+|chat|DEBUG|Checks: ['persianalola']
+|chat|DEBUG|Counter: ['venusaur', 'persianalola', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 236 vs 201
+|chat|DEBUG|HP: 139 vs 64
+|chat|DEBUG|Created a new Strategy for persianalola vs zapdos:
+|chat|DEBUG|>[darkpulse: 69.5625 [64, 76], darkpulse: 69.5625 [64, 76], darkpulse: 69.5625 [64, 76]]
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 69.5625 [64, 76]
+|chat|DEBUG|Best move of zapdos (p2): discharge: 115.625 [106, 126]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Venusaur|Venusaur, L82, M|265265
+|move|p2a: Lilligant|Sleep Powder|p1a: Venusaur
+|-immune|p1a: Venusaur
+|-heal|p2a: Lilligant|50100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['venusaur', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'mantine']
+|chat|DEBUG|Speed: 236 vs 199
+|chat|DEBUG|HP: 154 vs 112
+|chat|DEBUG|Created a new Strategy for persianalola vs lilligant:
+|chat|DEBUG|>[darkpulse: 75.3125 [69, 82], darkpulse: 75.3125 [69, 82], darkpulse: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 75.3125 [69, 82]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 177.9375 [163, 193]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check venusaur
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|RobinGT10 has 90 seconds left.
+|switch|p2a: Type: Null|Type: Null, L86|100100
+|-damage|p2a: Type: Null|88100|[from] Stealth Rock
+|move|p1a: Venusaur|Sludge Bomb|p2a: Type: Null
+|-damage|p2a: Type: Null|68100
+|-status|p2a: Type: Null|psn
+|-damage|p2a: Type: Null|56100 psn|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['venusaur', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 199
+|chat|DEBUG|HP: 265 vs 127
+|chat|DEBUG|Created a new Strategy for venusaur vs lilligant:
+|chat|DEBUG|>[sludgebomb: 209.0 [192, 228], sludgebomb: 209.0 [192, 228], sludgebomb: 209.0 [192, 228]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 209.0 [192, 228]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 32.0 [29, 35]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Venusaur|Sludge Bomb|p2a: Type: Null
+|-damage|p2a: Type: Null|37100 psn
+|move|p2a: Type: Null|Crush Claw|p1a: Venusaur
+|-damage|p1a: Venusaur|169265
+|-heal|p1a: Venusaur|185265|[from] item: Black Sludge
+|-damage|p2a: Type: Null|25100 psn|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-typenull
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['venusaur', 'zapdosgalar']
+|chat|DEBUG|Counter: ['venusaur', 'zapdosgalar', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 151
+|chat|DEBUG|HP: 265 vs 170
+|chat|DEBUG|Created a new Strategy for venusaur vs typenull:
+|chat|DEBUG|>[sludgebomb: 57.3125 [52, 63], sludgebomb: 57.3125 [52, 63], sludgebomb: 57.3125 [52, 63]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 57.3125 [52, 63]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 87.9375 [81, 96]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Venusaur|Sludge Bomb|p2a: Type: Null
+|-damage|p2a: Type: Null|7100 psn
+|move|p2a: Type: Null|Crush Claw|p1a: Venusaur
+|-damage|p1a: Venusaur|104265
+|-unboost|p1a: Venusaur|def|1
+|-heal|p1a: Venusaur|120265|[from] item: Black Sludge
+|-damage|p2a: Type: Null|0 fnt|[from] psn
+|faint|p2a: Type: Null
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina, L74|100100
+|-damage|p2a: Giratina|88100|[from] Stealth Rock
+|-ability|p2a: Giratina|Pressure
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-typenull
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['venusaur', 'zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Counter: ['xurkitree', 'venusaur', 'zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 151
+|chat|DEBUG|HP: 185 vs 76
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 57.3125 [52, 63]
+|chat|DEBUG|Best move of typenull (p2): crushclaw: 87.9375 [81, 96]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Persian|Persian-Alola, L82, M|154241
+|move|p2a: Giratina|Hex|p1a: Persian
+|-resisted|p1a: Persian
+|-damage|p1a: Persian|121241
+|-heal|p1a: Persian|136241|[from] item: Leftovers
+|-heal|p2a: Giratina|94100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "giratina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-giratina
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: hex rest sleeptalk willowisp
+|chat|DEBUG|Checks: ['persianalola', 'mantine']
+|chat|DEBUG|Counter: ['persianalola', 'mantine']
+|chat|DEBUG|Speed: 178 vs 176
+|chat|DEBUG|HP: 120 vs 302
+|chat|DEBUG|Created a new Strategy for venusaur vs giratina:
+|chat|DEBUG|>[sludgebomb: 41.0 [38, 45], sludgebomb: 41.0 [38, 45], sludgebomb: 41.0 [38, 45]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 41.0 [38, 45]
+|chat|DEBUG|Best move of giratina (p2): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check persianalola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Dark Pulse|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|59100
+|move|p2a: Giratina|Toxic|p1a: Persian
+|-status|p1a: Persian|tox
+|-heal|p1a: Persian|151241 tox|[from] item: Leftovers
+|-heal|p2a: Giratina|65100|[from] item: Leftovers
+|-damage|p1a: Persian|136241 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "giratina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-giratina
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: hex rest sleeptalk willowisp
+|chat|DEBUG|Checks: ['mantine']
+|chat|DEBUG|Counter: ['persianalola', 'mantine']
+|chat|DEBUG|Speed: 236 vs 176
+|chat|DEBUG|HP: 136 vs 323
+|chat|DEBUG|Created a new Strategy for persianalola vs giratina:
+|chat|DEBUG|>[darkpulse: 117.25 [108, 128], darkpulse: 117.25 [108, 128], darkpulse: 117.25 [108, 128]]
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 117.25 [108, 128]
+|chat|DEBUG|Best move of giratina (p2): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|RobinGT10 has 60 seconds left.
+|move|p1a: Persian|Dark Pulse|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|28100
+|cant|p2a: Giratina|flinch
+|-heal|p1a: Persian|151241 tox|[from] item: Leftovers
+|-heal|p2a: Giratina|34100|[from] item: Leftovers
+|-damage|p1a: Persian|121241 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "giratina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-giratina
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: hex rest sleeptalk willowisp
+|chat|DEBUG|Checks: ['mantine']
+|chat|DEBUG|Counter: ['zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Speed: 236 vs 176
+|chat|DEBUG|HP: 136 vs 223
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 117.25 [108, 128]
+|chat|DEBUG|Best move of giratina (p2): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Dark Pulse|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|2100
+|cant|p2a: Giratina|flinch
+|-heal|p1a: Persian|136241 tox|[from] item: Leftovers
+|-heal|p2a: Giratina|8100|[from] item: Leftovers
+|-damage|p1a: Persian|91241 tox|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "giratina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-giratina
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: hex rest sleeptalk willowisp
+|chat|DEBUG|Checks: ['zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 236 vs 176
+|chat|DEBUG|HP: 121 vs 116
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 117.25 [108, 128]
+|chat|DEBUG|Best move of giratina (p2): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Attacking using darkpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Persian|Dark Pulse|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|0 fnt
+|faint|p2a: Giratina
+|-heal|p1a: Persian|106241 tox|[from] item: Leftovers
+|-damage|p1a: Persian|46241 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lilligant|Lilligant, L84, F|50100
+|-damage|p2a: Lilligant|38100|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "giratina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant-giratina
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: hex rest sleeptalk willowisp
+|chat|DEBUG|Checks: ['venusaur', 'zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'zapdosgalar', 'persianalola', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 236 vs 176
+|chat|DEBUG|HP: 91 vs 27
+|chat|DEBUG|Created a new Strategy for persianalola vs giratina:
+|chat|DEBUG|>[darkpulse: 117.25 [108, 128], darkpulse: 117.25 [108, 128], darkpulse: 117.25 [108, 128]]
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 117.25 [108, 128]
+|chat|DEBUG|Best move of giratina (p2): willowisp: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Venusaur|Venusaur, L82, M|120265
+|move|p2a: Lilligant|Giga Drain|p1a: Venusaur
+|-resisted|p1a: Venusaur
+|-damage|p1a: Venusaur|99265
+|-heal|p2a: Lilligant|42100|[from] drain|[of] p1a: Venusaur
+|-heal|p2a: Lilligant|48100|[from] item: Leftovers
+|-heal|p1a: Venusaur|115265|[from] item: Black Sludge
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "persianalola" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant
+|chat|DEBUG|Own moves: thunderbolt hypnosis nastyplot darkpulse
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['venusaur', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'mantine']
+|chat|DEBUG|Speed: 236 vs 199
+|chat|DEBUG|HP: 46 vs 96
+|chat|DEBUG|Created a new Strategy for persianalola vs lilligant:
+|chat|DEBUG|>[darkpulse: 75.3125 [69, 82], darkpulse: 75.3125 [69, 82], darkpulse: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of persianalola (p1): darkpulse: 75.3125 [69, 82]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 177.9375 [163, 193]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check venusaur
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lilligant|Giga Drain|p1a: Venusaur
+|-resisted|p1a: Venusaur
+|-damage|p1a: Venusaur|93265
+|-heal|p2a: Lilligant|52100|[from] drain|[of] p1a: Venusaur
+|move|p1a: Venusaur|Sludge Bomb|p2a: Lilligant
+|-supereffective|p2a: Lilligant
+|-damage|p2a: Lilligant|0 fnt
+|faint|p2a: Lilligant
+|-heal|p1a: Venusaur|109265|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Celebi|Celebi, L82|100100
+|-damage|p2a: Celebi|88100|[from] Stealth Rock
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- lilligant
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['venusaur', 'mantine']
+|chat|DEBUG|Counter: ['venusaur', 'mantine']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 199
+|chat|DEBUG|HP: 115 vs 122
+|chat|DEBUG|Created a new Strategy for venusaur vs lilligant:
+|chat|DEBUG|>[sludgebomb: 209.0 [192, 228], sludgebomb: 209.0 [192, 228], sludgebomb: 209.0 [192, 228]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 209.0 [192, 228]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 32.0 [29, 35]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Celebi|U-turn|p1a: Venusaur
+|-damage|p1a: Venusaur|56265
+|move|p1a: Venusaur|Sludge Bomb|p2a: Celebi
+|-supereffective|p2a: Celebi
+|-damage|p2a: Celebi|28100
+|-heal|p2a: Celebi|34100|[from] item: Leftovers
+|-heal|p1a: Venusaur|72265|[from] item: Black Sludge
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "venusaur" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- celebi
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['mantine']
+|chat|DEBUG|Counter: ['mantine']
+|chat|DEBUG|Speed: 178 vs 211
+|chat|DEBUG|HP: 109 vs 262
+|chat|DEBUG|Created a new Strategy for venusaur vs celebi:
+|chat|DEBUG|>[sludgebomb: 172.875 [158, 188], sludgebomb: 172.875 [158, 188], sludgebomb: 172.875 [158, 188]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 172.875 [158, 188]
+|chat|DEBUG|Best move of celebi (p2): psychic: 172.875 [158, 188]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Celebi|Psychic|p1a: Venusaur
+|-supereffective|p1a: Venusaur
+|-damage|p1a: Venusaur|0 fnt
+|faint|p1a: Venusaur
+|-heal|p2a: Celebi|40100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zapdos|Zapdos-Galar, L76|236262
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>xurkitree venusaur zapdosgalar persianalola mantine
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "venusaur" vs "celebi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>xurkitree-venusaur-zapdosgalar-persianalola-mantine -- celebi
+|chat|DEBUG|Own moves: leechseed gigadrain sludgebomb substitute
+|chat|DEBUG|Enemy moves: gigadrain nastyplot psychic recover
+|chat|DEBUG|Checks: ['mantine']
+|chat|DEBUG|Counter: ['persianalola', 'mantine']
+|chat|DEBUG|Speed: 178 vs 211
+|chat|DEBUG|HP: 72 vs 101
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 172.875 [158, 188]
+|chat|DEBUG|Best move of celebi (p2): psychic: 172.875 [158, 188]
+|chat|DEBUG|Attacking using sludgebomb
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Celebi|Psychic|p1a: Zapdos
+|-supereffective|p1a: Zapdos
+|-damage|p1a: Zapdos|50262
+|move|p1a: Zapdos|Brave Bird|p2a: Celebi
+|-supereffective|p2a: Celebi
+|-damage|p2a: Celebi|0 fnt
+|faint|p2a: Celebi
+|-damage|p1a: Zapdos|11262|[from] Recoil
+|-damage|p1a: Zapdos|0 fnt|[from] item: Life Orb
+|faint|p1a: Zapdos
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>RobinGT10</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">nihilego xurkitree venusaur zapdosgalar persianalola mantine</h1>

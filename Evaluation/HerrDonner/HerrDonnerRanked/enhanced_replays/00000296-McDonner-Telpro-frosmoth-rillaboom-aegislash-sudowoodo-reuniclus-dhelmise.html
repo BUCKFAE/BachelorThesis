@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490483199</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490483199|init|battle
+|title|McDonner vs. Telpro
+|j|☆McDonner
+|j|☆Telpro
+|gametype|singles
+|player|p1|McDonner|265|1239
+|player|p2|Telpro|bugcatcher-gen4dp|1193
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Frosmoth|Frosmoth, L82, F|249/249
+|switch|p2a: Tornadus|Tornadus-Therian, L78, M|100/100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs tornadustherian
+|chat|DEBUG|Updating information about tornadustherian
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. tornadustherian
+|chat|DEBUG|Getting matchup: aegislash vs. tornadustherian
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. tornadustherian
+|chat|DEBUG|Getting matchup: reuniclus vs. tornadustherian
+|chat|DEBUG|Getting matchup: dhelmise vs. tornadustherian
+|chat|DEBUG|Getting matchup: frosmoth vs. tornadustherian
+|chat|DEBUG|Checks / Counter: {'tornadustherian': {'checks': [], 'counter': ['aegislash', 'sudowoodo', 'reuniclus', 'frosmoth']}}
+|chat|DEBUG|Speed: 154 - 234
+|chat|DEBUG|Most likely moves for: frosmoth
+|chat|DEBUG|>['icebeam', 'bugbuzz', 'gigadrain', 'quiverdance']
+|chat|DEBUG|Most likely moves for: tornadustherian
+|chat|DEBUG|>['defog', 'hurricane', 'superpower', 'uturn']
+|chat|DEBUG|Best own move: ('icebeam', 234.0)
+|chat|DEBUG|Best enemy move: ('hurricane', 225.625)
+|chat|DEBUG|Picking the most damaging move from frosmoth against tornadustherian
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Tornadus|Hurricane|p1a: Frosmoth
+|-supereffective|p1a: Frosmoth
+|-damage|p1a: Frosmoth|129/249
+|move|p1a: Frosmoth|Ice Beam|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|40/100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs tornadustherian
+|chat|DEBUG|Updating information about tornadustherian
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: heavydutyboots
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. tornadustherian
+|chat|DEBUG|Getting matchup: aegislash vs. tornadustherian
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. tornadustherian
+|chat|DEBUG|Getting matchup: reuniclus vs. tornadustherian
+|chat|DEBUG|Getting matchup: dhelmise vs. tornadustherian
+|chat|DEBUG|Getting matchup: frosmoth vs. tornadustherian
+|chat|DEBUG|Checks / Counter: {'tornadustherian': {'checks': [], 'counter': ['aegislash', 'sudowoodo', 'reuniclus', 'frosmoth']}}
+|chat|DEBUG|Speed: 154 - 234
+|chat|DEBUG|Most likely moves for: frosmoth
+|chat|DEBUG|>['icebeam', 'bugbuzz', 'gigadrain', 'quiverdance']
+|chat|DEBUG|Most likely moves for: tornadustherian
+|chat|DEBUG|>['defog', 'hurricane', 'superpower', 'uturn']
+|chat|DEBUG|Best own move: ('icebeam', 234.0)
+|chat|DEBUG|Best enemy move: ('hurricane', 225.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from frosmoth against tornadustherian
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tornadus|Hurricane|p1a: Frosmoth|[miss]
+|-miss|p2a: Tornadus|p1a: Frosmoth
+|move|p1a: Frosmoth|Ice Beam|p2a: Tornadus
+|-supereffective|p2a: Tornadus
+|-damage|p2a: Tornadus|0 fnt
+|faint|p2a: Tornadus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|100/100
+|-item|p1a: Frosmoth|Heavy-Duty Boots|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: frosmoth vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': ['frosmoth']}}
+|chat|DEBUG|Speed: 154 - 128
+|chat|DEBUG|Most likely moves for: frosmoth
+|chat|DEBUG|>['icebeam', 'bugbuzz', 'gigadrain', 'quiverdance']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('icebeam', 479.0)
+|chat|DEBUG|Best enemy move: ('flamethrower', 331.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from frosmoth against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Musharna|Musharna, L86, M|100/100
+|move|p1a: Frosmoth|Ice Beam|p2a: Musharna
+|-damage|p2a: Musharna|70/100
+|-heal|p2a: Musharna|77/100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs musharna
+|chat|DEBUG|Updating information about musharna
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: frosmoth vs. exeggutoralola
+|chat|DEBUG|Getting matchup: rillaboom vs. musharna
+|chat|DEBUG|Getting matchup: aegislash vs. musharna
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. musharna
+|chat|DEBUG|Getting matchup: reuniclus vs. musharna
+|chat|DEBUG|Getting matchup: dhelmise vs. musharna
+|chat|DEBUG|Getting matchup: frosmoth vs. musharna
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': ['frosmoth']}, 'musharna': {'checks': [], 'counter': ['aegislash', 'sudowoodo', 'dhelmise', 'frosmoth']}}
+|chat|DEBUG|Speed: 154 - 99
+|chat|DEBUG|Most likely moves for: frosmoth
+|chat|DEBUG|>['icebeam', 'bugbuzz', 'gigadrain', 'quiverdance']
+|chat|DEBUG|Most likely moves for: musharna
+|chat|DEBUG|>['calmmind', 'moonblast', 'moonlight', 'psychic']
+|chat|DEBUG|Best own move: ('bugbuzz', 203.5)
+|chat|DEBUG|Best enemy move: ('psychic', 108.625)
+|chat|DEBUG|Picking the most damaging move from frosmoth against musharna
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Frosmoth|Bug Buzz|p2a: Musharna
+|-supereffective|p2a: Musharna
+|-damage|p2a: Musharna|15/100
+|move|p2a: Musharna|Thunder Wave|p1a: Frosmoth
+|-status|p1a: Frosmoth|par
+|-heal|p2a: Musharna|21/100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs musharna
+|chat|DEBUG|Updating information about musharna
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: frosmoth vs. exeggutoralola
+|chat|DEBUG|Getting matchup: rillaboom vs. musharna
+|chat|DEBUG|Getting matchup: aegislash vs. musharna
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. musharna
+|chat|DEBUG|Getting matchup: reuniclus vs. musharna
+|chat|DEBUG|Getting matchup: dhelmise vs. musharna
+|chat|DEBUG|Getting matchup: frosmoth vs. musharna
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': ['frosmoth']}, 'musharna': {'checks': [], 'counter': ['aegislash', 'sudowoodo', 'dhelmise', 'frosmoth']}}
+|chat|DEBUG|Speed: 154 - 99
+|chat|DEBUG|Most likely moves for: frosmoth
+|chat|DEBUG|>['icebeam', 'bugbuzz', 'gigadrain', 'quiverdance']
+|chat|DEBUG|Most likely moves for: musharna
+|chat|DEBUG|>['calmmind', 'moonblast', 'moonlight', 'psychic']
+|chat|DEBUG|Best own move: ('bugbuzz', 203.5)
+|chat|DEBUG|Best enemy move: ('psychic', 108.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bugbuzz', 203.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Musharna|Psychic|p1a: Frosmoth
+|-damage|p1a: Frosmoth|70/249 par
+|move|p1a: Frosmoth|Bug Buzz|p2a: Musharna
+|-supereffective|p2a: Musharna
+|-damage|p2a: Musharna|0 fnt
+|faint|p2a: Musharna
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|100/100
+|-item|p1a: Frosmoth|Heavy-Duty Boots|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: frosmoth vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': ['frosmoth']}}
+|chat|DEBUG|Speed: 154 - 128
+|chat|DEBUG|Most likely moves for: frosmoth
+|chat|DEBUG|>['icebeam', 'bugbuzz', 'gigadrain', 'quiverdance']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('icebeam', 479.0)
+|chat|DEBUG|Best enemy move: ('flamethrower', 331.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from frosmoth against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exeggutor|Flamethrower|p1a: Frosmoth
+|-supereffective|p1a: Frosmoth
+|-damage|p1a: Frosmoth|0 fnt
+|faint|p1a: Frosmoth
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aegislash|Aegislash, L80, M|227/227
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: frosmoth vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: frosmoth vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': ['frosmoth']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-formechange|p1a: Aegislash|Aegislash-Blade||[from] ability: Stance Change
+|move|p1a: Aegislash|Iron Head|p2a: Exeggutor
+|-damage|p2a: Exeggutor|49/100
+|move|p2a: Exeggutor|Flamethrower|p1a: Aegislash
+|-supereffective|p1a: Aegislash
+|-crit|p1a: Aegislash
+|-damage|p1a: Aegislash|0 fnt
+|faint|p1a: Aegislash
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sudowoodo|Sudowoodo, L86, F|261/261
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom aegislash sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: aegislash vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 142 - 128
+|chat|DEBUG|Most likely moves for: aegislash
+|chat|DEBUG|>['shadowclaw', 'shadowsneak', 'ironhead', 'closecombat']
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Best own move: ('ironhead', 104.5)
+|chat|DEBUG|Best enemy move: ('flamethrower', 256.25)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat exeggutoralola with aegislash
+|chat|DEBUG|Picking the most damaging move from aegislash against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golisopod|Golisopod, L84, M|100/100
+|move|p1a: Sudowoodo|Head Smash|p2a: Golisopod
+|-supereffective|p2a: Golisopod
+|-damage|p2a: Golisopod|11/100
+|-activate|p2a: Golisopod|ability: Emergency Exit
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|49/100
+|-item|p1a: Sudowoodo|Leftovers|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: aegislash vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: aegislash vs. exeggutoralola
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|INACTIVE AEDG
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exeggutor|Giga Drain|p1a: Sudowoodo
+|-supereffective|p1a: Sudowoodo
+|-damage|p1a: Sudowoodo|0 fnt
+|-heal|p2a: Exeggutor|91/100|[from] drain|[of] p1a: Sudowoodo
+|faint|p1a: Sudowoodo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dhelmise|Dhelmise, L86|261/261
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: sudowoodo vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 101 - 128
+|chat|DEBUG|Most likely moves for: sudowoodo
+|chat|DEBUG|>['suckerpunch', 'stealthrock', 'headsmash', 'woodhammer']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('headsmash', 168.3125)
+|chat|DEBUG|Best enemy move: ('leafstorm', 433.875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat exeggutoralola with sudowoodo
+|chat|DEBUG|Picking the most damaging move from sudowoodo against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golisopod|Golisopod, L84, M|11/100
+|move|p1a: Dhelmise|Poltergeist|p2a: Golisopod
+|-activate|p2a: Golisopod|move: Poltergeist|Heavy-Duty Boots
+|-damage|p2a: Golisopod|0 fnt
+|faint|p2a: Golisopod
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Exeggutor|Exeggutor-Alola, L87, M|91/100
+|-item|p1a: Dhelmise|Lum Berry|[from] ability: Frisk|[of] p2a: Exeggutor|[identify]
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom sudowoodo reuniclus dhelmise
+|chat|DEBUG|Matchup: sudowoodo vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: rillaboom vs. golisopod
+|chat|DEBUG|Getting matchup: reuniclus vs. golisopod
+|chat|DEBUG|Getting matchup: dhelmise vs. golisopod
+|chat|DEBUG|Getting matchup: sudowoodo vs. golisopod
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}, 'golisopod': {'checks': [], 'counter': ['dhelmise', 'sudowoodo']}}
+|chat|DEBUG|Speed: 101 - 128
+|chat|DEBUG|Most likely moves for: sudowoodo
+|chat|DEBUG|>['suckerpunch', 'stealthrock', 'headsmash', 'woodhammer']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('headsmash', 168.3125)
+|chat|DEBUG|Best enemy move: ('leafstorm', 433.875)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat exeggutoralola with sudowoodo
+|chat|DEBUG|Picking the most damaging move from sudowoodo against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exeggutor|Flamethrower|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|7/261
+|move|p1a: Dhelmise|Poltergeist|p2a: Exeggutor
+|-activate|p2a: Exeggutor|move: Poltergeist|Choice Specs
+|-damage|p2a: Exeggutor|37/100
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom reuniclus dhelmise
+|chat|DEBUG|Matchup: sudowoodo vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: sudowoodo vs. exeggutoralola
+|chat|DEBUG|Getting matchup: rillaboom vs. golisopod
+|chat|DEBUG|Getting matchup: reuniclus vs. golisopod
+|chat|DEBUG|Getting matchup: dhelmise vs. golisopod
+|chat|DEBUG|Getting matchup: sudowoodo vs. golisopod
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}, 'golisopod': {'checks': [], 'counter': ['dhelmise', 'sudowoodo']}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exeggutor|Flamethrower|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|faint|p1a: Dhelmise
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|322/322
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom reuniclus dhelmise
+|chat|DEBUG|Matchup: dhelmise vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Getting matchup: rillaboom vs. golisopod
+|chat|DEBUG|Getting matchup: reuniclus vs. golisopod
+|chat|DEBUG|Getting matchup: dhelmise vs. golisopod
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}, 'golisopod': {'checks': [], 'counter': ['dhelmise']}}
+|chat|DEBUG|Speed: 118 - 128
+|chat|DEBUG|Most likely moves for: dhelmise
+|chat|DEBUG|>['poltergeist', 'swordsdance', 'powerwhip', 'anchorshot']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('poltergeist', 154.4375)
+|chat|DEBUG|Best enemy move: ('dracometeor', 171.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat exeggutoralola with dhelmise
+|chat|DEBUG|Picking the most damaging move from dhelmise against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Exeggutor|Flamethrower|p1a: Reuniclus
+|-damage|p1a: Reuniclus|192/322
+|move|p1a: Reuniclus|Psychic|p2a: Exeggutor
+|-damage|p2a: Exeggutor|0 fnt
+|faint|p2a: Exeggutor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Calyrex|Calyrex-Shadow, L65|100/100
+|-ability|p2a: Calyrex|As One
+|-ability|p2a: Calyrex|Unnerve
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom reuniclus dhelmise
+|chat|DEBUG|Matchup: dhelmise vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 118 - 128
+|chat|DEBUG|Most likely moves for: dhelmise
+|chat|DEBUG|>['poltergeist', 'swordsdance', 'powerwhip', 'anchorshot']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('poltergeist', 154.4375)
+|chat|DEBUG|Best enemy move: ('dracometeor', 171.125)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat exeggutoralola with dhelmise
+|chat|DEBUG|Picking the most damaging move from dhelmise against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rillaboom|Rillaboom, L78, M|284/284
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Rillaboom
+|-start|p2a: Calyrex|Dynamax
+|-heal|p2a: Calyrex|100/100|[silent]
+|move|p2a: Calyrex|Max Phantasm|p1a: Rillaboom
+|-damage|p1a: Rillaboom|109/284
+|-unboost|p1a: Rillaboom|def|1
+|-heal|p1a: Rillaboom|126/284|[from] Grassy Terrain
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom reuniclus dhelmise
+|chat|DEBUG|Matchup: dhelmise vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 118 - 128
+|chat|DEBUG|Most likely moves for: dhelmise
+|chat|DEBUG|>['poltergeist', 'swordsdance', 'powerwhip', 'anchorshot']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('poltergeist', 154.4375)
+|chat|DEBUG|Best enemy move: ('dracometeor', 171.125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat exeggutoralola with dhelmise
+|chat|DEBUG|Picking the most damaging move from dhelmise against exeggutoralola
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Rillaboom|Dynamax
+|-heal|p1a: Rillaboom|252/568|[silent]
+|move|p2a: Calyrex|Max Phantasm|p1a: Rillaboom
+|-damage|p1a: Rillaboom|86/568
+|-unboost|p1a: Rillaboom|def|1
+|move|p1a: Rillaboom|Max Overgrowth|p2a: Calyrex
+|-damage|p2a: Calyrex|46/100
+|-heal|p2a: Calyrex|49/100|[from] Grassy Terrain
+|-heal|p2a: Calyrex|52/100|[from] item: Leftovers
+|-heal|p1a: Rillaboom|103/568|[from] Grassy Terrain
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom reuniclus
+|chat|DEBUG|Matchup: dhelmise vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Getting matchup: dhelmise vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Calyrex|Max Phantasm|p1a: Rillaboom
+|-damage|p1a: Rillaboom|0 fnt
+|faint|p1a: Rillaboom
+|-ability|p2a: Calyrex|Grim Neigh|boost
+|-boost|p2a: Calyrex|spa|1
+|-heal|p2a: Calyrex|54/100|[from] Grassy Terrain
+|-heal|p2a: Calyrex|57/100|[from] item: Leftovers
+|-end|p2a: Calyrex|Dynamax
+|-heal|p2a: Calyrex|58/100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, F|192/322
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rillaboom reuniclus
+|chat|DEBUG|Matchup: reuniclus vs exeggutoralola
+|chat|DEBUG|Updating information about exeggutoralola
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: rillaboom vs. exeggutoralola
+|chat|DEBUG|Getting matchup: reuniclus vs. exeggutoralola
+|chat|DEBUG|Checks / Counter: {'exeggutoralola': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 99 - 128
+|chat|DEBUG|Most likely moves for: reuniclus
+|chat|DEBUG|>['calmmind', 'focusblast', 'psychic', 'recover']
+|chat|DEBUG|Most likely moves for: exeggutoralola
+|chat|DEBUG|>['dracometeor', 'flamethrower', 'gigadrain', 'leafstorm']
+|chat|DEBUG|Best own move: ('psychic', 126.8125)
+|chat|DEBUG|Best enemy move: ('leafstorm', 182.375)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('psychic', 126.8125)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Calyrex|Astral Barrage|p1a: Reuniclus
+|-supereffective|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|faint|p1a: Reuniclus
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McDonner<br>vs<br>Telpro</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">frosmoth rillaboom aegislash sudowoodo reuniclus dhelmise</h1>

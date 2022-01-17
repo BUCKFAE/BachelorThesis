@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490136059<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490136059|init|battle
+|title|RataTopoCalva vs. McGewitter
+|j|☆RataTopoCalva
+|j|☆McGewitter
+|gametype|singles
+|player|p1|RataTopoCalva|clair|1161
+|player|p2|McGewitter|265|1190
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Volcarona|Volcarona, L76, M|100100
+|switch|p2a: Polteageist|Polteageist, L78|222222
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade arcanine gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-arcanine-gengar -- volcarona
+|chat|DEBUG|Own moves: shadowball strengthsap gigadrain shellsmash
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['arcanine']
+|chat|DEBUG|Counter: ['mienshao', 'arcanine', 'gengar']
+|chat|DEBUG|Speed: 154 vs 196
+|chat|DEBUG|HP: 222 vs 254
+|chat|DEBUG|Created a new Strategy for polteageist vs volcarona:
+|chat|DEBUG|>[shadowball: 91.875 [84, 100], shadowball: 91.875 [84, 100], shadowball: 91.875 [84, 100]]
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 91.875 [84, 100]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 110.25 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arcanine
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Arcanine|Arcanine, L82, M|282282
+|-ability|p2a: Arcanine|Intimidate|boost
+|-unboost|p1a: Volcarona|atk|1
+|move|p1a: Volcarona|Quiver Dance|p1a: Volcarona
+|-boost|p1a: Volcarona|spa|1
+|-boost|p1a: Volcarona|spd|1
+|-boost|p1a: Volcarona|spe|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade arcanine gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-arcanine-gengar -- volcarona
+|chat|DEBUG|Own moves: morningsun willowisp flareblitz wildcharge
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arcanine']
+|chat|DEBUG|Speed: 203 vs 196
+|chat|DEBUG|HP: 282 vs 254
+|chat|DEBUG|Created a new Strategy for arcanine vs volcarona:
+|chat|DEBUG|>[flareblitz: 182.375 [168, 198], flareblitz: 182.375 [168, 198], flareblitz: 182.375 [168, 198]]
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 182.375 [168, 198]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 102.75 [94, 111]
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcarona|Quiver Dance|p1a: Volcarona
+|-boost|p1a: Volcarona|spa|1
+|-boost|p1a: Volcarona|spd|1
+|-boost|p1a: Volcarona|spe|1
+|move|p2a: Arcanine|Flare Blitz|p1a: Volcarona
+|-damage|p1a: Volcarona|27100
+|-damage|p2a: Arcanine|221282|[from] Recoil
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade arcanine gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-arcanine-gengar -- volcarona
+|chat|DEBUG|Own moves: morningsun willowisp flareblitz wildcharge
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['arcanine']
+|chat|DEBUG|Counter: ['mienshao', 'gallade', 'arcanine', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 203 vs 196
+|chat|DEBUG|HP: 221 vs 68
+|chat|DEBUG|Best move of arcanine (p1): flareblitz: 182.375 [168, 198]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 137.0 [126, 148]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcarona|Giga Drain|p2a: Arcanine
+|-resisted|p2a: Arcanine
+|-damage|p2a: Arcanine|162282
+|-heal|p1a: Volcarona|39100|[from] drain|[of] p2a: Arcanine
+|move|p2a: Arcanine|Flare Blitz|p1a: Volcarona
+|-damage|p1a: Volcarona|0 fnt
+|faint|p1a: Volcarona
+|-damage|p2a: Arcanine|130282|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyogre|Kyogre, L72|100100
+|-weather|RainDance|[from] ability: Drizzle|[of] p1a: Kyogre
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade arcanine gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-arcanine-gengar -- kyogre
+|chat|DEBUG|Own moves: morningsun willowisp flareblitz wildcharge
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'gallade']
+|chat|DEBUG|Speed: 203 vs 172
+|chat|DEBUG|HP: 130 vs 263
+|chat|DEBUG|Created a new Strategy for arcanine vs kyogre:
+|chat|DEBUG|>[wildcharge: 152.75 [140, 166], wildcharge: 152.75 [140, 166], wildcharge: 152.75 [140, 166]]
+|chat|DEBUG|Best move of arcanine (p1): wildcharge: 152.75 [140, 166]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 268.0 [246, 290]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using wildcharge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Arcanine|Wild Charge|p1a: Kyogre
+|-supereffective|p1a: Kyogre
+|-damage|p1a: Kyogre|42100
+|-damage|p2a: Arcanine|91282|[from] Recoil
+|move|p1a: Kyogre|Origin Pulse|p2a: Arcanine
+|-supereffective|p2a: Arcanine
+|-damage|p2a: Arcanine|0 fnt
+|faint|p2a: Arcanine
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Kyogre|48100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mienshao|Mienshao, L82, F|241241
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arcanine" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- kyogre
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'gallade']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to mienshao (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Close Combat|p1a: Kyogre
+|-damage|p1a: Kyogre|0 fnt
+|-unboost|p2a: Mienshao|def|1
+|-unboost|p2a: Mienshao|spd|1
+|faint|p1a: Kyogre
+|-damage|p2a: Mienshao|217241|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Butterfree|Butterfree, L87, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "kyogre"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- kyogre
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: calmmind icebeam originpulse thunder
+|chat|DEBUG|Checks: ['skuntank', 'mienshao', 'gallade']
+|chat|DEBUG|Counter: ['polteageist', 'skuntank', 'mienshao', 'gallade', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 219 vs 172
+|chat|DEBUG|HP: 241 vs 126
+|chat|DEBUG|Created a new Strategy for mienshao vs kyogre:
+|chat|DEBUG|>[closecombat: 216.9375 [199, 235], closecombat: 216.9375 [199, 235], closecombat: 216.9375 [199, 235]]
+|chat|DEBUG|Best move of mienshao (p1): closecombat: 216.9375 [199, 235]
+|chat|DEBUG|Best move of kyogre (p2): originpulse: 162.8125 [150, 177]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skuntank|Skuntank, L85, M|314314
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['skuntank', 'gallade', 'gengar']
+|chat|DEBUG|Speed: 219 vs 172
+|chat|DEBUG|HP: 217 vs 246
+|chat|DEBUG|Created a new Strategy for mienshao vs butterfree:
+|chat|DEBUG|>[knockoff: 147.1875 [135, 160], knockoff: 147.1875 [135, 160], knockoff: 147.1875 [135, 160]]
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 147.1875 [135, 160]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 320.0 [294, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skuntank
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Sleep Powder|p2a: Skuntank|[miss]
+|-miss|p1a: Butterfree|p2a: Skuntank
+|move|p2a: Skuntank|Crunch|p1a: Butterfree
+|-damage|p1a: Butterfree|39100
+|-damage|p2a: Skuntank|283314|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: suckerpunch taunt fireblast crunch
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank', 'gallade']
+|chat|DEBUG|Speed: 192 vs 172
+|chat|DEBUG|HP: 314 vs 246
+|chat|DEBUG|Created a new Strategy for skuntank vs butterfree:
+|chat|DEBUG|>[crunch: 159.3125 [146, 173], crunch: 159.3125 [146, 173], crunch: 159.3125 [146, 173]]
+|chat|DEBUG|Best move of skuntank (p1): crunch: 159.3125 [146, 173]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 183.6875 [169, 199]
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Sleep Powder|p2a: Skuntank
+|-status|p2a: Skuntank|slp|[from] move: Sleep Powder
+|cant|p2a: Skuntank|slp
+|-weather|none
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: suckerpunch taunt fireblast crunch
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['skuntank', 'gallade', 'gengar']
+|chat|DEBUG|Counter: ['skuntank', 'mienshao', 'gallade', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 192 vs 172
+|chat|DEBUG|HP: 283 vs 95
+|chat|DEBUG|Best move of skuntank (p1): crunch: 159.3125 [146, 173]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 183.6875 [169, 199]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|cant|p2a: Skuntank|slp
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: suckerpunch taunt fireblast crunch
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['skuntank', 'gallade', 'gengar']
+|chat|DEBUG|Counter: ['skuntank', 'mienshao', 'gallade', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 192 vs 172
+|chat|DEBUG|HP: 283 vs 95
+|chat|DEBUG|Best move of skuntank (p1): crunch: 159.3125 [146, 173]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 183.6875 [169, 199]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|cant|p2a: Skuntank|slp
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: suckerpunch taunt fireblast crunch
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['skuntank', 'mienshao', 'gallade', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 192 vs 172
+|chat|DEBUG|HP: 283 vs 95
+|chat|DEBUG|Created a new Strategy for skuntank vs butterfree:
+|chat|DEBUG|>[crunch: 159.3125 [146, 173], crunch: 159.3125 [146, 173], crunch: 159.3125 [146, 173]]
+|chat|DEBUG|Best move of skuntank (p1): crunch: 159.3125 [146, 173]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 244.5625 [225, 265]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using crunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Bug Buzz|p2a: Skuntank
+|-damage|p2a: Skuntank|0 fnt
+|faint|p2a: Skuntank
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mienshao|Mienshao, L82, F|241241
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist skuntank mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-skuntank-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: suckerpunch taunt fireblast crunch
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank', 'mienshao', 'gallade']
+|chat|DEBUG|Speed: 192 vs 172
+|chat|DEBUG|HP: 283 vs 95
+|chat|DEBUG|Best move of skuntank (p1): crunch: 159.3125 [146, 173]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 305.6875 [280, 331]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Mienshao|[miss]
+|-miss|p1a: Butterfree|p2a: Mienshao
+|move|p2a: Mienshao|Knock Off|p1a: Butterfree
+|-damage|p1a: Butterfree|0 fnt
+|-enditem|p1a: Butterfree|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Mienshao
+|faint|p1a: Butterfree
+|-damage|p2a: Mienshao|217241|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Calyrex|Calyrex, L88|100100
+|-ability|p1a: Calyrex|Unnerve
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'gallade']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to mienshao (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Knock Off|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|30100
+|-enditem|p1a: Calyrex|Leftovers|[from] move: Knock Off|[of] p2a: Mienshao
+|-damage|p2a: Mienshao|193241|[from] item: Life Orb
+|move|p1a: Calyrex|Substitute|p1a: Calyrex
+|-start|p1a: Calyrex|Substitute
+|-damage|p1a: Calyrex|6100
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- butterfree
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mienshao', 'gallade']
+|chat|DEBUG|Speed: 219 vs 172
+|chat|DEBUG|HP: 241 vs 95
+|chat|DEBUG|Created a new Strategy for mienshao vs butterfree:
+|chat|DEBUG|>[knockoff: 147.1875 [135, 160], knockoff: 147.1875 [135, 160], knockoff: 147.1875 [135, 160]]
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 147.1875 [135, 160]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 531.375 [488, 576]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Knock Off|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-end|p1a: Calyrex|Substitute
+|-damage|p2a: Mienshao|169241|[from] item: Life Orb
+|move|p1a: Calyrex|Calm Mind|p1a: Calyrex
+|-boost|p1a: Calyrex|spa|1
+|-boost|p1a: Calyrex|spd|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "calyrex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- calyrex
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: calmmind gigadrain psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist']
+|chat|DEBUG|Speed: 219 vs 191
+|chat|DEBUG|HP: 217 vs 319
+|chat|DEBUG|Created a new Strategy for mienshao vs calyrex:
+|chat|DEBUG|>[knockoff: 212.875 [195, 231], knockoff: 212.875 [195, 231], knockoff: 212.875 [195, 231]]
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 212.875 [195, 231]
+|chat|DEBUG|Best move of calyrex (p2): psyshock: 217.25 [200, 236]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Knock Off|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-damage|p1a: Calyrex|0 fnt
+|faint|p1a: Calyrex
+|-damage|p2a: Mienshao|145241|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Salazzle|Salazzle, L82, F|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "calyrex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- calyrex
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: calmmind gigadrain psyshock substitute
+|chat|DEBUG|Checks: ['polteageist']
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gallade', 'gengar']
+|chat|DEBUG|Speed: 219 vs 191
+|chat|DEBUG|HP: 193 vs 19
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 212.875 [195, 231]
+|chat|DEBUG|Best move of calyrex (p2): psyshock: 217.25 [200, 236]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gallade|Gallade, L82, M|246246
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|76100
+|-heal|p1a: Salazzle|82100|[from] item: Black Sludge
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "calyrex"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- calyrex
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: calmmind gigadrain psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gallade', 'gengar']
+|chat|DEBUG|Speed: 219 vs 191
+|chat|DEBUG|HP: 169 vs 19
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 212.875 [195, 231]
+|chat|DEBUG|Best move of calyrex (p2): psyshock: 322.5 [296, 350]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Toxic|p2a: Gallade
+|-status|p2a: Gallade|tox
+|move|p2a: Gallade|Zen Headbutt|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-damage|p2a: Gallade|222246 tox|[from] item: Life Orb
+|-heal|p1a: Salazzle|88100|[from] item: Black Sludge
+|-damage|p2a: Gallade|207246 tox|[from] psn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mienshao" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: closecombat poisonjab swordsdance knockoff
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['gallade']
+|chat|DEBUG|Counter: ['polteageist', 'gallade']
+|chat|DEBUG|Speed: 219 vs 239
+|chat|DEBUG|HP: 145 vs 246
+|chat|DEBUG|Created a new Strategy for mienshao vs salazzle:
+|chat|DEBUG|>[knockoff: 137.5625 [126, 149], knockoff: 137.5625 [126, 149], knockoff: 137.5625 [126, 149]]
+|chat|DEBUG|Best move of mienshao (p1): knockoff: 137.5625 [126, 149]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 134.0 [123, 145]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check gallade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|63100
+|move|p2a: Gallade|Zen Headbutt|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-damage|p2a: Gallade|183246 tox|[from] item: Life Orb
+|-heal|p1a: Salazzle|69100|[from] item: Black Sludge
+|-damage|p2a: Gallade|153246 tox|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gallade" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: closecombat swordsdance zenheadbutt knockoff
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['gallade']
+|chat|DEBUG|Counter: ['polteageist', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 239
+|chat|DEBUG|HP: 246 vs 201
+|chat|DEBUG|Created a new Strategy for gallade vs salazzle:
+|chat|DEBUG|>[zenheadbutt: 340.625 [312, 369], zenheadbutt: 340.625 [312, 369], zenheadbutt: 340.625 [312, 369]]
+|chat|DEBUG|Best move of gallade (p1): zenheadbutt: 340.625 [312, 369]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 83.625 [76, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|44100
+|move|p2a: Gallade|Zen Headbutt|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-crit|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-damage|p2a: Gallade|129246 tox|[from] item: Life Orb
+|-heal|p1a: Salazzle|50100|[from] item: Black Sludge
+|-damage|p2a: Gallade|84246 tox|[from] psn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gallade" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: closecombat swordsdance zenheadbutt knockoff
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist', 'gallade']
+|chat|DEBUG|Speed: 178 vs 239
+|chat|DEBUG|HP: 207 vs 216
+|chat|DEBUG|Best move of gallade (p1): zenheadbutt: 340.625 [312, 369]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 83.625 [76, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Polteageist|Polteageist, L78|222222
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|26100
+|-heal|p1a: Salazzle|32100|[from] item: Black Sludge
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gallade" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: closecombat swordsdance zenheadbutt knockoff
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist', 'gallade', 'gengar']
+|chat|DEBUG|Speed: 178 vs 239
+|chat|DEBUG|HP: 153 vs 169
+|chat|DEBUG|Best move of gallade (p1): zenheadbutt: 340.625 [312, 369]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 83.625 [76, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Toxic|p2a: Polteageist
+|-status|p2a: Polteageist|tox
+|move|p2a: Polteageist|Shadow Ball|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|38100|[from] item: Black Sludge
+|-damage|p2a: Polteageist|209222 tox|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gallade" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: closecombat swordsdance zenheadbutt knockoff
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['polteageist']
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gengar']
+|chat|DEBUG|Speed: 178 vs 239
+|chat|DEBUG|HP: 84 vs 123
+|chat|DEBUG|Created a new Strategy for gallade vs salazzle:
+|chat|DEBUG|>[zenheadbutt: 340.625 [312, 369], zenheadbutt: 340.625 [312, 369], zenheadbutt: 340.625 [312, 369]]
+|chat|DEBUG|Best move of gallade (p1): zenheadbutt: 340.625 [312, 369]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 83.625 [76, 91]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check polteageist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|13100
+|move|p2a: Polteageist|Shadow Ball|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|19100|[from] item: Black Sludge
+|-damage|p2a: Polteageist|183222 tox|[from] psn
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: shadowball strengthsap gigadrain shellsmash
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['polteageist']
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 154 vs 239
+|chat|DEBUG|HP: 222 vs 78
+|chat|DEBUG|Created a new Strategy for polteageist vs salazzle:
+|chat|DEBUG|>[shadowball: 128.0625 [118, 139], shadowball: 128.0625 [118, 139], shadowball: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 128.0625 [118, 139]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Protect|p1a: Salazzle
+|-singleturn|p1a: Salazzle|Protect
+|move|p2a: Polteageist|Shadow Ball|p1a: Salazzle
+|-activate|p1a: Salazzle|move: Protect
+|-heal|p1a: Salazzle|25100|[from] item: Black Sludge
+|-damage|p2a: Polteageist|144222 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: shadowball strengthsap gigadrain shellsmash
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['polteageist']
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 154 vs 239
+|chat|DEBUG|HP: 209 vs 93
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 128.0625 [118, 139]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 87.9375 [81, 96]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Flamethrower|p2a: Polteageist
+|-damage|p2a: Polteageist|63222 tox
+|move|p2a: Polteageist|Shadow Ball|p1a: Salazzle
+|-damage|p1a: Salazzle|0 fnt
+|faint|p1a: Salazzle
+|-damage|p2a: Polteageist|11222 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Froslass|Froslass, L84, F|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: shadowball strengthsap gigadrain shellsmash
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['polteageist']
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gengar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 154 vs 239
+|chat|DEBUG|HP: 183 vs 46
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 128.0625 [118, 139]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Froslass|Triple Axel|p2a: Polteageist
+|-damage|p2a: Polteageist|0 fnt
+|faint|p2a: Polteageist
+|-hitcount|p2: Polteageist|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mienshao|Mienshao, L82, F|225241
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- salazzle
+|chat|DEBUG|Own moves: shadowball strengthsap gigadrain shellsmash
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist', 'mienshao', 'gengar']
+|chat|DEBUG|Speed: 154 vs 239
+|chat|DEBUG|HP: 144 vs 61
+|chat|DEBUG|Created a new Strategy for polteageist vs salazzle:
+|chat|DEBUG|>[shadowball: 128.0625 [118, 139], shadowball: 128.0625 [118, 139], shadowball: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 128.0625 [118, 139]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Froslass|Dynamax
+|-heal|p1a: Froslass|100100|[silent]
+|-start|p2a: Mienshao|Dynamax
+|-heal|p2a: Mienshao|450482|[silent]
+|move|p1a: Froslass|Max Phantasm|p2a: Mienshao
+|-damage|p2a: Mienshao|291482
+|-unboost|p2a: Mienshao|def|1
+|move|p2a: Mienshao|Max Darkness|p1a: Froslass
+|-supereffective|p1a: Froslass
+|-damage|p1a: Froslass|39100
+|-unboost|p1a: Froslass|spd|1
+|-damage|p2a: Mienshao|267482|[from] item: Life Orb
+|upkeep
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>polteageist mienshao gallade gengar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "polteageist" vs "froslass"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>polteageist-mienshao-gallade-gengar -- froslass
+|chat|DEBUG|Own moves: shadowball strengthsap gigadrain shellsmash
+|chat|DEBUG|Enemy moves: poltergeist spikes tripleaxel willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 154 vs 233
+|chat|DEBUG|HP: 11 vs 255
+|chat|DEBUG|Created a new Strategy for polteageist vs froslass:
+|chat|DEBUG|>[shadowball: 225.625 [206, 246], shadowball: 225.625 [206, 246], shadowball: 225.625 [206, 246]]
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 225.625 [206, 246]
+|chat|DEBUG|Best move of froslass (p2): poltergeist: 271.0 [248, 294]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Froslass|Max Hailstorm|p2a: Mienshao
+|-damage|p2a: Mienshao|3482
+|-weather|Hail
+|move|p2a: Mienshao|Max Darkness|p1a: Froslass
+|-supereffective|p1a: Froslass
+|-damage|p1a: Froslass|0 fnt
+|faint|p1a: Froslass
+|-damage|p2a: Mienshao|0 fnt|[from] item: Life Orb
+|faint|p2a: Mienshao
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>RataTopoCalva<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">polteageist skuntank mienshao gallade arcanine gengar</h1>

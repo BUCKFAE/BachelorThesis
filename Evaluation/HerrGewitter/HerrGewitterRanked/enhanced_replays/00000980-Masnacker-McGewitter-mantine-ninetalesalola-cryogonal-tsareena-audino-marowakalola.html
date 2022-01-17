@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491578604<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491578604|init|battle
+|title|Masnacker vs. McGewitter
+|j|☆Masnacker
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Masnacker|fantina|1377
+|player|p2|McGewitter|265|1395
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Shedinja|Shedinja, L88|100100
+|switch|p2a: Mantine|Mantine, L86, M|286286
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola cryogonal tsareena audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "shedinja"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-cryogonal-tsareena-audino-marowakalola -- shedinja
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: poltergeist shadowsneak swordsdance xscissor
+|chat|DEBUG|Checks: ['tsareena', 'audino']
+|chat|DEBUG|Counter: ['tsareena', 'audino', 'marowakalola']
+|chat|DEBUG|Speed: 170 vs 121
+|chat|DEBUG|HP: 286 vs 1
+|chat|DEBUG|Created a new Strategy for mantine vs shedinja:
+|chat|DEBUG|>[scald: 0.0 [0, 0], scald: 0.0 [0, 0], scald: 0.0 [0, 0]]
+|chat|DEBUG|Best move of mantine (p1): scald: 0.0 [0, 0]
+|chat|DEBUG|Best move of shedinja (p2): poltergeist: 140.125 [129, 153]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tsareena
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Tsareena|Tsareena, L84, F|258258
+|switch|p1a: Stakataka|Stakataka, L80|100100
+|-item|p1a: Stakataka|Air Balloon
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola cryogonal tsareena audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-cryogonal-tsareena-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: knockoff powerwhip uturn synthesis
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 169 vs 25
+|chat|DEBUG|HP: 258 vs 229
+|chat|DEBUG|Created a new Strategy for tsareena vs stakataka:
+|chat|DEBUG|>[powerwhip: 76.75 [70, 84], powerwhip: 76.75 [70, 84], powerwhip: 76.75 [70, 84]]
+|chat|DEBUG|Best move of tsareena (p1): powerwhip: 76.75 [70, 84]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 171.125 [157, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tsareena|Power Whip|p1a: Stakataka
+|-damage|p1a: Stakataka|69100
+|-enditem|p1a: Stakataka|Air Balloon
+|move|p1a: Stakataka|Trick Room|p1a: Stakataka
+|-fieldstart|move: Trick Room|[of] p1a: Stakataka
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola cryogonal tsareena audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-cryogonal-tsareena-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: knockoff powerwhip uturn synthesis
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 169 vs 25
+|chat|DEBUG|HP: 258 vs 158
+|chat|DEBUG|Best move of tsareena (p1): powerwhip: 76.75 [70, 84]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 171.125 [157, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Gyro Ball|p2a: Tsareena
+|-damage|p2a: Tsareena|101258
+|move|p2a: Tsareena|Power Whip|p1a: Stakataka|[miss]
+|-miss|p2a: Tsareena|p1a: Stakataka
+|-heal|p2a: Tsareena|117258|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola cryogonal tsareena audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-cryogonal-tsareena-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: knockoff powerwhip uturn synthesis
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 169 vs 25
+|chat|DEBUG|HP: 117 vs 158
+|chat|DEBUG|Best move of tsareena (p1): powerwhip: 76.75 [70, 84]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 171.125 [157, 186]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Gyro Ball|p2a: Tsareena
+|-damage|p2a: Tsareena|0 fnt
+|faint|p2a: Tsareena
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cryogonal|Cryogonal, L86|278278
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola cryogonal audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tsareena" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-cryogonal-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: cryogonal
+|chat|DEBUG|>Switching to cryogonal (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Gyro Ball|p2a: Cryogonal
+|-supereffective|p2a: Cryogonal
+|-damage|p2a: Cryogonal|0 fnt
+|faint|p2a: Cryogonal
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ninetales|Ninetales-Alola, L79, F|245245
+|-weather|Hail|[from] ability: Snow Warning|[of] p2a: Ninetales
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola cryogonal audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-cryogonal-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: haze freezedry rapidspin recover
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 230 vs 25
+|chat|DEBUG|HP: 278 vs 158
+|chat|DEBUG|Created a new Strategy for cryogonal vs stakataka:
+|chat|DEBUG|>[freezedry: 36.0 [33, 39], freezedry: 36.0 [33, 39], freezedry: 36.0 [33, 39]]
+|chat|DEBUG|Best move of cryogonal (p1): freezedry: 36.0 [33, 39]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 539.0 [494, 584]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Stakataka|Gyro Ball|p2a: Ninetales
+|-supereffective|p2a: Ninetales
+|-damage|p2a: Ninetales|0 fnt
+|faint|p2a: Ninetales
+|-ability|p1a: Stakataka|Beast Boost|boost
+|-boost|p1a: Stakataka|def|1
+|-weather|Hail|[upkeep]
+|-damage|p1a: Stakataka|63100|[from] Hail
+|-fieldend|move: Trick Room
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mantine|Mantine, L86, M|286286
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cryogonal" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: ninetalesalola
+|chat|DEBUG|>Switching to ninetalesalola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Stakataka
+|-supereffective|p1a: Stakataka
+|-damage|p1a: Stakataka|0 fnt
+|faint|p1a: Stakataka
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mantine|269286|[from] Hail
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Aromatisse|Aromatisse, L88, M|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine ninetalesalola audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetalesalola" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-ninetalesalola-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: blizzard moonblast nastyplot auroraveil
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 218 vs 25
+|chat|DEBUG|HP: 245 vs 158
+|chat|DEBUG|Created a new Strategy for ninetalesalola vs stakataka:
+|chat|DEBUG|>[moonblast: 36.6875 [33, 40], moonblast: 36.6875 [33, 40], moonblast: 36.6875 [33, 40]]
+|chat|DEBUG|Best move of ninetalesalola (p1): moonblast: 36.6875 [33, 40]
+|chat|DEBUG|Best move of stakataka (p2): gyroball: 889.75 [816, 964]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|auroraveil
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Aromatisse
+|-damage|p1a: Aromatisse|79100
+|move|p1a: Aromatisse|Toxic|p2a: Mantine|[miss]
+|-miss|p1a: Aromatisse|p2a: Mantine
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mantine|252286|[from] Hail
+|-damage|p1a: Aromatisse|72100|[from] Hail
+|-heal|p1a: Aromatisse|79100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetalesalola" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: mantine
+|chat|DEBUG|>Switching to mantine (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Aromatisse
+|-damage|p1a: Aromatisse|58100
+|-status|p1a: Aromatisse|brn
+|move|p1a: Aromatisse|Toxic|p2a: Mantine
+|-status|p2a: Mantine|tox
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mantine|235286 tox|[from] Hail
+|-damage|p1a: Aromatisse|52100 brn|[from] Hail
+|-heal|p1a: Aromatisse|58100 brn|[from] item: Leftovers
+|-damage|p2a: Mantine|218286 tox|[from] psn
+|-damage|p1a: Aromatisse|52100 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "stakataka"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-stakataka
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: earthquake gyroball stoneedge trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mantine']
+|chat|DEBUG|Speed: 170 vs 25
+|chat|DEBUG|HP: 286 vs 144
+|chat|DEBUG|Created a new Strategy for mantine vs stakataka:
+|chat|DEBUG|>[scald: 145.125 [134, 158], scald: 145.125 [134, 158], scald: 145.125 [134, 158]]
+|chat|DEBUG|Best move of mantine (p1): scald: 145.125 [134, 158]
+|chat|DEBUG|Best move of stakataka (p2): stoneedge: 286.25 [264, 312]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Aromatisse
+|-damage|p1a: Aromatisse|30100 brn
+|move|p1a: Aromatisse|Wish|p1a: Aromatisse
+|-weather|none
+|-heal|p1a: Aromatisse|36100 brn|[from] item: Leftovers
+|-damage|p2a: Mantine|184286 tox|[from] psn
+|-damage|p1a: Aromatisse|30100 brn|[from] brn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 269 vs 321
+|chat|DEBUG|Created a new Strategy for mantine vs aromatisse:
+|chat|DEBUG|>[scald: 73.9375 [67, 81], scald: 73.9375 [67, 81], scald: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Mantine|Roost|p2a: Mantine
+|-heal|p2a: Mantine|286286 tox
+|-singleturn|p2a: Mantine|move: Roost
+|-heal|p1a: Aromatisse|80100 brn|[from] move: Wish|[wisher] Aromatisse
+|-heal|p1a: Aromatisse|86100 brn|[from] item: Leftovers
+|-damage|p2a: Mantine|235286 tox|[from] psn
+|-damage|p1a: Aromatisse|80100 brn|[from] brn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mantine', 'marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 252 vs 253
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Aromatisse
+|-damage|p1a: Aromatisse|55100 brn
+|move|p1a: Aromatisse|Wish|p1a: Aromatisse
+|-heal|p1a: Aromatisse|62100 brn|[from] item: Leftovers
+|-damage|p2a: Mantine|167286 tox|[from] psn
+|-damage|p1a: Aromatisse|55100 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['mantine', 'marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 218 vs 166
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Mantine|Roost|p2a: Mantine
+|-heal|p2a: Mantine|286286 tox
+|-singleturn|p2a: Mantine|move: Roost
+|-heal|p1a: Aromatisse|100100 brn|[from] move: Wish|[wisher] Aromatisse
+|-damage|p2a: Mantine|201286 tox|[from] psn
+|-damage|p1a: Aromatisse|94100 brn|[from] brn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['mantine', 'marowakalola']
+|chat|DEBUG|Counter: ['mantine', 'audino', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 184 vs 96
+|chat|DEBUG|Created a new Strategy for mantine vs aromatisse:
+|chat|DEBUG|>[scald: 73.9375 [67, 81], scald: 73.9375 [67, 81], scald: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Aromatisse
+|-damage|p1a: Aromatisse|73100 brn
+|move|p1a: Aromatisse|Moonblast|p2a: Mantine
+|-damage|p2a: Mantine|126286 tox
+|-unboost|p2a: Mantine|spa|1
+|-heal|p1a: Aromatisse|79100 brn|[from] item: Leftovers
+|-damage|p2a: Mantine|24286 tox|[from] psn
+|-damage|p1a: Aromatisse|73100 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mantine', 'marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 235 vs 256
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Aromatisse
+|-damage|p1a: Aromatisse|58100 brn
+|move|p1a: Aromatisse|Wish|p1a: Aromatisse
+|-heal|p1a: Aromatisse|65100 brn|[from] item: Leftovers
+|-damage|p2a: Mantine|0 fnt|[from] psn
+|faint|p2a: Mantine
+|-damage|p1a: Aromatisse|58100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Marowak|Marowak-Alola, L84, M|238238
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['mantine', 'marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 167 vs 176
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Marowak|Stealth Rock|p1a: Aromatisse
+|-sidestart|p1: Masnacker|move: Stealth Rock
+|-heal|p1a: Aromatisse|100100 brn|[from] move: Wish|[wisher] Aromatisse
+|-damage|p1a: Aromatisse|94100 brn|[from] brn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 201 vs 301
+|chat|DEBUG|Created a new Strategy for mantine vs aromatisse:
+|chat|DEBUG|>[scald: 73.9375 [67, 81], scald: 73.9375 [67, 81], scald: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Marowak|Flare Blitz|p1a: Aromatisse
+|-damage|p1a: Aromatisse|17100 brn
+|-damage|p2a: Marowak|156238|[from] Recoil
+|move|p1a: Aromatisse|Toxic|p2a: Marowak
+|-status|p2a: Marowak|tox
+|-heal|p1a: Aromatisse|23100 brn|[from] item: Leftovers
+|-damage|p2a: Marowak|142238 tox|[from] psn
+|-damage|p1a: Aromatisse|17100 brn|[from] brn
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mantine audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mantine-audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: roost defog toxic scald
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Speed: 170 vs 101
+|chat|DEBUG|HP: 24 vs 234
+|chat|DEBUG|Best move of mantine (p1): scald: 73.9375 [67, 81]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Marowak|Flare Blitz|p1a: Aromatisse
+|-activate|p1a: Aromatisse|move: Protect
+|-heal|p1a: Aromatisse|23100 brn|[from] item: Leftovers
+|-damage|p2a: Marowak|114238 tox|[from] psn
+|-damage|p1a: Aromatisse|17100 brn|[from] brn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mantine" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to marowakalola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Marowak|Flare Blitz|p1a: Aromatisse
+|-damage|p1a: Aromatisse|0 fnt
+|faint|p1a: Aromatisse
+|-damage|p2a: Marowak|97238 tox|[from] Recoil
+|-damage|p2a: Marowak|55238 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Shedinja|Shedinja, L88|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: stoneedge stealthrock flareblitz poltergeist
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 124 vs 101
+|chat|DEBUG|HP: 238 vs 186
+|chat|DEBUG|Created a new Strategy for marowakalola vs aromatisse:
+|chat|DEBUG|>[flareblitz: 121.1875 [111, 132], flareblitz: 121.1875 [111, 132], flareblitz: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 121.1875 [111, 132]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 60.375 [55, 66]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Shedinja|Shadow Sneak|p2a: Marowak
+|-supereffective|p2a: Marowak
+|-damage|p2a: Marowak|0 fnt
+|faint|p2a: Marowak
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Audino|Audino, L90, M|332332
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: stoneedge stealthrock flareblitz poltergeist
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['marowakalola']
+|chat|DEBUG|Speed: 124 vs 101
+|chat|DEBUG|HP: 238 vs 301
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 121.1875 [111, 132]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 60.375 [55, 66]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Audino|Knock Off|p1a: Shedinja
+|-supereffective|p1a: Shedinja
+|-damage|p1a: Shedinja|0 fnt
+|-enditem|p1a: Shedinja|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Audino
+|faint|p1a: Shedinja
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kartana|Kartana, L74|100100
+|-damage|p1a: Kartana|94100|[from] Stealth Rock
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: stoneedge stealthrock flareblitz poltergeist
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['audino', 'marowakalola']
+|chat|DEBUG|Counter: ['audino', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 124 vs 101
+|chat|DEBUG|HP: 142 vs 54
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 121.1875 [111, 132]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 60.375 [55, 66]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Kartana|Dynamax
+|-heal|p1a: Kartana|94100|[silent]
+|-start|p2a: Audino|Dynamax
+|-heal|p2a: Audino|664664|[silent]
+|move|p1a: Kartana|Max Knuckle|p2a: Audino
+|-supereffective|p2a: Audino
+|-damage|p2a: Audino|459664
+|-boost|p1a: Kartana|atk|1
+|-damage|p1a: Kartana|89100|[from] item: Life Orb
+|move|p2a: Audino|Max Darkness|p1a: Kartana
+|-damage|p1a: Kartana|75100
+|-unboost|p1a: Kartana|spd|1
+|-heal|p2a: Audino|479664|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-marowakalola -- shedinja-aromatisse
+|chat|DEBUG|Own moves: stoneedge stealthrock flareblitz poltergeist
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['audino', 'marowakalola']
+|chat|DEBUG|Counter: ['audino', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 124 vs 101
+|chat|DEBUG|HP: 114 vs 54
+|chat|DEBUG|Created a new Strategy for marowakalola vs aromatisse:
+|chat|DEBUG|>[flareblitz: 121.1875 [111, 132], flareblitz: 121.1875 [111, 132], flareblitz: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 121.1875 [111, 132]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 60.375 [55, 66]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kartana|Max Knuckle|p2a: Audino
+|-supereffective|p2a: Audino
+|-damage|p2a: Audino|157664
+|-boost|p1a: Kartana|atk|1
+|-damage|p1a: Kartana|71100|[from] item: Life Orb
+|move|p2a: Audino|Max Darkness|p1a: Kartana
+|-damage|p1a: Kartana|57100
+|-unboost|p1a: Kartana|spd|1
+|-heal|p2a: Audino|177664|[from] item: Leftovers
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino marowakalola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "shedinja"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-marowakalola -- shedinja
+|chat|DEBUG|Own moves: stoneedge stealthrock flareblitz poltergeist
+|chat|DEBUG|Enemy moves: poltergeist shadowsneak swordsdance xscissor
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['audino', 'marowakalola']
+|chat|DEBUG|Speed: 124 vs 121
+|chat|DEBUG|HP: 55 vs 1
+|chat|DEBUG|Created a new Strategy for marowakalola vs shedinja:
+|chat|DEBUG|>[flareblitz: 333.875 [306, 362], flareblitz: 333.875 [306, 362], flareblitz: 333.875 [306, 362]]
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 333.875 [306, 362]
+|chat|DEBUG|Best move of shedinja (p2): poltergeist: 206.5 [188, 224]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kartana|Max Knuckle|p2a: Audino
+|-supereffective|p2a: Audino
+|-damage|p2a: Audino|0 fnt
+|-boost|p1a: Kartana|atk|1
+|faint|p2a: Audino
+|-damage|p1a: Kartana|52100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Masnacker<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mantine ninetalesalola cryogonal tsareena audino marowakalola</h1>

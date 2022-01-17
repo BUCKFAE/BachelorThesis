@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490501370</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490501370|init|battle
+|title|Lost City vs. McDonner
+|j|☆Lost City
+|j|☆McDonner
+|gametype|singles
+|player|p1|Lost City|266|1158
+|player|p2|McDonner|265|1128
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Azelf|Azelf, L82|100/100
+|switch|p2a: Lilligant|Lilligant, L84, F|255/255
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: lilligant vs azelf
+|chat|DEBUG|Updating information about azelf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['slowbrogalar', 'aggron', 'gyarados', 'drapion']}}
+|chat|DEBUG|Speed: 199 - 236
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['petaldance', 'quiverdance', 'gigadrain', 'pollenpuff']
+|chat|DEBUG|Most likely moves for: azelf
+|chat|DEBUG|>['fireblast', 'psychic', 'taunt', 'uturn']
+|chat|DEBUG|Best own move: ('pollenpuff', 169.375)
+|chat|DEBUG|Best enemy move: ('fireblast', 202.5)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: slowbrogalar
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Slowbro|Slowbro-Galar, L86, F|304/304
+|move|p1a: Azelf|Taunt|p2a: Slowbro
+|-start|p2a: Slowbro|move: Taunt
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs azelf
+|chat|DEBUG|Updating information about azelf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['aggron', 'gyarados', 'drapion', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 236
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'shellsidearm', 'psychic']
+|chat|DEBUG|Most likely moves for: azelf
+|chat|DEBUG|>['fireblast', 'psychic', 'taunt', 'uturn']
+|chat|DEBUG|Best own move: ('shellsidearm', 124.0625)
+|chat|DEBUG|Best enemy move: ('psychic', 126.8125)
+|chat|DEBUG|Picking the most damaging move from slowbrogalar against azelf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Azelf|Stealth Rock|p2a: Slowbro
+|-sidestart|p2: McDonner|move: Stealth Rock
+|move|p2a: Slowbro|Shell Side Arm|p1a: Azelf|[anim] Shell Side Arm Physical
+|-damage|p1a: Azelf|34/100
+|-hint|Physical Shell Side Arm
+|-damage|p2a: Slowbro|274/304|[from] item: Life Orb
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs azelf
+|chat|DEBUG|Updating information about azelf
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['aggron', 'gyarados', 'drapion', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 236
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'shellsidearm', 'psychic']
+|chat|DEBUG|Most likely moves for: azelf
+|chat|DEBUG|>['fireblast', 'psychic', 'taunt', 'uturn']
+|chat|DEBUG|Best own move: ('shellsidearm', 124.0625)
+|chat|DEBUG|Best enemy move: ('psychic', 126.8125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('shellsidearm', 124.0625)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Genesect|Genesect-Douse, L74|100/100
+|-ability|p1a: Genesect|Download|boost
+|-boost|p1a: Genesect|spa|1
+|move|p2a: Slowbro|Shell Side Arm|p1a: Genesect|[anim] Shell Side Arm Special
+|-immune|p1a: Genesect
+|-end|p2a: Slowbro|move: Taunt
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs genesectdouse
+|chat|DEBUG|Updating information about genesectdouse
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: dousedrive
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: lilligant vs. genesectdouse
+|chat|DEBUG|Getting matchup: aggron vs. genesectdouse
+|chat|DEBUG|Getting matchup: gyarados vs. genesectdouse
+|chat|DEBUG|Getting matchup: drapion vs. genesectdouse
+|chat|DEBUG|Getting matchup: togedemaru vs. genesectdouse
+|chat|DEBUG|Getting matchup: slowbrogalar vs. genesectdouse
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['aggron', 'gyarados', 'drapion', 'slowbrogalar']}, 'genesectdouse': {'checks': [], 'counter': ['aggron', 'drapion', 'togedemaru', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 190
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'shellsidearm', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: genesectdouse
+|chat|DEBUG|>['ironhead', 'technoblast', 'thunderbolt', 'uturn']
+|chat|DEBUG|Best own move: ('flamethrower', 290.5)
+|chat|DEBUG|Best enemy move: ('technoblast', 90.5)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('flamethrower', 290.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Iron Head|p2a: Slowbro
+|-damage|p2a: Slowbro|198/304
+|move|p2a: Slowbro|Flamethrower|p1a: Genesect
+|-supereffective|p1a: Genesect
+|-damage|p1a: Genesect|0 fnt
+|faint|p1a: Genesect
+|-damage|p2a: Slowbro|168/304|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Obstagoon|Obstagoon, L80, F|100/100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs obstagoon
+|chat|DEBUG|Updating information about obstagoon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: lilligant vs. obstagoon
+|chat|DEBUG|Getting matchup: aggron vs. obstagoon
+|chat|DEBUG|Getting matchup: gyarados vs. obstagoon
+|chat|DEBUG|Getting matchup: drapion vs. obstagoon
+|chat|DEBUG|Getting matchup: togedemaru vs. obstagoon
+|chat|DEBUG|Getting matchup: slowbrogalar vs. obstagoon
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['aggron', 'gyarados', 'drapion', 'slowbrogalar']}, 'obstagoon': {'checks': [], 'counter': ['lilligant', 'aggron', 'drapion']}}
+|chat|DEBUG|Speed: 56 - 198
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'shellsidearm', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: obstagoon
+|chat|DEBUG|>['bulkup', 'closecombat', 'facade', 'knockoff']
+|chat|DEBUG|Best own move: ('shellsidearm', 114.3125)
+|chat|DEBUG|Best enemy move: ('knockoff', 164.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: lilligant
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lilligant|Lilligant, L84, F|255/255
+|-damage|p2a: Lilligant|224/255|[from] Stealth Rock
+|move|p1a: Obstagoon|Knock Off|p2a: Lilligant
+|-damage|p2a: Lilligant|122/255
+|-enditem|p2a: Lilligant|Life Orb|[from] move: Knock Off|[of] p1a: Obstagoon
+|-status|p1a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lilligant slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: lilligant vs obstagoon
+|chat|DEBUG|Updating information about obstagoon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Getting matchup: slowbrogalar vs. obstagoon
+|chat|DEBUG|Getting matchup: aggron vs. obstagoon
+|chat|DEBUG|Getting matchup: gyarados vs. obstagoon
+|chat|DEBUG|Getting matchup: drapion vs. obstagoon
+|chat|DEBUG|Getting matchup: togedemaru vs. obstagoon
+|chat|DEBUG|Getting matchup: lilligant vs. obstagoon
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['slowbrogalar', 'aggron', 'gyarados', 'drapion']}, 'obstagoon': {'checks': [], 'counter': ['aggron', 'drapion', 'lilligant']}}
+|chat|DEBUG|Speed: 199 - 198
+|chat|DEBUG|Most likely moves for: lilligant
+|chat|DEBUG|>['petaldance', 'quiverdance', 'gigadrain', 'pollenpuff']
+|chat|DEBUG|Most likely moves for: obstagoon
+|chat|DEBUG|>['bulkup', 'closecombat', 'facade', 'knockoff']
+|chat|DEBUG|Best own move: ('pollenpuff', 156.375)
+|chat|DEBUG|Best enemy move: ('closecombat', 83.75)
+|chat|DEBUG|Picking the most damaging move from lilligant against obstagoon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lilligant|Pollen Puff|p1a: Obstagoon
+|-supereffective|p1a: Obstagoon
+|-damage|p1a: Obstagoon|45/100 brn
+|move|p1a: Obstagoon|Facade|p2a: Lilligant
+|-damage|p2a: Lilligant|0 fnt
+|faint|p2a: Lilligant
+|-damage|p1a: Obstagoon|39/100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aggron|Aggron, L85, M|258/258
+|-damage|p2a: Aggron|242/258|[from] Stealth Rock
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: lilligant vs obstagoon
+|chat|DEBUG|Updating information about obstagoon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: lilligant vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. obstagoon
+|chat|DEBUG|Getting matchup: aggron vs. obstagoon
+|chat|DEBUG|Getting matchup: gyarados vs. obstagoon
+|chat|DEBUG|Getting matchup: drapion vs. obstagoon
+|chat|DEBUG|Getting matchup: togedemaru vs. obstagoon
+|chat|DEBUG|Getting matchup: lilligant vs. obstagoon
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['slowbrogalar', 'aggron', 'gyarados', 'drapion']}, 'obstagoon': {'checks': [], 'counter': ['aggron', 'drapion', 'lilligant']}}
+|chat|DEBUG|>>Switching to counter: aggron
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Obstagoon|Close Combat|p2a: Aggron
+|-supereffective|p2a: Aggron
+|-damage|p2a: Aggron|18/258
+|-unboost|p1a: Obstagoon|def|1
+|-unboost|p1a: Obstagoon|spd|1
+|move|p2a: Aggron|Body Press|p1a: Obstagoon
+|-supereffective|p1a: Obstagoon
+|-damage|p1a: Obstagoon|0 fnt
+|faint|p1a: Obstagoon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zeraora|Zeraora, L76|100/100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: aggron vs obstagoon
+|chat|DEBUG|Updating information about obstagoon
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: flameorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. obstagoon
+|chat|DEBUG|Getting matchup: gyarados vs. obstagoon
+|chat|DEBUG|Getting matchup: drapion vs. obstagoon
+|chat|DEBUG|Getting matchup: togedemaru vs. obstagoon
+|chat|DEBUG|Getting matchup: aggron vs. obstagoon
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['slowbrogalar', 'gyarados', 'drapion', 'aggron']}, 'obstagoon': {'checks': [], 'counter': ['drapion', 'aggron']}}
+|chat|DEBUG|Speed: 134 - 198
+|chat|DEBUG|Most likely moves for: aggron
+|chat|DEBUG|>['earthquake', 'bodypress', 'headsmash', 'heavyslam']
+|chat|DEBUG|Most likely moves for: obstagoon
+|chat|DEBUG|>['bulkup', 'closecombat', 'facade', 'knockoff']
+|chat|DEBUG|Best own move: ('bodypress', 370.0)
+|chat|DEBUG|Best enemy move: ('closecombat', 164.75)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('bodypress', 370.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Blaze Kick|p2a: Aggron
+|-damage|p2a: Aggron|0 fnt
+|faint|p2a: Aggron
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro-Galar, L86, F|269/304
+|-damage|p2a: Slowbro|231/304|[from] Stealth Rock
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowbrogalar aggron gyarados drapion togedemaru
+|chat|DEBUG|Matchup: aggron vs zeraora
+|chat|DEBUG|Updating information about zeraora
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. zeraora
+|chat|DEBUG|Getting matchup: gyarados vs. zeraora
+|chat|DEBUG|Getting matchup: drapion vs. zeraora
+|chat|DEBUG|Getting matchup: togedemaru vs. zeraora
+|chat|DEBUG|Getting matchup: aggron vs. zeraora
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['slowbrogalar', 'gyarados', 'drapion', 'aggron']}, 'zeraora': {'checks': [], 'counter': ['slowbrogalar', 'drapion', 'aggron']}}
+|chat|DEBUG|Speed: 134 - 261
+|chat|DEBUG|Most likely moves for: aggron
+|chat|DEBUG|>['bodypress']
+|chat|DEBUG|Most likely moves for: zeraora
+|chat|DEBUG|>['bulkup', 'knockoff', 'plasmafists', 'playrough']
+|chat|DEBUG|Best own move: ('bodypress', 120.6875)
+|chat|DEBUG|Best enemy move: ('plasmafists', 54.75)
+|chat|DEBUG|Picking the most damaging move from aggron against zeraora
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Blaze Kick|p2a: Slowbro
+|-damage|p2a: Slowbro|177/304
+|-status|p2a: Slowbro|brn
+|move|p2a: Slowbro|Shell Side Arm|p1a: Zeraora|[anim] Shell Side Arm Physical
+|-damage|p1a: Zeraora|67/100
+|-hint|Physical Shell Side Arm
+|-damage|p2a: Slowbro|147/304 brn|[from] item: Life Orb
+|-damage|p2a: Slowbro|128/304 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowbrogalar gyarados drapion togedemaru
+|chat|DEBUG|Matchup: aggron vs zeraora
+|chat|DEBUG|Updating information about zeraora
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: choiceband
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: aggron vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. zeraora
+|chat|DEBUG|Getting matchup: gyarados vs. zeraora
+|chat|DEBUG|Getting matchup: drapion vs. zeraora
+|chat|DEBUG|Getting matchup: togedemaru vs. zeraora
+|chat|DEBUG|Getting matchup: aggron vs. zeraora
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['slowbrogalar', 'gyarados', 'drapion', 'aggron']}, 'zeraora': {'checks': [], 'counter': ['slowbrogalar', 'drapion', 'aggron']}}
+|chat|DEBUG|>>Switching to counter: slowbrogalar
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Plasma Fists|p2a: Slowbro
+|-damage|p2a: Slowbro|44/304 brn
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|move|p2a: Slowbro|Shell Side Arm|p1a: Zeraora|[anim] Shell Side Arm Physical
+|-damage|p1a: Zeraora|38/100
+|-hint|Physical Shell Side Arm
+|-damage|p2a: Slowbro|14/304 brn|[from] item: Life Orb
+|-damage|p2a: Slowbro|0 fnt|[from] brn
+|faint|p2a: Slowbro
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Drapion|Drapion, L82, F|249/249
+|-damage|p2a: Drapion|218/249|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowbrogalar gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs zeraora
+|chat|DEBUG|Updating information about zeraora
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. zeraora
+|chat|DEBUG|Getting matchup: drapion vs. zeraora
+|chat|DEBUG|Getting matchup: togedemaru vs. zeraora
+|chat|DEBUG|Getting matchup: slowbrogalar vs. zeraora
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion', 'slowbrogalar']}, 'zeraora': {'checks': [], 'counter': ['drapion', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 261
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'shellsidearm', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: zeraora
+|chat|DEBUG|>['bulkup', 'knockoff', 'plasmafists', 'playrough']
+|chat|DEBUG|Best own move: ('shellsidearm', 126.8125)
+|chat|DEBUG|Best enemy move: ('knockoff', 117.5)
+|chat|DEBUG|Picking the most damaging move from slowbrogalar against zeraora
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zeraora|Close Combat|p2a: Drapion
+|-damage|p2a: Drapion|147/249
+|-unboost|p1a: Zeraora|def|1
+|-unboost|p1a: Zeraora|spd|1
+|move|p2a: Drapion|Earthquake|p1a: Zeraora
+|-supereffective|p1a: Zeraora
+|-damage|p1a: Zeraora|0 fnt
+|faint|p1a: Zeraora
+|-damage|p2a: Drapion|123/249|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Farfetch’d|Farfetch’d, L90, M|100/100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>slowbrogalar gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs zeraora
+|chat|DEBUG|Updating information about zeraora
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. zeraora
+|chat|DEBUG|Getting matchup: drapion vs. zeraora
+|chat|DEBUG|Getting matchup: togedemaru vs. zeraora
+|chat|DEBUG|Getting matchup: slowbrogalar vs. zeraora
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion', 'slowbrogalar']}, 'zeraora': {'checks': [], 'counter': ['drapion', 'slowbrogalar']}}
+|chat|DEBUG|Speed: 56 - 261
+|chat|DEBUG|Most likely moves for: slowbrogalar
+|chat|DEBUG|>['flamethrower', 'shellsidearm', 'trickroom', 'psychic']
+|chat|DEBUG|Most likely moves for: zeraora
+|chat|DEBUG|>['bulkup', 'knockoff', 'plasmafists', 'playrough']
+|chat|DEBUG|Best own move: ('shellsidearm', 126.8125)
+|chat|DEBUG|Best enemy move: ('knockoff', 117.5)
+|chat|DEBUG|Picking the most damaging move from slowbrogalar against zeraora
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Drapion|Dynamax
+|-heal|p2a: Drapion|246/498|[silent]
+|-start|p1a: Farfetch’d|Dynamax
+|-heal|p1a: Farfetch’d|100/100|[silent]
+|move|p2a: Drapion|Max Darkness|p1a: Farfetch’d
+|-damage|p1a: Farfetch’d|61/100
+|-unboost|p1a: Farfetch’d|spd|1
+|-ability|p1a: Farfetch’d|Defiant
+|-boost|p1a: Farfetch’d|atk|2
+|-damage|p2a: Drapion|222/498|[from] item: Life Orb
+|move|p1a: Farfetch’d|Max Knuckle|p2a: Drapion
+|-damage|p2a: Drapion|107/498
+|-boost|p1a: Farfetch’d|atk|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados drapion togedemaru
+|chat|DEBUG|Matchup: slowbrogalar vs zeraora
+|chat|DEBUG|Updating information about zeraora
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: slowbrogalar vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. zeraora
+|chat|DEBUG|Getting matchup: drapion vs. zeraora
+|chat|DEBUG|Getting matchup: togedemaru vs. zeraora
+|chat|DEBUG|Getting matchup: slowbrogalar vs. zeraora
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion', 'slowbrogalar']}, 'zeraora': {'checks': [], 'counter': ['drapion', 'slowbrogalar']}}
+|chat|DEBUG|>>Switching to counter: drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drapion|Max Darkness|p1a: Farfetch’d
+|-damage|p1a: Farfetch’d|24/100
+|-unboost|p1a: Farfetch’d|spd|1
+|-ability|p1a: Farfetch’d|Defiant
+|-boost|p1a: Farfetch’d|atk|2
+|-damage|p2a: Drapion|83/498|[from] item: Life Orb
+|move|p1a: Farfetch’d|Max Knuckle|p2a: Drapion
+|-damage|p2a: Drapion|0 fnt
+|-boost|p1a: Farfetch’d|atk|1
+|faint|p2a: Drapion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Togedemaru|Togedemaru, L86, F|252/252
+|-damage|p2a: Togedemaru|237/252|[from] Stealth Rock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados drapion togedemaru
+|chat|DEBUG|Matchup: drapion vs zeraora
+|chat|DEBUG|Updating information about zeraora
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. zeraora
+|chat|DEBUG|Getting matchup: togedemaru vs. zeraora
+|chat|DEBUG|Getting matchup: drapion vs. zeraora
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion']}, 'zeraora': {'checks': [], 'counter': ['drapion']}}
+|chat|DEBUG|Speed: 203 - 261
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['poisonjab', 'swordsdance', 'earthquake', 'knockoff']
+|chat|DEBUG|Most likely moves for: zeraora
+|chat|DEBUG|>['bulkup', 'knockoff', 'plasmafists', 'playrough']
+|chat|DEBUG|Best own move: ('earthquake', 156.375)
+|chat|DEBUG|Best enemy move: ('plasmafists', 85.0625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('earthquake', 156.375)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Togedemaru|Zing Zap|p1a: Farfetch’d
+|-supereffective|p1a: Farfetch’d
+|-damage|p1a: Farfetch’d|0 fnt
+|faint|p1a: Farfetch’d
+|-heal|p2a: Togedemaru|252/252|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Azelf|Azelf, L82|34/100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados drapion togedemaru
+|chat|DEBUG|Matchup: drapion vs farfetchd
+|chat|DEBUG|Updating information about farfetchd
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leek
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. farfetchd
+|chat|DEBUG|Getting matchup: togedemaru vs. farfetchd
+|chat|DEBUG|Getting matchup: drapion vs. farfetchd
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion']}, 'farfetchd': {'checks': [], 'counter': ['togedemaru', 'drapion']}}
+|chat|DEBUG|Speed: 203 - 159
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['poisonjab', 'swordsdance', 'earthquake', 'knockoff']
+|chat|DEBUG|Most likely moves for: farfetchd
+|chat|DEBUG|>['bravebird', 'knockoff', 'leafblade', 'swordsdance']
+|chat|DEBUG|Best own move: ('knockoff', 119.75)
+|chat|DEBUG|Best enemy move: ('bravebird', 119.75)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Azelf|Taunt|p2a: Togedemaru
+|-start|p2a: Togedemaru|move: Taunt
+|move|p2a: Togedemaru|Iron Head|p1a: Azelf
+|-damage|p1a: Azelf|0 fnt
+|faint|p1a: Azelf
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hawlucha|Hawlucha, L80, F|100/100
+|-ability|p1a: Hawlucha|Mold Breaker
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados drapion togedemaru
+|chat|DEBUG|Matchup: drapion vs farfetchd
+|chat|DEBUG|Updating information about farfetchd
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leek
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. farfetchd
+|chat|DEBUG|Getting matchup: togedemaru vs. farfetchd
+|chat|DEBUG|Getting matchup: drapion vs. farfetchd
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion']}, 'farfetchd': {'checks': [], 'counter': ['togedemaru', 'drapion']}}
+|chat|DEBUG|Speed: 203 - 159
+|chat|DEBUG|Most likely moves for: drapion
+|chat|DEBUG|>['poisonjab', 'swordsdance', 'earthquake', 'knockoff']
+|chat|DEBUG|Most likely moves for: farfetchd
+|chat|DEBUG|>['bravebird', 'knockoff', 'leafblade', 'swordsdance']
+|chat|DEBUG|Best own move: ('knockoff', 119.75)
+|chat|DEBUG|Best enemy move: ('bravebird', 119.75)
+|chat|DEBUG|Picking the most damaging move from drapion against farfetchd
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gyarados|Gyarados, L76, M|269/269
+|move|p1a: Hawlucha|Close Combat|p2a: Gyarados
+|-resisted|p2a: Gyarados
+|-damage|p2a: Gyarados|164/269
+|-unboost|p1a: Hawlucha|def|1
+|-unboost|p1a: Hawlucha|spd|1
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados togedemaru
+|chat|DEBUG|Matchup: drapion vs farfetchd
+|chat|DEBUG|Updating information about farfetchd
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leek
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: drapion vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. farfetchd
+|chat|DEBUG|Getting matchup: togedemaru vs. farfetchd
+|chat|DEBUG|Getting matchup: drapion vs. farfetchd
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados', 'drapion']}, 'farfetchd': {'checks': [], 'counter': ['togedemaru', 'drapion']}}
+|chat|DEBUG|>>Switching to counter: togedemaru
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hawlucha|Close Combat|p2a: Gyarados
+|-resisted|p2a: Gyarados
+|-damage|p2a: Gyarados|71/269
+|-unboost|p1a: Hawlucha|def|1
+|-unboost|p1a: Hawlucha|spd|1
+|move|p2a: Gyarados|Bounce||[still]
+|-prepare|p2a: Gyarados|Bounce
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados togedemaru
+|chat|DEBUG|Matchup: togedemaru vs farfetchd
+|chat|DEBUG|Updating information about farfetchd
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: leek
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: gyarados vs. azelf
+|chat|DEBUG|Getting matchup: togedemaru vs. azelf
+|chat|DEBUG|Getting matchup: gyarados vs. farfetchd
+|chat|DEBUG|Getting matchup: togedemaru vs. farfetchd
+|chat|DEBUG|Checks / Counter: {'azelf': {'checks': [], 'counter': ['gyarados']}, 'farfetchd': {'checks': [], 'counter': ['togedemaru']}}
+|chat|DEBUG|Speed: 214 - 159
+|chat|DEBUG|Most likely moves for: togedemaru
+|chat|DEBUG|>['zingzap', 'spikyshield', 'nuzzle', 'ironhead']
+|chat|DEBUG|Most likely moves for: farfetchd
+|chat|DEBUG|>['bravebird', 'knockoff', 'leafblade', 'swordsdance']
+|chat|DEBUG|Best own move: ('zingzap', 234.0)
+|chat|DEBUG|Best enemy move: ('knockoff', 92.5625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('zingzap', 234.0)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hawlucha|Close Combat|p2a: Gyarados|[miss]
+|-miss|p1a: Hawlucha|p2a: Gyarados
+|move|p2a: Gyarados|Bounce|p1a: Hawlucha|[from]lockedmove
+|-supereffective|p1a: Hawlucha
+|-damage|p1a: Hawlucha|0 fnt
+|faint|p1a: Hawlucha
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Lost City<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lilligant slowbrogalar aggron gyarados drapion togedemaru</h1>

@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491943750<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491943750|init|battle
+|title|Sfasofratm vs. McGewitter
+|j|☆Sfasofratm
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Sfasofratm|265|1259
+|player|p2|McGewitter|265|1215
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Guzzlord|Guzzlord, L84|100100
+|switch|p2a: Jellicent|Jellicent, L84, M|305305
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard machamp comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-machamp-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: shadowball scald willowisp recover
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: ['machamp']
+|chat|DEBUG|Counter: ['machamp', 'zeraora']
+|chat|DEBUG|Speed: 149 vs 120
+|chat|DEBUG|HP: 305 vs 512
+|chat|DEBUG|Created a new Strategy for jellicent vs guzzlord:
+|chat|DEBUG|>[scald: 36.6875 [33, 40], scald: 36.6875 [33, 40], scald: 36.6875 [33, 40]]
+|chat|DEBUG|Best move of jellicent (p1): scald: 36.6875 [33, 40]
+|chat|DEBUG|Best move of guzzlord (p2): knockoff: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check machamp
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Machamp|Machamp, L82, F|282282
+|move|p1a: Guzzlord|Knock Off|p2a: Machamp
+|-resisted|p2a: Machamp
+|-damage|p2a: Machamp|222282
+|-enditem|p2a: Machamp|Flame Orb|[from] move: Knock Off|[of] p1a: Guzzlord
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard machamp comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "machamp" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-machamp-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: facade bulletpunch closecombat knockoff
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: ['machamp']
+|chat|DEBUG|Counter: ['machamp', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 137 vs 120
+|chat|DEBUG|HP: 222 vs 512
+|chat|DEBUG|Created a new Strategy for machamp vs guzzlord:
+|chat|DEBUG|>[closecombat: 431.0 [396, 468], closecombat: 431.0 [396, 468], closecombat: 431.0 [396, 468]]
+|chat|DEBUG|Best move of machamp (p1): closecombat: 431.0 [396, 468]
+|chat|DEBUG|Best move of guzzlord (p2): fireblast: 80.9375 [74, 88]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wobbuffet|Wobbuffet, L92, F|100100
+|move|p2a: Machamp|Close Combat|p1a: Wobbuffet
+|-resisted|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|82100
+|-unboost|p2a: Machamp|def|1
+|-unboost|p2a: Machamp|spd|1
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard machamp comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "machamp" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-machamp-comfey-zeraora -- guzzlord-wobbuffet
+|chat|DEBUG|Own moves: facade bulletpunch closecombat knockoff
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['jellicent', 'stunfiskgalar', 'charizard', 'machamp', 'comfey', 'zeraora']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'machamp', 'comfey', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 137 vs 113
+|chat|DEBUG|HP: 222 vs 409
+|chat|DEBUG|Created a new Strategy for machamp vs wobbuffet:
+|chat|DEBUG|>[knockoff: 200.625 [184, 218], knockoff: 200.625 [184, 218], knockoff: 200.625 [184, 218]]
+|chat|DEBUG|Best move of machamp (p1): knockoff: 200.625 [184, 218]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Machamp|Knock Off|p1a: Wobbuffet
+|-supereffective|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|44100
+|-enditem|p1a: Wobbuffet|Sitrus Berry|[from] move: Knock Off|[of] p2a: Machamp
+|move|p1a: Wobbuffet|Counter|p2a: Machamp
+|-damage|p2a: Machamp|0 fnt
+|faint|p2a: Machamp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Jellicent|Jellicent, L84, M|305305
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "machamp" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord-wobbuffet
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to jellicent (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Scald|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|24100
+|-status|p1a: Wobbuffet|brn
+|move|p1a: Wobbuffet|Charm|p2a: Jellicent
+|-unboost|p2a: Jellicent|atk|2
+|-damage|p1a: Wobbuffet|18100 brn|[from] brn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord-wobbuffet
+|chat|DEBUG|Own moves: shadowball scald willowisp recover
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 149 vs 113
+|chat|DEBUG|HP: 305 vs 219
+|chat|DEBUG|Created a new Strategy for jellicent vs wobbuffet:
+|chat|DEBUG|>[shadowball: 189.75 [174, 206], shadowball: 189.75 [174, 206], shadowball: 189.75 [174, 206]]
+|chat|DEBUG|Best move of jellicent (p1): shadowball: 189.75 [174, 206]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['guzzlord']
+|chat|DEBUG|Expected enemy: guzzlord
+|chat|DEBUG|Using move scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Shadow Ball|p1a: Wobbuffet
+|-supereffective|p1a: Wobbuffet
+|-damage|p1a: Wobbuffet|0 fnt
+|faint|p1a: Wobbuffet
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Guzzlord|Guzzlord, L84|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "wobbuffet"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord-wobbuffet
+|chat|DEBUG|Own moves: shadowball scald willowisp recover
+|chat|DEBUG|Enemy moves: charm counter encore mirrorcoat
+|chat|DEBUG|Checks: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 149 vs 113
+|chat|DEBUG|HP: 305 vs 89
+|chat|DEBUG|Best move of jellicent (p1): shadowball: 189.75 [174, 206]
+|chat|DEBUG|Best move of wobbuffet (p2): mirrorcoat: 0.0 [0, 0]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Scald|p1a: Guzzlord
+|-resisted|p1a: Guzzlord
+|-damage|p1a: Guzzlord|94100
+|-status|p1a: Guzzlord|brn
+|move|p1a: Guzzlord|Knock Off|p2a: Jellicent
+|-supereffective|p2a: Jellicent
+|-damage|p2a: Jellicent|188305
+|-enditem|p2a: Jellicent|Leftovers|[from] move: Knock Off|[of] p1a: Guzzlord
+|-damage|p1a: Guzzlord|87100 brn|[from] brn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: shadowball scald willowisp recover
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora']
+|chat|DEBUG|Speed: 149 vs 120
+|chat|DEBUG|HP: 305 vs 512
+|chat|DEBUG|Created a new Strategy for jellicent vs guzzlord:
+|chat|DEBUG|>[scald: 36.6875 [33, 40], scald: 36.6875 [33, 40], scald: 36.6875 [33, 40]]
+|chat|DEBUG|Best move of jellicent (p1): scald: 36.6875 [33, 40]
+|chat|DEBUG|Best move of guzzlord (p2): knockoff: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Jellicent|Scald|p1a: Guzzlord
+|-resisted|p1a: Guzzlord
+|-damage|p1a: Guzzlord|80100 brn
+|move|p1a: Guzzlord|Sludge Bomb|p2a: Jellicent
+|-resisted|p2a: Jellicent
+|-damage|p2a: Jellicent|162305
+|-status|p2a: Jellicent|psn
+|-damage|p2a: Jellicent|124305 psn|[from] psn
+|-damage|p1a: Guzzlord|74100 brn|[from] brn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: shadowball scald willowisp recover
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Speed: 149 vs 120
+|chat|DEBUG|HP: 188 vs 445
+|chat|DEBUG|Best move of jellicent (p1): scald: 36.6875 [33, 40]
+|chat|DEBUG|Best move of guzzlord (p2): knockoff: 167.25 [152, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|259259
+|move|p1a: Guzzlord|Knock Off|p2a: Zeraora
+|-damage|p2a: Zeraora|190259
+|-enditem|p2a: Zeraora|Life Orb|[from] move: Knock Off|[of] p1a: Guzzlord
+|-damage|p1a: Guzzlord|67100 brn|[from] brn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: shadowball scald willowisp recover
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: ['zeraora']
+|chat|DEBUG|Counter: ['charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Speed: 149 vs 120
+|chat|DEBUG|HP: 124 vs 378
+|chat|DEBUG|Best move of jellicent (p1): scald: 36.6875 [33, 40]
+|chat|DEBUG|Best move of guzzlord (p2): knockoff: 167.25 [152, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zeraora
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Play Rough|p1a: Guzzlord
+|-supereffective|p1a: Guzzlord
+|-damage|p1a: Guzzlord|7100 brn
+|move|p1a: Guzzlord|Draco Meteor|p2a: Zeraora
+|-damage|p2a: Zeraora|42259
+|-unboost|p1a: Guzzlord|spa|2
+|-damage|p1a: Guzzlord|1100 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: playrough blazekick bulkup plasmafists
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Speed: 261 vs 120
+|chat|DEBUG|HP: 190 vs 343
+|chat|DEBUG|Created a new Strategy for zeraora vs guzzlord:
+|chat|DEBUG|>[playrough: 335.0 [308, 364], playrough: 335.0 [308, 364], playrough: 335.0 [308, 364]]
+|chat|DEBUG|Best move of zeraora (p1): playrough: 335.0 [308, 364]
+|chat|DEBUG|Best move of guzzlord (p2): knockoff: 87.9375 [81, 96]
+|chat|DEBUG|Attacking using playrough
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Play Rough|p1a: Guzzlord
+|-supereffective|p1a: Guzzlord
+|-damage|p1a: Guzzlord|0 fnt
+|faint|p1a: Guzzlord
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Genesect|Genesect-Douse, L74|100100
+|-ability|p1a: Genesect|Download|boost
+|-boost|p1a: Genesect|atk|1
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "guzzlord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- guzzlord
+|chat|DEBUG|Own moves: playrough blazekick bulkup plasmafists
+|chat|DEBUG|Enemy moves: dracometeor fireblast knockoff sludgebomb
+|chat|DEBUG|Checks: ['stunfiskgalar', 'charizard', 'comfey']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'comfey', 'zeraora']
+|chat|DEBUG|Speed: 261 vs 120
+|chat|DEBUG|HP: 42 vs 5
+|chat|DEBUG|Best move of zeraora (p1): playrough: 335.0 [308, 364]
+|chat|DEBUG|Best move of guzzlord (p2): knockoff: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Blaze Kick|p1a: Genesect
+|-supereffective|p1a: Genesect
+|-damage|p1a: Genesect|0 fnt
+|faint|p1a: Genesect
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Bronzong|Bronzong, L82|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "genesectdouse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- genesectdouse
+|chat|DEBUG|Own moves: playrough blazekick bulkup plasmafists
+|chat|DEBUG|Enemy moves: flamethrower ironhead technoblast uturn
+|chat|DEBUG|Checks: ['charizard']
+|chat|DEBUG|Counter: ['charizard', 'zeraora']
+|chat|DEBUG|Speed: 261 vs 190
+|chat|DEBUG|HP: 42 vs 227
+|chat|DEBUG|Created a new Strategy for zeraora vs genesectdouse:
+|chat|DEBUG|>[blazekick: 238.75 [220, 260], blazekick: 238.75 [220, 260], blazekick: 238.75 [220, 260]]
+|chat|DEBUG|Best move of zeraora (p1): blazekick: 238.75 [220, 260]
+|chat|DEBUG|Best move of genesectdouse (p2): uturn: 169.6875 [156, 184]
+|chat|DEBUG|Attacking using blazekick
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, M|262262
+|move|p1a: Bronzong|Earthquake|p2a: Charizard
+|-immune|p2a: Charizard
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- bronzong
+|chat|DEBUG|Own moves: playrough blazekick bulkup plasmafists
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['charizard']
+|chat|DEBUG|Counter: ['jellicent', 'charizard']
+|chat|DEBUG|Speed: 261 vs 101
+|chat|DEBUG|HP: 42 vs 244
+|chat|DEBUG|Created a new Strategy for zeraora vs bronzong:
+|chat|DEBUG|>[blazekick: 93.125 [86, 102], blazekick: 93.125 [86, 102], blazekick: 93.125 [86, 102]]
+|chat|DEBUG|Best move of zeraora (p1): blazekick: 93.125 [86, 102]
+|chat|DEBUG|Best move of bronzong (p2): earthquake: 156.375 [144, 170]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check charizard
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|move|p2a: Charizard|Fire Blast|p1a: Tapu Fini
+|-resisted|p1a: Tapu Fini
+|-crit|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|69100
+|-heal|p1a: Tapu Fini|75100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- bronzong
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['charizard']
+|chat|DEBUG|Counter: ['jellicent', 'charizard']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 262 vs 244
+|chat|DEBUG|Created a new Strategy for charizard vs bronzong:
+|chat|DEBUG|>[fireblast: 200.75 [186, 218], fireblast: 200.75 [186, 218], fireblast: 200.75 [186, 218]]
+|chat|DEBUG|Best move of charizard (p1): fireblast: 200.75 [186, 218]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 41.5625 [38, 45]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Comfey|Comfey, L86, F|228228
+|move|p1a: Tapu Fini|Calm Mind|p1a: Tapu Fini
+|-boost|p1a: Tapu Fini|spa|1
+|-boost|p1a: Tapu Fini|spd|1
+|-heal|p1a: Tapu Fini|81100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- bronzong-tapufini
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['comfey']
+|chat|DEBUG|Counter: ['comfey']
+|chat|DEBUG|Speed: 211 vs 178
+|chat|DEBUG|HP: 262 vs 177
+|chat|DEBUG|Created a new Strategy for charizard vs tapufini:
+|chat|DEBUG|>[airslash: 65.75 [60, 72], airslash: 65.75 [60, 72], airslash: 65.75 [60, 72]]
+|chat|DEBUG|Best move of charizard (p1): airslash: 65.75 [60, 72]
+|chat|DEBUG|Best move of tapufini (p2): surf: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check comfey
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Comfey|Giga Drain|p1a: Tapu Fini
+|-supereffective|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|51100
+|-damage|p2a: Comfey|206228|[from] item: Life Orb
+|move|p1a: Tapu Fini|Surf|p2a: Comfey
+|-damage|p2a: Comfey|104228
+|-heal|p1a: Tapu Fini|57100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- bronzong-tapufini
+|chat|DEBUG|Own moves: drainingkiss calmmind storedpower gigadrain
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 228 vs 191
+|chat|DEBUG|Created a new Strategy for comfey vs tapufini:
+|chat|DEBUG|>[gigadrain: 68.4375 [62, 75], gigadrain: 68.4375 [62, 75], gigadrain: 68.4375 [62, 75]]
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 68.4375 [62, 75]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Comfey|Giga Drain|p1a: Tapu Fini
+|-supereffective|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|30100
+|-heal|p2a: Comfey|137228|[from] drain|[of] p1a: Tapu Fini
+|-damage|p2a: Comfey|115228|[from] item: Life Orb
+|move|p1a: Tapu Fini|Surf|p2a: Comfey
+|-damage|p2a: Comfey|16228
+|-heal|p1a: Tapu Fini|36100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- bronzong-tapufini
+|chat|DEBUG|Own moves: drainingkiss calmmind storedpower gigadrain
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora']
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 104 vs 135
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 68.4375 [62, 75]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Comfey|Giga Drain|p1a: Tapu Fini
+|-supereffective|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|8100
+|-heal|p2a: Comfey|49228|[from] drain|[of] p1a: Tapu Fini
+|-damage|p2a: Comfey|27228|[from] item: Life Orb
+|move|p1a: Tapu Fini|Surf|p2a: Comfey
+|-damage|p2a: Comfey|0 fnt
+|faint|p2a: Comfey
+|-heal|p1a: Tapu Fini|14100|[from] item: Leftovers
+|-fieldend|Misty Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zeraora|Zeraora, L76|42259
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard comfey zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-comfey-zeraora -- bronzong-tapufini
+|chat|DEBUG|Own moves: drainingkiss calmmind storedpower gigadrain
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora']
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 16 vs 85
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 68.4375 [62, 75]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zeraora|Plasma Fists|p1a: Tapu Fini
+|-supereffective|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|0 fnt
+|-fieldactivate|move: Ion Deluge
+|-hint|Normal-type moves become Electric-type after using Plasma Fists.
+|faint|p1a: Tapu Fini
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Bronzong|Bronzong, L82|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- bronzong-tapufini
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zeraora']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zeraora (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Charizard|Charizard, L82, M|262262
+|move|p1a: Bronzong|Iron Head|p2a: Charizard
+|-resisted|p2a: Charizard
+|-damage|p2a: Charizard|220262
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- bronzong-tapufini
+|chat|DEBUG|Own moves: playrough blazekick bulkup plasmafists
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['charizard']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'zeraora']
+|chat|DEBUG|Speed: 261 vs 178
+|chat|DEBUG|HP: 42 vs 33
+|chat|DEBUG|Created a new Strategy for zeraora vs tapufini:
+|chat|DEBUG|>[plasmafists: 172.875 [158, 188], plasmafists: 172.875 [158, 188], plasmafists: 172.875 [158, 188]]
+|chat|DEBUG|Best move of zeraora (p1): plasmafists: 172.875 [158, 188]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 153.0 [141, 166]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Fire Blast|p1a: Bronzong
+|-supereffective|p1a: Bronzong
+|-damage|p1a: Bronzong|11100
+|move|p1a: Bronzong|Toxic|p2a: Charizard
+|-status|p2a: Charizard|tox
+|-heal|p1a: Bronzong|17100|[from] item: Leftovers
+|-damage|p2a: Charizard|204262 tox|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zeraora" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- bronzong
+|chat|DEBUG|Own moves: playrough blazekick bulkup plasmafists
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['charizard']
+|chat|DEBUG|Counter: ['jellicent', 'charizard']
+|chat|DEBUG|Speed: 261 vs 101
+|chat|DEBUG|HP: 42 vs 244
+|chat|DEBUG|Created a new Strategy for zeraora vs bronzong:
+|chat|DEBUG|>[blazekick: 93.125 [86, 102], blazekick: 93.125 [86, 102], blazekick: 93.125 [86, 102]]
+|chat|DEBUG|Best move of zeraora (p1): blazekick: 93.125 [86, 102]
+|chat|DEBUG|Best move of bronzong (p2): earthquake: 156.375 [144, 170]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check charizard
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Bronzong|Protect|p1a: Bronzong
+|-singleturn|p1a: Bronzong|Protect
+|move|p2a: Charizard|Fire Blast|p1a: Bronzong
+|-activate|p1a: Bronzong|move: Protect
+|-heal|p1a: Bronzong|23100|[from] item: Leftovers
+|-damage|p2a: Charizard|172262 tox|[from] psn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- bronzong
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['charizard']
+|chat|DEBUG|Counter: ['jellicent', 'charizard']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 220 vs 244
+|chat|DEBUG|Created a new Strategy for charizard vs bronzong:
+|chat|DEBUG|>[fireblast: 200.75 [186, 218], fireblast: 200.75 [186, 218], fireblast: 200.75 [186, 218]]
+|chat|DEBUG|Best move of charizard (p1): fireblast: 200.75 [186, 218]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 41.5625 [38, 45]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Fire Blast|p1a: Bronzong
+|-supereffective|p1a: Bronzong
+|-damage|p1a: Bronzong|0 fnt
+|faint|p1a: Bronzong
+|-damage|p2a: Charizard|124262 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Shiinotic|Shiinotic, L86, F|100100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- bronzong
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['jellicent', 'stunfiskgalar', 'charizard']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 204 vs 41
+|chat|DEBUG|Best move of charizard (p1): fireblast: 200.75 [186, 218]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 41.5625 [38, 45]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Shiinotic|Dynamax
+|-heal|p1a: Shiinotic|100100|[silent]
+|move|p1a: Shiinotic|Max Guard|p1a: Shiinotic
+|-singleturn|p1a: Shiinotic|Max Guard
+|move|p2a: Charizard|Roost|p2a: Charizard
+|-heal|p2a: Charizard|255262 tox
+|-singleturn|p2a: Charizard|move: Roost
+|-damage|p2a: Charizard|191262 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "charizard" vs "bronzong"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- bronzong
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: earthquake ironhead protect toxic
+|chat|DEBUG|Checks: ['jellicent', 'charizard']
+|chat|DEBUG|Counter: ['jellicent', 'stunfiskgalar', 'charizard', 'zeraora']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 172 vs 56
+|chat|DEBUG|Best move of charizard (p1): fireblast: 200.75 [186, 218]
+|chat|DEBUG|Best move of bronzong (p2): ironhead: 41.5625 [38, 45]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Charizard|Dynamax
+|-heal|p2a: Charizard|382524 tox|[silent]
+|move|p2a: Charizard|Max Flare|p1a: Shiinotic
+|-supereffective|p1a: Shiinotic
+|-damage|p1a: Shiinotic|46100
+|-weather|SunnyDay
+|move|p1a: Shiinotic|Max Starfall|p2a: Charizard
+|-resisted|p2a: Charizard
+|-damage|p2a: Charizard|312524 tox
+|-fieldstart|move: Misty Terrain
+|-weather|SunnyDay|[upkeep]
+|-damage|p2a: Charizard|280524 tox|[from] ability: Solar Power|[of] p2a: Charizard
+|-heal|p1a: Shiinotic|49100|[from] item: Leftovers
+|-damage|p2a: Charizard|200524 tox|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "charizard" vs "shiinotic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- shiinotic
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: leechseed moonblast spore strengthsap
+|chat|DEBUG|Checks: ['stunfiskgalar', 'charizard']
+|chat|DEBUG|Counter: ['stunfiskgalar', 'charizard']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 124 vs 243
+|chat|DEBUG|Created a new Strategy for charizard vs shiinotic:
+|chat|DEBUG|>[fireblast: 214.625 [198, 234], fireblast: 214.625 [198, 234], fireblast: 214.625 [198, 234]]
+|chat|DEBUG|Best move of charizard (p1): fireblast: 214.625 [198, 234]
+|chat|DEBUG|Best move of shiinotic (p2): moonblast: 52.0 [48, 57]
+|chat|DEBUG|Healing using roost
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Max Guard|p2a: Charizard
+|-singleturn|p2a: Charizard|Max Guard
+|move|p1a: Shiinotic|Max Starfall|p2a: Charizard
+|-activate|p2a: Charizard|move: Max Guard
+|-weather|SunnyDay|[upkeep]
+|-damage|p2a: Charizard|168524 tox|[from] ability: Solar Power|[of] p2a: Charizard
+|-heal|p1a: Shiinotic|52100|[from] item: Leftovers
+|-damage|p2a: Charizard|72524 tox|[from] psn
+|-end|p1a: Shiinotic|Dynamax
+|-heal|p1a: Shiinotic|52100|[silent]
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>jellicent stunfiskgalar charizard zeraora
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "charizard" vs "shiinotic"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>jellicent-stunfiskgalar-charizard-zeraora -- shiinotic
+|chat|DEBUG|Own moves: airslash focusblast roost fireblast
+|chat|DEBUG|Enemy moves: leechseed moonblast spore strengthsap
+|chat|DEBUG|Checks: ['stunfiskgalar', 'charizard']
+|chat|DEBUG|Counter: ['stunfiskgalar', 'charizard']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 211 vs 101
+|chat|DEBUG|HP: 191 vs 243
+|chat|DEBUG|Best move of charizard (p1): fireblast: 214.625 [198, 234]
+|chat|DEBUG|Best move of shiinotic (p2): moonblast: 52.0 [48, 57]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Charizard|Max Flare|p1a: Shiinotic
+|-supereffective|p1a: Shiinotic
+|-crit|p1a: Shiinotic
+|-damage|p1a: Shiinotic|0 fnt
+|faint|p1a: Shiinotic
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Sfasofratm<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">jellicent stunfiskgalar charizard machamp comfey zeraora</h1>

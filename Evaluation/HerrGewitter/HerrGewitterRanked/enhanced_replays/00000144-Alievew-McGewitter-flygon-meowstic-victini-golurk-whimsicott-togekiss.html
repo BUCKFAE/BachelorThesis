@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490197345<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490197345|init|battle
+|title|Alievew vs. McGewitter
+|j|☆Alievew
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Alievew|lusamine-nihilego|1188
+|player|p2|McGewitter|265|1207
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Clefable|Clefable, L82, F|100100
+|switch|p2a: Flygon|Flygon, L80, F|259259
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-meowstic-victini-golurk-whimsicott-togekiss -- clefable
+|chat|DEBUG|Own moves: dragondance outrage earthquake firepunch
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['meowstic', 'victini', 'togekiss']
+|chat|DEBUG|Speed: 206 vs 146
+|chat|DEBUG|HP: 259 vs 290
+|chat|DEBUG|Created a new Strategy for flygon vs clefable:
+|chat|DEBUG|>[earthquake: 152.0 [140, 165], earthquake: 152.0 [140, 165], earthquake: 152.0 [140, 165]]
+|chat|DEBUG|Best move of flygon (p1): earthquake: 152.0 [140, 165]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 275.1875 [252, 299]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check victini
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|Alievew also wants the timer to be on.
+|switch|p2a: Victini|Victini, L78|283283
+|move|p1a: Clefable|Moonblast|p2a: Victini
+|-resisted|p2a: Victini
+|-damage|p2a: Victini|245283
+|-unboost|p2a: Victini|spa|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "clefable"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-meowstic-victini-golurk-whimsicott-togekiss -- clefable
+|chat|DEBUG|Own moves: energyball vcreate uturn boltstrike
+|chat|DEBUG|Enemy moves: calmmind fireblast moonblast softboiled
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['meowstic', 'victini', 'togekiss']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 201 vs 146
+|chat|DEBUG|HP: 245 vs 290
+|chat|DEBUG|Created a new Strategy for victini vs clefable:
+|chat|DEBUG|>[vcreate: 198.875 [183, 216], vcreate: 198.875 [183, 216], vcreate: 198.875 [183, 216]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 198.875 [183, 216]
+|chat|DEBUG|Best move of clefable (p2): moonblast: 39.75 [36, 43]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using vcreate
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gastrodon|Gastrodon-East, L84, F|100100
+|move|p2a: Victini|V-create|p1a: Gastrodon
+|-resisted|p1a: Gastrodon
+|-damage|p1a: Gastrodon|68100
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|-heal|p1a: Gastrodon|74100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "gastrodoneast"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-meowstic-victini-golurk-whimsicott-togekiss -- clefable-gastrodoneast
+|chat|DEBUG|Own moves: energyball vcreate uturn boltstrike
+|chat|DEBUG|Enemy moves: earthquake recover scald toxic
+|chat|DEBUG|Checks: ['flygon', 'whimsicott', 'togekiss']
+|chat|DEBUG|Counter: ['flygon', 'meowstic', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Speed: 201 vs 114
+|chat|DEBUG|HP: 245 vs 239
+|chat|DEBUG|Created a new Strategy for victini vs gastrodoneast:
+|chat|DEBUG|>[energyball: 161.0 [148, 176], energyball: 161.0 [148, 176], energyball: 161.0 [148, 176]]
+|chat|DEBUG|Best move of victini (p1): energyball: 161.0 [148, 176]
+|chat|DEBUG|Best move of gastrodoneast (p2): earthquake: 277.0 [254, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check flygon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Flygon|Flygon, L80, F|259259
+|move|p1a: Gastrodon|Scald|p2a: Flygon
+|-damage|p2a: Flygon|168259
+|-heal|p1a: Gastrodon|80100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "gastrodoneast"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-meowstic-victini-golurk-whimsicott-togekiss -- clefable-gastrodoneast
+|chat|DEBUG|Own moves: dragondance outrage earthquake firepunch
+|chat|DEBUG|Enemy moves: earthquake recover scald toxic
+|chat|DEBUG|Checks: ['whimsicott', 'togekiss']
+|chat|DEBUG|Counter: ['flygon', 'meowstic', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Speed: 206 vs 114
+|chat|DEBUG|HP: 168 vs 259
+|chat|DEBUG|Created a new Strategy for flygon vs gastrodoneast:
+|chat|DEBUG|>[outrage: 187.8125 [173, 204], outrage: 187.8125 [173, 204], outrage: 187.8125 [173, 204]]
+|chat|DEBUG|Best move of flygon (p1): outrage: 187.8125 [173, 204]
+|chat|DEBUG|Best move of gastrodoneast (p2): scald: 91.875 [84, 100]
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Flygon|Outrage|p1a: Gastrodon
+|-damage|p1a: Gastrodon|20100
+|-damage|p2a: Flygon|143259|[from] item: Life Orb
+|move|p1a: Gastrodon|Scald|p2a: Flygon
+|-damage|p2a: Flygon|50259
+|-heal|p1a: Gastrodon|26100|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "gastrodoneast"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-meowstic-victini-golurk-whimsicott-togekiss -- clefable-gastrodoneast
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: earthquake recover scald toxic
+|chat|DEBUG|Checks: ['meowstic', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Counter: ['flygon', 'meowstic', 'victini', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Speed: 206 vs 114
+|chat|DEBUG|HP: 50 vs 84
+|chat|DEBUG|Created a new Strategy for flygon vs gastrodoneast:
+|chat|DEBUG|>[outrage: 187.8125 [173, 204], outrage: 187.8125 [173, 204], outrage: 187.8125 [173, 204]]
+|chat|DEBUG|Best move of flygon (p1): outrage: 187.8125 [173, 204]
+|chat|DEBUG|Best move of gastrodoneast (p2): scald: 91.875 [84, 100]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Flygon|Outrage|p1a: Gastrodon|[from]lockedmove
+|-damage|p1a: Gastrodon|0 fnt
+|faint|p1a: Gastrodon
+|-damage|p2a: Flygon|25259|[from] item: Life Orb
+|-start|p2a: Flygon|confusion|[fatigue]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Genesect|Genesect, L74|100100
+|-ability|p1a: Genesect|Download|boost
+|-boost|p1a: Genesect|spa|1
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>flygon meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>flygon-meowstic-victini-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: dragondance outrage earthquake firepunch
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['flygon', 'victini']
+|chat|DEBUG|Speed: 206 vs 190
+|chat|DEBUG|HP: 25 vs 227
+|chat|DEBUG|Created a new Strategy for flygon vs genesect:
+|chat|DEBUG|>[firepunch: 281.4375 [260, 307], firepunch: 281.4375 [260, 307], firepunch: 281.4375 [260, 307]]
+|chat|DEBUG|Best move of flygon (p1): firepunch: 281.4375 [260, 307]
+|chat|DEBUG|Best move of genesect (p2): leechlife: 114.25 [105, 125]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Extreme Speed|p2a: Flygon
+|-crit|p2a: Flygon
+|-damage|p2a: Flygon|0 fnt
+|faint|p2a: Flygon
+|-damage|p1a: Genesect|91100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|245283
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-victini-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['victini']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to victini (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lickilicky|Lickilicky, L86, M|100100
+|move|p2a: Victini|V-create|p1a: Lickilicky
+|-damage|p1a: Lickilicky|52100
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|-heal|p1a: Lickilicky|58100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-victini-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: energyball vcreate uturn boltstrike
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['victini']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 190
+|chat|DEBUG|HP: 245 vs 206
+|chat|DEBUG|Created a new Strategy for victini vs genesect:
+|chat|DEBUG|>[vcreate: 722.75 [664, 784], vcreate: 722.75 [664, 784], vcreate: 722.75 [664, 784]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 722.75 [664, 784]
+|chat|DEBUG|Best move of genesect (p2): leechlife: 99.75 [91, 109]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lickilicky|Earthquake|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|37283
+|move|p2a: Victini|V-create|p1a: Lickilicky
+|-damage|p1a: Lickilicky|11100
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|-heal|p1a: Lickilicky|17100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-victini-golurk-whimsicott-togekiss -- clefable-genesect-lickilicky
+|chat|DEBUG|Own moves: energyball vcreate uturn boltstrike
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['golurk', 'togekiss']
+|chat|DEBUG|Counter: ['meowstic', 'victini', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Speed: 201 vs 135
+|chat|DEBUG|HP: 245 vs 190
+|chat|DEBUG|Created a new Strategy for victini vs lickilicky:
+|chat|DEBUG|>[vcreate: 157.3125 [144, 171], vcreate: 157.3125 [144, 171], vcreate: 157.3125 [144, 171]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 157.3125 [144, 171]
+|chat|DEBUG|Best move of lickilicky (p2): earthquake: 195.125 [180, 212]
+|chat|DEBUG|Attacking using vcreate
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lickilicky|Wish|p1a: Lickilicky
+|move|p2a: Victini|V-create|p1a: Lickilicky
+|-damage|p1a: Lickilicky|0 fnt
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|faint|p1a: Lickilicky
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Genesect|Genesect, L74|91100
+|-ability|p1a: Genesect|Download|boost
+|-boost|p1a: Genesect|spa|1
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "lickilicky"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-victini-golurk-whimsicott-togekiss -- clefable-genesect-lickilicky
+|chat|DEBUG|Own moves: energyball vcreate uturn boltstrike
+|chat|DEBUG|Enemy moves: bodyslam earthquake protect wish
+|chat|DEBUG|Checks: ['meowstic', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Counter: ['meowstic', 'victini', 'golurk', 'whimsicott', 'togekiss']
+|chat|DEBUG|Speed: 201 vs 135
+|chat|DEBUG|HP: 37 vs 55
+|chat|DEBUG|Best move of victini (p1): vcreate: 157.3125 [144, 171]
+|chat|DEBUG|Best move of lickilicky (p2): earthquake: 261.75 [240, 284]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Extreme Speed|p2a: Victini
+|-damage|p2a: Victini|0 fnt
+|faint|p2a: Victini
+|-damage|p1a: Genesect|81100|[from] item: Life Orb
+|-heal|p1a: Genesect|100100|[from] move: Wish|[wisher] Lickilicky
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Whimsicott|Whimsicott, L84, F|238238
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic victini golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-victini-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: energyball vcreate uturn boltstrike
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['victini']
+|chat|DEBUG|Speed: 201 vs 190
+|chat|DEBUG|HP: 37 vs 206
+|chat|DEBUG|Created a new Strategy for victini vs genesect:
+|chat|DEBUG|>[vcreate: 722.75 [664, 784], vcreate: 722.75 [664, 784], vcreate: 722.75 [664, 784]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 722.75 [664, 784]
+|chat|DEBUG|Best move of genesect (p2): leechlife: 249.375 [230, 270]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Whimsicott|Moonblast|p1a: Genesect
+|-resisted|p1a: Genesect
+|-damage|p1a: Genesect|79100
+|move|p1a: Genesect|Iron Head|p2a: Whimsicott
+|-supereffective|p2a: Whimsicott
+|-damage|p2a: Whimsicott|20238
+|-damage|p1a: Genesect|70100|[from] item: Life Orb
+|-heal|p2a: Whimsicott|34238|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: whimsicott
+|chat|DEBUG|>Switching to whimsicott (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Extreme Speed|p2a: Whimsicott
+|-damage|p2a: Whimsicott|0 fnt
+|faint|p2a: Whimsicott
+|-damage|p1a: Genesect|60100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golurk|Golurk, L82|280280
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whimsicott" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: uturn moonblast leechseed defog
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 243 vs 190
+|chat|DEBUG|HP: 238 vs 227
+|chat|DEBUG|Created a new Strategy for whimsicott vs genesect:
+|chat|DEBUG|>[moonblast: 45.1875 [42, 49], moonblast: 45.1875 [42, 49], moonblast: 45.1875 [42, 49]]
+|chat|DEBUG|Best move of whimsicott (p1): moonblast: 45.1875 [42, 49]
+|chat|DEBUG|Best move of genesect (p2): ironhead: 210.4375 [195, 229]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Primarina|Primarina, L82, F|100100
+|move|p2a: Golurk|Earthquake|p1a: Primarina
+|-damage|p1a: Primarina|30100
+|-damage|p2a: Golurk|252280|[from] item: Life Orb
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk whimsicott togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whimsicott" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-whimsicott-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: uturn moonblast leechseed defog
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['golurk']
+|chat|DEBUG|Speed: 243 vs 190
+|chat|DEBUG|HP: 34 vs 158
+|chat|DEBUG|Best move of whimsicott (p1): moonblast: 45.1875 [42, 49]
+|chat|DEBUG|Best move of genesect (p2): ironhead: 210.4375 [195, 229]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Togekiss|Togekiss, L80, F|267267
+|move|p1a: Primarina|Hydro Pump|p2a: Togekiss|[miss]
+|-miss|p1a: Primarina|p2a: Togekiss
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "whimsicott" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['golurk']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to golurk (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Hydro Pump|p2a: Togekiss
+|-damage|p2a: Togekiss|86267
+|move|p2a: Togekiss|Air Slash|p1a: Primarina
+|-damage|p1a: Primarina|2100
+|-heal|p2a: Togekiss|102267|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golurk" vs "genesect"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-togekiss -- clefable-genesect
+|chat|DEBUG|Own moves: earthquake dynamicpunch poltergeist rockpolish
+|chat|DEBUG|Enemy moves: ironhead leechlife shiftgear thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['golurk']
+|chat|DEBUG|Speed: 137 vs 190
+|chat|DEBUG|HP: 280 vs 136
+|chat|DEBUG|Created a new Strategy for golurk vs genesect:
+|chat|DEBUG|>[earthquake: 168.3125 [153, 183], earthquake: 168.3125 [153, 183], earthquake: 168.3125 [153, 183]]
+|chat|DEBUG|Best move of golurk (p1): earthquake: 168.3125 [153, 183]
+|chat|DEBUG|Best move of genesect (p2): ironhead: 112.1875 [103, 122]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Hydro Pump|p2a: Togekiss
+|-damage|p2a: Togekiss|0 fnt
+|faint|p2a: Togekiss
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Meowstic|Meowstic, L84, M|262262
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "golurk" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-togekiss -- clefable-genesect-primarina
+|chat|DEBUG|Own moves: earthquake dynamicpunch poltergeist rockpolish
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: ['togekiss']
+|chat|DEBUG|Counter: ['meowstic', 'togekiss']
+|chat|DEBUG|Speed: 137 vs 146
+|chat|DEBUG|HP: 252 vs 79
+|chat|DEBUG|Created a new Strategy for golurk vs primarina:
+|chat|DEBUG|>[poltergeist: 202.5 [187, 220], poltergeist: 202.5 [187, 220], poltergeist: 202.5 [187, 220]]
+|chat|DEBUG|Best move of golurk (p1): poltergeist: 202.5 [187, 220]
+|chat|DEBUG|Best move of primarina (p2): sparklingaria: 364.75 [336, 396]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check togekiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Psychic|p1a: Primarina
+|-damage|p1a: Primarina|0 fnt
+|faint|p1a: Primarina
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctozolt|Arctozolt, L86|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togekiss" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-togekiss -- clefable-genesect-primarina
+|chat|DEBUG|Own moves: roost airslash nastyplot aurasphere
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: ['togekiss']
+|chat|DEBUG|Counter: ['meowstic', 'togekiss']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 174 vs 146
+|chat|DEBUG|HP: 267 vs 79
+|chat|DEBUG|Created a new Strategy for togekiss vs primarina:
+|chat|DEBUG|>[airslash: 72.5625 [67, 79], airslash: 72.5625 [67, 79], airslash: 72.5625 [67, 79]]
+|chat|DEBUG|Best move of togekiss (p1): airslash: 72.5625 [67, 79]
+|chat|DEBUG|Best move of primarina (p2): sparklingaria: 141.5625 [130, 154]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Meowstic|Dynamax
+|-heal|p2a: Meowstic|524524|[silent]
+|move|p2a: Meowstic|Max Mindstorm|p1a: Arctozolt
+|-damage|p1a: Arctozolt|53100
+|-fieldstart|move: Psychic Terrain
+|move|p1a: Arctozolt|Bolt Beak|p2a: Meowstic
+|-damage|p2a: Meowstic|421524
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk togekiss
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togekiss" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk-togekiss -- clefable-genesect-primarina
+|chat|DEBUG|Own moves: roost airslash nastyplot aurasphere
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic', 'togekiss']
+|chat|DEBUG|Speed: 174 vs 146
+|chat|DEBUG|HP: 102 vs 5
+|chat|DEBUG|Best move of togekiss (p1): airslash: 72.5625 [67, 79]
+|chat|DEBUG|Best move of primarina (p2): sparklingaria: 141.5625 [130, 154]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Max Mindstorm|p1a: Arctozolt
+|-damage|p1a: Arctozolt|0 fnt
+|faint|p1a: Arctozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Genesect|Genesect, L74|60100
+|-ability|p1a: Genesect|Download|boost
+|-boost|p1a: Genesect|atk|1
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togekiss" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk -- clefable-genesect-primarina
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to meowstic (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Max Mindstorm|p1a: Genesect
+|-resisted|p1a: Genesect
+|-damage|p1a: Genesect|26100
+|move|p1a: Genesect|Shift Gear|p1a: Genesect
+|-boost|p1a: Genesect|spe|2
+|-boost|p1a: Genesect|atk|1
+|-end|p2a: Meowstic|Dynamax
+|-heal|p2a: Meowstic|211262|[silent]
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "meowstic" vs "primarina"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk -- clefable-genesect-primarina
+|chat|DEBUG|Own moves: reflect lightscreen psychic thunderwave
+|chat|DEBUG|Enemy moves: energyball hydropump moonblast sparklingaria
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 223 vs 146
+|chat|DEBUG|HP: 262 vs 5
+|chat|DEBUG|Created a new Strategy for meowstic vs primarina:
+|chat|DEBUG|>[psychic: 69.5625 [64, 76], psychic: 69.5625 [64, 76], psychic: 69.5625 [64, 76]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 69.5625 [64, 76]
+|chat|DEBUG|Best move of primarina (p2): sparklingaria: 176.6875 [162, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Iron Head|p2a: Meowstic
+|-damage|p2a: Meowstic|0 fnt
+|faint|p2a: Meowstic
+|-damage|p1a: Genesect|16100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Golurk|Golurk, L82|252280
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "meowstic" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk -- clefable-genesect-arctozolt
+|chat|DEBUG|Own moves: reflect lightscreen psychic thunderwave
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['golurk']
+|chat|DEBUG|Speed: 223 vs 144
+|chat|DEBUG|HP: 262 vs 295
+|chat|DEBUG|Created a new Strategy for meowstic vs arctozolt:
+|chat|DEBUG|>[psychic: 89.1875 [82, 97], psychic: 89.1875 [82, 97], psychic: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of meowstic (p1): psychic: 89.1875 [82, 97]
+|chat|DEBUG|Best move of arctozolt (p2): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Iron Head|p2a: Golurk
+|-damage|p2a: Golurk|22280
+|-damage|p1a: Genesect|7100|[from] item: Life Orb
+|cant|p2a: Golurk|flinch
+|-fieldend|move: Psychic Terrain
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>meowstic golurk
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "meowstic" vs "arctozolt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>meowstic-golurk -- clefable-genesect-arctozolt
+|chat|DEBUG|Own moves: reflect lightscreen psychic thunderwave
+|chat|DEBUG|Enemy moves: boltbeak freezedry iciclecrash thunderwave
+|chat|DEBUG|Checks: ['meowstic']
+|chat|DEBUG|Counter: ['meowstic', 'golurk']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 223 vs 144
+|chat|DEBUG|HP: 421 vs 156
+|chat|DEBUG|Best move of meowstic (p1): psychic: 89.1875 [82, 97]
+|chat|DEBUG|Best move of arctozolt (p2): thunderwave: 0.0 [0, 0]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Genesect|Iron Head|p2a: Golurk
+|-damage|p2a: Golurk|0 fnt
+|faint|p2a: Golurk
+|-damage|p1a: Genesect|0 fnt|[from] item: Life Orb
+|faint|p1a: Genesect
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Alievew<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">flygon meowstic victini golurk whimsicott togekiss</h1>

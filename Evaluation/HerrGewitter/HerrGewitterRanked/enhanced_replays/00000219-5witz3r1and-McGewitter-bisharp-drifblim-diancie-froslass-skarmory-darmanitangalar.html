@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490335110<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490335110|init|battle
+|title|5witz3r1and vs. McGewitter
+|j|☆5witz3r1and
+|j|☆McGewitter
+|gametype|singles
+|player|p1|5witz3r1and|265|1199
+|player|p2|McGewitter|265|1166
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Volcarona|Volcarona, L76, M|100100
+|switch|p2a: Bisharp|Bisharp, L80, F|235235
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona
+|chat|DEBUG|Own moves: suckerpunch swordsdance knockoff ironhead
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['diancie']
+|chat|DEBUG|Counter: ['diancie']
+|chat|DEBUG|Speed: 158 vs 196
+|chat|DEBUG|HP: 235 vs 254
+|chat|DEBUG|Created a new Strategy for bisharp vs volcarona:
+|chat|DEBUG|>[knockoff: 206.125 [188, 224], knockoff: 206.125 [188, 224], knockoff: 206.125 [188, 224]]
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 206.125 [188, 224]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 308.875 [284, 336]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check diancie
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|5witz3r1and has 120 seconds left.
+|switch|p2a: Diancie|Diancie, L82|216216
+|move|p1a: Volcarona|Fire Blast|p2a: Diancie
+|-resisted|p2a: Diancie
+|-damage|p2a: Diancie|178216
+|-heal|p2a: Diancie|191216|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: ['diancie']
+|chat|DEBUG|Counter: ['diancie']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 129 vs 196
+|chat|DEBUG|HP: 191 vs 254
+|chat|DEBUG|Created a new Strategy for diancie vs volcarona:
+|chat|DEBUG|>[diamondstorm: 560.5 [516, 612], diamondstorm: 560.5 [516, 612], diamondstorm: 560.5 [516, 612]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 560.5 [516, 612]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 41.5625 [38, 45]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Solgaleo|Solgaleo, L72|100100
+|move|p2a: Diancie|Diamond Storm|p1a: Solgaleo|[miss]
+|-miss|p2a: Diancie|p1a: Solgaleo
+|-heal|p2a: Diancie|204216|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['drifblim']
+|chat|DEBUG|Counter: ['drifblim', 'froslass']
+|chat|DEBUG|Speed: 129 vs 182
+|chat|DEBUG|HP: 204 vs 316
+|chat|DEBUG|Created a new Strategy for diancie vs solgaleo:
+|chat|DEBUG|>[earthpower: 141.5 [130, 154], earthpower: 141.5 [130, 154], earthpower: 141.5 [130, 154]]
+|chat|DEBUG|Best move of diancie (p1): earthpower: 141.5 [130, 154]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 275.0 [252, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check drifblim
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Drifblim|Drifblim, L84, F|389389
+|move|p1a: Solgaleo|Sunsteel Strike|p2a: Drifblim
+|-crit|p2a: Drifblim
+|-damage|p2a: Drifblim|128389
+|-enditem|p2a: Drifblim|Sitrus Berry|[eat]
+|-heal|p2a: Drifblim|225389|[from] item: Sitrus Berry
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: strengthsap thunderbolt calmmind shadowball
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drifblim', 'froslass']
+|chat|DEBUG|Speed: 183 vs 182
+|chat|DEBUG|HP: 225 vs 316
+|chat|DEBUG|Created a new Strategy for drifblim vs solgaleo:
+|chat|DEBUG|>[shadowball: 183.75 [168, 200], shadowball: 183.75 [168, 200], shadowball: 183.75 [168, 200]]
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 183.75 [168, 200]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 164.125 [151, 178]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Shadow Ball|p1a: Solgaleo
+|-supereffective|p1a: Solgaleo
+|-damage|p1a: Solgaleo|40100
+|move|p1a: Solgaleo|Sunsteel Strike|p2a: Drifblim
+|-damage|p2a: Drifblim|72389
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: strengthsap thunderbolt calmmind shadowball
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['drifblim', 'froslass', 'skarmory']
+|chat|DEBUG|Speed: 183 vs 182
+|chat|DEBUG|HP: 72 vs 126
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 183.75 [168, 200]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 164.125 [151, 178]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Indeedee|Indeedee, L82, M|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Indeedee
+|move|p2a: Drifblim|Shadow Ball|p1a: Indeedee
+|-immune|p1a: Indeedee
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo-indeedee
+|chat|DEBUG|Own moves: strengthsap thunderbolt calmmind shadowball
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bisharp', 'diancie']
+|chat|DEBUG|Speed: 183 vs 203
+|chat|DEBUG|HP: 72 vs 233
+|chat|DEBUG|Created a new Strategy for drifblim vs indeedee:
+|chat|DEBUG|>[thunderbolt: 57.8125 [53, 63], thunderbolt: 57.8125 [53, 63], thunderbolt: 57.8125 [53, 63]]
+|chat|DEBUG|Best move of drifblim (p1): thunderbolt: 57.8125 [53, 63]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 155.625 [142, 169]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Thunderbolt|p1a: Indeedee
+|-damage|p1a: Indeedee|77100
+|move|p1a: Indeedee|Trick|p2a: Drifblim
+|-activate|p1a: Indeedee|move: Trick|[of] p2a: Drifblim
+|-item|p2a: Drifblim|Choice Scarf|[from] move: Trick
+|-enditem|p1a: Indeedee|Choice Scarf|[silent]|[from] move: Trick
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo-indeedee
+|chat|DEBUG|Own moves: strengthsap thunderbolt calmmind shadowball
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['diancie']
+|chat|DEBUG|Counter: ['bisharp', 'diancie']
+|chat|DEBUG|Speed: 183 vs 203
+|chat|DEBUG|HP: 72 vs 179
+|chat|DEBUG|Best move of drifblim (p1): thunderbolt: 57.8125 [53, 63]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 119.75 [109, 130]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check diancie
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Diancie|Diancie, L82|204216
+|move|p1a: Indeedee|Mystical Fire|p2a: Diancie
+|-resisted|p2a: Diancie
+|-damage|p2a: Diancie|185216
+|-heal|p2a: Diancie|198216|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo-indeedee
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['diancie']
+|chat|DEBUG|Counter: ['bisharp', 'diancie']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 129 vs 203
+|chat|DEBUG|HP: 198 vs 179
+|chat|DEBUG|Created a new Strategy for diancie vs indeedee:
+|chat|DEBUG|>[diamondstorm: 146.125 [135, 159], diamondstorm: 146.125 [135, 159], diamondstorm: 146.125 [135, 159]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 146.125 [135, 159]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 57.3125 [52, 63]
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Indeedee|Hyper Voice|p2a: Diancie
+|-resisted|p2a: Diancie
+|-damage|p2a: Diancie|165216
+|move|p2a: Diancie|Diamond Storm|p1a: Indeedee
+|-damage|p1a: Indeedee|19100
+|-heal|p2a: Diancie|178216|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo-indeedee
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['diancie', 'froslass']
+|chat|DEBUG|Counter: ['bisharp', 'diancie', 'froslass', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 129 vs 203
+|chat|DEBUG|HP: 178 vs 44
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 146.125 [135, 159]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 57.3125 [52, 63]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Indeedee|Hyper Voice|p2a: Diancie
+|-resisted|p2a: Diancie
+|-damage|p2a: Diancie|145216
+|move|p2a: Diancie|Diamond Storm|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|faint|p1a: Indeedee
+|-heal|p2a: Diancie|158216|[from] item: Leftovers
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Solgaleo|Solgaleo, L72|40100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['drifblim', 'froslass', 'skarmory']
+|chat|DEBUG|Speed: 129 vs 182
+|chat|DEBUG|HP: 158 vs 126
+|chat|DEBUG|Created a new Strategy for diancie vs solgaleo:
+|chat|DEBUG|>[earthpower: 141.5 [130, 154], earthpower: 141.5 [130, 154], earthpower: 141.5 [130, 154]]
+|chat|DEBUG|Best move of diancie (p1): earthpower: 141.5 [130, 154]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 275.0 [252, 300]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check froslass
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Froslass|Froslass, L84, F|255255
+|move|p1a: Solgaleo|Sunsteel Strike|p2a: Froslass
+|-supereffective|p2a: Froslass
+|-damage|p2a: Froslass|19255
+|-start|p1a: Solgaleo|Disable|Sunsteel Strike|[from] ability: Cursed Body|[of] p2a: Froslass
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie froslass skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-froslass-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: willowisp poltergeist tripleaxel taunt
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drifblim', 'froslass', 'skarmory']
+|chat|DEBUG|Speed: 233 vs 182
+|chat|DEBUG|HP: 19 vs 126
+|chat|DEBUG|Created a new Strategy for froslass vs solgaleo:
+|chat|DEBUG|>[poltergeist: 200.75 [186, 218], poltergeist: 200.75 [186, 218], poltergeist: 200.75 [186, 218]]
+|chat|DEBUG|Best move of froslass (p1): poltergeist: 200.75 [186, 218]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 242.375 [222, 264]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-activate|p1a: Solgaleo|move: Struggle
+|move|p1a: Solgaleo|Struggle|p2a: Froslass
+|-damage|p2a: Froslass|0 fnt
+|faint|p2a: Froslass
+|-damage|p1a: Solgaleo|15100|[from] recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Drifblim|Drifblim, L84, F|72389
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['drifblim', 'skarmory']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to drifblim (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Shadow Ball|p1a: Solgaleo
+|-supereffective|p1a: Solgaleo
+|-damage|p1a: Solgaleo|0 fnt
+|faint|p1a: Solgaleo
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Porygon2|Porygon2, L82|100100
+|-ability|p1a: Porygon2|Unburden|[from] ability: Trace|[of] p2a: Drifblim
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "solgaleo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-skarmory-darmanitangalar -- volcarona-solgaleo
+|chat|DEBUG|Own moves: strengthsap thunderbolt calmmind shadowball
+|chat|DEBUG|Enemy moves: closecombat flamecharge psychicfangs sunsteelstrike
+|chat|DEBUG|Checks: ['skarmory']
+|chat|DEBUG|Counter: ['drifblim', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|Speed: 183 vs 182
+|chat|DEBUG|HP: 72 vs 47
+|chat|DEBUG|Created a new Strategy for drifblim vs solgaleo:
+|chat|DEBUG|>[shadowball: 183.75 [168, 200], shadowball: 183.75 [168, 200], shadowball: 183.75 [168, 200]]
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 183.75 [168, 200]
+|chat|DEBUG|Best move of solgaleo (p2): sunsteelstrike: 164.125 [151, 178]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Drifblim|Shadow Ball|p1a: Porygon2
+|-immune|p1a: Porygon2
+|move|p1a: Porygon2|Ice Beam|p2a: Drifblim
+|-supereffective|p2a: Drifblim
+|-damage|p2a: Drifblim|0 fnt
+|faint|p2a: Drifblim
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bisharp|Bisharp, L80, F|235235
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp drifblim diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-drifblim-diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: shadowball
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bisharp', 'diancie']
+|chat|DEBUG|Speed: 183 vs 146
+|chat|DEBUG|HP: 72 vs 274
+|chat|DEBUG|Created a new Strategy for drifblim vs porygon2:
+|chat|DEBUG|>[shadowball: 0.0 [0, 0], shadowball: 0.0 [0, 0], shadowball: 0.0 [0, 0]]
+|chat|DEBUG|Best move of drifblim (p1): shadowball: 0.0 [0, 0]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 160.0 [146, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Bisharp|Knock Off|p1a: Porygon2
+|-damage|p1a: Porygon2|62100
+|-enditem|p1a: Porygon2|Eviolite|[from] move: Knock Off|[of] p2a: Bisharp
+|-damage|p2a: Bisharp|212235|[from] item: Life Orb
+|move|p1a: Porygon2|Tri Attack|p2a: Bisharp
+|-resisted|p2a: Bisharp
+|-damage|p2a: Bisharp|160235
+|-status|p2a: Bisharp|brn
+|-damage|p2a: Bisharp|146235 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drifblim" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bisharp', 'diancie']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to bisharp (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Tri Attack|p2a: Bisharp
+|-resisted|p2a: Bisharp
+|-damage|p2a: Bisharp|94235 brn
+|move|p2a: Bisharp|Knock Off|p1a: Porygon2
+|-damage|p1a: Porygon2|45100
+|-damage|p2a: Bisharp|71235 brn|[from] item: Life Orb
+|-damage|p2a: Bisharp|57235 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: suckerpunch swordsdance knockoff ironhead
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bisharp', 'diancie']
+|chat|DEBUG|Speed: 158 vs 146
+|chat|DEBUG|HP: 235 vs 274
+|chat|DEBUG|Created a new Strategy for bisharp vs porygon2:
+|chat|DEBUG|>[knockoff: 101.625 [94, 110], knockoff: 101.625 [94, 110], knockoff: 101.625 [94, 110]]
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 101.625 [94, 110]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 70.75 [65, 77]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Tri Attack|p2a: Bisharp
+|-resisted|p2a: Bisharp
+|-damage|p2a: Bisharp|3235 brn
+|move|p2a: Bisharp|Knock Off|p1a: Porygon2
+|-damage|p1a: Porygon2|25100
+|-damage|p2a: Bisharp|0 fnt|[from] item: Life Orb
+|faint|p2a: Bisharp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Diancie|Diancie, L82|158216
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: suckerpunch swordsdance knockoff ironhead
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['diancie', 'darmanitangalar']
+|chat|DEBUG|Counter: ['bisharp', 'diancie', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|Speed: 158 vs 146
+|chat|DEBUG|HP: 146 vs 169
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 101.625 [94, 110]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 70.75 [65, 77]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Porygon2|Toxic|p2a: Diancie|[miss]
+|-miss|p1a: Porygon2|p2a: Diancie
+|move|p2a: Diancie|Diamond Storm|p1a: Porygon2
+|-damage|p1a: Porygon2|0 fnt
+|-boost|p2a: Diancie|def|2
+|faint|p1a: Porygon2
+|-heal|p2a: Diancie|171216|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Decidueye|Decidueye, L86, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>bisharp diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>bisharp-diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: suckerpunch swordsdance knockoff ironhead
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['diancie', 'darmanitangalar']
+|chat|DEBUG|Counter: ['bisharp', 'diancie', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|Speed: 158 vs 146
+|chat|DEBUG|HP: 57 vs 123
+|chat|DEBUG|Best move of bisharp (p1): knockoff: 101.625 [94, 110]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 70.75 [65, 77]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Decidueye|Swords Dance|p1a: Decidueye
+|-boost|p1a: Decidueye|atk|2
+|move|p2a: Diancie|Diamond Storm|p1a: Decidueye
+|-damage|p1a: Decidueye|59100
+|-boost|p2a: Diancie|def|2
+|-heal|p2a: Diancie|184216|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bisharp" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['diancie', 'darmanitangalar']
+|chat|DEBUG|Counter: ['diancie', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to diancie (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Decidueye|Leaf Blade|p2a: Diancie
+|-supereffective|p2a: Diancie
+|-damage|p2a: Diancie|88216
+|move|p2a: Diancie|Diamond Storm|p1a: Decidueye
+|-damage|p1a: Decidueye|21100
+|-boost|p2a: Diancie|def|2
+|-heal|p2a: Diancie|101216|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-skarmory-darmanitangalar -- volcarona-porygon2
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['diancie', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|Counter: ['diancie', 'skarmory', 'darmanitangalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 129 vs 146
+|chat|DEBUG|HP: 158 vs 68
+|chat|DEBUG|Created a new Strategy for diancie vs porygon2:
+|chat|DEBUG|>[diamondstorm: 103.25 [94, 112], diamondstorm: 103.25 [94, 112], diamondstorm: 103.25 [94, 112]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 103.25 [94, 112]
+|chat|DEBUG|Best move of porygon2 (p2): discharge: 38.375 [35, 42]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Decidueye|Dynamax
+|-heal|p1a: Decidueye|21100|[silent]
+|move|p1a: Decidueye|Max Overgrowth|p2a: Diancie
+|-supereffective|p2a: Diancie
+|-damage|p2a: Diancie|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Diancie
+|-heal|p1a: Decidueye|24100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Darmanitan|Darmanitan-Galar, L78, F|292292
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-skarmory-darmanitangalar -- volcarona-decidueye
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitangalar']
+|chat|DEBUG|Speed: 129 vs 170
+|chat|DEBUG|HP: 171 vs 274
+|chat|DEBUG|Created a new Strategy for diancie vs decidueye:
+|chat|DEBUG|>[diamondstorm: 112.8125 [103, 123], diamondstorm: 112.8125 [103, 123], diamondstorm: 112.8125 [103, 123]]
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 112.8125 [103, 123]
+|chat|DEBUG|Best move of decidueye (p2): leafblade: 73.0 [66, 80]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Darmanitan|Icicle Crash|p1a: Decidueye
+|-supereffective|p1a: Decidueye
+|-damage|p1a: Decidueye|0 fnt
+|faint|p1a: Decidueye
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Volcarona|Volcarona, L76, M|100100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-skarmory-darmanitangalar -- volcarona-decidueye
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitangalar']
+|chat|DEBUG|Speed: 129 vs 170
+|chat|DEBUG|HP: 184 vs 161
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 112.8125 [103, 123]
+|chat|DEBUG|Best move of decidueye (p2): leafblade: 98.0 [90, 108]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcarona|Quiver Dance|p1a: Volcarona
+|-boost|p1a: Volcarona|spa|1
+|-boost|p1a: Volcarona|spd|1
+|-boost|p1a: Volcarona|spe|1
+|move|p2a: Darmanitan|Fire Punch|p1a: Volcarona
+|-damage|p1a: Volcarona|66100
+|-heal|p1a: Volcarona|72100|[from] Grassy Terrain
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>diancie skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>diancie-skarmory-darmanitangalar -- volcarona-decidueye
+|chat|DEBUG|Own moves: earthpower toxic moonblast diamondstorm
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitangalar']
+|chat|DEBUG|Speed: 129 vs 170
+|chat|DEBUG|HP: 101 vs 57
+|chat|DEBUG|Best move of diancie (p1): diamondstorm: 112.8125 [103, 123]
+|chat|DEBUG|Best move of decidueye (p2): leafblade: 109.5 [102, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using diamondstorm
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcarona|Fire Blast|p2a: Darmanitan
+|-supereffective|p2a: Darmanitan
+|-damage|p2a: Darmanitan|0 fnt
+|faint|p2a: Darmanitan
+|-heal|p1a: Volcarona|78100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skarmory|Skarmory, L80, F|235235
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "diancie" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skarmory-darmanitangalar -- volcarona-decidueye
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitangalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to darmanitangalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcarona|Fire Blast|p2a: Skarmory
+|-supereffective|p2a: Skarmory
+|-ability|p2a: Skarmory|Sturdy
+|-damage|p2a: Skarmory|1235
+|move|p2a: Skarmory|Stealth Rock|p1a: Volcarona
+|-sidestart|p1: 5witz3r1and|move: Stealth Rock
+|-heal|p1a: Volcarona|84100|[from] Grassy Terrain
+|-heal|p2a: Skarmory|15235|[from] item: Leftovers
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skarmory darmanitangalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "darmanitangalar" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skarmory-darmanitangalar -- volcarona-decidueye
+|chat|DEBUG|Own moves: firepunch iciclecrash substitute bellydrum
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['darmanitangalar']
+|chat|DEBUG|Speed: 193 vs 170
+|chat|DEBUG|HP: 292 vs 65
+|chat|DEBUG|Created a new Strategy for darmanitangalar vs decidueye:
+|chat|DEBUG|>[iciclecrash: 231.25 [212, 252], iciclecrash: 231.25 [212, 252], iciclecrash: 231.25 [212, 252]]
+|chat|DEBUG|Best move of darmanitangalar (p1): iciclecrash: 231.25 [212, 252]
+|chat|DEBUG|Best move of decidueye (p2): leafblade: 480.5 [441, 520]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Volcarona|Bug Buzz|p2a: Skarmory
+|-resisted|p2a: Skarmory
+|-damage|p2a: Skarmory|0 fnt
+|faint|p2a: Skarmory
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>5witz3r1and<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">bisharp drifblim diancie froslass skarmory darmanitangalar</h1>

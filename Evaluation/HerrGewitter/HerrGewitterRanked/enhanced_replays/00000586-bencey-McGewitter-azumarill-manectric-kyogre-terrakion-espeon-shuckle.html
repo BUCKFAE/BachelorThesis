@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490938139<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490938139|init|battle
+|title|bencey vs. McGewitter
+|j|☆bencey
+|j|☆McGewitter
+|gametype|singles
+|player|p1|bencey|linebacker|1196
+|player|p2|McGewitter|265|1165
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Aromatisse|Aromatisse, L88, M|100100
+|switch|p2a: Azumarill|Azumarill, L84, M|305305
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: knockoff aquajet playrough liquidation
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['azumarill', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 101
+|chat|DEBUG|HP: 305 vs 321
+|chat|DEBUG|Created a new Strategy for azumarill vs aromatisse:
+|chat|DEBUG|>[liquidation: 186.375 [171, 202], liquidation: 186.375 [171, 202], liquidation: 186.375 [171, 202]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 186.375 [171, 202]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 121.1875 [111, 132]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Azumarill|Liquidation|p1a: Aromatisse
+|-damage|p1a: Aromatisse|38100
+|move|p1a: Aromatisse|Toxic|p2a: Azumarill
+|-status|p2a: Azumarill|tox
+|-heal|p1a: Aromatisse|44100|[from] item: Leftovers
+|-damage|p2a: Azumarill|286305 tox|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['azumarill', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['azumarill', 'manectric', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 101
+|chat|DEBUG|HP: 286 vs 141
+|chat|DEBUG|Created a new Strategy for azumarill vs aromatisse:
+|chat|DEBUG|>[liquidation: 186.375 [171, 202], liquidation: 186.375 [171, 202], liquidation: 186.375 [171, 202]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 186.375 [171, 202]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 121.1875 [111, 132]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dusknoir|Dusknoir, L86, F|100100
+|-item|p2a: Azumarill|Choice Band|[from] ability: Frisk|[of] p1a: Dusknoir|[identify]
+|move|p2a: Azumarill|Liquidation|p1a: Dusknoir
+|-damage|p1a: Dusknoir|49100
+|-heal|p1a: Dusknoir|55100|[from] item: Leftovers
+|-damage|p2a: Azumarill|248305 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-manectric-kyogre-terrakion-espeon-shuckle -- aromatisse-dusknoir
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['azumarill', 'manectric', 'kyogre', 'terrakion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 127
+|chat|DEBUG|HP: 248 vs 119
+|chat|DEBUG|Created a new Strategy for azumarill vs dusknoir:
+|chat|DEBUG|>[liquidation: 117.0 [108, 127], liquidation: 117.0 [108, 127], liquidation: 117.0 [108, 127]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 117.0 [108, 127]
+|chat|DEBUG|Best move of dusknoir (p2): poltergeist: 134.0 [123, 145]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using liquidation
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Azumarill|Liquidation|p1a: Dusknoir
+|-damage|p1a: Dusknoir|2100
+|move|p1a: Dusknoir|Poltergeist|p2a: Azumarill
+|-activate|p2a: Azumarill|move: Poltergeist|Choice Band
+|-damage|p2a: Azumarill|122305 tox
+|-heal|p1a: Dusknoir|8100|[from] item: Leftovers
+|-damage|p2a: Azumarill|65305 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-manectric-kyogre-terrakion-espeon-shuckle -- aromatisse-dusknoir
+|chat|DEBUG|Own moves: liquidation
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['manectric', 'kyogre', 'terrakion', 'shuckle']
+|chat|DEBUG|Counter: ['azumarill', 'manectric', 'kyogre', 'terrakion', 'espeon', 'shuckle']
+|chat|DEBUG|Speed: 132 vs 127
+|chat|DEBUG|HP: 65 vs 17
+|chat|DEBUG|Created a new Strategy for azumarill vs dusknoir:
+|chat|DEBUG|>[liquidation: 117.0 [108, 127], liquidation: 117.0 [108, 127], liquidation: 117.0 [108, 127]]
+|chat|DEBUG|Best move of azumarill (p1): liquidation: 117.0 [108, 127]
+|chat|DEBUG|Best move of dusknoir (p2): poltergeist: 134.0 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Azumarill|Liquidation|p1a: Dusknoir
+|-damage|p1a: Dusknoir|0 fnt
+|faint|p1a: Dusknoir
+|-damage|p2a: Azumarill|0 fnt|[from] psn
+|faint|p2a: Azumarill
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Manectric|Manectric, L86, F|261261
+|switch|p1a: Aromatisse|Aromatisse, L88, M|44100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse-dusknoir
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['manectric', 'kyogre', 'terrakion', 'shuckle']
+|chat|DEBUG|Counter: ['manectric', 'kyogre', 'terrakion', 'espeon', 'shuckle']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to manectric (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-damage|p1a: Aromatisse|10100
+|move|p1a: Aromatisse|Wish|p1a: Aromatisse
+|-heal|p1a: Aromatisse|16100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: switcheroo flamethrower voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['manectric', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 261 vs 141
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-activate|p1a: Aromatisse|move: Protect
+|-heal|p1a: Aromatisse|66100|[from] move: Wish|[wisher] Aromatisse
+|-heal|p1a: Aromatisse|72100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['manectric', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['manectric', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 261 vs 51
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-damage|p1a: Aromatisse|41100
+|move|p1a: Aromatisse|Wish|p1a: Aromatisse
+|-heal|p1a: Aromatisse|48100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 261 vs 231
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-damage|p1a: Aromatisse|14100
+|move|p1a: Aromatisse|Toxic|p2a: Manectric
+|-status|p2a: Manectric|tox
+|-heal|p1a: Aromatisse|64100|[from] move: Wish|[wisher] Aromatisse
+|-heal|p1a: Aromatisse|70100|[from] item: Leftovers
+|-damage|p2a: Manectric|245261 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['manectric', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 261 vs 154
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-damage|p1a: Aromatisse|36100
+|move|p1a: Aromatisse|Wish|p1a: Aromatisse
+|-heal|p1a: Aromatisse|43100|[from] item: Leftovers
+|-damage|p2a: Manectric|213261 tox|[from] psn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 245 vs 224
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-activate|p1a: Aromatisse|move: Protect
+|-heal|p1a: Aromatisse|92100|[from] move: Wish|[wisher] Aromatisse
+|-heal|p1a: Aromatisse|99100|[from] item: Leftovers
+|-damage|p2a: Manectric|165261 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['manectric', 'kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 213 vs 138
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Manectric|Thunderbolt|p1a: Aromatisse
+|-damage|p1a: Aromatisse|67100
+|move|p1a: Aromatisse|Moonblast|p2a: Manectric
+|-damage|p2a: Manectric|9261 tox
+|-heal|p1a: Aromatisse|74100|[from] item: Leftovers
+|-damage|p2a: Manectric|0 fnt|[from] psn
+|faint|p2a: Manectric
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|263263
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Kyogre
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>manectric kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>manectric-kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: thunderbolt
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyogre', 'espeon']
+|chat|DEBUG|Speed: 230 vs 101
+|chat|DEBUG|HP: 165 vs 317
+|chat|DEBUG|Created a new Strategy for manectric vs aromatisse:
+|chat|DEBUG|>[thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111], thunderbolt: 101.75 [93, 111]]
+|chat|DEBUG|Best move of manectric (p1): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 146.125 [135, 159]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyogre|Origin Pulse|p1a: Aromatisse
+|-damage|p1a: Aromatisse|24100
+|move|p1a: Aromatisse|Toxic|p2a: Kyogre
+|-status|p2a: Kyogre|tox
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Aromatisse|30100|[from] item: Leftovers
+|-damage|p2a: Kyogre|247263 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "manectric" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyogre', 'espeon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to kyogre (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Kyogre|Origin Pulse|p1a: Aromatisse
+|-activate|p1a: Aromatisse|move: Protect
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kyogre|263263 tox|[from] item: Leftovers
+|-heal|p1a: Aromatisse|36100|[from] item: Leftovers
+|-damage|p2a: Kyogre|231263 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyogre" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: calmmind thunder originpulse icebeam
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Speed: 172 vs 101
+|chat|DEBUG|HP: 263 vs 237
+|chat|DEBUG|Created a new Strategy for kyogre vs aromatisse:
+|chat|DEBUG|>[originpulse: 115.625 [106, 126], originpulse: 115.625 [106, 126], originpulse: 115.625 [106, 126]]
+|chat|DEBUG|Best move of kyogre (p1): originpulse: 115.625 [106, 126]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 90.875 [84, 99]
+|chat|DEBUG|Attacking using originpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Aromatisse|Protect|p1a: Aromatisse
+|-singleturn|p1a: Aromatisse|Protect
+|move|p2a: Kyogre|Origin Pulse|p1a: Aromatisse
+|-activate|p1a: Aromatisse|move: Protect
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kyogre|247263 tox|[from] item: Leftovers
+|-heal|p1a: Aromatisse|43100|[from] item: Leftovers
+|-damage|p2a: Kyogre|199263 tox|[from] psn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyogre" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: calmmind thunder originpulse icebeam
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 172 vs 101
+|chat|DEBUG|HP: 247 vs 96
+|chat|DEBUG|Best move of kyogre (p1): originpulse: 115.625 [106, 126]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 90.875 [84, 99]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyogre|Origin Pulse|p1a: Aromatisse
+|-damage|p1a: Aromatisse|0 fnt
+|faint|p1a: Aromatisse
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Kyogre|215263 tox|[from] item: Leftovers
+|-damage|p2a: Kyogre|151263 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres-Galar, L75|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyogre" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: calmmind thunder originpulse icebeam
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 172 vs 101
+|chat|DEBUG|HP: 231 vs 115
+|chat|DEBUG|Best move of kyogre (p1): originpulse: 115.625 [106, 126]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 90.875 [84, 99]
+|chat|DEBUG|Attacking using originpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Terrakion|Terrakion, L78|270270
+|move|p1a: Moltres|Nasty Plot|p1a: Moltres
+|-boost|p1a: Moltres|spa|2
+|-weather|none
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyogre" vs "aromatisse"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- aromatisse
+|chat|DEBUG|Own moves: calmmind thunder originpulse icebeam
+|chat|DEBUG|Enemy moves: moonblast protect toxic wish
+|chat|DEBUG|Checks: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 172 vs 101
+|chat|DEBUG|HP: 199 vs 138
+|chat|DEBUG|Created a new Strategy for kyogre vs aromatisse:
+|chat|DEBUG|>[originpulse: 115.625 [106, 126], originpulse: 115.625 [106, 126], originpulse: 115.625 [106, 126]]
+|chat|DEBUG|Best move of kyogre (p1): originpulse: 115.625 [106, 126]
+|chat|DEBUG|Best move of aromatisse (p2): moonblast: 90.875 [84, 99]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using originpulse
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Stone Edge|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|0 fnt
+|faint|p1a: Moltres
+|-damage|p2a: Terrakion|243270|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cramorant|Cramorant, L84, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyogre" vs "moltresgalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- moltresgalar
+|chat|DEBUG|Own moves: calmmind thunder originpulse icebeam
+|chat|DEBUG|Enemy moves: fierywrath hurricane nastyplot rest
+|chat|DEBUG|Checks: ['terrakion']
+|chat|DEBUG|Counter: ['terrakion']
+|chat|DEBUG|Speed: 172 vs 179
+|chat|DEBUG|HP: 151 vs 259
+|chat|DEBUG|Created a new Strategy for kyogre vs moltresgalar:
+|chat|DEBUG|>[icebeam: 113.75 [104, 124], icebeam: 113.75 [104, 124], icebeam: 113.75 [104, 124]]
+|chat|DEBUG|Best move of kyogre (p1): icebeam: 113.75 [104, 124]
+|chat|DEBUG|Best move of moltresgalar (p2): fierywrath: 64.25 [58, 70]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check terrakion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Stone Edge|p1a: Cramorant
+|-supereffective|p1a: Cramorant
+|-damage|p1a: Cramorant|0 fnt
+|faint|p1a: Cramorant
+|-damage|p2a: Terrakion|216270|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Machamp|Machamp, L82, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "moltresgalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- moltresgalar
+|chat|DEBUG|Own moves: stoneedge swordsdance closecombat earthquake
+|chat|DEBUG|Enemy moves: fierywrath hurricane nastyplot rest
+|chat|DEBUG|Checks: ['terrakion']
+|chat|DEBUG|Counter: ['terrakion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 214 vs 179
+|chat|DEBUG|HP: 270 vs 259
+|chat|DEBUG|Created a new Strategy for terrakion vs moltresgalar:
+|chat|DEBUG|>[stoneedge: 329.75 [304, 359], stoneedge: 329.75 [304, 359], stoneedge: 329.75 [304, 359]]
+|chat|DEBUG|Best move of terrakion (p1): stoneedge: 329.75 [304, 359]
+|chat|DEBUG|Best move of moltresgalar (p2): hurricane: 206.0 [189, 223]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Terrakion|Close Combat|p1a: Machamp
+|-damage|p1a: Machamp|25100
+|-unboost|p2a: Terrakion|def|1
+|-unboost|p2a: Terrakion|spd|1
+|-damage|p2a: Terrakion|189270|[from] item: Life Orb
+|move|p1a: Machamp|Close Combat|p2a: Terrakion
+|-supereffective|p2a: Terrakion
+|-damage|p2a: Terrakion|0 fnt
+|-unboost|p1a: Machamp|def|1
+|-unboost|p1a: Machamp|spd|1
+|faint|p2a: Terrakion
+|-status|p1a: Machamp|brn|[from] item: Flame Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Espeon|Espeon, L82, F|241241
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "cramorant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- cramorant
+|chat|DEBUG|Own moves: stoneedge swordsdance closecombat earthquake
+|chat|DEBUG|Enemy moves: bravebird defog roost surf
+|chat|DEBUG|Checks: ['terrakion']
+|chat|DEBUG|Counter: ['kyogre', 'terrakion', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 214 vs 191
+|chat|DEBUG|HP: 243 vs 255
+|chat|DEBUG|Created a new Strategy for terrakion vs cramorant:
+|chat|DEBUG|>[stoneedge: 419.3125 [385, 455], stoneedge: 419.3125 [385, 455], stoneedge: 419.3125 [385, 455]]
+|chat|DEBUG|Best move of terrakion (p1): stoneedge: 419.3125 [385, 455]
+|chat|DEBUG|Best move of cramorant (p2): surf: 183.75 [168, 200]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Espeon|Psychic|p1a: Machamp
+|-supereffective|p1a: Machamp
+|-damage|p1a: Machamp|0 fnt
+|faint|p1a: Machamp
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Pheromosa|Pheromosa, L76|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre terrakion espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-terrakion-espeon-shuckle -- machamp
+|chat|DEBUG|Own moves: stoneedge swordsdance closecombat earthquake
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['espeon']
+|chat|DEBUG|Speed: 214 vs 137
+|chat|DEBUG|HP: 216 vs 282
+|chat|DEBUG|Created a new Strategy for terrakion vs machamp:
+|chat|DEBUG|>[closecombat: 198.875 [183, 216], closecombat: 198.875 [183, 216], closecombat: 198.875 [183, 216]]
+|chat|DEBUG|Best move of terrakion (p1): closecombat: 198.875 [183, 216]
+|chat|DEBUG|Best move of machamp (p2): closecombat: 320.0 [294, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Pheromosa|Dynamax
+|-heal|p1a: Pheromosa|100100|[silent]
+|-start|p2a: Espeon|Dynamax
+|-heal|p2a: Espeon|482482|[silent]
+|move|p1a: Pheromosa|Max Flutterby|p2a: Espeon
+|-supereffective|p2a: Espeon
+|-damage|p2a: Espeon|55482
+|-unboost|p2a: Espeon|spa|1
+|move|p2a: Espeon|Max Mindstorm|p1a: Pheromosa
+|-supereffective|p1a: Pheromosa
+|-damage|p1a: Pheromosa|8100
+|-fieldstart|move: Psychic Terrain
+|-heal|p2a: Espeon|70482|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "terrakion" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-espeon-shuckle -- machamp
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['espeon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to espeon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pheromosa|Max Flutterby|p2a: Espeon
+|-supereffective|p2a: Espeon
+|-damage|p2a: Espeon|0 fnt
+|faint|p2a: Espeon
+|-ability|p1a: Pheromosa|Beast Boost|boost
+|-boost|p1a: Pheromosa|spe|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyogre|Kyogre, L72|151263 tox
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Kyogre
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre espeon shuckle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-espeon-shuckle -- machamp
+|chat|DEBUG|Own moves: psychic dazzlinggleam calmmind morningsun
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['espeon']
+|chat|DEBUG|Counter: ['kyogre', 'espeon']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 228 vs 137
+|chat|DEBUG|HP: 241 vs 70
+|chat|DEBUG|Created a new Strategy for espeon vs machamp:
+|chat|DEBUG|>[psychic: 359.0 [330, 390], psychic: 359.0 [330, 390], psychic: 359.0 [330, 390]]
+|chat|DEBUG|Best move of espeon (p1): psychic: 359.0 [330, 390]
+|chat|DEBUG|Best move of machamp (p2): knockoff: 219.25 [202, 238]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pheromosa|Max Flutterby|p2a: Kyogre
+|-damage|p2a: Kyogre|0 fnt
+|faint|p2a: Kyogre
+|-ability|p1a: Pheromosa|Beast Boost|boost
+|-boost|p1a: Pheromosa|spe|1
+|-weather|RainDance|[upkeep]
+|-end|p1a: Pheromosa|Dynamax
+|-heal|p1a: Pheromosa|8100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shuckle|Shuckle, L86, M|175175
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>kyogre espeon shuckle
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "espeon" vs "pheromosa"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>kyogre-espeon-shuckle -- pheromosa
+|chat|DEBUG|Own moves: psychic dazzlinggleam calmmind morningsun
+|chat|DEBUG|Enemy moves: closecombat icebeam throatchop uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 228 vs 274
+|chat|DEBUG|HP: 241 vs 233
+|chat|DEBUG|Created a new Strategy for espeon vs pheromosa:
+|chat|DEBUG|>[psychic: 444.875 [408, 482], psychic: 444.875 [408, 482], psychic: 444.875 [408, 482]]
+|chat|DEBUG|Best move of espeon (p1): psychic: 444.875 [408, 482]
+|chat|DEBUG|Best move of pheromosa (p2): uturn: 260.6875 [240, 283]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Pheromosa|Close Combat|p2a: Shuckle
+|-damage|p2a: Shuckle|108175
+|-unboost|p1a: Pheromosa|def|1
+|-unboost|p1a: Pheromosa|spd|1
+|move|p2a: Shuckle|Knock Off|p1a: Pheromosa
+|-resisted|p1a: Pheromosa
+|-damage|p1a: Pheromosa|0 fnt
+|-enditem|p1a: Pheromosa|Expert Belt|[from] move: Knock Off|[of] p2a: Shuckle
+|faint|p1a: Pheromosa
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>bencey<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">azumarill manectric kyogre terrakion espeon shuckle</h1>

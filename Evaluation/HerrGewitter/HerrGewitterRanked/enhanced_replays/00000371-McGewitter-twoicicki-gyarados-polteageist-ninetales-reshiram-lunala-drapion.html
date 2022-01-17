@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490564166<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490564166|init|battle
+|title|McGewitter vs. twoicicki
+|j|☆McGewitter
+|j|☆twoicicki
+|gametype|singles
+|player|p1|McGewitter|265|1172
+|player|p2|twoicicki|nate|1164
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Gyarados|Gyarados, L76, M|269269
+|switch|p2a: Arcanine|Arcanine, L82, M|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram lunala drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-lunala-drapion -- arcanine
+|chat|DEBUG|Own moves: bounce powerwhip earthquake waterfall
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: ['reshiram', 'lunala']
+|chat|DEBUG|Counter: ['reshiram', 'lunala']
+|chat|DEBUG|Speed: 167 vs 203
+|chat|DEBUG|HP: 269 vs 282
+|chat|DEBUG|Created a new Strategy for gyarados vs arcanine:
+|chat|DEBUG|>[waterfall: 189.75 [174, 206], waterfall: 189.75 [174, 206], waterfall: 189.75 [174, 206]]
+|chat|DEBUG|Best move of gyarados (p1): waterfall: 189.75 [174, 206]
+|chat|DEBUG|Best move of arcanine (p2): wildcharge: 320.0 [292, 348]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check reshiram
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by twoicicki)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|McGewitter also wants the timer to be on.
+|switch|p2a: Dialga|Dialga, L74|100100
+|-ability|p2a: Dialga|Pressure
+|switch|p1a: Reshiram|Reshiram, L74|270270
+|-ability|p1a: Reshiram|Turboblaze
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram lunala drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "dialga"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-lunala-drapion -- arcanine-dialga
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: dracometeor flashcannon thunderbolt toxic
+|chat|DEBUG|Checks: ['lunala']
+|chat|DEBUG|Counter: ['ninetales', 'lunala', 'drapion']
+|chat|DEBUG|Speed: 176 vs 176
+|chat|DEBUG|HP: 270 vs 270
+|chat|DEBUG|Created a new Strategy for reshiram vs dialga:
+|chat|DEBUG|>[blueflare: 155.8125 [144, 169], blueflare: 155.8125 [144, 169], dracometeor: 155.8125 [144, 169]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 155.8125 [144, 169]
+|chat|DEBUG|Best move of dialga (p2): dracometeor: 271.0 [248, 294]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lunala
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunala|Lunala, L72|316316
+|-start|p2a: Dialga|Dynamax
+|-heal|p2a: Dialga|100100|[silent]
+|move|p2a: Dialga|Max Wyrmwind|p1a: Lunala
+|-damage|p1a: Lunala|234316
+|-unboost|p1a: Lunala|atk|1
+|-heal|p1a: Lunala|253316|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram lunala drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "dialga"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-lunala-drapion -- arcanine-dialga
+|chat|DEBUG|Own moves: moonblast psyshock moongeistbeam calmmind
+|chat|DEBUG|Enemy moves: dracometeor flashcannon thunderbolt toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ninetales', 'lunala', 'drapion']
+|chat|DEBUG|Speed: 182 vs 176
+|chat|DEBUG|HP: 253 vs 270
+|chat|DEBUG|Created a new Strategy for lunala vs dialga:
+|chat|DEBUG|>[moongeistbeam: 105.875 [97, 115], moongeistbeam: 105.875 [97, 115], moongeistbeam: 105.875 [97, 115]]
+|chat|DEBUG|Best move of lunala (p1): moongeistbeam: 105.875 [97, 115]
+|chat|DEBUG|Best move of dialga (p2): flashcannon: 94.875 [87, 103]
+|chat|DEBUG|Attacking using moongeistbeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lunala|Moongeist Beam|p2a: Dialga
+|-damage|p2a: Dialga|81100
+|move|p2a: Dialga|Max Steelspike|p1a: Lunala
+|-crit|p1a: Lunala
+|-damage|p1a: Lunala|34316
+|-boost|p2a: Dialga|def|1
+|-heal|p1a: Lunala|53316|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram lunala drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "dialga"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-lunala-drapion -- arcanine-dialga
+|chat|DEBUG|Own moves: moonblast psyshock moongeistbeam calmmind
+|chat|DEBUG|Enemy moves: dracometeor flashcannon thunderbolt toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ninetales']
+|chat|DEBUG|Speed: 182 vs 176
+|chat|DEBUG|HP: 53 vs 218
+|chat|DEBUG|Best move of lunala (p1): moongeistbeam: 105.875 [97, 115]
+|chat|DEBUG|Best move of dialga (p2): flashcannon: 94.875 [87, 103]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moongeistbeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lunala|Moongeist Beam|p2a: Dialga
+|-damage|p2a: Dialga|62100
+|move|p2a: Dialga|Max Flare|p1a: Lunala
+|-damage|p1a: Lunala|0 fnt
+|-weather|SunnyDay
+|faint|p1a: Lunala
+|-weather|SunnyDay|[upkeep]
+|-end|p2a: Dialga|Dynamax
+|-heal|p2a: Dialga|62100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninetales|Ninetales, L82, M|254254
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lunala" vs "dialga"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-drapion -- arcanine-dialga
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor flashcannon thunderbolt toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ninetales']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to ninetales (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 120 seconds left.
+|move|p2a: Dialga|Draco Meteor|p1a: Ninetales|[miss]
+|-miss|p2a: Dialga|p1a: Ninetales
+|move|p1a: Ninetales|Fire Blast|p2a: Dialga
+|-damage|p2a: Dialga|3100
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "dialga"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-drapion -- arcanine-dialga
+|chat|DEBUG|Own moves: willowisp fireblast nastyplot solarbeam
+|chat|DEBUG|Enemy moves: dracometeor flashcannon thunderbolt toxic
+|chat|DEBUG|Checks: ['ninetales']
+|chat|DEBUG|Counter: ['polteageist', 'ninetales', 'drapion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 176
+|chat|DEBUG|HP: 254 vs 167
+|chat|DEBUG|Created a new Strategy for ninetales vs dialga:
+|chat|DEBUG|>[fireblast: 98.9375 [91, 108], fireblast: 98.9375 [91, 108], fireblast: 98.9375 [91, 108]]
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 98.9375 [91, 108]
+|chat|DEBUG|Best move of dialga (p2): thunderbolt: 66.125 [61, 72]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['arcanine']
+|chat|DEBUG|Expected enemy: arcanine
+|chat|DEBUG|Using move fireblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dialga|Draco Meteor|p1a: Ninetales
+|-damage|p1a: Ninetales|124254
+|-unboost|p2a: Dialga|spa|2
+|move|p1a: Ninetales|Fire Blast|p2a: Dialga
+|-damage|p2a: Dialga|0 fnt
+|faint|p2a: Dialga
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 90 seconds left.
+|switch|p2a: Kingdra|Kingdra, L82, M|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "dialga"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-drapion -- arcanine-dialga
+|chat|DEBUG|Own moves: willowisp fireblast nastyplot solarbeam
+|chat|DEBUG|Enemy moves: dracometeor flashcannon thunderbolt toxic
+|chat|DEBUG|Checks: ['polteageist', 'ninetales', 'drapion']
+|chat|DEBUG|Counter: ['polteageist', 'ninetales', 'drapion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 211 vs 176
+|chat|DEBUG|HP: 254 vs 8
+|chat|DEBUG|Best move of ninetales (p1): fireblast: 98.9375 [91, 108]
+|chat|DEBUG|Best move of dialga (p2): thunderbolt: 66.125 [61, 72]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Solar Beam||[still]
+|-prepare|p1a: Ninetales|Solar Beam
+|-anim|p1a: Ninetales|Solar Beam|p2a: Kingdra
+|-damage|p2a: Kingdra|74100
+|move|p2a: Kingdra|Rain Dance|p2a: Kingdra
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "kingdra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-drapion -- arcanine-kingdra
+|chat|DEBUG|Own moves: willowisp fireblast nastyplot solarbeam
+|chat|DEBUG|Enemy moves: dracometeor hurricane hydropump raindance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gyarados', 'reshiram', 'drapion']
+|chat|DEBUG|Speed: 211 vs 187
+|chat|DEBUG|HP: 124 vs 257
+|chat|DEBUG|Created a new Strategy for ninetales vs kingdra:
+|chat|DEBUG|>[solarbeam: 68.0 [62, 74], solarbeam: 68.0 [62, 74], solarbeam: 68.0 [62, 74]]
+|chat|DEBUG|Best move of ninetales (p1): solarbeam: 68.0 [62, 74]
+|chat|DEBUG|Best move of kingdra (p2): hydropump: 261.0 [242, 283]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using solarbeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Hydro Pump|p1a: Ninetales
+|-supereffective|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|faint|p1a: Ninetales
+|-damage|p2a: Kingdra|65100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gyarados|Gyarados, L76, M|269269
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist ninetales reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "kingdra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-ninetales-reshiram-drapion -- arcanine-kingdra
+|chat|DEBUG|Own moves: willowisp fireblast nastyplot solarbeam
+|chat|DEBUG|Enemy moves: dracometeor hurricane hydropump raindance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gyarados', 'reshiram', 'drapion']
+|chat|DEBUG|Speed: 211 vs 187
+|chat|DEBUG|HP: 124 vs 190
+|chat|DEBUG|Best move of ninetales (p1): solarbeam: 68.0 [62, 74]
+|chat|DEBUG|Best move of kingdra (p2): hydropump: 261.0 [242, 283]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using solarbeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Draco Meteor|p1a: Gyarados
+|-damage|p1a: Gyarados|104269
+|-unboost|p2a: Kingdra|spa|2
+|-damage|p2a: Kingdra|55100|[from] item: Life Orb
+|move|p1a: Gyarados|Bounce||[still]
+|-prepare|p1a: Gyarados|Bounce
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ninetales" vs "kingdra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-kingdra
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor hurricane hydropump raindance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gyarados', 'reshiram', 'drapion']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to gyarados (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 90 seconds left.
+|switch|p2a: Sandaconda|Sandaconda, L84, M|100100
+|move|p1a: Gyarados|Bounce|p2a: Sandaconda|[from]lockedmove
+|-damage|p2a: Sandaconda|61100
+|-status|p2a: Sandaconda|par
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Sandaconda|67100 par|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "kingdra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-kingdra
+|chat|DEBUG|Own moves: bounce powerwhip earthquake waterfall
+|chat|DEBUG|Enemy moves: dracometeor hurricane hydropump raindance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['gyarados', 'reshiram', 'drapion']
+|chat|DEBUG|Speed: 167 vs 187
+|chat|DEBUG|HP: 269 vs 167
+|chat|DEBUG|Created a new Strategy for gyarados vs kingdra:
+|chat|DEBUG|>[bounce: 132.5 [121, 144], bounce: 132.5 [121, 144], bounce: 132.5 [121, 144]]
+|chat|DEBUG|Best move of gyarados (p1): bounce: 132.5 [121, 144]
+|chat|DEBUG|Best move of kingdra (p2): hurricane: 94.3125 [87, 103]
+|chat|DEBUG|Attacking using bounce
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 60 seconds left.
+|switch|p1a: Reshiram|Reshiram, L74|270270
+|-ability|p1a: Reshiram|Turboblaze
+|cant|p2a: Sandaconda|par
+|-weather|none
+|-heal|p2a: Sandaconda|73100 par|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "kingdra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-kingdra
+|chat|DEBUG|Own moves: bounce
+|chat|DEBUG|Enemy moves: dracometeor hurricane hydropump raindance
+|chat|DEBUG|Checks: ['polteageist', 'reshiram', 'drapion']
+|chat|DEBUG|Counter: ['gyarados', 'polteageist', 'reshiram', 'drapion']
+|chat|DEBUG|Speed: 167 vs 187
+|chat|DEBUG|HP: 104 vs 141
+|chat|DEBUG|Created a new Strategy for gyarados vs kingdra:
+|chat|DEBUG|>[bounce: 132.5 [121, 144], bounce: 132.5 [121, 144], bounce: 132.5 [121, 144]]
+|chat|DEBUG|Best move of gyarados (p1): bounce: 132.5 [121, 144]
+|chat|DEBUG|Best move of kingdra (p2): dracometeor: 83.5 [75, 91]
+|chat|DEBUG|Attacking using bounce
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 60 seconds left.
+|move|p1a: Reshiram|Blue Flare|p2a: Sandaconda
+|-damage|p2a: Sandaconda|0 fnt
+|faint|p2a: Sandaconda
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 60 seconds left.
+|switch|p2a: Kingdra|Kingdra, L82, M|55100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gyarados" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-kingdra-sandaconda
+|chat|DEBUG|Own moves: bounce
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: ['reshiram']
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Speed: 167 vs 167
+|chat|DEBUG|HP: 104 vs 172
+|chat|DEBUG|Created a new Strategy for gyarados vs sandaconda:
+|chat|DEBUG|>[bounce: 104.5 [96, 114], bounce: 104.5 [96, 114], bounce: 104.5 [96, 114]]
+|chat|DEBUG|Best move of gyarados (p1): bounce: 104.5 [96, 114]
+|chat|DEBUG|Best move of sandaconda (p2): stoneedge: 183.0 [168, 198]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check reshiram
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kingdra|Rain Dance|p2a: Kingdra
+|-weather|RainDance
+|move|p1a: Reshiram|Draco Meteor|p2a: Kingdra
+|-supereffective|p2a: Kingdra
+|-damage|p2a: Kingdra|0 fnt
+|-unboost|p1a: Reshiram|spa|2
+|faint|p2a: Kingdra
+|-weather|RainDance|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Slowbro|Slowbro, L84, F|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-kingdra-sandaconda
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Speed: 176 vs 167
+|chat|DEBUG|HP: 270 vs 188
+|chat|DEBUG|Created a new Strategy for reshiram vs sandaconda:
+|chat|DEBUG|>[blueflare: 179.5 [165, 195], blueflare: 179.5 [165, 195], dracometeor: 179.5 [165, 195]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 179.5 [165, 195]
+|chat|DEBUG|Best move of sandaconda (p2): earthquake: 234.0 [216, 254]
+|chat|DEBUG|Attacking using blueflare
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, F|249249
+|move|p2a: Slowbro|Scald|p1a: Drapion
+|-damage|p1a: Drapion|102249
+|-status|p1a: Drapion|brn
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Drapion|87249 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "kingdra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-kingdra
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: dracometeor hurricane hydropump raindance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['reshiram', 'drapion']
+|chat|DEBUG|Speed: 176 vs 187
+|chat|DEBUG|HP: 270 vs 141
+|chat|DEBUG|Created a new Strategy for reshiram vs kingdra:
+|chat|DEBUG|>[dracometeor: 295.0 [270, 320], dracometeor: 147.875 [134, 162], dracometeor: 98.0 [90, 108]]
+|chat|DEBUG|Best move of reshiram (p1): dracometeor: 295.0 [270, 320]
+|chat|DEBUG|Best move of kingdra (p2): hydropump: 125.0 [114, 136]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Knock Off|p2a: Slowbro
+|-supereffective|p2a: Slowbro
+|-damage|p2a: Slowbro|64100
+|-enditem|p2a: Slowbro|Leftovers|[from] move: Knock Off|[of] p1a: Drapion
+|-damage|p1a: Drapion|63249 brn|[from] item: Life Orb
+|move|p2a: Slowbro|Future Sight|p1a: Drapion
+|-start|p2a: Slowbro|move: Future Sight
+|-weather|RainDance|[upkeep]
+|-damage|p1a: Drapion|48249 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-slowbro
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: ['drapion']
+|chat|DEBUG|Counter: ['polteageist', 'drapion']
+|chat|DEBUG|Speed: 176 vs 99
+|chat|DEBUG|HP: 270 vs 297
+|chat|DEBUG|Created a new Strategy for reshiram vs slowbro:
+|chat|DEBUG|>[dracometeor: 82.4375 [76, 90], dracometeor: 54.75 [51, 60], dracometeor: 42.0625 [39, 46]]
+|chat|DEBUG|Best move of reshiram (p1): dracometeor: 82.4375 [76, 90]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check drapion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Polteageist|Polteageist, L78|222222
+|move|p2a: Slowbro|Slack Off|p2a: Slowbro
+|-heal|p2a: Slowbro|100100
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-slowbro
+|chat|DEBUG|Own moves: swordsdance poisonjab knockoff earthquake
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist']
+|chat|DEBUG|Speed: 203 vs 99
+|chat|DEBUG|HP: 87 vs 297
+|chat|DEBUG|Created a new Strategy for drapion vs slowbro:
+|chat|DEBUG|>[knockoff: 203.3125 [187, 221], knockoff: 203.3125 [187, 221], knockoff: 203.3125 [187, 221]]
+|chat|DEBUG|Best move of drapion (p1): knockoff: 203.3125 [187, 221]
+|chat|DEBUG|Best move of slowbro (p2): scald: 100.375 [93, 109]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Shadow Ball|p2a: Slowbro
+|-supereffective|p2a: Slowbro
+|-damage|p2a: Slowbro|27100
+|move|p2a: Slowbro|Scald|p1a: Polteageist
+|-damage|p1a: Polteageist|102222
+|-weather|none
+|-end|p1a: Polteageist|move: Future Sight
+|-damage|p1a: Polteageist|0 fnt
+|faint|p1a: Polteageist
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reshiram|Reshiram, L74|270270
+|-ability|p1a: Reshiram|Turboblaze
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-slowbro
+|chat|DEBUG|Own moves: swordsdance poisonjab knockoff earthquake
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: ['polteageist']
+|chat|DEBUG|Counter: ['gyarados', 'polteageist']
+|chat|DEBUG|Speed: 203 vs 99
+|chat|DEBUG|HP: 48 vs 190
+|chat|DEBUG|Best move of drapion (p1): knockoff: 203.3125 [187, 221]
+|chat|DEBUG|Best move of slowbro (p2): scald: 100.375 [93, 109]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check polteageist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Reshiram|Dynamax
+|-heal|p1a: Reshiram|540540|[silent]
+|move|p1a: Reshiram|Max Flare|p2a: Slowbro
+|-resisted|p2a: Slowbro
+|-damage|p2a: Slowbro|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Slowbro
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Arcanine|Arcanine, L82, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados polteageist reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-polteageist-reshiram-drapion -- arcanine-slowbro
+|chat|DEBUG|Own moves: gigadrain strengthsap shadowball shellsmash
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['polteageist']
+|chat|DEBUG|Speed: 154 vs 99
+|chat|DEBUG|HP: 222 vs 297
+|chat|DEBUG|Created a new Strategy for polteageist vs slowbro:
+|chat|DEBUG|>[shadowball: 206.5 [188, 224], shadowball: 206.5 [188, 224], shadowball: 206.5 [188, 224]]
+|chat|DEBUG|Best move of polteageist (p1): shadowball: 206.5 [188, 224]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 114.3125 [105, 124]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Arcanine|Wild Charge|p1a: Reshiram
+|-resisted|p1a: Reshiram
+|-damage|p1a: Reshiram|493540
+|-damage|p2a: Arcanine|96100|[from] Recoil
+|move|p1a: Reshiram|Max Wyrmwind|p2a: Arcanine
+|-damage|p2a: Arcanine|27100
+|-unboost|p2a: Arcanine|atk|1
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "polteageist" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-reshiram-drapion -- arcanine-slowbro
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: reshiram
+|chat|DEBUG|Early game switch: reshiram
+|chat|DEBUG|>Switching to reshiram (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Arcanine|Wild Charge|p1a: Reshiram
+|-resisted|p1a: Reshiram
+|-crit|p1a: Reshiram
+|-damage|p1a: Reshiram|419540
+|-damage|p2a: Arcanine|20100|[from] Recoil
+|move|p1a: Reshiram|Max Wyrmwind|p2a: Arcanine
+|-damage|p2a: Arcanine|0 fnt
+|faint|p2a: Arcanine
+|-weather|SunnyDay|[upkeep]
+|-end|p1a: Reshiram|Dynamax
+|-heal|p1a: Reshiram|210270|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Mime|Mr. Mime, L86, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "slowbro"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-reshiram-drapion -- arcanine-slowbro
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: futuresight scald slackoff teleport
+|chat|DEBUG|Checks: ['reshiram']
+|chat|DEBUG|Counter: ['gyarados', 'reshiram', 'drapion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 99
+|chat|DEBUG|HP: 270 vs 80
+|chat|DEBUG|Created a new Strategy for reshiram vs slowbro:
+|chat|DEBUG|>[blueflare: 81.125 [75, 88], dracometeor: 162.8125 [150, 177], dracometeor: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 81.125 [75, 88]
+|chat|DEBUG|Best move of slowbro (p2): futuresight: 115.625 [106, 126]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Dazzling Gleam|p1a: Reshiram
+|-damage|p1a: Reshiram|107270
+|-damage|p2a: Mr. Mime|91100|[from] item: Life Orb
+|move|p1a: Reshiram|Blue Flare|p2a: Mr. Mime|[miss]
+|-miss|p1a: Reshiram|p2a: Mr. Mime
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-reshiram-drapion -- arcanine
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: ['reshiram']
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 203
+|chat|DEBUG|HP: 540 vs 282
+|chat|DEBUG|Created a new Strategy for reshiram vs arcanine:
+|chat|DEBUG|>[dracometeor: 166.9375 [153, 181], dracometeor: 83.625 [76, 91], dracometeor: 55.9375 [51, 61]]
+|chat|DEBUG|Best move of reshiram (p1): dracometeor: 166.9375 [153, 181]
+|chat|DEBUG|Best move of arcanine (p2): wildcharge: 34.25 [31, 37]
+|chat|DEBUG|Boost Moves: [dracometeor (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 90 seconds left.
+|move|p2a: Mr. Mime|Nasty Plot|p2a: Mr. Mime
+|-boost|p2a: Mr. Mime|spa|2
+|move|p1a: Reshiram|Blue Flare|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|13100
+|-weather|none
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados reshiram drapion
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "arcanine"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-reshiram-drapion -- arcanine
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: flareblitz morningsun toxic wildcharge
+|chat|DEBUG|Checks: ['reshiram']
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 203
+|chat|DEBUG|HP: 493 vs 76
+|chat|DEBUG|Best move of reshiram (p1): dracometeor: 83.625 [76, 91]
+|chat|DEBUG|Best move of arcanine (p2): wildcharge: 22.75 [21, 25]
+|chat|DEBUG|Boost Moves: [dracometeor (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|twoicicki has 90 seconds left.
+|move|p2a: Mr. Mime|Dazzling Gleam|p1a: Reshiram
+|-damage|p1a: Reshiram|0 fnt
+|faint|p1a: Reshiram
+|-damage|p2a: Mr. Mime|3100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, F|48249 brn
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gyarados reshiram drapion
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "reshiram" vs "mrmime"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gyarados-reshiram-drapion -- mrmime
+|chat|DEBUG|Own moves: toxic dracometeor blueflare roost
+|chat|DEBUG|Enemy moves: dazzlinggleam focusblast nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 204
+|chat|DEBUG|HP: 210 vs 209
+|chat|DEBUG|Created a new Strategy for reshiram vs mrmime:
+|chat|DEBUG|>[blueflare: 117.0 [108, 127], blueflare: 117.0 [108, 127], blueflare: 117.0 [108, 127]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 117.0 [108, 127]
+|chat|DEBUG|Best move of mrmime (p2): psychic: 118.0625 [109, 129]
+|chat|DEBUG|Attacking using blueflare
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Mime|Dazzling Gleam|p1a: Drapion
+|-damage|p1a: Drapion|0 fnt
+|faint|p1a: Drapion
+|-damage|p2a: Mr. Mime|0 fnt|[from] item: Life Orb
+|faint|p2a: Mr. Mime
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>twoicicki</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">gyarados polteageist ninetales reshiram lunala drapion</h1>

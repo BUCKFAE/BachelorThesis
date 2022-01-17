@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490862528<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490862528|init|battle
+|title|Daveatouille vs. McGewitter
+|j|☆Daveatouille
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Daveatouille|birdkeeper|1244
+|player|p2|McGewitter|265|1291
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Xurkitree|Xurkitree, L76|100100
+|switch|p2a: Krookodile|Krookodile, L78, F|276276
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree
+|chat|DEBUG|Own moves: knockoff stoneedge closecombat earthquake
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: ['krookodile']
+|chat|DEBUG|Counter: ['krookodile', 'steelix', 'musharna', 'entei']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 189 vs 170
+|chat|DEBUG|HP: 276 vs 251
+|chat|DEBUG|Created a new Strategy for krookodile vs xurkitree:
+|chat|DEBUG|>[earthquake: 277.125 [254, 302], earthquake: 277.125 [254, 302], earthquake: 277.125 [254, 302]]
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 277.125 [254, 302]
+|chat|DEBUG|Best move of xurkitree (p2): energyball: 213.625 [196, 232]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Exeggutor|Exeggutor, L86, F|100100
+|move|p2a: Krookodile|Earthquake|p1a: Exeggutor
+|-resisted|p1a: Exeggutor
+|-damage|p1a: Exeggutor|81100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor
+|chat|DEBUG|Own moves: earthquake
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: ['entei']
+|chat|DEBUG|Counter: ['krookodile', 'musharna', 'entei']
+|chat|DEBUG|Speed: 189 vs 144
+|chat|DEBUG|HP: 276 vs 246
+|chat|DEBUG|Created a new Strategy for krookodile vs exeggutor:
+|chat|DEBUG|>[earthquake: 54.125 [50, 59], earthquake: 54.125 [50, 59], earthquake: 54.125 [50, 59]]
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 54.125 [50, 59]
+|chat|DEBUG|Best move of exeggutor (p2): gigadrain: 259.0 [236, 282]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Krookodile|Earthquake|p1a: Exeggutor
+|-resisted|p1a: Exeggutor
+|-damage|p1a: Exeggutor|63100
+|move|p1a: Exeggutor|Giga Drain|p2a: Krookodile
+|-supereffective|p2a: Krookodile
+|-damage|p2a: Krookodile|12276
+|-heal|p1a: Exeggutor|100100|[from] drain|[of] p2a: Krookodile
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor
+|chat|DEBUG|Own moves: earthquake
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: ['entei']
+|chat|DEBUG|Counter: ['entei']
+|chat|DEBUG|Speed: 189 vs 144
+|chat|DEBUG|HP: 12 vs 304
+|chat|DEBUG|Created a new Strategy for krookodile vs exeggutor:
+|chat|DEBUG|>[earthquake: 54.125 [50, 59], earthquake: 54.125 [50, 59], earthquake: 54.125 [50, 59]]
+|chat|DEBUG|Best move of krookodile (p1): earthquake: 54.125 [50, 59]
+|chat|DEBUG|Best move of exeggutor (p2): gigadrain: 259.0 [236, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check entei
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Entei|Entei, L78|307307
+|move|p1a: Exeggutor|Giga Drain|p2a: Entei
+|-resisted|p2a: Entei
+|-damage|p2a: Entei|241307
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "entei" vs "exeggutor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor
+|chat|DEBUG|Own moves: stompingtantrum flareblitz extremespeed stoneedge
+|chat|DEBUG|Enemy moves: gigadrain leechseed psychic substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['entei']
+|chat|DEBUG|Speed: 201 vs 144
+|chat|DEBUG|HP: 241 vs 304
+|chat|DEBUG|Created a new Strategy for entei vs exeggutor:
+|chat|DEBUG|>[flareblitz: 381.125 [350, 414], flareblitz: 381.125 [350, 414], flareblitz: 381.125 [350, 414]]
+|chat|DEBUG|Best move of entei (p1): flareblitz: 381.125 [350, 414]
+|chat|DEBUG|Best move of exeggutor (p2): psychic: 147.5 [135, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gigalith|Gigalith, L82, F|100100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Gigalith
+|move|p2a: Entei|Flare Blitz|p1a: Gigalith
+|-resisted|p1a: Gigalith
+|-damage|p1a: Gigalith|75100
+|-damage|p2a: Entei|218307|[from] Recoil
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Entei|199307|[from] Sandstorm
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "entei" vs "gigalith"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-gigalith
+|chat|DEBUG|Own moves: flareblitz
+|chat|DEBUG|Enemy moves: earthquake explosion stoneedge superpower
+|chat|DEBUG|Checks: ['steelix']
+|chat|DEBUG|Counter: ['steelix', 'blastoise', 'musharna']
+|chat|DEBUG|Speed: 201 vs 88
+|chat|DEBUG|HP: 199 vs 205
+|chat|DEBUG|Created a new Strategy for entei vs gigalith:
+|chat|DEBUG|>[flareblitz: 71.3125 [66, 78], flareblitz: 71.3125 [66, 78], flareblitz: 71.3125 [66, 78]]
+|chat|DEBUG|Best move of entei (p1): flareblitz: 71.3125 [66, 78]
+|chat|DEBUG|Best move of gigalith (p2): stoneedge: 428.0 [392, 464]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check steelix
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Steelix|Steelix, L84, M|263263
+|move|p1a: Gigalith|Stone Edge|p2a: Steelix
+|-resisted|p2a: Steelix
+|-damage|p2a: Steelix|239263
+|-weather|Sandstorm|[upkeep]
+|-heal|p2a: Steelix|255263|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "gigalith"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-gigalith
+|chat|DEBUG|Own moves: heavyslam dragondance earthquake headsmash
+|chat|DEBUG|Enemy moves: earthquake explosion stoneedge superpower
+|chat|DEBUG|Checks: ['steelix']
+|chat|DEBUG|Counter: ['steelix', 'blastoise', 'musharna']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 99 vs 88
+|chat|DEBUG|HP: 255 vs 205
+|chat|DEBUG|Created a new Strategy for steelix vs gigalith:
+|chat|DEBUG|>[earthquake: 145.125 [134, 158], earthquake: 145.125 [134, 158], earthquake: 145.125 [134, 158]]
+|chat|DEBUG|Best move of steelix (p1): earthquake: 145.125 [134, 158]
+|chat|DEBUG|Best move of gigalith (p2): earthquake: 134.125 [124, 146]
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Steelix|Earthquake|p1a: Gigalith
+|-supereffective|p1a: Gigalith
+|-damage|p1a: Gigalith|26100
+|move|p1a: Gigalith|Stone Edge|p2a: Steelix
+|-resisted|p2a: Steelix
+|-damage|p2a: Steelix|230263
+|-weather|Sandstorm|[upkeep]
+|-heal|p2a: Steelix|246263|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "gigalith"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-gigalith
+|chat|DEBUG|Own moves: heavyslam dragondance earthquake headsmash
+|chat|DEBUG|Enemy moves: earthquake explosion stoneedge superpower
+|chat|DEBUG|Checks: ['steelix', 'blastoise', 'musharna', 'weezinggalar']
+|chat|DEBUG|Counter: ['krookodile', 'steelix', 'blastoise', 'musharna', 'weezinggalar', 'entei']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 99 vs 88
+|chat|DEBUG|HP: 246 vs 71
+|chat|DEBUG|Best move of steelix (p1): earthquake: 145.125 [134, 158]
+|chat|DEBUG|Best move of gigalith (p2): earthquake: 134.125 [124, 146]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['exeggutor']
+|chat|DEBUG|Expected enemy: exeggutor
+|chat|DEBUG|Using move heavyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Steelix|Heavy Slam|p1a: Gigalith
+|-supereffective|p1a: Gigalith
+|-crit|p1a: Gigalith
+|-damage|p1a: Gigalith|0 fnt
+|faint|p1a: Gigalith
+|-weather|Sandstorm|[upkeep]
+|-heal|p2a: Steelix|262263|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blastoise|Blastoise, L82, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile steelix blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-steelix-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: heavyslam dragondance earthquake headsmash
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['musharna']
+|chat|DEBUG|Speed: 99 vs 175
+|chat|DEBUG|HP: 262 vs 264
+|chat|DEBUG|Created a new Strategy for steelix vs blastoise:
+|chat|DEBUG|>[earthquake: 89.1875 [82, 97], earthquake: 89.1875 [82, 97], earthquake: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of steelix (p1): earthquake: 89.1875 [82, 97]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 250.75 [230, 272]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blastoise|Hydro Pump|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|0 fnt
+|faint|p2a: Steelix
+|-weather|none
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Musharna|Musharna, L86, M|340340
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['musharna']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to musharna (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Blastoise|Hydro Pump|p2a: Musharna
+|-damage|p2a: Musharna|253340
+|move|p2a: Musharna|Psychic|p1a: Blastoise
+|-damage|p1a: Blastoise|66100
+|-heal|p2a: Musharna|274340|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: moonblast psychic thunderwave moonlight
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['musharna']
+|chat|DEBUG|Speed: 99 vs 175
+|chat|DEBUG|HP: 340 vs 264
+|chat|DEBUG|Created a new Strategy for musharna vs blastoise:
+|chat|DEBUG|>[psychic: 96.1875 [88, 105], psychic: 96.1875 [88, 105], psychic: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of musharna (p1): psychic: 96.1875 [88, 105]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 91.875 [84, 100]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Duraludon|Duraludon, L84, F|100100
+|move|p2a: Musharna|Psychic|p1a: Duraludon
+|-resisted|p1a: Duraludon
+|-damage|p1a: Duraludon|68100
+|-heal|p2a: Musharna|295340|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: moonblast psychic thunderwave moonlight
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['musharna']
+|chat|DEBUG|Speed: 99 vs 175
+|chat|DEBUG|HP: 274 vs 174
+|chat|DEBUG|Best move of musharna (p1): psychic: 96.1875 [88, 105]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 91.875 [84, 100]
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Duraludon|Stealth Rock|p2a: Musharna
+|-sidestart|p2: McGewitter|move: Stealth Rock
+|move|p2a: Musharna|Moonblast|p1a: Duraludon
+|-damage|p1a: Duraludon|27100
+|-heal|p2a: Musharna|316340|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise-duraludon
+|chat|DEBUG|Own moves: moonblast psychic thunderwave moonlight
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['entei']
+|chat|DEBUG|Speed: 99 vs 191
+|chat|DEBUG|HP: 295 vs 173
+|chat|DEBUG|Created a new Strategy for musharna vs duraludon:
+|chat|DEBUG|>[moonblast: 75.375 [69, 82], moonblast: 75.375 [69, 82], moonblast: 75.375 [69, 82]]
+|chat|DEBUG|Best move of musharna (p1): moonblast: 75.375 [69, 82]
+|chat|DEBUG|Best move of duraludon (p2): flashcannon: 91.875 [84, 100]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using moonblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Duraludon|Draco Meteor|p2a: Musharna
+|-damage|p2a: Musharna|112340
+|-unboost|p1a: Duraludon|spa|2
+|-damage|p1a: Duraludon|17100|[from] item: Life Orb
+|move|p2a: Musharna|Moonblast|p1a: Duraludon
+|-damage|p1a: Duraludon|0 fnt
+|faint|p1a: Duraludon
+|-heal|p2a: Musharna|133340|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Xurkitree|Xurkitree, L76|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "duraludon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise-duraludon
+|chat|DEBUG|Own moves: moonblast psychic thunderwave moonlight
+|chat|DEBUG|Enemy moves: bodypress dracometeor flashcannon thunderbolt
+|chat|DEBUG|Checks: ['musharna', 'entei']
+|chat|DEBUG|Counter: ['blastoise', 'musharna', 'weezinggalar', 'entei']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 99 vs 191
+|chat|DEBUG|HP: 316 vs 68
+|chat|DEBUG|Best move of musharna (p1): moonblast: 75.375 [69, 82]
+|chat|DEBUG|Best move of duraludon (p2): flashcannon: 91.875 [84, 100]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xurkitree|Energy Ball|p2a: Musharna
+|-damage|p2a: Musharna|25340
+|move|p2a: Musharna|Psychic|p1a: Xurkitree
+|-damage|p1a: Xurkitree|48100
+|-heal|p2a: Musharna|46340|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: moonblast psychic thunderwave moonlight
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['krookodile']
+|chat|DEBUG|Speed: 99 vs 170
+|chat|DEBUG|HP: 133 vs 251
+|chat|DEBUG|Created a new Strategy for musharna vs xurkitree:
+|chat|DEBUG|>[psychic: 138.5625 [127, 151], psychic: 138.5625 [127, 151], psychic: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of musharna (p1): psychic: 138.5625 [127, 151]
+|chat|DEBUG|Best move of xurkitree (p2): thunderbolt: 117.0 [108, 127]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Xurkitree|Energy Ball|p2a: Musharna
+|-damage|p2a: Musharna|0 fnt
+|faint|p2a: Musharna
+|-ability|p1a: Xurkitree|Beast Boost|boost
+|-boost|p1a: Xurkitree|spa|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Krookodile|Krookodile, L78, F|12276
+|-damage|p2a: Krookodile|0 fnt|[from] Stealth Rock
+|faint|p2a: Krookodile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Entei|Entei, L78|199307
+|-damage|p2a: Entei|123307|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise musharna weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-musharna-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: moonblast psychic thunderwave moonlight
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['krookodile', 'blastoise', 'entei']
+|chat|DEBUG|Speed: 99 vs 170
+|chat|DEBUG|HP: 46 vs 120
+|chat|DEBUG|Best move of musharna (p1): psychic: 138.5625 [127, 151]
+|chat|DEBUG|Best move of xurkitree (p2): thunderbolt: 117.0 [108, 127]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Entei|Flare Blitz|p1a: Xurkitree
+|-damage|p1a: Xurkitree|0 fnt
+|faint|p1a: Xurkitree
+|-damage|p2a: Entei|84307|[from] Recoil
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blastoise|Blastoise, L82, F|66100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>krookodile blastoise weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "musharna" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>krookodile-blastoise-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['krookodile', 'blastoise', 'entei']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to krookodile (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Entei|Flare Blitz|p1a: Blastoise
+|-resisted|p1a: Blastoise
+|-damage|p1a: Blastoise|30100
+|-damage|p2a: Entei|52307|[from] Recoil
+|move|p1a: Blastoise|Hydro Pump|p2a: Entei
+|-supereffective|p2a: Entei
+|-damage|p2a: Entei|0 fnt
+|faint|p2a: Entei
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Blastoise|Blastoise, L82, F|264264
+|-damage|p2a: Blastoise|231264|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "krookodile" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['entei']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to entei (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Exeggutor|Exeggutor, L86, F|100100
+|move|p2a: Blastoise|Scald|p1a: Exeggutor
+|-resisted|p1a: Exeggutor
+|-damage|p1a: Exeggutor|86100
+|-heal|p2a: Blastoise|247264|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "entei" vs "xurkitree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-weezinggalar-entei -- xurkitree-exeggutor-blastoise
+|chat|DEBUG|Own moves: stompingtantrum flareblitz extremespeed stoneedge
+|chat|DEBUG|Enemy moves: dazzlinggleam energyball thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['entei']
+|chat|DEBUG|Speed: 201 vs 170
+|chat|DEBUG|HP: 123 vs 120
+|chat|DEBUG|Created a new Strategy for entei vs xurkitree:
+|chat|DEBUG|>[flareblitz: 244.5625 [225, 265], flareblitz: 244.5625 [225, 265], flareblitz: 244.5625 [225, 265]]
+|chat|DEBUG|Best move of entei (p1): flareblitz: 244.5625 [225, 265]
+|chat|DEBUG|Best move of xurkitree (p2): thunderbolt: 228.0 [210, 247]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Exeggutor|Dynamax
+|-heal|p1a: Exeggutor|86100|[silent]
+|move|p2a: Blastoise|Scald|p1a: Exeggutor
+|-resisted|p1a: Exeggutor
+|-damage|p1a: Exeggutor|79100
+|move|p1a: Exeggutor|Max Overgrowth|p2a: Blastoise
+|-supereffective|p2a: Blastoise
+|-damage|p2a: Blastoise|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Blastoise
+|-heal|p1a: Exeggutor|82100|[from] Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Weezing|Weezing-Galar, L86, M|252252
+|-ability|p2a: Weezing|Neutralizing Gas
+|-damage|p2a: Weezing|221252|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>blastoise weezinggalar entei
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "entei" vs "blastoise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>blastoise-weezinggalar-entei -- exeggutor-blastoise
+|chat|DEBUG|Own moves: flareblitz
+|chat|DEBUG|Enemy moves: earthquake hydropump icebeam shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 201 vs 175
+|chat|DEBUG|HP: 84 vs 174
+|chat|DEBUG|Created a new Strategy for entei vs blastoise:
+|chat|DEBUG|>[flareblitz: 88.125 [81, 96], flareblitz: 88.125 [81, 96], flareblitz: 88.125 [81, 96]]
+|chat|DEBUG|Best move of entei (p1): flareblitz: 88.125 [81, 96]
+|chat|DEBUG|Best move of blastoise (p2): hydropump: 242.375 [222, 264]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Weezing|Sludge Bomb|p1a: Exeggutor
+|-supereffective|p1a: Exeggutor
+|-damage|p1a: Exeggutor|48100
+|-enditem|p1a: Exeggutor|Sitrus Berry|[eat]
+|-heal|p1a: Exeggutor|60100|[from] item: Sitrus Berry
+|move|p1a: Exeggutor|Max Mindstorm|p2a: Weezing
+|-supereffective|p2a: Weezing
+|-crit|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p2a: Weezing
+|-end|p2a: Weezing|ability: Neutralizing Gas
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Daveatouille<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">krookodile steelix blastoise musharna weezinggalar entei</h1>

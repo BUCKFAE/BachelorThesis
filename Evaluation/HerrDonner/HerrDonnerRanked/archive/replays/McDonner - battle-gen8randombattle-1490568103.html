@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490568103</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490568103<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McDonner</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">mrd5bs</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490568103|init|battle
+|title|mrd5bs vs. McDonner
+|j|☆mrd5bs
+|j|☆McDonner
+|gametype|singles
+|player|p1|mrd5bs|2|1258
+|player|p2|McDonner|265|1233
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Pyukumuku|Pyukumuku, L84, M|100/100
+|switch|p2a: Hydreigon|Hydreigon, L80, M|278/278
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|inactive|mrd5bs also wants the timer to be on.
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|47/100
+|-unboost|p2a: Hydreigon|spa|2
+|move|p1a: Pyukumuku|Toxic|p2a: Hydreigon
+|-status|p2a: Hydreigon|tox
+|-heal|p1a: Pyukumuku|53/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|261/278 tox|[from] psn
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|2/100
+|-unboost|p2a: Hydreigon|spa|2
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|52/100
+|-heal|p2a: Hydreigon|278/278 tox|[from] item: Leftovers
+|-heal|p1a: Pyukumuku|58/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|244/278 tox|[from] psn
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|11/100
+|-unboost|p2a: Hydreigon|spa|2
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|61/100
+|-heal|p2a: Hydreigon|261/278 tox|[from] item: Leftovers
+|-heal|p1a: Pyukumuku|67/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|210/278 tox|[from] psn
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|16/100
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|66/100
+|-heal|p2a: Hydreigon|227/278 tox|[from] item: Leftovers
+|-heal|p1a: Pyukumuku|72/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|159/278 tox|[from] psn
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|19/100
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|69/100
+|-heal|p2a: Hydreigon|176/278 tox|[from] item: Leftovers
+|-heal|p1a: Pyukumuku|75/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|91/278 tox|[from] psn
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|24/100
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|74/100
+|-heal|p2a: Hydreigon|108/278 tox|[from] item: Leftovers
+|-heal|p1a: Pyukumuku|80/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|6/278 tox|[from] psn
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hydreigon|Draco Meteor|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|34/100
+|move|p1a: Pyukumuku|Recover|p1a: Pyukumuku
+|-heal|p1a: Pyukumuku|84/100
+|-heal|p2a: Hydreigon|23/278 tox|[from] item: Leftovers
+|-heal|p1a: Pyukumuku|90/100|[from] item: Leftovers
+|-damage|p2a: Hydreigon|0 fnt|[from] psn
+|faint|p2a: Hydreigon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dragapult|Dragapult, L78, M|265/265
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dragapult|Draco Meteor|p1a: Pyukumuku
+|-crit|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|2/100
+|-unboost|p2a: Dragapult|spa|2
+|move|p1a: Pyukumuku|Toxic|p2a: Dragapult
+|-status|p2a: Dragapult|tox
+|-heal|p1a: Pyukumuku|8/100|[from] item: Leftovers
+|-damage|p2a: Dragapult|249/265 tox|[from] psn
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lapras|Lapras, L86, M|100/100
+|move|p2a: Dragapult|Draco Meteor|p1a: Lapras
+|-damage|p1a: Lapras|77/100
+|-unboost|p2a: Dragapult|spa|2
+|-heal|p1a: Lapras|83/100|[from] item: Leftovers
+|-damage|p2a: Dragapult|217/265 tox|[from] psn
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mr. Rime|Mr. Rime, L86, M|278/278
+|move|p1a: Lapras|Protect||[still]
+|-fail|p1a: Lapras
+|-heal|p1a: Lapras|89/100|[from] item: Leftovers
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Rime|Focus Blast|p1a: Lapras|[miss]
+|-miss|p2a: Mr. Rime|p1a: Lapras
+|move|p1a: Lapras|Toxic|p2a: Mr. Rime
+|-status|p2a: Mr. Rime|tox
+|-heal|p1a: Lapras|95/100|[from] item: Leftovers
+|-damage|p2a: Mr. Rime|261/278 tox|[from] psn
+|upkeep
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Rime|Focus Blast|p1a: Lapras
+|-supereffective|p1a: Lapras
+|-damage|p1a: Lapras|47/100
+|move|p1a: Lapras|Ice Beam|p2a: Mr. Rime
+|-resisted|p2a: Mr. Rime
+|-damage|p2a: Mr. Rime|224/278 tox
+|-heal|p1a: Lapras|53/100|[from] item: Leftovers
+|-damage|p2a: Mr. Rime|190/278 tox|[from] psn
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lapras|Protect|p1a: Lapras
+|-singleturn|p1a: Lapras|Protect
+|move|p2a: Mr. Rime|Focus Blast|p1a: Lapras
+|-activate|p1a: Lapras|move: Protect
+|-heal|p1a: Lapras|59/100|[from] item: Leftovers
+|-damage|p2a: Mr. Rime|139/278 tox|[from] psn
+|upkeep
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mr. Rime|Focus Blast|p1a: Lapras|[miss]
+|-miss|p2a: Mr. Rime|p1a: Lapras
+|move|p1a: Lapras|Sparkling Aria|p2a: Mr. Rime
+|-damage|p2a: Mr. Rime|63/278 tox
+|-heal|p1a: Lapras|65/100|[from] item: Leftovers
+|-damage|p2a: Mr. Rime|0 fnt|[from] psn
+|faint|p2a: Mr. Rime
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Bouffalant|Bouffalant, L84, F|297/297
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lapras|Toxic|p2a: Bouffalant
+|-status|p2a: Bouffalant|tox
+|move|p2a: Bouffalant|Close Combat|p1a: Lapras
+|-supereffective|p1a: Lapras
+|-damage|p1a: Lapras|14/100
+|-unboost|p2a: Bouffalant|def|1
+|-unboost|p2a: Bouffalant|spd|1
+|-heal|p1a: Lapras|20/100|[from] item: Leftovers
+|-damage|p2a: Bouffalant|279/297 tox|[from] psn
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lapras|Protect|p1a: Lapras
+|-singleturn|p1a: Lapras|Protect
+|move|p2a: Bouffalant|Close Combat|p1a: Lapras
+|-activate|p1a: Lapras|move: Protect
+|-heal|p1a: Lapras|26/100|[from] item: Leftovers
+|-heal|p2a: Bouffalant|297/297 tox|[from] item: Leftovers
+|-damage|p2a: Bouffalant|261/297 tox|[from] psn
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lapras|Ice Beam|p2a: Bouffalant
+|-damage|p2a: Bouffalant|143/297 tox
+|move|p2a: Bouffalant|Close Combat|p1a: Lapras
+|-supereffective|p1a: Lapras
+|-damage|p1a: Lapras|0 fnt
+|-unboost|p2a: Bouffalant|def|1
+|-unboost|p2a: Bouffalant|spd|1
+|faint|p1a: Lapras
+|-heal|p2a: Bouffalant|161/297 tox|[from] item: Leftovers
+|-damage|p2a: Bouffalant|107/297 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Polteageist|Polteageist, L78|100/100
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Shell Smash|p1a: Polteageist
+|-unboost|p1a: Polteageist|def|1
+|-unboost|p1a: Polteageist|spd|1
+|-boost|p1a: Polteageist|atk|2
+|-boost|p1a: Polteageist|spa|2
+|-boost|p1a: Polteageist|spe|2
+|-enditem|p1a: Polteageist|White Herb
+|-clearnegativeboost|p1a: Polteageist|[silent]
+|move|p2a: Bouffalant|Megahorn|p1a: Polteageist
+|-resisted|p1a: Polteageist
+|-damage|p1a: Polteageist|74/100
+|-heal|p2a: Bouffalant|125/297 tox|[from] item: Leftovers
+|-damage|p2a: Bouffalant|53/297 tox|[from] psn
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Strength Sap|p2a: Bouffalant
+|-ability|p2a: Bouffalant|Sap Sipper|boost
+|-boost|p2a: Bouffalant|atk|1
+|move|p2a: Bouffalant|Megahorn|p1a: Polteageist
+|-resisted|p1a: Polteageist
+|-damage|p1a: Polteageist|35/100
+|-heal|p2a: Bouffalant|71/297 tox|[from] item: Leftovers
+|-damage|p2a: Bouffalant|0 fnt|[from] psn
+|faint|p2a: Bouffalant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Clefable|Clefable, L82, F|290/290
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Strength Sap|p2a: Clefable
+|-unboost|p2a: Clefable|atk|1
+|-heal|p1a: Polteageist|89/100
+|move|p2a: Clefable|Moonblast|p1a: Polteageist
+|-damage|p1a: Polteageist|37/100
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Strength Sap|p2a: Clefable
+|-unboost|p2a: Clefable|atk|1
+|-heal|p1a: Polteageist|73/100
+|move|p2a: Clefable|Moonblast|p1a: Polteageist
+|-damage|p1a: Polteageist|24/100
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Polteageist|Stored Power|p2a: Clefable
+|-damage|p2a: Clefable|61/290
+|move|p2a: Clefable|Moonblast|p1a: Polteageist
+|-damage|p1a: Polteageist|0 fnt
+|-start|p2a: Clefable|Disable|Moonblast|[from] ability: Cursed Body|[of] p1a: Polteageist
+|faint|p1a: Polteageist
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|mrd5bs has 120 seconds left.
+|switch|p1a: Pyukumuku|Pyukumuku, L84, M|8/100
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Clefable|Fire Blast|p1a: Pyukumuku
+|-resisted|p1a: Pyukumuku
+|-damage|p1a: Pyukumuku|0 fnt
+|faint|p1a: Pyukumuku
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|mrd5bs has 120 seconds left.
+|switch|p1a: Sandslash|Sandslash, L86, M|100/100
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandslash|Knock Off|p2a: Clefable
+|-resisted|p2a: Clefable
+|-damage|p2a: Clefable|20/290
+|-enditem|p2a: Clefable|Life Orb|[from] move: Knock Off|[of] p1a: Sandslash
+|move|p2a: Clefable|Fire Blast|p1a: Sandslash
+|-damage|p1a: Sandslash|77/100
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandslash|Earthquake|p2a: Clefable
+|-damage|p2a: Clefable|0 fnt
+|faint|p2a: Clefable
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Steelix|Steelix, L84, F|263/263
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandslash|Knock Off|p2a: Steelix
+|-damage|p2a: Steelix|223/263
+|-enditem|p2a: Steelix|Leftovers|[from] move: Knock Off|[of] p1a: Sandslash
+|move|p2a: Steelix|Heavy Slam|p1a: Sandslash
+|-damage|p1a: Sandslash|45/100
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandslash|Earthquake|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|107/263
+|move|p2a: Steelix|Heavy Slam|p1a: Sandslash
+|-damage|p1a: Sandslash|9/100
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandslash|Earthquake|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|0 fnt
+|faint|p2a: Steelix
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dragapult|Dragapult, L78, M|217/265 tox
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dragapult|Draco Meteor|p1a: Sandslash
+|-damage|p1a: Sandslash|0 fnt
+|-unboost|p2a: Dragapult|spa|2
+|faint|p1a: Sandslash
+|-damage|p2a: Dragapult|201/265 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dragapult|Dragapult, L78, F|100/100
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Dragapult|Dynamax
+|-heal|p1a: Dragapult|100/100|[silent]
+|move|p1a: Dragapult|Max Wyrmwind|p2a: Dragapult
+|-supereffective|p2a: Dragapult
+|-crit|p2a: Dragapult
+|-damage|p2a: Dragapult|0 fnt
+|faint|p2a: Dragapult
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

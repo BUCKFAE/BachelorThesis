@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490963034<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490963034|init|battle
+|title|McGewitter vs. Bjohnson91
+|j|☆McGewitter
+|j|☆Bjohnson91
+|gametype|singles
+|player|p1|McGewitter|265|1300
+|player|p2|Bjohnson91|norman|1318
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Lickilicky|Lickilicky, L86, M|329329
+|switch|p2a: Tentacruel|Tentacruel, L84, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lickilicky" vs "tentacruel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- tentacruel
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: haze knockoff scald sludgebomb
+|chat|DEBUG|Checks: ['lickilicky', 'duraludon']
+|chat|DEBUG|Counter: ['lickilicky', 'duraludon', 'excadrill', 'toxtricitylowkey']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 135 vs 216
+|chat|DEBUG|HP: 329 vs 272
+|chat|DEBUG|Created a new Strategy for lickilicky vs tentacruel:
+|chat|DEBUG|>[earthquake: 167.5 [154, 182], earthquake: 167.5 [154, 182], earthquake: 167.5 [154, 182]]
+|chat|DEBUG|Best move of lickilicky (p1): earthquake: 167.5 [154, 182]
+|chat|DEBUG|Best move of tentacruel (p2): sludgebomb: 76.75 [70, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Tentacruel|Toxic Spikes|p1a: Lickilicky
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|move|p1a: Lickilicky|Earthquake|p2a: Tentacruel
+|-supereffective|p2a: Tentacruel
+|-damage|p2a: Tentacruel|35100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lickilicky" vs "tentacruel"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- tentacruel
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: haze knockoff scald sludgebomb
+|chat|DEBUG|Checks: ['lickilicky', 'passimian', 'duraludon', 'toxtricitylowkey']
+|chat|DEBUG|Counter: ['lickilicky', 'passimian', 'duraludon', 'excadrill', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 135 vs 216
+|chat|DEBUG|HP: 329 vs 95
+|chat|DEBUG|Best move of lickilicky (p1): earthquake: 167.5 [154, 182]
+|chat|DEBUG|Best move of tentacruel (p2): sludgebomb: 76.75 [70, 84]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tentacruel|Toxic Spikes|p1a: Lickilicky
+|-sidestart|p1: McGewitter|move: Toxic Spikes
+|move|p1a: Lickilicky|Earthquake|p2a: Tentacruel
+|-supereffective|p2a: Tentacruel
+|-damage|p2a: Tentacruel|0 fnt
+|faint|p2a: Tentacruel
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Buzzwole|Buzzwole, L77|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lickilicky" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['giratina', 'toxtricitylowkey']
+|chat|DEBUG|Counter: ['giratina', 'toxtricitylowkey']
+|chat|DEBUG|Speed: 135 vs 166
+|chat|DEBUG|HP: 329 vs 291
+|chat|DEBUG|Created a new Strategy for lickilicky vs buzzwole:
+|chat|DEBUG|>[bodyslam: 65.75 [60, 72], bodyslam: 65.75 [60, 72], bodyslam: 65.75 [60, 72]]
+|chat|DEBUG|Best move of lickilicky (p1): bodyslam: 65.75 [60, 72]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 389.25 [356, 422]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check giratina
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Giratina|Giratina, L74|344344
+|-status|p1a: Giratina|tox
+|-ability|p1a: Giratina|Pressure
+|move|p2a: Buzzwole|Close Combat|p1a: Giratina
+|-immune|p1a: Giratina
+|-damage|p1a: Giratina|323344 tox|[from] psn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole
+|chat|DEBUG|Own moves: sleeptalk rest toxic hex
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['giratina', 'toxtricitylowkey']
+|chat|DEBUG|Counter: ['giratina', 'toxtricitylowkey']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 166
+|chat|DEBUG|HP: 323 vs 291
+|chat|DEBUG|Created a new Strategy for giratina vs buzzwole:
+|chat|DEBUG|>[toxic: 0.0 [0, 0], hex: 171.125 [157, 186], hex: 171.125 [157, 186]]
+|chat|DEBUG|Best move of giratina (p1): toxic: 0.0 [0, 0]
+|chat|DEBUG|Best move of buzzwole (p2): stoneedge: 105.0 [96, 114]
+|chat|DEBUG|Attacking using toxic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kingler|Kingler, L84, M|100100
+|move|p1a: Giratina|Toxic|p2a: Kingler
+|-status|p2a: Kingler|tox
+|-heal|p1a: Giratina|344344 tox|[from] item: Leftovers
+|-damage|p1a: Giratina|302344 tox|[from] psn
+|-damage|p2a: Kingler|94100 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-kingler
+|chat|DEBUG|Own moves: sleeptalk rest toxic hex
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: ['giratina']
+|chat|DEBUG|Counter: ['passimian', 'duraludon', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 174
+|chat|DEBUG|HP: 302 vs 216
+|chat|DEBUG|Created a new Strategy for giratina vs kingler:
+|chat|DEBUG|>[toxic: 0.0 [0, 0], hex: 162.8125 [150, 177], hex: 162.8125 [150, 177]]
+|chat|DEBUG|Best move of giratina (p1): toxic: 0.0 [0, 0]
+|chat|DEBUG|Best move of kingler (p2): rockslide: 100.375 [92, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using toxic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Giratina|Toxic|p2a: Kingler
+|-fail|p2a: Kingler|tox
+|move|p2a: Kingler|Swords Dance|p2a: Kingler
+|-boost|p2a: Kingler|atk|2
+|-heal|p1a: Giratina|323344 tox|[from] item: Leftovers
+|-damage|p1a: Giratina|260344 tox|[from] psn
+|-damage|p2a: Kingler|82100 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "kingler"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-kingler
+|chat|DEBUG|Own moves: sleeptalk rest toxic hex
+|chat|DEBUG|Enemy moves: liquidation rockslide superpower swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['giratina']
+|chat|DEBUG|Speed: 176 vs 174
+|chat|DEBUG|HP: 260 vs 188
+|chat|DEBUG|Best move of giratina (p1): hex: 162.8125 [150, 177]
+|chat|DEBUG|Best move of kingler (p2): rockslide: 199.875 [183, 217]
+|chat|DEBUG|Attacking using hex
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Giratina|Hex|p2a: Kingler
+|-damage|p2a: Kingler|12100 tox
+|move|p2a: Kingler|Agility|p2a: Kingler
+|-boost|p2a: Kingler|spe|2
+|-heal|p1a: Giratina|281344 tox|[from] item: Leftovers
+|-damage|p2a: Kingler|0 fnt|[from] psn
+|faint|p2a: Kingler
+|-damage|p1a: Giratina|197344 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Snorlax|Snorlax, L82, F|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: sleeptalk rest toxic hex
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: ['passimian', 'duraludon', 'excadrill']
+|chat|DEBUG|Counter: ['lickilicky', 'passimian', 'duraludon', 'excadrill']
+|chat|DEBUG|Speed: 176 vs 96
+|chat|DEBUG|HP: 197 vs 397
+|chat|DEBUG|Created a new Strategy for giratina vs snorlax:
+|chat|DEBUG|>[hex: 0.0 [0, 0], hex: 0.0 [0, 0], hex: 0.0 [0, 0]]
+|chat|DEBUG|Best move of giratina (p1): hex: 0.0 [0, 0]
+|chat|DEBUG|Best move of snorlax (p2): darkestlariat: 111.875 [102, 122]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check passimian
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Passimian|Passimian, L82, M|298298
+|-status|p1a: Passimian|tox
+|move|p2a: Snorlax|Darkest Lariat|p1a: Passimian
+|-resisted|p1a: Passimian
+|-damage|p1a: Passimian|247298 tox
+|-damage|p1a: Passimian|229298 tox|[from] psn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "passimian" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: knockoff rockslide closecombat uturn
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: ['passimian', 'duraludon', 'excadrill']
+|chat|DEBUG|Counter: ['lickilicky', 'passimian', 'duraludon', 'excadrill']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 96
+|chat|DEBUG|HP: 229 vs 397
+|chat|DEBUG|Created a new Strategy for passimian vs snorlax:
+|chat|DEBUG|>[closecombat: 361.375 [332, 392], closecombat: 361.375 [332, 392], closecombat: 361.375 [332, 392]]
+|chat|DEBUG|Best move of passimian (p1): closecombat: 361.375 [332, 392]
+|chat|DEBUG|Best move of snorlax (p2): bodyslam: 94.875 [87, 103]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pincurchin|Pincurchin, L88, M|100100
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p2a: Pincurchin
+|move|p1a: Passimian|Close Combat|p2a: Pincurchin
+|-damage|p2a: Pincurchin|43100
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|-damage|p1a: Passimian|193298 tox|[from] psn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "passimian" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax-pincurchin
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: risingvoltage scald suckerpunch toxicspikes
+|chat|DEBUG|Checks: ['lickilicky', 'passimian', 'duraludon', 'excadrill', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Counter: ['lickilicky', 'passimian', 'duraludon', 'excadrill', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 178 vs 77
+|chat|DEBUG|HP: 193 vs 98
+|chat|DEBUG|Created a new Strategy for passimian vs pincurchin:
+|chat|DEBUG|>[closecombat: 128.0625 [118, 139], closecombat: 128.0625 [118, 139], closecombat: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of passimian (p1): closecombat: 128.0625 [118, 139]
+|chat|DEBUG|Best move of pincurchin (p2): risingvoltage: 157.3125 [144, 171]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Close Combat|p2a: Pincurchin
+|-damage|p2a: Pincurchin|0 fnt
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|faint|p2a: Pincurchin
+|-damage|p1a: Passimian|139298 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Indeedee|Indeedee, L82, M|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Indeedee
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "passimian" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax-indeedee
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lickilicky', 'excadrill']
+|chat|DEBUG|Speed: 178 vs 203
+|chat|DEBUG|HP: 139 vs 233
+|chat|DEBUG|Created a new Strategy for passimian vs indeedee:
+|chat|DEBUG|>[closecombat: 203.0 [186, 220], closecombat: 203.0 [186, 220], closecombat: 203.0 [186, 220]]
+|chat|DEBUG|Best move of passimian (p1): closecombat: 203.0 [186, 220]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 592.6875 [546, 642]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Close Combat|p2a: Indeedee
+|-damage|p2a: Indeedee|7100
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|move|p2a: Indeedee|Calm Mind|p2a: Indeedee
+|-boost|p2a: Indeedee|spa|1
+|-boost|p2a: Indeedee|spd|1
+|-damage|p1a: Passimian|67298 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky passimian duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "passimian" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-passimian-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax-indeedee
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['lickilicky']
+|chat|DEBUG|Counter: ['lickilicky', 'duraludon', 'giratina']
+|chat|DEBUG|Speed: 178 vs 203
+|chat|DEBUG|HP: 67 vs 16
+|chat|DEBUG|Created a new Strategy for passimian vs indeedee:
+|chat|DEBUG|>[closecombat: 203.0 [186, 220], closecombat: 203.0 [186, 220], closecombat: 203.0 [186, 220]]
+|chat|DEBUG|Best move of passimian (p1): closecombat: 203.0 [186, 220]
+|chat|DEBUG|Best move of indeedee (p2): expandingforce: 1111.8125 [1022, 1204]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Passimian|Close Combat|p2a: Indeedee
+|-damage|p2a: Indeedee|0 fnt
+|-unboost|p1a: Passimian|def|1
+|-unboost|p1a: Passimian|spd|1
+|faint|p2a: Indeedee
+|-damage|p1a: Passimian|0 fnt|[from] psn
+|faint|p1a: Passimian
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Buzzwole|Buzzwole, L77|100100
+|switch|p1a: Lickilicky|Lickilicky, L86, M|329329
+|-status|p1a: Lickilicky|tox
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "passimian" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax-indeedee
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['lickilicky']
+|chat|DEBUG|Counter: ['lickilicky', 'duraludon', 'giratina']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'lickilicky': 329, 'duraludon': 255, 'excadrill': 300, 'giratina': 197, 'toxtricitylowkey': 257}
+|chat|DEBUG|remaining_hp_team_2={'buzzwole': 100, 'snorlax': 100, 'indeedee': 7}
+|chat|DEBUG|battle.available_switches=[giratina (pokemon object) [Active: False, Status: TOX], duraludon (pokemon object) [Active: False, Status: None], excadrill (pokemon object) [Active: False, Status: None], lickilicky (pokemon object) [Active: False, Status: None], toxtricitylowkey (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'lickilicky'
+|chat|DEBUG|>Switching to lickilicky (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Lickilicky|Dynamax
+|-heal|p1a: Lickilicky|658658 tox|[silent]
+|move|p2a: Buzzwole|Darkest Lariat|p1a: Lickilicky
+|-damage|p1a: Lickilicky|597658 tox
+|move|p1a: Lickilicky|Max Strike|p2a: Buzzwole
+|-damage|p2a: Buzzwole|67100
+|-unboost|p2a: Buzzwole|spe|1
+|-heal|p1a: Lickilicky|617658 tox|[from] item: Leftovers
+|-damage|p1a: Lickilicky|597658 tox|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lickilicky" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['toxtricitylowkey']
+|chat|DEBUG|Counter: ['toxtricitylowkey']
+|chat|DEBUG|Speed: 135 vs 166
+|chat|DEBUG|HP: 329 vs 291
+|chat|DEBUG|Created a new Strategy for lickilicky vs buzzwole:
+|chat|DEBUG|>[bodyslam: 65.75 [60, 72], bodyslam: 65.75 [60, 72], bodyslam: 65.75 [60, 72]]
+|chat|DEBUG|Best move of lickilicky (p1): bodyslam: 65.75 [60, 72]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 389.25 [356, 422]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Buzzwole|Dynamax
+|-heal|p2a: Buzzwole|67100|[silent]
+|move|p1a: Lickilicky|Max Strike|p2a: Buzzwole
+|-damage|p2a: Buzzwole|50100
+|-unboost|p2a: Buzzwole|spe|1
+|move|p2a: Buzzwole|Max Knuckle|p1a: Lickilicky
+|-supereffective|p1a: Lickilicky
+|-damage|p1a: Lickilicky|399658 tox
+|-boost|p2a: Buzzwole|atk|1
+|-heal|p1a: Lickilicky|419658 tox|[from] item: Leftovers
+|-damage|p1a: Lickilicky|379658 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lickilicky" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['toxtricitylowkey']
+|chat|DEBUG|Counter: ['duraludon', 'toxtricitylowkey']
+|chat|DEBUG|Speed: 135 vs 166
+|chat|DEBUG|HP: 597 vs 194
+|chat|DEBUG|Best move of lickilicky (p1): bodyslam: 65.75 [60, 72]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 389.25 [356, 422]
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lickilicky|Max Strike|p2a: Buzzwole
+|-crit|p2a: Buzzwole
+|-damage|p2a: Buzzwole|25100
+|-unboost|p2a: Buzzwole|spe|1
+|move|p2a: Buzzwole|Max Knuckle|p1a: Lickilicky
+|-supereffective|p1a: Lickilicky
+|-damage|p1a: Lickilicky|65658 tox
+|-boost|p2a: Buzzwole|atk|1
+|-heal|p1a: Lickilicky|85658 tox|[from] item: Leftovers
+|-damage|p1a: Lickilicky|25658 tox|[from] psn
+|-fieldend|move: Psychic Terrain
+|-end|p1a: Lickilicky|Dynamax
+|-heal|p1a: Lickilicky|13329 tox|[silent]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lickilicky" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['toxtricitylowkey']
+|chat|DEBUG|Counter: ['duraludon', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Speed: 135 vs 166
+|chat|DEBUG|HP: 379 vs 145
+|chat|DEBUG|Best move of lickilicky (p1): bodyslam: 65.75 [60, 72]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 583.625 [536, 632]
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lickilicky|Body Slam|p2a: Buzzwole
+|-damage|p2a: Buzzwole|15100
+|move|p2a: Buzzwole|Max Knuckle|p1a: Lickilicky
+|-supereffective|p1a: Lickilicky
+|-damage|p1a: Lickilicky|0 fnt
+|-boost|p2a: Buzzwole|atk|1
+|faint|p1a: Lickilicky
+|-ability|p2a: Buzzwole|Beast Boost|boost
+|-boost|p2a: Buzzwole|atk|1
+|-end|p2a: Buzzwole|Dynamax
+|-heal|p2a: Buzzwole|15100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Giratina|Giratina, L74|197344 tox
+|-ability|p1a: Giratina|Pressure
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>lickilicky duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lickilicky" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>lickilicky-duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: wish earthquake protect bodyslam
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['toxtricitylowkey']
+|chat|DEBUG|Counter: ['duraludon', 'excadrill', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Speed: 135 vs 166
+|chat|DEBUG|HP: 13 vs 72
+|chat|DEBUG|Created a new Strategy for lickilicky vs buzzwole:
+|chat|DEBUG|>[bodyslam: 65.75 [60, 72], bodyslam: 65.75 [60, 72], bodyslam: 65.75 [60, 72]]
+|chat|DEBUG|Best move of lickilicky (p1): bodyslam: 65.75 [60, 72]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 780.625 [716, 846]
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Giratina|Hex|p2a: Buzzwole
+|-damage|p2a: Buzzwole|0 fnt
+|faint|p2a: Buzzwole
+|-heal|p1a: Giratina|218344 tox|[from] item: Leftovers
+|-damage|p1a: Giratina|197344 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Snorlax|Snorlax, L82, F|100100
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "lickilicky" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: ['toxtricitylowkey']
+|chat|DEBUG|Counter: ['duraludon', 'excadrill', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'duraludon': 255, 'excadrill': 300, 'giratina': 197, 'toxtricitylowkey': 257}
+|chat|DEBUG|remaining_hp_team_2={'buzzwole': 25, 'snorlax': 100}
+|chat|DEBUG|battle.available_switches=[giratina (pokemon object) [Active: False, Status: TOX], duraludon (pokemon object) [Active: False, Status: None], excadrill (pokemon object) [Active: False, Status: None], toxtricitylowkey (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'giratina'
+|chat|DEBUG|>Switching to giratina (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Toxtricity|Toxtricity-Low-Key, L82, F|257257
+|-sideend|p1: McGewitter|move: Toxic Spikes|[of] p1a: Toxtricity
+|move|p2a: Snorlax|Darkest Lariat|p1a: Toxtricity
+|-damage|p1a: Toxtricity|142257
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "giratina" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>duraludon-excadrill-giratina-toxtricitylowkey -- buzzwole-snorlax
+|chat|DEBUG|Own moves: sleeptalk rest toxic hex
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['duraludon', 'excadrill', 'giratina', 'toxtricitylowkey']
+|chat|DEBUG|Speed: 176 vs 166
+|chat|DEBUG|HP: 197 vs 43
+|chat|DEBUG|Created a new Strategy for giratina vs buzzwole:
+|chat|DEBUG|>[hex: 86.4375 [79, 94], hex: 86.4375 [79, 94], hex: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of giratina (p1): hex: 86.4375 [79, 94]
+|chat|DEBUG|Best move of buzzwole (p2): stoneedge: 313.125 [288, 339]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxtricity|Boomburst|p2a: Snorlax
+|-damage|p2a: Snorlax|69100
+|move|p2a: Snorlax|Darkest Lariat|p1a: Toxtricity
+|-damage|p1a: Toxtricity|33257
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "giratina" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>duraludon-excadrill-giratina-toxtricitylowkey -- snorlax
+|chat|DEBUG|Own moves: sleeptalk rest toxic hex
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: ['duraludon', 'excadrill']
+|chat|DEBUG|Counter: ['duraludon', 'excadrill']
+|chat|DEBUG|Speed: 176 vs 96
+|chat|DEBUG|HP: 197 vs 397
+|chat|DEBUG|Created a new Strategy for giratina vs snorlax:
+|chat|DEBUG|>[hex: 0.0 [0, 0], hex: 0.0 [0, 0], hex: 0.0 [0, 0]]
+|chat|DEBUG|Best move of giratina (p1): hex: 0.0 [0, 0]
+|chat|DEBUG|Best move of snorlax (p2): darkestlariat: 111.875 [102, 122]
+|chat|DEBUG|Switching to toxtricitylowkey as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Toxtricity|Boomburst|p2a: Snorlax
+|-damage|p2a: Snorlax|37100
+|move|p2a: Snorlax|Darkest Lariat|p1a: Toxtricity
+|-damage|p1a: Toxtricity|0 fnt
+|faint|p1a: Toxtricity
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Duraludon|Duraludon, L84, F|255255
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>duraludon excadrill giratina toxtricitylowkey
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "toxtricitylowkey" vs "snorlax"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>duraludon-excadrill-giratina-toxtricitylowkey -- snorlax
+|chat|DEBUG|Own moves: voltswitch sludgewave overdrive boomburst
+|chat|DEBUG|Enemy moves: bodyslam curse darkestlariat rest
+|chat|DEBUG|Checks: ['duraludon', 'excadrill']
+|chat|DEBUG|Counter: ['duraludon', 'excadrill']
+|chat|DEBUG|Speed: 170 vs 96
+|chat|DEBUG|HP: 142 vs 397
+|chat|DEBUG|Created a new Strategy for toxtricitylowkey vs snorlax:
+|chat|DEBUG|>[boomburst: 119.0 [109, 129], boomburst: 119.0 [109, 129], boomburst: 119.0 [109, 129]]
+|chat|DEBUG|Best move of toxtricitylowkey (p1): boomburst: 119.0 [109, 129]
+|chat|DEBUG|Best move of snorlax (p2): bodyslam: 114.3125 [105, 124]
+|chat|DEBUG|Attacking using boomburst
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Duraludon|Body Press|p2a: Snorlax
+|-supereffective|p2a: Snorlax
+|-damage|p2a: Snorlax|0 fnt
+|faint|p2a: Snorlax
+|-damage|p1a: Duraludon|230255|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Bjohnson91</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">lickilicky passimian duraludon excadrill giratina toxtricitylowkey</h1>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491947770<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491947770|init|battle
+|title|DrGerbs vs. McGewitter
+|j|☆DrGerbs
+|j|☆McGewitter
+|gametype|singles
+|player|p1|DrGerbs|169|1252
+|player|p2|McGewitter|265|1217
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Accelgor|Accelgor, L86, M|100100
+|switch|p2a: Galvantula|Galvantula, L82, M|249249
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "accelgor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- accelgor
+|chat|DEBUG|Own moves: thunder gigadrain voltswitch stickyweb
+|chat|DEBUG|Enemy moves: bugbuzz energyball focusblast toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'xatu']
+|chat|DEBUG|Speed: 224 vs 299
+|chat|DEBUG|HP: 249 vs 278
+|chat|DEBUG|Created a new Strategy for galvantula vs accelgor:
+|chat|DEBUG|>[thunder: 141.5625 [130, 154], thunder: 141.5625 [130, 154], thunder: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of galvantula (p1): thunder: 141.5625 [130, 154]
+|chat|DEBUG|Best move of accelgor (p2): bugbuzz: 138.5 [127, 150]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Setting Sticky web
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Accelgor|Toxic|p2a: Galvantula|[miss]
+|-miss|p1a: Accelgor|p2a: Galvantula
+|move|p2a: Galvantula|Sticky Web|p1a: Accelgor
+|-sidestart|p1: DrGerbs|move: Sticky Web
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "accelgor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- accelgor
+|chat|DEBUG|Own moves: thunder gigadrain voltswitch stickyweb
+|chat|DEBUG|Enemy moves: bugbuzz energyball focusblast toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal', 'xatu']
+|chat|DEBUG|Speed: 224 vs 299
+|chat|DEBUG|HP: 249 vs 278
+|chat|DEBUG|Best move of galvantula (p1): thunder: 141.5625 [130, 154]
+|chat|DEBUG|Best move of accelgor (p2): bugbuzz: 138.5 [127, 150]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunder
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Accelgor|Toxic|p2a: Galvantula
+|-status|p2a: Galvantula|tox
+|move|p2a: Galvantula|Thunder|p1a: Accelgor
+|-damage|p1a: Accelgor|49100
+|-damage|p2a: Galvantula|234249 tox|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "accelgor"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- accelgor
+|chat|DEBUG|Own moves: thunder gigadrain voltswitch stickyweb
+|chat|DEBUG|Enemy moves: bugbuzz energyball focusblast toxic
+|chat|DEBUG|Checks: ['xatu']
+|chat|DEBUG|Counter: ['galvantula', 'lanturn', 'coalossal', 'latias', 'xatu']
+|chat|DEBUG|Speed: 224 vs 299
+|chat|DEBUG|HP: 234 vs 136
+|chat|DEBUG|Best move of galvantula (p1): thunder: 141.5625 [130, 154]
+|chat|DEBUG|Best move of accelgor (p2): bugbuzz: 138.5 [127, 150]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Attacking using thunder
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Accelgor|Spikes|p2a: Galvantula
+|-sidestart|p2: McGewitter|Spikes
+|move|p2a: Galvantula|Thunder|p1a: Accelgor
+|-damage|p1a: Accelgor|0 fnt
+|faint|p1a: Accelgor
+|-damage|p2a: Galvantula|204249 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres, L80|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- moltres
+|chat|DEBUG|Own moves: thunder gigadrain voltswitch stickyweb
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['lanturn', 'coalossal']
+|chat|DEBUG|Counter: ['lanturn', 'coalossal', 'latias']
+|chat|DEBUG|Speed: 224 vs 190
+|chat|DEBUG|HP: 204 vs 275
+|chat|DEBUG|Created a new Strategy for galvantula vs moltres:
+|chat|DEBUG|>[thunder: 236.625 [218, 258], thunder: 236.625 [218, 258], thunder: 236.625 [218, 258]]
+|chat|DEBUG|Best move of galvantula (p1): thunder: 236.625 [218, 258]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 353.375 [324, 384]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lanturn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lanturn|Lanturn, L86, M|355355
+|-damage|p2a: Lanturn|311355|[from] Spikes
+|move|p1a: Moltres|Fire Blast|p2a: Lanturn
+|-resisted|p2a: Lanturn
+|-damage|p2a: Lanturn|241355
+|-heal|p2a: Lanturn|263355|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- moltres
+|chat|DEBUG|Own moves: voltswitch healbell toxic scald
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['lanturn', 'coalossal']
+|chat|DEBUG|Counter: ['lanturn', 'coalossal', 'latias']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 190
+|chat|DEBUG|HP: 263 vs 275
+|chat|DEBUG|Created a new Strategy for lanturn vs moltres:
+|chat|DEBUG|>[scald: 159.0 [146, 174], scald: 159.0 [146, 174], scald: 159.0 [146, 174]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 159.0 [146, 174]
+|chat|DEBUG|Best move of moltres (p2): uturn: 61.375 [56, 67]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|U-turn|p2a: Lanturn
+|-damage|p2a: Lanturn|201355
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hippowdon|Hippowdon, L80, M|100100|[from]move: U-turn
+|-activate|p1a: Hippowdon|move: Sticky Web
+|-unboost|p1a: Hippowdon|spe|1
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Hippowdon
+|move|p2a: Lanturn|Scald|p1a: Hippowdon
+|-supereffective|p1a: Hippowdon
+|-damage|p1a: Hippowdon|43100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Lanturn|179355|[from] Sandstorm
+|-heal|p2a: Lanturn|201355|[from] item: Leftovers
+|-heal|p1a: Hippowdon|50100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "hippowdon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- moltres-hippowdon
+|chat|DEBUG|Own moves: voltswitch healbell toxic scald
+|chat|DEBUG|Enemy moves: earthquake slackoff stoneedge toxic
+|chat|DEBUG|Checks: ['latias']
+|chat|DEBUG|Counter: ['galvantula', 'lanturn', 'urshifurapidstrike', 'latias', 'xatu']
+|chat|DEBUG|Speed: 164 vs 121
+|chat|DEBUG|HP: 201 vs 152
+|chat|DEBUG|Created a new Strategy for lanturn vs hippowdon:
+|chat|DEBUG|>[scald: 181.75 [168, 198], scald: 181.75 [168, 198], scald: 181.75 [168, 198]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 181.75 [168, 198]
+|chat|DEBUG|Best move of hippowdon (p2): earthquake: 286.25 [264, 312]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lanturn|Scald|p1a: Hippowdon
+|-supereffective|p1a: Hippowdon
+|-damage|p1a: Hippowdon|0 fnt
+|faint|p1a: Hippowdon
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Lanturn|179355|[from] Sandstorm
+|-heal|p2a: Lanturn|201355|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Mesprit|Mesprit, L84|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: voltswitch healbell toxic scald
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['coalossal']
+|chat|DEBUG|Speed: 164 vs 183
+|chat|DEBUG|HP: 201 vs 272
+|chat|DEBUG|Created a new Strategy for lanturn vs mesprit:
+|chat|DEBUG|>[scald: 65.75 [60, 72], scald: 65.75 [60, 72], scald: 65.75 [60, 72]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 65.75 [60, 72]
+|chat|DEBUG|Best move of mesprit (p2): energyball: 147.25 [136, 160]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mesprit|Nasty Plot|p1a: Mesprit
+|-boost|p1a: Mesprit|spa|2
+|move|p2a: Lanturn|Scald|p1a: Mesprit
+|-damage|p1a: Mesprit|78100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mesprit|72100|[from] Sandstorm
+|-damage|p2a: Lanturn|179355|[from] Sandstorm
+|-heal|p1a: Mesprit|78100|[from] item: Leftovers
+|-heal|p2a: Lanturn|201355|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: voltswitch healbell toxic scald
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 164 vs 183
+|chat|DEBUG|HP: 201 vs 212
+|chat|DEBUG|Best move of lanturn (p1): scald: 65.75 [60, 72]
+|chat|DEBUG|Best move of mesprit (p2): energyball: 293.25 [270, 318]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mesprit|Nasty Plot|p1a: Mesprit
+|-boost|p1a: Mesprit|spa|2
+|move|p2a: Lanturn|Scald|p1a: Mesprit
+|-damage|p1a: Mesprit|55100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Mesprit|49100|[from] Sandstorm
+|-damage|p2a: Lanturn|179355|[from] Sandstorm
+|-heal|p1a: Mesprit|55100|[from] item: Leftovers
+|-heal|p2a: Lanturn|201355|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula lanturn urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-lanturn-urshifurapidstrike-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: voltswitch healbell toxic scald
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 164 vs 183
+|chat|DEBUG|HP: 201 vs 149
+|chat|DEBUG|Best move of lanturn (p1): scald: 65.75 [60, 72]
+|chat|DEBUG|Best move of mesprit (p2): energyball: 439.375 [404, 476]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Mesprit|Dynamax
+|-heal|p1a: Mesprit|55100|[silent]
+|move|p1a: Mesprit|Max Overgrowth|p2a: Lanturn
+|-supereffective|p2a: Lanturn
+|-damage|p2a: Lanturn|0 fnt
+|-fieldstart|move: Grassy Terrain
+|faint|p2a: Lanturn
+|-weather|none
+|-heal|p1a: Mesprit|58100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, M|284284
+|-damage|p2a: Urshifu|249284|[from] Spikes
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-urshifurapidstrike-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: urshifurapidstrike
+|chat|DEBUG|>Switching to urshifurapidstrike (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Urshifu|Surging Strikes|p1a: Mesprit
+|-crit|p1a: Mesprit
+|-damage|p1a: Mesprit|50100
+|-crit|p1a: Mesprit
+|-damage|p1a: Mesprit|44100
+|-crit|p1a: Mesprit
+|-damage|p1a: Mesprit|36100
+|-hitcount|p1a: Mesprit|3
+|move|p1a: Mesprit|Max Overgrowth|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|faint|p2a: Urshifu
+|-heal|p1a: Mesprit|39100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Xatu|Xatu, L89, F|260260
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula urshifurapidstrike coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-urshifurapidstrike-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: drainpunch substitute bulkup surgingstrikes
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 196 vs 183
+|chat|DEBUG|HP: 249 vs 157
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs mesprit:
+|chat|DEBUG|>[surgingstrikes: 40.6875 [37, 45], surgingstrikes: 40.6875 [37, 45], surgingstrikes: 40.6875 [37, 45]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): surgingstrikes: 40.6875 [37, 45]
+|chat|DEBUG|Best move of mesprit (p2): psychic: 850.0 [780, 920]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using surgingstrikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xatu|Heat Wave|p1a: Mesprit
+|-damage|p1a: Mesprit|28100
+|move|p1a: Mesprit|Max Hailstorm|p2a: Xatu
+|-supereffective|p2a: Xatu
+|-damage|p2a: Xatu|0 fnt
+|-weather|Hail
+|faint|p2a: Xatu
+|-weather|Hail|[upkeep]
+|-damage|p1a: Mesprit|24100|[from] Hail
+|-heal|p1a: Mesprit|28100|[from] item: Leftovers
+|-end|p1a: Mesprit|Dynamax
+|-heal|p1a: Mesprit|28100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|259259
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: xatu
+|chat|DEBUG|>Switching to xatu (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Latias|Mystical Fire|p1a: Mesprit
+|-damage|p1a: Mesprit|10100
+|-unboost|p1a: Mesprit|spa|1
+|move|p1a: Mesprit|Ice Beam|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|0 fnt
+|faint|p2a: Latias
+|-weather|Hail|[upkeep]
+|-damage|p1a: Mesprit|4100|[from] Hail
+|-heal|p1a: Mesprit|10100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Galvantula|Galvantula, L82, M|204249 tox
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal latias xatu
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xatu" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal-latias-xatu -- moltres-mesprit
+|chat|DEBUG|Own moves: roost heatwave psychic thunderwave
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 220 vs 183
+|chat|DEBUG|HP: 260 vs 106
+|chat|DEBUG|Created a new Strategy for xatu vs mesprit:
+|chat|DEBUG|>[heatwave: 64.3125 [59, 70], heatwave: 64.3125 [59, 70], heatwave: 64.3125 [59, 70]]
+|chat|DEBUG|Best move of xatu (p1): heatwave: 64.3125 [59, 70]
+|chat|DEBUG|Best move of mesprit (p2): icebeam: 452.375 [416, 490]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Thunder|p1a: Mesprit
+|-damage|p1a: Mesprit|0 fnt
+|faint|p1a: Mesprit
+|-weather|Hail|[upkeep]
+|-damage|p2a: Galvantula|189249 tox|[from] Hail
+|-heal|p2a: Galvantula|204249 tox|[from] Grassy Terrain
+|-damage|p2a: Galvantula|189249 tox|[from] psn
+|-fieldend|move: Grassy Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres, L80|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal latias
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "xatu" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal-latias -- moltres-mesprit
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: latias
+|chat|DEBUG|>Switching to latias (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Coalossal|Coalossal, L87, M|333333
+|move|p1a: Moltres|Fire Blast|p2a: Coalossal
+|-resisted|p2a: Coalossal
+|-damage|p2a: Coalossal|303333
+|-weather|Hail|[upkeep]
+|-damage|p1a: Moltres|94100|[from] Hail
+|-damage|p2a: Coalossal|283333|[from] Hail
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal latias
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal-latias -- moltres-mesprit
+|chat|DEBUG|Own moves: dracometeor calmmind psychic mysticalfire
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['galvantula', 'coalossal']
+|chat|DEBUG|Speed: 222 vs 183
+|chat|DEBUG|HP: 259 vs 76
+|chat|DEBUG|Created a new Strategy for latias vs mesprit:
+|chat|DEBUG|>[mysticalfire: 47.5625 [44, 52], dracometeor: 122.5625 [112, 133], dracometeor: 61.5625 [57, 67]]
+|chat|DEBUG|Best move of latias (p1): mysticalfire: 47.5625 [44, 52]
+|chat|DEBUG|Best move of mesprit (p2): icebeam: 311.75 [286, 338]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using mysticalfire
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Moltres|U-turn|p2a: Coalossal
+|-resisted|p2a: Coalossal
+|-damage|p2a: Coalossal|266333
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Inteleon|Inteleon, L80, M|100100|[from]move: U-turn
+|-activate|p1a: Inteleon|move: Sticky Web
+|-unboost|p1a: Inteleon|spe|1
+|move|p2a: Coalossal|Stone Edge|p1a: Inteleon
+|-damage|p1a: Inteleon|45100
+|-weather|none
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latias" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal -- moltres-mesprit
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['galvantula', 'coalossal']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to galvantula (pokemon object) [Active: False, Status: TOX]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Inteleon|Surf|p2a: Coalossal
+|-supereffective|p2a: Coalossal
+|-damage|p2a: Coalossal|0 fnt
+|faint|p2a: Coalossal
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Galvantula|Galvantula, L82, M|189249 tox
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "mesprit"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal -- moltres-mesprit
+|chat|DEBUG|Own moves: thunder gigadrain voltswitch stickyweb
+|chat|DEBUG|Enemy moves: energyball icebeam nastyplot psychic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['galvantula', 'coalossal']
+|chat|DEBUG|Speed: 224 vs 183
+|chat|DEBUG|HP: 204 vs 27
+|chat|DEBUG|Created a new Strategy for galvantula vs mesprit:
+|chat|DEBUG|>[thunder: 96.1875 [88, 105], thunder: 96.1875 [88, 105], thunder: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of galvantula (p1): thunder: 96.1875 [88, 105]
+|chat|DEBUG|Best move of mesprit (p2): psychic: 337.625 [310, 366]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Thunder|p1a: Inteleon
+|-supereffective|p1a: Inteleon
+|-damage|p1a: Inteleon|0 fnt
+|faint|p1a: Inteleon
+|-damage|p2a: Galvantula|174249 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Moltres|Moltres, L80|94100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "galvantula" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal -- moltres
+|chat|DEBUG|Own moves: thunder gigadrain voltswitch stickyweb
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['coalossal']
+|chat|DEBUG|Speed: 224 vs 190
+|chat|DEBUG|HP: 189 vs 275
+|chat|DEBUG|Created a new Strategy for galvantula vs moltres:
+|chat|DEBUG|>[thunder: 236.625 [218, 258], thunder: 236.625 [218, 258], thunder: 236.625 [218, 258]]
+|chat|DEBUG|Best move of galvantula (p1): thunder: 236.625 [218, 258]
+|chat|DEBUG|Best move of moltres (p2): fireblast: 353.375 [324, 384]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stickyweb
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check coalossal
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Thunder|p1a: Moltres
+|-supereffective|p1a: Moltres
+|-damage|p1a: Moltres|13100
+|move|p1a: Moltres|Fire Blast|p2a: Galvantula|[miss]
+|-miss|p1a: Moltres|p2a: Galvantula
+|-damage|p2a: Galvantula|144249 tox|[from] psn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>galvantula coalossal
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "coalossal" vs "moltres"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>galvantula-coalossal -- moltres
+|chat|DEBUG|Own moves: spikes stealthrock overheat stoneedge
+|chat|DEBUG|Enemy moves: airslash fireblast roost uturn
+|chat|DEBUG|Checks: ['coalossal']
+|chat|DEBUG|Counter: ['coalossal']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 102 vs 190
+|chat|DEBUG|HP: 283 vs 258
+|chat|DEBUG|Created a new Strategy for coalossal vs moltres:
+|chat|DEBUG|>[stoneedge: 401.5 [372, 436], stoneedge: 401.5 [372, 436], stoneedge: 401.5 [372, 436]]
+|chat|DEBUG|Best move of coalossal (p1): stoneedge: 401.5 [372, 436]
+|chat|DEBUG|Best move of moltres (p2): airslash: 42.25 [39, 46]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Galvantula|Thunder|p1a: Moltres|[miss]
+|-miss|p2a: Galvantula|p1a: Moltres
+|move|p1a: Moltres|Fire Blast|p2a: Galvantula
+|-supereffective|p2a: Galvantula
+|-damage|p2a: Galvantula|0 fnt
+|faint|p2a: Galvantula
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>DrGerbs<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">galvantula lanturn urshifurapidstrike coalossal latias xatu</h1>

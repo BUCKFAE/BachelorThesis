@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491263738<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491263738|init|battle
+|title|McGewitter vs. KilluaGeo
+|j|☆McGewitter
+|j|☆KilluaGeo
+|gametype|singles
+|player|p1|McGewitter|265|1192
+|player|p2|KilluaGeo|266|1243
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Alcremie|Alcremie, L86, F|252252
+|switch|p2a: Meowstic|Meowstic-F, L86, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- meowsticf
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['indeedeef', 'kyuremblack']
+|chat|DEBUG|Speed: 159 vs 228
+|chat|DEBUG|HP: 252 vs 268
+|chat|DEBUG|Created a new Strategy for alcremie vs meowsticf:
+|chat|DEBUG|>[dazzlinggleam: 101.75 [93, 111], dazzlinggleam: 101.75 [93, 111], dazzlinggleam: 101.75 [93, 111]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 101.75 [93, 111]
+|chat|DEBUG|Best move of meowsticf (p2): psychic: 89.4375 [82, 97]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Meowstic|Thunderbolt|p1a: Alcremie
+|-damage|p1a: Alcremie|196252
+|-damage|p2a: Meowstic|91100|[from] item: Life Orb
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Meowstic
+|-damage|p2a: Meowstic|52100
+|-heal|p1a: Alcremie|211252|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- meowsticf
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: ['indeedeef', 'kyuremblack']
+|chat|DEBUG|Counter: ['alcremie', 'gurdurr', 'archeops', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Speed: 159 vs 228
+|chat|DEBUG|HP: 211 vs 139
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 101.75 [93, 111]
+|chat|DEBUG|Best move of meowsticf (p2): psychic: 89.4375 [82, 97]
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Meowstic|Thunderbolt|p1a: Alcremie
+|-damage|p1a: Alcremie|153252
+|-status|p1a: Alcremie|par
+|-damage|p2a: Meowstic|43100|[from] item: Life Orb
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Meowstic
+|-damage|p2a: Meowstic|3100
+|-heal|p1a: Alcremie|168252 par|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- meowsticf
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: ['indeedeef', 'kyuremblack']
+|chat|DEBUG|Counter: ['alcremie', 'gurdurr', 'archeops', 'slowbro', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Speed: 159 vs 228
+|chat|DEBUG|HP: 168 vs 8
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 101.75 [93, 111]
+|chat|DEBUG|Best move of meowsticf (p2): psychic: 89.4375 [82, 97]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Skarmory|Skarmory, L80, F|100100
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Skarmory
+|-resisted|p2a: Skarmory
+|-damage|p2a: Skarmory|73100
+|-heal|p2a: Skarmory|79100|[from] item: Leftovers
+|-heal|p1a: Alcremie|183252 par|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- meowsticf-skarmory
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: ['alcremie', 'archeops', 'slowbro', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Counter: ['alcremie', 'archeops', 'slowbro', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 158
+|chat|DEBUG|HP: 183 vs 185
+|chat|DEBUG|Created a new Strategy for alcremie vs skarmory:
+|chat|DEBUG|>[mysticalfire: 152.75 [140, 166], mysticalfire: 152.75 [140, 166], mysticalfire: 152.75 [140, 166]]
+|chat|DEBUG|Best move of alcremie (p1): mysticalfire: 152.75 [140, 166]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 111.4375 [102, 121]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using mysticalfire
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Skarmory|Stealth Rock|p1a: Alcremie
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|move|p1a: Alcremie|Mystical Fire|p2a: Skarmory
+|-supereffective|p2a: Skarmory
+|-damage|p2a: Skarmory|8100
+|-unboost|p2a: Skarmory|spa|1
+|-heal|p2a: Skarmory|14100|[from] item: Leftovers
+|-heal|p1a: Alcremie|198252 par|[from] item: Leftovers
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- meowsticf-skarmory
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: ['alcremie', 'archeops', 'slowbro', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Counter: ['alcremie', 'gurdurr', 'archeops', 'slowbro', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 158
+|chat|DEBUG|HP: 198 vs 32
+|chat|DEBUG|Best move of alcremie (p1): mysticalfire: 152.75 [140, 166]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 111.4375 [102, 121]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Skarmory|Spikes|p1a: Alcremie
+|-sidestart|p1: McGewitter|Spikes
+|move|p1a: Alcremie|Mystical Fire|p2a: Skarmory
+|-supereffective|p2a: Skarmory
+|-damage|p2a: Skarmory|0 fnt
+|faint|p2a: Skarmory
+|-heal|p1a: Alcremie|213252 par|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|switch|p2a: Meowstic|Meowstic-F, L86, F|3100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "meowsticf"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- meowsticf
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: nastyplot psychic shadowball thunderbolt
+|chat|DEBUG|Checks: ['alcremie', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Counter: ['alcremie', 'gurdurr', 'archeops', 'slowbro', 'indeedeef', 'kyuremblack']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 159 vs 228
+|chat|DEBUG|HP: 213 vs 8
+|chat|DEBUG|Created a new Strategy for alcremie vs meowsticf:
+|chat|DEBUG|>[dazzlinggleam: 101.75 [93, 111], dazzlinggleam: 101.75 [93, 111], dazzlinggleam: 101.75 [93, 111]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 101.75 [93, 111]
+|chat|DEBUG|Best move of meowsticf (p2): psychic: 89.4375 [82, 97]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|move|p2a: Meowstic|Psychic|p1a: Alcremie
+|-damage|p1a: Alcremie|127252 par
+|-damage|p2a: Meowstic|0 fnt|[from] item: Life Orb
+|faint|p2a: Meowstic
+|move|p1a: Alcremie|Dazzling Gleam|p2: Meowstic|[notarget]
+|-fail|p1a: Alcremie
+|-heal|p1a: Alcremie|142252 par|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|switch|p2a: Sylveon|Sylveon, L84, M|100100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['archeops']
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 142 vs 297
+|chat|DEBUG|Created a new Strategy for alcremie vs sylveon:
+|chat|DEBUG|>[dazzlinggleam: 72.5625 [67, 79], dazzlinggleam: 72.5625 [67, 79], dazzlinggleam: 72.5625 [67, 79]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 72.5625 [67, 79]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 96.1875 [88, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|move|p2a: Sylveon|Mystical Fire|p1a: Alcremie
+|-damage|p1a: Alcremie|99252 par
+|-unboost|p1a: Alcremie|spa|1
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Sylveon
+|-damage|p2a: Sylveon|84100
+|-heal|p2a: Sylveon|90100|[from] item: Leftovers
+|-heal|p1a: Alcremie|114252 par|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['archeops']
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 114 vs 267
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 72.5625 [67, 79]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 96.1875 [88, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|move|p2a: Sylveon|Hyper Voice|p1a: Alcremie
+|-damage|p1a: Alcremie|24252 par
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Sylveon
+|-damage|p2a: Sylveon|73100
+|-heal|p2a: Sylveon|79100|[from] item: Leftovers
+|-heal|p1a: Alcremie|39252 par|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['archeops']
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 39 vs 234
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 72.5625 [67, 79]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 96.1875 [88, 105]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|move|p2a: Sylveon|Calm Mind|p2a: Sylveon
+|-boost|p2a: Sylveon|spa|1
+|-boost|p2a: Sylveon|spd|1
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Sylveon
+|-damage|p2a: Sylveon|68100
+|-heal|p2a: Sylveon|74100|[from] item: Leftovers
+|-heal|p1a: Alcremie|54252 par|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['archeops']
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 54 vs 219
+|chat|DEBUG|Created a new Strategy for alcremie vs sylveon:
+|chat|DEBUG|>[dazzlinggleam: 32.375 [30, 36], dazzlinggleam: 32.375 [30, 36], dazzlinggleam: 32.375 [30, 36]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 32.375 [30, 36]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 143.125 [132, 156]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|KilluaGeo has 120 seconds left.
+|move|p2a: Sylveon|Calm Mind|p2a: Sylveon
+|-boost|p2a: Sylveon|spa|1
+|-boost|p2a: Sylveon|spd|1
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Sylveon
+|-damage|p2a: Sylveon|65100
+|-heal|p2a: Sylveon|72100|[from] item: Leftovers
+|-heal|p1a: Alcremie|69252 par|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 69 vs 213
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 32.375 [30, 36]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 191.9375 [177, 208]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sylveon|Calm Mind|p2a: Sylveon
+|-boost|p2a: Sylveon|spa|1
+|-boost|p2a: Sylveon|spd|1
+|cant|p1a: Alcremie|par
+|-heal|p2a: Sylveon|78100|[from] item: Leftovers
+|-heal|p1a: Alcremie|84252 par|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 84 vs 231
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 32.375 [30, 36]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 239.0625 [220, 259]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sylveon|Calm Mind|p2a: Sylveon
+|-boost|p2a: Sylveon|spa|1
+|-boost|p2a: Sylveon|spd|1
+|move|p1a: Alcremie|Dazzling Gleam|p2a: Sylveon
+|-damage|p2a: Sylveon|72100
+|-heal|p2a: Sylveon|78100|[from] item: Leftovers
+|-heal|p1a: Alcremie|99252 par|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 99 vs 231
+|chat|DEBUG|Created a new Strategy for alcremie vs sylveon:
+|chat|DEBUG|>[dazzlinggleam: 17.0625 [16, 19], dazzlinggleam: 17.0625 [16, 19], dazzlinggleam: 17.0625 [16, 19]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 17.0625 [16, 19]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 286.4375 [262, 310]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to slowbro as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Slowbro|Slowbro, L84, M|297297
+|-damage|p1a: Slowbro|260297|[from] Spikes
+|-damage|p1a: Slowbro|223297|[from] Stealth Rock
+|-start|p2a: Sylveon|Dynamax
+|-heal|p2a: Sylveon|78100|[silent]
+|move|p2a: Sylveon|Max Flare|p1a: Slowbro
+|-resisted|p1a: Slowbro
+|-damage|p1a: Slowbro|52297
+|-weather|SunnyDay
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Sylveon|81100|[from] item: Leftovers
+|-heal|p1a: Slowbro|70297|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops slowbro indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowbro" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-slowbro-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: slackoff icebeam teleport scald
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 99 vs 149
+|chat|DEBUG|HP: 70 vs 240
+|chat|DEBUG|Created a new Strategy for slowbro vs sylveon:
+|chat|DEBUG|>[scald: 22.5625 [21, 25], scald: 22.5625 [21, 25], scald: 22.5625 [21, 25]]
+|chat|DEBUG|Best move of slowbro (p1): scald: 22.5625 [21, 25]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 401.5625 [369, 435]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sylveon|Max Mindstorm|p1a: Slowbro
+|-resisted|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p1a: Slowbro
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Sylveon|84100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Alcremie|Alcremie, L86, F|99252 par
+|-damage|p1a: Alcremie|68252 par|[from] Stealth Rock
+|-damage|p1a: Alcremie|37252 par|[from] Spikes
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowbro" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: alcremie
+|chat|DEBUG|>Switching to alcremie (pokemon object) [Active: False, Status: PAR]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sylveon|Max Mindstorm|p1a: Alcremie
+|-damage|p1a: Alcremie|0 fnt
+|faint|p1a: Alcremie
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Sylveon|87100|[from] item: Leftovers
+|-end|p2a: Sylveon|Dynamax
+|-heal|p2a: Sylveon|87100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Indeedee|Indeedee-F, L84, F|255255
+|-damage|p1a: Indeedee|224255|[from] Stealth Rock
+|-damage|p1a: Indeedee|193255|[from] Spikes
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>alcremie gurdurr archeops indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>alcremie-gurdurr-archeops-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: mysticalfire dazzlinggleam calmmind recover
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 159 vs 149
+|chat|DEBUG|HP: 37 vs 249
+|chat|DEBUG|Created a new Strategy for alcremie vs sylveon:
+|chat|DEBUG|>[dazzlinggleam: 25.5 [24, 28], dazzlinggleam: 25.5 [24, 28], dazzlinggleam: 25.5 [24, 28]]
+|chat|DEBUG|Best move of alcremie (p1): dazzlinggleam: 25.5 [24, 28]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 286.4375 [262, 310]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Indeedee|Hyper Voice|p2a: Sylveon
+|-damage|p2a: Sylveon|77100
+|-damage|p1a: Indeedee|168255|[from] item: Life Orb
+|move|p2a: Sylveon|Mystical Fire|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|faint|p1a: Indeedee
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Sylveon|83100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gurdurr|Gurdurr, L83, F|277277
+|-damage|p1a: Gurdurr|243277|[from] Spikes
+|-damage|p1a: Gurdurr|226277|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gurdurr archeops indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "alcremie" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gurdurr-archeops-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: indeedeef
+|chat|DEBUG|>Switching to indeedeef (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Sylveon|Psyshock|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|0 fnt
+|faint|p1a: Gurdurr
+|-weather|none
+|-heal|p2a: Sylveon|89100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kyurem|Kyurem-Black, L73|303303
+|-ability|p1a: Kyurem|Teravolt
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gurdurr archeops indeedeef kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "indeedeef" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gurdurr-archeops-indeedeef-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: expandingforce calmmind hypervoice mysticalfire
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 149
+|chat|DEBUG|HP: 193 vs 258
+|chat|DEBUG|Created a new Strategy for indeedeef vs sylveon:
+|chat|DEBUG|>[hypervoice: 31.0625 [29, 35], hypervoice: 31.0625 [29, 35], hypervoice: 31.0625 [29, 35]]
+|chat|DEBUG|Best move of indeedeef (p1): hypervoice: 31.0625 [29, 35]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 326.5 [300, 354]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hypervoice
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Kyurem|Fusion Bolt|p2a: Sylveon
+|-damage|p2a: Sylveon|53100
+|move|p2a: Sylveon|Hyper Voice|p1a: Kyurem
+|-supereffective|p1a: Kyurem
+|-damage|p1a: Kyurem|0 fnt
+|faint|p1a: Kyurem
+|-heal|p2a: Sylveon|59100|[from] item: Leftovers
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Archeops|Archeops, L82, M|257257
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gurdurr archeops kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "indeedeef" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gurdurr-archeops-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: gurdurr
+|chat|DEBUG|>Switching to gurdurr (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Archeops|Dynamax
+|-heal|p1a: Archeops|514514|[silent]
+|move|p1a: Archeops|Max Rockfall|p2a: Sylveon
+|-damage|p2a: Sylveon|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Sylveon
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Latias|Latias, L80, F|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>gurdurr archeops kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>gurdurr-archeops-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 114 vs 149
+|chat|DEBUG|HP: 226 vs 246
+|chat|DEBUG|Created a new Strategy for gurdurr vs sylveon:
+|chat|DEBUG|>[drainpunch: 52.0 [48, 57], drainpunch: 52.0 [48, 57], drainpunch: 52.0 [48, 57]]
+|chat|DEBUG|Best move of gurdurr (p1): drainpunch: 52.0 [48, 57]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 750.25 [690, 812]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Archeops|Max Flutterby|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|12100
+|-unboost|p2a: Latias|spa|1
+|move|p2a: Latias|Roost|p2a: Latias
+|-heal|p2a: Latias|63100
+|-singleturn|p2a: Latias|move: Roost
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Latias|56100|[from] Sandstorm
+|-heal|p2a: Latias|63100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>archeops kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>archeops-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: kyuremblack
+|chat|DEBUG|>Switching to kyuremblack (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Archeops|Max Flutterby|p2a: Latias
+|-supereffective|p2a: Latias
+|-damage|p2a: Latias|0 fnt
+|faint|p2a: Latias
+|-weather|Sandstorm|[upkeep]
+|-end|p1a: Archeops|Dynamax
+|-heal|p1a: Archeops|257257|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyurem|Kyurem-Black, L73|100100
+|-ability|p2a: Kyurem|Teravolt
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>archeops kyuremblack
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>archeops-kyuremblack -- sylveon
+|chat|DEBUG|Own moves: iciclespear dragondance outrage fusionbolt
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 181 vs 149
+|chat|DEBUG|HP: 303 vs 264
+|chat|DEBUG|Created a new Strategy for kyuremblack vs sylveon:
+|chat|DEBUG|>[fusionbolt: 106.8125 [98, 116], fusionbolt: 106.8125 [98, 116], fusionbolt: 106.8125 [98, 116]]
+|chat|DEBUG|Best move of kyuremblack (p1): fusionbolt: 106.8125 [98, 116]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 844.125 [776, 914]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fusionbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Archeops|Stone Edge|p2a: Kyurem|[miss]
+|-miss|p1a: Archeops|p2a: Kyurem
+|move|p2a: Kyurem|Icicle Spear|p1a: Archeops
+|-supereffective|p1a: Archeops
+|-damage|p1a: Archeops|179257
+|-supereffective|p1a: Archeops
+|-damage|p1a: Archeops|93257
+|-supereffective|p1a: Archeops
+|-damage|p1a: Archeops|7257
+|-hitcount|p1a: Archeops|3
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Kyurem|95100|[from] Sandstorm
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>archeops
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>archeops -- sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: archeops
+|chat|DEBUG|>Switching to archeops (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Archeops|Stone Edge|p2a: Kyurem
+|-supereffective|p2a: Kyurem
+|-damage|p2a: Kyurem|51100
+|move|p2a: Kyurem|Outrage|p1a: Archeops
+|-crit|p1a: Archeops
+|-damage|p1a: Archeops|0 fnt
+|faint|p1a: Archeops
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>KilluaGeo</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">alcremie gurdurr archeops slowbro indeedeef kyuremblack</h1>

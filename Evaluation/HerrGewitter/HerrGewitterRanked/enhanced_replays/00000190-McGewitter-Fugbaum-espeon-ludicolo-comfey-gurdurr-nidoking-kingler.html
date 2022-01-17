@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490287468<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490287468|init|battle
+|title|McGewitter vs. Fugbaum
+|j|☆McGewitter
+|j|☆Fugbaum
+|gametype|singles
+|player|p1|McGewitter|265|1204
+|player|p2|Fugbaum|265|1234
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Espeon|Espeon, L82, M|241241
+|switch|p2a: Archeops|Archeops, L82, F|100100
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-ludicolo-comfey-gurdurr-nidoking-kingler -- archeops
+|chat|DEBUG|Own moves: dazzlinggleam shadowball psychic calmmind
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ludicolo', 'gurdurr', 'kingler']
+|chat|DEBUG|Speed: 228 vs 228
+|chat|DEBUG|HP: 241 vs 257
+|chat|DEBUG|Created a new Strategy for espeon vs archeops:
+|chat|DEBUG|>[psychic: 187.8125 [173, 204], psychic: 187.8125 [173, 204], psychic: 187.8125 [173, 204]]
+|chat|DEBUG|Best move of espeon (p1): psychic: 187.8125 [173, 204]
+|chat|DEBUG|Best move of archeops (p2): stoneedge: 180.6875 [166, 196]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Espeon|Psychic|p2a: Archeops
+|-damage|p2a: Archeops|29100
+|-damage|p1a: Espeon|217241|[from] item: Life Orb
+|move|p2a: Archeops|U-turn|p1a: Espeon
+|-supereffective|p1a: Espeon
+|-damage|p1a: Espeon|137241
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Krookodile|Krookodile, L78, M|100100|[from]move: U-turn
+|-ability|p2a: Krookodile|Intimidate|boost
+|-unboost|p1a: Espeon|atk|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile
+|chat|DEBUG|Own moves: dazzlinggleam shadowball psychic calmmind
+|chat|DEBUG|Enemy moves: closecombat earthquake knockoff stealthrock
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ludicolo', 'comfey', 'gurdurr', 'kingler']
+|chat|DEBUG|Speed: 228 vs 189
+|chat|DEBUG|HP: 137 vs 276
+|chat|DEBUG|Created a new Strategy for espeon vs krookodile:
+|chat|DEBUG|>[dazzlinggleam: 222.4375 [205, 242], dazzlinggleam: 222.4375 [205, 242], dazzlinggleam: 222.4375 [205, 242]]
+|chat|DEBUG|Best move of espeon (p1): dazzlinggleam: 222.4375 [205, 242]
+|chat|DEBUG|Best move of krookodile (p2): knockoff: 360.25 [330, 393]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dazzlinggleam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Espeon|Dazzling Gleam|p2a: Krookodile
+|-supereffective|p2a: Krookodile
+|-damage|p2a: Krookodile|17100
+|-damage|p1a: Espeon|113241|[from] item: Life Orb
+|move|p2a: Krookodile|Stealth Rock|p1a: Espeon
+|move|p1a: Espeon|Stealth Rock|p2a: Krookodile
+|-sidestart|p2: Fugbaum|move: Stealth Rock
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "krookodile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile
+|chat|DEBUG|Own moves: dazzlinggleam shadowball psychic calmmind
+|chat|DEBUG|Enemy moves: closecombat earthquake knockoff stealthrock
+|chat|DEBUG|Checks: ['comfey', 'gurdurr']
+|chat|DEBUG|Counter: ['espeon', 'ludicolo', 'comfey', 'gurdurr', 'kingler']
+|chat|DEBUG|Speed: 228 vs 189
+|chat|DEBUG|HP: 113 vs 46
+|chat|DEBUG|Best move of espeon (p1): dazzlinggleam: 222.4375 [205, 242]
+|chat|DEBUG|Best move of krookodile (p2): knockoff: 360.25 [330, 393]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Lucario|Lucario, L82, F|100100
+|-damage|p2a: Lucario|98100|[from] Stealth Rock
+|move|p1a: Espeon|Dazzling Gleam|p2a: Lucario
+|-damage|p2a: Lucario|56100
+|-damage|p1a: Espeon|89241|[from] item: Life Orb
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>espeon ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "lucario"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>espeon-ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile-lucario
+|chat|DEBUG|Own moves: dazzlinggleam shadowball psychic calmmind
+|chat|DEBUG|Enemy moves: closecombat extremespeed meteormash swordsdance
+|chat|DEBUG|Checks: ['gurdurr']
+|chat|DEBUG|Counter: ['espeon', 'ludicolo', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|Speed: 228 vs 195
+|chat|DEBUG|HP: 89 vs 139
+|chat|DEBUG|Created a new Strategy for espeon vs lucario:
+|chat|DEBUG|>[psychic: 180.0 [165, 195], psychic: 180.0 [165, 195], psychic: 180.0 [165, 195]]
+|chat|DEBUG|Best move of espeon (p1): psychic: 180.0 [165, 195]
+|chat|DEBUG|Best move of lucario (p2): meteormash: 174.1875 [160, 188]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lucario|Extreme Speed|p1a: Espeon
+|-damage|p1a: Espeon|0 fnt
+|faint|p1a: Espeon
+|-damage|p2a: Lucario|47100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gurdurr|Gurdurr, L83, F|277277
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "espeon" vs "lucario"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile-lucario
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat extremespeed meteormash swordsdance
+|chat|DEBUG|Checks: ['gurdurr']
+|chat|DEBUG|Counter: ['ludicolo', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to gurdurr (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Lucario|Close Combat|p1a: Gurdurr
+|-damage|p1a: Gurdurr|148277
+|-unboost|p2a: Lucario|def|1
+|-unboost|p2a: Lucario|spd|1
+|-damage|p2a: Lucario|37100|[from] item: Life Orb
+|move|p1a: Gurdurr|Drain Punch|p2a: Lucario
+|-supereffective|p2a: Lucario
+|-damage|p2a: Lucario|0 fnt
+|-heal|p1a: Gurdurr|194277|[from] drain|[of] p2a: Lucario
+|faint|p2a: Lucario
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Archeops|Archeops, L82, F|29100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "lucario"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile-lucario
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: closecombat extremespeed meteormash swordsdance
+|chat|DEBUG|Checks: ['gurdurr']
+|chat|DEBUG|Counter: ['ludicolo', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 114 vs 195
+|chat|DEBUG|HP: 277 vs 117
+|chat|DEBUG|Created a new Strategy for gurdurr vs lucario:
+|chat|DEBUG|>[drainpunch: 200.75 [186, 218], drainpunch: 200.75 [186, 218], drainpunch: 200.75 [186, 218]]
+|chat|DEBUG|Best move of gurdurr (p1): drainpunch: 200.75 [186, 218]
+|chat|DEBUG|Best move of lucario (p2): closecombat: 119.375 [109, 130]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Archeops|Roost|p2a: Archeops
+|-heal|p2a: Archeops|79100
+|-singleturn|p2a: Archeops|move: Roost
+|move|p1a: Gurdurr|Bulk Up|p1a: Gurdurr
+|-boost|p1a: Gurdurr|atk|1
+|-boost|p1a: Gurdurr|def|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['ludicolo', 'comfey', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|Counter: ['ludicolo', 'comfey', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 114 vs 228
+|chat|DEBUG|HP: 194 vs 74
+|chat|DEBUG|Created a new Strategy for gurdurr vs archeops:
+|chat|DEBUG|>[drainpunch: 105.875 [97, 115], drainpunch: 105.875 [97, 115], drainpunch: 105.875 [97, 115]]
+|chat|DEBUG|Best move of gurdurr (p1): drainpunch: 105.875 [97, 115]
+|chat|DEBUG|Best move of archeops (p2): dualwingbeat: 39.625 [36, 44]
+|chat|DEBUG|Boost Moves: [bulkup (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Archeops|Dual Wingbeat|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|140277
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|92277
+|-hitcount|p1a: Gurdurr|2
+|move|p1a: Gurdurr|Bulk Up|p1a: Gurdurr
+|-boost|p1a: Gurdurr|atk|1
+|-boost|p1a: Gurdurr|def|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['gurdurr']
+|chat|DEBUG|Counter: ['ludicolo', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 114 vs 228
+|chat|DEBUG|HP: 194 vs 203
+|chat|DEBUG|Best move of gurdurr (p1): drainpunch: 105.875 [97, 115]
+|chat|DEBUG|Best move of archeops (p2): dualwingbeat: 51.0 [48, 56]
+|chat|DEBUG|Boost Moves: [bulkup (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Archeops|Dual Wingbeat|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|50277
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|12277
+|-hitcount|p1a: Gurdurr|2
+|move|p1a: Gurdurr|Drain Punch|p2a: Archeops
+|-damage|p2a: Archeops|0 fnt
+|-heal|p1a: Gurdurr|113277|[from] drain|[of] p2a: Archeops
+|faint|p2a: Archeops
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mew|Mew, L80|100100
+|-damage|p2a: Mew|88100|[from] Stealth Rock
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- archeops-krookodile
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: ['gurdurr']
+|chat|DEBUG|Counter: ['ludicolo', 'gurdurr', 'nidoking', 'kingler']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 114 vs 228
+|chat|DEBUG|HP: 92 vs 203
+|chat|DEBUG|Best move of gurdurr (p1): drainpunch: 105.875 [97, 115]
+|chat|DEBUG|Best move of archeops (p2): dualwingbeat: 39.625 [36, 44]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using drainpunch
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mew|Psychic Fangs|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|59277
+|move|p1a: Gurdurr|Knock Off|p2a: Mew
+|-supereffective|p2a: Mew
+|-damage|p2a: Mew|0 fnt
+|-enditem|p2a: Mew|Lum Berry|[from] move: Knock Off|[of] p1a: Gurdurr
+|faint|p2a: Mew
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gallade|Gallade, L82, M|100100
+|-damage|p2a: Gallade|94100|[from] Stealth Rock
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "mew"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- krookodile-mew
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: closecombat dragondance flareblitz psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ludicolo', 'gurdurr', 'kingler']
+|chat|DEBUG|Speed: 114 vs 206
+|chat|DEBUG|HP: 113 vs 256
+|chat|DEBUG|Created a new Strategy for gurdurr vs mew:
+|chat|DEBUG|>[knockoff: 273.0 [250, 296], knockoff: 273.0 [250, 296], knockoff: 273.0 [250, 296]]
+|chat|DEBUG|Best move of gurdurr (p1): knockoff: 273.0 [250, 296]
+|chat|DEBUG|Best move of mew (p2): psychicfangs: 59.125 [54, 66]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Zen Headbutt|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|0 fnt
+|faint|p1a: Gurdurr
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Comfey|Comfey, L86, F|228228
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey gurdurr nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-gurdurr-nidoking-kingler -- krookodile-gallade
+|chat|DEBUG|Own moves: bulkup knockoff drainpunch machpunch
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'kingler']
+|chat|DEBUG|Speed: 114 vs 178
+|chat|DEBUG|HP: 59 vs 231
+|chat|DEBUG|Created a new Strategy for gurdurr vs gallade:
+|chat|DEBUG|>[knockoff: 182.0 [167, 197], knockoff: 182.0 [167, 197], knockoff: 182.0 [167, 197]]
+|chat|DEBUG|Best move of gurdurr (p1): knockoff: 182.0 [167, 197]
+|chat|DEBUG|Best move of gallade (p2): zenheadbutt: 91.3125 [86, 101]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Krookodile|Krookodile, L78, M|17100
+|-damage|p2a: Krookodile|11100|[from] Stealth Rock
+|-ability|p2a: Krookodile|Intimidate|boost
+|-unboost|p1a: Comfey|atk|1
+|move|p1a: Comfey|Draining Kiss|p2a: Krookodile
+|-supereffective|p2a: Krookodile
+|-damage|p2a: Krookodile|0 fnt
+|faint|p2a: Krookodile
+|-damage|p1a: Comfey|206228|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Glalie|Glalie, L80, M|100100
+|-damage|p2a: Glalie|76100|[from] Stealth Rock
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gurdurr" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- krookodile-gallade
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'kingler']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to comfey (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Comfey|Dynamax
+|-heal|p1a: Comfey|412456|[silent]
+|move|p1a: Comfey|Max Starfall|p2a: Glalie
+|-damage|p2a: Glalie|19100
+|-fieldstart|move: Misty Terrain
+|-damage|p1a: Comfey|390456|[from] item: Life Orb
+|move|p2a: Glalie|Substitute|p2a: Glalie
+|-fail|p2a: Glalie|move: Substitute|[weak]
+|-heal|p2a: Glalie|25100|[from] item: Leftovers
+|-ability|p2a: Glalie|Moody|boost
+|-boost|p2a: Glalie|spe|2
+|-unboost|p2a: Glalie|atk|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- krookodile-gallade
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'kingler']
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 228 vs 231
+|chat|DEBUG|Created a new Strategy for comfey vs gallade:
+|chat|DEBUG|>[drainingkiss: 105.6875 [96, 117], drainingkiss: 105.6875 [96, 117], drainingkiss: 105.6875 [96, 117]]
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 105.6875 [96, 117]
+|chat|DEBUG|Best move of gallade (p2): zenheadbutt: 123.375 [113, 134]
+|chat|DEBUG|Attacking using drainingkiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Comfey|Max Guard|p1a: Comfey
+|-singleturn|p1a: Comfey|Max Guard
+|move|p2a: Glalie|Disable|p1a: Comfey
+|-activate|p1a: Comfey|move: Max Guard
+|-heal|p2a: Glalie|31100|[from] item: Leftovers
+|-ability|p2a: Glalie|Moody|boost
+|-boost|p2a: Glalie|spa|2
+|-unboost|p2a: Glalie|spd|1
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade-glalie
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'nidoking', 'kingler']
+|chat|DEBUG|Speed: 221 vs 174
+|chat|DEBUG|HP: 206 vs 196
+|chat|DEBUG|Created a new Strategy for comfey vs glalie:
+|chat|DEBUG|>[drainingkiss: 72.5625 [66, 79], drainingkiss: 72.5625 [66, 79], drainingkiss: 72.5625 [66, 79]]
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 72.5625 [66, 79]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 49.0 [45, 54]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Glalie|Protect|p2a: Glalie
+|-singleturn|p2a: Glalie|Protect
+|move|p1a: Comfey|Max Starfall|p2a: Glalie
+|-zbroken|p2a: Glalie
+|-damage|p2a: Glalie|12100
+|-damage|p1a: Comfey|368456|[from] item: Life Orb
+|-heal|p2a: Glalie|18100|[from] item: Leftovers
+|-ability|p2a: Glalie|Moody|boost
+|-boost|p2a: Glalie|def|2
+|-unboost|p2a: Glalie|spd|1
+|-end|p1a: Comfey|Dynamax
+|-heal|p1a: Comfey|184228|[silent]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade-glalie
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['comfey', 'nidoking']
+|chat|DEBUG|Counter: ['ludicolo', 'comfey', 'nidoking', 'kingler']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 174
+|chat|DEBUG|HP: 390 vs 64
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 72.5625 [66, 79]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 49.0 [45, 54]
+|chat|DEBUG|Boost Moves: [calmmind (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Comfey|Draining Kiss|p2a: Glalie
+|-damage|p2a: Glalie|0 fnt
+|-heal|p1a: Comfey|219228|[from] drain|[of] p2a: Glalie
+|faint|p2a: Glalie
+|-damage|p1a: Comfey|197228|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gallade|Gallade, L82, M|94100
+|-damage|p2a: Gallade|88100|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade-glalie
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['comfey']
+|chat|DEBUG|Counter: ['comfey', 'nidoking']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 174
+|chat|DEBUG|HP: 390 vs 80
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 72.5625 [66, 79]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 97.625 [90, 106]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using drainingkiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Gallade|Dynamax
+|-heal|p2a: Gallade|88100|[silent]
+|move|p1a: Comfey|Draining Kiss|p2a: Gallade
+|-supereffective|p2a: Gallade
+|-damage|p2a: Gallade|66100
+|-heal|p1a: Comfey|228228|[from] drain|[of] p2a: Gallade
+|-damage|p1a: Comfey|206228|[from] item: Life Orb
+|move|p2a: Gallade|Max Mindstorm|p1a: Comfey
+|-damage|p1a: Comfey|62228
+|-fieldstart|move: Psychic Terrain
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade-glalie
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['comfey']
+|chat|DEBUG|Counter: ['comfey', 'nidoking']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 174
+|chat|DEBUG|HP: 184 vs 46
+|chat|DEBUG|Created a new Strategy for comfey vs glalie:
+|chat|DEBUG|>[drainingkiss: 143.25 [133, 156], drainingkiss: 143.25 [133, 156], drainingkiss: 143.25 [133, 156]]
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 143.25 [133, 156]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 97.625 [90, 106]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Comfey|Draining Kiss|p2a: Gallade
+|-activate|p2a: Gallade|move: Psychic Terrain
+|move|p2a: Gallade|Max Knuckle|p1a: Comfey
+|-resisted|p1a: Comfey
+|-damage|p1a: Comfey|10228
+|-boost|p2a: Gallade|atk|1
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'kingler']
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 197 vs 216
+|chat|DEBUG|Created a new Strategy for comfey vs gallade:
+|chat|DEBUG|>[drainingkiss: 105.6875 [96, 117], drainingkiss: 105.6875 [96, 117], drainingkiss: 105.6875 [96, 117]]
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 105.6875 [96, 117]
+|chat|DEBUG|Best move of gallade (p2): zenheadbutt: 123.375 [113, 134]
+|chat|DEBUG|Attacking using drainingkiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Comfey|Draining Kiss|p2a: Gallade
+|-activate|p2a: Gallade|move: Psychic Terrain
+|move|p2a: Gallade|Max Knuckle|p1a: Comfey
+|-resisted|p1a: Comfey
+|-damage|p1a: Comfey|0 fnt
+|-boost|p2a: Gallade|atk|1
+|faint|p1a: Comfey
+|-end|p2a: Gallade|Dynamax
+|-heal|p2a: Gallade|66100|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ludicolo|Ludicolo, L86, M|278278
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kingler']
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 62 vs 162
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 105.6875 [96, 117]
+|chat|DEBUG|Best move of gallade (p2): zenheadbutt: 123.375 [113, 134]
+|chat|DEBUG|Attacking using drainingkiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Knock Off|p1a: Ludicolo
+|-damage|p1a: Ludicolo|81278
+|-enditem|p1a: Ludicolo|Life Orb|[from] move: Knock Off|[of] p2a: Gallade
+|move|p1a: Ludicolo|Hydro Pump|p2a: Gallade|[miss]
+|-miss|p1a: Ludicolo|p2a: Gallade
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo comfey nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-comfey-nidoking-kingler -- gallade
+|chat|DEBUG|Own moves: calmmind drainingkiss gigadrain storedpower
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 221 vs 178
+|chat|DEBUG|HP: 10 vs 162
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 105.6875 [96, 117]
+|chat|DEBUG|Best move of gallade (p2): zenheadbutt: 182.125 [168, 199]
+|chat|DEBUG|Attacking using drainingkiss
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Knock Off|p1a: Ludicolo
+|-crit|p1a: Ludicolo
+|-damage|p1a: Ludicolo|0 fnt
+|faint|p1a: Ludicolo
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Nidoking|Nidoking, L82, M|267267
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "comfey" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-nidoking-kingler -- gallade
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'ludicolo': 278, 'nidoking': 267, 'kingler': 230}
+|chat|DEBUG|remaining_hp_team_2={'gallade': 66}
+|chat|DEBUG|battle.available_switches=[ludicolo (pokemon object) [Active: False, Status: None], nidoking (pokemon object) [Active: False, Status: None], kingler (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'ludicolo'
+|chat|DEBUG|>Switching to ludicolo (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Knock Off|p1a: Nidoking
+|-damage|p1a: Nidoking|73267
+|-enditem|p1a: Nidoking|Life Orb|[from] move: Knock Off|[of] p2a: Gallade
+|move|p1a: Nidoking|Sludge Wave|p2a: Gallade
+|-damage|p2a: Gallade|29100
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "ludicolo" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-nidoking-kingler -- gallade
+|chat|DEBUG|Own moves: raindance icebeam gigadrain hydropump
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 178
+|chat|DEBUG|HP: 278 vs 162
+|chat|DEBUG|Created a new Strategy for ludicolo vs gallade:
+|chat|DEBUG|>[hydropump: 125.0 [114, 136], hydropump: 125.0 [114, 136], hydropump: 125.0 [114, 136]]
+|chat|DEBUG|Best move of ludicolo (p1): hydropump: 125.0 [114, 136]
+|chat|DEBUG|Best move of gallade (p2): closecombat: 437.0 [402, 473]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Knock Off|p1a: Nidoking
+|-damage|p1a: Nidoking|0 fnt
+|faint|p1a: Nidoking
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Kingler|Kingler, L84, F|230230
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>ludicolo nidoking kingler
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "ludicolo" vs "gallade"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>ludicolo-nidoking-kingler -- gallade
+|chat|DEBUG|Own moves: raindance icebeam gigadrain hydropump
+|chat|DEBUG|Enemy moves: closecombat shadowsneak swordsdance zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 170 vs 178
+|chat|DEBUG|HP: 81 vs 162
+|chat|DEBUG|Best move of ludicolo (p1): hydropump: 125.0 [114, 136]
+|chat|DEBUG|Best move of gallade (p2): closecombat: 437.0 [402, 473]
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Knock Off|p1a: Kingler
+|-damage|p1a: Kingler|111230
+|-enditem|p1a: Kingler|Life Orb|[from] move: Knock Off|[of] p2a: Gallade
+|move|p1a: Kingler|Liquidation|p2a: Gallade
+|-damage|p2a: Gallade|0 fnt
+|faint|p2a: Gallade
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Fugbaum</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">espeon ludicolo comfey gurdurr nidoking kingler</h1>

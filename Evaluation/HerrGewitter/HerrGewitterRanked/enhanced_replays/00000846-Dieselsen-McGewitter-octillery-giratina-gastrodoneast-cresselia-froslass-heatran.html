@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491325420<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491325420|init|battle
+|title|Dieselsen vs. McGewitter
+|j|☆Dieselsen
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Dieselsen|colress|1174
+|player|p2|McGewitter|265|1148
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Mienshao|Mienshao, L82, M|100100
+|switch|p2a: Octillery|Octillery, L86, F|269269
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- mienshao
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia', 'froslass']
+|chat|DEBUG|Speed: 127 vs 219
+|chat|DEBUG|HP: 269 vs 241
+|chat|DEBUG|Created a new Strategy for octillery vs mienshao:
+|chat|DEBUG|>[hydropump: 173.875 [160, 189], hydropump: 173.875 [160, 189], hydropump: 173.875 [160, 189]]
+|chat|DEBUG|Best move of octillery (p1): hydropump: 173.875 [160, 189]
+|chat|DEBUG|Best move of mienshao (p2): closecombat: 209.625 [192, 227]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Mienshao|Knock Off|p2a: Octillery
+|-damage|p2a: Octillery|183269
+|-enditem|p2a: Octillery|Leftovers|[from] move: Knock Off|[of] p1a: Mienshao
+|move|p2a: Octillery|Hydro Pump|p1a: Mienshao
+|-damage|p1a: Mienshao|27100
+|-ability|p2a: Octillery|Moody|boost
+|-boost|p2a: Octillery|spd|2
+|-unboost|p2a: Octillery|spe|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- mienshao
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['cresselia', 'froslass']
+|chat|DEBUG|Counter: ['giratina', 'gastrodoneast', 'cresselia', 'froslass']
+|chat|DEBUG|Speed: 127 vs 219
+|chat|DEBUG|HP: 183 vs 65
+|chat|DEBUG|Best move of octillery (p1): hydropump: 173.875 [160, 189]
+|chat|DEBUG|Best move of mienshao (p2): closecombat: 209.625 [192, 227]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cresselia
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cresselia|Cresselia, L80, F|323323
+|move|p1a: Mienshao|Close Combat|p2a: Cresselia
+|-resisted|p2a: Cresselia
+|-damage|p2a: Cresselia|259323
+|-unboost|p1a: Mienshao|def|1
+|-unboost|p1a: Mienshao|spd|1
+|-heal|p2a: Cresselia|279323|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "mienshao"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- mienshao
+|chat|DEBUG|Own moves: psyshock calmmind moonlight moonblast
+|chat|DEBUG|Enemy moves: closecombat knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['giratina', 'gastrodoneast', 'cresselia', 'froslass']
+|chat|DEBUG|Speed: 182 vs 219
+|chat|DEBUG|HP: 279 vs 65
+|chat|DEBUG|Created a new Strategy for cresselia vs mienshao:
+|chat|DEBUG|>[psyshock: 262.0 [240, 284], psyshock: 262.0 [240, 284], psyshock: 262.0 [240, 284]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 262.0 [240, 284]
+|chat|DEBUG|Best move of mienshao (p2): knockoff: 169.75 [156, 185]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Mienshao|Knock Off|p2a: Cresselia
+|-supereffective|p2a: Cresselia
+|-damage|p2a: Cresselia|153323
+|-enditem|p2a: Cresselia|Leftovers|[from] move: Knock Off|[of] p1a: Mienshao
+|move|p2a: Cresselia|Psyshock|p1a: Mienshao
+|-supereffective|p1a: Mienshao
+|-damage|p1a: Mienshao|0 fnt
+|faint|p1a: Mienshao
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Butterfree|Butterfree, L87, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- butterfree
+|chat|DEBUG|Own moves: psyshock calmmind moonlight moonblast
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['octillery', 'giratina', 'froslass', 'heatran']
+|chat|DEBUG|Counter: ['octillery', 'giratina', 'gastrodoneast', 'froslass', 'heatran']
+|chat|DEBUG|Speed: 182 vs 172
+|chat|DEBUG|HP: 153 vs 246
+|chat|DEBUG|Created a new Strategy for cresselia vs butterfree:
+|chat|DEBUG|>[psyshock: 91.875 [84, 100], psyshock: 91.875 [84, 100], psyshock: 91.875 [84, 100]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 91.875 [84, 100]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 147.875 [134, 162]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check octillery
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Octillery|Octillery, L86, F|183269
+|move|p1a: Butterfree|Sleep Powder|p2a: Octillery
+|-status|p2a: Octillery|slp|[from] move: Sleep Powder
+|-ability|p2a: Octillery|Moody|boost
+|-boost|p2a: Octillery|spa|2
+|-unboost|p2a: Octillery|atk|1
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- butterfree
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['giratina', 'froslass', 'heatran']
+|chat|DEBUG|Counter: ['octillery', 'giratina', 'gastrodoneast', 'froslass', 'heatran']
+|chat|DEBUG|Speed: 127 vs 172
+|chat|DEBUG|HP: 183 vs 246
+|chat|DEBUG|Created a new Strategy for octillery vs butterfree:
+|chat|DEBUG|>[icebeam: 293.25 [270, 318], icebeam: 293.25 [270, 318], icebeam: 293.25 [270, 318]]
+|chat|DEBUG|Best move of octillery (p1): icebeam: 293.25 [270, 318]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 104.5 [96, 114]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|cant|p2a: Octillery|slp
+|-ability|p2a: Octillery|Moody|boost
+|-boost|p2a: Octillery|def|2
+|-unboost|p2a: Octillery|spa|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- butterfree
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['froslass', 'heatran']
+|chat|DEBUG|Speed: 127 vs 172
+|chat|DEBUG|HP: 183 vs 246
+|chat|DEBUG|Best move of octillery (p1): icebeam: 293.25 [270, 318]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 157.3125 [144, 171]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|-curestatus|p2a: Octillery|slp|[msg]
+|move|p2a: Octillery|Ice Beam|p1a: Butterfree
+|-supereffective|p1a: Butterfree
+|-damage|p1a: Butterfree|57100
+|-ability|p2a: Octillery|Moody|boost
+|-boost|p2a: Octillery|atk|2
+|-unboost|p2a: Octillery|spa|1
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- butterfree
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['froslass', 'heatran']
+|chat|DEBUG|Speed: 127 vs 172
+|chat|DEBUG|HP: 183 vs 140
+|chat|DEBUG|Best move of octillery (p1): icebeam: 293.25 [270, 318]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 208.3125 [192, 226]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check froslass
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Froslass|Froslass, L84, F|255255
+|move|p1a: Butterfree|Bug Buzz|p2a: Froslass
+|-resisted|p2a: Froslass
+|-damage|p2a: Froslass|47255
+|-start|p1a: Butterfree|Disable|Bug Buzz|[from] ability: Cursed Body|[of] p2a: Froslass
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia froslass heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-froslass-heatran -- butterfree
+|chat|DEBUG|Own moves: poltergeist willowisp tripleaxel taunt
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['froslass', 'heatran']
+|chat|DEBUG|Speed: 233 vs 172
+|chat|DEBUG|HP: 47 vs 140
+|chat|DEBUG|Created a new Strategy for froslass vs butterfree:
+|chat|DEBUG|>[poltergeist: 143.125 [132, 156], poltergeist: 143.125 [132, 156], poltergeist: 143.125 [132, 156]]
+|chat|DEBUG|Best move of froslass (p1): poltergeist: 143.125 [132, 156]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 223.25 [204, 242]
+|chat|DEBUG|Attacking using poltergeist
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Froslass
+|-damage|p2a: Froslass|0 fnt
+|faint|p2a: Froslass
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heatran|Heatran, L78, M|270270
+|-item|p2a: Heatran|Air Balloon
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-heatran -- butterfree
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatran']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to heatran (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Sleep Powder|p2a: Heatran
+|-status|p2a: Heatran|slp|[from] move: Sleep Powder
+|cant|p2a: Heatran|slp
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatran" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-heatran -- butterfree
+|chat|DEBUG|Own moves: lavaplume taunt flashcannon earthpower
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatran']
+|chat|DEBUG|Speed: 165 vs 172
+|chat|DEBUG|HP: 270 vs 140
+|chat|DEBUG|Created a new Strategy for heatran vs butterfree:
+|chat|DEBUG|>[lavaplume: 145.125 [134, 158], lavaplume: 145.125 [134, 158], lavaplume: 145.125 [134, 158]]
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 145.125 [134, 158]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 147.0 [134, 160]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Heatran
+|-resisted|p2a: Heatran
+|-damage|p2a: Heatran|120270 slp
+|-enditem|p2a: Heatran|Air Balloon
+|cant|p2a: Heatran|slp
+|-end|p1a: Butterfree|Disable
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatran" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-heatran -- butterfree
+|chat|DEBUG|Own moves: lavaplume taunt flashcannon earthpower
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatran']
+|chat|DEBUG|Speed: 165 vs 172
+|chat|DEBUG|HP: 270 vs 140
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 145.125 [134, 158]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 147.0 [134, 160]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Heatran
+|-resisted|p2a: Heatran
+|-damage|p2a: Heatran|0 fnt
+|faint|p2a: Heatran
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina, L74|344344
+|-ability|p2a: Giratina|Pressure
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia heatran
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatran" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia-heatran -- butterfree
+|chat|DEBUG|Own moves: lavaplume taunt flashcannon earthpower
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 165 vs 172
+|chat|DEBUG|HP: 120 vs 140
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 145.125 [134, 158]
+|chat|DEBUG|Best move of butterfree (p2): airslash: 147.0 [134, 160]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Giratina
+|-crit|p2a: Giratina
+|-damage|p2a: Giratina|115344
+|move|p2a: Giratina|Will-O-Wisp|p1a: Butterfree
+|-status|p1a: Butterfree|brn
+|-heal|p2a: Giratina|136344|[from] item: Leftovers
+|-damage|p1a: Butterfree|50100 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatran" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia -- butterfree
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: giratina
+|chat|DEBUG|Early game switch: giratina
+|chat|DEBUG|>Switching to giratina (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Giratina
+|-damage|p2a: Giratina|0 fnt
+|faint|p2a: Giratina
+|-damage|p1a: Butterfree|44100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gastrodon|Gastrodon-East, L84, M|324324
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia -- butterfree
+|chat|DEBUG|Own moves: hex rest willowisp sleeptalk
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 172
+|chat|DEBUG|HP: 344 vs 140
+|chat|DEBUG|Created a new Strategy for giratina vs butterfree:
+|chat|DEBUG|>[willowisp: 0.0 [0, 0], hex: 57.3125 [52, 63], hex: 57.3125 [52, 63]]
+|chat|DEBUG|Best move of giratina (p1): willowisp: 0.0 [0, 0]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 167.875 [154, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using willowisp
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Gastrodon|Dynamax
+|-heal|p2a: Gastrodon|648648|[silent]
+|move|p1a: Butterfree|Bug Buzz|p2a: Gastrodon
+|-damage|p2a: Gastrodon|462648
+|move|p2a: Gastrodon|Max Geyser|p1a: Butterfree
+|-damage|p1a: Butterfree|18100 brn
+|-weather|RainDance
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Gastrodon|482648|[from] item: Leftovers
+|-damage|p1a: Butterfree|12100 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery giratina gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-giratina-gastrodoneast-cresselia -- butterfree
+|chat|DEBUG|Own moves: hex rest willowisp sleeptalk
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 172
+|chat|DEBUG|HP: 136 vs 123
+|chat|DEBUG|Best move of giratina (p1): hex: 57.3125 [52, 63]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 167.875 [154, 182]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hex
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Air Slash|p2a: Gastrodon
+|-damage|p2a: Gastrodon|323648
+|move|p2a: Gastrodon|Max Geyser|p1a: Butterfree
+|-damage|p1a: Butterfree|0 fnt
+|faint|p1a: Butterfree
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Gastrodon|343648|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Scrafty|Scrafty, L82, M|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratina" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- butterfree
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: gastrodoneast
+|chat|DEBUG|>Switching to gastrodoneast (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gastrodon|Max Guard|p2a: Gastrodon
+|-singleturn|p2a: Gastrodon|Max Guard
+|move|p1a: Scrafty|Knock Off|p2a: Gastrodon
+|-activate|p2a: Gastrodon|move: Max Guard
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Gastrodon|363648|[from] item: Leftovers
+|-end|p2a: Gastrodon|Dynamax
+|-heal|p2a: Gastrodon|182324|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- butterfree
+|chat|DEBUG|Own moves: toxic scald earthquake recover
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 114 vs 172
+|chat|DEBUG|HP: 324 vs 108
+|chat|DEBUG|Created a new Strategy for gastrodoneast vs butterfree:
+|chat|DEBUG|>[scald: 43.5 [40, 48], scald: 43.5 [40, 48], scald: 43.5 [40, 48]]
+|chat|DEBUG|Best move of gastrodoneast (p1): scald: 43.5 [40, 48]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 200.25 [184, 217]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scrafty|Dragon Dance|p1a: Scrafty
+|-boost|p1a: Scrafty|atk|1
+|-boost|p1a: Scrafty|spe|1
+|move|p2a: Gastrodon|Scald|p1a: Scrafty
+|-damage|p1a: Scrafty|57100
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Gastrodon|202324|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- butterfree
+|chat|DEBUG|Own moves: toxic scald earthquake recover
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['gastrodoneast']
+|chat|DEBUG|Counter: ['gastrodoneast', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 114 vs 172
+|chat|DEBUG|HP: 482 vs 29
+|chat|DEBUG|Best move of gastrodoneast (p1): scald: 43.5 [40, 48]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 200.25 [184, 217]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scrafty|Dragon Dance|p1a: Scrafty
+|-boost|p1a: Scrafty|atk|1
+|-boost|p1a: Scrafty|spe|1
+|move|p2a: Gastrodon|Scald|p1a: Scrafty
+|-damage|p1a: Scrafty|14100
+|-weather|none
+|-heal|p2a: Gastrodon|222324|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- scrafty
+|chat|DEBUG|Own moves: toxic scald earthquake recover
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 114 vs 142
+|chat|DEBUG|HP: 343 vs 241
+|chat|DEBUG|Created a new Strategy for gastrodoneast vs scrafty:
+|chat|DEBUG|>[scald: 68.75 [63, 75], scald: 68.75 [63, 75], scald: 68.75 [63, 75]]
+|chat|DEBUG|Best move of gastrodoneast (p1): scald: 68.75 [63, 75]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 138.5 [127, 150]
+|chat|DEBUG|Healing using recover
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scrafty|Knock Off|p2a: Gastrodon
+|-damage|p2a: Gastrodon|0 fnt
+|-enditem|p2a: Gastrodon|Leftovers|[from] move: Knock Off|[of] p1a: Scrafty
+|faint|p2a: Gastrodon
+|-ability|p1a: Scrafty|Moxie|boost
+|-boost|p1a: Scrafty|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Octillery|Octillery, L86, F|183269
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- scrafty
+|chat|DEBUG|Own moves: toxic scald earthquake recover
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 114 vs 142
+|chat|DEBUG|HP: 182 vs 241
+|chat|DEBUG|Best move of gastrodoneast (p1): scald: 68.75 [63, 75]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Scrafty|Knock Off|p2a: Octillery
+|-damage|p2a: Octillery|20269
+|move|p2a: Octillery|Hydro Pump|p1a: Scrafty
+|-damage|p1a: Scrafty|0 fnt
+|faint|p1a: Scrafty
+|-ability|p2a: Octillery|Moody|boost
+|-boost|p2a: Octillery|spe|2
+|-unboost|p2a: Octillery|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sylveon|Sylveon, L84, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- scrafty
+|chat|DEBUG|Own moves: toxic scald earthquake recover
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 114 vs 142
+|chat|DEBUG|HP: 202 vs 137
+|chat|DEBUG|Best move of gastrodoneast (p1): scald: 68.75 [63, 75]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 206.0 [189, 223]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Octillery|Hydro Pump|p1a: Sylveon
+|-damage|p1a: Sylveon|66100
+|move|p1a: Sylveon|Hyper Voice|p2a: Octillery
+|-damage|p2a: Octillery|0 fnt
+|faint|p2a: Octillery
+|-heal|p1a: Sylveon|72100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Cresselia|Cresselia, L80, F|153323
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery gastrodoneast cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-gastrodoneast-cresselia -- scrafty
+|chat|DEBUG|Own moves: toxic scald earthquake recover
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['octillery', 'cresselia']
+|chat|DEBUG|Speed: 114 vs 142
+|chat|DEBUG|HP: 222 vs 33
+|chat|DEBUG|Created a new Strategy for gastrodoneast vs scrafty:
+|chat|DEBUG|>[scald: 68.75 [63, 75], scald: 68.75 [63, 75], scald: 68.75 [63, 75]]
+|chat|DEBUG|Best move of gastrodoneast (p1): scald: 68.75 [63, 75]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 274.5 [252, 297]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cresselia|Psyshock|p1a: Sylveon
+|-damage|p1a: Sylveon|45100
+|move|p1a: Sylveon|Wish|p1a: Sylveon
+|-heal|p1a: Sylveon|51100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gastrodoneast" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-cresselia -- scrafty
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dragondance knockoff poisonjab
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['octillery', 'cresselia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to octillery (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cresselia|Psyshock|p1a: Sylveon
+|-damage|p1a: Sylveon|23100
+|move|p1a: Sylveon|Calm Mind|p1a: Sylveon
+|-boost|p1a: Sylveon|spa|1
+|-boost|p1a: Sylveon|spd|1
+|-heal|p1a: Sylveon|73100|[from] move: Wish|[wisher] Sylveon
+|-heal|p1a: Sylveon|79100|[from] item: Leftovers
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "scrafty"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-cresselia -- scrafty
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: closecombat icepunch knockoff poisonjab
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 127 vs 142
+|chat|DEBUG|HP: 183 vs 33
+|chat|DEBUG|Created a new Strategy for octillery vs scrafty:
+|chat|DEBUG|>[hydropump: 108.625 [100, 118], hydropump: 108.625 [100, 118], hydropump: 108.625 [100, 118]]
+|chat|DEBUG|Best move of octillery (p1): hydropump: 108.625 [100, 118]
+|chat|DEBUG|Best move of scrafty (p2): closecombat: 465.1875 [427, 504]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cresselia|Psyshock|p1a: Sylveon
+|-damage|p1a: Sylveon|52100
+|move|p1a: Sylveon|Wish|p1a: Sylveon
+|-heal|p1a: Sylveon|58100|[from] item: Leftovers
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>octillery cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>octillery-cresselia -- sylveon
+|chat|DEBUG|Own moves: protect energyball icebeam hydropump
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 127 vs 149
+|chat|DEBUG|HP: 20 vs 297
+|chat|DEBUG|Created a new Strategy for octillery vs sylveon:
+|chat|DEBUG|>[hydropump: 96.1875 [88, 105], hydropump: 96.1875 [88, 105], hydropump: 96.1875 [88, 105]]
+|chat|DEBUG|Best move of octillery (p1): hydropump: 96.1875 [88, 105]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 138.5 [127, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cresselia|Psyshock|p1a: Sylveon
+|-damage|p1a: Sylveon|31100
+|move|p1a: Sylveon|Calm Mind|p1a: Sylveon
+|-boost|p1a: Sylveon|spa|1
+|-boost|p1a: Sylveon|spd|1
+|-heal|p1a: Sylveon|81100|[from] move: Wish|[wisher] Sylveon
+|-heal|p1a: Sylveon|87100|[from] item: Leftovers
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "octillery" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia -- sylveon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: cresselia
+|chat|DEBUG|>Switching to cresselia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cresselia|Psyshock|p1a: Sylveon
+|-damage|p1a: Sylveon|61100
+|move|p1a: Sylveon|Wish|p1a: Sylveon
+|-heal|p1a: Sylveon|67100|[from] item: Leftovers
+|upkeep
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "sylveon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cresselia -- sylveon
+|chat|DEBUG|Own moves: psyshock calmmind moonlight moonblast
+|chat|DEBUG|Enemy moves: calmmind hypervoice protect wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 182 vs 149
+|chat|DEBUG|HP: 153 vs 213
+|chat|DEBUG|Created a new Strategy for cresselia vs sylveon:
+|chat|DEBUG|>[psyshock: 80.9375 [75, 88], psyshock: 80.9375 [75, 88], psyshock: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 80.9375 [75, 88]
+|chat|DEBUG|Best move of sylveon (p2): hypervoice: 97.625 [90, 106]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cresselia|Psyshock|p1a: Sylveon
+|-damage|p1a: Sylveon|37100
+|move|p1a: Sylveon|Hyper Voice|p2a: Cresselia
+|-damage|p2a: Cresselia|0 fnt
+|faint|p2a: Cresselia
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Dieselsen<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">octillery giratina gastrodoneast cresselia froslass heatran</h1>

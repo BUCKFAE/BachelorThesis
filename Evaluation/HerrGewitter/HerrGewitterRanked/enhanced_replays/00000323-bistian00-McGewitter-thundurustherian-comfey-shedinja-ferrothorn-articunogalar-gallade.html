@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490501649<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490501649|init|battle
+|title|bistian00 vs. McGewitter
+|j|☆bistian00
+|j|☆McGewitter
+|gametype|singles
+|player|p1|bistian00|steven|1293
+|player|p2|McGewitter|265|1276
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|100100
+|switch|p2a: Thundurus|Thundurus-Therian, L80, M|258258
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: focusblast thunderbolt voltswitch psychic
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['thundurustherian', 'shedinja']
+|chat|DEBUG|Counter: ['thundurustherian', 'shedinja', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 36
+|chat|DEBUG|HP: 258 vs 244
+|chat|DEBUG|Created a new Strategy for thundurustherian vs ferrothorn:
+|chat|DEBUG|>[focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204]]
+|chat|DEBUG|Best move of thundurustherian (p1): focusblast: 187.125 [172, 204]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 83.9375 [77, 91]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Thundurus|Focus Blast|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|20100
+|move|p1a: Ferrothorn|Leech Seed|p2a: Thundurus
+|-start|p2a: Thundurus|move: Leech Seed
+|-heal|p1a: Ferrothorn|26100|[from] item: Leftovers
+|-damage|p2a: Thundurus|226258|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|39100|[silent]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: focusblast
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['thundurustherian', 'shedinja', 'articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['thundurustherian', 'shedinja', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 36
+|chat|DEBUG|HP: 226 vs 95
+|chat|DEBUG|Created a new Strategy for thundurustherian vs ferrothorn:
+|chat|DEBUG|>[focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204]]
+|chat|DEBUG|Best move of thundurustherian (p1): focusblast: 187.125 [172, 204]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 83.9375 [77, 91]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ferrothorn|Protect|p1a: Ferrothorn
+|-singleturn|p1a: Ferrothorn|Protect
+|move|p2a: Thundurus|Focus Blast|p1a: Ferrothorn
+|-activate|p1a: Ferrothorn|move: Protect
+|-heal|p1a: Ferrothorn|46100|[from] item: Leftovers
+|-damage|p2a: Thundurus|194258|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|59100|[silent]
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: focusblast
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['thundurustherian', 'shedinja', 'articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['thundurustherian', 'shedinja', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 36
+|chat|DEBUG|HP: 194 vs 143
+|chat|DEBUG|Created a new Strategy for thundurustherian vs ferrothorn:
+|chat|DEBUG|>[focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204], focusblast: 187.125 [172, 204]]
+|chat|DEBUG|Best move of thundurustherian (p1): focusblast: 187.125 [172, 204]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 83.9375 [77, 91]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lugia|Lugia, L74|100100
+|move|p2a: Thundurus|Focus Blast|p1a: Lugia
+|-resisted|p1a: Lugia
+|-damage|p1a: Lugia|97100
+|-damage|p2a: Thundurus|162258|[from] Leech Seed|[of] p1a: Lugia
+|-heal|p1a: Lugia|100100|[silent]
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: focusblast
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['thundurustherian']
+|chat|DEBUG|Counter: ['thundurustherian']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 206
+|chat|DEBUG|HP: 162 vs 279
+|chat|DEBUG|Created a new Strategy for thundurustherian vs lugia:
+|chat|DEBUG|>[focusblast: 9.375 [9, 10], focusblast: 9.375 [9, 10], focusblast: 9.375 [9, 10]]
+|chat|DEBUG|Best move of thundurustherian (p1): focusblast: 9.375 [9, 10]
+|chat|DEBUG|Best move of lugia (p2): airslash: 33.375 [30, 36]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Focus Blast|p1a: Lugia|[miss]
+|-miss|p2a: Thundurus|p1a: Lugia
+|move|p1a: Lugia|Toxic|p2a: Thundurus
+|-status|p2a: Thundurus|tox
+|-damage|p2a: Thundurus|130258 tox|[from] Leech Seed|[of] p1a: Lugia
+|-damage|p2a: Thundurus|114258 tox|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: focusblast
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['thundurustherian']
+|chat|DEBUG|Speed: 208 vs 206
+|chat|DEBUG|HP: 114 vs 279
+|chat|DEBUG|Created a new Strategy for thundurustherian vs lugia:
+|chat|DEBUG|>[focusblast: 9.375 [9, 10], focusblast: 9.375 [9, 10], focusblast: 9.375 [9, 10]]
+|chat|DEBUG|Best move of thundurustherian (p1): focusblast: 9.375 [9, 10]
+|chat|DEBUG|Best move of lugia (p2): airslash: 33.375 [30, 36]
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Focus Blast|p1a: Lugia
+|-resisted|p1a: Lugia
+|-damage|p1a: Lugia|97100
+|move|p1a: Lugia|Substitute|p1a: Lugia
+|-start|p1a: Lugia|Substitute
+|-damage|p1a: Lugia|73100
+|-damage|p2a: Thundurus|82258 tox|[from] Leech Seed|[of] p1a: Lugia
+|-heal|p1a: Lugia|84100|[silent]
+|-damage|p2a: Thundurus|50258 tox|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>thundurustherian comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>thundurustherian-comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: focusblast
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['ferrothorn']
+|chat|DEBUG|Counter: ['thundurustherian', 'comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Speed: 208 vs 206
+|chat|DEBUG|HP: 50 vs 234
+|chat|DEBUG|Created a new Strategy for thundurustherian vs lugia:
+|chat|DEBUG|>[focusblast: 19.1875 [18, 21], focusblast: 19.1875 [18, 21], focusblast: 19.1875 [18, 21]]
+|chat|DEBUG|Best move of thundurustherian (p1): focusblast: 19.1875 [18, 21]
+|chat|DEBUG|Best move of lugia (p2): airslash: 33.375 [30, 36]
+|chat|DEBUG|Attacking using focusblast
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Thundurus|Focus Blast|p1a: Lugia
+|-resisted|p1a: Lugia
+|-activate|p1a: Lugia|move: Substitute|[damage]
+|move|p1a: Lugia|Air Slash|p2a: Thundurus
+|-resisted|p2a: Thundurus
+|-damage|p2a: Thundurus|18258 tox
+|-damage|p2a: Thundurus|0 fnt|[from] Leech Seed|[of] p1a: Lugia
+|-heal|p1a: Lugia|90100|[silent]
+|faint|p2a: Thundurus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Ferrothorn|Ferrothorn, L78, F|244244
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "thundurustherian" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['ferrothorn']
+|chat|DEBUG|Counter: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to ferrothorn (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Air Slash|p2a: Ferrothorn
+|-damage|p2a: Ferrothorn|196244
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Lugia
+|-end|p1a: Lugia|Substitute
+|-heal|p2a: Ferrothorn|211244|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['ferrothorn']
+|chat|DEBUG|Counter: ['ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 36 vs 206
+|chat|DEBUG|HP: 244 vs 251
+|chat|DEBUG|Created a new Strategy for ferrothorn vs lugia:
+|chat|DEBUG|>[gyroball: 108.625 [100, 118], gyroball: 108.625 [100, 118], gyroball: 108.625 [100, 118]]
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of lugia (p2): airslash: 51.8125 [48, 57]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Substitute|p1a: Lugia
+|-start|p1a: Lugia|Substitute
+|-damage|p1a: Lugia|66100
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Lugia
+|-end|p1a: Lugia|Substitute
+|-heal|p2a: Ferrothorn|226244|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['ferrothorn']
+|chat|DEBUG|Counter: ['ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 36 vs 206
+|chat|DEBUG|HP: 211 vs 251
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of lugia (p2): airslash: 51.8125 [48, 57]
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Substitute|p1a: Lugia
+|-start|p1a: Lugia|Substitute
+|-damage|p1a: Lugia|41100
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Lugia
+|-end|p1a: Lugia|Substitute
+|-heal|p2a: Ferrothorn|241244|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['comfey', 'ferrothorn', 'articunogalar']
+|chat|DEBUG|Counter: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 36 vs 206
+|chat|DEBUG|HP: 226 vs 184
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of lugia (p2): airslash: 51.8125 [48, 57]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Substitute|p1a: Lugia
+|-start|p1a: Lugia|Substitute
+|-damage|p1a: Lugia|16100
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Lugia
+|-end|p1a: Lugia|Substitute
+|-heal|p2a: Ferrothorn|244244|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 36 vs 206
+|chat|DEBUG|HP: 241 vs 114
+|chat|DEBUG|Created a new Strategy for ferrothorn vs lugia:
+|chat|DEBUG|>[gyroball: 108.625 [100, 118], gyroball: 108.625 [100, 118], gyroball: 108.625 [100, 118]]
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of lugia (p2): airslash: 51.8125 [48, 57]
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lugia|Air Slash|p2a: Ferrothorn
+|-damage|p2a: Ferrothorn|196244
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Lugia
+|-damage|p1a: Lugia|0 fnt
+|faint|p1a: Lugia
+|-heal|p2a: Ferrothorn|211244|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drapion|Drapion, L82, M|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "lugia"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-lugia
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: airslash roost substitute toxic
+|chat|DEBUG|Checks: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 36 vs 206
+|chat|DEBUG|HP: 244 vs 44
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of lugia (p2): airslash: 51.8125 [48, 57]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Knock Off|p2a: Ferrothorn
+|-damage|p2a: Ferrothorn|117244
+|-damage|p1a: Drapion|88100|[from] ability: Iron Barbs|[of] p2a: Ferrothorn
+|-enditem|p2a: Ferrothorn|Leftovers|[from] move: Knock Off|[of] p1a: Drapion
+|-damage|p1a: Drapion|78100|[from] item: Life Orb
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Drapion
+|-damage|p1a: Drapion|37100
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-drapion
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['ferrothorn']
+|chat|DEBUG|Speed: 36 vs 203
+|chat|DEBUG|HP: 211 vs 249
+|chat|DEBUG|Created a new Strategy for ferrothorn vs drapion:
+|chat|DEBUG|>[gyroball: 108.625 [100, 118], gyroball: 108.625 [100, 118], gyroball: 108.625 [100, 118]]
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of drapion (p2): knockoff: 94.375 [87, 103]
+|chat|DEBUG|Attacking using gyroball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Drapion|Earthquake|p2a: Ferrothorn
+|-damage|p2a: Ferrothorn|46244
+|-damage|p1a: Drapion|28100|[from] item: Life Orb
+|move|p2a: Ferrothorn|Gyro Ball|p1a: Drapion
+|-damage|p1a: Drapion|0 fnt
+|faint|p1a: Drapion
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Sandaconda|Sandaconda, L84, M|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "drapion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-drapion
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: earthquake knockoff poisonjab swordsdance
+|chat|DEBUG|Checks: ['comfey']
+|chat|DEBUG|Counter: ['comfey', 'ferrothorn', 'articunogalar', 'gallade']
+|chat|DEBUG|Speed: 36 vs 203
+|chat|DEBUG|HP: 117 vs 92
+|chat|DEBUG|Best move of ferrothorn (p1): gyroball: 108.625 [100, 118]
+|chat|DEBUG|Best move of drapion (p2): earthquake: 65.4375 [60, 71]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandaconda|Glare|p2a: Ferrothorn
+|-status|p2a: Ferrothorn|par
+|cant|p2a: Ferrothorn|par
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-sandaconda
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey']
+|chat|DEBUG|Speed: 36 vs 167
+|chat|DEBUG|HP: 46 vs 258
+|chat|DEBUG|Created a new Strategy for ferrothorn vs sandaconda:
+|chat|DEBUG|>[powerwhip: 164.875 [152, 180], powerwhip: 164.875 [152, 180], powerwhip: 164.875 [152, 180]]
+|chat|DEBUG|Best move of ferrothorn (p1): powerwhip: 164.875 [152, 180]
+|chat|DEBUG|Best move of sandaconda (p2): earthquake: 90.875 [84, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandaconda|Coil|p1a: Sandaconda
+|-boost|p1a: Sandaconda|atk|1
+|-boost|p1a: Sandaconda|def|1
+|-boost|p1a: Sandaconda|accuracy|1
+|move|p2a: Ferrothorn|Power Whip|p1a: Sandaconda
+|-supereffective|p1a: Sandaconda
+|-damage|p1a: Sandaconda|54100
+|-heal|p1a: Sandaconda|60100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-sandaconda
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey']
+|chat|DEBUG|Speed: 36 vs 167
+|chat|DEBUG|HP: 46 vs 258
+|chat|DEBUG|Best move of ferrothorn (p1): powerwhip: 164.875 [152, 180]
+|chat|DEBUG|Best move of sandaconda (p2): earthquake: 90.875 [84, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Sandaconda|Earthquake|p2a: Ferrothorn
+|-damage|p2a: Ferrothorn|0 fnt
+|faint|p2a: Ferrothorn
+|-heal|p1a: Sandaconda|66100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Comfey|Comfey, L86, F|228228
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja ferrothorn articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-ferrothorn-articunogalar-gallade -- ferrothorn-sandaconda
+|chat|DEBUG|Own moves: powerwhip leechseed gyroball protect
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'articunogalar']
+|chat|DEBUG|Speed: 36 vs 167
+|chat|DEBUG|HP: 46 vs 154
+|chat|DEBUG|Best move of ferrothorn (p1): powerwhip: 164.875 [152, 180]
+|chat|DEBUG|Best move of sandaconda (p2): earthquake: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using powerwhip
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Comfey|Giga Drain|p1a: Sandaconda
+|-supereffective|p1a: Sandaconda
+|-damage|p1a: Sandaconda|10100
+|-damage|p2a: Comfey|206228|[from] item: Life Orb
+|move|p1a: Sandaconda|Glare|p2a: Comfey
+|-status|p2a: Comfey|par
+|-heal|p1a: Sandaconda|16100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "ferrothorn" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-articunogalar-gallade -- ferrothorn-sandaconda
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'articunogalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to comfey (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Comfey|Giga Drain|p1a: Sandaconda
+|-supereffective|p1a: Sandaconda
+|-damage|p1a: Sandaconda|0 fnt
+|-heal|p2a: Comfey|226228 par|[from] drain|[of] p1a: Sandaconda
+|faint|p1a: Sandaconda
+|-damage|p2a: Comfey|204228 par|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|59100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-articunogalar-gallade -- ferrothorn-sandaconda
+|chat|DEBUG|Own moves: drainingkiss calmmind gigadrain storedpower
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['comfey', 'articunogalar']
+|chat|DEBUG|Speed: 221 vs 167
+|chat|DEBUG|HP: 228 vs 170
+|chat|DEBUG|Created a new Strategy for comfey vs sandaconda:
+|chat|DEBUG|>[gigadrain: 150.3125 [138, 164], gigadrain: 150.3125 [138, 164], gigadrain: 150.3125 [138, 164]]
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 150.3125 [138, 164]
+|chat|DEBUG|Best move of sandaconda (p2): earthquake: 164.125 [151, 178]
+|chat|DEBUG|Attacking using gigadrain
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Shedinja|Shedinja, L88|11
+|move|p1a: Ferrothorn|Leech Seed|p2a: Shedinja
+|-start|p2a: Shedinja|move: Leech Seed
+|-heal|p1a: Ferrothorn|65100|[from] item: Leftovers
+|-damage|p2a: Shedinja|0 fnt|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|65100|[silent]
+|faint|p2a: Shedinja
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Articuno|Articuno-Galar, L80|275275
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "sandaconda"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-articunogalar-gallade -- ferrothorn-sandaconda
+|chat|DEBUG|Own moves: drainingkiss calmmind gigadrain storedpower
+|chat|DEBUG|Enemy moves: coil earthquake rest stoneedge
+|chat|DEBUG|Checks: ['comfey', 'articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['comfey', 'articunogalar', 'gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 221 vs 167
+|chat|DEBUG|HP: 206 vs 41
+|chat|DEBUG|Best move of comfey (p1): gigadrain: 150.3125 [138, 164]
+|chat|DEBUG|Best move of sandaconda (p2): earthquake: 164.125 [151, 178]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|35100
+|move|p1a: Ferrothorn|Leech Seed|p2a: Articuno
+|-start|p2a: Articuno|move: Leech Seed
+|-heal|p1a: Ferrothorn|41100|[from] item: Leftovers
+|-damage|p2a: Articuno|241275|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|55100|[silent]
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey shedinja articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "comfey" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-shedinja-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: drainingkiss calmmind gigadrain storedpower
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['shedinja', 'articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['shedinja', 'articunogalar', 'gallade']
+|chat|DEBUG|Speed: 221 vs 36
+|chat|DEBUG|HP: 204 vs 143
+|chat|DEBUG|Created a new Strategy for comfey vs ferrothorn:
+|chat|DEBUG|>[drainingkiss: 28.0 [26, 31], drainingkiss: 28.0 [26, 31], drainingkiss: 28.0 [26, 31]]
+|chat|DEBUG|Best move of comfey (p1): drainingkiss: 28.0 [26, 31]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 262.0 [240, 284]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check shedinja
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Articuno|Air Slash|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|25100
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Articuno
+|-damage|p2a: Articuno|114275
+|-heal|p1a: Ferrothorn|32100|[from] item: Leftovers
+|-damage|p2a: Articuno|80275|[from] Leech Seed|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|46100|[silent]
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "shedinja" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['articunogalar', 'gallade']
+|chat|DEBUG|Counter: ['articunogalar', 'gallade']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to articunogalar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Gallade|Gallade, L82, M|246246
+|move|p1a: Ferrothorn|Protect||[still]
+|-fail|p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|52100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: recover airslash calmmind freezingglare
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['gallade']
+|chat|DEBUG|Counter: ['articunogalar', 'gallade']
+|chat|DEBUG|Speed: 198 vs 36
+|chat|DEBUG|HP: 275 vs 158
+|chat|DEBUG|Created a new Strategy for articunogalar vs ferrothorn:
+|chat|DEBUG|>[airslash: 78.1875 [72, 85], airslash: 78.1875 [72, 85], airslash: 78.1875 [72, 85]]
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 78.1875 [72, 85]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 134.0 [123, 145]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Gallade|Dynamax
+|-heal|p2a: Gallade|492492|[silent]
+|move|p2a: Gallade|Max Knuckle|p1a: Ferrothorn
+|-supereffective|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|0 fnt
+|-boost|p2a: Gallade|atk|1
+|faint|p1a: Ferrothorn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: recover airslash calmmind freezingglare
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['gallade']
+|chat|DEBUG|Counter: ['articunogalar', 'gallade']
+|chat|DEBUG|Speed: 198 vs 36
+|chat|DEBUG|HP: 241 vs 134
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 78.1875 [72, 85]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 134.0 [123, 145]
+|chat|DEBUG|Attacking using airslash
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tapu Fini|Calm Mind|p1a: Tapu Fini
+|-boost|p1a: Tapu Fini|spa|1
+|-boost|p1a: Tapu Fini|spd|1
+|move|p2a: Gallade|Max Darkness|p1a: Tapu Fini
+|-resisted|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|75100
+|-unboost|p1a: Tapu Fini|spd|1
+|-heal|p1a: Tapu Fini|81100|[from] item: Leftovers
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "articunogalar" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: recover airslash calmmind freezingglare
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['gallade']
+|chat|DEBUG|Counter: ['gallade']
+|chat|DEBUG|Speed: 198 vs 36
+|chat|DEBUG|HP: 80 vs 112
+|chat|DEBUG|Best move of articunogalar (p1): airslash: 78.1875 [72, 85]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 134.0 [123, 145]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check gallade
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Max Mindstorm|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p1a: Tapu Fini
+|-end|p2a: Gallade|Dynamax
+|-heal|p2a: Gallade|246246|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Abomasnow|Abomasnow, L82, F|100100
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Abomasnow
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>comfey articunogalar gallade
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gallade" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>comfey-articunogalar-gallade -- ferrothorn
+|chat|DEBUG|Own moves: closecombat trick knockoff zenheadbutt
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['gallade']
+|chat|DEBUG|Counter: ['gallade']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 36
+|chat|DEBUG|HP: 246 vs 126
+|chat|DEBUG|Created a new Strategy for gallade vs ferrothorn:
+|chat|DEBUG|>[closecombat: 231.25 [212, 252], closecombat: 231.25 [212, 252], closecombat: 231.25 [212, 252]]
+|chat|DEBUG|Best move of gallade (p1): closecombat: 231.25 [212, 252]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 172.625 [159, 187]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Gallade|Close Combat|p1a: Abomasnow
+|-supereffective|p1a: Abomasnow
+|-damage|p1a: Abomasnow|0 fnt
+|-unboost|p2a: Gallade|def|1
+|-unboost|p2a: Gallade|spd|1
+|faint|p1a: Abomasnow
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>bistian00<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">thundurustherian comfey shedinja ferrothorn articunogalar gallade</h1>

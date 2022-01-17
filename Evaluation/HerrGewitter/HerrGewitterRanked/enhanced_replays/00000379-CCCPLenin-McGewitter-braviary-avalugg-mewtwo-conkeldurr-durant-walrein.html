@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490575188<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490575188|init|battle
+|title|CCCP Lenin vs. McGewitter
+|j|☆CCCP Lenin
+|j|☆McGewitter
+|gametype|singles
+|player|p1|CCCP Lenin|giovanni|1203
+|player|p2|McGewitter|265|1225
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Silvally|Silvally-Flying, L84|100100
+|switch|p2a: Braviary|Braviary, L82, M|298298
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "silvallyflying"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying
+|chat|DEBUG|Own moves: bulkup closecombat bravebird roost
+|chat|DEBUG|Enemy moves: firefang multiattack rockslide swordsdance
+|chat|DEBUG|Checks: ['avalugg']
+|chat|DEBUG|Counter: ['avalugg', 'mewtwo', 'durant', 'walrein']
+|chat|DEBUG|Speed: 178 vs 208
+|chat|DEBUG|HP: 298 vs 297
+|chat|DEBUG|Created a new Strategy for braviary vs silvallyflying:
+|chat|DEBUG|>[bravebird: 137.0 [126, 148], bravebird: 137.0 [126, 148], bravebird: 137.0 [126, 148]]
+|chat|DEBUG|Best move of braviary (p1): bravebird: 137.0 [126, 148]
+|chat|DEBUG|Best move of silvallyflying (p2): multiattack: 143.125 [132, 156]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check avalugg
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Avalugg|Avalugg, L86, F|303303
+|move|p1a: Silvally|Rock Slide|p2a: Avalugg
+|-supereffective|p2a: Avalugg
+|-damage|p2a: Avalugg|243303
+|-heal|p2a: Avalugg|261303|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "avalugg" vs "silvallyflying"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying
+|chat|DEBUG|Own moves: curse recover avalanche bodypress
+|chat|DEBUG|Enemy moves: firefang multiattack rockslide swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['avalugg', 'mewtwo', 'durant', 'walrein']
+|chat|DEBUG|Speed: 97 vs 208
+|chat|DEBUG|HP: 261 vs 297
+|chat|DEBUG|Created a new Strategy for avalugg vs silvallyflying:
+|chat|DEBUG|>[avalanche: 145.125 [134, 158], avalanche: 145.125 [134, 158], avalanche: 145.125 [134, 158]]
+|chat|DEBUG|Best move of avalugg (p1): avalanche: 145.125 [134, 158]
+|chat|DEBUG|Best move of silvallyflying (p2): multiattack: 67.25 [61, 73]
+|chat|DEBUG|Attacking using avalanche
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Charizard|Charizard, L82, M|100100
+|move|p2a: Avalugg|Avalanche|p1a: Charizard
+|-damage|p1a: Charizard|67100
+|-heal|p2a: Avalugg|279303|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "avalugg" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard
+|chat|DEBUG|Own moves: curse recover avalanche bodypress
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['mewtwo', 'walrein']
+|chat|DEBUG|Counter: ['mewtwo', 'durant', 'walrein']
+|chat|DEBUG|Speed: 97 vs 211
+|chat|DEBUG|HP: 279 vs 175
+|chat|DEBUG|Created a new Strategy for avalugg vs charizard:
+|chat|DEBUG|>[avalanche: 86.4375 [79, 94], avalanche: 86.4375 [79, 94], avalanche: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of avalugg (p1): avalanche: 86.4375 [79, 94]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 369.5 [338, 402]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mewtwo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mewtwo|Mewtwo, L72|272272
+|-ability|p2a: Mewtwo|Unnerve
+|move|p1a: Charizard|Fire Blast|p2a: Mewtwo|[miss]
+|-miss|p1a: Charizard|p2a: Mewtwo
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['mewtwo', 'walrein']
+|chat|DEBUG|Counter: ['mewtwo', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 229 vs 211
+|chat|DEBUG|HP: 272 vs 175
+|chat|DEBUG|Created a new Strategy for mewtwo vs charizard:
+|chat|DEBUG|>[psystrike: 126.8125 [117, 138], psystrike: 126.8125 [117, 138], psystrike: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 126.8125 [117, 138]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 138.5 [127, 150]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psystrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mewtwo|Psystrike|p1a: Charizard
+|-damage|p1a: Charizard|15100
+|move|p1a: Charizard|Roost|p1a: Charizard
+|-heal|p1a: Charizard|65100
+|-singleturn|p1a: Charizard|move: Roost
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['mewtwo', 'walrein']
+|chat|DEBUG|Counter: ['mewtwo', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 229 vs 211
+|chat|DEBUG|HP: 272 vs 170
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 126.8125 [117, 138]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 138.5 [127, 150]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psystrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mewtwo|Psystrike|p1a: Charizard
+|-damage|p1a: Charizard|15100
+|move|p1a: Charizard|Fire Blast|p2a: Mewtwo
+|-damage|p2a: Mewtwo|125272
+|-heal|p2a: Mewtwo|142272|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['mewtwo', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 229 vs 211
+|chat|DEBUG|HP: 142 vs 39
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 126.8125 [117, 138]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 138.5 [127, 150]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninetales|Ninetales-Alola, L79, F|100100
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Ninetales
+|move|p2a: Mewtwo|Psystrike|p1a: Ninetales
+|-damage|p1a: Ninetales|42100
+|-weather|Hail|[upkeep]
+|-damage|p2a: Mewtwo|125272|[from] Hail
+|-heal|p2a: Mewtwo|142272|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "ninetalesalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard-ninetalesalola
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: auroraveil blizzard moonblast nastyplot
+|chat|DEBUG|Checks: ['avalugg', 'mewtwo', 'durant', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'avalugg', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 229 vs 218
+|chat|DEBUG|HP: 142 vs 102
+|chat|DEBUG|Created a new Strategy for mewtwo vs ninetalesalola:
+|chat|DEBUG|>[psystrike: 135.5 [124, 147], psystrike: 135.5 [124, 147], psystrike: 135.5 [124, 147]]
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 135.5 [124, 147]
+|chat|DEBUG|Best move of ninetalesalola (p2): moonblast: 89.1875 [82, 97]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psystrike
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Zygarde|Zygarde-10%, L82|100100
+|-ability|p1a: Zygarde|Aura Break
+|move|p2a: Mewtwo|Psystrike|p1a: Zygarde
+|-damage|p1a: Zygarde|40100
+|-weather|Hail|[upkeep]
+|-damage|p1a: Zygarde|34100|[from] Hail
+|-damage|p2a: Mewtwo|125272|[from] Hail
+|-heal|p2a: Mewtwo|142272|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard-ninetalesalola-zygarde10
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: ['avalugg', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'avalugg', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Speed: 229 vs 236
+|chat|DEBUG|HP: 142 vs 75
+|chat|DEBUG|Created a new Strategy for mewtwo vs zygarde10:
+|chat|DEBUG|>[psystrike: 135.5 [124, 147], psystrike: 135.5 [124, 147], psystrike: 135.5 [124, 147]]
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 135.5 [124, 147]
+|chat|DEBUG|Best move of zygarde10 (p2): outrage: 182.125 [168, 199]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check avalugg
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Avalugg|Avalugg, L86, F|279303
+|move|p1a: Zygarde|Thousand Arrows|p2a: Avalugg
+|-damage|p2a: Avalugg|211303
+|-damage|p1a: Zygarde|24100|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p1a: Zygarde|18100|[from] Hail
+|-heal|p2a: Avalugg|229303|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "avalugg" vs "zygarde10"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard-ninetalesalola-zygarde10
+|chat|DEBUG|Own moves: curse recover avalanche bodypress
+|chat|DEBUG|Enemy moves: coil irontail outrage thousandarrows
+|chat|DEBUG|Checks: ['avalugg', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'avalugg', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 97 vs 236
+|chat|DEBUG|HP: 229 vs 40
+|chat|DEBUG|Created a new Strategy for avalugg vs zygarde10:
+|chat|DEBUG|>[avalanche: 367.5 [336, 400], avalanche: 367.5 [336, 400], avalanche: 367.5 [336, 400]]
+|chat|DEBUG|Best move of avalugg (p1): avalanche: 367.5 [336, 400]
+|chat|DEBUG|Best move of zygarde10 (p2): outrage: 87.5 [79, 95]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zygarde|Outrage|p2a: Avalugg
+|-crit|p2a: Avalugg
+|-damage|p2a: Avalugg|87303
+|-damage|p1a: Zygarde|8100|[from] item: Life Orb
+|move|p2a: Avalugg|Avalanche|p1a: Zygarde
+|-supereffective|p1a: Zygarde
+|-damage|p1a: Zygarde|0 fnt
+|faint|p1a: Zygarde
+|-weather|Hail|[upkeep]
+|-heal|p2a: Avalugg|105303|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|CCCP Lenin has 120 seconds left.
+|switch|p1a: Charizard|Charizard, L82, M|15100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "avalugg" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard-ninetalesalola
+|chat|DEBUG|Own moves: curse recover avalanche bodypress
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['mewtwo', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Speed: 97 vs 211
+|chat|DEBUG|HP: 105 vs 39
+|chat|DEBUG|Created a new Strategy for avalugg vs charizard:
+|chat|DEBUG|>[avalanche: 86.4375 [79, 94], avalanche: 86.4375 [79, 94], avalanche: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of avalugg (p1): avalanche: 86.4375 [79, 94]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 369.5 [338, 402]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mewtwo
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mewtwo|Mewtwo, L72|142272
+|-ability|p2a: Mewtwo|Unnerve
+|move|p1a: Charizard|Fire Blast|p2a: Mewtwo
+|-damage|p2a: Mewtwo|4272
+|-weather|none
+|-heal|p2a: Mewtwo|21272|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "charizard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-charizard-ninetalesalola
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: airslash earthquake fireblast roost
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['braviary', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Speed: 229 vs 211
+|chat|DEBUG|HP: 21 vs 39
+|chat|DEBUG|Created a new Strategy for mewtwo vs charizard:
+|chat|DEBUG|>[psystrike: 126.8125 [117, 138], psystrike: 126.8125 [117, 138], psystrike: 126.8125 [117, 138]]
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 126.8125 [117, 138]
+|chat|DEBUG|Best move of charizard (p2): fireblast: 138.5 [127, 150]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mewtwo|Psystrike|p1a: Charizard
+|-damage|p1a: Charizard|0 fnt
+|faint|p1a: Charizard
+|-heal|p2a: Mewtwo|38272|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Salazzle|Salazzle, L82, F|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mewtwo" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-ninetalesalola-salazzle
+|chat|DEBUG|Own moves: psystrike nastyplot recover shadowball
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['walrein']
+|chat|DEBUG|Speed: 229 vs 239
+|chat|DEBUG|HP: 38 vs 246
+|chat|DEBUG|Created a new Strategy for mewtwo vs salazzle:
+|chat|DEBUG|>[psystrike: 303.25 [278, 330], psystrike: 303.25 [278, 330], psystrike: 303.25 [278, 330]]
+|chat|DEBUG|Best move of mewtwo (p1): psystrike: 303.25 [278, 330]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 114.3125 [105, 124]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check walrein
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Walrein|Walrein, L86, F|329329
+|move|p1a: Salazzle|Flamethrower|p2a: Walrein
+|-damage|p2a: Walrein|280329
+|-heal|p2a: Walrein|300329|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-ninetalesalola-salazzle
+|chat|DEBUG|Own moves: toxic icebeam protect surf
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['walrein']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 161 vs 239
+|chat|DEBUG|HP: 300 vs 246
+|chat|DEBUG|Created a new Strategy for walrein vs salazzle:
+|chat|DEBUG|>[surf: 265.0 [242, 288], surf: 265.0 [242, 288], surf: 265.0 [242, 288]]
+|chat|DEBUG|Best move of walrein (p1): surf: 265.0 [242, 288]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 49.0 [45, 54]
+|chat|DEBUG|Attacking using surf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Substitute|p1a: Salazzle
+|-start|p1a: Salazzle|Substitute
+|-damage|p1a: Salazzle|76100
+|move|p2a: Walrein|Surf|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-end|p1a: Salazzle|Substitute
+|-heal|p1a: Salazzle|82100|[from] item: Black Sludge
+|-heal|p2a: Walrein|320329|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "salazzle"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-ninetalesalola-salazzle
+|chat|DEBUG|Own moves: toxic icebeam protect surf
+|chat|DEBUG|Enemy moves: flamethrower protect substitute toxic
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['conkeldurr', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 239
+|chat|DEBUG|HP: 320 vs 201
+|chat|DEBUG|Best move of walrein (p1): surf: 265.0 [242, 288]
+|chat|DEBUG|Best move of salazzle (p2): flamethrower: 49.0 [45, 54]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using surf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Salazzle|Toxic|p2a: Walrein
+|-status|p2a: Walrein|tox
+|move|p2a: Walrein|Surf|p1a: Salazzle
+|-supereffective|p1a: Salazzle
+|-damage|p1a: Salazzle|0 fnt
+|faint|p1a: Salazzle
+|-heal|p2a: Walrein|329329 tox|[from] item: Leftovers
+|-damage|p2a: Walrein|309329 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ninetales|Ninetales-Alola, L79, F|42100
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Ninetales
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "ninetalesalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-ninetalesalola
+|chat|DEBUG|Own moves: toxic icebeam protect surf
+|chat|DEBUG|Enemy moves: auroraveil blizzard moonblast nastyplot
+|chat|DEBUG|Checks: ['durant', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 218
+|chat|DEBUG|HP: 309 vs 102
+|chat|DEBUG|Created a new Strategy for walrein vs ninetalesalola:
+|chat|DEBUG|>[surf: 94.875 [87, 103], surf: 94.875 [87, 103], surf: 94.875 [87, 103]]
+|chat|DEBUG|Best move of walrein (p1): surf: 94.875 [87, 103]
+|chat|DEBUG|Best move of ninetalesalola (p2): moonblast: 75.3125 [69, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using surf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Aurora Veil|p1a: Ninetales
+|-sidestart|p1: CCCP Lenin|move: Aurora Veil
+|move|p2a: Walrein|Surf|p1a: Ninetales
+|-damage|p1a: Ninetales|22100
+|-weather|Hail|[upkeep]
+|-heal|p2a: Walrein|329329 tox|[from] item: Leftovers
+|-damage|p2a: Walrein|289329 tox|[from] psn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "ninetalesalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-ninetalesalola
+|chat|DEBUG|Own moves: toxic icebeam protect surf
+|chat|DEBUG|Enemy moves: auroraveil blizzard moonblast nastyplot
+|chat|DEBUG|Checks: ['durant', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 218
+|chat|DEBUG|HP: 289 vs 53
+|chat|DEBUG|Best move of walrein (p1): surf: 94.875 [87, 103]
+|chat|DEBUG|Best move of ninetalesalola (p2): moonblast: 75.3125 [69, 82]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Moonblast|p2a: Walrein
+|-damage|p2a: Walrein|210329 tox
+|move|p2a: Walrein|Surf|p1a: Ninetales
+|-damage|p1a: Ninetales|3100
+|-weather|Hail|[upkeep]
+|-heal|p2a: Walrein|230329 tox|[from] item: Leftovers
+|-damage|p2a: Walrein|170329 tox|[from] psn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "ninetalesalola"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-ninetalesalola
+|chat|DEBUG|Own moves: toxic icebeam protect surf
+|chat|DEBUG|Enemy moves: auroraveil blizzard moonblast nastyplot
+|chat|DEBUG|Checks: ['durant', 'walrein']
+|chat|DEBUG|Counter: ['braviary', 'mewtwo', 'conkeldurr', 'durant', 'walrein']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 161 vs 218
+|chat|DEBUG|HP: 170 vs 7
+|chat|DEBUG|Best move of walrein (p1): surf: 94.875 [87, 103]
+|chat|DEBUG|Best move of ninetalesalola (p2): moonblast: 75.3125 [69, 82]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Ninetales|Moonblast|p2a: Walrein
+|-damage|p2a: Walrein|95329 tox
+|move|p2a: Walrein|Surf|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|faint|p1a: Ninetales
+|-weather|Hail|[upkeep]
+|-heal|p2a: Walrein|115329 tox|[from] item: Leftovers
+|-damage|p2a: Walrein|35329 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cloyster|Cloyster, L80, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant walrein
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "walrein" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant-walrein -- silvallyflying-cloyster
+|chat|DEBUG|Own moves: toxic icebeam protect surf
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: ['braviary']
+|chat|DEBUG|Counter: ['braviary', 'conkeldurr', 'durant']
+|chat|DEBUG|Speed: 161 vs 158
+|chat|DEBUG|HP: 35 vs 211
+|chat|DEBUG|Created a new Strategy for walrein vs cloyster:
+|chat|DEBUG|>[surf: 81.125 [75, 88], surf: 81.125 [75, 88], surf: 81.125 [75, 88]]
+|chat|DEBUG|Best move of walrein (p1): surf: 81.125 [75, 88]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 46.375 [42, 51]
+|chat|DEBUG|Attacking using surf
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Walrein|Surf|p1a: Cloyster
+|-resisted|p1a: Cloyster
+|-damage|p1a: Cloyster|81100
+|move|p1a: Cloyster|Shell Smash|p1a: Cloyster
+|-unboost|p1a: Cloyster|def|1
+|-unboost|p1a: Cloyster|spd|1
+|-boost|p1a: Cloyster|atk|2
+|-boost|p1a: Cloyster|spa|2
+|-boost|p1a: Cloyster|spe|2
+|-enditem|p1a: Cloyster|White Herb
+|-clearnegativeboost|p1a: Cloyster|[silent]
+|-weather|Hail|[upkeep]
+|-heal|p2a: Walrein|55329 tox|[from] item: Leftovers
+|-damage|p2a: Walrein|0 fnt|[from] psn
+|faint|p2a: Walrein
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Durant|Durant, L78, F|219219
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "walrein" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant -- silvallyflying-cloyster
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: ['braviary']
+|chat|DEBUG|Counter: ['braviary', 'conkeldurr', 'durant']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'braviary': 298, 'avalugg': 105, 'mewtwo': 38, 'conkeldurr': 299, 'durant': 219}
+|chat|DEBUG|remaining_hp_team_2={'silvallyflying': 100, 'cloyster': 100}
+|chat|DEBUG|battle.available_switches=[braviary (pokemon object) [Active: False, Status: None], avalugg (pokemon object) [Active: False, Status: None], conkeldurr (pokemon object) [Active: False, Status: None], durant (pokemon object) [Active: False, Status: None], mewtwo (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'durant'
+|chat|DEBUG|>Switching to durant (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Durant|Dynamax
+|-heal|p2a: Durant|438438|[silent]
+|move|p1a: Cloyster|Rock Blast|p2a: Durant
+|-damage|p2a: Durant|406438
+|-crit|p2a: Durant
+|-damage|p2a: Durant|363438
+|-damage|p2a: Durant|332438
+|-damage|p2a: Durant|304438
+|-damage|p2a: Durant|277438
+|-hitcount|p2a: Durant|5
+|move|p2a: Durant|Max Rockfall|p1a: Cloyster
+|-supereffective|p1a: Cloyster
+|-damage|p1a: Cloyster|29100
+|-weather|Sandstorm
+|-damage|p2a: Durant|256438|[from] item: Life Orb
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Cloyster|23100|[from] Sandstorm
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary avalugg mewtwo conkeldurr durant
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "durant" vs "cloyster"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-avalugg-mewtwo-conkeldurr-durant -- silvallyflying-cloyster
+|chat|DEBUG|Own moves: superpower honeclaws rockslide ironhead
+|chat|DEBUG|Enemy moves: hydropump iciclespear rockblast shellsmash
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['braviary', 'conkeldurr']
+|chat|DEBUG|Speed: 215 vs 158
+|chat|DEBUG|HP: 219 vs 170
+|chat|DEBUG|Created a new Strategy for durant vs cloyster:
+|chat|DEBUG|>[rockslide: 117.0 [107, 127], superpower: 186.375 [172, 203], superpower: 123.625 [114, 135]]
+|chat|DEBUG|Best move of durant (p1): rockslide: 117.0 [107, 127]
+|chat|DEBUG|Best move of cloyster (p2): hydropump: 315.4375 [289, 342]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|CCCP Lenin has 120 seconds left.
+|move|p1a: Cloyster|Rock Blast|p2a: Durant
+|-damage|p2a: Durant|226438
+|-crit|p2a: Durant
+|-damage|p2a: Durant|179438
+|-crit|p2a: Durant
+|-damage|p2a: Durant|133438
+|-damage|p2a: Durant|102438
+|-damage|p2a: Durant|71438
+|-hitcount|p2a: Durant|5
+|move|p2a: Durant|Max Knuckle|p1a: Cloyster
+|-supereffective|p1a: Cloyster
+|-damage|p1a: Cloyster|0 fnt
+|-boost|p2a: Durant|atk|1
+|faint|p1a: Cloyster
+|-damage|p2a: Durant|50438|[from] item: Life Orb
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|CCCP Lenin has 120 seconds left.
+|-message|CCCP Lenin forfeited.
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>CCCP Lenin<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">braviary avalugg mewtwo conkeldurr durant walrein</h1>

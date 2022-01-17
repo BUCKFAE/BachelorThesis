@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490905935<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490905935|init|battle
+|title|Poptart23 vs. McGewitter
+|j|☆Poptart23
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Poptart23|morty|1239
+|player|p2|McGewitter|265|1261
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Throh|Throh, L86, M|100100
+|switch|p2a: Nidoking|Nidoking, L82, M|267267
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass virizion incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "throh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-virizion-incineroar -- throh
+|chat|DEBUG|Own moves: sludgewave superpower icebeam earthpower
+|chat|DEBUG|Enemy moves: bulkup icepunch knockoff stormthrow
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 187 vs 127
+|chat|DEBUG|HP: 267 vs 347
+|chat|DEBUG|Created a new Strategy for nidoking vs throh:
+|chat|DEBUG|>[sludgewave: 146.5 [134, 160], sludgewave: 146.5 [134, 160], sludgewave: 146.5 [134, 160]]
+|chat|DEBUG|Best move of nidoking (p1): sludgewave: 146.5 [134, 160]
+|chat|DEBUG|Best move of throh (p2): icepunch: 128.625 [118, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgewave
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Nidoking|Sludge Wave|p1a: Throh
+|-damage|p1a: Throh|58100
+|move|p1a: Throh|Ice Punch|p2a: Nidoking
+|-supereffective|p2a: Nidoking
+|-damage|p2a: Nidoking|135267
+|-status|p1a: Throh|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass virizion incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoking" vs "throh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-virizion-incineroar -- throh
+|chat|DEBUG|Own moves: sludgewave superpower icebeam earthpower
+|chat|DEBUG|Enemy moves: bulkup icepunch knockoff stormthrow
+|chat|DEBUG|Checks: ['virizion']
+|chat|DEBUG|Counter: ['victini', 'froslass', 'virizion', 'incineroar']
+|chat|DEBUG|Speed: 187 vs 127
+|chat|DEBUG|HP: 135 vs 201
+|chat|DEBUG|Best move of nidoking (p1): sludgewave: 146.5 [134, 160]
+|chat|DEBUG|Best move of throh (p2): icepunch: 128.625 [118, 140]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check virizion
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Virizion|Virizion, L82|283283
+|move|p1a: Throh|Ice Punch|p2a: Virizion
+|-supereffective|p2a: Virizion
+|-damage|p2a: Virizion|81283
+|-damage|p1a: Throh|52100 brn|[from] brn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass virizion incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "throh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-virizion-incineroar -- throh
+|chat|DEBUG|Own moves: leafblade stoneedge closecombat swordsdance
+|chat|DEBUG|Enemy moves: bulkup icepunch knockoff stormthrow
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['liepard', 'victini', 'froslass', 'incineroar']
+|chat|DEBUG|Speed: 224 vs 127
+|chat|DEBUG|HP: 81 vs 180
+|chat|DEBUG|Created a new Strategy for virizion vs throh:
+|chat|DEBUG|>[closecombat: 114.3125 [105, 124], closecombat: 114.3125 [105, 124], closecombat: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of virizion (p1): closecombat: 114.3125 [105, 124]
+|chat|DEBUG|Best move of throh (p2): icepunch: 136.0 [124, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 120 seconds left.
+|move|p2a: Virizion|Close Combat|p1a: Throh
+|-damage|p1a: Throh|20100 brn
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|move|p1a: Throh|Ice Punch|p2a: Virizion
+|-supereffective|p2a: Virizion
+|-damage|p2a: Virizion|0 fnt
+|faint|p2a: Virizion
+|-damage|p1a: Throh|14100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Liepard|Liepard, L86, F|250250
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "throh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- throh
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup icepunch knockoff stormthrow
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['liepard', 'victini', 'froslass', 'incineroar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to liepard (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Liepard|Play Rough|p1a: Throh
+|-supereffective|p1a: Throh
+|-damage|p1a: Throh|0 fnt
+|faint|p1a: Throh
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 90 seconds left.
+|switch|p1a: Tsareena|Tsareena, L84, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "liepard" vs "throh"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- throh
+|chat|DEBUG|Own moves: playrough uturn copycat knockoff
+|chat|DEBUG|Enemy moves: bulkup icepunch knockoff stormthrow
+|chat|DEBUG|Checks: ['victini', 'froslass', 'incineroar']
+|chat|DEBUG|Counter: ['nidoking', 'liepard', 'victini', 'froslass', 'incineroar']
+|chat|DEBUG|Speed: 232 vs 127
+|chat|DEBUG|HP: 250 vs 48
+|chat|DEBUG|Created a new Strategy for liepard vs throh:
+|chat|DEBUG|>[playrough: 187.125 [172, 204], playrough: 187.125 [172, 204], playrough: 187.125 [172, 204]]
+|chat|DEBUG|Best move of liepard (p1): playrough: 187.125 [172, 204]
+|chat|DEBUG|Best move of throh (p2): stormthrow: 297.625 [272, 324]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|283283
+|move|p1a: Tsareena|U-turn|p2a: Victini
+|-damage|p2a: Victini|230283
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cofagrigus|Cofagrigus, L86, F|100100|[from]move: U-turn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "liepard" vs "tsareena"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- tsareena
+|chat|DEBUG|Own moves: playrough
+|chat|DEBUG|Enemy moves: highjumpkick powerwhip synthesis tripleaxel
+|chat|DEBUG|Checks: ['victini']
+|chat|DEBUG|Counter: ['nidoking', 'victini', 'incineroar']
+|chat|DEBUG|Speed: 232 vs 169
+|chat|DEBUG|HP: 250 vs 258
+|chat|DEBUG|Created a new Strategy for liepard vs tsareena:
+|chat|DEBUG|>[playrough: 85.5625 [79, 93], playrough: 85.5625 [79, 93], playrough: 85.5625 [79, 93]]
+|chat|DEBUG|Best move of liepard (p1): playrough: 85.5625 [79, 93]
+|chat|DEBUG|Best move of tsareena (p2): highjumpkick: 407.75 [374, 442]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check victini
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|V-create|p1a: Cofagrigus
+|-damage|p1a: Cofagrigus|56100
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|-activate|p1a: Cofagrigus|ability: Mummy|Victory Star|[of] p2a: Victini
+|move|p1a: Cofagrigus|Shadow Ball|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|44283
+|-heal|p1a: Cofagrigus|63100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- tsareena-cofagrigus
+|chat|DEBUG|Own moves: vcreate glaciate uturn boltstrike
+|chat|DEBUG|Enemy moves: bodypress memento shadowball toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['liepard', 'victini', 'froslass', 'incineroar']
+|chat|DEBUG|Speed: 201 vs 101
+|chat|DEBUG|HP: 230 vs 240
+|chat|DEBUG|Created a new Strategy for victini vs cofagrigus:
+|chat|DEBUG|>[vcreate: 111.4375 [102, 121], vcreate: 111.4375 [102, 121], vcreate: 111.4375 [102, 121]]
+|chat|DEBUG|Best move of victini (p1): vcreate: 111.4375 [102, 121]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 114.625 [104, 126]
+|chat|DEBUG|Attacking using vcreate
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 60 seconds left.
+|switch|p2a: Liepard|Liepard, L86, F|250250
+|move|p1a: Cofagrigus|Shadow Ball|p2a: Liepard
+|-resisted|p2a: Liepard
+|-damage|p2a: Liepard|191250
+|-heal|p1a: Cofagrigus|69100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "victini" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- tsareena-cofagrigus
+|chat|DEBUG|Own moves: vcreate glaciate uturn boltstrike
+|chat|DEBUG|Enemy moves: bodypress memento shadowball toxicspikes
+|chat|DEBUG|Checks: ['liepard']
+|chat|DEBUG|Counter: ['nidoking', 'liepard', 'froslass', 'incineroar']
+|chat|DEBUG|Speed: 201 vs 101
+|chat|DEBUG|HP: 44 vs 151
+|chat|DEBUG|Best move of victini (p1): vcreate: 111.4375 [102, 121]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 172.875 [158, 188]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check liepard
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 60 seconds left.
+|move|p2a: Liepard|Knock Off|p1a: Cofagrigus
+|-supereffective|p1a: Cofagrigus
+|-damage|p1a: Cofagrigus|0 fnt
+|-activate|p1a: Cofagrigus|ability: Mummy|Prankster|[of] p2a: Liepard
+|-enditem|p1a: Cofagrigus|Leftovers|[from] move: Knock Off|[of] p2a: Liepard
+|faint|p1a: Cofagrigus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Basculin|Basculin, L86, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "liepard" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- tsareena-cofagrigus
+|chat|DEBUG|Own moves: playrough uturn copycat knockoff
+|chat|DEBUG|Enemy moves: bodypress memento shadowball toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['nidoking', 'liepard', 'froslass', 'incineroar']
+|chat|DEBUG|Speed: 232 vs 101
+|chat|DEBUG|HP: 191 vs 165
+|chat|DEBUG|Created a new Strategy for liepard vs cofagrigus:
+|chat|DEBUG|>[knockoff: 197.875 [182, 216], knockoff: 197.875 [182, 216], knockoff: 197.875 [182, 216]]
+|chat|DEBUG|Best move of liepard (p1): knockoff: 197.875 [182, 216]
+|chat|DEBUG|Best move of cofagrigus (p2): bodypress: 237.625 [218, 258]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Liepard|Knock Off|p1a: Basculin
+|-damage|p1a: Basculin|35100
+|-enditem|p1a: Basculin|Choice Band|[from] move: Knock Off|[of] p2a: Liepard
+|move|p1a: Basculin|Liquidation|p2a: Liepard
+|-damage|p2a: Liepard|21250
+|-activate|p2a: Liepard|ability: Mummy|Adaptability|[of] p1a: Basculin
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "liepard" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['froslass']
+|chat|DEBUG|Speed: 232 vs 218
+|chat|DEBUG|HP: 191 vs 261
+|chat|DEBUG|Created a new Strategy for liepard vs basculin:
+|chat|DEBUG|>[knockoff: 182.375 [168, 198], knockoff: 182.375 [168, 198], knockoff: 182.375 [168, 198]]
+|chat|DEBUG|Best move of liepard (p1): knockoff: 182.375 [168, 198]
+|chat|DEBUG|Best move of basculin (p2): liquidation: 261.75 [240, 284]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Basculin|Aqua Jet|p2a: Liepard
+|-damage|p2a: Liepard|0 fnt
+|faint|p2a: Liepard
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Froslass|Froslass, L84, F|255255
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking liepard victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "liepard" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-liepard-victini-froslass-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: knockoff
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['liepard', 'froslass']
+|chat|DEBUG|Speed: 232 vs 218
+|chat|DEBUG|HP: 21 vs 91
+|chat|DEBUG|Created a new Strategy for liepard vs basculin:
+|chat|DEBUG|>[knockoff: 122.5625 [112, 133], knockoff: 122.5625 [112, 133], knockoff: 122.5625 [112, 133]]
+|chat|DEBUG|Best move of liepard (p1): knockoff: 122.5625 [112, 133]
+|chat|DEBUG|Best move of basculin (p2): liquidation: 175.0 [160, 190]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Froslass|Spikes|p1a: Basculin
+|-sidestart|p1: Poptart23|Spikes
+|move|p1a: Basculin|Crunch|p2a: Froslass
+|-supereffective|p2a: Froslass
+|-damage|p2a: Froslass|127255
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "liepard" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-froslass-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['froslass']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to froslass (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left.
+|move|p2a: Froslass|Spikes|p1a: Basculin
+|-sidestart|p1: Poptart23|Spikes
+|move|p1a: Basculin|Crunch|p2a: Froslass
+|-supereffective|p2a: Froslass
+|-damage|p2a: Froslass|0 fnt
+|faint|p2a: Froslass
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Incineroar|Incineroar, L80, F|283283
+|-ability|p2a: Incineroar|Intimidate|boost
+|-unboost|p1a: Basculin|atk|1
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-froslass-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: taunt spikes tripleaxel poltergeist
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: ['froslass']
+|chat|DEBUG|Counter: ['froslass']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 233 vs 218
+|chat|DEBUG|HP: 255 vs 91
+|chat|DEBUG|Created a new Strategy for froslass vs basculin:
+|chat|DEBUG|>[tripleaxel: 22.3125 [21, 24], tripleaxel: 22.3125 [21, 24], tripleaxel: 22.3125 [21, 24]]
+|chat|DEBUG|Best move of froslass (p1): tripleaxel: 22.3125 [21, 24]
+|chat|DEBUG|Best move of basculin (p2): headsmash: 250.625 [230, 272]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Incineroar|Dynamax
+|-heal|p2a: Incineroar|566566|[silent]
+|move|p1a: Basculin|Liquidation|p2a: Incineroar
+|-supereffective|p2a: Incineroar
+|-damage|p2a: Incineroar|428566
+|move|p2a: Incineroar|Max Darkness|p1a: Basculin
+|-damage|p1a: Basculin|0 fnt
+|faint|p1a: Basculin
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left.
+|inactive|Poptart23 has 20 seconds left.
+|switch|p1a: Nihilego|Nihilego, L80|100100
+|-damage|p1a: Nihilego|84100|[from] Spikes
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini froslass incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-froslass-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: taunt spikes tripleaxel poltergeist
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['froslass']
+|chat|DEBUG|Speed: 233 vs 218
+|chat|DEBUG|HP: 127 vs 91
+|chat|DEBUG|Best move of froslass (p1): tripleaxel: 22.3125 [21, 24]
+|chat|DEBUG|Best move of basculin (p2): headsmash: 250.625 [230, 272]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left this turn.
+|move|p1a: Nihilego|Toxic Spikes|p2a: Incineroar
+|-sidestart|p2: McGewitter|move: Toxic Spikes
+|move|p2a: Incineroar|Max Darkness|p1a: Nihilego
+|-damage|p1a: Nihilego|15100
+|-unboost|p1a: Nihilego|spd|1
+|-heal|p1a: Nihilego|21100|[from] item: Black Sludge
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "froslass" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: incineroar
+|chat|DEBUG|>Switching to incineroar (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left.
+|move|p1a: Nihilego|Sludge Wave|p2a: Incineroar
+|-damage|p2a: Incineroar|305566
+|move|p2a: Incineroar|Max Darkness|p1a: Nihilego
+|-damage|p1a: Nihilego|0 fnt
+|faint|p1a: Nihilego
+|-end|p2a: Incineroar|Dynamax
+|-heal|p2a: Incineroar|153283|[silent]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left this turn.
+|inactive|Poptart23 has 20 seconds left.
+|switch|p1a: Tornadus|Tornadus, L80, M|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "basculin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-incineroar -- tsareena-basculin
+|chat|DEBUG|Own moves: uturn flareblitz willowisp knockoff
+|chat|DEBUG|Enemy moves: aquajet crunch headsmash liquidation
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['incineroar']
+|chat|DEBUG|Speed: 142 vs 218
+|chat|DEBUG|HP: 283 vs 91
+|chat|DEBUG|Created a new Strategy for incineroar vs basculin:
+|chat|DEBUG|>[knockoff: 89.1875 [82, 97], knockoff: 89.1875 [82, 97], knockoff: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 89.1875 [82, 97]
+|chat|DEBUG|Best move of basculin (p2): liquidation: 127.5 [116, 140]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left this turn.
+|move|p1a: Tornadus|Hurricane|p2a: Incineroar
+|-damage|p2a: Incineroar|21283
+|-start|p2a: Incineroar|confusion
+|-activate|p2a: Incineroar|confusion
+|-damage|p2a: Incineroar|0 fnt|[from] confusion
+|faint|p2a: Incineroar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|44283
+|-status|p2a: Victini|psn
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-incineroar -- tsareena-nihilego
+|chat|DEBUG|Own moves: uturn flareblitz willowisp knockoff
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['nidoking', 'incineroar']
+|chat|DEBUG|Speed: 142 vs 211
+|chat|DEBUG|HP: 428 vs 257
+|chat|DEBUG|Created a new Strategy for incineroar vs nihilego:
+|chat|DEBUG|>[knockoff: 175.1875 [160, 190], knockoff: 175.1875 [160, 190], knockoff: 175.1875 [160, 190]]
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 175.1875 [160, 190]
+|chat|DEBUG|Best move of nihilego (p2): powergem: 200.75 [186, 218]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Poptart23 has 30 seconds left.
+|move|p1a: Tornadus|Heat Wave|p2a: Victini
+|-resisted|p2a: Victini
+|-damage|p2a: Victini|20283 psn
+|move|p2a: Victini|V-create|p1a: Tornadus
+|-damage|p1a: Tornadus|13100
+|-unboost|p2a: Victini|spe|1
+|-unboost|p2a: Victini|def|1
+|-unboost|p2a: Victini|spd|1
+|-damage|p2a: Victini|0 fnt|[from] psn
+|faint|p2a: Victini
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Nidoking|Nidoking, L82, M|135267
+|-sideend|p2: McGewitter|move: Toxic Spikes|[of] p2a: Nidoking
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini incineroar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "incineroar" vs "nihilego"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-incineroar -- tsareena-nihilego
+|chat|DEBUG|Own moves: uturn flareblitz willowisp knockoff
+|chat|DEBUG|Enemy moves: grassknot powergem sludgewave toxicspikes
+|chat|DEBUG|Checks: ['incineroar']
+|chat|DEBUG|Counter: ['nidoking', 'incineroar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 142 vs 211
+|chat|DEBUG|HP: 428 vs 64
+|chat|DEBUG|Best move of incineroar (p1): knockoff: 175.1875 [160, 190]
+|chat|DEBUG|Best move of nihilego (p2): powergem: 200.75 [186, 218]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tornadus|Grass Knot|p2a: Nidoking
+|-damage|p2a: Nidoking|57267
+|move|p2a: Nidoking|Ice Beam|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|faint|p1a: Tornadus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tsareena|Tsareena, L84, F|100100
+|-damage|p1a: Tsareena|84100|[from] Spikes
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nidoking victini incineroar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "incineroar" vs "tornadus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nidoking-victini-incineroar -- tsareena-tornadus
+|chat|DEBUG|Own moves: uturn flareblitz willowisp knockoff
+|chat|DEBUG|Enemy moves: grassknot heatwave hurricane nastyplot
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 142 vs 224
+|chat|DEBUG|HP: 153 vs 258
+|chat|DEBUG|Created a new Strategy for incineroar vs tornadus:
+|chat|DEBUG|>[flareblitz: 165.75 [153, 180], flareblitz: 165.75 [153, 180], flareblitz: 165.75 [153, 180]]
+|chat|DEBUG|Best move of incineroar (p1): flareblitz: 165.75 [153, 180]
+|chat|DEBUG|Best move of tornadus (p2): hurricane: 135.5 [124, 147]
+|chat|DEBUG|Attacking using flareblitz
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nidoking|Sludge Wave|p1a: Tsareena
+|-supereffective|p1a: Tsareena
+|-damage|p1a: Tsareena|0 fnt
+|faint|p1a: Tsareena
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Poptart23<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">nidoking liepard victini froslass virizion incineroar</h1>

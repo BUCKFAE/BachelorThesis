@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491163456<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491163456|init|battle
+|title|thisiscarcosa vs. McGewitter
+|j|☆thisiscarcosa
+|j|☆McGewitter
+|gametype|singles
+|player|p1|thisiscarcosa|266|1283
+|player|p2|McGewitter|265|1283
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Swampert|Swampert, L80, M|100100
+|switch|p2a: Durant|Durant, L78, F|219219
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty-dhelmise -- swampert
+|chat|DEBUG|Own moves: honeclaws rockslide ironhead superpower
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['scrafty', 'dhelmise']
+|chat|DEBUG|Speed: 215 vs 142
+|chat|DEBUG|HP: 219 vs 291
+|chat|DEBUG|Created a new Strategy for durant vs swampert:
+|chat|DEBUG|>[superpower: 162.875 [149, 177], superpower: 108.8125 [100, 118], superpower: 81.0 [74, 88]]
+|chat|DEBUG|Best move of durant (p1): superpower: 162.875 [149, 177]
+|chat|DEBUG|Best move of swampert (p2): scald: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dhelmise
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Dhelmise|Dhelmise, L86|261261
+|move|p1a: Swampert|Scald|p2a: Dhelmise
+|-resisted|p2a: Dhelmise
+|-damage|p2a: Dhelmise|229261
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty-dhelmise -- swampert
+|chat|DEBUG|Own moves: swordsdance anchorshot powerwhip poltergeist
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['dhelmise']
+|chat|DEBUG|Counter: ['scrafty', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 118 vs 142
+|chat|DEBUG|HP: 229 vs 291
+|chat|DEBUG|Created a new Strategy for dhelmise vs swampert:
+|chat|DEBUG|>[powerwhip: 700.75 [640, 760], powerwhip: 700.75 [640, 760], powerwhip: 700.75 [640, 760]]
+|chat|DEBUG|Best move of dhelmise (p1): powerwhip: 700.75 [640, 760]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 47.875 [44, 52]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Glalie|Glalie, L80, M|100100
+|move|p2a: Dhelmise|Swords Dance|p2a: Dhelmise
+|-boost|p2a: Dhelmise|atk|2
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|def|2
+|-unboost|p1a: Glalie|spa|1
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty-dhelmise -- swampert-glalie
+|chat|DEBUG|Own moves: swordsdance anchorshot powerwhip poltergeist
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'carracosta', 'aegislash', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty', 'dhelmise']
+|chat|DEBUG|Speed: 118 vs 174
+|chat|DEBUG|HP: 229 vs 259
+|chat|DEBUG|Created a new Strategy for dhelmise vs glalie:
+|chat|DEBUG|>[anchorshot: 254.375 [234, 276], anchorshot: 254.375 [234, 276], anchorshot: 254.375 [234, 276]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 254.375 [234, 276]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 78.5 [72, 86]
+|chat|DEBUG|Attacking using anchorshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Protect|p1a: Glalie
+|-singleturn|p1a: Glalie|Protect
+|move|p2a: Dhelmise|Anchor Shot|p1a: Glalie
+|-activate|p1a: Glalie|move: Protect
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|def|2
+|-unboost|p1a: Glalie|spe|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty-dhelmise -- swampert-glalie
+|chat|DEBUG|Own moves: swordsdance anchorshot powerwhip poltergeist
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty', 'dhelmise']
+|chat|DEBUG|Speed: 118 vs 174
+|chat|DEBUG|HP: 229 vs 259
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 254.375 [234, 276]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 78.5 [72, 86]
+|chat|DEBUG|Attacking using anchorshot
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dhelmise|Anchor Shot|p1a: Glalie
+|-supereffective|p1a: Glalie
+|-damage|p1a: Glalie|31100
+|-activate|p1a: Glalie|trapped
+|move|p1a: Glalie|Freeze-Dry|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-damage|p2a: Dhelmise|151261
+|-heal|p1a: Glalie|37100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|spd|2
+|-unboost|p1a: Glalie|spe|1
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty-dhelmise -- swampert-glalie
+|chat|DEBUG|Own moves: swordsdance anchorshot powerwhip poltergeist
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty', 'dhelmise']
+|chat|DEBUG|Speed: 118 vs 174
+|chat|DEBUG|HP: 151 vs 95
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 254.375 [234, 276]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 78.5 [72, 86]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Protect|p1a: Glalie
+|-singleturn|p1a: Glalie|Protect
+|move|p2a: Dhelmise|Anchor Shot|p1a: Glalie
+|-activate|p1a: Glalie|move: Protect
+|-heal|p1a: Glalie|43100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|spe|2
+|-unboost|p1a: Glalie|spa|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty dhelmise
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty-dhelmise -- swampert-glalie
+|chat|DEBUG|Own moves: swordsdance anchorshot powerwhip poltergeist
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty', 'dhelmise']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty', 'dhelmise']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 118 vs 174
+|chat|DEBUG|HP: 151 vs 111
+|chat|DEBUG|Created a new Strategy for dhelmise vs glalie:
+|chat|DEBUG|>[anchorshot: 171.125 [158, 186], anchorshot: 171.125 [158, 186], anchorshot: 171.125 [158, 186]]
+|chat|DEBUG|Best move of dhelmise (p1): anchorshot: 171.125 [158, 186]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 59.125 [54, 66]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Freeze-Dry|p2a: Dhelmise
+|-supereffective|p2a: Dhelmise
+|-crit|p2a: Dhelmise
+|-damage|p2a: Dhelmise|0 fnt
+|faint|p2a: Dhelmise
+|-heal|p1a: Glalie|50100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|spe|2
+|-unboost|p1a: Glalie|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Durant|Durant, L78, F|219219
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dhelmise" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to durant (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Earthquake|p2a: Durant
+|-damage|p2a: Durant|188219
+|move|p2a: Durant|Hone Claws|p2a: Durant
+|-boost|p2a: Durant|atk|1
+|-boost|p2a: Durant|accuracy|1
+|-heal|p1a: Glalie|56100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|spa|2
+|-unboost|p1a: Glalie|spd|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: honeclaws rockslide ironhead superpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 215 vs 174
+|chat|DEBUG|HP: 219 vs 129
+|chat|DEBUG|Created a new Strategy for durant vs glalie:
+|chat|DEBUG|>[ironhead: 119.875 [109, 133], ironhead: 119.875 [109, 133], ironhead: 119.875 [109, 133]]
+|chat|DEBUG|Best move of durant (p1): ironhead: 119.875 [109, 133]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 24.25 [22, 27]
+|chat|DEBUG|Boost Moves: [honeclaws (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Freeze-Dry|p2a: Durant
+|-resisted|p2a: Durant
+|-damage|p2a: Durant|140219
+|-status|p2a: Durant|frz
+|cant|p2a: Durant|frz
+|-heal|p1a: Glalie|62100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|atk|2
+|-unboost|p1a: Glalie|spd|1
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: honeclaws rockslide ironhead superpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'aegislash', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 174
+|chat|DEBUG|HP: 188 vs 145
+|chat|DEBUG|Best move of durant (p1): ironhead: 119.875 [109, 133]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Freeze-Dry|p2a: Durant
+|-resisted|p2a: Durant
+|-damage|p2a: Durant|92219 frz
+|cant|p2a: Durant|frz
+|-heal|p1a: Glalie|68100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|spe|2
+|-unboost|p1a: Glalie|atk|1
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: honeclaws rockslide ironhead superpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 215 vs 174
+|chat|DEBUG|HP: 140 vs 160
+|chat|DEBUG|Best move of durant (p1): ironhead: 119.875 [109, 133]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Freeze-Dry|p2a: Durant
+|-resisted|p2a: Durant
+|-damage|p2a: Durant|45219 frz
+|cant|p2a: Durant|frz
+|-heal|p1a: Glalie|74100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|spe|2
+|-unboost|p1a: Glalie|spa|1
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: honeclaws rockslide ironhead superpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['durant', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['durant', 'carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 215 vs 174
+|chat|DEBUG|HP: 92 vs 176
+|chat|DEBUG|Created a new Strategy for durant vs glalie:
+|chat|DEBUG|>[ironhead: 178.6875 [164, 195], ironhead: 178.6875 [164, 195], superpower: 179.375 [164, 195]]
+|chat|DEBUG|Best move of durant (p1): ironhead: 178.6875 [164, 195]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 48.5625 [45, 53]
+|chat|DEBUG|Attacking using ironhead
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carracosta|Carracosta, L84, M|262262
+|move|p1a: Glalie|Freeze-Dry|p2a: Carracosta
+|-supereffective|p2a: Carracosta
+|-damage|p2a: Carracosta|190262
+|-enditem|p2a: Carracosta|Weakness Policy
+|-boost|p2a: Carracosta|atk|2|[from] item: Weakness Policy
+|-boost|p2a: Carracosta|spa|2|[from] item: Weakness Policy
+|-heal|p1a: Glalie|80100|[from] item: Leftovers
+|-ability|p1a: Glalie|Moody|boost
+|-boost|p1a: Glalie|def|2
+|-unboost|p1a: Glalie|spe|1
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "durant" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: honeclaws rockslide ironhead superpower
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Speed: 215 vs 174
+|chat|DEBUG|HP: 45 vs 191
+|chat|DEBUG|Best move of durant (p1): ironhead: 178.6875 [164, 195]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 32.625 [30, 36]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check carracosta
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Glalie|Earthquake|p2a: Carracosta
+|-supereffective|p2a: Carracosta
+|-damage|p2a: Carracosta|126262
+|move|p2a: Carracosta|Hydro Pump|p1a: Glalie
+|-damage|p1a: Glalie|0 fnt
+|faint|p1a: Glalie
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heliolisk|Heliolisk, L82, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "glalie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-glalie
+|chat|DEBUG|Own moves: hydropump stoneedge aquajet shellsmash
+|chat|DEBUG|Enemy moves: disable freezedry protect substitute
+|chat|DEBUG|Checks: ['carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Counter: ['carracosta', 'aegislash', 'pikachusinnoh', 'scrafty']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 102 vs 174
+|chat|DEBUG|HP: 190 vs 207
+|chat|DEBUG|Created a new Strategy for carracosta vs glalie:
+|chat|DEBUG|>[hydropump: 232.125 [213, 252], hydropump: 232.125 [213, 252], hydropump: 232.125 [213, 252]]
+|chat|DEBUG|Best move of carracosta (p1): hydropump: 232.125 [213, 252]
+|chat|DEBUG|Best move of glalie (p2): freezedry: 75.375 [69, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['swampert']
+|chat|DEBUG|Expected enemy: swampert
+|chat|DEBUG|Using move hydropump
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Scrafty|Scrafty, L82, F|241241
+|move|p1a: Heliolisk|Thunderbolt|p2a: Scrafty
+|-damage|p2a: Scrafty|134241
+|-damage|p1a: Heliolisk|91100|[from] item: Life Orb
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carracosta" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-heliolisk
+|chat|DEBUG|Own moves: hydropump stoneedge aquajet shellsmash
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: ['scrafty']
+|chat|DEBUG|Counter: ['aegislash', 'scrafty']
+|chat|DEBUG|Speed: 102 vs 226
+|chat|DEBUG|HP: 126 vs 236
+|chat|DEBUG|Created a new Strategy for carracosta vs heliolisk:
+|chat|DEBUG|>[stoneedge: 339.0625 [312, 367], stoneedge: 339.0625 [312, 367], stoneedge: 339.0625 [312, 367]]
+|chat|DEBUG|Best move of carracosta (p1): stoneedge: 339.0625 [312, 367]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 241.875 [222, 263]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check scrafty
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heliolisk|Thunderbolt|p2a: Scrafty
+|-damage|p2a: Scrafty|31241
+|-status|p2a: Scrafty|par
+|-damage|p1a: Heliolisk|81100|[from] item: Life Orb
+|move|p2a: Scrafty|Close Combat|p1a: Heliolisk
+|-supereffective|p1a: Heliolisk
+|-damage|p1a: Heliolisk|0 fnt
+|-unboost|p2a: Scrafty|def|1
+|-unboost|p2a: Scrafty|spd|1
+|faint|p1a: Heliolisk
+|-ability|p2a: Scrafty|Moxie|boost
+|-boost|p2a: Scrafty|atk|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Swampert|Swampert, L80, M|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert-heliolisk
+|chat|DEBUG|Own moves: knockoff icepunch poisonjab closecombat
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aegislash', 'scrafty']
+|chat|DEBUG|Speed: 142 vs 226
+|chat|DEBUG|HP: 134 vs 214
+|chat|DEBUG|Created a new Strategy for scrafty vs heliolisk:
+|chat|DEBUG|>[closecombat: 503.25 [462, 546], closecombat: 503.25 [462, 546], closecombat: 503.25 [462, 546]]
+|chat|DEBUG|Best move of scrafty (p1): closecombat: 503.25 [462, 546]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 107.0625 [99, 117]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swampert|Scald|p2a: Scrafty
+|-damage|p2a: Scrafty|0 fnt
+|faint|p2a: Scrafty
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pikachu|Pikachu-Sinnoh, L92, M|214214
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh scrafty
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh-scrafty -- swampert
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 142 vs 142
+|chat|DEBUG|HP: 31 vs 291
+|chat|DEBUG|Created a new Strategy for scrafty vs swampert:
+|chat|DEBUG|>[closecombat: 262.875 [241, 285], closecombat: 262.875 [241, 285], closecombat: 262.875 [241, 285]]
+|chat|DEBUG|Best move of scrafty (p1): closecombat: 262.875 [241, 285]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pikachu|Knock Off|p1a: Swampert
+|-damage|p1a: Swampert|65100
+|-enditem|p1a: Swampert|Leftovers|[from] move: Knock Off|[of] p2a: Pikachu
+|move|p1a: Swampert|Earthquake|p2a: Pikachu
+|-supereffective|p2a: Pikachu
+|-damage|p2a: Pikachu|0 fnt
+|faint|p2a: Pikachu
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aegislash|Aegislash, L80, M|227227
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh -- swampert
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: pikachusinnoh
+|chat|DEBUG|>Switching to pikachusinnoh (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Aegislash|Dynamax
+|-heal|p2a: Aegislash|454454|[silent]
+|-formechange|p2a: Aegislash|Aegislash-Blade||[from] ability: Stance Change
+|move|p2a: Aegislash|Max Knuckle|p1a: Swampert
+|-damage|p1a: Swampert|28100
+|-boost|p2a: Aegislash|atk|1
+|-damage|p2a: Aegislash|432454|[from] item: Life Orb
+|move|p1a: Swampert|Earthquake|p2a: Aegislash
+|-supereffective|p2a: Aegislash
+|-damage|p2a: Aegislash|108454
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash pikachusinnoh
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachusinnoh" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash-pikachusinnoh -- swampert
+|chat|DEBUG|Own moves: knockoff volttackle irontail surf
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 218 vs 142
+|chat|DEBUG|HP: 214 vs 291
+|chat|DEBUG|Created a new Strategy for pikachusinnoh vs swampert:
+|chat|DEBUG|>[knockoff: 111.4375 [102, 121], knockoff: 111.4375 [102, 121], knockoff: 111.4375 [102, 121]]
+|chat|DEBUG|Best move of pikachusinnoh (p1): knockoff: 111.4375 [102, 121]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 333.875 [306, 362]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swampert|Earthquake|p2a: Aegislash
+|-supereffective|p2a: Aegislash
+|-damage|p2a: Aegislash|0 fnt
+|faint|p2a: Aegislash
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Durant|Durant, L78, F|45219 frz
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachusinnoh" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash -- swampert
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: aegislash
+|chat|DEBUG|>Switching to aegislash (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Durant|frz
+|move|p1a: Swampert|Scald|p2a: Durant
+|-damage|p2a: Durant|0 fnt
+|faint|p2a: Durant
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Carracosta|Carracosta, L84, M|126262
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aegislash" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash -- swampert
+|chat|DEBUG|Own moves: ironhead shadowsneak swordsdance closecombat
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['carracosta']
+|chat|DEBUG|Speed: 142 vs 142
+|chat|DEBUG|HP: 227 vs 189
+|chat|DEBUG|Created a new Strategy for aegislash vs swampert:
+|chat|DEBUG|>[closecombat: 139.9375 [129, 152], closecombat: 139.9375 [129, 152], closecombat: 139.9375 [129, 152]]
+|chat|DEBUG|Best move of aegislash (p1): closecombat: 139.9375 [129, 152]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 333.875 [306, 362]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Swampert|Scald|p2a: Carracosta
+|-damage|p2a: Carracosta|5262
+|move|p2a: Carracosta|Hydro Pump|p1a: Swampert
+|-damage|p1a: Swampert|0 fnt
+|faint|p1a: Swampert
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arcanine|Arcanine, L82, F|100100
+|-ability|p1a: Arcanine|Intimidate|boost
+|-unboost|p2a: Carracosta|atk|1
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>durant carracosta aegislash
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aegislash" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>durant-carracosta-aegislash -- swampert
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Own moves: ironhead shadowsneak swordsdance closecombat
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['durant']
+|chat|DEBUG|Speed: 142 vs 142
+|chat|DEBUG|HP: 108 vs 81
+|chat|DEBUG|Best move of aegislash (p1): closecombat: 139.9375 [129, 152]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 333.875 [306, 362]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Arcanine|Dynamax
+|-heal|p1a: Arcanine|100100|[silent]
+|move|p1a: Arcanine|Max Lightning|p2a: Carracosta
+|-supereffective|p2a: Carracosta
+|-damage|p2a: Carracosta|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Carracosta
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>thisiscarcosa<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">durant carracosta aegislash pikachusinnoh scrafty dhelmise</h1>

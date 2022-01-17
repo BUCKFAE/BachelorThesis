@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1492099711<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1492099711|init|battle
+|title|Marciinho11 vs. McGewitter
+|j|☆Marciinho11
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Marciinho11|266|1380
+|player|p2|McGewitter|265|1411
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Obstagoon|Obstagoon, L80, F|100100
+|switch|p2a: Magearna|Magearna, L75|244244
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-falinks-garbodor-linoone-tangrowth-pikachualola -- obstagoon
+|chat|DEBUG|Own moves: flashcannon agility calmmind fleurcannon
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['magearna', 'falinks', 'tangrowth']
+|chat|DEBUG|Counter: ['magearna', 'falinks', 'garbodor', 'tangrowth', 'pikachualola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 141 vs 198
+|chat|DEBUG|HP: 244 vs 280
+|chat|DEBUG|Created a new Strategy for magearna vs obstagoon:
+|chat|DEBUG|>[fleurcannon: 314.625 [288, 342], fleurcannon: 159.0 [146, 174], fleurcannon: 106.25 [98, 116]]
+|chat|DEBUG|Best move of magearna (p1): fleurcannon: 314.625 [288, 342]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 67.0625 [62, 73]
+|chat|DEBUG|Boost Moves: [agility (Move object), calmmind (Move object)]
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Obstagoon|Knock Off|p2a: Magearna
+|-resisted|p2a: Magearna
+|-damage|p2a: Magearna|201244
+|-enditem|p2a: Magearna|Leftovers|[from] move: Knock Off|[of] p1a: Obstagoon
+|move|p2a: Magearna|Agility|p2a: Magearna
+|-boost|p2a: Magearna|spe|2
+|-status|p1a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-falinks-garbodor-linoone-tangrowth-pikachualola -- obstagoon
+|chat|DEBUG|Own moves: flashcannon agility calmmind fleurcannon
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['magearna', 'falinks', 'tangrowth']
+|chat|DEBUG|Counter: ['magearna', 'falinks', 'garbodor', 'tangrowth', 'pikachualola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 141 vs 198
+|chat|DEBUG|HP: 201 vs 280
+|chat|DEBUG|Best move of magearna (p1): fleurcannon: 159.0 [146, 174]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 67.0625 [62, 73]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fleurcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magearna|Fleur Cannon|p1a: Obstagoon
+|-supereffective|p1a: Obstagoon
+|-damage|p1a: Obstagoon|0 fnt
+|-unboost|p2a: Magearna|spa|2
+|faint|p1a: Obstagoon
+|-ability|p2a: Magearna|Soul-Heart|boost
+|-boost|p2a: Magearna|spa|1
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Wailord|Wailord, L90, M|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-falinks-garbodor-linoone-tangrowth-pikachualola -- wailord
+|chat|DEBUG|Own moves: flashcannon agility calmmind fleurcannon
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pikachualola']
+|chat|DEBUG|Speed: 141 vs 159
+|chat|DEBUG|HP: 201 vs 452
+|chat|DEBUG|Created a new Strategy for magearna vs wailord:
+|chat|DEBUG|>[fleurcannon: 140.125 [129, 153], fleurcannon: 83.625 [76, 91], fleurcannon: 60.125 [55, 66]]
+|chat|DEBUG|Best move of magearna (p1): fleurcannon: 140.125 [129, 153]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 235.0 [216, 255]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fleurcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magearna|Fleur Cannon|p1a: Wailord|[miss]
+|-miss|p2a: Magearna|p1a: Wailord
+|move|p1a: Wailord|Hydro Pump|p2a: Magearna
+|-damage|p2a: Magearna|20244
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-falinks-garbodor-linoone-tangrowth-pikachualola -- wailord
+|chat|DEBUG|Own moves: flashcannon agility calmmind fleurcannon
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pikachualola']
+|chat|DEBUG|Speed: 141 vs 159
+|chat|DEBUG|HP: 20 vs 452
+|chat|DEBUG|Best move of magearna (p1): fleurcannon: 83.625 [76, 91]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 235.0 [216, 255]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fleurcannon
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Magearna|Fleur Cannon|p1a: Wailord
+|-damage|p1a: Wailord|69100
+|-unboost|p2a: Magearna|spa|2
+|move|p1a: Wailord|Hydro Pump|p2a: Magearna
+|-damage|p2a: Magearna|0 fnt
+|faint|p2a: Magearna
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pikachu|Pikachu-Alola, L92, M|214214
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-garbodor-linoone-tangrowth-pikachualola -- wailord
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pikachualola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pikachualola (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|100100
+|move|p2a: Pikachu|Volt Tackle|p1a: Ferrothorn
+|-resisted|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|70100
+|-damage|p2a: Pikachu|188214|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|-damage|p2a: Pikachu|164214|[from] Recoil
+|-heal|p1a: Ferrothorn|76100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachualola" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-garbodor-linoone-tangrowth-pikachualola -- wailord
+|chat|DEBUG|Own moves: knockoff voltswitch irontail volttackle
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['garbodor', 'pikachualola']
+|chat|DEBUG|Speed: 218 vs 159
+|chat|DEBUG|HP: 214 vs 311
+|chat|DEBUG|Created a new Strategy for pikachualola vs wailord:
+|chat|DEBUG|>[volttackle: 592.0 [542, 642], volttackle: 592.0 [542, 642], volttackle: 592.0 [542, 642]]
+|chat|DEBUG|Best move of pikachualola (p1): volttackle: 592.0 [542, 642]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 242.0 [222, 262]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Falinks|Falinks, L84|246246
+|move|p1a: Ferrothorn|Knock Off|p2a: Falinks
+|-resisted|p2a: Falinks
+|-damage|p2a: Falinks|218246
+|-enditem|p2a: Falinks|Life Orb|[from] move: Knock Off|[of] p1a: Ferrothorn
+|-heal|p1a: Ferrothorn|82100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pikachualola" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: knockoff voltswitch irontail volttackle
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['falinks', 'tangrowth']
+|chat|DEBUG|Counter: ['falinks', 'tangrowth']
+|chat|DEBUG|Speed: 218 vs 36
+|chat|DEBUG|HP: 164 vs 185
+|chat|DEBUG|Created a new Strategy for pikachualola vs ferrothorn:
+|chat|DEBUG|>[knockoff: 85.5625 [79, 93], knockoff: 85.5625 [79, 93], knockoff: 85.5625 [79, 93]]
+|chat|DEBUG|Best move of pikachualola (p1): knockoff: 85.5625 [79, 93]
+|chat|DEBUG|Best move of ferrothorn (p2): powerwhip: 168.3125 [154, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check falinks
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Hitmonlee|Hitmonlee, L84, M|100100
+|move|p2a: Falinks|Close Combat|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|16100
+|-unboost|p2a: Falinks|def|1
+|-unboost|p2a: Falinks|spd|1
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "falinks" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: throatchop noretreat closecombat rockslide
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['falinks', 'tangrowth']
+|chat|DEBUG|Counter: ['falinks', 'tangrowth']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 174 vs 36
+|chat|DEBUG|HP: 218 vs 200
+|chat|DEBUG|Created a new Strategy for falinks vs ferrothorn:
+|chat|DEBUG|>[closecombat: 203.5 [186, 222], closecombat: 203.5 [186, 222], closecombat: 203.5 [186, 222]]
+|chat|DEBUG|Best move of falinks (p1): closecombat: 203.5 [186, 222]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 98.9375 [91, 108]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonlee|High Jump Kick|p2a: Falinks
+|-damage|p2a: Falinks|0 fnt
+|faint|p2a: Falinks
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Garbodor|Garbodor, L87, F|281281
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>falinks garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "falinks" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>falinks-garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn-hitmonlee
+|chat|DEBUG|Own moves: throatchop noretreat closecombat rockslide
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: ['garbodor', 'tangrowth']
+|chat|DEBUG|Counter: ['falinks', 'garbodor', 'linoone', 'tangrowth', 'pikachualola']
+|chat|DEBUG|Speed: 174 vs 194
+|chat|DEBUG|HP: 218 vs 35
+|chat|DEBUG|Created a new Strategy for falinks vs hitmonlee:
+|chat|DEBUG|>[closecombat: 184.75 [169, 201], closecombat: 184.75 [169, 201], closecombat: 184.75 [169, 201]]
+|chat|DEBUG|Best move of falinks (p1): closecombat: 184.75 [169, 201]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 203.0 [186, 220]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Hitmonlee|High Jump Kick|p2a: Garbodor
+|-resisted|p2a: Garbodor
+|-damage|p2a: Garbodor|173281
+|move|p2a: Garbodor|Gunk Shot|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|0 fnt
+|faint|p1a: Hitmonlee
+|-heal|p2a: Garbodor|190281|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Ferrothorn|Ferrothorn, L78, F|82100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "falinks" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn-hitmonlee
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: ['garbodor', 'tangrowth']
+|chat|DEBUG|Counter: ['garbodor', 'linoone', 'tangrowth', 'pikachualola']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to garbodor (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Spikes|p1a: Ferrothorn
+|-sidestart|p1: Marciinho11|Spikes
+|move|p1a: Ferrothorn|Spikes|p2a: Garbodor
+|-sidestart|p2: McGewitter|Spikes
+|-heal|p2a: Garbodor|207281|[from] item: Black Sludge
+|-heal|p1a: Ferrothorn|89100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn-hitmonlee
+|chat|DEBUG|Own moves: spikes painsplit gunkshot toxicspikes
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: ['garbodor', 'tangrowth']
+|chat|DEBUG|Counter: ['garbodor', 'linoone', 'tangrowth', 'pikachualola']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 180 vs 194
+|chat|DEBUG|HP: 281 vs 35
+|chat|DEBUG|Created a new Strategy for garbodor vs hitmonlee:
+|chat|DEBUG|>[gunkshot: 189.125 [174, 205], gunkshot: 189.125 [174, 205], gunkshot: 189.125 [174, 205]]
+|chat|DEBUG|Best move of garbodor (p1): gunkshot: 189.125 [174, 205]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 76.25 [70, 83]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Spikes|p1a: Ferrothorn
+|-sidestart|p1: Marciinho11|Spikes
+|move|p1a: Ferrothorn|Spikes|p2a: Garbodor
+|-sidestart|p2: McGewitter|Spikes
+|-heal|p2a: Garbodor|224281|[from] item: Black Sludge
+|-heal|p1a: Ferrothorn|95100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: spikes painsplit gunkshot toxicspikes
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['tangrowth']
+|chat|DEBUG|Counter: ['tangrowth']
+|chat|DEBUG|Speed: 180 vs 36
+|chat|DEBUG|HP: 190 vs 200
+|chat|DEBUG|Created a new Strategy for garbodor vs ferrothorn:
+|chat|DEBUG|>[toxicspikes: 0.0 [0, 0], toxicspikes: 0.0 [0, 0], toxicspikes: 0.0 [0, 0]]
+|chat|DEBUG|Best move of garbodor (p1): toxicspikes: 0.0 [0, 0]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 115.625 [106, 126]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes-toxicspikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Garbodor|Spikes|p1a: Ferrothorn
+|-sidestart|p1: Marciinho11|Spikes
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Garbodor
+|-damage|p2a: Garbodor|106281
+|-heal|p2a: Garbodor|123281|[from] item: Black Sludge
+|-heal|p1a: Ferrothorn|100100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: spikes painsplit gunkshot toxicspikes
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: ['tangrowth']
+|chat|DEBUG|Counter: ['tangrowth']
+|chat|DEBUG|Speed: 180 vs 36
+|chat|DEBUG|HP: 207 vs 217
+|chat|DEBUG|Best move of garbodor (p1): toxicspikes: 0.0 [0, 0]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 115.625 [106, 126]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes-toxicspikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Ferrothorn|Dynamax
+|-heal|p1a: Ferrothorn|100100|[silent]
+|move|p2a: Garbodor|Toxic Spikes|p1a: Ferrothorn
+|-sidestart|p1: Marciinho11|move: Toxic Spikes
+|move|p1a: Ferrothorn|Max Steelspike|p2a: Garbodor
+|-damage|p2a: Garbodor|0 fnt
+|-boost|p1a: Ferrothorn|def|1
+|faint|p2a: Garbodor
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tangrowth|Tangrowth, L84, F|305305
+|-damage|p2a: Tangrowth|255305|[from] Spikes
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: spikes painsplit gunkshot toxicspikes
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tangrowth']
+|chat|DEBUG|Speed: 180 vs 36
+|chat|DEBUG|HP: 224 vs 231
+|chat|DEBUG|Best move of garbodor (p1): toxicspikes: 0.0 [0, 0]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 115.625 [106, 126]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes-toxicspikes
+|chat|DEBUG|Setting spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tangrowth|Knock Off|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|93100
+|-damage|p2a: Tangrowth|217305|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|-enditem|p1a: Ferrothorn|Leftovers|[from] move: Knock Off|[of] p2a: Tangrowth
+|move|p1a: Ferrothorn|Max Darkness|p2a: Tangrowth
+|-damage|p2a: Tangrowth|166305
+|-unboost|p2a: Tangrowth|spd|1
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>garbodor linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>garbodor-linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: spikes painsplit gunkshot toxicspikes
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tangrowth']
+|chat|DEBUG|Speed: 180 vs 36
+|chat|DEBUG|HP: 123 vs 244
+|chat|DEBUG|Created a new Strategy for garbodor vs ferrothorn:
+|chat|DEBUG|>[toxicspikes: 0.0 [0, 0], toxicspikes: 0.0 [0, 0], toxicspikes: 0.0 [0, 0]]
+|chat|DEBUG|Best move of garbodor (p1): toxicspikes: 0.0 [0, 0]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 115.625 [106, 126]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|spikes-toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tangrowth|Knock Off|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|88100
+|-damage|p2a: Tangrowth|128305|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|move|p1a: Ferrothorn|Max Steelspike|p2a: Tangrowth
+|-damage|p2a: Tangrowth|46305
+|-boost|p1a: Ferrothorn|def|1
+|-end|p1a: Ferrothorn|Dynamax
+|-heal|p1a: Ferrothorn|88100|[silent]
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "garbodor" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tangrowth']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tangrowth (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Linoone|Linoone, L84, F|268268
+|-damage|p2a: Linoone|224268|[from] Spikes
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Linoone
+|-damage|p2a: Linoone|55268
+|-enditem|p2a: Linoone|Iapapa Berry|[eat]
+|-heal|p2a: Linoone|143268|[from] item: Iapapa Berry
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: knockoff gigadrain sleeppowder leechseed
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 132 vs 36
+|chat|DEBUG|HP: 255 vs 244
+|chat|DEBUG|Created a new Strategy for tangrowth vs ferrothorn:
+|chat|DEBUG|>[knockoff: 37.4375 [34, 41], knockoff: 37.4375 [34, 41], knockoff: 37.4375 [34, 41]]
+|chat|DEBUG|Best move of tangrowth (p1): knockoff: 37.4375 [34, 41]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 62.9375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tangrowth|Tangrowth, L84, F|147305
+|-damage|p2a: Tangrowth|97305|[from] Spikes
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Tangrowth
+|-damage|p2a: Tangrowth|33305
+|-damage|p1a: Ferrothorn|71100|[from] item: Rocky Helmet|[of] p2a: Tangrowth
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: knockoff gigadrain sleeppowder leechseed
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 132 vs 36
+|chat|DEBUG|HP: 166 vs 226
+|chat|DEBUG|Best move of tangrowth (p1): knockoff: 37.4375 [34, 41]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 62.9375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Linoone|Linoone, L84, F|143268
+|-damage|p2a: Linoone|99268|[from] Spikes
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Linoone
+|-damage|p2a: Linoone|0 fnt
+|faint|p2a: Linoone
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tangrowth|Tangrowth, L84, F|134305
+|-damage|p2a: Tangrowth|84305|[from] Spikes
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: knockoff gigadrain sleeppowder leechseed
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 132 vs 36
+|chat|DEBUG|HP: 46 vs 214
+|chat|DEBUG|Best move of tangrowth (p1): knockoff: 37.4375 [34, 41]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 62.9375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to linoone as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pikachu|Pikachu-Alola, L92, M|164214
+|-damage|p2a: Pikachu|129214|[from] Spikes
+|move|p1a: Ferrothorn|Power Whip|p2a: Pikachu|[miss]
+|-miss|p1a: Ferrothorn|p2a: Pikachu
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "linoone" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: extremespeed bellydrum throatchop stompingtantrum
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 216 vs 36
+|chat|DEBUG|HP: 143 vs 214
+|chat|DEBUG|Created a new Strategy for linoone vs ferrothorn:
+|chat|DEBUG|>[throatchop: 18.125 [17, 20], throatchop: 18.125 [17, 20], throatchop: 18.125 [17, 20]]
+|chat|DEBUG|Best move of linoone (p1): throatchop: 18.125 [17, 20]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 175.1875 [160, 190]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to tangrowth as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pikachu|Volt Switch|p1a: Ferrothorn
+|-resisted|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|53100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tangrowth|Tangrowth, L84, F|185305
+|-damage|p2a: Tangrowth|135305|[from] Spikes
+|move|p1a: Ferrothorn|Power Whip|p2a: Tangrowth
+|-resisted|p2a: Tangrowth
+|-damage|p2a: Tangrowth|97305
+|-damage|p1a: Ferrothorn|37100|[from] item: Rocky Helmet|[of] p2a: Tangrowth
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>linoone tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>linoone-tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: knockoff gigadrain sleeppowder leechseed
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 132 vs 36
+|chat|DEBUG|HP: 33 vs 173
+|chat|DEBUG|Created a new Strategy for tangrowth vs ferrothorn:
+|chat|DEBUG|>[leechseed: 0.0 [0, 0], knockoff: 18.9375 [17, 21], knockoff: 18.9375 [17, 21]]
+|chat|DEBUG|Best move of tangrowth (p1): leechseed: 0.0 [0, 0]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 62.9375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to linoone as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Tangrowth|Knock Off|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|29100
+|-damage|p2a: Tangrowth|59305|[from] ability: Iron Barbs|[of] p1a: Ferrothorn
+|move|p1a: Ferrothorn|Gyro Ball|p2a: Tangrowth
+|-damage|p2a: Tangrowth|0 fnt
+|-damage|p1a: Ferrothorn|12100|[from] item: Rocky Helmet|[of] p2a: Tangrowth
+|faint|p2a: Tangrowth
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pikachu|Pikachu-Alola, L92, M|129214
+|-damage|p2a: Pikachu|94214|[from] Spikes
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "linoone" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: tangrowth
+|chat|DEBUG|>Switching to tangrowth (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pikachu|Volt Switch|p1a: Ferrothorn
+|-resisted|p1a: Ferrothorn
+|-damage|p1a: Ferrothorn|0 fnt
+|faint|p1a: Ferrothorn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Marciinho11 has 120 seconds left.
+|switch|p1a: Rillaboom|Rillaboom, L78, M|100100
+|-damage|p1a: Rillaboom|75100|[from] Spikes
+|-status|p1a: Rillaboom|psn
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Rillaboom
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tangrowth pikachualola
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tangrowth" vs "ferrothorn"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tangrowth-pikachualola -- wailord-ferrothorn
+|chat|DEBUG|Own moves: knockoff gigadrain sleeppowder leechseed
+|chat|DEBUG|Enemy moves: gyroball leechseed powerwhip protect
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 132 vs 36
+|chat|DEBUG|HP: 84 vs 173
+|chat|DEBUG|Best move of tangrowth (p1): knockoff: 18.9375 [17, 21]
+|chat|DEBUG|Best move of ferrothorn (p2): gyroball: 62.9375 [58, 69]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Switching to pikachualola as we are on a very bad matchup!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Marciinho11 has 120 seconds left.
+|move|p2a: Pikachu|Knock Off|p1a: Rillaboom
+|-damage|p1a: Rillaboom|33100 psn
+|-enditem|p1a: Rillaboom|Life Orb|[from] move: Knock Off|[of] p2a: Pikachu
+|move|p1a: Rillaboom|High Horsepower|p2a: Pikachu
+|-supereffective|p2a: Pikachu
+|-damage|p2a: Pikachu|0 fnt
+|faint|p2a: Pikachu
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Marciinho11<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">magearna falinks garbodor linoone tangrowth pikachualola</h1>

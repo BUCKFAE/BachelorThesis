@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490014045</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490014045<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">Rexx20</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490014045|init|battle
+|title|Rexx20 vs. McGewitter
+|j|☆Rexx20
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Rexx20|giovanni|1157
+|player|p2|McGewitter|265|1179
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Swoobat|Swoobat, L86, M|100/100
+|switch|p2a: Yveltal|Yveltal, L69|288/288
+|-ability|p2a: Yveltal|Dark Aura
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Zamazenta|Zamazenta-Crowned, L71|100/100
+|-ability|p1a: Zamazenta|Dauntless Shield|boost
+|-boost|p1a: Zamazenta|def|1
+|move|p2a: Yveltal|Dark Pulse|p1a: Zamazenta
+|-resisted|p1a: Zamazenta
+|-damage|p1a: Zamazenta|86/100
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Rexx20 has 120 seconds left.
+|switch|p2a: Rotom|Rotom-Heat, L82|216/216
+|move|p1a: Zamazenta|Close Combat|p2a: Rotom
+|-damage|p2a: Rotom|107/216
+|-unboost|p1a: Zamazenta|def|1
+|-unboost|p1a: Zamazenta|spd|1
+|upkeep
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Rexx20 has 90 seconds left.
+|move|p1a: Zamazenta|Psychic Fangs|p2a: Rotom
+|-damage|p2a: Rotom|55/216
+|move|p2a: Rotom|Overheat|p1a: Zamazenta|[miss]
+|-miss|p2a: Rotom|p1a: Zamazenta
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zamazenta|Close Combat|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|-unboost|p1a: Zamazenta|def|1
+|-unboost|p1a: Zamazenta|spd|1
+|faint|p2a: Rotom
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mienshao|Mienshao, L82, M|241/241
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zamazenta|Psychic Fangs|p2a: Mienshao
+|-supereffective|p2a: Mienshao
+|-damage|p2a: Mienshao|83/241
+|move|p2a: Mienshao|Close Combat|p1a: Zamazenta
+|-supereffective|p1a: Zamazenta
+|-damage|p1a: Zamazenta|0 fnt
+|-unboost|p2a: Mienshao|def|1
+|-unboost|p2a: Mienshao|spd|1
+|faint|p1a: Zamazenta
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Landorus|Landorus, L76, M|100/100
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mienshao|Close Combat|p1a: Landorus
+|-resisted|p1a: Landorus
+|-damage|p1a: Landorus|56/100
+|-unboost|p2a: Mienshao|def|1
+|-unboost|p2a: Mienshao|spd|1
+|move|p1a: Landorus|Sludge Wave|p2a: Mienshao
+|-damage|p2a: Mienshao|0 fnt
+|faint|p2a: Mienshao
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Yveltal|Yveltal, L69|288/288
+|-ability|p2a: Yveltal|Dark Aura
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Landorus|Knock Off|p2a: Yveltal
+|-resisted|p2a: Yveltal
+|-damage|p2a: Yveltal|214/288
+|-enditem|p2a: Yveltal|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Landorus
+|-damage|p1a: Landorus|45/100|[from] item: Life Orb
+|move|p2a: Yveltal|Dark Pulse|p1a: Landorus
+|-damage|p1a: Landorus|0 fnt
+|faint|p1a: Landorus
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Tyranitar|Tyranitar, L78, F|100/100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Tyranitar
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Roserade|Roserade, L84, F|238/238
+|move|p1a: Tyranitar|Stone Edge|p2a: Roserade
+|-damage|p2a: Roserade|79/238
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Roserade|65/238|[from] Sandstorm
+|-heal|p2a: Roserade|79/238|[from] item: Black Sludge
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tyranitar|Stone Edge|p2a: Roserade|[miss]
+|-miss|p1a: Tyranitar|p2a: Roserade
+|move|p2a: Roserade|Leaf Storm|p1a: Tyranitar
+|-supereffective|p1a: Tyranitar
+|-damage|p1a: Tyranitar|24/100
+|-unboost|p2a: Roserade|spa|2
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Roserade|65/238|[from] Sandstorm
+|-heal|p2a: Roserade|79/238|[from] item: Black Sludge
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tyranitar|Stone Edge|p2a: Roserade
+|-damage|p2a: Roserade|0 fnt
+|faint|p2a: Roserade
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pyukumuku|Pyukumuku, L84, M|230/230
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Rexx20 has 90 seconds left.
+|switch|p2a: Yveltal|Yveltal, L69|214/288
+|-ability|p2a: Yveltal|Dark Aura
+|move|p1a: Tyranitar|Stone Edge|p2a: Yveltal
+|-supereffective|p2a: Yveltal
+|-damage|p2a: Yveltal|0 fnt
+|faint|p2a: Yveltal
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pyukumuku|Pyukumuku, L84, M|230/230
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Tyranitar|Tyranitar, L78, F|284/284
+|move|p1a: Tyranitar|Stone Edge|p2a: Tyranitar
+|-damage|p2a: Tyranitar|172/284
+|-weather|none
+|-heal|p2a: Tyranitar|189/284|[from] item: Leftovers
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Tyranitar|Stone Edge|p2a: Tyranitar|[miss]
+|-miss|p1a: Tyranitar|p2a: Tyranitar
+|move|p2a: Tyranitar|Earthquake|p1a: Tyranitar
+|-supereffective|p1a: Tyranitar
+|-crit|p1a: Tyranitar
+|-damage|p1a: Tyranitar|0 fnt
+|faint|p1a: Tyranitar
+|-heal|p2a: Tyranitar|206/284|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Primarina|Primarina, L82, M|100/100
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Hydro Pump|p2a: Tyranitar
+|-supereffective|p2a: Tyranitar
+|-damage|p2a: Tyranitar|0 fnt
+|faint|p2a: Tyranitar
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Pyukumuku|Pyukumuku, L84, M|230/230
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Pyukumuku|Dynamax
+|-heal|p2a: Pyukumuku|460/460|[silent]
+|move|p2a: Pyukumuku|Max Guard|p2a: Pyukumuku
+|-singleturn|p2a: Pyukumuku|Max Guard
+|move|p1a: Primarina|Hydro Pump|p2a: Pyukumuku
+|-activate|p2a: Pyukumuku|move: Max Guard
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pyukumuku|Max Guard||[still]
+|-fail|p2a: Pyukumuku
+|move|p1a: Primarina|Hydro Pump|p2a: Pyukumuku
+|-resisted|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|407/460
+|-heal|p2a: Pyukumuku|421/460|[from] item: Leftovers
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|inactive|Rexx20 has 120 seconds left.
+|move|p2a: Pyukumuku|Max Guard|p2a: Pyukumuku
+|-singleturn|p2a: Pyukumuku|Max Guard
+|move|p1a: Primarina|Hydro Pump|p2a: Pyukumuku
+|-activate|p2a: Pyukumuku|move: Max Guard
+|-heal|p2a: Pyukumuku|435/460|[from] item: Leftovers
+|-end|p2a: Pyukumuku|Dynamax
+|-heal|p2a: Pyukumuku|218/230|[silent]
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Hydro Pump|p2a: Pyukumuku
+|-resisted|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|164/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230
+|upkeep
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Primarina|Dynamax
+|-heal|p1a: Primarina|100/100|[silent]
+|move|p1a: Primarina|Max Starfall|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|104/230
+|-fieldstart|move: Misty Terrain
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|219/230
+|-heal|p2a: Pyukumuku|230/230|[from] item: Leftovers
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Max Starfall|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|104/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|219/230
+|-heal|p2a: Pyukumuku|230/230|[from] item: Leftovers
+|upkeep
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Max Starfall|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|109/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|224/230
+|-heal|p2a: Pyukumuku|230/230|[from] item: Leftovers
+|-end|p1a: Primarina|Dynamax
+|-heal|p1a: Primarina|100/100|[silent]
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Hydro Pump|p2a: Pyukumuku
+|-resisted|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|178/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Primarina|Hydro Pump|p2a: Pyukumuku
+|-resisted|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|182/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230
+|-fieldend|Misty Terrain
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gengar|Gengar, L80, M|100/100
+|move|p2a: Pyukumuku|Recover||[still]
+|-fail|p2a: Pyukumuku|heal
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Trick|p2a: Pyukumuku
+|-activate|p1a: Gengar|move: Trick|[of] p2a: Pyukumuku
+|-item|p2a: Pyukumuku|Choice Specs|[from] move: Trick
+|-item|p1a: Gengar|Leftovers|[from] move: Trick
+|move|p2a: Pyukumuku|Recover||[still]
+|-fail|p2a: Pyukumuku|heal
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Sludge Wave|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|139/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230
+|upkeep
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Sludge Wave|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|136/230
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Sludge Wave|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|142/230
+|-status|p2a: Pyukumuku|psn
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230 psn
+|-damage|p2a: Pyukumuku|202/230 psn|[from] psn
+|upkeep
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Sludge Wave|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|117/230 psn
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|230/230 psn
+|-damage|p2a: Pyukumuku|202/230 psn|[from] psn
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Shadow Ball|p2a: Pyukumuku
+|-crit|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|97/230 psn
+|move|p2a: Pyukumuku|Recover|p2a: Pyukumuku
+|-heal|p2a: Pyukumuku|212/230 psn
+|-damage|p2a: Pyukumuku|184/230 psn|[from] psn
+|upkeep
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Focus Blast|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|106/230 psn
+|-activate|p2a: Pyukumuku|move: Struggle
+|move|p2a: Pyukumuku|Struggle|p1a: Gengar
+|-damage|p1a: Gengar|86/100
+|-damage|p2a: Pyukumuku|48/230 psn|[from] recoil
+|-heal|p1a: Gengar|92/100|[from] item: Leftovers
+|-damage|p2a: Pyukumuku|20/230 psn|[from] psn
+|upkeep
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gengar|Shadow Ball|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|0 fnt
+|faint|p2a: Pyukumuku
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

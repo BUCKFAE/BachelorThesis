@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490085164</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <h1 style="font-weight:normal;text-align:center"><strong>poke-env battle replay</strong><br />battle-gen8randombattle-1490085164<br /><a
+            href="http://pokemonshowdown.com/users/randomplayer1" class="subtle" target="_blank">McGewitter</a>
+        vs. <a href="http://pokemonshowdown.com/users/randomplayer2" class="subtle"
+            target="_blank">ToastyLad</a></h1>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490085164|init|battle
+|title|McGewitter vs. ToastyLad
+|j|☆McGewitter
+|j|☆ToastyLad
+|gametype|singles
+|player|p1|McGewitter|265|1207
+|player|p2|ToastyLad|n|1228
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Drampa|Drampa, L86, M|274/274
+|switch|p2a: Pincurchin|Pincurchin, L88, F|100/100
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p2a: Pincurchin
+|turn|1
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Drampa|Draco Meteor|p2a: Pincurchin
+|-damage|p2a: Pincurchin|22/100
+|-unboost|p1a: Drampa|spa|2
+|move|p2a: Pincurchin|Rising Voltage|p1a: Drampa
+|-resisted|p1a: Drampa
+|-crit|p1a: Drampa
+|-damage|p1a: Drampa|141/274
+|-heal|p1a: Drampa|158/274|[from] item: Leftovers
+|upkeep
+|turn|2
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Pincurchin|Sucker Punch|p1a: Drampa
+|-damage|p1a: Drampa|105/274
+|-ability|p1a: Drampa|Berserk|boost
+|-boost|p1a: Drampa|spa|1
+|move|p1a: Drampa|Draco Meteor|p2a: Pincurchin
+|-damage|p2a: Pincurchin|0 fnt
+|-unboost|p1a: Drampa|spa|2
+|faint|p2a: Pincurchin
+|-heal|p1a: Drampa|122/274|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Alcremie|Alcremie, L86, F|100/100
+|turn|3
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Weezing|Weezing-Galar, L86, M|252/252
+|-ability|p1a: Weezing|Neutralizing Gas
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Weezing
+|-resisted|p1a: Weezing
+|-damage|p1a: Weezing|195/252
+|-heal|p1a: Weezing|210/252|[from] item: Black Sludge
+|upkeep
+|turn|4
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Calm Mind|p2a: Alcremie
+|-boost|p2a: Alcremie|spa|1
+|-boost|p2a: Alcremie|spd|1
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|62/100
+|-heal|p2a: Alcremie|68/100|[from] item: Leftovers
+|-heal|p1a: Weezing|225/252|[from] item: Black Sludge
+|upkeep
+|turn|5
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Calm Mind|p2a: Alcremie
+|-boost|p2a: Alcremie|spa|1
+|-boost|p2a: Alcremie|spd|1
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|42/100
+|-heal|p2a: Alcremie|48/100|[from] item: Leftovers
+|-heal|p1a: Weezing|240/252|[from] item: Black Sludge
+|-fieldend|move: Electric Terrain
+|upkeep
+|turn|6
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|98/100
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|71/100
+|-heal|p2a: Alcremie|77/100|[from] item: Leftovers
+|-heal|p1a: Weezing|252/252|[from] item: Black Sludge
+|upkeep
+|turn|7
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Calm Mind|p2a: Alcremie
+|-boost|p2a: Alcremie|spa|1
+|-boost|p2a: Alcremie|spd|1
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|55/100
+|-heal|p2a: Alcremie|61/100|[from] item: Leftovers
+|upkeep
+|turn|8
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|100/100
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-crit|p2a: Alcremie
+|-damage|p2a: Alcremie|19/100
+|-heal|p2a: Alcremie|25/100|[from] item: Leftovers
+|upkeep
+|turn|9
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|75/100
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|52/100
+|-status|p2a: Alcremie|psn
+|-heal|p2a: Alcremie|58/100 psn|[from] item: Leftovers
+|-damage|p2a: Alcremie|46/100 psn|[from] psn
+|upkeep
+|turn|10
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Recover|p2a: Alcremie
+|-heal|p2a: Alcremie|96/100 psn
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-crit|p2a: Alcremie
+|-damage|p2a: Alcremie|10/100 psn
+|-heal|p2a: Alcremie|16/100 psn|[from] item: Leftovers
+|-damage|p2a: Alcremie|3/100 psn|[from] psn
+|upkeep
+|turn|11
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Alcremie|Dazzling Gleam|p1a: Weezing
+|-resisted|p1a: Weezing
+|-damage|p1a: Weezing|100/252
+|move|p1a: Weezing|Sludge Bomb|p2a: Alcremie
+|-supereffective|p2a: Alcremie
+|-damage|p2a: Alcremie|0 fnt
+|faint|p2a: Alcremie
+|-heal|p1a: Weezing|115/252|[from] item: Black Sludge
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|100/100
+|turn|12
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|Zen Headbutt|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|1/252
+|move|p1a: Weezing|Sludge Bomb|p2a: Victini
+|-damage|p2a: Victini|70/100
+|-heal|p1a: Weezing|16/252|[from] item: Black Sludge
+|upkeep
+|turn|13
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|Zen Headbutt|p1a: Weezing
+|-supereffective|p1a: Weezing
+|-damage|p1a: Weezing|0 fnt
+|faint|p1a: Weezing
+|-end|p1a: Weezing|ability: Neutralizing Gas
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Barbaracle|Barbaracle, L80, M|246/246
+|turn|14
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vaporeon|Vaporeon, L84, M|100/100
+|move|p1a: Barbaracle|Liquidation|p2a: Vaporeon
+|-immune|p2a: Vaporeon|[from] ability: Water Absorb
+|upkeep
+|turn|15
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctozolt|Arctozolt, L86|295/295
+|move|p2a: Vaporeon|Toxic|p1a: Arctozolt
+|-status|p1a: Arctozolt|tox
+|-damage|p1a: Arctozolt|277/295 tox|[from] psn
+|upkeep
+|turn|16
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vaporeon|Protect|p2a: Vaporeon
+|-singleturn|p2a: Vaporeon|Protect
+|move|p1a: Arctozolt|Bolt Beak|p2a: Vaporeon
+|-activate|p2a: Vaporeon|move: Protect
+|-damage|p1a: Arctozolt|241/295 tox|[from] psn
+|upkeep
+|turn|17
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Incineroar|Incineroar, L80, F|100/100
+|-ability|p2a: Incineroar|Intimidate|boost
+|-unboost|p1a: Arctozolt|atk|1
+|move|p1a: Arctozolt|Bolt Beak|p2a: Incineroar
+|-damage|p2a: Incineroar|54/100
+|-damage|p1a: Arctozolt|187/295 tox|[from] psn
+|upkeep
+|turn|18
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arctozolt|Bolt Beak|p2a: Incineroar
+|-crit|p2a: Incineroar
+|-damage|p2a: Incineroar|0 fnt
+|faint|p2a: Incineroar
+|-damage|p1a: Arctozolt|115/295 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vaporeon|Vaporeon, L84, M|100/100
+|turn|19
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vaporeon|Protect|p2a: Vaporeon
+|-singleturn|p2a: Vaporeon|Protect
+|move|p1a: Arctozolt|Bolt Beak|p2a: Vaporeon
+|-activate|p2a: Vaporeon|move: Protect
+|-damage|p1a: Arctozolt|25/295 tox|[from] psn
+|upkeep
+|turn|20
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vaporeon|Scald|p1a: Arctozolt
+|-damage|p1a: Arctozolt|0 fnt
+|faint|p1a: Arctozolt
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Whimsicott|Whimsicott, L84, M|238/238
+|turn|21
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Whimsicott|Moonblast|p2a: Vaporeon
+|-damage|p2a: Vaporeon|77/100
+|move|p2a: Vaporeon|Toxic|p1a: Whimsicott
+|-status|p1a: Whimsicott|tox
+|-heal|p2a: Vaporeon|84/100|[from] item: Leftovers
+|-damage|p1a: Whimsicott|224/238 tox|[from] psn
+|upkeep
+|turn|22
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Whimsicott|U-turn|p2a: Vaporeon
+|-damage|p2a: Vaporeon|69/100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Musharna|Musharna, L86, M|340/340
+|move|p2a: Vaporeon|Wish|p2a: Vaporeon
+|-heal|p2a: Vaporeon|75/100|[from] item: Leftovers
+|upkeep
+|turn|23
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vaporeon|Scald|p1a: Musharna
+|-damage|p1a: Musharna|249/340
+|-status|p1a: Musharna|brn
+|-activate|p1a: Musharna|ability: Synchronize
+|-status|p2a: Vaporeon|brn
+|move|p1a: Musharna|Calm Mind|p1a: Musharna
+|-boost|p1a: Musharna|spa|1
+|-boost|p1a: Musharna|spd|1
+|-heal|p2a: Vaporeon|100/100 brn|[from] move: Wish|[wisher] Vaporeon
+|-heal|p1a: Musharna|270/340 brn|[from] item: Leftovers
+|-damage|p2a: Vaporeon|94/100 brn|[from] brn
+|-damage|p1a: Musharna|249/340 brn|[from] brn
+|upkeep
+|turn|24
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|70/100
+|move|p1a: Musharna|Calm Mind|p1a: Musharna
+|-boost|p1a: Musharna|spa|1
+|-boost|p1a: Musharna|spd|1
+|-heal|p1a: Musharna|270/340 brn|[from] item: Leftovers
+|-damage|p1a: Musharna|249/340 brn|[from] brn
+|upkeep
+|turn|25
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|U-turn|p1a: Musharna
+|-supereffective|p1a: Musharna
+|-damage|p1a: Musharna|151/340 brn
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vaporeon|Vaporeon, L84, M|94/100 brn|[from]move: U-turn
+|move|p1a: Musharna|Psychic|p2a: Vaporeon
+|-damage|p2a: Vaporeon|36/100 brn
+|-heal|p2a: Vaporeon|42/100 brn|[from] item: Leftovers
+|-heal|p1a: Musharna|172/340 brn|[from] item: Leftovers
+|-damage|p2a: Vaporeon|36/100 brn|[from] brn
+|-damage|p1a: Musharna|151/340 brn|[from] brn
+|upkeep
+|turn|26
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Vaporeon|Wish|p2a: Vaporeon
+|move|p1a: Musharna|Psychic|p2a: Vaporeon
+|-damage|p2a: Vaporeon|0 fnt
+|faint|p2a: Vaporeon
+|-heal|p1a: Musharna|172/340 brn|[from] item: Leftovers
+|-damage|p1a: Musharna|151/340 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|70/100
+|turn|27
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Victini|Dynamax
+|-heal|p2a: Victini|70/100|[silent]
+|move|p2a: Victini|Max Flare|p1a: Musharna
+|-damage|p1a: Musharna|9/340 brn
+|-weather|SunnyDay
+|move|p1a: Musharna|Psychic|p2a: Victini
+|-resisted|p2a: Victini
+|-damage|p2a: Victini|51/100
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Victini|83/100|[from] move: Wish|[wisher] Vaporeon
+|-heal|p1a: Musharna|30/340 brn|[from] item: Leftovers
+|-damage|p1a: Musharna|9/340 brn|[from] brn
+|upkeep
+|turn|28
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|Max Mindstorm|p1a: Musharna
+|-resisted|p1a: Musharna
+|-damage|p1a: Musharna|0 fnt
+|-fieldstart|move: Psychic Terrain
+|faint|p1a: Musharna
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Whimsicott|Whimsicott, L84, M|224/238 tox
+|turn|29
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Whimsicott|U-turn|p2a: Victini
+|-damage|p2a: Victini|76/100
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Drampa|Drampa, L86, M|122/274
+|move|p2a: Victini|Max Flare|p1a: Drampa
+|-resisted|p1a: Drampa
+|-damage|p1a: Drampa|17/274
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Drampa|34/274|[from] item: Leftovers
+|-end|p2a: Victini|Dynamax
+|-heal|p2a: Victini|76/100|[silent]
+|upkeep
+|turn|30
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|U-turn|p1a: Drampa
+|-damage|p1a: Drampa|0 fnt
+|faint|p1a: Drampa
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos, L78|100/100|[from]move: U-turn
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Barbaracle|Barbaracle, L80, M|246/246
+|turn|31
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Barbaracle|Dynamax
+|-heal|p1a: Barbaracle|492/492|[silent]
+|move|p2a: Zapdos|Discharge|p1a: Barbaracle
+|-supereffective|p1a: Barbaracle
+|-damage|p1a: Barbaracle|294/492
+|move|p1a: Barbaracle|Max Rockfall|p2a: Zapdos
+|-supereffective|p2a: Zapdos
+|-damage|p2a: Zapdos|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Zapdos
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Victini|Victini, L78|76/100
+|turn|32
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Victini|Bolt Strike|p1a: Barbaracle
+|-supereffective|p1a: Barbaracle
+|-damage|p1a: Barbaracle|152/492
+|-status|p1a: Barbaracle|par
+|move|p1a: Barbaracle|Max Geyser|p2a: Victini
+|-supereffective|p2a: Victini
+|-damage|p2a: Victini|0 fnt
+|-weather|RainDance
+|faint|p2a: Victini
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<p style="text-align:center"> Replay created by <a href="https://github.com/hsahovic/poke-env">poke-env</a>, with code from <a
+        href="https://github.com/smogon/pokemon-showdown"> pokemon-showdown</a>. If something goes wrong, don't hesitate
+    to open an <a href="https://github.com/hsahovic/poke-env/issues">issue!</a></p>

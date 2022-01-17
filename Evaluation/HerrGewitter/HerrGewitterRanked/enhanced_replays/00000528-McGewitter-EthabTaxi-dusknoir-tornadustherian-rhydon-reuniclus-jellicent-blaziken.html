@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490805358<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490805358|init|battle
+|title|McGewitter vs. Ethab Taxi
+|j|☆McGewitter
+|j|☆Ethab Taxi
+|gametype|singles
+|player|p1|McGewitter|265|1152
+|player|p2|Ethab Taxi|infielder|1108
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Dusknoir|Dusknoir, L86, M|218218
+|switch|p2a: Cinccino|Cinccino, L84, M|100100
+|-ability|p1a: Dusknoir|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir tornadustherian rhydon reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-tornadustherian-rhydon-reuniclus-jellicent-blaziken -- cinccino
+|chat|DEBUG|Own moves: painsplit willowisp poltergeist shadowsneak
+|chat|DEBUG|Enemy moves: bulletseed rockblast tailslap uturn
+|chat|DEBUG|Checks: ['tornadustherian', 'rhydon', 'jellicent', 'blaziken']
+|chat|DEBUG|Counter: ['tornadustherian', 'rhydon', 'jellicent', 'blaziken']
+|chat|DEBUG|Speed: 127 vs 241
+|chat|DEBUG|HP: 218 vs 263
+|chat|DEBUG|Created a new Strategy for dusknoir vs cinccino:
+|chat|DEBUG|>[shadowsneak: 0.0 [0, 0], shadowsneak: 0.0 [0, 0], shadowsneak: 0.0 [0, 0]]
+|chat|DEBUG|Best move of dusknoir (p1): shadowsneak: 0.0 [0, 0]
+|chat|DEBUG|Best move of cinccino (p2): uturn: 25.4375 [23, 28]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tornadustherian
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|251251
+|move|p2a: Cinccino|Knock Off|p1a: Tornadus
+|-damage|p1a: Tornadus|143251
+|-enditem|p1a: Tornadus|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Cinccino
+|-damage|p2a: Cinccino|91100|[from] item: Life Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir tornadustherian rhydon reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-tornadustherian-rhydon-reuniclus-jellicent-blaziken -- cinccino
+|chat|DEBUG|Own moves: superpower uturn defog hurricane
+|chat|DEBUG|Enemy moves: bulletseed knockoff rockblast tailslap
+|chat|DEBUG|Checks: ['rhydon', 'blaziken']
+|chat|DEBUG|Counter: ['tornadustherian', 'rhydon', 'blaziken']
+|chat|DEBUG|Speed: 234 vs 241
+|chat|DEBUG|HP: 143 vs 239
+|chat|DEBUG|Created a new Strategy for tornadustherian vs cinccino:
+|chat|DEBUG|>[hurricane: 147.5 [135, 160], superpower: 198.75 [182, 216], superpower: 134.125 [124, 146]]
+|chat|DEBUG|Best move of tornadustherian (p1): hurricane: 147.5 [135, 160]
+|chat|DEBUG|Best move of cinccino (p2): knockoff: 67.9375 [62, 74]
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|Rock Blast|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-crit|p1a: Tornadus
+|-damage|p1a: Tornadus|68251
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|19251
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|faint|p1a: Tornadus
+|-hitcount|p1: Tornadus|3
+|-damage|p2a: Cinccino|81100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Rhydon|Rhydon, L87, M|324324
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir rhydon reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tornadustherian" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-rhydon-reuniclus-jellicent-blaziken -- cinccino
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletseed knockoff rockblast tailslap
+|chat|DEBUG|Checks: ['rhydon', 'blaziken']
+|chat|DEBUG|Counter: ['rhydon', 'blaziken']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to rhydon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|Bullet Seed|p1a: Rhydon
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|272324
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|220324
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|168324
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|116324
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|69324
+|-hitcount|p1a: Rhydon|5
+|-damage|p2a: Cinccino|71100|[from] item: Life Orb
+|move|p1a: Rhydon|Earthquake|p2a: Cinccino
+|-damage|p2a: Cinccino|2100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir rhydon reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-rhydon-reuniclus-jellicent-blaziken -- cinccino
+|chat|DEBUG|Own moves: megahorn stoneedge toxic earthquake
+|chat|DEBUG|Enemy moves: bulletseed knockoff rockblast tailslap
+|chat|DEBUG|Checks: ['rhydon', 'blaziken']
+|chat|DEBUG|Counter: ['rhydon', 'reuniclus', 'blaziken']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 119 vs 241
+|chat|DEBUG|HP: 324 vs 213
+|chat|DEBUG|Created a new Strategy for rhydon vs cinccino:
+|chat|DEBUG|>[earthquake: 186.375 [171, 202], earthquake: 186.375 [171, 202], earthquake: 186.375 [171, 202]]
+|chat|DEBUG|Best move of rhydon (p1): earthquake: 186.375 [171, 202]
+|chat|DEBUG|Best move of cinccino (p2): bulletseed: 50.4375 [47, 57]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Cinccino|Bullet Seed|p1a: Rhydon
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|22324
+|-supereffective|p1a: Rhydon
+|-damage|p1a: Rhydon|0 fnt
+|faint|p1a: Rhydon
+|-hitcount|p1: Rhydon|2
+|-damage|p2a: Cinccino|0 fnt|[from] item: Life Orb
+|faint|p2a: Cinccino
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Hippowdon|Hippowdon, L80, M|100100
+|switch|p1a: Blaziken|Blaziken, L76, F|247247
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Hippowdon
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir rhydon reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-rhydon-reuniclus-jellicent-blaziken -- cinccino
+|chat|DEBUG|Own moves: megahorn stoneedge toxic earthquake
+|chat|DEBUG|Enemy moves: bulletseed knockoff rockblast tailslap
+|chat|DEBUG|Checks: ['blaziken']
+|chat|DEBUG|Counter: ['dusknoir', 'rhydon', 'reuniclus', 'jellicent', 'blaziken']
+|chat|DEBUG|Speed: 119 vs 241
+|chat|DEBUG|HP: 69 vs 5
+|chat|DEBUG|Best move of rhydon (p1): earthquake: 186.375 [171, 202]
+|chat|DEBUG|Best move of cinccino (p2): bulletseed: 50.4375 [47, 57]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jellicent|Jellicent, L84, F|305305
+|move|p2a: Hippowdon|Stealth Rock|p1a: Jellicent
+|-sidestart|p1: McGewitter|move: Stealth Rock
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Jellicent|286305|[from] Sandstorm
+|-heal|p1a: Jellicent|305305|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rhydon" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- cinccino
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulletseed knockoff rockblast tailslap
+|chat|DEBUG|Checks: ['blaziken']
+|chat|DEBUG|Counter: ['dusknoir', 'reuniclus', 'jellicent', 'blaziken']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to blaziken (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jellicent|Scald|p2a: Hippowdon
+|-supereffective|p2a: Hippowdon
+|-damage|p2a: Hippowdon|39100
+|move|p2a: Hippowdon|Whirlwind|p1a: Jellicent
+|drag|p1a: Reuniclus|Reuniclus, L84, F|322322
+|-weather|Sandstorm|[upkeep]
+|-heal|p2a: Hippowdon|45100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "blaziken" vs "hippowdon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- hippowdon
+|chat|DEBUG|Own moves: flareblitz knockoff closecombat stoneedge
+|chat|DEBUG|Enemy moves: earthquake slackoff stoneedge toxic
+|chat|DEBUG|Checks: ['jellicent']
+|chat|DEBUG|Counter: ['dusknoir', 'reuniclus', 'jellicent']
+|chat|DEBUG|Speed: 166 vs 121
+|chat|DEBUG|HP: 247 vs 304
+|chat|DEBUG|Created a new Strategy for blaziken vs hippowdon:
+|chat|DEBUG|>[closecombat: 154.4375 [142, 168], closecombat: 154.4375 [142, 168], closecombat: 154.4375 [142, 168]]
+|chat|DEBUG|Best move of blaziken (p1): closecombat: 154.4375 [142, 168]
+|chat|DEBUG|Best move of hippowdon (p2): earthquake: 286.25 [264, 312]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check jellicent
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Hippowdon|Earthquake|p1a: Reuniclus
+|-damage|p1a: Reuniclus|201322
+|move|p1a: Reuniclus|Psychic|p2a: Hippowdon
+|-damage|p2a: Hippowdon|0 fnt
+|faint|p2a: Hippowdon
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heliolisk|Heliolisk, L82, M|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "hippowdon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- hippowdon
+|chat|DEBUG|Own moves: shadowball toxic scald recover
+|chat|DEBUG|Enemy moves: earthquake slackoff stoneedge toxic
+|chat|DEBUG|Checks: ['jellicent']
+|chat|DEBUG|Counter: ['dusknoir', 'reuniclus', 'jellicent']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 149 vs 121
+|chat|DEBUG|HP: 305 vs 304
+|chat|DEBUG|Created a new Strategy for jellicent vs hippowdon:
+|chat|DEBUG|>[scald: 186.5 [170, 204], scald: 186.5 [170, 204], scald: 186.5 [170, 204]]
+|chat|DEBUG|Best move of jellicent (p1): scald: 186.5 [170, 204]
+|chat|DEBUG|Best move of hippowdon (p2): earthquake: 129.5 [118, 141]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Glare|p1a: Reuniclus
+|-status|p1a: Reuniclus|par
+|move|p1a: Reuniclus|Psychic|p2a: Heliolisk
+|-damage|p2a: Heliolisk|34100
+|-unboost|p2a: Heliolisk|spd|1
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Heliolisk|28100|[from] Sandstorm
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "hippowdon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- hippowdon
+|chat|DEBUG|Own moves: shadowball recover trickroom psychic
+|chat|DEBUG|Enemy moves: earthquake slackoff stoneedge toxic
+|chat|DEBUG|Checks: ['dusknoir', 'reuniclus', 'jellicent']
+|chat|DEBUG|Counter: ['dusknoir', 'reuniclus', 'jellicent', 'blaziken']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 55 vs 121
+|chat|DEBUG|HP: 322 vs 136
+|chat|DEBUG|Created a new Strategy for reuniclus vs hippowdon:
+|chat|DEBUG|>[psychic: 182.125 [168, 199], psychic: 182.125 [168, 199], psychic: 182.125 [168, 199]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 182.125 [168, 199]
+|chat|DEBUG|Best move of hippowdon (p2): earthquake: 122.5625 [112, 133]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Reuniclus
+|-damage|p1a: Reuniclus|71322 par
+|-damage|p2a: Heliolisk|19100|[from] item: Life Orb
+|cant|p1a: Reuniclus|par
+|-weather|none
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- heliolisk
+|chat|DEBUG|Own moves: shadowball recover trickroom psychic
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['blaziken']
+|chat|DEBUG|Speed: 55 vs 226
+|chat|DEBUG|HP: 201 vs 236
+|chat|DEBUG|Created a new Strategy for reuniclus vs heliolisk:
+|chat|DEBUG|>[psychic: 146.5 [134, 160], psychic: 146.5 [134, 160], psychic: 146.5 [134, 160]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 146.5 [134, 160]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 132.3125 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heliolisk|Thunderbolt|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|faint|p1a: Reuniclus
+|-damage|p2a: Heliolisk|9100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dusknoir|Dusknoir, L86, M|218218
+|-damage|p1a: Dusknoir|191218|[from] Stealth Rock
+|-ability|p1a: Dusknoir|Pressure
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- heliolisk
+|chat|DEBUG|Own moves: shadowball recover trickroom psychic
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['reuniclus', 'blaziken']
+|chat|DEBUG|Speed: 55 vs 226
+|chat|DEBUG|HP: 201 vs 66
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 146.5 [134, 160]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 132.3125 [121, 144]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dusknoir|Shadow Sneak|p2a: Heliolisk
+|-immune|p2a: Heliolisk
+|move|p2a: Heliolisk|Glare|p1a: Dusknoir
+|-status|p1a: Dusknoir|par
+|-heal|p1a: Dusknoir|204218 par|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir reuniclus jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-reuniclus-jellicent-blaziken -- heliolisk
+|chat|DEBUG|Own moves: shadowball recover trickroom psychic
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dusknoir', 'blaziken']
+|chat|DEBUG|Speed: 55 vs 226
+|chat|DEBUG|HP: 71 vs 44
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 146.5 [134, 160]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 132.3125 [121, 144]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Dusknoir|Shadow Sneak|p2a: Heliolisk
+|-immune|p2a: Heliolisk
+|move|p2a: Heliolisk|Thunderbolt|p1a: Dusknoir
+|-damage|p1a: Dusknoir|105218 par
+|-damage|p2a: Heliolisk|0 fnt|[from] item: Life Orb
+|faint|p2a: Heliolisk
+|-heal|p1a: Dusknoir|118218 par|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Steelix|Steelix, L84, M|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- heliolisk
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dusknoir', 'blaziken']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dusknoir (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jellicent|Jellicent, L84, F|305305
+|-damage|p1a: Jellicent|267305|[from] Stealth Rock
+|move|p2a: Steelix|Dragon Dance|p2a: Steelix
+|-boost|p2a: Steelix|atk|1
+|-boost|p2a: Steelix|spe|1
+|-heal|p1a: Jellicent|286305|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- heliolisk
+|chat|DEBUG|Own moves: painsplit willowisp poltergeist shadowsneak
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: ['dusknoir']
+|chat|DEBUG|Counter: ['dusknoir', 'jellicent', 'blaziken']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 127 vs 226
+|chat|DEBUG|HP: 191 vs 21
+|chat|DEBUG|Created a new Strategy for dusknoir vs heliolisk:
+|chat|DEBUG|>[shadowsneak: 0.0 [0, 0], shadowsneak: 0.0 [0, 0], shadowsneak: 0.0 [0, 0]]
+|chat|DEBUG|Best move of dusknoir (p1): shadowsneak: 0.0 [0, 0]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 90.5 [83, 99]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using shadowsneak
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jellicent|Scald|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|27100
+|-status|p2a: Steelix|brn
+|move|p2a: Steelix|Earthquake|p1a: Jellicent
+|-damage|p1a: Jellicent|199305
+|-heal|p1a: Jellicent|218305|[from] item: Leftovers
+|-heal|p2a: Steelix|33100 brn|[from] item: Leftovers
+|-damage|p2a: Steelix|27100 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "heliolisk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- heliolisk
+|chat|DEBUG|Own moves: painsplit willowisp poltergeist shadowsneak
+|chat|DEBUG|Enemy moves: glare surf thunderbolt voltswitch
+|chat|DEBUG|Checks: ['dusknoir']
+|chat|DEBUG|Counter: ['dusknoir', 'jellicent', 'blaziken']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 127 vs 226
+|chat|DEBUG|HP: 204 vs 21
+|chat|DEBUG|Best move of dusknoir (p1): shadowsneak: 0.0 [0, 0]
+|chat|DEBUG|Best move of heliolisk (p2): thunderbolt: 90.5 [83, 99]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using shadowsneak
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Jellicent|Scald|p2a: Steelix
+|-supereffective|p2a: Steelix
+|-damage|p2a: Steelix|0 fnt
+|faint|p2a: Steelix
+|-heal|p1a: Jellicent|237305|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zekrom|Zekrom, L69|100100
+|-ability|p2a: Zekrom|Teravolt
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dusknoir" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- steelix
+|chat|DEBUG|Own moves: painsplit willowisp poltergeist shadowsneak
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['jellicent']
+|chat|DEBUG|Counter: ['jellicent']
+|chat|DEBUG|Speed: 127 vs 99
+|chat|DEBUG|HP: 118 vs 263
+|chat|DEBUG|Created a new Strategy for dusknoir vs steelix:
+|chat|DEBUG|>[poltergeist: 64.25 [58, 70], poltergeist: 64.25 [58, 70], poltergeist: 64.25 [58, 70]]
+|chat|DEBUG|Best move of dusknoir (p1): poltergeist: 64.25 [58, 70]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 67.25 [61, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check jellicent
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Dragon Dance|p2a: Zekrom
+|-boost|p2a: Zekrom|atk|1
+|-boost|p2a: Zekrom|spe|1
+|move|p1a: Jellicent|Shadow Ball|p2a: Zekrom
+|-damage|p2a: Zekrom|64100
+|-heal|p1a: Jellicent|256305|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- steelix
+|chat|DEBUG|Own moves: shadowball toxic scald recover
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['jellicent']
+|chat|DEBUG|Speed: 149 vs 99
+|chat|DEBUG|HP: 286 vs 263
+|chat|DEBUG|Created a new Strategy for jellicent vs steelix:
+|chat|DEBUG|>[scald: 192.375 [176, 210], scald: 192.375 [176, 210], scald: 192.375 [176, 210]]
+|chat|DEBUG|Best move of jellicent (p1): scald: 192.375 [176, 210]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 168.3125 [154, 183]
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Blaziken|Blaziken, L76, F|247247
+|-damage|p1a: Blaziken|217247|[from] Stealth Rock
+|move|p2a: Zekrom|Bolt Strike|p1a: Blaziken
+|-damage|p1a: Blaziken|0 fnt
+|faint|p1a: Blaziken
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Jellicent|Jellicent, L84, F|256305
+|-damage|p1a: Jellicent|218305|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "steelix"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- steelix
+|chat|DEBUG|Own moves: shadowball toxic scald recover
+|chat|DEBUG|Enemy moves: dragondance earthquake headsmash heavyslam
+|chat|DEBUG|Checks: ['jellicent']
+|chat|DEBUG|Counter: ['dusknoir', 'jellicent', 'blaziken']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 149 vs 99
+|chat|DEBUG|HP: 218 vs 71
+|chat|DEBUG|Best move of jellicent (p1): scald: 192.375 [176, 210]
+|chat|DEBUG|Best move of steelix (p2): earthquake: 168.3125 [154, 183]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Bolt Strike|p1a: Jellicent
+|-supereffective|p1a: Jellicent
+|-crit|p1a: Jellicent
+|-damage|p1a: Jellicent|0 fnt
+|faint|p1a: Jellicent
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Dusknoir|Dusknoir, L86, M|118218 par
+|-damage|p1a: Dusknoir|91218 par|[from] Stealth Rock
+|-ability|p1a: Dusknoir|Pressure
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dusknoir jellicent blaziken
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "jellicent" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dusknoir-jellicent-blaziken -- zekrom
+|chat|DEBUG|Own moves: shadowball toxic scald recover
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['blaziken']
+|chat|DEBUG|Speed: 149 vs 165
+|chat|DEBUG|HP: 237 vs 252
+|chat|DEBUG|Created a new Strategy for jellicent vs zekrom:
+|chat|DEBUG|>[shadowball: 85.0625 [78, 93], shadowball: 85.0625 [78, 93], shadowball: 85.0625 [78, 93]]
+|chat|DEBUG|Best move of jellicent (p1): shadowball: 85.0625 [78, 93]
+|chat|DEBUG|Best move of zekrom (p2): boltstrike: 314.625 [288, 342]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zekrom|Outrage|p1a: Dusknoir
+|-damage|p1a: Dusknoir|0 fnt
+|faint|p1a: Dusknoir
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Ethab Taxi</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dusknoir tornadustherian rhydon reuniclus jellicent blaziken</h1>

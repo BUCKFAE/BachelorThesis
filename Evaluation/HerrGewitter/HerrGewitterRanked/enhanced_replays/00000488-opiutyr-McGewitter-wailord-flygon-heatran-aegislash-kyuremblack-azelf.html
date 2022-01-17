@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490715995<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490715995|init|battle
+|title|opiutyr vs. McGewitter
+|j|☆opiutyr
+|j|☆McGewitter
+|gametype|singles
+|player|p1|opiutyr|265|1177
+|player|p2|McGewitter|265|1131
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Goodra|Goodra, L82, M|100100
+|switch|p2a: Wailord|Wailord, L90, M|452452
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wailord" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra
+|chat|DEBUG|Own moves: hydropump hypervoice waterspout icebeam
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['azelf']
+|chat|DEBUG|Counter: ['flygon', 'kyuremblack', 'azelf']
+|chat|DEBUG|Speed: 159 vs 178
+|chat|DEBUG|HP: 452 vs 282
+|chat|DEBUG|Created a new Strategy for wailord vs goodra:
+|chat|DEBUG|>[icebeam: 93.125 [86, 102], icebeam: 93.125 [86, 102], icebeam: 93.125 [86, 102]]
+|chat|DEBUG|Best move of wailord (p1): icebeam: 93.125 [86, 102]
+|chat|DEBUG|Best move of goodra (p2): powerwhip: 243.375 [224, 264]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check azelf
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Azelf|Azelf, L82|257257
+|move|p1a: Goodra|Sludge Bomb|p2a: Azelf
+|-damage|p2a: Azelf|183257
+|-status|p2a: Azelf|psn
+|-damage|p2a: Azelf|151257 psn|[from] psn
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azelf" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra
+|chat|DEBUG|Own moves: fireblast psyshock dazzlinggleam taunt
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flygon', 'kyuremblack']
+|chat|DEBUG|Speed: 236 vs 178
+|chat|DEBUG|HP: 151 vs 282
+|chat|DEBUG|Created a new Strategy for azelf vs goodra:
+|chat|DEBUG|>[psyshock: 153.75 [142, 168], psyshock: 153.75 [142, 168], psyshock: 153.75 [142, 168]]
+|chat|DEBUG|Best move of azelf (p1): psyshock: 153.75 [142, 168]
+|chat|DEBUG|Best move of goodra (p2): dracometeor: 173.875 [160, 189]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, M|100100
+|move|p2a: Azelf|Psyshock|p1a: Reuniclus
+|-immune|p1a: Reuniclus
+|-damage|p2a: Azelf|119257 psn|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azelf" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus
+|chat|DEBUG|Own moves: fireblast psyshock dazzlinggleam taunt
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['wailord']
+|chat|DEBUG|Counter: ['wailord', 'flygon', 'heatran', 'aegislash', 'kyuremblack']
+|chat|DEBUG|Speed: 236 vs 99
+|chat|DEBUG|HP: 119 vs 322
+|chat|DEBUG|Created a new Strategy for azelf vs reuniclus:
+|chat|DEBUG|>[fireblast: 120.1875 [110, 130], fireblast: 120.1875 [110, 130], fireblast: 120.1875 [110, 130]]
+|chat|DEBUG|Best move of azelf (p1): fireblast: 120.1875 [110, 130]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 90.75 [83, 99]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check wailord
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wailord|Wailord, L90, M|452452
+|move|p1a: Reuniclus|Sludge Bomb|p2a: Wailord
+|-damage|p2a: Wailord|305452
+|-damage|p1a: Reuniclus|91100|[from] item: Life Orb
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wailord" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus
+|chat|DEBUG|Own moves: hydropump hypervoice waterspout icebeam
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['aegislash']
+|chat|DEBUG|Counter: ['wailord', 'flygon', 'heatran', 'aegislash', 'kyuremblack', 'azelf']
+|chat|DEBUG|Speed: 159 vs 99
+|chat|DEBUG|HP: 305 vs 293
+|chat|DEBUG|Created a new Strategy for wailord vs reuniclus:
+|chat|DEBUG|>[waterspout: 179.5 [165, 195], waterspout: 179.5 [165, 195], waterspout: 179.5 [165, 195]]
+|chat|DEBUG|Best move of wailord (p1): waterspout: 179.5 [165, 195]
+|chat|DEBUG|Best move of reuniclus (p2): psychic: 224.375 [207, 243]
+|chat|DEBUG|Attacking using waterspout
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Reuniclus|Nasty Plot|p1a: Reuniclus
+|-boost|p1a: Reuniclus|spa|2
+|move|p2a: Wailord|Water Spout|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|replace|p1a: Zoroark|Zoroark, L84, F
+|-end|p1a: Zoroark|Illusion
+|faint|p1a: Zoroark
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctovish|Arctovish, L86|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wailord" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus-arctovish
+|chat|DEBUG|Own moves: waterspout
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: ['kyuremblack']
+|chat|DEBUG|Counter: ['wailord', 'kyuremblack']
+|chat|DEBUG|Speed: 159 vs 144
+|chat|DEBUG|HP: 305 vs 295
+|chat|DEBUG|Created a new Strategy for wailord vs arctovish:
+|chat|DEBUG|>[waterspout: 0.0 [0, 0], waterspout: 0.0 [0, 0], waterspout: 0.0 [0, 0]]
+|chat|DEBUG|Best move of wailord (p1): waterspout: 0.0 [0, 0]
+|chat|DEBUG|Best move of arctovish (p2): psychicfangs: 131.75 [121, 143]
+|chat|DEBUG|Attacking using waterspout
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Wailord|Water Spout|p1a: Arctovish
+|-immune|p1a: Arctovish|[from] ability: Water Absorb
+|move|p1a: Arctovish|Freeze-Dry|p2a: Wailord
+|-supereffective|p2a: Wailord
+|-damage|p2a: Wailord|89452
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wailord" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus-arctovish
+|chat|DEBUG|Own moves: waterspout
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: ['kyuremblack']
+|chat|DEBUG|Counter: ['kyuremblack']
+|chat|DEBUG|Speed: 159 vs 144
+|chat|DEBUG|HP: 89 vs 295
+|chat|DEBUG|Created a new Strategy for wailord vs arctovish:
+|chat|DEBUG|>[waterspout: 0.0 [0, 0], waterspout: 0.0 [0, 0], waterspout: 0.0 [0, 0]]
+|chat|DEBUG|Best move of wailord (p1): waterspout: 0.0 [0, 0]
+|chat|DEBUG|Best move of arctovish (p2): psychicfangs: 131.75 [121, 143]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kyuremblack
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Kyurem|Kyurem-Black, L73|303303
+|-ability|p2a: Kyurem|Teravolt
+|move|p1a: Arctovish|Freeze-Dry|p2a: Kyurem
+|-damage|p2a: Kyurem|225303
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus-arctovish
+|chat|DEBUG|Own moves: fusionbolt dragondance iciclespear outrage
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['kyuremblack']
+|chat|DEBUG|Speed: 181 vs 144
+|chat|DEBUG|HP: 225 vs 295
+|chat|DEBUG|Created a new Strategy for kyuremblack vs arctovish:
+|chat|DEBUG|>[fusionbolt: 152.75 [140, 166], fusionbolt: 152.75 [140, 166], fusionbolt: 152.75 [140, 166]]
+|chat|DEBUG|Best move of kyuremblack (p1): fusionbolt: 152.75 [140, 166]
+|chat|DEBUG|Best move of arctovish (p2): iciclecrash: 138.5625 [127, 151]
+|chat|DEBUG|Attacking using fusionbolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyurem|Fusion Bolt|p1a: Arctovish
+|-supereffective|p1a: Arctovish
+|-damage|p1a: Arctovish|44100
+|move|p1a: Arctovish|Icicle Crash|p2a: Kyurem
+|-damage|p2a: Kyurem|125303
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "arctovish"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus-arctovish
+|chat|DEBUG|Own moves: fusionbolt dragondance iciclespear outrage
+|chat|DEBUG|Enemy moves: bodyslam fishiousrend iciclecrash psychicfangs
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['flygon', 'heatran', 'kyuremblack']
+|chat|DEBUG|Speed: 181 vs 144
+|chat|DEBUG|HP: 125 vs 129
+|chat|DEBUG|Best move of kyuremblack (p1): fusionbolt: 152.75 [140, 166]
+|chat|DEBUG|Best move of arctovish (p2): iciclecrash: 138.5625 [127, 151]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Kyurem|Fusion Bolt|p1a: Arctovish
+|-supereffective|p1a: Arctovish
+|-damage|p1a: Arctovish|0 fnt
+|faint|p1a: Arctovish
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Goodra|Goodra, L82, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash kyuremblack azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-kyuremblack-azelf -- goodra-reuniclus
+|chat|DEBUG|Own moves: fusionbolt dragondance iciclespear outrage
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flygon', 'kyuremblack']
+|chat|DEBUG|Speed: 181 vs 178
+|chat|DEBUG|HP: 125 vs 282
+|chat|DEBUG|Created a new Strategy for kyuremblack vs goodra:
+|chat|DEBUG|>[outrage: 372.75 [342, 404], outrage: 372.75 [342, 404], outrage: 372.75 [342, 404]]
+|chat|DEBUG|Best move of kyuremblack (p1): outrage: 372.75 [342, 404]
+|chat|DEBUG|Best move of goodra (p2): dracometeor: 322.5 [296, 350]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Goodra|Dynamax
+|-heal|p1a: Goodra|100100|[silent]
+|move|p2a: Kyurem|Outrage|p1a: Goodra
+|-supereffective|p1a: Goodra
+|-damage|p1a: Goodra|29100
+|move|p1a: Goodra|Max Wyrmwind|p2a: Kyurem
+|-supereffective|p2a: Kyurem
+|-damage|p2a: Kyurem|0 fnt
+|faint|p2a: Kyurem
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Flygon|Flygon, L80, M|259259
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kyuremblack" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-azelf -- goodra-reuniclus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flygon']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to flygon (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Flygon|Outrage|p1a: Goodra
+|-supereffective|p1a: Goodra
+|-damage|p1a: Goodra|0 fnt
+|faint|p1a: Goodra
+|-damage|p2a: Flygon|234259|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gardevoir|Gardevoir, L82, M|100100
+|-ability|p1a: Gardevoir|Levitate|[from] ability: Trace|[of] p2a: Flygon
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-azelf -- goodra-reuniclus
+|chat|DEBUG|Own moves: dragondance earthquake outrage firepunch
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['flygon', 'azelf']
+|chat|DEBUG|Speed: 206 vs 178
+|chat|DEBUG|HP: 259 vs 81
+|chat|DEBUG|Created a new Strategy for flygon vs goodra:
+|chat|DEBUG|>[outrage: 375.875 [346, 408], outrage: 375.875 [346, 408], outrage: 375.875 [346, 408]]
+|chat|DEBUG|Best move of flygon (p1): outrage: 375.875 [346, 408]
+|chat|DEBUG|Best move of goodra (p2): dracometeor: 322.5 [296, 350]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Flygon|Outrage|p1a: Gardevoir|[from]lockedmove
+|-immune|p1a: Gardevoir
+|move|p1a: Gardevoir|Moonblast|p2a: Flygon
+|-supereffective|p2a: Flygon
+|-damage|p2a: Flygon|0 fnt
+|faint|p2a: Flygon
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Heatran|Heatran, L78, M|270270
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord flygon heatran aegislash azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-flygon-heatran-aegislash-azelf -- reuniclus-gardevoir
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['heatran', 'aegislash']
+|chat|DEBUG|Speed: 206 vs 178
+|chat|DEBUG|HP: 234 vs 246
+|chat|DEBUG|Created a new Strategy for flygon vs gardevoir:
+|chat|DEBUG|>[outrage: 0.0 [0, 0], outrage: 0.0 [0, 0], outrage: 0.0 [0, 0]]
+|chat|DEBUG|Best move of flygon (p1): outrage: 0.0 [0, 0]
+|chat|DEBUG|Best move of gardevoir (p2): moonblast: 262.0 [240, 284]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Conkeldurr|Conkeldurr, L80, F|100100
+|move|p2a: Heatran|Stealth Rock|p1a: Conkeldurr
+|-sidestart|p1: opiutyr|move: Stealth Rock
+|-status|p1a: Conkeldurr|brn|[from] item: Flame Orb
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "flygon" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- reuniclus-gardevoir
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['heatran', 'aegislash']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to heatran (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Heatran|Dynamax
+|-heal|p2a: Heatran|540540|[silent]
+|move|p2a: Heatran|Max Flare|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|33100 brn
+|-weather|SunnyDay
+|move|p1a: Conkeldurr|Knock Off|p2a: Heatran
+|-damage|p2a: Heatran|413540
+|-enditem|p2a: Heatran|Leftovers|[from] move: Knock Off|[of] p1a: Conkeldurr
+|-weather|SunnyDay|[upkeep]
+|-damage|p1a: Conkeldurr|27100 brn|[from] brn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heatran" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- reuniclus-gardevoir
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['heatran', 'aegislash']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 165 vs 178
+|chat|DEBUG|HP: 270 vs 246
+|chat|DEBUG|Created a new Strategy for heatran vs gardevoir:
+|chat|DEBUG|>[lavaplume: 117.0 [108, 127], lavaplume: 117.0 [108, 127], lavaplume: 117.0 [108, 127]]
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 117.0 [108, 127]
+|chat|DEBUG|Best move of gardevoir (p2): psyshock: 45.6875 [42, 50]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatran|Max Flare|p1a: Conkeldurr
+|-damage|p1a: Conkeldurr|0 fnt
+|faint|p1a: Conkeldurr
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Reuniclus|Reuniclus, L84, M|100100
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- reuniclus-gardevoir-conkeldurr
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 165 vs 118
+|chat|DEBUG|HP: 270 vs 299
+|chat|DEBUG|Created a new Strategy for heatran vs conkeldurr:
+|chat|DEBUG|>[lavaplume: 182.375 [168, 198], lavaplume: 182.375 [168, 198], lavaplume: 182.375 [168, 198]]
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 182.375 [168, 198]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 292.25 [270, 318]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatran|Max Flare|p1a: Reuniclus
+|-damage|p1a: Reuniclus|28100
+|move|p1a: Reuniclus|Focus Blast|p2a: Heatran
+|-supereffective|p2a: Heatran
+|-damage|p2a: Heatran|182540
+|-weather|SunnyDay|[upkeep]
+|-end|p2a: Heatran|Dynamax
+|-heal|p2a: Heatran|91270|[silent]
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- reuniclus-gardevoir-conkeldurr
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: ['heatran']
+|chat|DEBUG|Counter: ['wailord', 'heatran', 'aegislash', 'azelf']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 165 vs 118
+|chat|DEBUG|HP: 413 vs 80
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 182.375 [168, 198]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 292.25 [270, 318]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Heatran|Lava Plume|p1a: Reuniclus
+|-damage|p1a: Reuniclus|0 fnt
+|faint|p1a: Reuniclus
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gardevoir|Gardevoir, L82, M|100100
+|-damage|p1a: Gardevoir|88100|[from] Stealth Rock
+|-ability|p1a: Gardevoir|Flash Fire|[from] ability: Trace|[of] p2a: Heatran
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- reuniclus-gardevoir
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heatran', 'aegislash']
+|chat|DEBUG|Speed: 165 vs 99
+|chat|DEBUG|HP: 413 vs 322
+|chat|DEBUG|Created a new Strategy for heatran vs reuniclus:
+|chat|DEBUG|>[lavaplume: 143.125 [132, 156], lavaplume: 143.125 [132, 156], lavaplume: 143.125 [132, 156]]
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 143.125 [132, 156]
+|chat|DEBUG|Best move of reuniclus (p2): focusblast: 251.0625 [231, 273]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Moonblast|p2a: Heatran
+|-resisted|p2a: Heatran
+|-damage|p2a: Heatran|64270
+|move|p2a: Heatran|Lava Plume|p1a: Gardevoir
+|-start|p1a: Gardevoir|ability: Flash Fire
+|-weather|none
+|-heal|p1a: Gardevoir|94100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "reuniclus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- reuniclus-gardevoir
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: calmmind focusblast psychic recover
+|chat|DEBUG|Checks: ['aegislash', 'azelf']
+|chat|DEBUG|Counter: ['wailord', 'heatran', 'aegislash', 'azelf']
+|chat|DEBUG|Speed: 165 vs 99
+|chat|DEBUG|HP: 91 vs 90
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 143.125 [132, 156]
+|chat|DEBUG|Best move of reuniclus (p2): focusblast: 251.0625 [231, 273]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Psyshock|p2a: Heatran
+|-resisted|p2a: Heatran
+|-damage|p2a: Heatran|18270
+|move|p2a: Heatran|Lava Plume|p1a: Gardevoir
+|-immune|p1a: Gardevoir|[from] ability: Flash Fire
+|-heal|p1a: Gardevoir|100100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- gardevoir
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: ['aegislash']
+|chat|DEBUG|Counter: ['aegislash']
+|chat|DEBUG|Speed: 165 vs 178
+|chat|DEBUG|HP: 91 vs 216
+|chat|DEBUG|Created a new Strategy for heatran vs gardevoir:
+|chat|DEBUG|>[lavaplume: 117.0 [108, 127], lavaplume: 117.0 [108, 127], lavaplume: 117.0 [108, 127]]
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 117.0 [108, 127]
+|chat|DEBUG|Best move of gardevoir (p2): psyshock: 45.6875 [42, 50]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Psyshock|p2a: Heatran
+|-resisted|p2a: Heatran
+|-damage|p2a: Heatran|0 fnt
+|faint|p2a: Heatran
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Aegislash|Aegislash, L80, M|227227
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- gardevoir
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aegislash']
+|chat|DEBUG|Speed: 165 vs 178
+|chat|DEBUG|HP: 64 vs 231
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 117.0 [108, 127]
+|chat|DEBUG|Best move of gardevoir (p2): psyshock: 45.6875 [42, 50]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Substitute|p1a: Gardevoir
+|-start|p1a: Gardevoir|Substitute
+|-damage|p1a: Gardevoir|76100
+|-formechange|p2a: Aegislash|Aegislash-Blade||[from] ability: Stance Change
+|move|p2a: Aegislash|Shadow Ball|p1a: Gardevoir
+|-supereffective|p1a: Gardevoir
+|-end|p1a: Gardevoir|Substitute
+|-damage|p2a: Aegislash|205227|[from] item: Life Orb
+|-heal|p1a: Gardevoir|82100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord heatran aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-heatran-aegislash-azelf -- gardevoir
+|chat|DEBUG|Own moves: protect toxic stealthrock lavaplume
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aegislash']
+|chat|DEBUG|Speed: 165 vs 178
+|chat|DEBUG|HP: 18 vs 246
+|chat|DEBUG|Best move of heatran (p1): lavaplume: 117.0 [108, 127]
+|chat|DEBUG|Best move of gardevoir (p2): psyshock: 45.6875 [42, 50]
+|chat|DEBUG|Attacking using lavaplume
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Substitute|p1a: Gardevoir
+|-start|p1a: Gardevoir|Substitute
+|-damage|p1a: Gardevoir|57100
+|move|p2a: Aegislash|Shadow Ball|p1a: Gardevoir
+|-supereffective|p1a: Gardevoir
+|-end|p1a: Gardevoir|Substitute
+|-damage|p2a: Aegislash|183227|[from] item: Life Orb
+|-heal|p1a: Gardevoir|63100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "heatran" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-aegislash-azelf -- gardevoir
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aegislash']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'wailord': 89, 'aegislash': 227, 'azelf': 119}
+|chat|DEBUG|remaining_hp_team_2={'gardevoir': 100}
+|chat|DEBUG|battle.available_switches=[aegislash (pokemon object) [Active: False, Status: None], wailord (pokemon object) [Active: False, Status: None], azelf (pokemon object) [Active: False, Status: PSN]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'aegislash'
+|chat|DEBUG|>Switching to aegislash (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Substitute|p1a: Gardevoir
+|-start|p1a: Gardevoir|Substitute
+|-damage|p1a: Gardevoir|38100
+|move|p2a: Aegislash|Shadow Ball|p1a: Gardevoir
+|-supereffective|p1a: Gardevoir
+|-end|p1a: Gardevoir|Substitute
+|-damage|p2a: Aegislash|161227|[from] item: Life Orb
+|-heal|p1a: Gardevoir|44100|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>wailord aegislash azelf
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "aegislash" vs "gardevoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>wailord-aegislash-azelf -- gardevoir
+|chat|DEBUG|Own moves: flashcannon shadowball kingsshield closecombat
+|chat|DEBUG|Enemy moves: calmmind moonblast psyshock substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['aegislash']
+|chat|DEBUG|Speed: 142 vs 178
+|chat|DEBUG|HP: 227 vs 246
+|chat|DEBUG|Created a new Strategy for aegislash vs gardevoir:
+|chat|DEBUG|>[shadowball: 228.625 [211, 250], shadowball: 228.625 [211, 250], shadowball: 228.625 [211, 250]]
+|chat|DEBUG|Best move of aegislash (p1): shadowball: 228.625 [211, 250]
+|chat|DEBUG|Best move of gardevoir (p2): moonblast: 90.1875 [83, 98]
+|chat|DEBUG|Attacking using shadowball
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Gardevoir|Psyshock|p2a: Aegislash
+|-resisted|p2a: Aegislash
+|-damage|p2a: Aegislash|91227
+|move|p2a: Aegislash|Shadow Ball|p1a: Gardevoir
+|-supereffective|p1a: Gardevoir
+|-damage|p1a: Gardevoir|0 fnt
+|faint|p1a: Gardevoir
+|-damage|p2a: Aegislash|69227|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>opiutyr<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">wailord flygon heatran aegislash kyuremblack azelf</h1>

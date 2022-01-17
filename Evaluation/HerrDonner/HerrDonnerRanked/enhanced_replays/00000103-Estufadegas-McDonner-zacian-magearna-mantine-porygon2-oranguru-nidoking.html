@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490106656</title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+</style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" />
+    <div class="battle"></div>
+    <div class="battle-log"></div>
+    <div class="replay-controls"></div>
+    <div class="replay-controls-2"></div>
+    <script type="text/plain" class="battle-log-data">
+    >battle-gen8randombattle-1490106656|init|battle
+|title|Estufa de gas vs. McDonner
+|j|☆Estufa de gas
+|j|☆McDonner
+|gametype|singles
+|player|p1|Estufa de gas|acetrainer-gen4dp|1053
+|player|p2|McDonner|265|1080
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Grimmsnarl|Grimmsnarl, L82, M|100/100
+|switch|p2a: Zacian|Zacian, L68|238/238
+|-ability|p2a: Zacian|Intrepid Sword|boost
+|-boost|p2a: Zacian|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian magearna mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: zacian vs grimmsnarl
+|chat|DEBUG|Updating information about grimmsnarl
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: chestoberry
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: magearna vs. grimmsnarl
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Getting matchup: mantine vs. grimmsnarl
+|chat|DEBUG|Getting matchup: porygon2 vs. grimmsnarl
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. grimmsnarl
+|chat|DEBUG|Getting matchup: nidoking vs. grimmsnarl
+|chat|DEBUG|Getting matchup: zacian vs. grimmsnarl
+|chat|DEBUG|Checks / Counter: {'grimmsnarl': {'checks': [], 'counter': ['magearna', 'nidoking', 'zacian']}}
+|chat|DEBUG|Speed: 228 - 146
+|chat|DEBUG|Most likely moves for: zacian
+|chat|DEBUG|>['swordsdance', 'psychicfangs', 'playrough', 'crunch']
+|chat|DEBUG|Most likely moves for: grimmsnarl
+|chat|DEBUG|>['bulkup', 'darkestlariat', 'playrough', 'rest']
+|chat|DEBUG|Best own move: ('playrough', 206.5)
+|chat|DEBUG|Best enemy move: ('playrough', 107.3125)
+|chat|DEBUG|Picking the most damaging move from zacian against grimmsnarl
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McDonner)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p2a: Zacian|Play Rough|p1a: Grimmsnarl
+|-supereffective|p1a: Grimmsnarl
+|-damage|p1a: Grimmsnarl|0 fnt
+|faint|p1a: Grimmsnarl
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Clawitzer|Clawitzer, L84, M|100/100
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian magearna mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: zacian vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: magearna vs. clawitzer
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['magearna', 'mantine', 'oranguru']}}
+|chat|DEBUG|Speed: 228 - 147
+|chat|DEBUG|Most likely moves for: zacian
+|chat|DEBUG|>['swordsdance', 'psychicfangs', 'playrough', 'crunch']
+|chat|DEBUG|Most likely moves for: clawitzer
+|chat|DEBUG|>['aurasphere', 'icebeam', 'uturn', 'waterpulse']
+|chat|DEBUG|Best own move: ('playrough', 80.9375)
+|chat|DEBUG|Best enemy move: ('icebeam', 75.375)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>Switching to counter: magearna
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Magearna|Magearna, L75|244/244
+|move|p1a: Clawitzer|Aura Sphere|p2a: Magearna
+|-damage|p2a: Magearna|118/244
+|-heal|p2a: Magearna|133/244|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian magearna mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: magearna vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: magearna vs. clawitzer
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['mantine', 'oranguru', 'magearna']}}
+|chat|DEBUG|Speed: 141 - 147
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Most likely moves for: magearna
+|chat|DEBUG|>['agility', 'fleurcannon', 'calmmind', 'flashcannon']
+|chat|DEBUG|Most likely moves for: clawitzer
+|chat|DEBUG|>['aurasphere', 'icebeam', 'uturn', 'waterpulse']
+|chat|DEBUG|Best own move: ('fleurcannon', 140.125)
+|chat|DEBUG|Best enemy move: ('waterpulse', 68.75)
+|chat|DEBUG|Picking the most damaging move from magearna against clawitzer
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Clawitzer|Aura Sphere|p2a: Magearna
+|-damage|p2a: Magearna|6/244
+|move|p2a: Magearna|Fleur Cannon|p1a: Clawitzer
+|-damage|p1a: Clawitzer|44/100
+|-unboost|p2a: Magearna|spa|2
+|-heal|p2a: Magearna|21/244|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian magearna mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: magearna vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: magearna vs. clawitzer
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['mantine', 'oranguru', 'magearna']}}
+|chat|DEBUG|Speed: 141 - 147
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Most likely moves for: magearna
+|chat|DEBUG|>['agility', 'fleurcannon', 'calmmind', 'flashcannon']
+|chat|DEBUG|Most likely moves for: clawitzer
+|chat|DEBUG|>['aurasphere', 'icebeam', 'uturn', 'waterpulse']
+|chat|DEBUG|Best own move: ('fleurcannon', 140.125)
+|chat|DEBUG|Best enemy move: ('waterpulse', 68.75)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from magearna against clawitzer
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Clawitzer|Aura Sphere|p2a: Magearna
+|-damage|p2a: Magearna|0 fnt
+|faint|p2a: Magearna
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Mantine|Mantine, L86, F|286/286
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: magearna vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: magearna vs. clawitzer
+|chat|DEBUG|Received an unknown ability for Pokémon "magearna"
+|chat|DEBUG|>Known: []
+|chat|DEBUG|>Received: soulheart
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['mantine', 'oranguru', 'magearna']}}
+|chat|DEBUG|>>Switching to counter: mantine
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Hurricane|p1a: Clawitzer
+|-damage|p1a: Clawitzer|3/100
+|move|p1a: Clawitzer|Aura Sphere|p2a: Mantine
+|-resisted|p2a: Mantine
+|-damage|p2a: Mantine|236/286
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: mantine vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['oranguru', 'mantine']}}
+|chat|DEBUG|Speed: 170 - 147
+|chat|DEBUG|Most likely moves for: mantine
+|chat|DEBUG|>['toxic', 'roost', 'hurricane', 'scald']
+|chat|DEBUG|Most likely moves for: clawitzer
+|chat|DEBUG|>['aurasphere', 'icebeam', 'uturn', 'waterpulse']
+|chat|DEBUG|Best own move: ('hurricane', 104.5)
+|chat|DEBUG|Best enemy move: ('icebeam', 51.3125)
+|chat|DEBUG|Picking the most damaging move from mantine against clawitzer
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Hurricane|p1a: Clawitzer|[miss]
+|-miss|p2a: Mantine|p1a: Clawitzer
+|move|p1a: Clawitzer|Aura Sphere|p2a: Mantine
+|-resisted|p2a: Mantine
+|-damage|p2a: Mantine|183/286
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: mantine vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['oranguru', 'mantine']}}
+|chat|DEBUG|Speed: 170 - 147
+|chat|DEBUG|Most likely moves for: mantine
+|chat|DEBUG|>['toxic', 'roost', 'hurricane', 'scald']
+|chat|DEBUG|Most likely moves for: clawitzer
+|chat|DEBUG|>['aurasphere', 'icebeam', 'uturn', 'waterpulse']
+|chat|DEBUG|Best own move: ('hurricane', 104.5)
+|chat|DEBUG|Best enemy move: ('icebeam', 51.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('hurricane', 104.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Hurricane|p1a: Clawitzer
+|-damage|p1a: Clawitzer|0 fnt
+|faint|p1a: Clawitzer
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Lunatone|Lunatone, L86|100/100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: mantine vs clawitzer
+|chat|DEBUG|Updating information about clawitzer
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: choicespecs
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. clawitzer
+|chat|DEBUG|Getting matchup: porygon2 vs. clawitzer
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. clawitzer
+|chat|DEBUG|Getting matchup: nidoking vs. clawitzer
+|chat|DEBUG|Getting matchup: mantine vs. clawitzer
+|chat|DEBUG|Checks / Counter: {'clawitzer': {'checks': [], 'counter': ['oranguru', 'mantine']}}
+|chat|DEBUG|Speed: 170 - 147
+|chat|DEBUG|Most likely moves for: mantine
+|chat|DEBUG|>['toxic', 'roost', 'hurricane', 'scald']
+|chat|DEBUG|Most likely moves for: clawitzer
+|chat|DEBUG|>['aurasphere', 'icebeam', 'uturn', 'waterpulse']
+|chat|DEBUG|Best own move: ('hurricane', 104.5)
+|chat|DEBUG|Best enemy move: ('icebeam', 51.3125)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('hurricane', 104.5)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Mantine|Scald|p1a: Lunatone
+|-supereffective|p1a: Lunatone
+|-damage|p1a: Lunatone|47/100
+|-status|p1a: Lunatone|brn
+|move|p1a: Lunatone|Psychic|p2a: Mantine
+|-damage|p2a: Mantine|93/286
+|-unboost|p2a: Mantine|spd|1
+|-damage|p1a: Lunatone|37/100 brn|[from] item: Life Orb
+|-damage|p1a: Lunatone|31/100 brn|[from] brn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: mantine vs lunatone
+|chat|DEBUG|Updating information about lunatone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. lunatone
+|chat|DEBUG|Getting matchup: porygon2 vs. lunatone
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. lunatone
+|chat|DEBUG|Getting matchup: nidoking vs. lunatone
+|chat|DEBUG|Getting matchup: mantine vs. lunatone
+|chat|DEBUG|Checks / Counter: {'lunatone': {'checks': [], 'counter': ['oranguru', 'mantine']}}
+|chat|DEBUG|Speed: 170 - 170
+|chat|DEBUG|Most likely moves for: mantine
+|chat|DEBUG|>['toxic', 'roost', 'hurricane', 'scald']
+|chat|DEBUG|Most likely moves for: lunatone
+|chat|DEBUG|>['moonblast', 'nastyplot', 'powergem', 'psychic']
+|chat|DEBUG|Best own move: ('scald', 156.375)
+|chat|DEBUG|Best enemy move: ('powergem', 120.25)
+|chat|DEBUG|Picking the most damaging move from mantine against lunatone
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lunatone|Psychic|p2a: Mantine
+|-damage|p2a: Mantine|0 fnt
+|faint|p2a: Mantine
+|-damage|p1a: Lunatone|21/100 brn|[from] item: Life Orb
+|-damage|p1a: Lunatone|15/100 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Oranguru|Oranguru, L86, F|295/295
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian mantine porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: mantine vs lunatone
+|chat|DEBUG|Updating information about lunatone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. lunatone
+|chat|DEBUG|Getting matchup: porygon2 vs. lunatone
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. lunatone
+|chat|DEBUG|Getting matchup: nidoking vs. lunatone
+|chat|DEBUG|Getting matchup: mantine vs. lunatone
+|chat|DEBUG|Checks / Counter: {'lunatone': {'checks': [], 'counter': ['oranguru', 'mantine']}}
+|chat|DEBUG|Speed: 170 - 170
+|chat|DEBUG|Most likely moves for: mantine
+|chat|DEBUG|>['toxic', 'roost', 'hurricane', 'scald']
+|chat|DEBUG|Most likely moves for: lunatone
+|chat|DEBUG|>['moonblast', 'nastyplot', 'powergem', 'psychic']
+|chat|DEBUG|Best own move: ('scald', 156.375)
+|chat|DEBUG|Best enemy move: ('powergem', 120.25)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from mantine against lunatone
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Lunatone|Power Gem|p2a: Oranguru
+|-damage|p2a: Oranguru|196/295
+|-damage|p1a: Lunatone|5/100 brn|[from] item: Life Orb
+|move|p2a: Oranguru|Focus Blast|p1a: Lunatone
+|-damage|p1a: Lunatone|0 fnt
+|faint|p1a: Lunatone
+|-heal|p2a: Oranguru|214/295|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Weavile|Weavile, L79, M|100/100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: mantine vs lunatone
+|chat|DEBUG|Updating information about lunatone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: heavydutyboots
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. lunatone
+|chat|DEBUG|Getting matchup: porygon2 vs. lunatone
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: oranguru vs. lunatone
+|chat|DEBUG|Getting matchup: nidoking vs. lunatone
+|chat|DEBUG|Getting matchup: mantine vs. lunatone
+|chat|DEBUG|Checks / Counter: {'lunatone': {'checks': [], 'counter': ['oranguru', 'mantine']}}
+|chat|DEBUG|>>Switching to counter: oranguru
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Weavile|Ice Shard|p2a: Oranguru
+|-damage|p2a: Oranguru|163/295
+|move|p2a: Oranguru|Focus Blast|p1a: Weavile|[miss]
+|-miss|p2a: Oranguru|p1a: Weavile
+|-heal|p2a: Oranguru|181/295|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: oranguru vs lunatone
+|chat|DEBUG|Updating information about lunatone
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. lunatone
+|chat|DEBUG|Getting matchup: porygon2 vs. lunatone
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. lunatone
+|chat|DEBUG|Getting matchup: oranguru vs. lunatone
+|chat|DEBUG|Checks / Counter: {'lunatone': {'checks': [], 'counter': ['oranguru']}}
+|chat|DEBUG|Speed: 152 - 170
+|chat|DEBUG|Most likely moves for: oranguru
+|chat|DEBUG|>['nastyplot', 'focusblast', 'thunderbolt', 'psychic']
+|chat|DEBUG|Most likely moves for: lunatone
+|chat|DEBUG|>['moonblast', 'nastyplot', 'powergem', 'psychic']
+|chat|DEBUG|Best own move: ('focusblast', 84.6875)
+|chat|DEBUG|Best enemy move: ('powergem', 72.5625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>Trying to kill the enemy pokemon using ('focusblast', 84.6875)
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Weavile|Knock Off|p2a: Oranguru
+|-supereffective|p2a: Oranguru
+|-crit|p2a: Oranguru
+|-damage|p2a: Oranguru|0 fnt
+|-enditem|p2a: Oranguru|Leftovers|[from] move: Knock Off|[of] p1a: Weavile
+|faint|p2a: Oranguru
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zacian|Zacian, L68|238/238
+|-ability|p2a: Zacian|Intrepid Sword|boost
+|-boost|p2a: Zacian|atk|1
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: oranguru vs weavile
+|chat|DEBUG|Updating information about weavile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. weavile
+|chat|DEBUG|Getting matchup: porygon2 vs. weavile
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. weavile
+|chat|DEBUG|Getting matchup: oranguru vs. weavile
+|chat|DEBUG|Checks / Counter: {'weavile': {'checks': [], 'counter': ['zacian', 'oranguru']}}
+|chat|DEBUG|Speed: 152 - 243
+|chat|DEBUG|Most likely moves for: oranguru
+|chat|DEBUG|>['nastyplot', 'focusblast', 'thunderbolt', 'psychic']
+|chat|DEBUG|Most likely moves for: weavile
+|chat|DEBUG|>['knockoff', 'lowkick', 'swordsdance', 'tripleaxel']
+|chat|DEBUG|Best own move: ('focusblast', 366.0)
+|chat|DEBUG|Best enemy move: ('knockoff', 225.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from oranguru against weavile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Weavile|Knock Off|p2a: Zacian
+|-resisted|p2a: Zacian
+|-damage|p2a: Zacian|181/238
+|-enditem|p2a: Zacian|Lum Berry|[from] move: Knock Off|[of] p1a: Weavile
+|move|p2a: Zacian|Play Rough|p1a: Weavile
+|-supereffective|p1a: Weavile
+|-damage|p1a: Weavile|0 fnt
+|faint|p1a: Weavile
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Gigalith|Gigalith, L82, F|100/100
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p1a: Gigalith
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 oranguru nidoking
+|chat|DEBUG|Matchup: oranguru vs weavile
+|chat|DEBUG|Updating information about weavile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: leftovers
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. weavile
+|chat|DEBUG|Getting matchup: porygon2 vs. weavile
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. weavile
+|chat|DEBUG|Getting matchup: oranguru vs. weavile
+|chat|DEBUG|Checks / Counter: {'weavile': {'checks': [], 'counter': ['zacian', 'oranguru']}}
+|chat|DEBUG|Speed: 152 - 243
+|chat|DEBUG|Most likely moves for: oranguru
+|chat|DEBUG|>['nastyplot', 'focusblast', 'thunderbolt', 'psychic']
+|chat|DEBUG|Most likely moves for: weavile
+|chat|DEBUG|>['knockoff', 'lowkick', 'swordsdance', 'tripleaxel']
+|chat|DEBUG|Best own move: ('focusblast', 366.0)
+|chat|DEBUG|Best enemy move: ('knockoff', 225.625)
+|chat|DEBUG|>We can kill the enemy this turn!
+|chat|DEBUG|>The enemy can kill us this turn as well!
+|chat|DEBUG|Picking the most damaging move from oranguru against weavile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p1a: Gigalith|Dynamax
+|-heal|p1a: Gigalith|100/100|[silent]
+|move|p2a: Zacian|Play Rough|p1a: Gigalith
+|-damage|p1a: Gigalith|82/100
+|move|p1a: Gigalith|Max Quake|p2a: Zacian
+|-damage|p2a: Zacian|62/238
+|-boost|p1a: Gigalith|spd|1
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Zacian|48/238|[from] Sandstorm
+|-heal|p1a: Gigalith|85/100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 nidoking
+|chat|DEBUG|Matchup: oranguru vs weavile
+|chat|DEBUG|Updating information about weavile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: zacian vs. weavile
+|chat|DEBUG|Getting matchup: porygon2 vs. weavile
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. weavile
+|chat|DEBUG|Getting matchup: oranguru vs. weavile
+|chat|DEBUG|Checks / Counter: {'weavile': {'checks': [], 'counter': ['zacian', 'oranguru']}}
+|chat|DEBUG|>>Switching to counter: zacian
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zacian|Play Rough|p1a: Gigalith
+|-damage|p1a: Gigalith|69/100
+|move|p1a: Gigalith|Max Quake|p2a: Zacian
+|-damage|p2a: Zacian|0 fnt
+|-boost|p1a: Gigalith|spd|1
+|faint|p2a: Zacian
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Gigalith|72/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Nidoking|Nidoking, L82, M|267/267
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 nidoking
+|chat|DEBUG|Matchup: zacian vs weavile
+|chat|DEBUG|Updating information about weavile
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lumberry
+|chat|DEBUG|>Enemy Item: lifeorb
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: porygon2 vs. weavile
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. weavile
+|chat|DEBUG|Getting matchup: zacian vs. weavile
+|chat|DEBUG|Checks / Counter: {'weavile': {'checks': [], 'counter': ['zacian']}}
+|chat|DEBUG|Speed: 228 - 243
+|chat|DEBUG|Most likely moves for: zacian
+|chat|DEBUG|>['swordsdance', 'psychicfangs', 'playrough', 'crunch']
+|chat|DEBUG|Most likely moves for: weavile
+|chat|DEBUG|>['knockoff', 'lowkick', 'swordsdance', 'tripleaxel']
+|chat|DEBUG|Best own move: ('playrough', 214.625)
+|chat|DEBUG|Best enemy move: ('knockoff', 53.375)
+|chat|DEBUG|Picking the most damaging move from zacian against weavile
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nidoking|Earth Power|p1a: Gigalith
+|-supereffective|p1a: Gigalith
+|-damage|p1a: Gigalith|53/100
+|move|p1a: Gigalith|Max Quake|p2a: Nidoking
+|-supereffective|p2a: Nidoking
+|-damage|p2a: Nidoking|13/267
+|-boost|p1a: Gigalith|spd|1
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Gigalith|56/100|[from] item: Leftovers
+|-end|p1a: Gigalith|Dynamax
+|-heal|p1a: Gigalith|56/100|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 nidoking
+|chat|DEBUG|Matchup: zacian vs gigalith
+|chat|DEBUG|Updating information about gigalith
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: None
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: porygon2 vs. gigalith
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. gigalith
+|chat|DEBUG|Getting matchup: zacian vs. gigalith
+|chat|DEBUG|THIS USED TO DIE HERE; IT WON'T NOW???
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 228 - 88
+|chat|DEBUG|Most likely moves for: zacian
+|chat|DEBUG|>['swordsdance', 'psychicfangs', 'playrough', 'crunch']
+|chat|DEBUG|Most likely moves for: gigalith
+|chat|DEBUG|>['explosion', 'stealthrock', 'stoneedge', 'superpower']
+|chat|DEBUG|Best own move: ('playrough', 61.5625)
+|chat|DEBUG|Best enemy move: ('explosion', 216.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat gigalith with zacian
+|chat|DEBUG|Picking the most damaging move from zacian against gigalith
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Nidoking|Earth Power|p1a: Gigalith
+|-supereffective|p1a: Gigalith
+|-damage|p1a: Gigalith|26/100
+|move|p1a: Gigalith|Stone Edge|p2a: Nidoking
+|-resisted|p2a: Nidoking
+|-crit|p2a: Nidoking
+|-damage|p2a: Nidoking|0 fnt
+|faint|p2a: Nidoking
+|-weather|Sandstorm|[upkeep]
+|-heal|p1a: Gigalith|32/100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Porygon2|Porygon2, L82|274/274
+|-ability|p2a: Porygon2|Download|boost
+|-boost|p2a: Porygon2|atk|1
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>zacian porygon2 nidoking
+|chat|DEBUG|Matchup: zacian vs gigalith
+|chat|DEBUG|Updating information about gigalith
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: porygon2 vs. gigalith
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. gigalith
+|chat|DEBUG|Getting matchup: zacian vs. gigalith
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 228 - 88
+|chat|DEBUG|Most likely moves for: zacian
+|chat|DEBUG|>['swordsdance', 'psychicfangs', 'playrough', 'crunch']
+|chat|DEBUG|Most likely moves for: gigalith
+|chat|DEBUG|>['explosion', 'stealthrock', 'stoneedge', 'superpower']
+|chat|DEBUG|Best own move: ('playrough', 61.5625)
+|chat|DEBUG|Best enemy move: ('explosion', 216.875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat gigalith with zacian
+|chat|DEBUG|Picking the most damaging move from zacian against gigalith
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Ice Beam|p1a: Gigalith
+|-damage|p1a: Gigalith|25/100
+|move|p1a: Gigalith|Earthquake|p2a: Porygon2
+|-damage|p2a: Porygon2|216/274
+|-weather|none
+|-heal|p1a: Gigalith|31/100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>porygon2 nidoking
+|chat|DEBUG|Matchup: zacian vs gigalith
+|chat|DEBUG|Updating information about gigalith
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: 
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: porygon2 vs. gigalith
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. gigalith
+|chat|DEBUG|Getting matchup: zacian vs. gigalith
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}}
+|chat|DEBUG|>>No good switch found, switching random
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Ice Beam|p1a: Gigalith
+|-damage|p1a: Gigalith|20/100
+|move|p1a: Gigalith|Stone Edge|p2a: Porygon2
+|-crit|p2a: Porygon2
+|-damage|p2a: Porygon2|87/274
+|-heal|p1a: Gigalith|26/100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>porygon2 nidoking
+|chat|DEBUG|Matchup: nidoking vs gigalith
+|chat|DEBUG|Updating information about gigalith
+|chat|DEBUG|Items:
+|chat|DEBUG|>Own Item: lifeorb
+|chat|DEBUG|>Enemy Item: leftovers
+|chat|DEBUG|Gathered new Information, determining matchups.
+|chat|DEBUG|Getting matchup: porygon2 vs. gigalith
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Ignoring ability of porygon2 for now!
+|chat|DEBUG|Getting matchup: nidoking vs. gigalith
+|chat|DEBUG|Checks / Counter: {'gigalith': {'checks': [], 'counter': []}}
+|chat|DEBUG|Speed: 187 - 88
+|chat|DEBUG|Most likely moves for: nidoking
+|chat|DEBUG|>['earthpower', 'substitute', 'sludgewave', 'icebeam']
+|chat|DEBUG|Most likely moves for: gigalith
+|chat|DEBUG|>['explosion', 'stealthrock', 'stoneedge', 'superpower']
+|chat|DEBUG|Best own move: ('earthpower', 181.75)
+|chat|DEBUG|Best enemy move: ('explosion', 245.6875)
+|chat|DEBUG|>Current matchup is not favorable!
+|chat|DEBUG|>>We don't have a better option. Trying to defeat gigalith with nidoking
+|chat|DEBUG|Picking the most damaging move from nidoking against gigalith
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Porygon2|Ice Beam|p1a: Gigalith
+|-damage|p1a: Gigalith|16/100
+|move|p1a: Gigalith|Stone Edge|p2a: Porygon2
+|-damage|p2a: Porygon2|0 fnt
+|faint|p2a: Porygon2
+    </script>
+</div>
+
+<div class="battle-log battle-log-inline" style="display:none"></div>
+
+<script>
+    let daily = Math.floor(Date.now() / 1000 / 60 / 60 / 24); document.write('<script src="https://play.pokemonshowdown.com/js/replay-embed.js?version' + daily + '"></' + 'script>');
+</script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Estufa de gas<br>vs<br>McDonner</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">zacian magearna mantine porygon2 oranguru nidoking</h1>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490709715<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490709715|init|battle
+|title|McGewitter vs. Booboo7
+|j|☆McGewitter
+|j|☆Booboo7
+|gametype|singles
+|player|p1|McGewitter|265|1183
+|player|p2|Booboo7|265|1187
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Braviary|Braviary, L82, M|298298
+|switch|p2a: Xerneas|Xerneas, L67|100100
+|-ability|p2a: Xerneas|Fairy Aura
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-heracross-greedent-arctozolt-abomasnow-cresselia -- xerneas
+|chat|DEBUG|Own moves: bulkup bravebird roost closecombat
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['braviary', 'cresselia']
+|chat|DEBUG|Speed: 178 vs 172
+|chat|DEBUG|HP: 298 vs 280
+|chat|DEBUG|Created a new Strategy for braviary vs xerneas:
+|chat|DEBUG|>[bravebird: 169.6875 [156, 184], bravebird: 169.6875 [156, 184], bravebird: 169.6875 [156, 184]]
+|chat|DEBUG|Best move of braviary (p1): bravebird: 169.6875 [156, 184]
+|chat|DEBUG|Best move of xerneas (p2): moonblast: 125.375 [115, 136]
+|chat|DEBUG|Attacking using bravebird
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|move|p1a: Braviary|Brave Bird|p2a: Xerneas
+|-damage|p2a: Xerneas|35100
+|-damage|p1a: Braviary|237298|[from] Recoil
+|move|p2a: Xerneas|Geomancy||[still]
+|-prepare|p2a: Xerneas|Geomancy
+|-enditem|p2a: Xerneas|Power Herb
+|-anim|p2a: Xerneas|Geomancy|p2a: Xerneas
+|-boost|p2a: Xerneas|spa|2
+|-boost|p2a: Xerneas|spd|2
+|-boost|p2a: Xerneas|spe|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>braviary heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>braviary-heracross-greedent-arctozolt-abomasnow-cresselia -- xerneas
+|chat|DEBUG|Own moves: bulkup bravebird roost closecombat
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['braviary', 'greedent', 'arctozolt', 'abomasnow', 'cresselia']
+|chat|DEBUG|Speed: 178 vs 172
+|chat|DEBUG|HP: 237 vs 98
+|chat|DEBUG|Best move of braviary (p1): bravebird: 169.6875 [156, 184]
+|chat|DEBUG|Best move of xerneas (p2): moonblast: 249.0 [229, 270]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xerneas|Thunderbolt|p1a: Braviary
+|-supereffective|p1a: Braviary
+|-damage|p1a: Braviary|0 fnt
+|faint|p1a: Braviary
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cresselia|Cresselia, L80, F|323323
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "braviary" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-arctozolt-abomasnow-cresselia -- xerneas
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['greedent', 'arctozolt', 'abomasnow', 'cresselia']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to cresselia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xerneas|Moonblast|p1a: Cresselia
+|-damage|p1a: Cresselia|170323
+|move|p1a: Cresselia|Psyshock|p2a: Xerneas
+|-damage|p2a: Xerneas|7100
+|-heal|p1a: Cresselia|190323|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-arctozolt-abomasnow-cresselia -- xerneas
+|chat|DEBUG|Own moves: thunderwave moonlight psyshock moonblast
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['greedent', 'arctozolt', 'abomasnow', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 172
+|chat|DEBUG|HP: 323 vs 98
+|chat|DEBUG|Created a new Strategy for cresselia vs xerneas:
+|chat|DEBUG|>[psyshock: 76.75 [70, 84], psyshock: 76.75 [70, 84], psyshock: 76.75 [70, 84]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 76.75 [70, 84]
+|chat|DEBUG|Best move of xerneas (p2): moonblast: 166.9375 [153, 181]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Xerneas|Thunderbolt|p1a: Cresselia
+|-damage|p1a: Cresselia|117323
+|move|p1a: Cresselia|Psyshock|p2a: Xerneas
+|-damage|p2a: Xerneas|0 fnt
+|faint|p2a: Xerneas
+|-heal|p1a: Cresselia|137323|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dusknoir|Dusknoir, L86, F|100100
+|-item|p1a: Cresselia|Leftovers|[from] ability: Frisk|[of] p2a: Dusknoir|[identify]
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "xerneas"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-arctozolt-abomasnow-cresselia -- xerneas
+|chat|DEBUG|Own moves: thunderwave moonlight psyshock moonblast
+|chat|DEBUG|Enemy moves: geomancy moonblast psyshock thunderbolt
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['heracross', 'greedent', 'arctozolt', 'abomasnow', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 172
+|chat|DEBUG|HP: 190 vs 19
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 76.75 [70, 84]
+|chat|DEBUG|Best move of xerneas (p2): moonblast: 166.9375 [153, 181]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Arctozolt|Arctozolt, L86|295295
+|move|p2a: Dusknoir|Poltergeist|p1a: Arctozolt
+|-activate|p1a: Arctozolt|move: Poltergeist|Heavy-Duty Boots
+|-damage|p1a: Arctozolt|168295
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-arctozolt-abomasnow-cresselia -- dusknoir
+|chat|DEBUG|Own moves: thunderwave moonlight psyshock moonblast
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['arctozolt']
+|chat|DEBUG|Counter: ['heracross', 'arctozolt']
+|chat|DEBUG|Speed: 182 vs 127
+|chat|DEBUG|HP: 137 vs 218
+|chat|DEBUG|Created a new Strategy for cresselia vs dusknoir:
+|chat|DEBUG|>[psyshock: 46.0625 [42, 51], psyshock: 46.0625 [42, 51], psyshock: 46.0625 [42, 51]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 46.0625 [42, 51]
+|chat|DEBUG|Best move of dusknoir (p2): poltergeist: 206.5 [188, 224]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctozolt
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Arctozolt|Bolt Beak|p2a: Dusknoir
+|-damage|p2a: Dusknoir|41100
+|move|p2a: Dusknoir|Poltergeist|p1a: Arctozolt
+|-activate|p1a: Arctozolt|move: Poltergeist|Heavy-Duty Boots
+|-damage|p1a: Arctozolt|48295
+|-heal|p2a: Dusknoir|47100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-arctozolt-abomasnow-cresselia -- dusknoir
+|chat|DEBUG|Own moves: iciclecrash boltbeak stompingtantrum thunderwave
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['heracross', 'arctozolt']
+|chat|DEBUG|Speed: 144 vs 127
+|chat|DEBUG|HP: 168 vs 218
+|chat|DEBUG|Created a new Strategy for arctozolt vs dusknoir:
+|chat|DEBUG|>[boltbeak: 135.5 [124, 147], boltbeak: 135.5 [124, 147], boltbeak: 135.5 [124, 147]]
+|chat|DEBUG|Best move of arctozolt (p1): boltbeak: 135.5 [124, 147]
+|chat|DEBUG|Best move of dusknoir (p2): earthquake: 147.25 [136, 160]
+|chat|DEBUG|Attacking using boltbeak
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dusknoir|Shadow Sneak|p1a: Arctozolt
+|-damage|p1a: Arctozolt|0 fnt
+|faint|p1a: Arctozolt
+|-heal|p2a: Dusknoir|53100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heracross|Heracross, L82, F|265265
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent arctozolt abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-arctozolt-abomasnow-cresselia -- dusknoir
+|chat|DEBUG|Own moves: iciclecrash boltbeak stompingtantrum thunderwave
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['heracross', 'greedent']
+|chat|DEBUG|Counter: ['heracross', 'greedent', 'arctozolt', 'abomasnow']
+|chat|DEBUG|Speed: 144 vs 127
+|chat|DEBUG|HP: 48 vs 102
+|chat|DEBUG|Best move of arctozolt (p1): boltbeak: 135.5 [124, 147]
+|chat|DEBUG|Best move of dusknoir (p2): earthquake: 147.25 [136, 160]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heracross|Knock Off|p2a: Dusknoir
+|-supereffective|p2a: Dusknoir
+|-damage|p2a: Dusknoir|0 fnt
+|-enditem|p2a: Dusknoir|Leftovers|[from] move: Knock Off|[of] p1a: Heracross
+|faint|p2a: Dusknoir
+|-status|p1a: Heracross|brn|[from] item: Flame Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dedenne|Dedenne, L87, F|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctozolt" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- dusknoir
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['heracross', 'greedent']
+|chat|DEBUG|Counter: ['heracross', 'greedent', 'abomasnow']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to heracross (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dedenne|Thunderbolt|p1a: Heracross
+|-damage|p1a: Heracross|183265 brn
+|move|p1a: Heracross|Close Combat|p2a: Dedenne
+|-resisted|p2a: Dedenne
+|-damage|p2a: Dedenne|45100
+|-unboost|p1a: Heracross|def|1
+|-unboost|p1a: Heracross|spd|1
+|-enditem|p2a: Dedenne|Sitrus Berry|[eat]
+|-heal|p2a: Dedenne|70100|[from] item: Sitrus Berry
+|-heal|p2a: Dedenne|100100|[from] ability: Cheek Pouch
+|-damage|p1a: Heracross|167265 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "dusknoir"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- dusknoir
+|chat|DEBUG|Own moves: megahorn closecombat knockoff facade
+|chat|DEBUG|Enemy moves: earthquake icepunch painsplit poltergeist
+|chat|DEBUG|Checks: ['greedent']
+|chat|DEBUG|Counter: ['heracross', 'greedent', 'abomasnow']
+|chat|DEBUG|Speed: 187 vs 127
+|chat|DEBUG|HP: 265 vs 115
+|chat|DEBUG|Created a new Strategy for heracross vs dusknoir:
+|chat|DEBUG|>[knockoff: 111.875 [102, 122], knockoff: 111.875 [102, 122], knockoff: 111.875 [102, 122]]
+|chat|DEBUG|Best move of heracross (p1): knockoff: 111.875 [102, 122]
+|chat|DEBUG|Best move of dusknoir (p2): poltergeist: 143.125 [132, 156]
+|chat|DEBUG|Attacking using knockoff
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Greedent|Greedent, L84, F|339339
+|move|p2a: Dedenne|Recycle|p2a: Dedenne
+|-item|p2a: Dedenne|Sitrus Berry|[from] move: Recycle
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "dedenne"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- dedenne
+|chat|DEBUG|Own moves: megahorn closecombat knockoff facade
+|chat|DEBUG|Enemy moves: protect recycle thunderbolt toxic
+|chat|DEBUG|Checks: ['greedent', 'abomasnow']
+|chat|DEBUG|Counter: ['heracross', 'greedent', 'abomasnow']
+|chat|DEBUG|Speed: 187 vs 225
+|chat|DEBUG|HP: 265 vs 258
+|chat|DEBUG|Created a new Strategy for heracross vs dedenne:
+|chat|DEBUG|>[closecombat: 96.5 [89, 105], closecombat: 96.5 [89, 105], closecombat: 96.5 [89, 105]]
+|chat|DEBUG|Best move of heracross (p1): closecombat: 96.5 [89, 105]
+|chat|DEBUG|Best move of dedenne (p2): thunderbolt: 85.0625 [78, 93]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dedenne|Toxic|p1a: Greedent
+|-status|p1a: Greedent|tox
+|move|p1a: Greedent|Swords Dance|p1a: Greedent
+|-boost|p1a: Greedent|atk|2
+|-damage|p1a: Greedent|318339 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "dedenne"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- dedenne
+|chat|DEBUG|Own moves: megahorn closecombat knockoff facade
+|chat|DEBUG|Enemy moves: protect recycle thunderbolt toxic
+|chat|DEBUG|Checks: ['greedent', 'abomasnow']
+|chat|DEBUG|Counter: ['greedent', 'abomasnow']
+|chat|DEBUG|Speed: 187 vs 225
+|chat|DEBUG|HP: 167 vs 258
+|chat|DEBUG|Best move of heracross (p1): closecombat: 96.5 [89, 105]
+|chat|DEBUG|Best move of dedenne (p2): thunderbolt: 128.0625 [118, 139]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check greedent
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dedenne|Thunderbolt|p1a: Greedent
+|-damage|p1a: Greedent|215339 tox
+|move|p1a: Greedent|Earthquake|p2a: Dedenne
+|-supereffective|p2a: Dedenne
+|-damage|p2a: Dedenne|0 fnt
+|faint|p2a: Dedenne
+|-damage|p1a: Greedent|173339 tox|[from] psn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Conkeldurr|Conkeldurr, L80, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "dedenne"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- dedenne
+|chat|DEBUG|Own moves: firefang bodyslam earthquake swordsdance
+|chat|DEBUG|Enemy moves: protect recycle thunderbolt toxic
+|chat|DEBUG|Checks: ['greedent', 'abomasnow']
+|chat|DEBUG|Counter: ['greedent', 'abomasnow']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 82 vs 225
+|chat|DEBUG|HP: 339 vs 258
+|chat|DEBUG|Created a new Strategy for greedent vs dedenne:
+|chat|DEBUG|>[earthquake: 183.0 [168, 198], earthquake: 183.0 [168, 198], earthquake: 183.0 [168, 198]]
+|chat|DEBUG|Best move of greedent (p1): earthquake: 183.0 [168, 198]
+|chat|DEBUG|Best move of dedenne (p2): thunderbolt: 100.375 [93, 109]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Conkeldurr|Mach Punch|p1a: Greedent
+|-supereffective|p1a: Greedent
+|-damage|p1a: Greedent|75339 tox
+|-enditem|p1a: Greedent|Sitrus Berry|[eat]
+|-heal|p1a: Greedent|159339 tox|[from] item: Sitrus Berry
+|-heal|p1a: Greedent|272339 tox|[from] ability: Cheek Pouch
+|move|p1a: Greedent|Body Slam|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|46100
+|-status|p2a: Conkeldurr|par
+|-damage|p1a: Greedent|209339 tox|[from] psn
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "dedenne"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- dedenne
+|chat|DEBUG|Own moves: firefang bodyslam earthquake swordsdance
+|chat|DEBUG|Enemy moves: protect recycle thunderbolt toxic
+|chat|DEBUG|Checks: ['greedent', 'abomasnow']
+|chat|DEBUG|Counter: ['greedent', 'abomasnow']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 82 vs 225
+|chat|DEBUG|HP: 318 vs 258
+|chat|DEBUG|Best move of greedent (p1): earthquake: 183.0 [168, 198]
+|chat|DEBUG|Best move of dedenne (p2): thunderbolt: 100.375 [93, 109]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using earthquake
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Heracross|Heracross, L82, F|167265 brn
+|move|p2a: Conkeldurr|Mach Punch|p1a: Heracross
+|-resisted|p1a: Heracross
+|-damage|p1a: Heracross|124265 brn
+|-damage|p1a: Heracross|108265 brn|[from] brn
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- conkeldurr
+|chat|DEBUG|Own moves: firefang bodyslam earthquake swordsdance
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 82 vs 118
+|chat|DEBUG|HP: 173 vs 299
+|chat|DEBUG|Created a new Strategy for greedent vs conkeldurr:
+|chat|DEBUG|>[bodyslam: 175.1875 [160, 190], bodyslam: 175.1875 [160, 190], bodyslam: 175.1875 [160, 190]]
+|chat|DEBUG|Best move of greedent (p1): bodyslam: 175.1875 [160, 190]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 295.0 [270, 320]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bodyslam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heracross|Close Combat|p2a: Conkeldurr
+|-damage|p2a: Conkeldurr|0 fnt
+|-unboost|p1a: Heracross|def|1
+|-unboost|p1a: Heracross|spd|1
+|faint|p2a: Conkeldurr
+|-damage|p1a: Heracross|92265 brn|[from] brn
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Vaporeon|Vaporeon, L84, M|100100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "greedent" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- conkeldurr
+|chat|DEBUG|Own moves: firefang bodyslam earthquake swordsdance
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: ['heracross']
+|chat|DEBUG|Counter: ['heracross']
+|chat|DEBUG|Speed: 82 vs 118
+|chat|DEBUG|HP: 209 vs 137
+|chat|DEBUG|Best move of greedent (p1): bodyslam: 175.1875 [160, 190]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 295.0 [270, 320]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check heracross
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Heracross|Close Combat|p2a: Vaporeon
+|-damage|p2a: Vaporeon|19100
+|-unboost|p1a: Heracross|def|1
+|-unboost|p1a: Heracross|spd|1
+|move|p2a: Vaporeon|Scald|p1a: Heracross
+|-crit|p1a: Heracross
+|-damage|p1a: Heracross|0 fnt
+|faint|p1a: Heracross
+|-heal|p2a: Vaporeon|25100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cresselia|Cresselia, L80, F|137323
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "conkeldurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- conkeldurr
+|chat|DEBUG|Own moves: megahorn closecombat knockoff facade
+|chat|DEBUG|Enemy moves: closecombat facade knockoff machpunch
+|chat|DEBUG|Checks: ['heracross']
+|chat|DEBUG|Counter: ['heracross']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 187 vs 118
+|chat|DEBUG|HP: 108 vs 137
+|chat|DEBUG|Created a new Strategy for heracross vs conkeldurr:
+|chat|DEBUG|>[closecombat: 144.5625 [133, 157], closecombat: 144.5625 [133, 157], closecombat: 144.5625 [133, 157]]
+|chat|DEBUG|Best move of heracross (p1): closecombat: 144.5625 [133, 157]
+|chat|DEBUG|Best move of conkeldurr (p2): closecombat: 90.1875 [83, 98]
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Cresselia|Psyshock|p2a: Vaporeon
+|-damage|p2a: Vaporeon|0 fnt
+|faint|p2a: Vaporeon
+|-heal|p1a: Cresselia|157323|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Druddigon|Druddigon, L84, M|100100
+|-ability|p2a: Druddigon|Mold Breaker
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>heracross greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "vaporeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>heracross-greedent-abomasnow-cresselia -- vaporeon
+|chat|DEBUG|Own moves: megahorn closecombat knockoff facade
+|chat|DEBUG|Enemy moves: protect scald toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 187 vs 157
+|chat|DEBUG|HP: 92 vs 356
+|chat|DEBUG|Created a new Strategy for heracross vs vaporeon:
+|chat|DEBUG|>[closecombat: 193.4375 [178, 210], closecombat: 193.4375 [178, 210], closecombat: 193.4375 [178, 210]]
+|chat|DEBUG|Best move of heracross (p1): closecombat: 193.4375 [178, 210]
+|chat|DEBUG|Best move of vaporeon (p2): scald: 135.5 [124, 147]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Druddigon|Dynamax
+|-heal|p2a: Druddigon|100100|[silent]
+|move|p1a: Cresselia|Moonblast|p2a: Druddigon
+|-supereffective|p2a: Druddigon
+|-damage|p2a: Druddigon|81100
+|move|p2a: Druddigon|Max Wyrmwind|p1a: Cresselia
+|-damage|p1a: Cresselia|0 fnt
+|faint|p1a: Cresselia
+|-damage|p2a: Druddigon|76100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Greedent|Greedent, L84, F|209339 tox
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "heracross" vs "vaporeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-abomasnow-cresselia -- vaporeon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: protect scald toxic wish
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: cresselia
+|chat|DEBUG|Early game switch: cresselia
+|chat|DEBUG|>Switching to cresselia (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Druddigon|Max Knuckle|p1a: Greedent
+|-supereffective|p1a: Greedent
+|-damage|p1a: Greedent|11339 tox
+|-boost|p2a: Druddigon|atk|1
+|-damage|p2a: Druddigon|71100|[from] item: Life Orb
+|move|p1a: Greedent|Body Slam|p2a: Druddigon
+|-damage|p2a: Druddigon|53100
+|-damage|p1a: Greedent|0 fnt|[from] psn
+|faint|p1a: Greedent
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Abomasnow|Abomasnow, L82, F|282282
+|-weather|Hail|[from] ability: Snow Warning|[of] p1a: Abomasnow
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>greedent abomasnow cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "vaporeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>greedent-abomasnow-cresselia -- vaporeon
+|chat|DEBUG|Own moves: thunderwave moonlight psyshock moonblast
+|chat|DEBUG|Enemy moves: protect scald toxic wish
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['greedent', 'abomasnow', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 157
+|chat|DEBUG|HP: 137 vs 89
+|chat|DEBUG|Created a new Strategy for cresselia vs vaporeon:
+|chat|DEBUG|>[psyshock: 85.0625 [78, 93], psyshock: 85.0625 [78, 93], psyshock: 85.0625 [78, 93]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 85.0625 [78, 93]
+|chat|DEBUG|Best move of vaporeon (p2): scald: 72.5625 [67, 79]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Abomasnow|Blizzard|p2a: Druddigon
+|-supereffective|p2a: Druddigon
+|-damage|p2a: Druddigon|16100
+|move|p2a: Druddigon|Max Knuckle|p1a: Abomasnow
+|-supereffective|p1a: Abomasnow
+|-damage|p1a: Abomasnow|0 fnt
+|-boost|p2a: Druddigon|atk|1
+|faint|p1a: Abomasnow
+|-damage|p2a: Druddigon|11100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>McGewitter<br>vs<br>Booboo7</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">braviary heracross greedent arctozolt abomasnow cresselia</h1>

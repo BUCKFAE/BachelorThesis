@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491899744<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491899744|init|battle
+|title|Abhay lll vs. McGewitter
+|j|☆Abhay lll
+|j|☆McGewitter
+|gametype|singles
+|player|p1|Abhay lll|brawly|1298
+|player|p2|McGewitter|265|1361
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rated|
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Butterfree|Butterfree, L87, F|100100
+|switch|p2a: Dubwool|Dubwool, L86, M|264264
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool lycanrocdusk necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-lycanrocdusk-necrozma-zapdos-giratinaorigin-wishiwashi -- butterfree
+|chat|DEBUG|Own moves: bodypress sleeptalk rest cottonguard
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['lycanrocdusk', 'necrozma', 'zapdos', 'giratinaorigin']
+|chat|DEBUG|Counter: ['lycanrocdusk', 'necrozma', 'zapdos', 'giratinaorigin']
+|chat|DEBUG|Speed: 201 vs 172
+|chat|DEBUG|HP: 264 vs 246
+|chat|DEBUG|Created a new Strategy for dubwool vs butterfree:
+|chat|DEBUG|>[bodypress: 21.25 [19, 23], bodypress: 21.25 [19, 23], bodypress: 21.25 [19, 23]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 21.25 [19, 23]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 91.875 [84, 100]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lycanrocdusk
+|inactive|Battle timer is ON: inactive players will automatically lose when time's up. (requested by McGewitter)
+|inactive|Time left: 150 sec this turn | 150 sec total | 60 sec grace
+|switch|p2a: Lycanroc|Lycanroc-Dusk, L80, F|251251
+|move|p1a: Butterfree|Sleep Powder|p2a: Lycanroc
+|-status|p2a: Lycanroc|slp|[from] move: Sleep Powder
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool lycanrocdusk necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanrocdusk" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-lycanrocdusk-necrozma-zapdos-giratinaorigin-wishiwashi -- butterfree
+|chat|DEBUG|Own moves: stoneedge swordsdance closecombat accelerock
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['lycanrocdusk', 'necrozma', 'zapdos', 'giratinaorigin']
+|chat|DEBUG|Counter: ['lycanrocdusk', 'necrozma', 'zapdos', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 222 vs 172
+|chat|DEBUG|HP: 251 vs 246
+|chat|DEBUG|Created a new Strategy for lycanrocdusk vs butterfree:
+|chat|DEBUG|>[stoneedge: 838.25 [769, 910], stoneedge: 838.25 [769, 910], stoneedge: 838.25 [769, 910]]
+|chat|DEBUG|Best move of lycanrocdusk (p1): stoneedge: 838.25 [769, 910]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 124.0625 [114, 135]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|cant|p2a: Lycanroc|slp
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool lycanrocdusk necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanrocdusk" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-lycanrocdusk-necrozma-zapdos-giratinaorigin-wishiwashi -- butterfree
+|chat|DEBUG|Own moves: stoneedge swordsdance closecombat accelerock
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['lycanrocdusk', 'giratinaorigin']
+|chat|DEBUG|Counter: ['lycanrocdusk', 'zapdos', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 222 vs 172
+|chat|DEBUG|HP: 251 vs 246
+|chat|DEBUG|Best move of lycanrocdusk (p1): stoneedge: 838.25 [769, 910]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 186.375 [171, 202]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using stoneedge
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Energy Ball|p2a: Lycanroc
+|-supereffective|p2a: Lycanroc
+|-damage|p2a: Lycanroc|0 fnt
+|faint|p2a: Lycanroc
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Giratina|Giratina-Origin, L74|344344
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lycanrocdusk" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-giratinaorigin-wishiwashi -- butterfree
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['giratinaorigin']
+|chat|DEBUG|Counter: ['zapdos', 'giratinaorigin']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to giratinaorigin (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Quiver Dance|p1a: Butterfree
+|-boost|p1a: Butterfree|spa|1
+|-boost|p1a: Butterfree|spd|1
+|-boost|p1a: Butterfree|spe|1
+|move|p2a: Giratina|Outrage|p1a: Butterfree
+|-damage|p1a: Butterfree|17100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-giratinaorigin-wishiwashi -- butterfree
+|chat|DEBUG|Own moves: dualwingbeat outrage poltergeist honeclaws
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['giratinaorigin']
+|chat|DEBUG|Counter: ['zapdos', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 172
+|chat|DEBUG|HP: 344 vs 246
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs butterfree:
+|chat|DEBUG|>[outrage: 168.3125 [154, 183], outrage: 168.3125 [154, 183], outrage: 168.3125 [154, 183]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 168.3125 [154, 183]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 145.625 [134, 158]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Butterfree|Hurricane|p2a: Giratina
+|-damage|p2a: Giratina|100344
+|move|p2a: Giratina|Outrage|p1a: Butterfree|[from]lockedmove
+|-damage|p1a: Butterfree|0 fnt
+|faint|p1a: Butterfree
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crawdaunt|Crawdaunt, L84, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "butterfree"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-giratinaorigin-wishiwashi -- butterfree
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: airslash bugbuzz quiverdance sleeppowder
+|chat|DEBUG|Checks: ['zapdos', 'giratinaorigin']
+|chat|DEBUG|Counter: ['dubwool', 'necrozma', 'zapdos', 'giratinaorigin']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 172
+|chat|DEBUG|HP: 344 vs 41
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs butterfree:
+|chat|DEBUG|>[outrage: 168.3125 [154, 183], outrage: 168.3125 [154, 183], outrage: 168.3125 [154, 183]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 168.3125 [154, 183]
+|chat|DEBUG|Best move of butterfree (p2): bugbuzz: 194.125 [178, 210]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Crawdaunt|Nasty Plot|p1a: Crawdaunt
+|-boost|p1a: Crawdaunt|spa|2
+|move|p2a: Giratina|Outrage|p1a: Crawdaunt|[from]lockedmove
+|-damage|p1a: Crawdaunt|17100
+|replace|p1a: Zoroark|Zoroark, L84, M
+|-end|p1a: Zoroark|Illusion
+|-start|p2a: Giratina|confusion|[fatigue]
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-giratinaorigin-wishiwashi -- crawdaunt
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['dubwool', 'zapdos']
+|chat|DEBUG|Counter: ['dubwool', 'zapdos']
+|chat|DEBUG|Speed: 176 vs 141
+|chat|DEBUG|HP: 100 vs 243
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs crawdaunt:
+|chat|DEBUG|>[outrage: 121.1875 [111, 132], outrage: 121.1875 [111, 132], outrage: 121.1875 [111, 132]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 121.1875 [111, 132]
+|chat|DEBUG|Best move of crawdaunt (p2): knockoff: 430.9375 [395, 468]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zoroark|Dark Pulse|p2a: Giratina
+|-supereffective|p2a: Giratina
+|-damage|p2a: Giratina|0 fnt
+|faint|p2a: Giratina
+|-damage|p1a: Zoroark|8100|[from] item: Life Orb
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dubwool|Dubwool, L86, M|264264
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos giratinaorigin wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-giratinaorigin-wishiwashi -- crawdaunt-zoroark
+|chat|DEBUG|Own moves: dualwingbeat outrage poltergeist honeclaws
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'necrozma', 'zapdos', 'wishiwashi']
+|chat|DEBUG|Speed: 176 vs 225
+|chat|DEBUG|HP: 100 vs 40
+|chat|DEBUG|Created a new Strategy for giratinaorigin vs zoroark:
+|chat|DEBUG|>[outrage: 154.4375 [142, 168], outrage: 154.4375 [142, 168], outrage: 154.4375 [142, 168]]
+|chat|DEBUG|Best move of giratinaorigin (p1): outrage: 154.4375 [142, 168]
+|chat|DEBUG|Best move of zoroark (p2): darkpulse: 268.4375 [244, 291]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p1a: Zoroark|Sludge Bomb|p2a: Dubwool
+|-damage|p2a: Dubwool|78264
+|-damage|p1a: Zoroark|0 fnt|[from] item: Life Orb
+|faint|p1a: Zoroark
+|move|p2a: Dubwool|Body Press|p1: Zoroark|[notarget]
+|-fail|p2a: Dubwool
+|-heal|p2a: Dubwool|94264|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crawdaunt|Crawdaunt, L84, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "giratinaorigin" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt-zoroark
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'necrozma', 'zapdos', 'wishiwashi']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to dubwool (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Zapdos|Zapdos, L78|268268
+|move|p1a: Crawdaunt|Close Combat|p2a: Zapdos
+|-resisted|p2a: Zapdos
+|-damage|p2a: Zapdos|189268
+|-unboost|p1a: Crawdaunt|def|1
+|-unboost|p1a: Crawdaunt|spd|1
+|-status|p1a: Crawdaunt|par|[from] ability: Static|[of] p2a: Zapdos
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "zoroark"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt-zoroark
+|chat|DEBUG|Own moves: bodypress sleeptalk rest cottonguard
+|chat|DEBUG|Enemy moves: darkpulse flamethrower nastyplot sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dubwool', 'necrozma', 'zapdos', 'wishiwashi']
+|chat|DEBUG|Speed: 201 vs 225
+|chat|DEBUG|HP: 264 vs 19
+|chat|DEBUG|Created a new Strategy for dubwool vs zoroark:
+|chat|DEBUG|>[bodypress: 160.0 [146, 174], bodypress: 160.0 [146, 174], bodypress: 160.0 [146, 174]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 160.0 [146, 174]
+|chat|DEBUG|Best move of zoroark (p2): flamethrower: 188.8125 [174, 205]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Cradily|Cradily, L86, F|100100
+|move|p2a: Zapdos|Discharge|p1a: Cradily
+|-resisted|p1a: Cradily
+|-damage|p1a: Cradily|87100
+|-heal|p1a: Cradily|93100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt
+|chat|DEBUG|Own moves: bodypress sleeptalk rest cottonguard
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: ['zapdos']
+|chat|DEBUG|Counter: ['zapdos']
+|chat|DEBUG|Speed: 201 vs 141
+|chat|DEBUG|HP: 94 vs 243
+|chat|DEBUG|Created a new Strategy for dubwool vs crawdaunt:
+|chat|DEBUG|>[bodypress: 124.75 [114, 136], bodypress: 124.75 [114, 136], bodypress: 124.75 [114, 136]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 124.75 [114, 136]
+|chat|DEBUG|Best move of crawdaunt (p2): closecombat: 116.3125 [107, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zapdos
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Cradily
+|-damage|p1a: Cradily|58100
+|move|p1a: Cradily|Swords Dance|p1a: Cradily
+|-boost|p1a: Cradily|atk|2
+|-heal|p1a: Cradily|64100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "crawdaunt"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt
+|chat|DEBUG|Own moves: hurricane roost heatwave discharge
+|chat|DEBUG|Enemy moves: closecombat crabhammer dragondance knockoff
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos']
+|chat|DEBUG|Speed: 201 vs 141
+|chat|DEBUG|HP: 189 vs 243
+|chat|DEBUG|Created a new Strategy for zapdos vs crawdaunt:
+|chat|DEBUG|>[discharge: 375.375 [344, 408], discharge: 375.375 [344, 408], discharge: 375.375 [344, 408]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 375.375 [344, 408]
+|chat|DEBUG|Best move of crawdaunt (p2): knockoff: 232.6875 [213, 252]
+|chat|DEBUG|We can kill the enemy this turn!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Cradily
+|-damage|p1a: Cradily|24100
+|-start|p1a: Cradily|confusion
+|-activate|p1a: Cradily|confusion
+|move|p1a: Cradily|Recover|p1a: Cradily
+|-heal|p1a: Cradily|74100
+|-heal|p1a: Cradily|81100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt-cradily
+|chat|DEBUG|Own moves: hurricane roost heatwave discharge
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['necrozma']
+|chat|DEBUG|Speed: 201 vs 123
+|chat|DEBUG|HP: 189 vs 267
+|chat|DEBUG|Created a new Strategy for zapdos vs cradily:
+|chat|DEBUG|>[hurricane: 104.5 [96, 114], hurricane: 104.5 [96, 114], hurricane: 104.5 [96, 114]]
+|chat|DEBUG|Best move of zapdos (p1): hurricane: 104.5 [96, 114]
+|chat|DEBUG|Best move of cradily (p2): stoneedge: 214.625 [198, 234]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Zapdos|Hurricane|p1a: Cradily|[miss]
+|-miss|p2a: Zapdos|p1a: Cradily
+|-activate|p1a: Cradily|confusion
+|move|p1a: Cradily|Stone Edge|p2a: Zapdos
+|-supereffective|p2a: Zapdos
+|-damage|p2a: Zapdos|0 fnt
+|faint|p2a: Zapdos
+|-heal|p1a: Cradily|87100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Wishiwashi|Wishiwashi, L84, F|213213
+|-formechange|p2a: Wishiwashi|Wishiwashi-School||[from] ability: Schooling
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt-cradily
+|chat|DEBUG|Own moves: hurricane roost heatwave discharge
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['necrozma']
+|chat|DEBUG|Speed: 201 vs 123
+|chat|DEBUG|HP: 189 vs 184
+|chat|DEBUG|Best move of zapdos (p1): hurricane: 104.5 [96, 114]
+|chat|DEBUG|Best move of cradily (p2): stoneedge: 425.375 [390, 462]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-end|p1a: Cradily|confusion
+|move|p1a: Cradily|Power Whip|p2a: Wishiwashi
+|-supereffective|p2a: Wishiwashi
+|-damage|p2a: Wishiwashi|0 fnt
+|faint|p2a: Wishiwashi
+|-heal|p1a: Cradily|93100|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Necrozma|Necrozma, L80|286286
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma zapdos wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-zapdos-wishiwashi -- crawdaunt-cradily
+|chat|DEBUG|Own moves: hurricane roost heatwave discharge
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 201 vs 123
+|chat|DEBUG|HP: 189 vs 233
+|chat|DEBUG|Best move of zapdos (p1): hurricane: 104.5 [96, 114]
+|chat|DEBUG|Best move of cradily (p2): stoneedge: 425.375 [390, 462]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|inactive|Time left: 150 sec this turn | 150 sec total
+|-start|p2a: Necrozma|Dynamax
+|-heal|p2a: Necrozma|572572|[silent]
+|move|p2a: Necrozma|Max Mindstorm|p1a: Cradily
+|-damage|p1a: Cradily|46100
+|-fieldstart|move: Psychic Terrain
+|move|p1a: Cradily|Stone Edge|p2a: Necrozma
+|-damage|p2a: Necrozma|398572
+|-heal|p2a: Necrozma|415572|[from] item: Leftovers
+|-heal|p1a: Cradily|52100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-wishiwashi -- crawdaunt-cradily
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: wishiwashi
+|chat|DEBUG|>Switching to wishiwashi (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Max Flare|p1a: Cradily
+|-damage|p1a: Cradily|22100
+|-weather|SunnyDay
+|move|p1a: Cradily|Recover|p1a: Cradily
+|-heal|p1a: Cradily|72100
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Necrozma|432572|[from] item: Leftovers
+|-heal|p1a: Cradily|79100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma wishiwashi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wishiwashi" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma-wishiwashi -- crawdaunt-cradily
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Own moves: earthquake hydropump icebeam uturn
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 99 vs 123
+|chat|DEBUG|HP: 213 vs 250
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Attacker had wrong stats
+|chat|DEBUG|Created a new Strategy for wishiwashi vs cradily:
+|chat|DEBUG|>[icebeam: 47.125 [44, 52], icebeam: 47.125 [44, 52], icebeam: 47.125 [44, 52]]
+|chat|DEBUG|Best move of wishiwashi (p1): icebeam: 47.125 [44, 52]
+|chat|DEBUG|Best move of cradily (p2): powerwhip: 1110.0 [1020, 1200]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Max Mindstorm|p1a: Cradily
+|-damage|p1a: Cradily|14100
+|move|p1a: Cradily|Swords Dance|p1a: Cradily
+|-boost|p1a: Cradily|atk|2
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Necrozma|449572|[from] item: Leftovers
+|-heal|p1a: Cradily|20100|[from] item: Leftovers
+|-end|p2a: Necrozma|Dynamax
+|-heal|p2a: Necrozma|225286|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "wishiwashi" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma -- crawdaunt-cradily
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: necrozma
+|chat|DEBUG|>Switching to necrozma (pokemon object) [Active: False, Status: None]
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Photon Geyser|p1a: Cradily
+|-damage|p1a: Cradily|0 fnt
+|faint|p1a: Cradily
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Necrozma|242286|[from] item: Leftovers
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p1a: Crawdaunt|Crawdaunt, L84, M|100100 par
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "necrozma" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma -- crawdaunt-cradily
+|chat|DEBUG|Own moves: heatwave calmmind photongeyser moonlight
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 173 vs 123
+|chat|DEBUG|HP: 286 vs 267
+|chat|DEBUG|Created a new Strategy for necrozma vs cradily:
+|chat|DEBUG|>[photongeyser: 101.75 [93, 111], photongeyser: 101.75 [93, 111], photongeyser: 101.75 [93, 111]]
+|chat|DEBUG|Best move of necrozma (p1): photongeyser: 101.75 [93, 111]
+|chat|DEBUG|Best move of cradily (p2): powerwhip: 219.625 [202, 238]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Necrozma|Heat Wave|p1a: Crawdaunt
+|-resisted|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|67100 par
+|move|p1a: Crawdaunt|Knock Off|p2a: Necrozma
+|-supereffective|p2a: Necrozma
+|-damage|p2a: Necrozma|0 fnt
+|-enditem|p2a: Necrozma|Leftovers|[from] move: Knock Off|[of] p1a: Crawdaunt
+|faint|p2a: Necrozma
+|-weather|SunnyDay|[upkeep]
+|-fieldend|move: Psychic Terrain
+|upkeep
+|inactive|Time left: 150 sec this turn | 150 sec total
+|switch|p2a: Dubwool|Dubwool, L86, M|94264
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>dubwool necrozma
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "necrozma" vs "cradily"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>dubwool-necrozma -- crawdaunt-cradily
+|chat|DEBUG|Own moves: heatwave calmmind photongeyser moonlight
+|chat|DEBUG|Enemy moves: powerwhip recover stoneedge swordsdance
+|chat|DEBUG|Checks: ['necrozma']
+|chat|DEBUG|Counter: ['necrozma']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 173 vs 123
+|chat|DEBUG|HP: 415 vs 149
+|chat|DEBUG|Best move of necrozma (p1): photongeyser: 101.75 [93, 111]
+|chat|DEBUG|Best move of cradily (p2): powerwhip: 219.625 [202, 238]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Possible reactions: ['crawdaunt']
+|chat|DEBUG|Expected enemy: crawdaunt
+|chat|DEBUG|Using move heatwave
+|inactive|Time left: 150 sec this turn | 150 sec total
+|move|p2a: Dubwool|Body Press|p1a: Crawdaunt
+|-supereffective|p1a: Crawdaunt
+|-damage|p1a: Crawdaunt|13100 par
+|move|p1a: Crawdaunt|Knock Off|p2a: Dubwool
+|-damage|p2a: Dubwool|0 fnt
+|-enditem|p2a: Dubwool|Leftovers|[from] move: Knock Off|[of] p1a: Crawdaunt
+|faint|p2a: Dubwool
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>Abhay lll<br>vs<br>McGewitter</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">dubwool lycanrocdusk necrozma zapdos giratinaorigin wishiwashi</h1>
