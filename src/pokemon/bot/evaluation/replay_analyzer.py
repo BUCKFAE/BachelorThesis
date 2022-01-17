@@ -48,8 +48,10 @@ def main():
                 if any(['lost due to inactivity.' in line.strip() for line in replay]):
                     lost_line = [line.strip() for line in replay if 'inactivity.' in line.strip()]
                     assert len(lost_line) == 1
-                    assert bot_name not in lost_line[0]
-                    bot_wins += 1
+                    if bot_name in lost_line[0]:
+                        bot_loss += 1
+                    else:
+                        bot_wins += 1
                     continue
 
                 try:
@@ -76,7 +78,7 @@ def main():
 
     plt.plot(range(len(elo_history)), elo_history, label='Elo over time')
     plt.plot(range(len(elo_history)), [mean_elo] * len(elo_history), label=f'Mean Elo: {mean_elo}')
-    plt.figtext(0.225, 0.825, f'Max Elo: {max_elo}', wrap=True, horizontalalignment='center', fontsize=12)
+    plt.figtext(0.225, 0.925, f'Max Elo: {max_elo}', wrap=True, horizontalalignment='center', fontsize=12)
     plt.legend()
     plt.xlabel('Games')
     plt.ylabel('Elo')

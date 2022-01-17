@@ -3,4 +3,96 @@
 \chapter{Related Work}
 \label{ch:relatedwork}
 
-\cite{KiHeKo2014-LT-DLIM}
+\todo{This won't go into }
+
+\section{Pmariglia}
+The developer \textit{Pmariglia}\cite{Github:pmariglia-showdown} created a sophisticated
+battling bot for Pokémon Showdown. This implementation is open source and can be found 
+at \url{https://github.com/pmariglia/showdown}. On the repository, you can find two 
+different approaches: \\
+
+\paragraph{Safest}
+The \textit{Safest} approach searches through the game-tree for two turns and selects the 
+move that minimizes the possible loss for a turn. As Pokémon battles make heavy use of
+\ac{RNG}, the author takes a weighted average for all possible end states. This is explained
+in more detail in \todo{Link to section where we take miss chance into account}.
+
+\paragraph{Nash-Equilibrium (experimental)}
+In game theory, the \textit{Nash-Equilibrium} is the most common way to define a solution
+of a non-cooperative game involving two or more players.  In a Nash equilibrium, each player 
+is assumed to know the equilibrium strategies of the other players and no player has 
+anything to gain by changing only their own strategy \cite{wiki:Nash_equilibrium}.
+
+\section{Showdown AI Competition}
+The authors of the \textit{Showdown AI Competition}\cite{Lee_Togelius_2017} compared many
+simple AI implementations with each other. \todo{Does not describe how damage
+is calculated}
+\paragraph{Breath-first search}
+\label{sec:showdown-competition-bfs}
+Given a root battle object representing the current game state, \ac{BFS} explores the
+outcomes of all possible choices, treating these resultant states as child nodes. This
+algorithm traverses the game tree until it finds a state in which the enemy Pokémon is
+fainted. As a non-adversarial algorithm, the agent assumes that the enemy does not 
+move at all \cite{Lee_Togelius_2017}. 
+
+\paragraph{Minimax}
+This variant of the \textit{Minimax}-Algorithm deals with adversarial paradigms by assuming
+that each player acts in their best interest. In this decision tree, each node represents
+the worst case scenario that would occur as a result of the current choice. The agent
+also uses alpha-beta pruning, ignoring any node in which the agents Pokémon faints. 
+\todo{We take the average outcome. We don't prune fainting paths (explosion)}
+The tree itself is traversed using a greedy strategy, which terminates under the same 
+conditions as \ac{BFS}\ref{sec:showdown-competition-bfs}. Both the traversal order and 
+worst-case evaluation are performed using the evaluation function \ref{eq:minmax-eval-func}
+\cite{Lee_Togelius_2017}:
+\begin{equation}
+\label{eq:minmax-eval-func}
+    Eval = \frac{\text{current hp}_{\text{Own Pokémonn}}}{\text{max hp}_{\text{Own Pokémonn}}} -
+    3 \cdot \frac{\text{current hp}_{\text{Enemy Pokémonn}}}{\text{max hp}_{\text{Enemy Pokémonn}}} -
+    0.3 \cdot \text{depth}
+\end{equation}
+
+\paragraph{Q-learning}
+The authors also implemented a \textit{Q-learning} algorithm. Two agents using \textit{Q-Learning}
+were developed: A single layer perceptron as well as a multi layer perceptron. Both agents were 
+used to output the expected reward of all current moves and switches. Based on this, the best 
+action was picked. Both agents were rewarded for defeating opponents Pokémon and punished for 
+allowing one of its own Pokémon to faint. Because decisions made tend to have long term consequences, 
+weights are updated using the last three (State, Action) pairs rather than the most recent pair only.
+Additionally, in order to promote exploration, the agent employs an epsilon-greedy selection policy, 
+causing it to randomly override its decision with a probability of 0.1. The single layer perceptron 
+was trained using the Delta Rule, while the multilayer perceptron was trained using Delta Rule 
+plus Backpropagation\cite{Lee_Togelius_2017}.
+
+\paragraph{One Turn Lookahead}
+One Turn Lookahead is a heuristic based agent designed to encapsulate a greedy strategy that 
+prioritizes damage output. The agent operates by estimating the damage dealt by all usable moves, 
+including those usable by the agent's inactive but usble Pokemon. If the highest damaging move 
+belongs to the active Pokemon, the agent will use that attack. If the most damaging move belongs to 
+an inactive Pokemon, the agent will switch to that Pokemon \cite{Lee_Togelius_2017}.
+
+\paragraph{Type Selector}
+This is a variation of the \textit{One Turn Lookahead}-Agent that utilizes a short series of
+if-else statements in its decision-making. At first, if the current Pokémon knows a move 
+that drains the opponents \ac{HP} to zero, this move is selected. Otherwise, the 
+favorability of the current matchup is evaluated. If the current type matchup is 
+undesirable, the agent will switch to the Pokémon with an acceptable type matchup. If no
+such Pokémon exists, the agent will default to the most damaging move 
+\cite{Lee_Togelius_2017}.
+
+\paragraph{Pruned Breadth-First Search}
+This agent is designed to demonstrate a simple way to utilize domain knowledge as a cost-cutting 
+measure. This algorithm does so by making modifications to the Breadth First Search agent. First, 
+the algorithm does not simulate any actions that involve using a damaging move with a resisted type, 
+nor does it simulate any actions that involve switching to a Pokemon with a subpar type matchup. 
+Additionally, rather than selfishly assuming the opponent skips their turn in each simulation, the 
+agent assumes its opponent is a One Turn Lookahead agent and simulates accordingly
+\todo{This is copied word by word}\cite{Lee_Togelius_2017}.
+
+\paragraph{Evaulation}
+This paper demonstrated how very basic approaches already yield interesting results in the 
+field of competitive Pokémon battles. As this thesis will demonstrate, simple approaches can 
+yield even better results if more key-aspects of the game like \textit{Hazards} \todo{Link to Hazards},
+\textit{Field Effects} \todo{Link to Field effects} and especially \textit{Status Effects}
+\todo{Link to Status effects} and \textit{Stat Boosts} are taken into account. This thesis furthermore
+introduces a variation of the \textit{Minmax}-Algorithm that allows for long term planning.
