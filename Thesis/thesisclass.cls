@@ -33,7 +33,7 @@
 \usepackage{url}
 \usepackage[absolute,overlay]{textpos}
 \usepackage{tikz}
-
+\usepackage{amsfonts} 
 \usepackage{algorithm2e}		  % Code-Listings
 \RestyleAlgo{ruled}
 % see http://www.ctan.org/tex-archive/macros/latex/contrib/algorithm2e/algorithm2e.pdf

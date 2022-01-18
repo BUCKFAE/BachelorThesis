@@ -100,4 +100,71 @@ introduces a variation of the \textit{Minmax}-Algorithm that allows for long ter
 
 \section{Self-Play Policy Optimization Approach}
 The approach described in \cite{Huang_Lee_2019} uses a reinforcement learning approach and performs 
-on par with the state of the art search-based Pokémon AI described in \ref{sec:pmariglia}.
+on par with the state of the art search-based Pokémon AI described in \ref{sec:pmariglia}. Similar to
+OpenAI's Dota AI \cite{OpenAI_dota}, the agent is represented using an actor-critic neural network.
+Actor-critic RL methods \todo{This is the same source as in the paper}\cite{Konda_Tsitsiklis}
+combine policy-based and value-based RL methods by predicting both policy and value for a given 
+state, and then using the value prediction, the \glqq critic\grqq, as an estimate of expected
+return when updating the policy prediction, the \glqq actor\grqq. The authors represent both
+actor and critic using a two-headed neural network which is trained via self-play RL
+\cite{Huang_Lee_2019}.
+
+\paragraph{Neural Network}
+Input to the neural network is the current state of the game, from the point of view of the player,
+represented as multi-level tree-like structure:
+\begin{enumerate}
+    \item The \textit{battle} consists of two \textit{teams}, along with weather effects.
+    \item Each \textit{team} consists of six \textit{Pokémon}, along with side conditions 
+    described in \todo{Link to side conditions}
+    \item Each \textit{Pokémon} has many features. Table \ref{tbl:HuangLee-Pokemon-Table} contains a partial 
+    list\footnote{The authors state that this list is not complete but no additional information is provided.}
+\end{enumerate}
+\begin{table}[h]
+\centering
+    \begin{tabular}{llll}
+    \hline \\
+    Feature             & Type        & Dims            & Description                 \\
+    \hline \\
+    \emph{species}      & categorical & $1 \times 1023$ & e.g. Pikachu                \\
+    \emph{item}         & categorical & $1 \times 368$  & e.g. Leftovers, Choice Band  \\
+    \emph{ability}      & categorical & $4 \times 238$  & e.g. Rough Skin, Shadow Tag \\
+    \emph{moveset}      & categorical & $4 \times 731$  & e.g. Flamethrower, Surf     \\
+    \emph{lastmove}     & categorical & $1 \times 731$  & The last move used          \\
+    \emph{stats}        & continuous  & 6               & \ac{HP}, \ac{ATK}, \ac{DEF}, \ac{SPA}, \ac{SPD}, \ac{SPE} \\
+    \emph{boosts}       & continuous  & 6               & Temporary boosts for stats \\
+    \emph{hp}           & continuous  & 1               & Current number of \ac{HP} \\
+    \emph{maxhp}        & continuous  & 1               & Number of \ac{HP} at full health \\
+    \emph{ppUsed}       & continuous  & 4               & \# times a move was used \\
+    \emph{active}       & indicator   & 1               & 1 if Pokémon is active, else 0 \\
+    \emph{fainted}      & indicator   & 1               & 1 if Pokémon has no \ac{HP}, else 0 \\
+    \emph{status}       & indicator   & 28              & e.g. \ac{SLP}, \ac{BRN}, \ac{PAR} \\
+    \emph{types}        & indicator   & 18              & e.g. \textit{Bug}, \textit{Fire} \\
+    \emph{volatiles}    & indicator   & 23              & e.g. Leech Seed, Perish Song
+    \end{tabular}
+    \caption{Features used to describe a single Pokémon battle \cite{Lee_Togelius_2017}}
+    \label{tbl:HuangLee-Pokemon-Table}
+\end{table}
+The network has two outputs: a probability distribution $\pi \in \mathbb{R}^n$ over actions to take, 
+and an estimate of player strength in the current state $v \in \mathbb{R}$. The probability distribution
+$\pi$ is computed as follows:
+\begin{enumerate}
+    \item The network outputs an intermediate vector $p \in \mathbb{R}^n$. Each of the colored cells in
+    figure \ref{fig:lee-network} correspond to an element of $p$
+    \item A probability distribution $\pi' \in \mathbb{R}^n$ is computed by using the
+    softmax function: $\pi' = \frac{\exp(p_i)}{\sum_i \exp(p_i)}$
+    \item As not every action is valid in every state, for example, a switch to a Pokémon is invalid
+    if that Pokémon is already fainted, the authors ensure their agent has zero probability of taking
+    invalid actions. To do this, they take a mask $s \in \{0, 1\}^n$ as part of the input, and 
+    renormalize probabilities to obtain $\pi: \pi_i = \frac{s_i \pi'_i}{s^T \pi'}$
+\end{enumerate}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{images/RL-Network-Structure.png}
+	\caption{The actor-critic neural network used by the authors in \cite{Lee_Togelius_2017}}
+	\label{fig:lee-network}
+\end{figure}
+The authors point out the following two key design decisions: First, a 128-dimensional entity embedding layer
+for each of the categorical variables is used. This enables capturing similarities between different moves,
+species and abilities without having to directly model their, often complicated, effects. Second, the
+parameters for computing $p$ from above are shared among all $n$ actions. The resulting network is described
+by figure \ref{fig:lee-network} and contains 1,327,618 parameters in total \cite{Lee_Togelius_2017}.
