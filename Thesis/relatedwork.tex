@@ -168,3 +168,19 @@ for each of the categorical variables is used. This enables capturing similariti
 species and abilities without having to directly model their, often complicated, effects. Second, the
 parameters for computing $p$ from above are shared among all $n$ actions. The resulting network is described
 by figure \ref{fig:lee-network} and contains 1,327,618 parameters in total \cite{Lee_Togelius_2017}.
+
+\paragraph{Training the network}
+Training was done serially: After $m = 7680$ games per iteration, the neural network parameters are updated
+using the $2m$ self-play matches as training data to obtain new neural network parameters. A reward
+of $+1$ for a win and $-1$ for a loss are assigned at the end of the match. To speed up learning, a 
+dense reward signal using reward shaping was constructed. Auxiliary rewards are assigned based on
+events that occur over the course of the match. For example, a reward of $-0.0125$ is added when a 
+Pokémon of the agent faints, and a reward of $+0.0025$ whenever the player's Pokémon makes a 
+super effective move. \\
+To update the neural network, the authors use \textit{Proximal Policy Optimization}, which optimizes
+an objective function that combines expected reward, accuracy of state value prediction, and a bonus
+for high entropy policies. To reduce the variance of policy gradient estimates, \textit{Generalized
+Advantage Estimation} is used \todo{Link Paper to both}. \\
+After 500 iterations of the training loop, 3,840,000 self-play matches had been played by the neural
+network. Training was performed using Google Cloud Platform over the course of 6 days with an 
+approximated cost of \$91 USD.
