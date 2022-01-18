@@ -126,7 +126,7 @@ class PokemonMatchup:
         faint_p2 = self.expected_turns_until_faint(species2, hp_p2)
 
         if faint_p1 == faint_p2:
-            return build_1.get_most_likely_stats()["spe"] > build_2.get_most_likely_stats()["spe"]
+            return build_1.get_most_likely_stats()["spe"] >> build_2.get_most_likely_stats()["spe"]
 
         return faint_p1 > faint_p2
 
