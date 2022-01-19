@@ -124,10 +124,11 @@ class SendingPlayer1(Player):
 
         if battle.available_moves:
             return self.create_order(max(battle.available_moves, key=lambda move: estimate_move_damage(move)))
-        else:
+        elif len(battle.available_switches) > 0:
             return self.create_order(max(battle.available_switches, key=lambda pokemon:
                                      max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
-
+        else:
+            return self.choose_random_move(battle)
 
 async def main():
     p1 = SendingPlayer1(battle_format="gen8randombattle",
@@ -140,7 +141,7 @@ async def main():
 
     games_won_p1 = 0
 
-    for i in range(5_000):
+    for i in range(50_000):
         await p1.battle_against(p2, 1)
 
         p1_won = p1.n_won_battles == 1 and p1.username == 'SendingPlayer1 1' \
