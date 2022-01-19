@@ -29,7 +29,8 @@
 \usepackage[pdftex]{graphicx}
 \usepackage{vmargin}          % Adjust margins in a simple way
 \usepackage{fancyhdr}         % Define simple headings
-\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{url}
 \usepackage[absolute,overlay]{textpos}
 \usepackage{tikz}
@@ -38,6 +39,7 @@
 \RestyleAlgo{ruled}
 % see http://www.ctan.org/tex-archive/macros/latex/contrib/algorithm2e/algorithm2e.pdf
 % for more sophisticated algorithm listings
+
 
 \usepackage[raiselinks=true,
 						bookmarks=true,
