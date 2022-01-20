@@ -55,14 +55,89 @@ As described in \todo{Link Showdown chapter}, Pokémon Showdown allows researche
 ranked ladder. 
 
 \section{Results}
-\subsection{HerrDonner and HerrGewitter}
+During this thesis, two different Agents were developed, \textit{HerrDonner} and \textit{HerrGewitter}.
+
+\subsection{HerrDonner}
+This agent was designed to establish a good baseline and to demonstrate the capabilities of a very
+simple rule set. The agent is capable of looking multiple turns into the future. In order to determine
+what moves to be used, the Agent generates every possible move combination with the specified amount
+of turns into the future and calculates the expected outcome while assuming that the enemy does 
+not move at all, similar to the \ac{BFS}-based algorithm described in paragraph \ref{sec:showdown-competition-bfs}. 
+No drawback moves that heal the agent, set hazards or field conditions or inflict status conditions
+are not considered unless they result in the highest amount of damage dealt. Also, stat changes are 
+not taken into account, neither for damage calculation nor for determination of matchups. 
+This results in the bot often spamming moves like \textit{Draco Meteor}, a \textit{special} 
+\textit{Dragon}-type move that deals a lot of damage but also lowers the
+users \ac{SPA} by two stages resulting in the move dealing less damage every time it is used. 
+When the agent is forced to switch, it will switch to a check if available. If no check is available,
+a counter is sent into battle if one exists. Otherwise, a random Pokémon will be picked. \\
+At the start of each turn, \textit{HerrDonner} will check if the current matchup is not favorable, 
+a matchup is deemed unfavorable, if the current Pokémon is neither \textit{check} nor 
+\textit{counter} to the current enemy. On a bad matchup, the bot will switch to an available 
+\textit{check} or \textit{counter}. If neither is available, the bot won't switch and try to
+defeat the current opponent with his active team member. \\
+Dynamaxing is implemented in a very simple and naive way: The agent will always dynamax the
+active Pokémon as soon as more than four enemy Pokémon are known. Lastly, if the
+current Pokémon is dynamaxed, the agent will not switch, even if the current matchup is not
+favorable. 
+
+\subsection{HerrGewitter}
+\textit{HerrGewitter} behaves like described in section \ref{ch:approach}. Here, the most notable
+differences between both agents are highlighted, and limitations of this agent are discussed. \\
+Firstly, more things are taken into consideration when calculating damage, current stat changes are
+taken into consideration as well as status conditions. In addition to that, abilities and items
+are considered for damage calculation. Furthermore, recoil from moves, healing both from items
+like \textit{Leftovers} \cite{Bulbapedia:Leftovers} and moves like \textit{Recover} aren't neglected
+anymore. \\
+Switching and the selection of moves is done as described in \ref{ch:approach}. \\
+These improvements lead to \textit{HerrGewitter} avoiding mistakes of \textit{HerrDonner}. For example,
+this agent will burn a physical attacker using for example \textit{Will-O-Wisp} \cite{Bulbapedia:Will-O-Wisp}
+in order to reduce damage taken over the next turns. The agent will also boost and heal itself in favorable
+situations which stalls the game and forces the opponent to react. Another major improvement is that the
+agent switches out the current Pokémon if stat changes resulted in an unfavorable matchup which is especially
+important as stat changes reset on swap. \\
+There are still a lot of features that \textit{HerrGewitter} is lacking. 
+
+\paragraph{Weather and Field effects}
+The first thing to improve in future versions is to add proper support for weather and field effects in 
+the damage calculator as well as in the \textit{MinMax}-Algorithm. Currently, the agent is for example
+not aware of the fact that a \textit{Fire}-Type move deals 1.5 more damage during \textit{Harsh Sunlight}.
+
+\paragraph{Hazards}
+Currently, the agent will always try to set a non-present Hazard in the early game as this does most 
+of the time result in a long term benefit. There are however some notable exceptions to this that 
+are not yet implemented:
+\begin{itemize}
+  \item The agent will always set as many hazards as possible in the early game, even if the current matchup 
+  is unfavorable, including always setting up to two layers of spikes. A small test on human players indicated
+  that this leads to slightly better results than only setting hazards on good matchups, but due to the very
+  small sample size, future work is needed to determine the best strategy for setting hazards.
+  \item The agent does not take the damage taken by hazards into account when switching Pokémon. 
+  \item The agent will always use \textit{Toxic Spikes} even if the opponent has a \textit{Poison}-Type
+  Pokémon on his team that will remove this hazard upon being switched in.
+  \item The agent will use Hazards even if the current enemy is known to have a hazard-clearing move like
+  \textit{Defog} \cite{Bulbapedia:Defog}
+  \item The agent will not clear hazards
+\end{itemize}
+
+
+\paragraph{Choice Items}
+As described in section \ref{sec:Important-items} Pokémon holding a \textit{Choice}-item are locked into using always 
+the same move until they are switched out. \todo{Continue here}
+
+\paragraph{MinMax}
+\todo{Boosts / Status not taken into consideration in MinMax}
+\todo{Hazard damage on field enter}
+\todo{Weakness: Choice Items}
+\todo{Special Moves like counter }
+
 \begin{table}[h]
     \centering
     \begin{tabular}{|l|l|l|}
     \hline 
     \textbf{Opponent}      & Wins & Losses \\
     \hline 
-    \emph{RandomPlayer}    &      &        \\
+    \emph{RandomPlayer}    & 992  & 8      \\
     \hline 
     \emph{MaxDamagePlayer} &      &        \\
     \hline 
