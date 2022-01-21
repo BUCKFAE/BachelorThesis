@@ -54,7 +54,7 @@ performance here, yet getting crushed later}
 As described in \todo{Link Showdown chapter}, Pokémon Showdown allows researchers to use bots on the
 ranked ladder. 
 
-\section{Results}
+\section{Agents}
 During this thesis, two different Agents were developed, \textit{HerrDonner} and \textit{HerrGewitter}.
 
 \subsection{HerrDonner}
@@ -123,13 +123,61 @@ are not yet implemented:
 
 \paragraph{Choice Items}
 As described in section \ref{sec:Important-items} Pokémon holding a \textit{Choice}-item are locked into using always 
-the same move until they are switched out. \todo{Continue here}
+the same move until they are switched out. The agent has two major flaws in regard to these items: When the active
+Pokémon of the agent is holding a choice item and already locked into a move, the agent is not aware of the fact that
+once the Pokémon is switched out, it will regain access to his other moves which leads to an incorrect prediction
+for future matchups. As described in \todo{Link chapter about re-determining matchups}, the only matchups re-evaluated
+on a given turn are matchups that include one of the currently active Pokémon. The following example illustrates how
+this design decision lead to issues on Pokémon with \textit{Choice}-items: \\
+In the given scenario, our agent has an active \textit{Garchomp} which is locked into using \textit{Earth Quake}. The 
+\textit{Garchomp} also has access to the \textit{Rock}-Type move \textit{Stone Edge}. This turn \textit{Butterfree},
+a \textit{Bug / Flying}-Type Pokémon
+is sent into Battle. As the \textit{Ground}-Type move \textit{Earth Quake} has no effect on \textit{Butterfree}, the agent will
+switch out \textit{Garchomp} for another Pokémon. In the current implementation, matchups for \textit{Garchomp} are not
+re-evaluated. While this won't lead to problems in the early game, this results in an incorrect \textit{MinMax} calculation
+as for matchups involving \textit{Garchomp} and any non-active opponent, \textit{Garchomp} is still assumed to only have
+access to the move \textit{Earth Quake}. In this scenario, the agent would fail to realize that \textit{Garchomp} also
+has access to \textit{Stone Edge} and would incorrectly assume Garchomp to loose all matchups against \textit{Flying}-Type
+Pokémon. \\
+While this behavior rarely effects battle, the agent failing to realize that an enemy is choice-locked has more often a 
+negative impact on the battle: If the enemy is known to be choice-locked into \textit{Earth Quake} we can safely switch 
+a \textit{Flying}-Type into battle. This applies especcially if the enemy Pokémon is known to have the \textit{Rock}-type 
+super effective
+move \textit{Stone Edge} as the enemy can't use this move until switched out and back in again. In this scenario, the
+agent wrongfully would not prefer to switch in a \textit{Flying}-Type Pokémon due to the thread posed by 
+\textit{Stone Edge}. Switching in a Pokémon resisting \textit{Earth Quake} in this scenario forces the enemy to switch
+to another Pokémon. This gained turn advantage can either be used to land an extra move on the next opponent, set hazards,
+beneficial field conditions, inflict status conditions or boost the current Pokémon.
+
+\paragraph{Damage Calculator}
+The current implementation relies on the Pokémon Showdown Damage Calculator. As of now, this open source project does 
+only support direct damage dealt by attacking and lacks functionalities like recoil, healing from items and moves. While
+we added these features to our implementation, some moves are still not properly implemented. For example, the move
+\textit{Counter} has a move priority \todo{Explain move priorities} of $-5$ and works as follows:
+If the last mount of damage dealt before the use of \textit{Counter} is greater than zero and was dealt by a 
+\textit{Physical}-Type move, \textit{Counter} will do twice as much damage to the opponent. Otherwise, the move
+will miss. Additionally, \textit{Counter} has a lot of extra rules regarding other special moves in place 
+\cite{Bulbapedia:Counter}. Issues like these are especially obvious on \textit{Wobbuffet} as all of his four
+most likely moves, \textit{Mirror Coat}, \textit{Encore}, \textit{Counter} and \textit{Encore} are very useful
+yet don't deal any damage and are not implemented yet which leads the agent to believe that this Pokémon is bad 
+in every possible matchup and has no good use scenarios whatsoever.
+
+\paragraph{Other special cases}
+This list contains more currently unhandled cases which will be addressed in future versions:
+\begin{itemize}
+  \item The Pokémon \textit{Ditto} can transform itself into the Pokémon of the current opponent.
+  \item The Pokémon \textit{Zoroark} can transform itself into another team member. 
+  \item The ability \textit{Trace} changes the ability of a Pokémon to the ability of his opponent.
+\end{itemize}
 
 \paragraph{MinMax}
-\todo{Boosts / Status not taken into consideration in MinMax}
-\todo{Hazard damage on field enter}
-\todo{Weakness: Choice Items}
-\todo{Special Moves like counter }
+The \textit{MinMax} algorithm described in paragraph \ref{ref:defeat-phase} only support changes in health
+but ignores other important factors such as boosts and status conditions. Therefore, the agent will 
+not recognize the possibility to weaken a very strong physical attacker like \textit{Garchomp} by burning
+it first and then defeating it with another Pokémon. A simple way to include \ac{BRN} into this algorithm
+is to multiply the expected damage dealt by a burned Pokémon with $0.5$. 
+
+\section{Results}
 
 \begin{table}[h]
     \centering
