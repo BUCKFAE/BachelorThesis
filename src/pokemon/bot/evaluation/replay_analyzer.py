@@ -8,8 +8,8 @@ from matplotlib import pyplot as plt
 from src.pokemon import logger
 
 REPLAY_LOCATIONS = [
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner')
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner')
 ]
 
 def main():
@@ -87,6 +87,8 @@ def main():
         bot_wins, bot_loss = bot_w_l[bot]
         elo_history = elo_histories[bot]
 
+        bot = bot.replace('Mc', 'Herr')
+
         logger.info(f'Win {bot_wins} / {bot_loss} Loss')
 
         mean_elo = int(sum(elo_history) / len(elo_history))
@@ -104,16 +106,19 @@ def main():
         plt.ylabel('Elo')
         plt.yticks(np.arange(1000, 1650, 100))
         plt.title(f'{bot}')
+        plt.savefig(f'Thesis/images/{bot[4:]}-Elo-Time.png')
         plt.show()
         
     for bot in elo_histories.keys():
         elo_history = elo_histories[bot]
 
+        bot = bot.replace('Mc', 'Herr')
+
         smoothed_elo = []
         step = 20
         for i in range(0, len(elo_history), step):
-            part = elo_history[i: i + step]
-            smoothed_elo += [(i, sum(part) / len(part))]
+            sec = elo_history[i: i + step]
+            smoothed_elo += [(i, sum(sec) / len(sec))]
 
         plt.plot(*zip(*smoothed_elo), label=f'{bot}')
 
@@ -123,6 +128,7 @@ def main():
         plt.yticks(np.arange(1000, 1600, 100))
         plt.ylabel('Elo')
 
+    plt.savefig('Thesis/images/Smoothed-Elo-Time.png')
     plt.show()
 
 

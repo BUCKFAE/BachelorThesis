@@ -178,65 +178,74 @@ it first and then defeating it with another Pokémon. A simple way to include \a
 is to multiply the expected damage dealt by a burned Pokémon with $0.5$. 
 
 \section{Results}
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|l|l|}
-    \hline 
-    \textbf{Opponent}      & Wins & Losses \\
-    \hline 
-    \emph{RandomPlayer}    & 992  & 8      \\
-    \hline 
-    \emph{MaxDamagePlayer} &      &        \\
-    \hline 
-    \emph{HerrGewitter}    &      &        \\
-    \hline 
-    \end{tabular}
-    \caption{Results of HerrDonner}
-    \label{tab:HerrDonner}
-\end{table}
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|l|l|}
-    \hline 
-    \textbf{Opponent}      & Wins   & Losses \\
-    \hline 
-    \emph{RandomPlayer}    & 993    & 7 \\
-    \hline 
-    \emph{MaxDamagePlayer} &        &        \\
-    \hline 
-    \emph{HerrDonner}       &       &        \\
-    \hline 
-    \emph{Pmariglia}        & 273   & 727 \\
-    \hline
-    \end{tabular}
-    \caption{Results of HerrGewitter}
-    \label{tab:HerrGewitter}
-\end{table}
-
-\subsection{Comparison to other agents}
-
-\subsection{Ranked Results}
+\subsection{Ranked results}
 \begin{figure}[h]
+  \centering
+  \begin{minipage}{.5\textwidth}
     \centering
-    \begin{minipage}{.5\textwidth}
-      \centering
-      \includegraphics[width=1\linewidth]{images/Donner-Elo-Time.png}
-      \captionof{figure}{Elo HerrDonner}
-      \label{fig:donner-elo}
-    \end{minipage}%
-    \begin{minipage}{.5\textwidth}
-      \centering
-      \includegraphics[width=1\linewidth]{images/Gewitter-Elo-Time.png}
-      \captionof{figure}{Elo HerrGewitter}
-      \label{fig:gewitter-elo}
-    \end{minipage}
+    \includegraphics[width=1\linewidth]{images/Donner-Elo-Time.png}
+    \captionof{figure}{Elo HerrDonner}
+    \label{fig:donner-elo}
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{images/Gewitter-Elo-Time.png}
+    \captionof{figure}{Elo HerrGewitter}
+    \label{fig:gewitter-elo}
+  \end{minipage}
 \end{figure}
-    
+\todo{Print this page and check if the figures are to small}
+Both agents were evaluated at the same time over the span of multiple days by playing over 1400 ranked games each 
+against human opponents on Pokémon Showdown. Figure \ref{fig:donner-elo} shows the Elo rating of \textit{HerrDonner}
+over time, while figure \ref{fig:gewitter-elo} displays the Elo rating of \textit{HerrGewitter}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/Smoothed-Elo-Time.png}
 	\caption{Smoothed Elo}
 	\label{fig:elo-smoothed}
 \end{figure}
- 
+In order to make comparison of both agents more easy, figure \textit{fig:elo-smoothed} shows the smoothed Elo of
+both agents over time. Smoothing was achieved by dividing the Elo history in chunks of size 20 and then plotting
+the average Elo of each chunk. 
+\\\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption=Smoothing Elo values]
+  step = 20
+  smoothed_elo = []
+  for i in range(0, len(elo_history), step):
+      sec = elo_history[i: i + step]
+      smoothed_elo += [(i, sum(sec) / len(sec))]
+\end{lstlisting}
+\end{minipage}
+The first thing to note is that \textit{HerrGewitter} has a higher mean Elo ($1227$) as well as a higher max Elo ($1432$)
+than \textit{HerrDonner} who achieved an average Elo of $1125$ and peaked at an Elo of $1342$. 
+\todo{Why is my agent worse than Pmariglia?}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+     & Random & MaxDmg & Pmariglia \cite{Github:pmariglia-showdown} & DQN \cite{Huang_Lee_2019} & Donner   & Gewitter  \\
+    \hline
+    Random                                         & N / A  & -      & -         & 995 / 5   & 992 / 8  & 993 / 7   \\
+    \hline
+    MaxDmg                                         &        & N / A  & -         & 929 / 71  & 906 / 94 & 951 / 49  \\
+    \hline
+    Pmariglia                                      &        &        & N / A     & 612 / 388  & -        & 273 / 727 \\
+    \hline
+    DQN                                            &        &        &           & N / A     & -        & -         \\
+    \hline
+    Donner                                         &        &        &           &           & N / A    & 580 / 420 \\
+    \hline
+    Gewitter                                       &        &        &           &           &          & N / A     \\                            
+    \hline
+    \end{tabular}
+    \caption{Battle results of 1,000 games between the agents.}
+    \label{tab:agent-performance}
+  \end{table}
+Table \ref{tab:agent-performance} shows the performance of different agents when directly competing against each other.
+\todo{DQN played against an older version of Pmariglia.}
+Each entry displays the results of a thousand games played between both agents. The first number indicates the amount
+of games the agent in the current column won. There are a multiple things to point out here: \\
+While \textit{HerrDonner} and \textit{HerrGewitter} achieved almost similar results when battling a random agent, 
+\textit{HerrDonner} performed notably worse against the \textit{MaxDmg} agent which always picks the move with the
+highest base power. Also, \textit{HerrDonner} only managed to win $58\%$ against \textit{HerrDonner} despite notably
+better results against human players \todo{Above section how hard it is to beat Donner / Gewitter}. 
