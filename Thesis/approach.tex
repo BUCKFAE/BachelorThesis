@@ -2,12 +2,9 @@
 
 \chapter{Approach}
 \label{ch:approach}
-\todo{Switching highest Priority, always first}
-\todo{Players move at the same time, unlike in chess.}
 \todo{Predictions}
 \todo{Matchups only recalculated on new information.}
-\section{Implementation}
-\subsection{Communication with Pokémon Showdown}
+\section{Communication with Pokémon Showdown}
 \label{sec:poke-env}
 The communication with Pokémon Showdown is handled using the python library \textit{Poke-Env} \cite{PokeEnv:Github}.
 This library provides a lot of the core functionality needed, like accessing the current Pokémon in battle as well
@@ -15,7 +12,7 @@ as switch and move options. However, it does not provide functionality for damag
 Damage Calculator} \cite{Smogon:DamageCalc}, a node library written by the smogon-team for that. 
 Communication between the two libraries is implemented by capturing stdout and stdin using the \textit{subprocess} python library.
 
-\subsection{Gathering Information about the enemy Pokémon}
+\section{Gathering Information about the enemy Pokémon}
 \label{sec:builds-randbats}
 As mentioned in \ref{sec:showdown-randbats}, the same Pokémon can occur in various different builds, meaning the combination
 of moves, abilities and items. Knowing the exact enemies build is very important for decision-making. Consider the following
@@ -64,7 +61,7 @@ In actual battles, if a new Pokémon enters the enemy side, we assume it to have
 Once more information becomes available on items, moves and abilities, we rule-out non-matching builds and always
 assume the enemy to have the remaining most likely build.
 
-\subsection{Scoring the current game state}
+\section{Scoring the current game state}
 In Order to not only rate the current board state, but also individual Pokémon, we implement the following scoring 
 algorithm:
 \begin{equation}
@@ -99,7 +96,7 @@ Therefore, a positive rating indicates that the board is favorable for the playe
 the board is unfavorable for the player and a value close to zero indicates that no player currently has and
 advantage over the other.
 
-\subsection{Stages of the game}
+\section{Stages of the game}
 \label{sec:stages-of-game}
 We divide the game into two phases, the first one being the \textit{Discover}-Phase whereas the second phase is called
 \textit{Defeat}-Phase. Our goal and therefore our play style, is different in both phases.
@@ -167,7 +164,7 @@ expect to win the battle. As a result of this, the best choice in our example sc
 defeat the already damaged \textit{Charizard}. \\
 \todo{Explain why MinMax Tree is correct. Pokemon don't have expected items / moves!}
 
-\subsection{Determining matchups}
+\section{Determining matchups}
 \label{sec:determine-matchups}
 In order to determine whether to attack or to switch, we need to determine how the optimal moves for a Pokémon against
 another Pokémon are calculated. As stated before, the amount of possible combinations combined with the non-deterministic
