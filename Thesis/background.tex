@@ -1,15 +1,7 @@
 \chapter{Background}
 
 \section{Basic rules}
-\todo{Game is turn based} \\
-\todo{Each player has 6 Pokémon} \\
-\todo{If a Pokémon has no HP left, it faints} \\
-\todo{If all Pokémon of a player fainted, the player loses} 
-\todo{Game states in Pokémon are
-high-dimensional and the majority of its features are both categorical and partially observable}
 \todo{Explain Dynamaxing!}
-\todo{Switching highest Priority, always first}
-\todo{Players move at the same time, unlike in chess.}
 \todo{Humans on Showdown do NOT know that they are playing against a bot. Bots are allowed on showdown.}
 \section{Battling}
 \label{sec:battling}
@@ -17,7 +9,7 @@ One of the key aspects of the Pokémon game is to battle other Pokémon. In the 
 have up to six Pokémon in your team, also known as party. There is the option to swap a Pokémon with
 another Pokémon, but you can't have more than six Pokémon at any point in your team. When playing the 
 original Games, you explore the world to find more Pokémon and use your team to defeat wild Pokémon
-and other Pokémon trainer. This thesis however focus on random battles taking place on Pokémon Showdown.
+and other Pokémon trainer. This thesis focuses on random battles taking place on Pokémon Showdown.
 In a random battle, both you and your opponent get a team of six random Pokémon. At the start of the battle,
 you know each of your six Pokémon but only the currently active enemy Pokémon. \\
 Every turn, both players can choose to either use a Move of their currently active Pokémon or switch
@@ -25,7 +17,7 @@ their active Pokémon to another Pokémon. Moves can either deal direct damage t
 yield other advantages like increasing the damage dealt by the next move. Moves will be covered in more
 detail in section \ref{sec:moves}. Each Pokémon has an amount of \ac{HP}. The \ac{HP} of a Pokémon
 can be dropped by attacking it with a Move. If the \ac{HP} of a Pokémon drops to zero, it faints and 
-can't be used in this battle anymore. A player wins, if all Pokémon of the enemy are fainted. \\
+can't be used in this battle anymore. A player wins, once all enemies fainted. \\
 \textit{Note:} In the mainline games there is the possibility to heal or even revive a fainted 
 Pokémon during battle using \textit{Healing Items} like \textit{Revive} or \textit{Hyper Potion}.
 In competitive Play, only \textit{Held items} like \textit{Leftovers} are allowed. Items will be explained
@@ -33,7 +25,7 @@ in depth in section \ref{sec:items}.
 
 \subsection{Types}
 \label{sec:types}
-Pokémon implements a \textit{Rock-Paper-Scissors}-like system. Each Pokémon has eihter one or two of 
+Pokémon implements a \textit{Rock-Paper-Scissors}-like system. Each Pokémon has either one or two of 
 18 types. For example, a \textit{Fire}-type Pokémon is weak against \textit{Water}-type Pokémon
 whereas a \textit{Water}-type Pokémon is weak against \textit{Grass}-type Pokémon. Lastly,
 a \textit{Grass}-type Pokémon is weak against \textit{Fire}-type Pokémon. 
@@ -51,60 +43,27 @@ attack will deal 4 times the damage against \textit{Parasect} as \textit{Parasec
 \subsection{Moves}
 \label{sec:moves}
 Moves can be split up into three categories: \textit{Physical}-, \textit{Special}- and \textit{Status}-Moves.
-While \textit{Physical}- and \textit{Special}-moves usually deal damage to the opponent Pokémon, 
+While \textit{Physical}- and \textit{Special}-Moves usually deal damage to the opponent Pokémon, 
 \textit{Status}-Moves can for example change the weather, which plays a role in damage calculation explained
-in section \ref{sec:damage-calculation}, inflict status effects, raise or lower the stats of a Pokémon. Just 
-as Pokémon, each Move has one of the 18 possible types. 
+in section \ref{sec:damage-calculation}, inflict status effects, raise or lower the stats of a Pokémon. In 
+addition, a move also has exactly one of the 18 possible types.
 
 \subsection{Pokémon}
 \label{sec:pokemon}
-As stated in \ref{sec:battling}, each Pokémon has a given amount of \ac{HP}. However, two Pokémon of the same 
-\textit{species}, meaning two Pokémon with the same name, can have different starting \ac{HP} values. The figure
-\ref{fig:charizard-stats} shows the different \textit{stats} for the Pokémon \textit{Charizard}.
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\textwidth]{images/charizard-stats.png}
-	\caption{Charizard's stats \cite{Bulbapedia:Charizard}}
-	\label{fig:charizard-stats}
-\end{figure}
+A key-concept of Pokémon battles are the \textit{stats} of a Pokémon. The most important stats
+are explained below. 
 \paragraph{Explanation of stats}
 \textbf{HP:} The \ac{HP} determines how much damage a Pokémon can receive before fainting. \\
 \textbf{Attack:} The \ac{ATK} determines how much damage a Pokémon will deal when using 
 a \textit{Physical}-Move. \\
-\textbf{Defense:} The \ac{DEF} determines how well a Pokémon can resist against physical attacks. \\
+\textbf{Defense:} The \ac{DEF} determines how well a Pokémon can resist against \textit{physical} attacks. \\
 \textbf{Sp. Atk:} The \ac{SPA} determines how much damage a Pokémon will deal when using
 a \textit{Special}-Move. \\
 \textbf{Sp. Def:} The \ac{SPD} determines how well a Pokémon can resist against special attacks. \\
-\textbf{Speed:} The \ac{SPE} determines how fast a Pokémon can act. This is important as instead of
-both Pokémon moving at the same time, the Pokémon with the higher \ac{SPE} will move first. After 
-the faster Pokémon moved, the slower Pokémon will move. Therefore, the faster Pokémon is usually at an
-advantage. 
-\todo{Cover priority moves and trickroom}
+\textbf{Speed:} The \ac{SPE} determines how fast a Pokémon can act. Usually, the Pokémon with a higher
+\ac{SPE} will move before the slower one. The exact order of actions in battles is covered in section
+\ref{sec:order-of-events}.
 \todo{Cover evasion / accuracy, context to showdown}
-\paragraph{Status condition}
-A Pokémon can have a status condition, this affects the Pokémon negatively. Status conditions are
-inflicted by moves. The most important status conditions are
-\begin{itemize}
-	\item \textbf{Burn:} If a Pokémon suffers from the status condition \ac{BRN}, it will lose 1/8 of its
-		total \ac{HP} every turn. In addition to that, a burned Pokémon will only deal half as much damage
-		when using a \textit{physical} move.
-	\item \textbf{Freeze:} If a Pokémon suffers from the status condition \ac{FRZ} it won't, with a few exceptions,
-		be able to use moves
-	\item \textbf{Paralysis:} If a Pokémon suffers from the status condition \ac{PAR} it won't be able to use 
-		the selected move 25\% of the time and their Speed is halved.
-	\item \textbf{Poison:} If a Pokémon suffers from the status condition \ac{PSN} it will, with a few exceptions,
-		take damage equal to 1/8 of its total \ac{HP} at the end of every turn. A Pokémon can also be 
-		\textit{badly poisoned}. Badly poison initially inflicts damage equal to 1/16 of the Pokémon's maximum
-		\ac{HP}, with the damage inflicted increasing by 1/16 each turn. This means that the Pokémon will
-		take 2/16 damage on the second turn, 3/16 on the third turn.
-	\item \textbf{Sleep:} If a Pokémon suffers from the status condition \ac{SLP} it won't be able to use moves,
-		except \textit{Snore} and \textit{Sleep Talk}. In the mainline games, sleep lasts randomly between
-		one and three turns. However, in Pokémon Showdown a Pokémon will \textit{always} be asleep for exactly
-		two turns.
-\end{itemize}
-
-At any point, a Pokémon can only suffer from one status condition at a time, this means that a 
-\textit{burned} Pokémon can't fall asleep.
 
 \paragraph{Determination of stats}
 \label{sec:stat-calculation}
@@ -148,6 +107,15 @@ will have 1 extra point in the given stat. A Pokémon can earn up to 510 \ac{EV}
 255 \ac{EV} in a single stat \cite{Bulbapedia:Stat}. Random Pokémon on Showdown will always have 85 
 \ac{EV} in each stat, or 0 in the case that having a high stat being detrimental \cite{Smogon:RandBatsGuide}.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/charizard-stats.png}
+	\caption{Possible stats of \textit{Charizard} \cite{Bulbapedia:Charizard}}
+	\label{fig:charizard-stats}
+\end{figure}
+Figure \ref{fig:charizard-stats} displays information about possible stat-combinations of 
+\textit{Charizard}. 
+
 \subsection{Switching}
 \label{sec:switching}
 Instead of using a move with the current Pokémon, the player also has the option to switch out the 
@@ -157,6 +125,31 @@ player decides to switch out a non-fainted Pokémon, the enemy gets to use his m
 If a Pokémon faints, the player has to switch in a new Pokémon and then the next turns tarts. This means
 that the opponent gains a one turn advantage if the player decides to switch out a healthy Pokémon, but
 won't get to attack an additional time if the Pokémon was defeated.  
+
+\subsection{Status condition}
+A Pokémon can have a status condition, this affects the Pokémon negatively. Status conditions are
+inflicted by moves. The most important status conditions are
+\begin{itemize}
+	\item \textbf{Burn:} If a Pokémon suffers from the status condition \ac{BRN}, it will lose 1/8 of its
+		total \ac{HP} every turn. In addition to that, a burned Pokémon will only deal half as much damage
+		when using a \textit{physical} move.
+	\item \textbf{Freeze:} If a Pokémon suffers from the status condition \ac{FRZ} it won't, with a few exceptions,
+		be able to use moves
+	\item \textbf{Paralysis:} If a Pokémon suffers from the status condition \ac{PAR} it won't be able to use 
+		the selected move 25\% of the time and their Speed is halved.
+	\item \textbf{Poison:} If a Pokémon suffers from the status condition \ac{PSN} it will, with a few exceptions,
+		take damage equal to 1/8 of its total \ac{HP} at the end of every turn. A Pokémon can also be 
+		\textit{badly poisoned}. Badly poison initially inflicts damage equal to 1/16 of the Pokémon's maximum
+		\ac{HP}, with the damage inflicted increasing by 1/16 each turn. This means that the Pokémon will
+		take 2/16 damage on the second turn, 3/16 on the third turn.
+	\item \textbf{Sleep:} If a Pokémon suffers from the status condition \ac{SLP} it won't be able to use moves,
+		except \textit{Snore} and \textit{Sleep Talk}. In the mainline games, sleep lasts randomly between
+		one and three turns. However, in Pokémon Showdown a Pokémon will \textit{always} be asleep for exactly
+		two turns.
+\end{itemize}
+
+At any point, a Pokémon can only suffer from one status condition at a time, this means that a 
+burned Pokémon can't fall asleep.
 
 \subsection{Items}
 \label{sec:items}
@@ -168,27 +161,26 @@ but not less than 1} \cite{Bulbapedia:LifeOrb}. \textit{Leftovers} restore 1/16 
 maximum \ac{HP}\footnote{Rounded down, but not less than 1} at the end of each turn whereas the item
 \textit{Air Balloon} makes the holder \textit{ungrounded}, which means that the holder is immune to
 \textit{Ground}-type moves as well as several related effects\cite{Bulbapedia:AirBalloon}. The 
-items generated in Pokémon Showdown are described in more details in \ref{sec:randbats-items}.
+generation of items in Pokémon Showdown is described in more detail in section \ref{sec:randbats-items}.
 \paragraph{Important items}
 \label{sec:Important-items}
 In this section, a quick introduction to the most important items is given.
 \begin{itemize}
-	\item \textbf{Choice Band:} When held by a Pokémon, this item boosts the \ac{ATK} by 5ß\%, but only
+	\item \textbf{Choice Band:} When held by a Pokémon, this item boosts the \ac{ATK} by 50\%, but only
 	allows the use of the first move selected. This effect resets when the holder is switched out \cite{Bulbapedia:ChoiceBand}. 
-	\item \textbf{Choice Scarf:} When held by a Pokémon, this item boosts the \ac{SPE} by 5ß\%, but only
+	\item \textbf{Choice Scarf:} When held by a Pokémon, this item boosts the \ac{SPE} by 50\%, but only
 	allows the use of the first move selected. This effect resets when the holder is switched out \cite{Bulbapedia:ChoiceScarf}. 
-	\item \textbf{Choice Specs:} When held by a Pokémon, this item boosts the \ac{SPA} by 5ß\%, but only
+	\item \textbf{Choice Specs:} When held by a Pokémon, this item boosts the \ac{SPA} by 50\%, but only
 	allows the use of the first move selected. This effect resets when the holder is switched out \cite{Bulbapedia:ChoiceSpecs}. 
 	\item \textbf{Leftovers:} Restores 1/16 of the holder's maximum \ac{HP} at the end of each turn \cite{Bulbapedia:Leftovers}.
 	\item \textbf{Life Orb:} Boosts the damage dealt by the holder's damaging moves by 30\%, but the holder takes damage 
 	equal to 10\% of its maximum \ac{HP} after it uses a damaging move \cite{Bulbapedia:LifeOrb}.
 	\item \textbf{Heavy-Duty Boots:} The holder is unaffected by the effects of entry hazards. Entry hazards are described 
-	in \ref{sec:hazards}. If a \textit{grounded} \textit{Poison}-type Pokémon enters the field while holding this item,
-	it will cause \textit{Toxic Spikes} to be removed \cite{Bulbapedia:HeavyDutyBoots}.
+	in \ref{sec:hazards}.
 	\item \textbf{Assault Vest:} Raises the holders \ac{SPD} by 50\%, but also prevents the holder from selecting any 
 	status move\footnote{Except \textit{Me First}} \cite{Bulbapedia:AssaultVest}.
 	\item \textbf{Focus Sash:} If the holder has full \ac{HP} and is hit by an attack that would otherwise cause fainting,
-	it survives with 1 HP \cite{Bulbapedia:FocusSash}.
+	it survives with 1 \ac{HP} \cite{Bulbapedia:FocusSash}.
 \end{itemize}
 
 \subsection{Field effects}
@@ -199,9 +191,9 @@ All of them are beneficial to \textit{grounded} Pokémon. A Pokémon is \textit{
 following conditions apply:
 \begin{itemize}
 	\item The Pokémon has the \textit{Flying}-type
-	\item The Pokémon has the Ability Levitate
+	\item The Pokémon has the Ability \textit{Levitate}
 	\item The Pokémon is holding the item \textit{Air Balloon}
-	\item The Pokémon is under the effect of \textit{Magnet Rise} or Telekinesis.
+	\item The Pokémon is under the effect of \textit{Magnet Rise} or \textit{Telekinesis}.
 \end{itemize}
 \textit{Grounded} Pokémon are with a few exceptions those Pokémon, that are not \textit{ungrounded}. A 
 Pokémon will be grounded if any of the following conditions apply:
@@ -215,19 +207,27 @@ There are five different possible \textit{terrain}-states.
 \begin{itemize}
 	\item \textbf{None:} The default state, no other effects are applied. 
 	\item \textbf{Electric Terrain:} Grounded Pokémon can't fall asleep and the power of \textit{Electric}-type
-		moves is also by 50\%.
+		moves is increased by 50\%.
 	\item \textbf{Grassy Terrain:} The HP of grounded Pokémon is restored by 1/16 of their maximum HP at the
 		end of each turn. In addition, the power of \textit{Grass}-type moves is increased by 50\% and the 
 		moves \textit{Earthquake}, \textit{Magnitude} and \textit{Bulldoze} halve in power. 
-	\item \textbf{Misty Terrain:} protects all grounded Pokémon from status conditions (including confusion).
+	\item \textbf{Misty Terrain:} protects all grounded Pokémon from status conditions (including confusion)
+		\todo{Does confusion exist in Showdown?}
 		The power of \textit{Dragon}-type moves is halved while in effect. 
-	\item \textbf{Psychic Terrain} prevents grounded Pokémon from being hit by high-priority moves (such as
-		\textbf{Quick Attack} or \textit{Sucker Punch}). The power of \textit{Psychic}-type moves is also increased
+	\item \textbf{Psychic Terrain} prevents grounded Pokémon from being hit by priority moves. Priority
+	moves will be covered in section \ref{sec:order-of-events}. The power of \textit{Psychic}-type moves is also increased
 \end{itemize}
 It is important to note, that only one \textit{terrain} can be active at a time, yet, \textit{terrain}
 can coexist with other \textit{field effects} like \textit{weather}.
 
 \paragraph{Weather}
+\todo{Explain weather}
+
+\subsection{Order of events}
+\label{sec:order-of-events}
+\todo{Switching has the highest Priority}
+\todo{Usually the faster Pokémon acts first}
+\todo{Some moves have a special priority.}
 
 \subsection{Damage calculation}
 \label{sec:damage-calculation}
