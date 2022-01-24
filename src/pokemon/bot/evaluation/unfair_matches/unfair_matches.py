@@ -65,20 +65,11 @@ class Collector:
             else 0 for m in matchups if m.pokemon_1.species == p.species])
             for p in self.team_1])
 
-        good_matchups = sum([sum([
-            1 if m.pokemon_1.stats["spe"] > m.pokemon_2.stats["spe"]
-            else 0 for m in matchups if m.pokemon_1.species == p.species])
-            for p in self.team_1])
-
         bad_matchups = sum([sum([
             1 if m.is_counter(m.pokemon_2.species, m.pokemon_1.species)
             else 0 for m in matchups if m.pokemon_2.species == p.species])
             for p in self.team_2])
 
-        bad_matchups = sum([sum([
-            1 if m.pokemon_1.stats["spe"] < m.pokemon_2.stats["spe"]
-            else 0 for m in matchups if m.pokemon_2.species == p.species])
-            for p in self.team_2])
         # logger.info(f'Good Matchups: {good_matchups}')
         # logger.info(f'Good Matchups opponent: {bad_matchups}')
 
@@ -108,13 +99,15 @@ class Collector:
         ax.bar([t for t in self.results.keys()], [t[0] + t[1] for t in self.results.values()], color='red')
         plt.xticks(np.arange(min([t for t in self.results.keys()]), max([t for t in self.results.keys()]) + 1, 1.0))
         ax.set_ylabel("Frequency", color='red')
+        ax.set_xlabel("Board rating")
 
         ax2 = ax.twinx()
         ratio_data = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in self.results.items()]
         logger.info(f'{ratio_data=}')
         ax2.plot(*zip(*sorted(ratio_data)), color='green')
         ax2.set_ylabel("Win rate in percent", color='green')
-        plt.show()
+        plt.savefig('boardrating.png')
+        # plt.show()
 
 
 class SendingPlayer1(Player):
@@ -150,7 +143,7 @@ async def main():
 
     games_won_p1 = 0
 
-    for i in range(1_000):
+    for i in range(1_00):
         await p1.battle_against(p2, 1)
 
         p1_won = p1.n_won_battles == 1 and p1.username == 'SendingPlayer1 1' \
