@@ -3,55 +3,77 @@
 \chapter{Related Work}
 \label{ch:relatedwork}
 
-\todo{This won't go into }
+\section{Baseline Agents}
+\label{sec:eval-challenges-baseline}
+A good way to get a rough idea on how well an agent performs can be to compare it against a baseline agent.
+There are two very popular baseline agents, the \textit{RandomPlayer} and the \textit{MaxDamagePlayer}.
+While the \textit{RandomPlayer} always chooses either a random move or a random switch, the \textit{MaxDamagePlayer}
+always picks the move with the highest base power. If no move is available, the agent will switch to a random 
+Pokémon. This is roughly equal to the skill level of an inexperienced beginner human. 
 
-\section{Pmariglia}
-\label{sec:pmariglia}
-The developer \textit{Pmariglia}\cite{Github:pmariglia-showdown} created a sophisticated
-battling bot for Pokémon Showdown. This implementation is open source and can be found 
-at \url{https://github.com/pmariglia/showdown}. On the repository, you can find two 
-different approaches: \\
+\section{Breath-first search}
+\label{sec:related-bfs}
+Given a root battle object representing the current game state, \ac{BFS} explores the outcomes of all possible choices,
+treating these resultant states as child nodes. This algorithm traverses the game tree until it finds a state in which
+the enemy Pokémon is fainted. As a non-adversarial algorithm, the agent assumes that the agent does not move at all.
+This agent won 75 out of 90 total games played against a random agent\cite{Lee_Togelius_2017}.
 
-\paragraph{Safest}
-The \textit{Safest} approach searches through the game-tree for two turns and selects the 
-move that minimizes the possible loss for a turn. As Pokémon battles make heavy use of
-\ac{RNG}, the author takes a weighted average for all possible end states. This is explained
-in more detail in \todo{Link to section where we take miss chance into account}.
+\section{Minimax}
+\label{sec:related-minimax}
+Minimax builds upon \ac{BFS} as this algorithm deals with adversarial paradigms by assuming the opponents 
+act in their best interest.
+There are multiple possibilities on how to implement the Minimax algorithm for Pokémon games. The main difference 
+in different implementations is how states are evaluated and the assumptions about the opponents. Additionally,
+the amount of features taken into consideration have a huge impact. The authors of \cite{Lee_Togelius_2017} deal
+with adversarial paradigms by assuming that each player acts in their best interests. In the resulting decision 
+tree, each node represents the worst case scenario that would occur as a result of the current choice. The agent
+also uses alpha-beta pruning, ignoring any node in which the agents Pokémon faints.
+\todo{Explosion: Good decision but Pokémon faints}
+The tree itself is traversed using a greedy strategy, which terminates when a state in which the enemy 
+Pokémon is fainted is reached. Both the traversal order and the wors-case evaluation are performed using
+the evaluation function \ref{eq:minmax-eval-func} \cite{Lee_Togelius_2017}:
+\begin{equation}
+\label{eq:minmax-eval-func}
+    Eval = \frac{\text{current hp}_{\text{Own Pokémon}}}{\text{max hp}_{\text{Own Pokémon}}} -
+    3 \cdot \frac{\text{current hp}_{\text{Enemy Pokémon}}}{\text{max hp}_{\text{Enemy Pokémon}}} -
+    0.3 \cdot \text{depth}
+\end{equation}
+A YouTube-Video released by \emph{Rempton Games} \cite{RemptonGames:PokemonAI} alters this evaluation function
+by increasing the rating of a game state when an enemy takes damage and decreasing the rating when a member
+of the own team takes damage. Both evaluation functions do not take hazards, status condition or boosts 
+into account. Due to the similarity of both evaluation functions, both agents performed very similarly:
+The first agent described by \cite{Lee_Togelius_2017} won 70 out of 90 total games against a random agent,
+resulting in a win-ratio of $\approx 86\%$. The second agent defeated the random player in 831 out of 1000
+total games, yielding a win-ratio of $\approx 83\%$. Due to the large amount of \ac{RNG} in battles, we assume
+both agents to be at an equal level of play. \\
+The current state of the art search-based algorithm was developed by \emph{pmariglia} and is fully available
+at \cite{Github:pmariglia-showdown}. This approach uses the \textit{Expectiminimax}. In addition to \glqq min\grqq{}
+and \glqq max\grqq{} nodes of a traditional minimax tree, this variant has \glqq chance\grqq{} nodes, which take the 
+expected value of a random event occurring \cite{wiki:Expectiminimax}. Currently, the agent calculates two turns in
+advance, and reaches an Elo-Rating of $1461$ in Generation VII random battles on the Showdown ladder. 
 
-\paragraph{Nash-Equilibrium (experimental)}
-In game theory, the \textit{Nash-Equilibrium} is the most common way to define a solution
-of a non-cooperative game involving two or more players.  In a Nash equilibrium, each player 
-is assumed to know the equilibrium strategies of the other players and no player has 
-anything to gain by changing only their own strategy \cite{wiki:Nash_equilibrium}.
 
-\section{Showdown AI Competition}
+\section{Rulebased agents}
+\label{sec:related-rulebased}
+
+\section{LastVideo}:
+\begin{itemize}
+    \item Used Random/MaxDamage
+    \item Rulebased: (Called: Smart Damage Player) type / Speed for disadvantage. If true -> Switch to Pokemon best matchup
+     Simplifed damage calculation: Use Move most Damage
+    \item MiniMax: Score increases when damage / knockout opponent, decreases: Damage. Flaw: Hazards, Status
+    One: As good as Rulebased. More: Performed worse. Possible explainations: Bugs, gametree does not apply as well
+    to pokemon as not alternate rather simultanious, not enough information (hazard, stats)
+    \item Author states that Pokemon is bad for AI
+    \item SimpleHeuristicsPlayer: Rulebased but more sophisticated.
+    \item 1.000 Battles
+\end{itemize}
+
+\section{Other approaches}
 The authors of the \textit{Showdown AI Competition}\cite{Lee_Togelius_2017} compared many
 simple AI implementations with each other. \todo{Does not describe how damage
 is calculated}
-\paragraph{Breath-first search}
-\label{sec:showdown-competition-bfs}
-Given a root battle object representing the current game state, \ac{BFS} explores the
-outcomes of all possible choices, treating these resultant states as child nodes. This
-algorithm traverses the game tree until it finds a state in which the enemy Pokémon is
-fainted. As a non-adversarial algorithm, the agent assumes that the enemy does not 
-move at all \cite{Lee_Togelius_2017}. 
 
-\paragraph{Minimax}
-This variant of the \textit{Minimax}-Algorithm deals with adversarial paradigms by assuming
-that each player acts in their best interest. In this decision tree, each node represents
-the worst case scenario that would occur as a result of the current choice. The agent
-also uses alpha-beta pruning, ignoring any node in which the agents Pokémon faints. 
-\todo{We take the average outcome. We don't prune fainting paths (explosion)}
-The tree itself is traversed using a greedy strategy, which terminates under the same 
-conditions as \ac{BFS}\ref{sec:showdown-competition-bfs}. Both the traversal order and 
-worst-case evaluation are performed using the evaluation function \ref{eq:minmax-eval-func}
-\cite{Lee_Togelius_2017}:
-\begin{equation}
-\label{eq:minmax-eval-func}
-    Eval = \frac{\text{current hp}_{\text{Own Pokémonn}}}{\text{max hp}_{\text{Own Pokémonn}}} -
-    3 \cdot \frac{\text{current hp}_{\text{Enemy Pokémonn}}}{\text{max hp}_{\text{Enemy Pokémonn}}} -
-    0.3 \cdot \text{depth}
-\end{equation}
 
 \paragraph{One Turn Lookahead}
 One Turn Lookahead is a heuristic based agent designed to encapsulate a greedy strategy that 
@@ -73,18 +95,11 @@ such Pokémon exists, the agent will default to the most damaging move
 This agent is designed to demonstrate a simple way to utilize domain knowledge as a cost-cutting 
 measure. This algorithm does so by making modifications to the Breadth First Search agent. First, 
 the algorithm does not simulate any actions that involve using a damaging move with a resisted type, 
-nor does it simulate any actions that involve switching to a Pokemon with a subpar type matchup. 
+nor does it simulate any actions that involve switching to a Pokémon with a subpar type matchup. 
 Additionally, rather than selfishly assuming the opponent skips their turn in each simulation, the 
 agent assumes its opponent is a One Turn Lookahead agent and simulates accordingly
 \todo{This is copied word by word}\cite{Lee_Togelius_2017}.
 
-\paragraph{Evaulation}
-The authors demonstrated how very basic approaches already yield interesting results in the 
-field of competitive Pokémon battles. As this thesis will demonstrate, simple approaches can 
-yield even better results if more key-aspects of the game like \textit{Hazards} \todo{Link to Hazards},
-\textit{Field Effects} \todo{Link to Field effects} and especially \textit{Status Effects}
-\todo{Link to Status effects} and \textit{Stat Boosts} are taken into account. This thesis furthermore
-introduces a variation of the \textit{Minmax}-Algorithm that allows for long term planning.
 
 \section{Self-Play Policy Optimization Approach}
 Researchers from \textit{New York University} \cite{Lee_Togelius_2017} were the first ones to apply
