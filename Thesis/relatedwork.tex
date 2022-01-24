@@ -86,32 +86,6 @@ yield even better results if more key-aspects of the game like \textit{Hazards} 
 \todo{Link to Status effects} and \textit{Stat Boosts} are taken into account. This thesis furthermore
 introduces a variation of the \textit{Minmax}-Algorithm that allows for long term planning.
 
-\section{Supervised Approach}
-Summery of \cite{TheThirdBuild:PokemonAi}
-\begin{itemize}
-    \item Input features:
-    \begin{itemize}
-        \item Pokemon Attributes: Hp, Active, Status, Boosts
-        \item Player side: Light screen, Hazards, voltaile (leech seed), last used move
-        \item Battlefield: Weather, Pseudo-Weather, Terrain
-    \end{itemize}
-    \item Used Tensorflow
-    \item 2.000.000 Training replays from Showdown Replays
-    \item model
-    \begin{itemize}
-        \item Every turn of the battle treated as seperate example, answer: Which player wins. 81\% Win chance model accuracy
-        \item Restructured: Would p1 win to what would p1 do next turn. 86\% Next switch in 93\% next move accuracy 88\% switching
-        out or staying in. Does not say: Test / Training Data? Real Battles?
-    \end{itemize}
-    \item Future Turns:
-    \begin{itemize}
-        \item What move options are tehre
-        \item What happens on all combinations
-        \item Choose move that leads to the most winning combinations 
-        \item Remove the less likely ones
-    \end{itemize}
-\end{itemize}
-
 \section{Self-Play Policy Optimization Approach}
 Researchers from \textit{New York University} \cite{Lee_Togelius_2017} were the first ones to apply
 \textit{Q-Learning} to the field of Pokémon battles. Two agents using \textit{Q-Learning}
@@ -314,3 +288,33 @@ the open source agent of \textit{pmariglia} described in \todo{Cite Chapter for 
 \end{table} 
 Table \ref{tbl:State-Of-The-Art-Results} describes the performance of the agent developed by
 \cite{Huang_Lee_2019}
+
+\section{Supervised Approach}
+As of writing, there is only one publication researching supervised learning for Pokémon battles,
+a YouTube video uploaded to the channel \glqq\emph{The Third Build}\grqq{} with the title \glqq\emph{How an A.I. is
+Becoming the World's Best Pokemon Player}\grqq{}\cite{TheThirdBuild:PokemonAI}. The author obtained two million 
+replays of human games from the creators of Pokémon Showdown. Using these replays, the input vector for a game
+contained the following features:
+\begin{itemize}
+    \item \textbf{Pokémon attributes:} \ac{HP}, whether the Pokémon is active, status condition and stat boosts.
+    \item \textbf{Player's side attributes:} side conditions (like \textit{Light Screen}), entry hazards 
+    (like \textit{Stealth Rocks}), volatile conditions like \textit{Leech Seed} and the last used move
+    \item \textbf{Battlefield attributes:} weather, pseudo-weather\footnote{The video does not give an exact 
+    definition of the word \textit{Pseudo-Weather}} and terrain
+\end{itemize}
+Using these features, a neural network using TensorFlow for JavaScript was then trained to predict the 
+win chance of a given player at a given state of the game. This network was able to predict the winner
+of at a given state with an accuracy of 81\%. In addition to that, the model was able to predict the next
+switch in with an accuracy of 86\%, the next move with a certainty of 93\% and the whether the
+player would switch with an accuracy of 88\%. Unfortunately, the author neither states the game type of
+the replays nor the exact architecture and evaluation method of the model. \\
+This model was then used to pick the best move in a given scenario which allowed the agent to play games
+on the Pokémon Showdown ladder. Unlike other agents described in this thesis, this agent does not play
+\emph{random} battles on Pokémon Showdown, but rather \emph{Gen 8 OU Singles}. In this format, the 
+teams of both players are not random but rather chosen by the player. In addition, each player knows
+the species of all enemies at the beginning of the game but not their exact build. \\
+The author introduces an algorithm called \textit{Inverse Damage Calculation}. As the exact item of 
+enemies are unknown, the author predicts the given item of a Pokémon by comparing the damage dealt
+of a move with the expected damage for the move modified by possible items. 
+According to the video, this agent reached a maximum Elo of $1630$ which ranks the agent among the 
+best $3.6\%$ of players.
