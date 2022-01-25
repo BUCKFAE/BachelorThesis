@@ -6,8 +6,8 @@
 \section{Baseline Agents}
 \label{sec:eval-challenges-baseline}
 A good way to get a rough idea on how well an agent performs can be to compare it against a baseline agent.
-There are two very popular baseline agents, the \textit{RandomPlayer} and the \textit{MaxDamagePlayer}.
-While the \textit{RandomPlayer} always chooses either a random move or a random switch, the \textit{MaxDamagePlayer}
+There are two very popular baseline agents, the \textit{Random}-Player and the \textit{MaxDamage}-Player.
+While the \textit{Random}-Agent always chooses either a random move or a random switch, the \textit{MaxDamage}-Agent
 always picks the move with the highest base power. If no move is available, the agent will switch to a random 
 Pokémon. This is roughly equal to the skill level of an inexperienced beginner human. 
 
@@ -23,12 +23,13 @@ This agent won 75 out of 90 total games played against a random agent\cite{Lee_T
 Minimax builds upon \ac{BFS} as this algorithm deals with adversarial paradigms by assuming the opponents 
 act in their best interest.
 There are multiple possibilities on how to implement the Minimax algorithm for Pokémon games. The main difference 
-in different implementations is how states are evaluated and the assumptions about the opponents. Additionally,
-the amount of features taken into consideration have a huge impact. The authors of \cite{Lee_Togelius_2017} deal
-with adversarial paradigms by assuming that each player acts in their best interests. In the resulting decision 
-tree, each node represents the worst case scenario that would occur as a result of the current choice. The agent
-also uses alpha-beta pruning, ignoring any node in which the agents Pokémon faints.
-\todo{Explosion: Good decision but Pokémon faints}
+in different implementations lies in state evaluation and the assumptions about the opponents. Additionally,
+the amount of features taken into consideration have a huge impact. In the implementation proposed by
+\cite{Lee_Togelius_2017}, a node represents the worst case scenario that would occur as a result of the current choice. 
+The agent also uses alpha-beta pruning, ignoring any node in which the agents Pokémon faints. 
+One drawback of this procedure is that like this, a Pokémon would never use the move \textit{Explosion},
+a very powerful \textit{Normal}-type move that also faints the user. This move can for example be used if
+the active member is already at very low \ac{HP}.
 The tree itself is traversed using a greedy strategy, which terminates when a state in which the enemy 
 Pokémon is fainted is reached. Both the traversal order and the wors-case evaluation are performed using
 the evaluation function \ref{eq:minmax-eval-func} \cite{Lee_Togelius_2017}:
@@ -47,14 +48,15 @@ resulting in a win-ratio of $\approx 86\%$. The second agent defeated the random
 total games, yielding a win-ratio of $\approx 83\%$. Due to the large amount of \ac{RNG} in battles, we assume
 both agents to be at an equal level of play. \\
 The current state of the art search-based algorithm was developed by \emph{pmariglia} and is fully available
-at \cite{Github:pmariglia-showdown}. This approach uses the \textit{Expectiminimax}. In addition to \glqq min\grqq{}
-and \glqq max\grqq{} nodes of a traditional minimax tree, this variant has \glqq chance\grqq{} nodes, which take the 
+at \cite{Github:pmariglia-showdown}. This approach uses the \textit{Expectiminimax}-Algorithm and takes
+hazards, boosts and status into consideration. In addition to \grqq min\grqq{}
+and \grqq max\grqq{} nodes of a traditional \emph{Minimax}-tree, this variant has \grqq chance\grqq{} nodes, which take the 
 expected value of a random event occurring \cite{wiki:Expectiminimax}. Currently, the agent calculates two turns in
 advance, and reaches an Elo-Rating of $1461$ in Generation VII random battles on the Showdown ladder. 
 In addition, \emph{pmariglia} implemented an algorithm to determine estimate the item a Pokémon is holding
 based on the damage it dealt. 
 
-\section{Rulebased agents}
+\section{Rule based agents}
 \label{sec:related-rulebased}
 The YouTube-Video released by \emph{Rempton Games} \cite{RemptonGames:PokemonAI} also introduces two Rule based agents.
 \textit{Smart Damage} was written by the author of the video and uses Pokémon type and the \ac{SPE}-stat to determine
@@ -69,13 +71,13 @@ of \emph{Rempton Games}.
     \centering
         \begin{tabular}{|l|l|l|l|l|l|}
             \hline
-            & Random & Max dmg & Smart dmg & Minimax & Heuristics \\
+            & \emph{Random} & \emph{Max \ac{DMG}} & \emph{Smart \ac{DMG}} & \emph{Minimax} & \emph{Heuristics} \\
             \hline
             \emph{Random} & N / A & 897 / 103 & 957 / 43 & 831 / 169 & 992 / 8 \\
             \hline
-            \emph{Max dmg} & & N / A & 829 / 171 & 834 / 166 & 955 / 45 \\
+            \emph{Max \ac{DMG}} & & N / A & 829 / 171 & 834 / 166 & 955 / 45 \\
             \hline
-            \emph{Smart dmg} & & & N / A & 331 / 669 & 720 / 280 \\
+            \emph{Smart \ac{DMG}} & & & N / A & 331 / 669 & 720 / 280 \\
             \hline
             \emph{Minimax} & & & & N / A & 181 / 819 \\
             \hline 
@@ -91,11 +93,13 @@ in this chapter.
 
 
 \paragraph{One Turn Lookahead}
-One Turn Lookahead is a heuristic based agent designed to encapsulate a greedy strategy that 
+\emph{One Turn Lookahead} is a heuristic agent designed to encapsulate a greedy strategy that 
 prioritizes damage output. The agent operates by estimating the damage dealt by all usable moves, 
-including those usable by the agent's inactive but usble Pokemon. If the highest damaging move 
-belongs to the active Pokemon, the agent will use that attack. If the most damaging move belongs to 
-an inactive Pokemon, the agent will switch to that Pokemon \cite{Lee_Togelius_2017}.
+including those usable by the agent's inactive but usable Pokémon. If the highest damaging move 
+belongs to the active Pokémon, the agent will use that attack. If the most damaging move belongs to 
+an inactive Pokémon, the agent will switch to that Pokémon \cite{Lee_Togelius_2017}. Depending 
+on implementation details, this agent is very similar to \emph{MaxDamage} or \emph{Rule based}
+agents.
 
 \paragraph{Type Selector}
 This is a variation of the \textit{One Turn Lookahead}-Agent that utilizes a short series of
@@ -144,10 +148,11 @@ weights are updated using the last three (State, Action) pairs rather than the m
 Additionally, in order to promote exploration, the agent employs an epsilon-greedy selection policy, 
 causing it to randomly override its decision with a probability of 0.1. The single layer perceptron 
 was trained using the Delta Rule, while the multilayer perceptron was trained using Delta Rule 
-plus Backpropagation. The agent using a single layer perceptron won 90 out of 180 games against a
-random agent whereas the multi layer perceptron won 86 out of 180 games. Due to the large amount
+plus Backpropagation. The agent using a single layer perceptron won $90$ out of $180$ games against a
+random agent whereas the multi layer perceptron won 86 out of $180$ games. Due to the large amount
 of \ac{RNG} in Pokémon games, more games would need to be played in order to confirm the superiority
-of the single layer perceptron in this particular use case. \\
+of the single layer perceptron in this particular use case. Randomness of games will be covered
+in more detail in section \ref{sec:sec:eval-challenges-randomness}\\
 
 One year after the publication of \cite{Lee_Togelius_2017}, the authors of \cite{GottaTrainEmAll} 
 improved this design. They used \ac{PPO} \cite{schulman2017proximal} to train an agent. They also
@@ -161,8 +166,10 @@ Word2Vec \cite{mikolov2013distributed}. This algorithm samples random walks of s
 of nodes of a given graph. Using these random walks, a skip-gram model is created which
 can be trained to generate embeddings. The Pokémon graph consisted of the name, type(s),
 numerical attributes (total stats, \ac{HP}, \ac{ATK}, \ac{DEF}, \ac{SPA}, \ac{SPD}, \ac{SPE})
-as well as two special nodes, \textit{Legendary} and \textit{Mega}\footnote{Mega is a mechanic
-not available in the latest version of the game}. Lastly, Node2Vec was applied to the graph.
+as well as two special nodes, \textit{Legendary} and \textit{Mega} \footnote{Mega 
+is a mechanic similar to dynamaxing. Mega is not available in the latest version of the game
+and therefore won't be covered in detail}.
+Lastly, Node2Vec was applied to the graph.
 \begin{table}[h]
     \centering
         \begin{tabular}{|l|p{0.7\textwidth}|}
@@ -173,7 +180,10 @@ not available in the latest version of the game}. Lastly, Node2Vec was applied t
             \hline
             \emph{Caterpie} & Wurmple, Weedle, Kakuna, Metapod, Paras, Ledyba, Spinarak, Venonat, Silcoon \\
             \hline
-            \emph{Mewto} & Lugia, Mesprit, Mew, Victini, Celebi, Cresselia, Volcation, \mbox{Ho-Oh}, Uxie \\
+            \tikz[baseline=(X.base)]\node [draw=red,fill=white!20,thick,rectangle,inner sep=3pt, rounded corners=4pt] (X) {Mewtwo}; 
+                & Lugia, Mesprit, Mew, Victini, Celebi, Cresselia, Volcation, 
+                \tikz[baseline=(X.base)]\node [draw=red,fill=white!20,thick,rectangle,inner sep=3pt, rounded corners=4pt] (X) {Ho-Oh};, 
+                Uxie \\
             \hline
         \end{tabular}
         \caption{Similar Pokémon within the embedding space of \cite{GottaTrainEmAll}}
@@ -188,6 +198,8 @@ In generation 6, \textit{Ho-Oh} has access to these moves: \textit{Aura Sphere},
 move pool consists of \textit{Brave Bird}, \textit{Earthquake}, \textit{Flame Charge}, \textit{Roost},
 \textit{Sacred Fire}, \textit{Substitute} and \textit{Toxic} \cite{DamageCalc:Gen6}. This inappropriate
 classification is likely caused to both \textit{Pokémon} having similar stats and both being legendary.
+\todo{The paper states that they are confident in their embeddings. This critic is my own work. How
+do I note this properly?}
 
 Features are derived from the battle state in the simulator. At a high level, battles consist of two
 sides. Each side consists of a team of Pokémon, and each Pokémon has some set of moves. Each of these 
@@ -196,7 +208,8 @@ After experimenting with multiple network architectures, the authors settled on 
 fully connected neural network, each with 512 neurons and a ReLU activation function.
 
 The authors of \cite{GottaTrainEmAll} trained the agent against a random agent, a default agent 
-that always tries to pick a non-switching move as well as a minimax agent
+that always tries to pick a non-switching move as well as a \emph{Minimax}\footnote{The Authors don't
+provide implementation details of their \emph{Minimax} implementation} agent
 until the reward curve stabilized which was around 100 epochs where an epoch is a single battle between
 two players. A reward of $+1$ is given to the agent if it wins the battle, $-1$ if it loses the battle and
 $0$ for all other cases. The average epoch reward after training convergence for this approach can
@@ -224,14 +237,14 @@ Pokémon in the last slot. In addition, this agent preferentially chooses the fo
 \subsection{State of the art}
 In 2019, the authors of \cite{Huang_Lee_2019} published a paper titled \emph{A Self-Play Policy 
 Optimization Approach to Battling Pokémon}. This paper will be summarized in more depth as it
-is very detailed and the agents proposed are performing on par with the state-of-the-art
-search based Pokémon Ai.\\
+is very detailed, and the agents proposed are performing on par with the state-of-the-art
+search based Pokémon AI.\\
 Similar to
 OpenAI's Dota AI \cite{OpenAI_dota}, the agent is represented using an actor-critic neural network.
-Actor-critic RL methods \todo{This is the same source as in the paper}\cite{Konda_Tsitsiklis}
+Actor-critic RL methods \cite{Konda_Tsitsiklis}
 combine policy-based and value-based RL methods by predicting both policy and value for a given 
-state, and then using the value prediction, the \glqq critic\grqq, as an estimate of expected
-return when updating the policy prediction, the \glqq actor\grqq. The authors represent both
+state, and then using the value prediction, the \grqq critic\grqq, as an estimate of expected
+return when updating the policy prediction, the \grqq actor\grqq. The authors represent both
 actor and critic using a two-headed neural network which is trained via self-play RL
 \cite{Huang_Lee_2019}.
 
@@ -241,9 +254,9 @@ represented as multi-level tree-like structure:
 \begin{enumerate}
     \item The \textit{battle} consists of two \textit{teams}, along with weather effects.
     \item Each \textit{team} consists of six \textit{Pokémon}, along with side conditions 
-    described in \todo{Link to side conditions}
+    described in section \ref{sec:field-effects}
     \item Each \textit{Pokémon} has many features. Table \ref{tbl:HuangLee-Pokemon-Table} contains a partial 
-    list\footnote{The authors state that this list is not complete but no additional information is provided.}
+    list\footnote{The authors state that this list is not complete, but no additional information is provided.}
 \end{enumerate}
 \begin{table}[h]
 \centering
@@ -273,6 +286,7 @@ represented as multi-level tree-like structure:
 The network has two outputs: a probability distribution $\pi \in \mathbb{R}^n$ over actions to take, 
 and an estimate of player strength in the current state $v \in \mathbb{R}$. The probability distribution
 $\pi$ is computed as follows:
+\todo{Move this figure to the appendix}
 \begin{enumerate}
     \item The network outputs an intermediate vector $p \in \mathbb{R}^n$. Each of the colored cells in
     figure \ref{fig:lee-network} correspond to an element of $p$
@@ -285,7 +299,7 @@ $\pi$ is computed as follows:
 \end{enumerate}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{images/RL-Network-Structure.png}
+	\includegraphics[width=1\textwidth]{images/RL-Network-Structure.png}
 	\caption{The actor-critic neural network used by the authors in \cite{Huang_Lee_2019}}
 	\label{fig:lee-network}
 \end{figure}
@@ -303,10 +317,10 @@ dense reward signal using reward shaping was constructed. Auxiliary rewards are 
 events that occur over the course of the match. For example, a reward of $-0.0125$ is added when a 
 Pokémon of the agent faints, and a reward of $+0.0025$ whenever the player's Pokémon makes a 
 super effective move. \\
-To update the neural network, the authors use \textit{Proximal Policy Optimization}, which optimizes
+To update the neural network, the authors use \textit{Proximal Policy Optimization} \cite{schulman2017proximal}, which optimizes
 an objective function that combines expected reward, accuracy of state value prediction, and a bonus
 for high entropy policies. To reduce the variance of policy gradient estimates, \textit{Generalized
-Advantage Estimation} is used \todo{Link Paper to both}. \\
+Advantage Estimation} \cite{schulman2018highdimensional} is used. \\
 After 500 iterations of the training loop, 3,840,000 self-play matches had been played by the neural
 network. Training was performed using Google Cloud Platform over the course of 6 days with an 
 approximated cost of \$91 USD.
@@ -314,7 +328,7 @@ approximated cost of \$91 USD.
 \paragraph{Evaluation}
 The refined embeddings as well as the complex network architecture lead to this agent outperforming
 the RL-Agent described in \cite{GottaTrainEmAll}. Futhermore, the authors played 1.000 games against
-the open source agent of \textit{pmariglia} described in \todo{Cite Chapter for search agents}.
+the open source agent of \textit{pmariglia} described in \ref{sec:related-minimax}
 \begin{table}[h]
     \centering
         \begin{tabular}{|l|l|l|}
@@ -335,13 +349,16 @@ the open source agent of \textit{pmariglia} described in \todo{Cite Chapter for 
 \end{table} 
 Table \ref{tbl:State-Of-The-Art-Results} describes the performance of the agent developed by
 \cite{Huang_Lee_2019}
-
+\todo{Glicko-1 Rating: 1677. Explain this rating and add Glicko-1 of HerrGewitter}
 \section{Supervised Approach}
 As of writing, there is only one publication researching supervised learning for Pokémon battles,
-a YouTube video uploaded to the channel \glqq\emph{The Third Build}\grqq{} with the title \glqq\emph{How an A.I. is
-Becoming the World's Best Pokemon Player}\grqq{}\cite{TheThirdBuild:PokemonAI}. The author obtained two million 
+a YouTube video uploaded to the channel \grqq\emph{The Third Build}\grqq{} with the title \grqq\emph{How an A.I. is
+Becoming the World's Best Pokemon Player}\grqq{}\cite{TheThirdBuild:PokemonAI}.
+Unfortunately, the video does not cover much technical and implementation details, possibly to reach a 
+broader audience on YouTube.
+The author obtained two million 
 replays of human games from the creators of Pokémon Showdown. Using these replays, the input vector for a game
-contained the following features:
+contained the following features is created:
 \begin{itemize}
     \item \textbf{Pokémon attributes:} \ac{HP}, whether the Pokémon is active, status condition and stat boosts.
     \item \textbf{Player's side attributes:} side conditions (like \textit{Light Screen}), entry hazards 
@@ -360,7 +377,7 @@ on the Pokémon Showdown ladder. Unlike other agents described in this thesis, t
 \emph{random} battles on Pokémon Showdown, but rather \emph{Gen 8 OU Singles}. In this format, the 
 teams of both players are not random but rather chosen by the player. In addition, each player knows
 the species of all enemies at the beginning of the game but not their exact build. \\
-The author introduces an algorithm called \textit{Inverse Damage Calculation}. As the exact item of 
+Furthermore, \textit{Inverse Damage Calculation} is introduced. As the exact item of 
 enemies are unknown, the author predicts the given item of a Pokémon by comparing the damage dealt
 of a move with the expected damage for the move modified by possible items. Despite no concrete 
 implementation details given, we assume this approach to work similar to the implimentation 
