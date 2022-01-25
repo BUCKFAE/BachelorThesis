@@ -38,8 +38,39 @@ defeating \textit{Mr. Mime (Galar)}, \textit{Volcarona} is back to 84\% HP and b
 Boosted this high, \textit{Volcarona} can one shot both the enemy \textit{Volcarona},
 \textit{Pheromosa} and the dynamaxed \textit{Scraggy} using \textit{Fire Blast}. \\
 To eliminate the impact of these very extreme cases, evaluation of agents against other agents 
-should be done using multiple hundred, better thousands of games against each other.
-\todo{Metrik von Markus, wie viel ist denn unfair?}
+should be done using multiple hundred, better thousands of games against each other. \\
+In order to quantify and better visualize the randomness of battles, we started by generating 
+\todo{HOW MANY GAMES IN TOTAL FOR GRAPH} random battles and collected the team information. After
+both teams were stored, two \emph{MaxDamage}-agents finished the game to determine a winner. Next,
+we determined the matchups for each battle as described in \ref{sec:determine-matchups}. Finally,
+the board rating was calculated as follows:
+\begin{lstlisting}[language=Python, caption=Calculate Board rating]
+  # Amount of counters player 1 has against player 2
+  counter_p1_count = sum([sum([
+    1 if m.is_counter(m.pokemon_1.species, m.pokemon_2.species)
+    else 0 for m in matchups if m.pokemon_1.species == p.species])
+    for p in self.team_1])
+
+  # Amount of counters player 2 has against player 1
+  counter_p2_count = sum([sum([
+    1 if m.is_counter(m.pokemon_2.species, m.pokemon_1.species)
+    else 0 for m in matchups if m.pokemon_2.species == p.species])
+    for p in self.team_2])
+
+  board_rating = counter_p1_count - counter_p2_count
+\end{lstlisting}
+Finally, figure \ref{fig:wr-board-rating} was created. The figure contains how often what board-rating
+occurs (red) as well as the win-rate for the given rating (green).
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{images/boardrating.png}
+	\caption{Win rate for a given board rating}
+	\label{fig:wr-board-rating}
+\end{figure}
+Not only does this figure show a gaussian distribution of how fair games are \todo{Schlechte Formulierung!},
+but also that our method of determining matchups works as intended. This is due to the fact that games 
+in which we assume the player to be in a bad position also have a win-rate and games with a favorable
+board rating show the highest win ratio.
 
 \subsection{Evaluation against human opponents}
 As described in \todo{Link Showdown chapter}, Pokémon Showdown allows researchers to use bots on the

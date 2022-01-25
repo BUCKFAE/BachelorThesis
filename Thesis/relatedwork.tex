@@ -51,28 +51,43 @@ at \cite{Github:pmariglia-showdown}. This approach uses the \textit{Expectiminim
 and \glqq max\grqq{} nodes of a traditional minimax tree, this variant has \glqq chance\grqq{} nodes, which take the 
 expected value of a random event occurring \cite{wiki:Expectiminimax}. Currently, the agent calculates two turns in
 advance, and reaches an Elo-Rating of $1461$ in Generation VII random battles on the Showdown ladder. 
-
+In addition, \emph{pmariglia} implemented an algorithm to determine estimate the item a Pokémon is holding
+based on the damage it dealt. 
 
 \section{Rulebased agents}
 \label{sec:related-rulebased}
-
-\section{LastVideo}:
-\begin{itemize}
-    \item Used Random/MaxDamage
-    \item Rulebased: (Called: Smart Damage Player) type / Speed for disadvantage. If true -> Switch to Pokemon best matchup
-     Simplifed damage calculation: Use Move most Damage
-    \item MiniMax: Score increases when damage / knockout opponent, decreases: Damage. Flaw: Hazards, Status
-    One: As good as Rulebased. More: Performed worse. Possible explainations: Bugs, gametree does not apply as well
-    to pokemon as not alternate rather simultanious, not enough information (hazard, stats)
-    \item Author states that Pokemon is bad for AI
-    \item SimpleHeuristicsPlayer: Rulebased but more sophisticated.
-    \item 1.000 Battles
-\end{itemize}
+The YouTube-Video released by \emph{Rempton Games} \cite{RemptonGames:PokemonAI} also introduces two Rule based agents.
+\textit{Smart Damage} was written by the author of the video and uses Pokémon type and the \ac{SPE}-stat to determine
+favorability of a matchup. On a bad matchup, this agent will switch to the team member with the best matchup. Otherwise,
+a simplified damage calculation is used to determine the move dealing the most amount of damage. \textit{Simple 
+Heuristics} was developed by, \emph{Haris Sahovic}, the author of the \emph{Poke-Env} library \cite{PokeEnv:Github}.
+The implementation for this agent can be found at \cite{PokeEnv:Baselines}. This agent uses a few simple rules
+to determine the next move or switch and takes boosts as well as hazards into account. The results for both agents
+are denoted in table \ref{tbl:Youtube-Results}. The \emph{MiniMax}-agent in the table reffers to the implementation
+of \emph{Rempton Games}.
+\begin{table}[h]
+    \centering
+        \begin{tabular}{|l|l|l|l|l|l|}
+            \hline
+            & Random & Max dmg & Smart dmg & Minimax & Heuristics \\
+            \hline
+            \emph{Random} & N / A & 897 / 103 & 957 / 43 & 831 / 169 & 992 / 8 \\
+            \hline
+            \emph{Max dmg} & & N / A & 829 / 171 & 834 / 166 & 955 / 45 \\
+            \hline
+            \emph{Smart dmg} & & & N / A & 331 / 669 & 720 / 280 \\
+            \hline
+            \emph{Minimax} & & & & N / A & 181 / 819 \\
+            \hline 
+        \end{tabular}
+        \caption{Denotes how many games the Agent in the column won against the agent in the row \cite{RemptonGames:PokemonAI}}
+        \label{tbl:Youtube-Results}
+\end{table}
 
 \section{Other approaches}
 The authors of the \textit{Showdown AI Competition}\cite{Lee_Togelius_2017} compared many
-simple AI implementations with each other. \todo{Does not describe how damage
-is calculated}
+simple AI implementations with each other. Approaches not covered so far will be summarized
+in this chapter.
 
 
 \paragraph{One Turn Lookahead}
@@ -97,9 +112,26 @@ measure. This algorithm does so by making modifications to the Breadth First Sea
 the algorithm does not simulate any actions that involve using a damaging move with a resisted type, 
 nor does it simulate any actions that involve switching to a Pokémon with a subpar type matchup. 
 Additionally, rather than selfishly assuming the opponent skips their turn in each simulation, the 
-agent assumes its opponent is a One Turn Lookahead agent and simulates accordingly
-\todo{This is copied word by word}\cite{Lee_Togelius_2017}.
+agent assumes its opponent is a \emph{One Turn Lookahead}-agent and simulates accordingly \cite{Lee_Togelius_2017}.
 
+\paragraph{Results}
+Table \ref{tbl:AI-Comp-Results} displays the results of the agents described in this section.
+\begin{table}[h]
+    \centering
+        \begin{tabular}{|l|l|}
+            \hline
+            & \emph{Random} \\
+            \hline
+            \emph{One Turn Lookahead} & 77 / 90 \\
+            \hline
+            \emph{Type Selector} & 67 / 90 \\
+            \hline
+            \emph{Pruned \ac{BFS}} & 75 / 90 \\
+            \hline
+        \end{tabular}
+        \caption{Results of other approaches against a random agent \cite{Lee_Togelius_2017}}
+        \label{tbl:AI-Comp-Results}
+\end{table}
 
 \section{Self-Play Policy Optimization Approach}
 Researchers from \textit{New York University} \cite{Lee_Togelius_2017} were the first ones to apply
@@ -330,6 +362,8 @@ teams of both players are not random but rather chosen by the player. In additio
 the species of all enemies at the beginning of the game but not their exact build. \\
 The author introduces an algorithm called \textit{Inverse Damage Calculation}. As the exact item of 
 enemies are unknown, the author predicts the given item of a Pokémon by comparing the damage dealt
-of a move with the expected damage for the move modified by possible items. 
+of a move with the expected damage for the move modified by possible items. Despite no concrete 
+implementation details given, we assume this approach to work similar to the implimentation 
+of \emph{pmariglia} described in \ref{sec:related-minimax}.
 According to the video, this agent reached a maximum Elo of $1630$ which ranks the agent among the 
 best $3.6\%$ of players.
