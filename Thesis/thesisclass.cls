@@ -52,6 +52,8 @@
     tabsize=2
 }
 
+						
+
 \lstset{style=python-code-style}
 
 \usepackage[english,ngerman]{babel}
@@ -87,8 +89,6 @@
 						linkbordercolor={0 0.61 0.50},   
 						citebordercolor={0 0.61 0.50}]{hyperref}  %{0.57 0.74 0.57}
 						
-\usepackage[fixlanguage]{babelbib}	% sets german style for literature entries
-\selectbiblanguage{ngerman}			% for \bibliographystyle{babalpha}
 
 
 %% -------------------------------
