@@ -2,7 +2,6 @@
 
 \section{Basic rules}
 \todo{Explain Dynamaxing!}
-\todo{Humans on Showdown do NOT know that they are playing against a bot. Bots are allowed on showdown.}
 \section{Battling}
 \label{sec:battling}
 One of the key aspects of the Pokémon game is to battle other Pokémon. In the mainline games, you can 
@@ -191,7 +190,7 @@ In this section, a quick introduction to the most important items is given.
 \label{sec:field-effects}
 There are multiple \textit{field effects} that affect combat. Field effect are different from items as they are not
 tied to a specific Pokémon but rather always effect the currently battling Pokémon. There are field effects that only
-target the side of one player as well as effects that target both sides.
+target the side of one player as well as effects that target both sides. 
 \paragraph{Terrain}
 \textit{Terrain} is set up by the respective move with identical name and last for five turns and effects both players.
 All of them are beneficial to \textit{grounded} Pokémon. A Pokémon is \textit{not grounded} if any of the 
@@ -221,20 +220,68 @@ There are five different possible \textit{terrain}-states.
 	\item \textbf{Misty Terrain:} Protects all grounded Pokémon from status conditions (including confusion)
 		\todo{Does confusion exist in Showdown?}
 		The power of \textit{Dragon}-type moves is halved while in effect. 
-	\item \textbf{Psychic Terrain} Prevents grounded Pokémon from being hit by priority moves. Priority
+	\item \textbf{Psychic Terrain:} Prevents grounded Pokémon from being hit by priority moves. Priority
 	moves will be covered in section \ref{sec:order-of-events}. The power of \textit{Psychic}-type moves is also increased
 \end{itemize}
 It is important to note that only one \textit{terrain} can be active at a time, yet, \textit{terrain}
 can coexist with other \textit{field effects} like \textit{weather}.
 
 \paragraph{Weather}
-\todo{Explain weather}
+The \textit{weather} is a set of mechanics that change the battle environment, activating abilities, modifying
+certain moves and potentially damage the Pokémon in battle or affecting their stats. Only one type of weather may 
+be present at a time, and only the most recent type of weather will take effect \cite{Bulbapedia:Weather}. List
+of different \textit{weather}-conditions:
+\begin{itemize}
+	\item \textit{Clear skies}: (also: \emph{None}) Absence of weather, this is the default state
+	\item \textit{(Harsh-) Sunshine:} (also: \emph{(Harsh-) Sunlight}) Strong sunlight shines on the 
+	battlefield
+	\item \textit{(Heavy-) Rain:} Rain falls on the battlefield.
+	\item \textit{Sandstorm:} Stinging sand whips across the battlefield. At the end of each turn, damages each
+	Pokémon, with a few exceptions, for $1/16$ of its maximum \ac{HP} unless it is a \textit{Rock}-, \textit{Steel}- or
+	\textit{Ground}-type. \todo{https://bulbapedia.bulbagarden.net/wiki/Sandstorm_(weather_condition)}
+	\item \textit{Hail:} Pelting hail falls on the battlefield. At the end of each turn, damages each
+	Pokémon, with a few exceptions, for $1/16$ of its maximum \ac{HP} unless it is an \textit{Ice}-type.
+	\todo{https://bulbapedia.bulbagarden.net/wiki/Hail_(weather_condition)}
+\end{itemize}
+There are a few additional special weather conditions which won't be covered in this Thesis as they only occur in 
+very specific scenarios.
+
+\paragraph{Other}
+The list below contains the remaining field effects that cover the entire field not covered so far:
+\begin{itemize}
+	\item \textit{Wonder Room:} swaps the \ac{DEF} and \ac{SPD} of all Pokémon, but stat changes
+	remain on their respective stat. \todo{https://bulbapedia.bulbagarden.net/wiki/Wonder_Room_(move)}
+	\item \textit{Magic Room:} suppresses the effect of all items held by the Pokémon on the field
+	\todo{https://bulbapedia.bulbagarden.net/wiki/Magic_Room_(move)}
+	\item \textit{Gravity:} causes the field to undergo intense gravity which multiplies the accuracy stat of
+	all Pokémon by $5/3$ \todo{https://bulbapedia.bulbagarden.net/wiki/Gravity_(move)}
+	\item \textit{Trick Room:} reverses the move order within each priority bracket. Move priority will be covered
+	in section \ref{sec:order-of-events}
+\end{itemize}
+\todo{According to Bulbapedia: All last for 5 turns}
+
+\paragraph{Single Side Effects}
+Among \textit{Hazards} which will be covered in section \ref{sec:hazards}, the most important single side
+effects are \textit{Reflect} which halves the damage done to Pokémon on the given side by \textit{physical}
+moves \todo{https://bulbapedia.bulbagarden.net/wiki/Reflect_(move)} and \textit{Light Screen} which works
+equivalent but for \textit{special} moves \todo{https://bulbapedia.bulbagarden.net/wiki/Light_Screen_(move)}
 
 \subsection{Order of events}
 \label{sec:order-of-events}
-\todo{Switching has the highest Priority}
-\todo{Usually the faster Pokémon acts first}
-\todo{Some moves have a special priority.}
+In battle, switching always is executed before moves meaning that if a player switches and his opponent chooses
+to use a move, the move will always hit the newly brought in Pokémon. Move order is determined based on
+\textit{priority}.
+\paragraph{Priority}
+\textit{Priority} is a characteristic of moves, such that any move with a higher priority will always be
+performed first. When two moves have the same priority, the users \ac{SPE} stat will determine which
+one is performed first in battle. Each move has a hidden priority value in the game data, with values ranging
+from $+5$ to $-7$ The vast majority of moves have the standard priority value of 0. A move with a positive
+priority is called \textit{priority move}. Moves that have the same priority are said to be in the same
+priority bracket. An example for a move with priority $+2$ is \textit{Extreme Speed}, a \textit{Normal}-type
+move with a base-power of $80$\todo{https://bulbapedia.bulbagarden.net/wiki/Extreme_Speed_(move)}. Having
+a \textit{priority}-move can be useful if the own active Pokémon has a lower \ac{SPE}-stat than the 
+opponent with low \ac{HP} as then the own Pokémon doesn't have to take an additional hit before defeating
+his enemy. 
 
 \subsection{Damage calculation}
 \label{sec:damage-calculation}
@@ -263,13 +310,10 @@ of these moves can be found at ~\autocite{Bulbapedia:DirectDamage}.
 \paragraph{Level}
 \textit{Level} refers to the level of the attacking Pokémon~\autocite{Bulbapedia:Damage}. 
 In Pokémon Showdown, the level is displayed next to the name of the Pokémon.
-\todo{Mainline games leveling}
 
 \paragraph{A / D}
 \textit{A} is the effective Attack stat of the attacking Pokémon if the used move is a physical move,
-\todo{Reference to physical moves} \\
 or the effective Special Attack stat of the attacking Pokémon if the used move is a special move.
-\todo{Reference to special moves}
 \\
 \textit{D} is likewise the effective Defense stat of the target if the used move is a physical move,
 or the effective Special Defense of the target if the used move is a special move~\autocite{Bulbapedia:Damage}.
@@ -279,7 +323,6 @@ at ~\autocite{Bulbapedia:MoveStatDifferentCategories}.
 
 \paragraph{Power}
 Power is the effective power of the used move.
-\todo{When is the power not equal to the base power}
 The \textit{Base Power} of a move in Showdown can be seen when hovering over a move in the move list. \\
 \textit{Note:} The same move will always have the same base power. For example, \textit{Fire Punch} will
 always have a base power of 75~\autocite{Bulbapedia:FirePunch}.
@@ -288,7 +331,6 @@ always have a base power of 75~\autocite{Bulbapedia:FirePunch}.
 The \textit{Weather} modifier is 1.5 if a \textit{Water-type} move is used during \textit{rain} or a 
 \textit{Fire-type} move during \textit{Harsh Sunlight}. The modifier is 0.5 if a \textit{Water-type} move
 is used during \textit{Harsh Sunlight} or a \textit{Fire-type} move during \textit{rain} ~\autocite{Bulbapedia:Damage}.
-\todo{Reference to weather section}
 
 \paragraph{Critical}
 In the latest Generation, a \ac{CRIT} deals 1.5 times the damage compared to a normal hit.
@@ -318,17 +360,37 @@ or the used move is \textit{Facade}}. Otherwise, it is 1.0 ~\autocite{Bulbapedia
 The \textit{other} modifier is usually 1. A list of exceptions can be found at ~\autocite{Bulbapedia:Damage}.
 
 \subsection{Effective Stats}
-\paragraph{Boosting}
-\label{sec:boosting}
-\todo{Boosting critical rate}
-
+When a stat is used in a calculation in battle, a number of modifiers may be applied during the calculation.
+During a battle, a Pokémon's effective stats may be raised or lowered by certain moves abilities and 
+held items. Some attacks may only have a chance of lowering stats, while certain abilities and held items
+may require a triggering event to activate stat modifications. \\
+The modifiers conferred by most moves operate on a sliding scale of \textit{stages}. When a given stat is raised
+or lowered, its current stage in increased or decreased by the amount dictated by the move, up to a maximum
+of $+6$ or a minimum of $-6$. A given stat corresponds to a given multiplier that will modify the stat when it
+is used in calculations. The exact multipliers for stages are described in table \ref{tab:boost-stage-multipliers}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		-6 & -5 & -4 & -3 & -2 & 1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+		\hline
+		$2/8$ & $2/7$ & $2/6$ & $2/5$ & $2/4$ & $2/3$ & $2/2$ &  $3/2$ &  $4/2$ &  $5/2$ &  $6/2$ &  $7/2$ & $8/2$ \\
+		\hline
+	\end{tabular} 
+	\caption{Stage multipliers for \ac{ATK}, \ac{DEF}, \ac{SPA}, \ac{SPD} and \ac{SPE}}
+	\label{tab:boost-stage-multipliers}
+\end{table}
+\todo{Table / Text source:https://bulbapedia.bulbagarden.net/wiki/Stat\#Stat_modifiers}
+\todo{Other table for accuracy an evasion}
+When playing the mainline games, the player has to memorize the current stat changes of a Pokémon. In contrast to that,
+Pokémon Showdown displays the current stat multiplier of both Pokémon. Stat changes caused by boosts do not persist
+between switches, meaning that the stages for all stats of a Pokémon are reset to zero upon being switched in.
 \section{Hazards}
 \label{sec:hazards}
 An \textit{entry hazard} is a condition that affects a side of the field that causes
 any Pokémon that is sent into battle on that side of the field to be afflicted by 
 a negative effect. Entry hazards are created by moves, usually status moves
 ~\autocite{Bulbapedia:EntryHazards}. \\
-\todo{This paragraph is copied word by word from Bulbapedia}
 \subsection{List of entry hazards}
 Currently, there are five moves that create an entry hazard
 
@@ -442,6 +504,7 @@ There are various exceptions and special cases to hazards.
 \section{Showdown random battles}
 \todo{Write introduction to this}
 \todo{This has to include that the same species has different movesets}
+\todo{Humans on Showdown do NOT know that they are playing against a bot. Bots are allowed on showdown.}
 \label{sec:showdown-randbats}
 \subsection{Sets}
 \label{sec:randbats-sets}
@@ -494,7 +557,6 @@ assignment follows these rules:
 		get \textit{Choice Specs} or \textit{Choice Band}.
 		\item Having priority moves will always prevent a \textit{Choice Scarf} from being 
 		generated in all situations.
-		\todo{Either explain priority moves or explain them here}
 	\end{itemize}
 	\item Pokémon with 4 attacks that don't qualify for choice items, will get an \textit{Assault
 	Vest} if their \ac{HP} + \ac{DEF} + \ac{SPD} $\geq$ 235. Otherwise, \textit{Expert Belt},
