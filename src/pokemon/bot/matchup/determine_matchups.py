@@ -31,6 +31,8 @@ def determine_matchups(battle: AbstractBattle,
     # Stores all matchups
     matchups = [] if existing_matchups is None else existing_matchups
 
+    # TODO: This fails to check if a Pokémon is dead and tries to send out a fainted Pokémon
+
     damage_calculator = DamageCalculator()
 
     # Getting both teams

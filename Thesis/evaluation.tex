@@ -185,6 +185,9 @@ most likely moves, \textit{Mirror Coat}, \textit{Encore}, \textit{Counter} and \
 yet don't deal any damage and are not implemented yet which leads the agent to believe that this Pokémon is bad 
 in every possible matchup and has no good use scenarios whatsoever.
 
+\paragraph{Dynamaxing}
+\todo{Example in last Pro replay}
+
 \paragraph{Other special cases}
 This list contains more currently unhandled cases which will be addressed in future versions:
 \begin{itemize}
@@ -299,13 +302,20 @@ this kind of scenarios.
 Game two was lost due to a lack of answers against the opponents \textit{Gengar}. Prior to sending in this Pokémon,
 \textit{Memzboi69} set the entry hazard \textit{Sticky Web} which decreases the \ac{SPE} by one stage on switch in.
 After boosting \ac{SPA} by two stages using \textit{Nasty Plot}, \textit{Gengar} was able to defeat the four 
-remaining Pokémon of the agent.  
+remaining Pokémon of the agent. Further investigation revealed another flaw in the logic of the agent. When switching
+in the \textit{Discover Phase} with no check or counter available, the agent ranks all possible options based on how 
+much damage they are capable of dealing as described by equation \ref{eq:thread-level} in section \ref{sec:scoring-state}.
+If no Pokémon exists that is capable of surviving for more than two turns, the Pokémon with the lowest score will
+be sent into battle. In the given scenario, the agent sent out \textit{Klefki} as his last Pokémon. This Pokémon
+always has access to either \textit{Thunderwave}, a move that applies \ac{PAR} or \textit{Toxic} that poisons the
+opponent. While the chances of winning would still be very low when sending out this Pokémon, bringing in \textit{Klefki}
+would have increased the odds. Additionally, the agent did not take the entry hazard into account which lead to
+the wrong assumption that \textit{Zamazenta} is faster than \textit{Gengar} and could therefore kill the opponent.
+This resulted in \textit{Zamazenta} getting killed in one shot.
 
-\begin{itemize}
-  \item First Game: Shuckle vs Mr.Mime: Spammed Hazards, Mr. Mime combination of boosting and rapid spin
-  \item Second Game: Gengar boosted to stage two managed to one shot four remaining pokemon. Sticky Web 
-  was set. No Pokemon was able to outspeed (aside from Klefki)
-  Should have sent in Klefki first, Poison Gengar. Probably not winnable anyway
-  \item Third game: Bot: Boosting Obstagon (yay). Probably one stage to far, bur damage. Close game, 
-  Hazards 
-\end{itemize}
+\paragraph{Game Three}
+The last battle was the closest and ended with \textit{Memezboi69} having only two Pokémon remaining. The agent
+even managed to set up a burned \textit{Obstagoon}, boosting \ac{ATK} to stage two and \ac{DEF} to stage three.
+Unfortunately, this Pokémon was then killed by \textit{Buzzwole} with the super effective move \textit{Close Combat}.
+Even after a lot of investigation, it is hard to determine how this match could have been won by the agent, one 
+possibility might have been switching in a \textit{check} to \textit{Buzzwole} and dynamaxing next turn. 
