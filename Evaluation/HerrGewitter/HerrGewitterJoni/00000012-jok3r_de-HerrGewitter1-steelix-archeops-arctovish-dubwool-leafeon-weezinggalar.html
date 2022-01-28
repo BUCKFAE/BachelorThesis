@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490045341<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490045341|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Wailord|Wailord, L90, F|100100
+|switch|p2a: Steelix|Steelix, L84, F|263263
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: headsmash dragondance heavyslam earthquake
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Speed: 99 vs 159
+|chat|DEBUG|HP: 263 vs 452
+|chat|DEBUG|Created a new Strategy for steelix vs wailord:
+|chat|DEBUG|>[earthquake: 141.5625 [130, 154], earthquake: 141.5625 [130, 154], earthquake: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of steelix (p1): earthquake: 141.5625 [130, 154]
+|chat|DEBUG|Best move of wailord (p2): waterspout: 645.125 [594, 698]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check arctovish
+|switch|p2a: Arctovish|Arctovish, L86|295295
+|move|p1a: Wailord|Water Spout|p2a: Arctovish
+|-immune|p2a: Arctovish|[from] ability: Water Absorb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: iciclecrash freezedry bodyslam fishiousrend
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['arctovish']
+|chat|DEBUG|Counter: ['arctovish']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 295 vs 452
+|chat|DEBUG|Created a new Strategy for arctovish vs wailord:
+|chat|DEBUG|>[freezedry: 200.75 [186, 218], freezedry: 200.75 [186, 218], freezedry: 200.75 [186, 218]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 200.75 [186, 218]
+|chat|DEBUG|Best move of wailord (p2): hypervoice: 67.0625 [62, 73]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using freezedry
+|switch|p1a: Diggersby|Diggersby, L80, F|100100
+|move|p2a: Arctovish|Freeze-Dry|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|39100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "diggersby"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-diggersby
+|chat|DEBUG|Own moves: iciclecrash freezedry bodyslam fishiousrend
+|chat|DEBUG|Enemy moves: bodyslam earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['archeops', 'dubwool', 'leafeon']
+|chat|DEBUG|Counter: ['steelix', 'archeops', 'arctovish', 'dubwool', 'leafeon']
+|chat|DEBUG|Speed: 144 vs 171
+|chat|DEBUG|HP: 295 vs 104
+|chat|DEBUG|Created a new Strategy for arctovish vs diggersby:
+|chat|DEBUG|>[fishiousrend: 206.5 [188, 224], fishiousrend: 206.5 [188, 224], fishiousrend: 206.5 [188, 224]]
+|chat|DEBUG|Best move of arctovish (p1): fishiousrend: 206.5 [188, 224]
+|chat|DEBUG|Best move of diggersby (p2): earthquake: 152.0 [140, 165]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Diggersby|Earthquake|p2a: Arctovish
+|-damage|p2a: Arctovish|153295
+|-damage|p1a: Diggersby|29100|[from] item: Life Orb
+|move|p2a: Arctovish|Fishious Rend|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|faint|p1a: Diggersby
+|upkeep
+|switch|p1a: Wailord|Wailord, L90, F|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: iciclecrash freezedry bodyslam fishiousrend
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 153 vs 452
+|chat|DEBUG|Created a new Strategy for arctovish vs wailord:
+|chat|DEBUG|>[freezedry: 200.75 [186, 218], freezedry: 200.75 [186, 218], freezedry: 200.75 [186, 218]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 200.75 [186, 218]
+|chat|DEBUG|Best move of wailord (p2): hypervoice: 67.0625 [62, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using freezedry
+|move|p1a: Wailord|Ice Beam|p2a: Arctovish
+|-resisted|p2a: Arctovish
+|-damage|p2a: Arctovish|138295
+|move|p2a: Arctovish|Freeze-Dry|p1a: Wailord
+|-supereffective|p1a: Wailord
+|-damage|p1a: Wailord|55100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: iciclecrash freezedry bodyslam fishiousrend
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['arctovish', 'leafeon']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 138 vs 248
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 200.75 [186, 218]
+|chat|DEBUG|Best move of wailord (p2): hypervoice: 67.0625 [62, 73]
+|chat|DEBUG|Attacking using freezedry
+|-start|p1a: Wailord|Dynamax
+|-heal|p1a: Wailord|55100|[silent]
+|move|p1a: Wailord|Max Strike|p2a: Arctovish
+|-damage|p2a: Arctovish|69295
+|-unboost|p2a: Arctovish|spe|1
+|move|p2a: Arctovish|Freeze-Dry|p1a: Wailord
+|-supereffective|p1a: Wailord
+|-damage|p1a: Wailord|32100
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: iciclecrash freezedry bodyslam fishiousrend
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['archeops', 'arctovish', 'dubwool', 'leafeon']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 69 vs 144
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 200.75 [186, 218]
+|chat|DEBUG|Best move of wailord (p2): hypervoice: 67.0625 [62, 73]
+|chat|DEBUG|Attacking using freezedry
+|move|p1a: Wailord|Max Strike|p2a: Arctovish
+|-damage|p2a: Arctovish|4295
+|-unboost|p2a: Arctovish|spe|1
+|move|p2a: Arctovish|Freeze-Dry|p1a: Wailord
+|-supereffective|p1a: Wailord
+|-damage|p1a: Wailord|10100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "arctovish" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: iciclecrash freezedry bodyslam fishiousrend
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['dubwool']
+|chat|DEBUG|Counter: ['archeops', 'dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Speed: 144 vs 159
+|chat|DEBUG|HP: 4 vs 45
+|chat|DEBUG|Created a new Strategy for arctovish vs wailord:
+|chat|DEBUG|>[freezedry: 200.75 [186, 218], freezedry: 200.75 [186, 218], freezedry: 200.75 [186, 218]]
+|chat|DEBUG|Best move of arctovish (p1): freezedry: 200.75 [186, 218]
+|chat|DEBUG|Best move of wailord (p2): hypervoice: 67.0625 [62, 73]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dubwool
+|switch|p2a: Dubwool|Dubwool, L86, F|264264
+|move|p1a: Wailord|Max Strike|p2a: Dubwool
+|-damage|p2a: Dubwool|167264
+|-unboost|p2a: Dubwool|spe|1
+|-heal|p2a: Dubwool|183264|[from] item: Leftovers
+|-end|p1a: Wailord|Dynamax
+|-heal|p1a: Wailord|10100|[silent]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: sleeptalk rest cottonguard bodypress
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['dubwool']
+|chat|DEBUG|Counter: ['archeops', 'dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 159
+|chat|DEBUG|HP: 183 vs 45
+|chat|DEBUG|Created a new Strategy for dubwool vs wailord:
+|chat|DEBUG|>[bodypress: 90.5 [83, 98], bodypress: 90.5 [83, 98], bodypress: 90.5 [83, 98]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 90.5 [83, 98]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 182.375 [168, 198]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Grapploct|Grapploct, L86, M|100100
+|move|p2a: Dubwool|Body Press|p1a: Grapploct
+|-damage|p1a: Grapploct|80100
+|-heal|p2a: Dubwool|199264|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "grapploct"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct
+|chat|DEBUG|Own moves: sleeptalk rest cottonguard bodypress
+|chat|DEBUG|Enemy moves: brutalswing bulkup drainpunch icepunch
+|chat|DEBUG|Checks: ['leafeon', 'weezinggalar']
+|chat|DEBUG|Counter: ['steelix', 'archeops', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Speed: 201 vs 121
+|chat|DEBUG|HP: 199 vs 222
+|chat|DEBUG|Created a new Strategy for dubwool vs grapploct:
+|chat|DEBUG|>[bodypress: 58.75 [54, 64], bodypress: 58.75 [54, 64], bodypress: 58.75 [54, 64]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 58.75 [54, 64]
+|chat|DEBUG|Best move of grapploct (p2): drainpunch: 224.75 [205, 244]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check leafeon
+|switch|p2a: Leafeon|Leafeon, L86, M|252252
+|move|p1a: Grapploct|Drain Punch|p2a: Leafeon
+|-damage|p2a: Leafeon|161252
+|-heal|p1a: Grapploct|97100|[from] drain|[of] p2a: Leafeon
+|-damage|p1a: Grapploct|87100|[from] item: Life Orb
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "leafeon" vs "grapploct"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct
+|chat|DEBUG|Own moves: synthesis swordsdance xscissor leafblade
+|chat|DEBUG|Enemy moves: brutalswing bulkup drainpunch icepunch
+|chat|DEBUG|Checks: ['weezinggalar']
+|chat|DEBUG|Counter: ['steelix', 'archeops', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Speed: 213 vs 121
+|chat|DEBUG|HP: 161 vs 241
+|chat|DEBUG|Created a new Strategy for leafeon vs grapploct:
+|chat|DEBUG|>[leafblade: 105.875 [97, 115], leafblade: 105.875 [97, 115], leafblade: 105.875 [97, 115]]
+|chat|DEBUG|Best move of leafeon (p1): leafblade: 105.875 [97, 115]
+|chat|DEBUG|Best move of grapploct (p2): icepunch: 121.0625 [112, 133]
+|chat|DEBUG|Attacking using leafblade
+|switch|p1a: Talonflame|Talonflame, L81, M|100100
+|move|p2a: Leafeon|Leaf Blade|p1a: Talonflame
+|-resisted|p1a: Talonflame
+|-damage|p1a: Talonflame|87100
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "leafeon" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct-talonflame
+|chat|DEBUG|Own moves: synthesis swordsdance xscissor leafblade
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: ['archeops']
+|chat|DEBUG|Counter: ['archeops', 'weezinggalar']
+|chat|DEBUG|Speed: 213 vs 251
+|chat|DEBUG|HP: 161 vs 225
+|chat|DEBUG|Created a new Strategy for leafeon vs talonflame:
+|chat|DEBUG|>[leafblade: 33.125 [30, 36], leafblade: 33.125 [30, 36], leafblade: 33.125 [30, 36]]
+|chat|DEBUG|Best move of leafeon (p1): leafblade: 33.125 [30, 36]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check archeops
+|switch|p2a: Archeops|Archeops, L82, F|257257
+|move|p1a: Talonflame|Swords Dance|p1a: Talonflame
+|-boost|p1a: Talonflame|atk|2
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "archeops" vs "talonflame"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct-talonflame
+|chat|DEBUG|Own moves: roost earthquake stoneedge dualwingbeat
+|chat|DEBUG|Enemy moves: bravebird flareblitz roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['archeops']
+|chat|DEBUG|Speed: 228 vs 251
+|chat|DEBUG|HP: 257 vs 225
+|chat|DEBUG|Created a new Strategy for archeops vs talonflame:
+|chat|DEBUG|>[stoneedge: 651.25 [600, 708], stoneedge: 651.25 [600, 708], stoneedge: 651.25 [600, 708]]
+|chat|DEBUG|Best move of archeops (p1): stoneedge: 651.25 [600, 708]
+|chat|DEBUG|Best move of talonflame (p2): flareblitz: 131.1875 [120, 142]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Talonflame|Flare Blitz|p2a: Archeops
+|-resisted|p2a: Archeops
+|-damage|p2a: Archeops|122257
+|-damage|p1a: Talonflame|69100|[from] Recoil
+|move|p2a: Archeops|Stone Edge|p1a: Talonflame
+|-supereffective|p1a: Talonflame
+|-damage|p1a: Talonflame|0 fnt
+|faint|p1a: Talonflame
+|upkeep
+|switch|p1a: Espeon|Espeon, L82, F|100100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "archeops" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct-espeon
+|chat|DEBUG|Own moves: roost earthquake stoneedge dualwingbeat
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam morningsun psychic
+|chat|DEBUG|Checks: ['steelix']
+|chat|DEBUG|Counter: ['steelix']
+|chat|DEBUG|Speed: 228 vs 228
+|chat|DEBUG|HP: 122 vs 241
+|chat|DEBUG|Created a new Strategy for archeops vs espeon:
+|chat|DEBUG|>[stoneedge: 90.875 [84, 99], stoneedge: 90.875 [84, 99], stoneedge: 90.875 [84, 99]]
+|chat|DEBUG|Best move of archeops (p1): stoneedge: 90.875 [84, 99]
+|chat|DEBUG|Best move of espeon (p2): psychic: 144.5625 [133, 157]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check steelix
+|switch|p2a: Steelix|Steelix, L84, F|263263
+|move|p1a: Espeon|Psychic|p2a: Steelix
+|-resisted|p2a: Steelix
+|-damage|p2a: Steelix|177263
+|-damage|p1a: Espeon|91100|[from] item: Life Orb
+|-heal|p2a: Steelix|193263|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct-espeon
+|chat|DEBUG|Own moves: headsmash dragondance heavyslam earthquake
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam psychic shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 99 vs 228
+|chat|DEBUG|HP: 193 vs 219
+|chat|DEBUG|Created a new Strategy for steelix vs espeon:
+|chat|DEBUG|>[heavyslam: 153.0 [141, 166], heavyslam: 153.0 [141, 166], heavyslam: 153.0 [141, 166]]
+|chat|DEBUG|Best move of steelix (p1): heavyslam: 153.0 [141, 166]
+|chat|DEBUG|Best move of espeon (p2): shadowball: 110.0625 [101, 120]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using heavyslam
+|move|p1a: Espeon|Dazzling Gleam|p2a: Steelix
+|-resisted|p2a: Steelix
+|-damage|p2a: Steelix|141263
+|-damage|p1a: Espeon|81100|[from] item: Life Orb
+|move|p2a: Steelix|Heavy Slam|p1a: Espeon
+|-damage|p1a: Espeon|16100
+|-heal|p2a: Steelix|157263|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "espeon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct-espeon
+|chat|DEBUG|Own moves: headsmash dragondance heavyslam earthquake
+|chat|DEBUG|Enemy moves: calmmind dazzlinggleam psychic shadowball
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['steelix', 'dubwool']
+|chat|DEBUG|Speed: 99 vs 228
+|chat|DEBUG|HP: 157 vs 38
+|chat|DEBUG|Best move of steelix (p1): heavyslam: 153.0 [141, 166]
+|chat|DEBUG|Best move of espeon (p2): shadowball: 110.0625 [101, 120]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Espeon|Shadow Ball|p2a: Steelix
+|-damage|p2a: Steelix|44263
+|-unboost|p2a: Steelix|spd|1
+|-damage|p1a: Espeon|6100|[from] item: Life Orb
+|move|p2a: Steelix|Heavy Slam|p1a: Espeon
+|-damage|p1a: Espeon|0 fnt
+|faint|p1a: Espeon
+|-heal|p2a: Steelix|60263|[from] item: Leftovers
+|upkeep
+|switch|p1a: Wailord|Wailord, L90, F|10100
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "steelix" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct
+|chat|DEBUG|Own moves: headsmash dragondance heavyslam earthquake
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['dubwool']
+|chat|DEBUG|Counter: ['archeops', 'dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Speed: 99 vs 159
+|chat|DEBUG|HP: 60 vs 45
+|chat|DEBUG|Created a new Strategy for steelix vs wailord:
+|chat|DEBUG|>[earthquake: 141.5625 [130, 154], earthquake: 141.5625 [130, 154], earthquake: 141.5625 [130, 154]]
+|chat|DEBUG|Best move of steelix (p1): earthquake: 141.5625 [130, 154]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 714.0 [656, 774]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dubwool
+|switch|p2a: Dubwool|Dubwool, L86, F|199264
+|move|p1a: Wailord|Water Spout|p2a: Dubwool
+|-damage|p2a: Dubwool|178264
+|-heal|p2a: Dubwool|194264|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct
+|chat|DEBUG|Own moves: sleeptalk rest cottonguard bodypress
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['dubwool']
+|chat|DEBUG|Counter: ['archeops', 'dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 159
+|chat|DEBUG|HP: 194 vs 45
+|chat|DEBUG|Created a new Strategy for dubwool vs wailord:
+|chat|DEBUG|>[bodypress: 90.5 [83, 98], bodypress: 90.5 [83, 98], bodypress: 90.5 [83, 98]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 90.5 [83, 98]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 182.375 [168, 198]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Grapploct|Grapploct, L86, M|87100
+|move|p2a: Dubwool|Body Press|p1a: Grapploct
+|-damage|p1a: Grapploct|65100
+|-heal|p2a: Dubwool|210264|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dubwool" vs "grapploct"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct
+|chat|DEBUG|Own moves: sleeptalk rest cottonguard bodypress
+|chat|DEBUG|Enemy moves: brutalswing bulkup drainpunch icepunch
+|chat|DEBUG|Checks: ['weezinggalar']
+|chat|DEBUG|Counter: ['leafeon', 'weezinggalar']
+|chat|DEBUG|Speed: 201 vs 121
+|chat|DEBUG|HP: 210 vs 180
+|chat|DEBUG|Created a new Strategy for dubwool vs grapploct:
+|chat|DEBUG|>[bodypress: 58.75 [54, 64], bodypress: 58.75 [54, 64], bodypress: 58.75 [54, 64]]
+|chat|DEBUG|Best move of dubwool (p1): bodypress: 58.75 [54, 64]
+|chat|DEBUG|Best move of grapploct (p2): drainpunch: 224.75 [205, 244]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check weezinggalar
+|switch|p2a: Weezing|Weezing-Galar, L86, F|252252
+|-ability|p2a: Weezing|Neutralizing Gas
+|move|p1a: Grapploct|Drain Punch|p2a: Weezing
+|-resisted|p2a: Weezing
+|-damage|p2a: Weezing|227252
+|-heal|p1a: Grapploct|70100|[from] drain|[of] p2a: Weezing
+|-damage|p1a: Grapploct|60100|[from] item: Life Orb
+|-heal|p2a: Weezing|242252|[from] item: Black Sludge
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezinggalar" vs "grapploct"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-grapploct
+|chat|DEBUG|Own moves: strangesteam painsplit fireblast toxicspikes
+|chat|DEBUG|Enemy moves: brutalswing bulkup drainpunch icepunch
+|chat|DEBUG|Checks: ['weezinggalar']
+|chat|DEBUG|Counter: ['leafeon', 'weezinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 152 vs 121
+|chat|DEBUG|HP: 242 vs 166
+|chat|DEBUG|Created a new Strategy for weezinggalar vs grapploct:
+|chat|DEBUG|>[strangesteam: 189.75 [174, 206], strangesteam: 189.75 [174, 206], strangesteam: 189.75 [174, 206]]
+|chat|DEBUG|Best move of weezinggalar (p1): strangesteam: 189.75 [174, 206]
+|chat|DEBUG|Best move of grapploct (p2): icepunch: 65.4375 [60, 71]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Weezing|Strange Steam|p1a: Grapploct
+|-supereffective|p1a: Grapploct
+|-damage|p1a: Grapploct|0 fnt
+|faint|p1a: Grapploct
+|-heal|p2a: Weezing|252252|[from] item: Black Sludge
+|upkeep
+|switch|p1a: Swampert|Swampert, L80, F|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezinggalar" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-swampert
+|chat|DEBUG|Own moves: strangesteam painsplit fireblast toxicspikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['leafeon']
+|chat|DEBUG|Counter: ['leafeon']
+|chat|DEBUG|Speed: 152 vs 142
+|chat|DEBUG|HP: 252 vs 291
+|chat|DEBUG|Created a new Strategy for weezinggalar vs swampert:
+|chat|DEBUG|>[strangesteam: 93.25 [85, 102], strangesteam: 93.25 [85, 102], strangesteam: 93.25 [85, 102]]
+|chat|DEBUG|Best move of weezinggalar (p1): strangesteam: 93.25 [85, 102]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 164.875 [152, 180]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|-start|p2a: Weezing|Dynamax
+|-heal|p2a: Weezing|504504|[silent]
+|move|p2a: Weezing|Max Starfall|p1a: Swampert
+|-damage|p1a: Swampert|58100
+|-fieldstart|move: Misty Terrain
+|move|p1a: Swampert|Scald|p2a: Weezing
+|-damage|p2a: Weezing|425504
+|-heal|p2a: Weezing|440504|[from] item: Black Sludge
+|-heal|p1a: Swampert|64100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezinggalar" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-swampert
+|chat|DEBUG|Own moves: strangesteam painsplit fireblast toxicspikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['leafeon']
+|chat|DEBUG|Counter: ['arctovish', 'dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Speed: 152 vs 142
+|chat|DEBUG|HP: 440 vs 186
+|chat|DEBUG|Best move of weezinggalar (p1): strangesteam: 93.25 [85, 102]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 164.875 [152, 180]
+|chat|DEBUG|Attacking using strangesteam
+|move|p2a: Weezing|Max Starfall|p1a: Swampert
+|-damage|p1a: Swampert|16100
+|move|p1a: Swampert|Earthquake|p2a: Weezing
+|-supereffective|p2a: Weezing
+|-damage|p2a: Weezing|284504
+|-heal|p2a: Weezing|299504|[from] item: Black Sludge
+|-heal|p1a: Swampert|22100|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezinggalar" vs "swampert"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord-swampert
+|chat|DEBUG|Own moves: strangesteam painsplit fireblast toxicspikes
+|chat|DEBUG|Enemy moves: earthquake protect scald toxic
+|chat|DEBUG|Checks: ['dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Counter: ['arctovish', 'dubwool', 'leafeon', 'weezinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 152 vs 142
+|chat|DEBUG|HP: 299 vs 64
+|chat|DEBUG|Best move of weezinggalar (p1): strangesteam: 93.25 [85, 102]
+|chat|DEBUG|Best move of swampert (p2): earthquake: 164.875 [152, 180]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Weezing|Max Starfall|p1a: Swampert
+|-damage|p1a: Swampert|0 fnt
+|faint|p1a: Swampert
+|-heal|p2a: Weezing|314504|[from] item: Black Sludge
+|-end|p2a: Weezing|Dynamax
+|-heal|p2a: Weezing|157252|[silent]
+|upkeep
+|switch|p1a: Wailord|Wailord, L90, F|10100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>steelix archeops arctovish dubwool leafeon weezinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezinggalar" vs "wailord"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>steelix-archeops-arctovish-dubwool-leafeon-weezinggalar -- wailord
+|chat|DEBUG|Own moves: strangesteam painsplit fireblast toxicspikes
+|chat|DEBUG|Enemy moves: hydropump hypervoice icebeam waterspout
+|chat|DEBUG|Checks: ['dubwool']
+|chat|DEBUG|Counter: ['archeops', 'dubwool', 'leafeon']
+|chat|DEBUG|Speed: 152 vs 159
+|chat|DEBUG|HP: 157 vs 45
+|chat|DEBUG|Created a new Strategy for weezinggalar vs wailord:
+|chat|DEBUG|>[strangesteam: 134.0 [123, 145], strangesteam: 134.0 [123, 145], strangesteam: 134.0 [123, 145]]
+|chat|DEBUG|Best move of weezinggalar (p1): strangesteam: 134.0 [123, 145]
+|chat|DEBUG|Best move of wailord (p2): hydropump: 218.3125 [201, 237]
+|chat|DEBUG|Attacking using strangesteam
+|move|p1a: Wailord|Hydro Pump|p2a: Weezing|[miss]
+|-miss|p1a: Wailord|p2a: Weezing
+|move|p2a: Weezing|Strange Steam|p1a: Wailord
+|-damage|p1a: Wailord|0 fnt
+|faint|p1a: Wailord
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">steelix archeops arctovish dubwool leafeon weezinggalar</h1>

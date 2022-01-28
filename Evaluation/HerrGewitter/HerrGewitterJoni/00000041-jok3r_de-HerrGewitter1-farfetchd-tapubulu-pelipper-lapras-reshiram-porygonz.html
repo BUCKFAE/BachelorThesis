@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490669534<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490669534|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Mawile|Mawile, L86, F|100100
+|switch|p2a: Farfetch’d|Farfetch’d, L90, M|239239
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "farfetchd" vs "mawile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>farfetchd-tapubulu-pelipper-lapras-reshiram-porygonz -- mawile
+|chat|DEBUG|Own moves: bravebird leafblade closecombat swordsdance
+|chat|DEBUG|Enemy moves: ironhead playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: ['pelipper', 'lapras', 'reshiram']
+|chat|DEBUG|Counter: ['farfetchd', 'pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Speed: 159 vs 135
+|chat|DEBUG|HP: 239 vs 226
+|chat|DEBUG|Created a new Strategy for farfetchd vs mawile:
+|chat|DEBUG|>[closecombat: 139.0625 [128, 151], closecombat: 139.0625 [128, 151], closecombat: 139.0625 [128, 151]]
+|chat|DEBUG|Best move of farfetchd (p1): closecombat: 139.0625 [128, 151]
+|chat|DEBUG|Best move of mawile (p2): playrough: 153.75 [142, 168]
+|chat|DEBUG|Attacking using closecombat
+|move|p1a: Mawile|Sucker Punch|p2a: Farfetch’d
+|-damage|p2a: Farfetch’d|157239
+|-damage|p1a: Mawile|91100|[from] item: Life Orb
+|move|p2a: Farfetch’d|Close Combat|p1a: Mawile
+|-damage|p1a: Mawile|51100
+|-unboost|p2a: Farfetch’d|def|1
+|-unboost|p2a: Farfetch’d|spd|1
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "farfetchd" vs "mawile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>farfetchd-tapubulu-pelipper-lapras-reshiram-porygonz -- mawile
+|chat|DEBUG|Own moves: bravebird leafblade closecombat swordsdance
+|chat|DEBUG|Enemy moves: ironhead playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: ['pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Counter: ['farfetchd', 'tapubulu', 'pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Speed: 159 vs 135
+|chat|DEBUG|HP: 157 vs 115
+|chat|DEBUG|Best move of farfetchd (p1): closecombat: 139.0625 [128, 151]
+|chat|DEBUG|Best move of mawile (p2): playrough: 229.6875 [211, 250]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Farfetch’d|Close Combat|p1a: Mawile
+|-damage|p1a: Mawile|8100
+|-unboost|p2a: Farfetch’d|def|1
+|-unboost|p2a: Farfetch’d|spd|1
+|move|p1a: Mawile|Stealth Rock|p2a: Farfetch’d
+|-sidestart|p2: HerrGewitter1|move: Stealth Rock
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "farfetchd" vs "mawile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>farfetchd-tapubulu-pelipper-lapras-reshiram-porygonz -- mawile
+|chat|DEBUG|Own moves: bravebird leafblade closecombat swordsdance
+|chat|DEBUG|Enemy moves: ironhead playrough suckerpunch swordsdance
+|chat|DEBUG|Checks: ['tapubulu', 'pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Counter: ['farfetchd', 'tapubulu', 'pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Speed: 159 vs 135
+|chat|DEBUG|HP: 157 vs 18
+|chat|DEBUG|Best move of farfetchd (p1): closecombat: 139.0625 [128, 151]
+|chat|DEBUG|Best move of mawile (p2): playrough: 305.5 [281, 331]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Mawile|Sucker Punch|p2a: Farfetch’d
+|-damage|p2a: Farfetch’d|2239
+|-damage|p1a: Mawile|0 fnt|[from] item: Life Orb
+|faint|p1a: Mawile
+|move|p2a: Farfetch’d|Close Combat|p1: Mawile|[notarget]
+|-fail|p2a: Farfetch’d
+|upkeep
+|switch|p1a: Indeedee|Indeedee, L82, M|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Indeedee
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>farfetchd tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "farfetchd" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>farfetchd-tapubulu-pelipper-lapras-reshiram-porygonz -- indeedee
+|chat|DEBUG|Own moves: bravebird leafblade closecombat swordsdance
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu', 'lapras', 'reshiram']
+|chat|DEBUG|Speed: 159 vs 203
+|chat|DEBUG|HP: 2 vs 233
+|chat|DEBUG|Created a new Strategy for farfetchd vs indeedee:
+|chat|DEBUG|>[bravebird: 197.375 [181, 214], bravebird: 197.375 [181, 214], bravebird: 197.375 [181, 214]]
+|chat|DEBUG|Best move of farfetchd (p1): bravebird: 197.375 [181, 214]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 299.625 [274, 325]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|move|p1a: Indeedee|Expanding Force|p2a: Farfetch’d
+|-damage|p2a: Farfetch’d|0 fnt
+|faint|p2a: Farfetch’d
+|upkeep
+|switch|p2a: Tapu Bulu|Tapu Bulu, L82|249249
+|-damage|p2a: Tapu Bulu|218249|[from] Stealth Rock
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Tapu Bulu
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "farfetchd" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram-porygonz -- indeedee
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu', 'lapras', 'reshiram']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tapubulu (pokemon object) [Active: False, Status: None]
+|switch|p1a: Giratina|Giratina-Origin, L74|100100
+|move|p2a: Tapu Bulu|Wood Hammer|p1a: Giratina
+|-resisted|p1a: Giratina
+|-damage|p1a: Giratina|69100
+|-damage|p2a: Tapu Bulu|183249|[from] Recoil
+|-heal|p2a: Tapu Bulu|198249|[from] Grassy Terrain
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram-porygonz -- indeedee
+|chat|DEBUG|Own moves: swordsdance stoneedge closecombat woodhammer
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu', 'lapras', 'reshiram']
+|chat|DEBUG|Speed: 170 vs 203
+|chat|DEBUG|HP: 218 vs 233
+|chat|DEBUG|Created a new Strategy for tapubulu vs indeedee:
+|chat|DEBUG|>[woodhammer: 215.5 [198, 234], woodhammer: 215.5 [198, 234], woodhammer: 215.5 [198, 234]]
+|chat|DEBUG|Best move of tapubulu (p1): woodhammer: 215.5 [198, 234]
+|chat|DEBUG|Best move of indeedee (p2): mysticalfire: 136.0 [125, 148]
+|chat|DEBUG|Attacking using woodhammer
+|switch|p2a: Porygon-Z|Porygon-Z, L80|267267
+|-damage|p2a: Porygon-Z|234267|[from] Stealth Rock
+|-ability|p2a: Porygon-Z|Download|boost
+|-boost|p2a: Porygon-Z|spa|1
+|move|p1a: Giratina|Dual Wingbeat|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|198267
+|-damage|p2a: Porygon-Z|166267
+|-hitcount|p2a: Porygon-Z|2
+|-heal|p2a: Porygon-Z|182267|[from] Grassy Terrain
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "giratinaorigin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram-porygonz -- indeedee-giratinaorigin
+|chat|DEBUG|Own moves: swordsdance stoneedge closecombat woodhammer
+|chat|DEBUG|Enemy moves: dualwingbeat honeclaws outrage poltergeist
+|chat|DEBUG|Checks: ['porygonz']
+|chat|DEBUG|Counter: ['pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Speed: 170 vs 176
+|chat|DEBUG|HP: 198 vs 237
+|chat|DEBUG|Created a new Strategy for tapubulu vs giratinaorigin:
+|chat|DEBUG|>[woodhammer: 77.625 [72, 84], woodhammer: 77.625 [72, 84], woodhammer: 77.625 [72, 84]]
+|chat|DEBUG|Best move of tapubulu (p1): woodhammer: 77.625 [72, 84]
+|chat|DEBUG|Best move of giratinaorigin (p2): poltergeist: 89.1875 [82, 97]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygonz
+|switch|p1a: Copperajah|Copperajah, L84, M|100100
+|move|p2a: Porygon-Z|Dark Pulse|p1a: Copperajah
+|-damage|p1a: Copperajah|58100
+|-damage|p2a: Porygon-Z|156267|[from] item: Life Orb
+|-heal|p2a: Porygon-Z|172267|[from] Grassy Terrain
+|-heal|p1a: Copperajah|64100|[from] Grassy Terrain
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "giratinaorigin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram-porygonz -- indeedee-giratinaorigin
+|chat|DEBUG|Own moves: nastyplot triattack darkpulse thunderbolt
+|chat|DEBUG|Enemy moves: dualwingbeat honeclaws outrage poltergeist
+|chat|DEBUG|Checks: ['porygonz']
+|chat|DEBUG|Counter: ['pelipper', 'lapras', 'reshiram', 'porygonz']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 190 vs 176
+|chat|DEBUG|HP: 182 vs 237
+|chat|DEBUG|Created a new Strategy for porygonz vs giratinaorigin:
+|chat|DEBUG|>[darkpulse: 361.5625 [333, 393], darkpulse: 361.5625 [333, 393], darkpulse: 361.5625 [333, 393]]
+|chat|DEBUG|Best move of porygonz (p1): darkpulse: 361.5625 [333, 393]
+|chat|DEBUG|Best move of giratinaorigin (p2): outrage: 146.125 [135, 159]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using darkpulse
+|move|p2a: Porygon-Z|Thunderbolt|p1a: Copperajah
+|-damage|p1a: Copperajah|15100
+|-damage|p2a: Porygon-Z|146267|[from] item: Life Orb
+|move|p1a: Copperajah|Power Whip|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|0 fnt
+|faint|p2a: Porygon-Z
+|-heal|p1a: Copperajah|21100|[from] Grassy Terrain
+|upkeep
+|switch|p2a: Tapu Bulu|Tapu Bulu, L82|198249
+|-damage|p2a: Tapu Bulu|167249|[from] Stealth Rock
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram-porygonz -- indeedee-giratinaorigin-copperajah
+|chat|DEBUG|Own moves: nastyplot triattack darkpulse thunderbolt
+|chat|DEBUG|Enemy moves: heatcrash heavyslam powerwhip stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu', 'pelipper', 'reshiram', 'porygonz']
+|chat|DEBUG|Speed: 190 vs 99
+|chat|DEBUG|HP: 172 vs 218
+|chat|DEBUG|Created a new Strategy for porygonz vs copperajah:
+|chat|DEBUG|>[thunderbolt: 236.5 [217, 256], thunderbolt: 236.5 [217, 256], thunderbolt: 236.5 [217, 256]]
+|chat|DEBUG|Best move of porygonz (p1): thunderbolt: 236.5 [217, 256]
+|chat|DEBUG|Best move of copperajah (p2): heavyslam: 296.0 [271, 321]
+|chat|DEBUG|Attacking using thunderbolt
+|switch|p1a: Mr. Mime|Mr. Mime-Galar, L86, F|100100
+|move|p2a: Tapu Bulu|Close Combat|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|62100
+|-unboost|p2a: Tapu Bulu|def|1
+|-unboost|p2a: Tapu Bulu|spd|1
+|-heal|p1a: Mr. Mime|68100|[from] Grassy Terrain
+|-heal|p2a: Tapu Bulu|182249|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-giratinaorigin-copperajah
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatcrash heavyslam powerwhip stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tapubulu', 'pelipper', 'reshiram']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to tapubulu (pokemon object) [Active: False, Status: None]
+|switch|p2a: Reshiram|Reshiram, L74|270270
+|-damage|p2a: Reshiram|203270|[from] Stealth Rock
+|-ability|p2a: Reshiram|Turboblaze
+|move|p1a: Mr. Mime|Freeze-Dry|p2a: Reshiram
+|-damage|p2a: Reshiram|143270
+|-heal|p2a: Reshiram|159270|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "copperajah"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-giratinaorigin-copperajah
+|chat|DEBUG|Own moves: swordsdance stoneedge closecombat woodhammer
+|chat|DEBUG|Enemy moves: heatcrash heavyslam powerwhip stoneedge
+|chat|DEBUG|Checks: ['pelipper', 'lapras']
+|chat|DEBUG|Counter: ['tapubulu', 'pelipper', 'lapras', 'reshiram']
+|chat|DEBUG|Speed: 170 vs 99
+|chat|DEBUG|HP: 167 vs 71
+|chat|DEBUG|Created a new Strategy for tapubulu vs copperajah:
+|chat|DEBUG|>[closecombat: 241.375 [222, 262], closecombat: 241.375 [222, 262], closecombat: 241.375 [222, 262]]
+|chat|DEBUG|Best move of tapubulu (p1): closecombat: 241.375 [222, 262]
+|chat|DEBUG|Best move of copperajah (p2): heavyslam: 397.75 [366, 432]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Mr. Mime|Nasty Plot|p1a: Mr. Mime
+|-boost|p1a: Mr. Mime|spa|2
+|move|p2a: Reshiram|Blue Flare|p1a: Mr. Mime
+|-supereffective|p1a: Mr. Mime
+|-damage|p1a: Mr. Mime|0 fnt
+|faint|p1a: Mr. Mime
+|-heal|p2a: Reshiram|175270|[from] item: Leftovers
+|upkeep
+|switch|p1a: Giratina|Giratina-Origin, L74|69100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tapubulu" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-giratinaorigin-copperajah-mrmimegalar
+|chat|DEBUG|Own moves: swordsdance stoneedge closecombat woodhammer
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['reshiram']
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Speed: 170 vs 221
+|chat|DEBUG|HP: 182 vs 153
+|chat|DEBUG|Created a new Strategy for tapubulu vs mrmimegalar:
+|chat|DEBUG|>[woodhammer: 124.0625 [114, 135], woodhammer: 124.0625 [114, 135], woodhammer: 124.0625 [114, 135]]
+|chat|DEBUG|Best move of tapubulu (p1): woodhammer: 124.0625 [114, 135]
+|chat|DEBUG|Best move of mrmimegalar (p2): freezedry: 214.625 [198, 234]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check reshiram
+|move|p2a: Reshiram|Draco Meteor|p1a: Giratina
+|-supereffective|p1a: Giratina
+|-crit|p1a: Giratina
+|-damage|p1a: Giratina|0 fnt
+|-unboost|p2a: Reshiram|spa|2
+|faint|p1a: Giratina
+|-heal|p2a: Reshiram|191270|[from] item: Leftovers
+|upkeep
+|switch|p1a: Indeedee|Indeedee, L82, M|100100
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p1a: Indeedee
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "mrmimegalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-giratinaorigin-copperajah-mrmimegalar
+|chat|DEBUG|Own moves: roost toxic blueflare dracometeor
+|chat|DEBUG|Enemy moves: focusblast freezedry nastyplot psychic
+|chat|DEBUG|Checks: ['reshiram']
+|chat|DEBUG|Counter: ['reshiram']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 221
+|chat|DEBUG|HP: 159 vs 153
+|chat|DEBUG|Created a new Strategy for reshiram vs mrmimegalar:
+|chat|DEBUG|>[blueflare: 195.25 [180, 212], blueflare: 195.25 [180, 212], blueflare: 195.25 [180, 212]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 195.25 [180, 212]
+|chat|DEBUG|Best move of mrmimegalar (p2): psychic: 83.625 [76, 91]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Indeedee|Expanding Force|p2a: Reshiram
+|-damage|p2a: Reshiram|34270
+|move|p2a: Reshiram|Blue Flare|p1a: Indeedee
+|-damage|p1a: Indeedee|71100
+|-heal|p2a: Reshiram|50270|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "giratinaorigin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-giratinaorigin-copperajah
+|chat|DEBUG|Own moves: roost toxic blueflare dracometeor
+|chat|DEBUG|Enemy moves: dualwingbeat honeclaws outrage poltergeist
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pelipper', 'lapras']
+|chat|DEBUG|Speed: 176 vs 176
+|chat|DEBUG|HP: 175 vs 237
+|chat|DEBUG|Created a new Strategy for reshiram vs giratinaorigin:
+|chat|DEBUG|>[dracometeor: 311.625 [288, 338], dracometeor: 156.375 [144, 170], dracometeor: 106.25 [98, 116]]
+|chat|DEBUG|Best move of reshiram (p1): dracometeor: 311.625 [288, 338]
+|chat|DEBUG|Best move of giratinaorigin (p2): outrage: 242.375 [222, 264]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|switch|p2a: Lapras|Lapras, L86, M|363363
+|-damage|p2a: Lapras|273363|[from] Stealth Rock
+|move|p1a: Indeedee|Expanding Force|p2a: Lapras
+|-damage|p2a: Lapras|120363
+|-heal|p2a: Lapras|142363|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-copperajah
+|chat|DEBUG|Own moves: roost toxic blueflare dracometeor
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lapras']
+|chat|DEBUG|Speed: 176 vs 203
+|chat|DEBUG|HP: 191 vs 233
+|chat|DEBUG|Created a new Strategy for reshiram vs indeedee:
+|chat|DEBUG|>[blueflare: 73.9375 [67, 81], blueflare: 73.9375 [67, 81], dracometeor: 73.9375 [67, 81]]
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 73.9375 [67, 81]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 110.5 [101, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using blueflare
+|move|p1a: Indeedee|Expanding Force|p2a: Lapras
+|-damage|p2a: Lapras|0 fnt
+|faint|p2a: Lapras
+|upkeep
+|switch|p2a: Pelipper|Pelipper, L86, F|243243
+|-weather|RainDance|[from] ability: Drizzle|[of] p2a: Pelipper
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reshiram" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-copperajah
+|chat|DEBUG|Own moves: roost toxic blueflare dracometeor
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['lapras']
+|chat|DEBUG|Counter: ['lapras']
+|chat|DEBUG|Speed: 176 vs 203
+|chat|DEBUG|HP: 50 vs 165
+|chat|DEBUG|Best move of reshiram (p1): blueflare: 73.9375 [67, 81]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 110.5 [101, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check lapras
+|-start|p1a: Indeedee|Dynamax
+|-heal|p1a: Indeedee|71100|[silent]
+|-start|p2a: Pelipper|Dynamax
+|-heal|p2a: Pelipper|486486|[silent]
+|move|p1a: Indeedee|Max Mindstorm|p2a: Pelipper
+|-damage|p2a: Pelipper|287486
+|move|p2a: Pelipper|Max Geyser|p1a: Indeedee
+|-damage|p1a: Indeedee|19100
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper lapras reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-lapras-reshiram -- indeedee-copperajah
+|chat|DEBUG|Own moves: protect icebeam toxic sparklingaria
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 152 vs 203
+|chat|DEBUG|HP: 142 vs 165
+|chat|DEBUG|Created a new Strategy for lapras vs indeedee:
+|chat|DEBUG|>[sparklingaria: 87.9375 [81, 96], sparklingaria: 87.9375 [81, 96], sparklingaria: 87.9375 [81, 96]]
+|chat|DEBUG|Best move of lapras (p1): sparklingaria: 87.9375 [81, 96]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 114.25 [105, 125]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sparklingaria
+|move|p1a: Indeedee|Max Mindstorm|p2a: Pelipper
+|-damage|p2a: Pelipper|80486
+|move|p2a: Pelipper|Max Geyser|p1a: Indeedee
+|-damage|p1a: Indeedee|0 fnt
+|faint|p1a: Indeedee
+|-weather|RainDance|[upkeep]
+|-fieldend|move: Psychic Terrain
+|upkeep
+|switch|p1a: Copperajah|Copperajah, L84, M|21100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lapras" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-reshiram -- indeedee-copperajah
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: pelipper
+|chat|DEBUG|>Switching to pelipper (pokemon object) [Active: False, Status: None]
+|move|p2a: Pelipper|Max Geyser|p1a: Copperajah
+|-damage|p1a: Copperajah|0 fnt
+|faint|p1a: Copperajah
+|-weather|RainDance|[upkeep]
+|-end|p2a: Pelipper|Dynamax
+|-heal|p2a: Pelipper|40243|[silent]
+|upkeep
+|switch|p1a: Diggersby|Diggersby, L80, M|100100
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-reshiram -- indeedee-copperajah
+|chat|DEBUG|Own moves: hydropump roost hurricane defog
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 161 vs 203
+|chat|DEBUG|HP: 243 vs 165
+|chat|DEBUG|Created a new Strategy for pelipper vs indeedee:
+|chat|DEBUG|>[hydropump: 117.0 [108, 127], hydropump: 117.0 [108, 127], hydropump: 117.0 [108, 127]]
+|chat|DEBUG|Best move of pelipper (p1): hydropump: 117.0 [108, 127]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 143.25 [133, 156]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|move|p1a: Diggersby|Knock Off|p2a: Pelipper
+|-crit|p2a: Pelipper
+|-damage|p2a: Pelipper|0 fnt
+|-enditem|p2a: Pelipper|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Diggersby
+|faint|p2a: Pelipper
+|-damage|p1a: Diggersby|91100|[from] item: Life Orb
+|-weather|RainDance|[upkeep]
+|upkeep
+|switch|p2a: Reshiram|Reshiram, L74|50270
+|-damage|p2a: Reshiram|0 fnt|[from] Stealth Rock
+|faint|p2a: Reshiram
+|switch|p2a: Tapu Bulu|Tapu Bulu, L82|182249
+|-damage|p2a: Tapu Bulu|151249|[from] Stealth Rock
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p2a: Tapu Bulu
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>tapubulu pelipper reshiram
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pelipper" vs "indeedee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>tapubulu-pelipper-reshiram -- indeedee-copperajah
+|chat|DEBUG|Own moves: hydropump roost hurricane defog
+|chat|DEBUG|Enemy moves: calmmind expandingforce hypervoice mysticalfire
+|chat|DEBUG|Checks: ['pelipper']
+|chat|DEBUG|Counter: ['pelipper']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 161 vs 203
+|chat|DEBUG|HP: 287 vs 44
+|chat|DEBUG|Best move of pelipper (p1): hydropump: 117.0 [108, 127]
+|chat|DEBUG|Best move of indeedee (p2): hypervoice: 143.25 [133, 156]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Diggersby|Knock Off|p2a: Tapu Bulu
+|-resisted|p2a: Tapu Bulu
+|-damage|p2a: Tapu Bulu|102249
+|-enditem|p2a: Tapu Bulu|Lum Berry|[from] move: Knock Off|[of] p1a: Diggersby
+|-damage|p1a: Diggersby|81100|[from] item: Life Orb
+|move|p2a: Tapu Bulu|Wood Hammer|p1a: Diggersby
+|-supereffective|p1a: Diggersby
+|-damage|p1a: Diggersby|0 fnt
+|faint|p1a: Diggersby
+|-damage|p2a: Tapu Bulu|31249|[from] Recoil
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">farfetchd tapubulu pelipper lapras reshiram porygonz</h1>

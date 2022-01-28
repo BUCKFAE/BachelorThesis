@@ -49,6 +49,7 @@ def enhance_replays():
             replay_file_content = [line.replace('‽', '☆') for line in replay_file_content]
 
             # Removing illegal characters from player names
+            # TODO: This breaks replays!!!
             replay_file_content = [line.replace('/', '') for line in replay_file_content]
 
             # Getting the names of the players

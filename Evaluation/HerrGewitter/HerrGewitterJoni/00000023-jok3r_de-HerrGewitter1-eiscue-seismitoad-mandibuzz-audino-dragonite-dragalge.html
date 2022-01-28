@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1493152373<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1493152373|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|265|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Hitmonlee|Hitmonlee, L84, M|100100
+|switch|p2a: Eiscue|Eiscue, L82, M|256256
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite dragalge
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eiscue" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite-dragalge -- hitmonlee
+|chat|DEBUG|Own moves: bellydrum liquidation iciclecrash substitute
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: ['dragalge']
+|chat|DEBUG|Counter: ['mandibuzz', 'dragonite', 'dragalge']
+|chat|DEBUG|Speed: 129 vs 194
+|chat|DEBUG|HP: 256 vs 221
+|chat|DEBUG|Created a new Strategy for eiscue vs hitmonlee:
+|chat|DEBUG|>[iciclecrash: 105.875 [97, 115], iciclecrash: 105.875 [97, 115], iciclecrash: 105.875 [97, 115]]
+|chat|DEBUG|Best move of eiscue (p1): iciclecrash: 105.875 [97, 115]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 259.0 [236, 282]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dragalge
+|j| KarstenShrank
+|switch|p2a: Dragalge|Dragalge, L86, M|252252
+|move|p1a: Hitmonlee|High Jump Kick|p2a: Dragalge
+|-resisted|p2a: Dragalge
+|-damage|p2a: Dragalge|117252
+|-heal|p2a: Dragalge|132252|[from] item: Black Sludge
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite dragalge
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite-dragalge -- hitmonlee
+|chat|DEBUG|Own moves: dracometeor toxicspikes focusblast sludgewave
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mandibuzz', 'dragonite']
+|chat|DEBUG|Speed: 125 vs 194
+|chat|DEBUG|HP: 132 vs 221
+|chat|DEBUG|Created a new Strategy for dragalge vs hitmonlee:
+|chat|DEBUG|>[sludgewave: 119.375 [110, 130], sludgewave: 119.375 [110, 130], dracometeor: 161.875 [148, 176]]
+|chat|DEBUG|Best move of dragalge (p1): sludgewave: 119.375 [110, 130]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 71.3125 [66, 78]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|move|p1a: Hitmonlee|High Jump Kick|p2a: Dragalge
+|-resisted|p2a: Dragalge
+|-damage|p2a: Dragalge|0 fnt
+|faint|p2a: Dragalge
+|upkeep
+|switch|p2a: Mandibuzz|Mandibuzz, L82, F|315315
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragalge" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- hitmonlee
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mandibuzz', 'dragonite']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to mandibuzz (pokemon object) [Active: False, Status: None]
+|move|p1a: Hitmonlee|High Jump Kick|p2a: Mandibuzz
+|-damage|p2a: Mandibuzz|77315
+|move|p2a: Mandibuzz|Brave Bird|p1a: Hitmonlee
+|-supereffective|p1a: Hitmonlee
+|-damage|p1a: Hitmonlee|0 fnt
+|faint|p1a: Hitmonlee
+|-damage|p2a: Mandibuzz|4315|[from] Recoil
+|upkeep
+|switch|p1a: Goodra|Goodra, L82, M|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mandibuzz" vs "hitmonlee"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- hitmonlee
+|chat|DEBUG|Own moves: roost toxic foulplay bravebird
+|chat|DEBUG|Enemy moves: closecombat curse poisonjab stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mandibuzz', 'dragonite']
+|chat|DEBUG|Speed: 178 vs 194
+|chat|DEBUG|HP: 315 vs 221
+|chat|DEBUG|Created a new Strategy for mandibuzz vs hitmonlee:
+|chat|DEBUG|>[bravebird: 256.125 [236, 278], bravebird: 256.125 [236, 278], bravebird: 256.125 [236, 278]]
+|chat|DEBUG|Best move of mandibuzz (p1): bravebird: 256.125 [236, 278]
+|chat|DEBUG|Best move of hitmonlee (p2): closecombat: 134.0 [123, 145]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Dragonite|Dragonite, L75, F|260260
+|move|p1a: Goodra|Sludge Bomb|p2a: Dragonite
+|-damage|p2a: Dragonite|224260
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mandibuzz" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra
+|chat|DEBUG|Own moves: roost toxic foulplay bravebird
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: ['dragonite']
+|chat|DEBUG|Counter: ['dragonite']
+|chat|DEBUG|Speed: 178 vs 178
+|chat|DEBUG|HP: 4 vs 282
+|chat|DEBUG|Created a new Strategy for mandibuzz vs goodra:
+|chat|DEBUG|>[foulplay: 118.3125 [109, 129], foulplay: 118.3125 [109, 129], foulplay: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of mandibuzz (p1): foulplay: 118.3125 [109, 129]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 79.0625 [73, 86]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dragonite
+|switch|p1a: Octillery|Octillery, L86, F|100100
+|move|p2a: Dragonite|Outrage|p1a: Octillery
+|-damage|p1a: Octillery|41100
+|-heal|p1a: Octillery|47100|[from] item: Leftovers
+|-ability|p1a: Octillery|Moody|boost
+|-boost|p1a: Octillery|atk|2
+|-unboost|p1a: Octillery|spa|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragonite" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra
+|chat|DEBUG|Own moves: dualwingbeat dragondance outrage earthquake
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 164 vs 178
+|chat|DEBUG|HP: 224 vs 282
+|chat|DEBUG|Created a new Strategy for dragonite vs goodra:
+|chat|DEBUG|>[outrage: 325.625 [300, 354], outrage: 325.625 [300, 354], outrage: 325.625 [300, 354]]
+|chat|DEBUG|Best move of dragonite (p1): outrage: 325.625 [300, 354]
+|chat|DEBUG|Best move of goodra (p2): dracometeor: 289.125 [266, 314]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|switch|p1a: Skarmory|Skarmory, L80, F|100100
+|move|p2a: Dragonite|Outrage|p1a: Skarmory|[from]lockedmove
+|-resisted|p1a: Skarmory
+|-damage|p1a: Skarmory|79100
+|-heal|p1a: Skarmory|85100|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragonite" vs "octillery"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: energyball fireblast hydropump protect
+|chat|DEBUG|Checks: ['seismitoad', 'audino', 'dragonite']
+|chat|DEBUG|Counter: ['seismitoad', 'mandibuzz', 'audino', 'dragonite']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 164 vs 127
+|chat|DEBUG|HP: 224 vs 126
+|chat|DEBUG|Created a new Strategy for dragonite vs octillery:
+|chat|DEBUG|>[outrage: 147.5 [135, 160], outrage: 147.5 [135, 160], outrage: 147.5 [135, 160]]
+|chat|DEBUG|Best move of dragonite (p1): outrage: 147.5 [135, 160]
+|chat|DEBUG|Best move of octillery (p2): hydropump: 43.75 [40, 48]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using outrage
+|move|p2a: Dragonite|Outrage|p1a: Skarmory|[from]lockedmove
+|-resisted|p1a: Skarmory
+|-damage|p1a: Skarmory|64100
+|-start|p2a: Dragonite|confusion|[fatigue]
+|move|p1a: Skarmory|Brave Bird|p2a: Dragonite
+|-damage|p2a: Dragonite|119260
+|-damage|p1a: Skarmory|49100|[from] Recoil
+|-heal|p1a: Skarmory|55100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragonite" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: ['seismitoad']
+|chat|DEBUG|Counter: ['seismitoad', 'dragonite']
+|chat|DEBUG|Speed: 164 vs 158
+|chat|DEBUG|HP: 224 vs 199
+|chat|DEBUG|Created a new Strategy for dragonite vs skarmory:
+|chat|DEBUG|>[outrage: 48.5625 [45, 53], outrage: 48.5625 [45, 53], outrage: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of dragonite (p1): outrage: 48.5625 [45, 53]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using outrage
+|-activate|p2a: Dragonite|confusion
+|move|p2a: Dragonite|Outrage|p1a: Skarmory
+|-resisted|p1a: Skarmory
+|-damage|p1a: Skarmory|35100
+|move|p1a: Skarmory|Roost|p1a: Skarmory
+|-heal|p1a: Skarmory|85100
+|-singleturn|p1a: Skarmory|move: Roost
+|-heal|p1a: Skarmory|91100|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragonite" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory
+|chat|DEBUG|Own moves: dualwingbeat dragondance outrage earthquake
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: ['seismitoad', 'audino']
+|chat|DEBUG|Counter: ['eiscue', 'seismitoad', 'audino', 'dragonite']
+|chat|DEBUG|Speed: 164 vs 158
+|chat|DEBUG|HP: 119 vs 129
+|chat|DEBUG|Best move of dragonite (p1): outrage: 48.5625 [45, 53]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using outrage
+|-end|p2a: Dragonite|confusion
+|move|p2a: Dragonite|Outrage|p1a: Skarmory|[from]lockedmove
+|-resisted|p1a: Skarmory
+|-damage|p1a: Skarmory|72100
+|-start|p2a: Dragonite|confusion|[fatigue]
+|move|p1a: Skarmory|Spikes|p2a: Dragonite
+|-sidestart|p2: HerrGewitter1|Spikes
+|-heal|p1a: Skarmory|78100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragonite" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory
+|chat|DEBUG|Own moves: outrage
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: ['seismitoad']
+|chat|DEBUG|Counter: ['seismitoad']
+|chat|DEBUG|Speed: 164 vs 158
+|chat|DEBUG|HP: 119 vs 213
+|chat|DEBUG|Created a new Strategy for dragonite vs skarmory:
+|chat|DEBUG|>[outrage: 48.5625 [45, 53], outrage: 48.5625 [45, 53], outrage: 48.5625 [45, 53]]
+|chat|DEBUG|Best move of dragonite (p1): outrage: 48.5625 [45, 53]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using outrage
+|switch|p2a: Seismitoad|Seismitoad, L84, F|314314
+|-damage|p2a: Seismitoad|275314|[from] Spikes
+|move|p1a: Skarmory|Spikes|p2a: Seismitoad
+|-sidestart|p2: HerrGewitter1|Spikes
+|-heal|p1a: Skarmory|83100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dragonite" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory
+|chat|DEBUG|Own moves: dualwingbeat dragondance outrage earthquake
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: ['seismitoad']
+|chat|DEBUG|Counter: ['seismitoad', 'audino']
+|chat|DEBUG|Speed: 164 vs 158
+|chat|DEBUG|HP: 119 vs 183
+|chat|DEBUG|Best move of dragonite (p1): outrage: 48.5625 [45, 53]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check seismitoad
+|switch|p1a: Rayquaza|Rayquaza, L74|100100
+|-ability|p1a: Rayquaza|Air Lock
+|move|p2a: Seismitoad|Stealth Rock|p1a: Rayquaza
+|-sidestart|p1: jok3r_de|move: Stealth Rock
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "skarmory"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory
+|chat|DEBUG|Own moves: stealthrock raindance earthquake liquidation
+|chat|DEBUG|Enemy moves: bravebird roost spikes whirlwind
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['seismitoad', 'audino']
+|chat|DEBUG|Speed: 173 vs 158
+|chat|DEBUG|HP: 275 vs 195
+|chat|DEBUG|Created a new Strategy for seismitoad vs skarmory:
+|chat|DEBUG|>[liquidation: 83.5 [75, 91], liquidation: 83.5 [75, 91], liquidation: 83.5 [75, 91]]
+|chat|DEBUG|Best move of seismitoad (p1): liquidation: 83.5 [75, 91]
+|chat|DEBUG|Best move of skarmory (p2): bravebird: 114.3125 [105, 124]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|move|p1a: Rayquaza|Dragon Ascent|p2a: Seismitoad
+|-damage|p2a: Seismitoad|107314
+|-unboost|p1a: Rayquaza|def|1
+|-unboost|p1a: Rayquaza|spd|1
+|move|p2a: Seismitoad|Liquidation|p1a: Rayquaza
+|-resisted|p1a: Rayquaza
+|-damage|p1a: Rayquaza|64100
+|-damage|p2a: Seismitoad|76314|[from] item: Life Orb
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-rayquaza
+|chat|DEBUG|Own moves: stealthrock raindance earthquake liquidation
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eiscue']
+|chat|DEBUG|Speed: 173 vs 184
+|chat|DEBUG|HP: 275 vs 277
+|chat|DEBUG|Created a new Strategy for seismitoad vs rayquaza:
+|chat|DEBUG|>[liquidation: 63.8125 [58, 70], liquidation: 63.8125 [58, 70], liquidation: 63.8125 [58, 70]]
+|chat|DEBUG|Best move of seismitoad (p1): liquidation: 63.8125 [58, 70]
+|chat|DEBUG|Best move of rayquaza (p2): dragonascent: 158.5625 [145, 172]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|move|p1a: Rayquaza|Earthquake|p2a: Seismitoad
+|-damage|p2a: Seismitoad|0 fnt
+|faint|p2a: Seismitoad
+|upkeep
+|switch|p2a: Eiscue|Eiscue, L82, M|256256
+|-damage|p2a: Eiscue|214256|[from] Spikes
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue seismitoad mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-seismitoad-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-rayquaza
+|chat|DEBUG|Own moves: stealthrock raindance earthquake liquidation
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eiscue', 'audino']
+|chat|DEBUG|Speed: 173 vs 184
+|chat|DEBUG|HP: 76 vs 177
+|chat|DEBUG|Best move of seismitoad (p1): liquidation: 63.8125 [58, 70]
+|chat|DEBUG|Best move of rayquaza (p2): dragonascent: 158.5625 [145, 172]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using liquidation
+|move|p1a: Rayquaza|V-create|p2a: Eiscue
+|-activate|p2a: Eiscue|ability: Ice Face
+|-damage|p2a: Eiscue|214256
+|-unboost|p1a: Rayquaza|spe|1
+|-unboost|p1a: Rayquaza|def|1
+|-unboost|p1a: Rayquaza|spd|1
+|detailschange|p2a: Eiscue|Eiscue-Noice, L82, M
+|move|p2a: Eiscue|Icicle Crash|p1a: Rayquaza
+|-supereffective|p1a: Rayquaza
+|-damage|p1a: Rayquaza|0 fnt
+|faint|p1a: Rayquaza
+|upkeep
+|switch|p1a: Heatran|Heatran, L78, M|100100
+|-damage|p1a: Heatran|88100|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "seismitoad" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-rayquaza
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eiscue', 'audino']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to eiscue (pokemon object) [Active: False, Status: None]
+|-start|p2a: Eiscue|Dynamax
+|-heal|p2a: Eiscue|428512|[silent]
+|move|p2a: Eiscue|Max Geyser|p1a: Heatran
+|-supereffective|p1a: Heatran
+|-damage|p1a: Heatran|37100
+|-weather|RainDance
+|move|p1a: Heatran|Lava Plume|p2a: Eiscue
+|-supereffective|p2a: Eiscue
+|-crit|p2a: Eiscue
+|-damage|p2a: Eiscue|206512
+|-status|p2a: Eiscue|brn
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Heatran|43100|[from] item: Leftovers
+|-damage|p2a: Eiscue|190512 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscue mandibuzz audino dragonite
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "eiscue" vs "rayquaza"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscue-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-rayquaza
+|chat|DEBUG|Own moves: bellydrum liquidation iciclecrash substitute
+|chat|DEBUG|Enemy moves: dragonascent dragondance earthquake vcreate
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['audino']
+|chat|DEBUG|Speed: 129 vs 184
+|chat|DEBUG|HP: 214 vs 177
+|chat|DEBUG|Created a new Strategy for eiscue vs rayquaza:
+|chat|DEBUG|>[iciclecrash: 490.25 [448, 532], iciclecrash: 490.25 [448, 532], iciclecrash: 490.25 [448, 532]]
+|chat|DEBUG|Best move of eiscue (p1): iciclecrash: 490.25 [448, 532]
+|chat|DEBUG|Best move of rayquaza (p2): vcreate: 241.375 [222, 262]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using iciclecrash
+|move|p1a: Heatran|Protect|p1a: Heatran
+|-singleturn|p1a: Heatran|Protect
+|move|p2a: Eiscue|Max Geyser|p1a: Heatran
+|-supereffective|p1a: Heatran
+|-zbroken|p1a: Heatran
+|-damage|p1a: Heatran|33100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Heatran|39100|[from] item: Leftovers
+|-damage|p2a: Eiscue|174512 brn|[from] brn
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscuenoice mandibuzz audino dragonite
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eiscuenoice" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscuenoice-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: bellydrum liquidation iciclecrash substitute
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragonite']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 214 vs 237
+|chat|DEBUG|Created a new Strategy for eiscuenoice vs heatran:
+|chat|DEBUG|>[liquidation: 92.0 [84, 100], liquidation: 92.0 [84, 100], liquidation: 92.0 [84, 100]]
+|chat|DEBUG|Best move of eiscuenoice (p1): liquidation: 92.0 [84, 100]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 280.25 [258, 306]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|-start|p1a: Heatran|Dynamax
+|-heal|p1a: Heatran|39100|[silent]
+|move|p1a: Heatran|Max Guard||[still]
+|-fail|p1a: Heatran
+|move|p2a: Eiscue|Max Geyser|p1a: Heatran
+|-supereffective|p1a: Heatran
+|-damage|p1a: Heatran|21100
+|-weather|RainDance|[upkeep]
+|-heal|p1a: Heatran|24100|[from] item: Leftovers
+|-damage|p2a: Eiscue|158512 brn|[from] brn
+|-end|p2a: Eiscue|Dynamax
+|-heal|p2a: Eiscue|79256 brn|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscuenoice mandibuzz audino dragonite
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eiscuenoice" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscuenoice-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: bellydrum liquidation iciclecrash substitute
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragonite']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 190 vs 116
+|chat|DEBUG|Best move of eiscuenoice (p1): liquidation: 92.0 [84, 100]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 280.25 [258, 306]
+|chat|DEBUG|Attacking using liquidation
+|move|p2a: Eiscue|Liquidation|p1a: Heatran
+|-supereffective|p1a: Heatran
+|-damage|p1a: Heatran|10100
+|move|p1a: Heatran|Max Flare|p2a: Eiscue
+|-supereffective|p2a: Eiscue
+|-damage|p2a: Eiscue|0 fnt
+|-weather|SunnyDay
+|faint|p2a: Eiscue
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Heatran|13100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Dragonite|Dragonite, L75, F|119260
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscuenoice mandibuzz audino dragonite
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eiscuenoice" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscuenoice-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: bellydrum liquidation iciclecrash substitute
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragonite']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 174 vs 105
+|chat|DEBUG|Best move of eiscuenoice (p1): liquidation: 92.0 [84, 100]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 280.25 [258, 306]
+|chat|DEBUG|Attacking using liquidation
+|move|p1a: Heatran|Max Steelspike|p2a: Dragonite
+|-damage|p2a: Dragonite|0 fnt
+|-boost|p1a: Heatran|def|1
+|faint|p2a: Dragonite
+|-weather|SunnyDay|[upkeep]
+|-heal|p1a: Heatran|16100|[from] item: Leftovers
+|-end|p1a: Heatran|Dynamax
+|-heal|p1a: Heatran|16100|[silent]
+|upkeep
+|switch|p2a: Mandibuzz|Mandibuzz, L82, F|4315
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>eiscuenoice mandibuzz audino dragonite
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eiscuenoice" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>eiscuenoice-mandibuzz-audino-dragonite -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: bellydrum liquidation iciclecrash substitute
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['eiscuenoice', 'audino', 'dragonite']
+|chat|DEBUG|Speed: 260 vs 165
+|chat|DEBUG|HP: 79 vs 64
+|chat|DEBUG|Created a new Strategy for eiscuenoice vs heatran:
+|chat|DEBUG|>[liquidation: 92.0 [84, 100], liquidation: 92.0 [84, 100], liquidation: 92.0 [84, 100]]
+|chat|DEBUG|Best move of eiscuenoice (p1): liquidation: 92.0 [84, 100]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 280.25 [258, 306]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Mandibuzz|Foul Play|p1a: Heatran
+|-damage|p1a: Heatran|0 fnt
+|faint|p1a: Heatran
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|switch|p1a: Goodra|Goodra, L82, M|100100
+|-damage|p1a: Goodra|88100|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mandibuzz audino dragonite
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "eiscuenoice" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mandibuzz-audino-dragonite -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['audino', 'dragonite']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'mandibuzz': 4, 'audino': 332, 'dragonite': 119}
+|chat|DEBUG|remaining_hp_team_2={'goodra': 100, 'octillery': 47, 'skarmory': 83, 'heatran': 24}
+|chat|DEBUG|battle.available_switches=[dragonite (pokemon object) [Active: False, Status: None], audino (pokemon object) [Active: False, Status: None], mandibuzz (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'dragonite'
+|chat|DEBUG|>Switching to dragonite (pokemon object) [Active: False, Status: None]
+|move|p1a: Goodra|Sludge Bomb|p2a: Mandibuzz
+|-damage|p2a: Mandibuzz|0 fnt
+|faint|p2a: Mandibuzz
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|switch|p2a: Audino|Audino, L90, F|332332
+|-damage|p2a: Audino|277332|[from] Spikes
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mandibuzz audino dragonite
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dragonite" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mandibuzz-audino-dragonite -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: dualwingbeat dragondance outrage earthquake
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['mandibuzz', 'audino', 'dragonite']
+|chat|DEBUG|Speed: 164 vs 165
+|chat|DEBUG|HP: 119 vs 35
+|chat|DEBUG|Created a new Strategy for dragonite vs heatran:
+|chat|DEBUG|>[earthquake: 279.25 [256, 304], earthquake: 279.25 [256, 304], earthquake: 279.25 [256, 304]]
+|chat|DEBUG|Best move of dragonite (p1): earthquake: 279.25 [256, 304]
+|chat|DEBUG|Best move of heatran (p2): flashcannon: 94.875 [87, 103]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Goodra|Fire Blast|p2a: Audino
+|-damage|p2a: Audino|168332
+|move|p2a: Audino|Knock Off|p1a: Goodra
+|-damage|p1a: Goodra|64100
+|-enditem|p1a: Goodra|Assault Vest|[from] move: Knock Off|[of] p2a: Audino
+|-weather|none
+|-heal|p2a: Audino|188332|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mandibuzz audino
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "dragonite" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mandibuzz-audino -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: ['audino']
+|chat|DEBUG|Counter: ['mandibuzz', 'audino']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'mandibuzz': 4, 'audino': 332}
+|chat|DEBUG|remaining_hp_team_2={'goodra': 100, 'octillery': 47, 'skarmory': 83, 'heatran': 13}
+|chat|DEBUG|battle.available_switches=[audino (pokemon object) [Active: False, Status: None], mandibuzz (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'mandibuzz'
+|chat|DEBUG|>Switching to mandibuzz (pokemon object) [Active: False, Status: None]
+|move|p1a: Goodra|Fire Blast|p2a: Audino
+|-damage|p2a: Audino|116332
+|move|p2a: Audino|Knock Off|p1a: Goodra
+|-damage|p1a: Goodra|49100
+|-heal|p2a: Audino|136332|[from] item: Leftovers
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mandibuzz audino
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mandibuzz" vs "heatran"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mandibuzz-audino -- goodra-octillery-skarmory-heatran
+|chat|DEBUG|Own moves: roost toxic foulplay bravebird
+|chat|DEBUG|Enemy moves: flashcannon lavaplume protect toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['audino']
+|chat|DEBUG|Speed: 178 vs 165
+|chat|DEBUG|HP: 4 vs 43
+|chat|DEBUG|Created a new Strategy for mandibuzz vs heatran:
+|chat|DEBUG|>[foulplay: 42.0625 [39, 46], foulplay: 42.0625 [39, 46], foulplay: 42.0625 [39, 46]]
+|chat|DEBUG|Best move of mandibuzz (p1): foulplay: 42.0625 [39, 46]
+|chat|DEBUG|Best move of heatran (p2): lavaplume: 135.5 [124, 147]
+|chat|DEBUG|Attacking using foulplay
+|move|p1a: Goodra|Power Whip|p2a: Audino
+|-damage|p2a: Audino|51332
+|move|p2a: Audino|Knock Off|p1a: Goodra
+|-damage|p1a: Goodra|32100
+|-heal|p2a: Audino|71332|[from] item: Leftovers
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mandibuzz audino
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mandibuzz" vs "goodra"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mandibuzz-audino -- goodra-octillery-skarmory
+|chat|DEBUG|Own moves: roost toxic foulplay bravebird
+|chat|DEBUG|Enemy moves: dracometeor earthquake fireblast powerwhip
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 178 vs 178
+|chat|DEBUG|HP: 4 vs 248
+|chat|DEBUG|Created a new Strategy for mandibuzz vs goodra:
+|chat|DEBUG|>[foulplay: 118.3125 [109, 129], foulplay: 118.3125 [109, 129], foulplay: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of mandibuzz (p1): foulplay: 118.3125 [109, 129]
+|chat|DEBUG|Best move of goodra (p2): fireblast: 79.0625 [73, 86]
+|chat|DEBUG|Attacking using foulplay
+|move|p1a: Goodra|Power Whip|p2a: Audino
+|-damage|p2a: Audino|0 fnt
+|faint|p2a: Audino
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">eiscue seismitoad mandibuzz audino dragonite dragalge</h1>

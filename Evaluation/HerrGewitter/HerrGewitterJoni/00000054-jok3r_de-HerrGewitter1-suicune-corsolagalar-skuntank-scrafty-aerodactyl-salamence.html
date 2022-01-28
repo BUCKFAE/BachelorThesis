@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491230686<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491230686|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Decidueye|Decidueye, L86, F|100100
+|switch|p2a: Suicune|Suicune, L80|291291
+|-ability|p2a: Suicune|Pressure
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty aerodactyl salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-aerodactyl-salamence -- decidueye
+|chat|DEBUG|Own moves: calmmind rest sleeptalk scald
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: ['skuntank']
+|chat|DEBUG|Counter: ['skuntank', 'scrafty', 'aerodactyl', 'salamence']
+|chat|DEBUG|Speed: 182 vs 170
+|chat|DEBUG|HP: 291 vs 274
+|chat|DEBUG|Created a new Strategy for suicune vs decidueye:
+|chat|DEBUG|>[scald: 32.625 [30, 36], scald: 32.625 [30, 36], scald: 32.625 [30, 36]]
+|chat|DEBUG|Best move of suicune (p1): scald: 32.625 [30, 36]
+|chat|DEBUG|Best move of decidueye (p2): leafblade: 183.75 [168, 200]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skuntank
+|switch|p2a: Skuntank|Skuntank, L85, M|314314
+|move|p1a: Decidueye|Swords Dance|p1a: Decidueye
+|-boost|p1a: Decidueye|atk|2
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty aerodactyl salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-aerodactyl-salamence -- decidueye
+|chat|DEBUG|Own moves: suckerpunch fireblast poisonjab defog
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['skuntank']
+|chat|DEBUG|Speed: 192 vs 170
+|chat|DEBUG|HP: 314 vs 274
+|chat|DEBUG|Created a new Strategy for skuntank vs decidueye:
+|chat|DEBUG|>[suckerpunch: 214.375 [198, 234], suckerpunch: 214.375 [198, 234], suckerpunch: 214.375 [198, 234]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 214.375 [198, 234]
+|chat|DEBUG|Best move of decidueye (p2): poltergeist: 157.4375 [144, 171]
+|chat|DEBUG|Attacking using suckerpunch
+|switch|p1a: Crobat|Crobat, L82, M|100100
+|move|p2a: Skuntank|Sucker Punch||[still]
+|-fail|p2a: Skuntank
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty aerodactyl salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-aerodactyl-salamence -- decidueye-crobat
+|chat|DEBUG|Own moves: suckerpunch fireblast poisonjab defog
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: ['aerodactyl']
+|chat|DEBUG|Counter: ['corsolagalar', 'aerodactyl']
+|chat|DEBUG|Speed: 192 vs 260
+|chat|DEBUG|HP: 314 vs 274
+|chat|DEBUG|Created a new Strategy for skuntank vs crobat:
+|chat|DEBUG|>[suckerpunch: 107.0625 [99, 117], suckerpunch: 107.0625 [99, 117], suckerpunch: 107.0625 [99, 117]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 107.0625 [99, 117]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 137.0 [126, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check aerodactyl
+|switch|p2a: Aerodactyl|Aerodactyl, L82, M|265265
+|-ability|p2a: Aerodactyl|Unnerve
+|move|p1a: Crobat|Brave Bird|p2a: Aerodactyl
+|-resisted|p2a: Aerodactyl
+|-damage|p2a: Aerodactyl|193265
+|-damage|p1a: Crobat|92100|[from] Recoil
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty aerodactyl salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aerodactyl" vs "crobat"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-aerodactyl-salamence -- decidueye-crobat
+|chat|DEBUG|Own moves: stoneedge dualwingbeat honeclaws earthquake
+|chat|DEBUG|Enemy moves: bravebird roost toxic uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsolagalar', 'aerodactyl']
+|chat|DEBUG|Speed: 260 vs 260
+|chat|DEBUG|HP: 193 vs 252
+|chat|DEBUG|Created a new Strategy for aerodactyl vs crobat:
+|chat|DEBUG|>[stoneedge: 304.1875 [281, 330], stoneedge: 304.1875 [281, 330], stoneedge: 304.1875 [281, 330]]
+|chat|DEBUG|Best move of aerodactyl (p1): stoneedge: 304.1875 [281, 330]
+|chat|DEBUG|Best move of crobat (p2): bravebird: 72.0 [66, 78]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Crobat|Toxic|p2a: Aerodactyl
+|-status|p2a: Aerodactyl|tox
+|move|p2a: Aerodactyl|Stone Edge|p1a: Crobat
+|-supereffective|p1a: Crobat
+|-damage|p1a: Crobat|0 fnt
+|faint|p1a: Crobat
+|-damage|p2a: Aerodactyl|167265 tox|[from] item: Life Orb
+|-damage|p2a: Aerodactyl|151265 tox|[from] psn
+|upkeep
+|switch|p1a: Clawitzer|Clawitzer, L84, F|100100
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty aerodactyl salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aerodactyl" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-aerodactyl-salamence -- decidueye-clawitzer
+|chat|DEBUG|Own moves: stoneedge dualwingbeat honeclaws earthquake
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 260 vs 147
+|chat|DEBUG|HP: 151 vs 256
+|chat|DEBUG|Created a new Strategy for aerodactyl vs clawitzer:
+|chat|DEBUG|>[stoneedge: 137.625 [126, 149], stoneedge: 137.625 [126, 149], stoneedge: 137.625 [126, 149]]
+|chat|DEBUG|Best move of aerodactyl (p1): stoneedge: 137.625 [126, 149]
+|chat|DEBUG|Best move of clawitzer (p2): waterpulse: 386.875 [356, 420]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using stoneedge
+|move|p2a: Aerodactyl|Stone Edge|p1a: Clawitzer
+|-damage|p1a: Clawitzer|50100
+|-damage|p2a: Aerodactyl|125265 tox|[from] item: Life Orb
+|move|p1a: Clawitzer|Scald|p2a: Aerodactyl
+|-supereffective|p2a: Aerodactyl
+|-damage|p2a: Aerodactyl|0 fnt
+|faint|p2a: Aerodactyl
+|upkeep
+|switch|p2a: Corsola|Corsola-Galar, L84, M|238238
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "aerodactyl" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: corsolagalar
+|chat|DEBUG|Early game switch: corsolagalar
+|chat|DEBUG|>Switching to corsolagalar (pokemon object) [Active: False, Status: None]
+|switch|p1a: Decidueye|Decidueye, L86, F|100100
+|move|p2a: Corsola|Night Shade|p1a: Decidueye
+|-damage|p1a: Decidueye|70100
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer
+|chat|DEBUG|Own moves: strengthsap haze nightshade willowisp
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['corsolagalar', 'skuntank', 'salamence']
+|chat|DEBUG|Speed: 99 vs 147
+|chat|DEBUG|HP: 238 vs 128
+|chat|DEBUG|Created a new Strategy for corsolagalar vs clawitzer:
+|chat|DEBUG|>[nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84]]
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of clawitzer (p2): waterpulse: 101.75 [93, 111]
+|chat|DEBUG|Attacking using nightshade
+|switch|p2a: Skuntank|Skuntank, L85, M|314314
+|move|p1a: Decidueye|Leaf Blade|p2a: Skuntank
+|-resisted|p2a: Skuntank
+|-damage|p2a: Skuntank|244314
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer
+|chat|DEBUG|Own moves: strengthsap haze nightshade willowisp
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: ['skuntank', 'scrafty', 'salamence']
+|chat|DEBUG|Counter: ['skuntank', 'scrafty', 'salamence']
+|chat|DEBUG|Speed: 99 vs 170
+|chat|DEBUG|HP: 238 vs 191
+|chat|DEBUG|Created a new Strategy for corsolagalar vs decidueye:
+|chat|DEBUG|>[nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84]]
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of decidueye (p2): poltergeist: 159.0 [146, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check skuntank
+|switch|p1a: Articuno|Articuno-Galar, L80|100100
+|move|p2a: Skuntank|Sucker Punch||[still]
+|-fail|p2a: Skuntank
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "decidueye"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer
+|chat|DEBUG|Own moves: suckerpunch fireblast poisonjab defog
+|chat|DEBUG|Enemy moves: leafblade poltergeist roost swordsdance
+|chat|DEBUG|Checks: ['skuntank', 'scrafty', 'salamence']
+|chat|DEBUG|Counter: ['skuntank', 'scrafty', 'salamence']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 192 vs 170
+|chat|DEBUG|HP: 244 vs 191
+|chat|DEBUG|Created a new Strategy for skuntank vs decidueye:
+|chat|DEBUG|>[suckerpunch: 214.375 [198, 234], suckerpunch: 214.375 [198, 234], suckerpunch: 214.375 [198, 234]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 214.375 [198, 234]
+|chat|DEBUG|Best move of decidueye (p2): poltergeist: 79.0 [72, 86]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using suckerpunch
+|move|p2a: Skuntank|Sucker Punch|p1a: Articuno
+|-supereffective|p1a: Articuno
+|-damage|p1a: Articuno|24100
+|-damage|p2a: Skuntank|213314|[from] item: Life Orb
+|move|p1a: Articuno|Air Slash|p2a: Skuntank
+|-damage|p2a: Skuntank|102314
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar
+|chat|DEBUG|Own moves: suckerpunch fireblast poisonjab defog
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 192 vs 198
+|chat|DEBUG|HP: 244 vs 275
+|chat|DEBUG|Created a new Strategy for skuntank vs articunogalar:
+|chat|DEBUG|>[suckerpunch: 210.4375 [195, 229], suckerpunch: 210.4375 [195, 229], suckerpunch: 210.4375 [195, 229]]
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 210.4375 [195, 229]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using suckerpunch
+|switch|p1a: Kartana|Kartana, L74|100100
+|switch|p2a: Suicune|Suicune, L80|291291
+|-ability|p2a: Suicune|Pressure
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "skuntank" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar
+|chat|DEBUG|Own moves: suckerpunch fireblast poisonjab defog
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: ['suicune', 'corsolagalar']
+|chat|DEBUG|Counter: ['suicune', 'corsolagalar', 'scrafty', 'salamence']
+|chat|DEBUG|Speed: 192 vs 198
+|chat|DEBUG|HP: 102 vs 66
+|chat|DEBUG|Best move of skuntank (p1): suckerpunch: 210.4375 [195, 229]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 115.625 [106, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check suicune
+|move|p1a: Kartana|Leaf Blade|p2a: Suicune
+|-supereffective|p2a: Suicune
+|-damage|p2a: Suicune|0 fnt
+|faint|p2a: Suicune
+|-ability|p1a: Kartana|Beast Boost|boost
+|-boost|p1a: Kartana|atk|1
+|-damage|p1a: Kartana|91100|[from] item: Life Orb
+|upkeep
+|switch|p2a: Scrafty|Scrafty, L82, F|241241
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>suicune corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>suicune-corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: calmmind rest sleeptalk scald
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty']
+|chat|DEBUG|Speed: 182 vs 204
+|chat|DEBUG|HP: 291 vs 209
+|chat|DEBUG|Created a new Strategy for suicune vs kartana:
+|chat|DEBUG|>[scald: 81.125 [75, 88], scald: 81.125 [75, 88], scald: 81.125 [75, 88]]
+|chat|DEBUG|Best move of suicune (p1): scald: 81.125 [75, 88]
+|chat|DEBUG|Best move of kartana (p2): leafblade: 275.1875 [252, 299]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|switch|p1a: Clawitzer|Clawitzer, L84, F|50100
+|move|p2a: Scrafty|Close Combat|p1a: Clawitzer
+|-damage|p1a: Clawitzer|3100
+|-unboost|p2a: Scrafty|def|1
+|-unboost|p2a: Scrafty|spd|1
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "suicune" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scrafty (pokemon object) [Active: False, Status: None]
+|switch|p2a: Corsola|Corsola-Galar, L84, M|238238
+|move|p1a: Clawitzer|Aura Sphere|p2a: Corsola
+|-immune|p2a: Corsola
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: knockoff dragondance icepunch closecombat
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty']
+|chat|DEBUG|Speed: 142 vs 204
+|chat|DEBUG|HP: 241 vs 190
+|chat|DEBUG|Created a new Strategy for scrafty vs kartana:
+|chat|DEBUG|>[closecombat: 189.75 [174, 206], closecombat: 189.75 [174, 206], closecombat: 189.75 [174, 206]]
+|chat|DEBUG|Best move of scrafty (p1): closecombat: 189.75 [174, 206]
+|chat|DEBUG|Best move of kartana (p2): leafblade: 200.6875 [185, 218]
+|chat|DEBUG|Attacking using closecombat
+|switch|p1a: Kartana|Kartana, L74|91100
+|move|p2a: Corsola|Night Shade|p1a: Kartana
+|-damage|p1a: Kartana|51100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: knockoff dragondance icepunch closecombat
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: ['corsolagalar']
+|chat|DEBUG|Counter: ['corsolagalar', 'skuntank', 'salamence']
+|chat|DEBUG|Speed: 142 vs 147
+|chat|DEBUG|HP: 241 vs 7
+|chat|DEBUG|Created a new Strategy for scrafty vs clawitzer:
+|chat|DEBUG|>[closecombat: 114.3125 [105, 124], closecombat: 114.3125 [105, 124], closecombat: 114.3125 [105, 124]]
+|chat|DEBUG|Best move of scrafty (p1): closecombat: 114.3125 [105, 124]
+|chat|DEBUG|Best move of clawitzer (p2): aurasphere: 372.125 [342, 404]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check corsolagalar
+|move|p1a: Kartana|Leaf Blade|p2a: Corsola
+|-damage|p2a: Corsola|135238
+|-damage|p1a: Kartana|41100|[from] item: Life Orb
+|move|p2a: Corsola|Night Shade|p1a: Kartana
+|-damage|p1a: Kartana|1100
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "clawitzer"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: strengthsap haze nightshade willowisp
+|chat|DEBUG|Enemy moves: aurasphere icebeam uturn waterpulse
+|chat|DEBUG|Checks: ['corsolagalar']
+|chat|DEBUG|Counter: ['corsolagalar', 'skuntank', 'salamence']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 99 vs 147
+|chat|DEBUG|HP: 238 vs 7
+|chat|DEBUG|Created a new Strategy for corsolagalar vs clawitzer:
+|chat|DEBUG|>[nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84]]
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of clawitzer (p2): waterpulse: 101.75 [93, 111]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Kartana|Knock Off|p2a: Corsola
+|-supereffective|p2a: Corsola
+|-damage|p2a: Corsola|0 fnt
+|-enditem|p2a: Corsola|Eviolite|[from] move: Knock Off|[of] p1a: Kartana
+|faint|p2a: Corsola
+|-ability|p1a: Kartana|Beast Boost|boost
+|-boost|p1a: Kartana|atk|1
+|-damage|p1a: Kartana|0 fnt|[from] item: Life Orb
+|faint|p1a: Kartana
+|upkeep
+|switch|p1a: Articuno|Articuno-Galar, L80|24100
+|switch|p2a: Scrafty|Scrafty, L82, F|241241
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: strengthsap haze nightshade willowisp
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty']
+|chat|DEBUG|Speed: 99 vs 204
+|chat|DEBUG|HP: 238 vs 106
+|chat|DEBUG|Created a new Strategy for corsolagalar vs kartana:
+|chat|DEBUG|>[nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84], nightshade: 84.0 [84, 84]]
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of kartana (p2): knockoff: 140.75 [130, 153]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using nightshade
+|move|p1a: Articuno|Recover|p1a: Articuno
+|-heal|p1a: Articuno|74100
+|move|p2a: Scrafty|Knock Off|p1a: Articuno
+|-supereffective|p1a: Articuno
+|-damage|p1a: Articuno|1100
+|-enditem|p1a: Articuno|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Scrafty
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>corsolagalar skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>corsolagalar-skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: strengthsap haze nightshade willowisp
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'salamence']
+|chat|DEBUG|Speed: 99 vs 204
+|chat|DEBUG|HP: 135 vs 2
+|chat|DEBUG|Best move of corsolagalar (p1): nightshade: 84.0 [84, 84]
+|chat|DEBUG|Best move of kartana (p2): knockoff: 140.75 [130, 153]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using nightshade
+|move|p1a: Articuno|Air Slash|p2a: Scrafty
+|-supereffective|p2a: Scrafty
+|-damage|p2a: Scrafty|89241
+|cant|p2a: Scrafty|flinch
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "corsolagalar" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar-kartana
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'salamence']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to scrafty (pokemon object) [Active: False, Status: None]
+|move|p1a: Articuno|Air Slash|p2a: Scrafty
+|-supereffective|p2a: Scrafty
+|-damage|p2a: Scrafty|0 fnt
+|faint|p2a: Scrafty
+|upkeep
+|switch|p2a: Salamence|Salamence, L76, M|269269
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar
+|chat|DEBUG|Own moves: knockoff dragondance icepunch closecombat
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'salamence']
+|chat|DEBUG|Speed: 142 vs 198
+|chat|DEBUG|HP: 241 vs 66
+|chat|DEBUG|Created a new Strategy for scrafty vs articunogalar:
+|chat|DEBUG|>[knockoff: 197.875 [182, 216], knockoff: 197.875 [182, 216], knockoff: 197.875 [182, 216]]
+|chat|DEBUG|Best move of scrafty (p1): knockoff: 197.875 [182, 216]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 150.625 [138, 164]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Articuno|Recover|p1a: Articuno
+|-heal|p1a: Articuno|51100
+|move|p2a: Salamence|Outrage|p1a: Articuno
+|-damage|p1a: Articuno|0 fnt
+|faint|p1a: Articuno
+|-ability|p2a: Salamence|Moxie|boost
+|-boost|p2a: Salamence|atk|1
+|-damage|p2a: Salamence|243269|[from] item: Life Orb
+|upkeep
+|switch|p1a: Beheeyem|Beheeyem, L86, M|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar
+|chat|DEBUG|Own moves: knockoff dragondance icepunch closecombat
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'salamence']
+|chat|DEBUG|Speed: 142 vs 198
+|chat|DEBUG|HP: 241 vs 2
+|chat|DEBUG|Best move of scrafty (p1): knockoff: 197.875 [182, 216]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 150.625 [138, 164]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Salamence|Outrage|p1a: Beheeyem|[from]lockedmove
+|-damage|p1a: Beheeyem|0 fnt
+|faint|p1a: Beheeyem
+|-ability|p2a: Salamence|Moxie|boost
+|-boost|p2a: Salamence|atk|1
+|-damage|p2a: Salamence|217269|[from] item: Life Orb
+|-start|p2a: Salamence|confusion|[fatigue]
+|upkeep
+|switch|p1a: Clawitzer|Clawitzer, L84, F|3100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skuntank scrafty salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-scrafty-salamence -- decidueye-clawitzer-articunogalar
+|chat|DEBUG|Own moves: knockoff dragondance icepunch closecombat
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['salamence']
+|chat|DEBUG|Speed: 142 vs 198
+|chat|DEBUG|HP: 89 vs 2
+|chat|DEBUG|Best move of scrafty (p1): knockoff: 197.875 [182, 216]
+|chat|DEBUG|Best move of articunogalar (p2): airslash: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|-activate|p2a: Salamence|confusion
+|move|p2a: Salamence|Outrage|p1a: Clawitzer
+|-damage|p1a: Clawitzer|0 fnt
+|faint|p1a: Clawitzer
+|-ability|p2a: Salamence|Moxie|boost
+|-boost|p2a: Salamence|atk|1
+|-damage|p2a: Salamence|191269|[from] item: Life Orb
+|upkeep
+|switch|p1a: Decidueye|Decidueye, L86, F|70100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>skuntank salamence
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "articunogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>skuntank-salamence -- decidueye-clawitzer-articunogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: airslash calmmind freezingglare recover
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['salamence']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to salamence (pokemon object) [Active: False, Status: None]
+|-activate|p2a: Salamence|confusion
+|move|p2a: Salamence|Outrage|p1a: Decidueye|[from]lockedmove
+|-damage|p1a: Decidueye|0 fnt
+|faint|p1a: Decidueye
+|-damage|p2a: Salamence|165269|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">suicune corsolagalar skuntank scrafty aerodactyl salamence</h1>

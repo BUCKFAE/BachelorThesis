@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1494432118<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1494432118|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|169|
+|player|p2|HerrGewitter1|265|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Sandslash|Sandslash, L86, F|100100
+|switch|p2a: Mew|Mew, L80|291291
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi drapion noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-drapion-noctowl -- sandslash
+|chat|DEBUG|Own moves: dragondance flareblitz psychicfangs closecombat
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi', 'noctowl']
+|chat|DEBUG|Speed: 206 vs 161
+|chat|DEBUG|HP: 291 vs 269
+|chat|DEBUG|Created a new Strategy for mew vs sandslash:
+|chat|DEBUG|>[psychicfangs: 71.125 [66, 78], psychicfangs: 71.125 [66, 78], psychicfangs: 71.125 [66, 78]]
+|chat|DEBUG|Best move of mew (p1): psychicfangs: 71.125 [66, 78]
+|chat|DEBUG|Best move of sandslash (p2): knockoff: 181.5 [166, 198]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychicfangs
+|switch|p1a: Sharpedo|Sharpedo, L82, F|100100
+|move|p2a: Mew|Psychic Fangs|p1a: Sharpedo
+|-immune|p1a: Sharpedo
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi drapion noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "sharpedo"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-drapion-noctowl -- sandslash-sharpedo
+|chat|DEBUG|Own moves: dragondance flareblitz psychicfangs closecombat
+|chat|DEBUG|Enemy moves: closecombat crunch hydropump protect
+|chat|DEBUG|Checks: ['mew', 'throh', 'celebi']
+|chat|DEBUG|Counter: ['mew', 'throh', 'togedemaru', 'celebi']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 206 vs 203
+|chat|DEBUG|HP: 291 vs 249
+|chat|DEBUG|Created a new Strategy for mew vs sharpedo:
+|chat|DEBUG|>[closecombat: 277.0 [254, 300], closecombat: 277.0 [254, 300], closecombat: 277.0 [254, 300]]
+|chat|DEBUG|Best move of mew (p1): closecombat: 277.0 [254, 300]
+|chat|DEBUG|Best move of sharpedo (p2): crunch: 236.25 [218, 257]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|move|p2a: Mew|Close Combat|p1a: Sharpedo
+|-supereffective|p1a: Sharpedo
+|-damage|p1a: Sharpedo|0 fnt
+|-unboost|p2a: Mew|def|1
+|-unboost|p2a: Mew|spd|1
+|faint|p1a: Sharpedo
+|upkeep
+|switch|p1a: Dhelmise|Dhelmise, L86|100100
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi drapion noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-drapion-noctowl -- sandslash-dhelmise
+|chat|DEBUG|Own moves: dragondance flareblitz psychicfangs closecombat
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: ['drapion']
+|chat|DEBUG|Counter: ['throh', 'drapion', 'noctowl']
+|chat|DEBUG|Speed: 206 vs 118
+|chat|DEBUG|HP: 291 vs 261
+|chat|DEBUG|Created a new Strategy for mew vs dhelmise:
+|chat|DEBUG|>[flareblitz: 143.375 [132, 156], flareblitz: 143.375 [132, 156], flareblitz: 143.375 [132, 156]]
+|chat|DEBUG|Best move of mew (p1): flareblitz: 143.375 [132, 156]
+|chat|DEBUG|Best move of dhelmise (p2): poltergeist: 442.5 [408, 480]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check drapion
+|switch|p2a: Drapion|Drapion, L82, M|249249
+|move|p1a: Dhelmise|Poltergeist|p2a: Drapion
+|-activate|p2a: Drapion|move: Poltergeist|Black Sludge
+|-resisted|p2a: Drapion
+|-damage|p2a: Drapion|177249
+|-heal|p2a: Drapion|192249|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi drapion noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-drapion-noctowl -- sandslash-dhelmise
+|chat|DEBUG|Own moves: knockoff toxicspikes taunt poisonjab
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['throh', 'drapion', 'noctowl']
+|chat|DEBUG|Speed: 203 vs 118
+|chat|DEBUG|HP: 192 vs 261
+|chat|DEBUG|Created a new Strategy for drapion vs dhelmise:
+|chat|DEBUG|>[knockoff: 164.875 [152, 180], knockoff: 164.875 [152, 180], knockoff: 164.875 [152, 180]]
+|chat|DEBUG|Best move of drapion (p1): knockoff: 164.875 [152, 180]
+|chat|DEBUG|Best move of dhelmise (p2): anchorshot: 97.5625 [90, 106]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|switch|p1a: Ninetales|Ninetales, L82, M|100100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Ninetales
+|move|p2a: Drapion|Toxic Spikes|p1a: Ninetales
+|-sidestart|p1: jok3r_de|move: Toxic Spikes
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Drapion|207249|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi drapion noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-drapion-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: knockoff toxicspikes taunt poisonjab
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['throh', 'noctowl']
+|chat|DEBUG|Speed: 203 vs 211
+|chat|DEBUG|HP: 207 vs 254
+|chat|DEBUG|Created a new Strategy for drapion vs ninetales:
+|chat|DEBUG|>[knockoff: 105.875 [97, 115], knockoff: 105.875 [97, 115], knockoff: 105.875 [97, 115]]
+|chat|DEBUG|Best move of drapion (p1): knockoff: 105.875 [97, 115]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 111.4375 [102, 121]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|move|p1a: Ninetales|Fire Blast|p2a: Drapion
+|-damage|p2a: Drapion|50249
+|move|p2a: Drapion|Toxic Spikes|p1a: Ninetales
+|-sidestart|p1: jok3r_de|move: Toxic Spikes
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Drapion|65249|[from] item: Black Sludge
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi drapion noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-drapion-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: knockoff toxicspikes taunt poisonjab
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['throh', 'noctowl']
+|chat|DEBUG|Speed: 203 vs 211
+|chat|DEBUG|HP: 65 vs 254
+|chat|DEBUG|Best move of drapion (p1): knockoff: 105.875 [97, 115]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 111.4375 [102, 121]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|toxicspikes
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|move|p1a: Ninetales|Fire Blast|p2a: Drapion
+|-damage|p2a: Drapion|0 fnt
+|faint|p2a: Drapion
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|switch|p2a: Throh|Throh, L86, M|347347
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['throh', 'noctowl']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to throh (pokemon object) [Active: False, Status: None]
+|move|p1a: Ninetales|Fire Blast|p2a: Throh
+|-damage|p2a: Throh|196347
+|move|p2a: Throh|Bulk Up|p2a: Throh
+|-boost|p2a: Throh|atk|1
+|-boost|p2a: Throh|def|1
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "throh" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: stormthrow bulkup icepunch rest
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['throh', 'noctowl']
+|chat|DEBUG|Speed: 127 vs 211
+|chat|DEBUG|HP: 347 vs 254
+|chat|DEBUG|Created a new Strategy for throh vs ninetales:
+|chat|DEBUG|>[stormthrow: 119.75 [109, 130], stormthrow: 119.75 [109, 130], stormthrow: 119.75 [109, 130]]
+|chat|DEBUG|Best move of throh (p1): stormthrow: 119.75 [109, 130]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 97.625 [90, 106]
+|chat|DEBUG|Boost Moves: [bulkup (Move object)]
+|move|p1a: Ninetales|Fire Blast|p2a: Throh
+|-damage|p2a: Throh|58347
+|move|p2a: Throh|Storm Throw|p1a: Ninetales
+|-crit|p1a: Ninetales
+|-damage|p1a: Ninetales|34100
+|-weather|none
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "throh" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: stormthrow bulkup icepunch rest
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['throh', 'noctowl']
+|chat|DEBUG|Speed: 127 vs 211
+|chat|DEBUG|HP: 196 vs 254
+|chat|DEBUG|Best move of throh (p1): stormthrow: 119.75 [109, 130]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 97.625 [90, 106]
+|chat|DEBUG|Attacking using stormthrow
+|switch|p2a: Mew|Mew, L80|291291
+|move|p1a: Ninetales|Fire Blast|p2a: Mew
+|-damage|p2a: Mew|198291
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "throh" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: stormthrow bulkup icepunch rest
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: ['mew', 'togedemaru', 'noctowl']
+|chat|DEBUG|Counter: ['mew', 'togedemaru', 'celebi', 'noctowl']
+|chat|DEBUG|Speed: 127 vs 211
+|chat|DEBUG|HP: 58 vs 86
+|chat|DEBUG|Best move of throh (p1): stormthrow: 119.75 [109, 130]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 97.625 [90, 106]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mew
+|switch|p1a: Dhelmise|Dhelmise, L86|100100
+|-status|p1a: Dhelmise|tox
+|move|p2a: Mew|Psychic Fangs|p1a: Dhelmise
+|-damage|p1a: Dhelmise|71100 tox
+|-damage|p1a: Dhelmise|65100 tox|[from] psn
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: dragondance flareblitz psychicfangs closecombat
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: ['mew', 'togedemaru', 'noctowl']
+|chat|DEBUG|Counter: ['mew', 'togedemaru', 'celebi', 'noctowl']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 206 vs 211
+|chat|DEBUG|HP: 198 vs 86
+|chat|DEBUG|Created a new Strategy for mew vs ninetales:
+|chat|DEBUG|>[psychicfangs: 98.9375 [91, 108], psychicfangs: 98.9375 [91, 108], psychicfangs: 98.9375 [91, 108]]
+|chat|DEBUG|Best move of mew (p1): psychicfangs: 98.9375 [91, 108]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 91.875 [84, 100]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Noctowl|Noctowl, L88, F|319319
+|move|p1a: Dhelmise|Rapid Spin|p2a: Noctowl
+|-crit|p2a: Noctowl
+|-damage|p2a: Noctowl|215319
+|-boost|p1a: Dhelmise|spe|1
+|-sideend|p1: jok3r_de|Toxic Spikes|[from] move: Rapid Spin|[of] p1a: Dhelmise
+|-damage|p1a: Dhelmise|53100 tox|[from] psn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mew" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: dragondance flareblitz psychicfangs closecombat
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: ['noctowl']
+|chat|DEBUG|Counter: ['celebi', 'noctowl']
+|chat|DEBUG|Speed: 206 vs 118
+|chat|DEBUG|HP: 198 vs 169
+|chat|DEBUG|Created a new Strategy for mew vs dhelmise:
+|chat|DEBUG|>[flareblitz: 143.375 [132, 156], flareblitz: 143.375 [132, 156], flareblitz: 143.375 [132, 156]]
+|chat|DEBUG|Best move of mew (p1): flareblitz: 143.375 [132, 156]
+|chat|DEBUG|Best move of dhelmise (p2): poltergeist: 295.0 [270, 320]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check noctowl
+|move|p1a: Dhelmise|Poltergeist|p2a: Noctowl
+|-immune|p2a: Noctowl
+|move|p2a: Noctowl|Hurricane|p1a: Dhelmise
+|-supereffective|p1a: Dhelmise
+|-damage|p1a: Dhelmise|0 fnt
+|faint|p1a: Dhelmise
+|upkeep
+|switch|p1a: Ninetales|Ninetales, L82, M|34100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Ninetales
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noctowl" vs "dhelmise"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-dhelmise-ninetales
+|chat|DEBUG|Own moves: roost defog hurricane heatwave
+|chat|DEBUG|Enemy moves: anchorshot poltergeist powerwhip swordsdance
+|chat|DEBUG|Checks: ['noctowl']
+|chat|DEBUG|Counter: ['mew', 'throh', 'togedemaru', 'celebi', 'noctowl']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 173 vs 118
+|chat|DEBUG|HP: 215 vs 138
+|chat|DEBUG|Created a new Strategy for noctowl vs dhelmise:
+|chat|DEBUG|>[hurricane: 225.625 [206, 246], hurricane: 225.625 [206, 246], hurricane: 225.625 [206, 246]]
+|chat|DEBUG|Best move of noctowl (p1): hurricane: 225.625 [206, 246]
+|chat|DEBUG|Best move of dhelmise (p2): anchorshot: 159.5625 [147, 173]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Ninetales|Fire Blast|p2a: Noctowl
+|-damage|p2a: Noctowl|95319
+|move|p2a: Noctowl|Hurricane|p1a: Ninetales
+|-damage|p1a: Ninetales|0 fnt
+|faint|p1a: Ninetales
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|switch|p1a: Sandslash|Sandslash, L86, F|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noctowl" vs "ninetales"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash-ninetales
+|chat|DEBUG|Own moves: roost defog hurricane heatwave
+|chat|DEBUG|Enemy moves: fireblast nastyplot solarbeam willowisp
+|chat|DEBUG|Checks: ['mew', 'togedemaru', 'noctowl']
+|chat|DEBUG|Counter: ['mew', 'togedemaru', 'celebi', 'noctowl']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 173 vs 211
+|chat|DEBUG|HP: 215 vs 86
+|chat|DEBUG|Created a new Strategy for noctowl vs ninetales:
+|chat|DEBUG|>[hurricane: 108.625 [100, 118], hurricane: 108.625 [100, 118], hurricane: 108.625 [100, 118]]
+|chat|DEBUG|Best move of noctowl (p1): hurricane: 108.625 [100, 118]
+|chat|DEBUG|Best move of ninetales (p2): fireblast: 86.4375 [79, 94]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Noctowl|Hurricane|p1a: Sandslash|[miss]
+|-miss|p2a: Noctowl|p1a: Sandslash
+|move|p1a: Sandslash|Stone Edge|p2a: Noctowl|[miss]
+|-miss|p1a: Sandslash|p2a: Noctowl
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noctowl" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash
+|chat|DEBUG|Own moves: roost defog hurricane heatwave
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Speed: 173 vs 161
+|chat|DEBUG|HP: 95 vs 269
+|chat|DEBUG|Created a new Strategy for noctowl vs sandslash:
+|chat|DEBUG|>[hurricane: 160.0 [147, 174], hurricane: 160.0 [147, 174], hurricane: 160.0 [147, 174]]
+|chat|DEBUG|Best move of noctowl (p1): hurricane: 160.0 [147, 174]
+|chat|DEBUG|Best move of sandslash (p2): stoneedge: 279.9375 [257, 304]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|move|p2a: Noctowl|Hurricane|p1a: Sandslash
+|-crit|p1a: Sandslash
+|-damage|p1a: Sandslash|11100
+|move|p1a: Sandslash|Stone Edge|p2a: Noctowl
+|-supereffective|p2a: Noctowl
+|-damage|p2a: Noctowl|0 fnt
+|faint|p2a: Noctowl
+|-damage|p1a: Sandslash|1100|[from] item: Life Orb
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|switch|p2a: Celebi|Celebi, L82|298298
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi noctowl
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noctowl" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi-noctowl -- sandslash
+|chat|DEBUG|Own moves: roost defog hurricane heatwave
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Speed: 173 vs 161
+|chat|DEBUG|HP: 95 vs 269
+|chat|DEBUG|Best move of noctowl (p1): hurricane: 160.0 [147, 174]
+|chat|DEBUG|Best move of sandslash (p2): stoneedge: 279.9375 [257, 304]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hurricane
+|move|p2a: Celebi|Giga Drain|p1a: Sandslash
+|-supereffective|p1a: Sandslash
+|-damage|p1a: Sandslash|0 fnt
+|faint|p1a: Sandslash
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|100100
+|-fieldstart|move: Grassy Terrain|[from] ability: Grassy Surge|[of] p1a: Tapu Bulu
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "noctowl" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi -- sandslash
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to celebi (pokemon object) [Active: False, Status: None]
+|switch|p2a: Togedemaru|Togedemaru, L86, M|252252
+|move|p1a: Tapu Bulu|Megahorn|p2a: Togedemaru
+|-resisted|p2a: Togedemaru
+|-damage|p2a: Togedemaru|186252
+|-weather|none
+|-heal|p2a: Togedemaru|201252|[from] Grassy Terrain
+|-heal|p2a: Togedemaru|216252|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi -- sandslash
+|chat|DEBUG|Own moves: nastyplot gigadrain recover psychic
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: ['mew', 'celebi']
+|chat|DEBUG|Counter: ['mew', 'togedemaru', 'celebi']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 211 vs 161
+|chat|DEBUG|HP: 298 vs 2
+|chat|DEBUG|Created a new Strategy for celebi vs sandslash:
+|chat|DEBUG|>[gigadrain: 209.0 [192, 228], gigadrain: 209.0 [192, 228], gigadrain: 209.0 [192, 228]]
+|chat|DEBUG|Best move of celebi (p1): gigadrain: 209.0 [192, 228]
+|chat|DEBUG|Best move of sandslash (p2): knockoff: 179.375 [164, 195]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Buzzwole|Buzzwole, L77|100100
+|move|p2a: Togedemaru|Iron Head|p1a: Buzzwole
+|-damage|p1a: Buzzwole|75100
+|-heal|p2a: Togedemaru|231252|[from] Grassy Terrain
+|-heal|p2a: Togedemaru|246252|[from] item: Leftovers
+|-heal|p1a: Buzzwole|81100|[from] Grassy Terrain
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "celebi" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi -- tapubulu
+|chat|DEBUG|Own moves: nastyplot gigadrain recover psychic
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Speed: 211 vs 170
+|chat|DEBUG|HP: 298 vs 249
+|chat|DEBUG|Created a new Strategy for celebi vs tapubulu:
+|chat|DEBUG|>[psychic: 89.1875 [82, 97], psychic: 89.1875 [82, 97], psychic: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of celebi (p1): psychic: 89.1875 [82, 97]
+|chat|DEBUG|Best move of tapubulu (p2): megahorn: 486.5 [447, 530]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check togedemaru
+|-start|p2a: Togedemaru|Dynamax
+|-heal|p2a: Togedemaru|492504|[silent]
+|move|p2a: Togedemaru|Max Steelspike|p1a: Buzzwole
+|-damage|p1a: Buzzwole|43100
+|-boost|p2a: Togedemaru|def|1
+|move|p1a: Buzzwole|Close Combat|p2a: Togedemaru
+|-supereffective|p2a: Togedemaru
+|-damage|p2a: Togedemaru|138504
+|-unboost|p1a: Buzzwole|def|1
+|-unboost|p1a: Buzzwole|spd|1
+|-heal|p2a: Togedemaru|153504|[from] Grassy Terrain
+|-heal|p2a: Togedemaru|168504|[from] item: Leftovers
+|-heal|p1a: Buzzwole|50100|[from] Grassy Terrain
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "togedemaru" vs "tapubulu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi -- tapubulu
+|chat|DEBUG|Own moves: spikyshield zingzap wish ironhead
+|chat|DEBUG|Enemy moves: hornleech megahorn stoneedge swordsdance
+|chat|DEBUG|Checks: ['togedemaru']
+|chat|DEBUG|Counter: ['togedemaru']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 214 vs 170
+|chat|DEBUG|HP: 216 vs 249
+|chat|DEBUG|Created a new Strategy for togedemaru vs tapubulu:
+|chat|DEBUG|>[ironhead: 150.625 [138, 164], ironhead: 150.625 [138, 164], ironhead: 150.625 [138, 164]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 150.625 [138, 164]
+|chat|DEBUG|Best move of tapubulu (p2): hornleech: 75.6875 [70, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using ironhead
+|move|p2a: Togedemaru|Max Steelspike|p1a: Buzzwole
+|-damage|p1a: Buzzwole|0 fnt
+|-boost|p2a: Togedemaru|def|1
+|faint|p1a: Buzzwole
+|-heal|p2a: Togedemaru|183504|[from] Grassy Terrain
+|-heal|p2a: Togedemaru|198504|[from] item: Leftovers
+|upkeep
+|switch|p1a: Tapu Bulu|Tapu Bulu, L82|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi -- tapubulu-buzzwole
+|chat|DEBUG|Own moves: spikyshield zingzap wish ironhead
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['celebi']
+|chat|DEBUG|Speed: 214 vs 166
+|chat|DEBUG|HP: 246 vs 235
+|chat|DEBUG|Created a new Strategy for togedemaru vs buzzwole:
+|chat|DEBUG|>[ironhead: 68.75 [63, 75], ironhead: 68.75 [63, 75], ironhead: 68.75 [63, 75]]
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 68.75 [63, 75]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 525.75 [482, 570]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|move|p2a: Togedemaru|Max Steelspike|p1a: Tapu Bulu
+|-supereffective|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|4100
+|-boost|p2a: Togedemaru|def|1
+|move|p1a: Tapu Bulu|Close Combat|p2a: Togedemaru
+|-supereffective|p2a: Togedemaru
+|-damage|p2a: Togedemaru|104504
+|-unboost|p1a: Tapu Bulu|def|1
+|-unboost|p1a: Tapu Bulu|spd|1
+|-heal|p2a: Togedemaru|119504|[from] Grassy Terrain
+|-heal|p2a: Togedemaru|134504|[from] item: Leftovers
+|-heal|p1a: Tapu Bulu|10100|[from] Grassy Terrain
+|-fieldend|move: Grassy Terrain
+|-end|p2a: Togedemaru|Dynamax
+|-heal|p2a: Togedemaru|67252|[silent]
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>mew throh togedemaru celebi
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "togedemaru" vs "buzzwole"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>mew-throh-togedemaru-celebi -- tapubulu-buzzwole
+|chat|DEBUG|Own moves: spikyshield zingzap wish ironhead
+|chat|DEBUG|Enemy moves: closecombat dualwingbeat leechlife stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mew', 'celebi']
+|chat|DEBUG|Speed: 214 vs 166
+|chat|DEBUG|HP: 168 vs 145
+|chat|DEBUG|Best move of togedemaru (p1): ironhead: 68.75 [63, 75]
+|chat|DEBUG|Best move of buzzwole (p2): closecombat: 350.375 [320, 380]
+|chat|DEBUG|Attacking using ironhead
+|move|p2a: Togedemaru|Iron Head|p1a: Tapu Bulu
+|-supereffective|p1a: Tapu Bulu
+|-damage|p1a: Tapu Bulu|0 fnt
+|faint|p1a: Tapu Bulu
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">mew throh togedemaru celebi drapion noctowl</h1>

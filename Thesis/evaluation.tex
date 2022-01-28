@@ -104,6 +104,7 @@ current Pokémon is dynamaxed, the agent will not switch, even if the current ma
 favorable. 
 
 \subsection{HerrGewitter}
+\label{sec:HerrGewitter}
 \textit{HerrGewitter} behaves like described in section \ref{ch:approach}. Here, the most notable
 differences between both agents are highlighted, and limitations of this agent are discussed. \\
 Firstly, more things are taken into consideration when calculating damage, current stat changes are
@@ -218,7 +219,7 @@ is to multiply the expected damage dealt by a burned Pokémon with $0.5$.
 \end{figure}
 \todo{Print this page and check if the figures are to small}
 Both agents were evaluated at the same time over the span of multiple days by playing over 1400 ranked games each 
-against human opponents on Pokémon Showdown. Figure \ref{fig:donner-elo} shows the Elo rating of \textit{HerrDonner}
+against human opponents on Pokémon Showdown. Figure \nameref{fig:donner-elo} shows the Elo rating of \textit{HerrDonner}
 over time, while figure \ref{fig:gewitter-elo} displays the Elo rating of \textit{HerrGewitter}. 
 \begin{figure}[h]
 	\centering
@@ -273,5 +274,38 @@ Each entry displays the results of a thousand games played between both agents. 
 of games the agent in the current column won. There are a multiple things to point out here: \\
 While \textit{HerrDonner} and \textit{HerrGewitter} achieved almost similar results when battling a random agent, 
 \textit{HerrDonner} performed notably worse against the \textit{MaxDmg} agent which always picks the move with the
-highest base power. Also, \textit{HerrDonner} only managed to win $58\%$ against \textit{HerrDonner} despite notably
-better results against human players \todo{Above section how hard it is to beat Donner / Gewitter}. 
+highest base power. Also, \textit{HerrGewitter} only managed to win $58\%$ against \textit{HerrDonner} despite notably
+better results against human players \todo{Write about Humans vs. HerrGewitter / Donner}
+
+\section{Investigating Replays}
+\begin{itemize}
+  \item Bot is really good at switching / using the most damaging move
+\end{itemize}
+\subsection{Pro Replays}
+At the time of writing, \textit{Memezboi69} is the top ranked player on the Pokémon Showdown ladder. I reached
+out to him, and he agreed to play three games against \textit{HerrGewitter}. While our agent lost all three 
+games, we were able to gain some very interesting insights from these games:
+
+\paragraph{Game One}
+In the first game, the bot made a huge miss play that ultimately lead to defeat. The agents \textit{Shuckle} faced a 
+\textit{Mr. Mime (Galar)} which had access to \textit{Rapid Spin}, a move that removes hazards. As \textit{Shuckle}
+has access to the moves \textit{Sticky Web} as well as \textit{Stealth Rock}, the agent tried to set both hazards
+which were immediately removed. In the extra turn, \textit{Mr. Mime (Galar)} boosted its speed stat and slowly
+killed his opponent using \textit{Freeze-Dry}. This increased \ac{SPE} lead to an advantage that the bot was
+not able to make up for. A future version of the agent will need to include a better hazard routine to prevent
+this kind of scenarios.  
+
+\paragraph{Game Two}
+Game two was lost due to a lack of answers against the opponents \textit{Gengar}. Prior to sending in this Pokémon,
+\textit{Memzboi69} set the entry hazard \textit{Sticky Web} which decreases the \ac{SPE} by one stage on switch in.
+After boosting \ac{SPA} by two stages using \textit{Nasty Plot}, \textit{Gengar} was able to defeat the four 
+remaining Pokémon of the agent.  
+
+\begin{itemize}
+  \item First Game: Shuckle vs Mr.Mime: Spammed Hazards, Mr. Mime combination of boosting and rapid spin
+  \item Second Game: Gengar boosted to stage two managed to one shot four remaining pokemon. Sticky Web 
+  was set. No Pokemon was able to outspeed (aside from Klefki)
+  Should have sent in Klefki first, Poison Gengar. Probably not winnable anyway
+  \item Third game: Bot: Boosting Obstagon (yay). Probably one stage to far, bur damage. Close game, 
+  Hazards 
+\end{itemize}

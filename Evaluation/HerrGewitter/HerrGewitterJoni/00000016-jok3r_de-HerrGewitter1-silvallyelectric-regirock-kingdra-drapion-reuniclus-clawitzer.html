@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490555383<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490555383|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|2|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Drifblim|Drifblim, L84, M|100100
+|switch|p2a: Silvally|Silvally-Electric, L84|297297
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyelectric regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyelectric" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyelectric-regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim
+|chat|DEBUG|Own moves: partingshot toxic flamethrower multiattack
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: ['silvallyelectric', 'regirock', 'kingdra', 'drapion']
+|chat|DEBUG|Counter: ['silvallyelectric', 'regirock', 'kingdra', 'drapion', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 208 vs 183
+|chat|DEBUG|HP: 297 vs 389
+|chat|DEBUG|Created a new Strategy for silvallyelectric vs drifblim:
+|chat|DEBUG|>[multiattack: 400.5 [368, 434], multiattack: 400.5 [368, 434], multiattack: 400.5 [368, 434]]
+|chat|DEBUG|Best move of silvallyelectric (p1): multiattack: 400.5 [368, 434]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 75.3125 [69, 82]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using multiattack
+|switch|p1a: Haxorus|Haxorus, L77, F|100100
+|-ability|p1a: Haxorus|Mold Breaker
+|move|p2a: Silvally|Multi-Attack|p1a: Haxorus
+|-resisted|p1a: Haxorus
+|-damage|p1a: Haxorus|73100
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyelectric regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyelectric" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyelectric-regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-haxorus
+|chat|DEBUG|Own moves: partingshot toxic flamethrower multiattack
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['silvallyelectric', 'regirock', 'drapion', 'reuniclus', 'clawitzer']
+|chat|DEBUG|Speed: 208 vs 194
+|chat|DEBUG|HP: 297 vs 178
+|chat|DEBUG|Created a new Strategy for silvallyelectric vs haxorus:
+|chat|DEBUG|>[multiattack: 66.75 [61, 72], multiattack: 66.75 [61, 72], multiattack: 66.75 [61, 72]]
+|chat|DEBUG|Best move of silvallyelectric (p1): multiattack: 66.75 [61, 72]
+|chat|DEBUG|Best move of haxorus (p2): earthquake: 203.25 [187, 221]
+|chat|DEBUG|Attacking using multiattack
+|move|p2a: Silvally|Multi-Attack|p1a: Haxorus
+|-resisted|p1a: Haxorus
+|-damage|p1a: Haxorus|45100
+|move|p1a: Haxorus|Poison Jab|p2a: Silvally
+|-damage|p2a: Silvally|218297
+|-status|p2a: Silvally|psn
+|-damage|p1a: Haxorus|35100|[from] item: Life Orb
+|-damage|p2a: Silvally|181297 psn|[from] psn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>silvallyelectric regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyelectric" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>silvallyelectric-regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-haxorus
+|chat|DEBUG|Own moves: partingshot toxic flamethrower multiattack
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: ['regirock', 'drapion']
+|chat|DEBUG|Counter: ['silvallyelectric', 'regirock', 'drapion', 'reuniclus', 'clawitzer']
+|chat|DEBUG|Speed: 208 vs 194
+|chat|DEBUG|HP: 181 vs 85
+|chat|DEBUG|Best move of silvallyelectric (p1): multiattack: 66.75 [61, 72]
+|chat|DEBUG|Best move of haxorus (p2): earthquake: 203.25 [187, 221]
+|chat|DEBUG|Attacking using multiattack
+|move|p2a: Silvally|Multi-Attack|p1a: Haxorus
+|-resisted|p1a: Haxorus
+|-damage|p1a: Haxorus|8100
+|move|p1a: Haxorus|Outrage|p2a: Silvally
+|-damage|p2a: Silvally|0 fnt
+|faint|p2a: Silvally
+|-damage|p1a: Haxorus|0 fnt|[from] item: Life Orb
+|faint|p1a: Haxorus
+|upkeep
+|switch|p2a: Regirock|Regirock, L85|275275
+|switch|p1a: Calyrex|Calyrex-Ice, L72|100100
+|-ability|p1a: Calyrex|As One
+|-ability|p1a: Calyrex|Unnerve
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "silvallyelectric" vs "haxorus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-haxorus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat dragondance earthquake outrage
+|chat|DEBUG|Checks: ['regirock', 'drapion']
+|chat|DEBUG|Counter: ['regirock', 'drapion', 'reuniclus', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to regirock (pokemon object) [Active: False, Status: None]
+|move|p2a: Regirock|Rock Slide|p1a: Calyrex
+|-supereffective|p1a: Calyrex
+|-crit|p1a: Calyrex
+|-damage|p1a: Calyrex|24100
+|-enditem|p1a: Calyrex|Weakness Policy
+|-boost|p1a: Calyrex|atk|2|[from] item: Weakness Policy
+|-boost|p1a: Calyrex|spa|2|[from] item: Weakness Policy
+|cant|p1a: Calyrex|flinch
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "calyrexice"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: agility closecombat glaciallance highhorsepower
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['regirock', 'drapion', 'clawitzer']
+|chat|DEBUG|Speed: 134 vs 114
+|chat|DEBUG|HP: 275 vs 263
+|chat|DEBUG|Created a new Strategy for regirock vs calyrexice:
+|chat|DEBUG|>[rockslide: 128.5 [116, 140], rockslide: 128.5 [116, 140], rockslide: 128.5 [116, 140]]
+|chat|DEBUG|Best move of regirock (p1): rockslide: 128.5 [116, 140]
+|chat|DEBUG|Best move of calyrexice (p2): closecombat: 97.125 [90, 106]
+|chat|DEBUG|Attacking using rockslide
+|switch|p1a: Jellicent|Jellicent, L84, F|100100
+|move|p2a: Regirock|Rock Slide|p1a: Jellicent
+|-damage|p1a: Jellicent|69100
+|-heal|p1a: Jellicent|75100|[from] item: Leftovers
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "calyrexice"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: agility closecombat glaciallance highhorsepower
+|chat|DEBUG|Checks: ['regirock', 'clawitzer']
+|chat|DEBUG|Counter: ['regirock', 'kingdra', 'drapion', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 134 vs 114
+|chat|DEBUG|HP: 275 vs 63
+|chat|DEBUG|Best move of regirock (p1): rockslide: 128.5 [116, 140]
+|chat|DEBUG|Best move of calyrexice (p2): closecombat: 193.125 [178, 210]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Drapion|Drapion, L82, F|249249
+|move|p1a: Jellicent|Will-O-Wisp|p2a: Drapion
+|-status|p2a: Drapion|brn
+|-heal|p1a: Jellicent|81100|[from] item: Leftovers
+|-damage|p2a: Drapion|234249 brn|[from] brn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['drapion']
+|chat|DEBUG|Counter: ['kingdra', 'drapion']
+|chat|DEBUG|Speed: 134 vs 149
+|chat|DEBUG|HP: 275 vs 228
+|chat|DEBUG|Created a new Strategy for regirock vs jellicent:
+|chat|DEBUG|>[rockslide: 100.375 [93, 109], rockslide: 100.375 [93, 109], rockslide: 100.375 [93, 109]]
+|chat|DEBUG|Best move of regirock (p1): rockslide: 100.375 [93, 109]
+|chat|DEBUG|Best move of jellicent (p2): scald: 137.5 [126, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check drapion
+|switch|p1a: Bisharp|Bisharp, L80, M|100100
+|move|p2a: Drapion|Knock Off|p1a: Bisharp
+|-resisted|p1a: Bisharp
+|-damage|p1a: Bisharp|89100
+|-enditem|p1a: Bisharp|Life Orb|[from] move: Knock Off|[of] p2a: Drapion
+|-damage|p2a: Drapion|210249 brn|[from] item: Life Orb
+|-damage|p2a: Drapion|195249 brn|[from] brn
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: poisonjab swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['drapion']
+|chat|DEBUG|Counter: ['kingdra', 'drapion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 203 vs 149
+|chat|DEBUG|HP: 234 vs 247
+|chat|DEBUG|Created a new Strategy for drapion vs jellicent:
+|chat|DEBUG|>[knockoff: 282.4375 [260, 307], knockoff: 282.4375 [260, 307], knockoff: 282.4375 [260, 307]]
+|chat|DEBUG|Best move of drapion (p1): knockoff: 282.4375 [260, 307]
+|chat|DEBUG|Best move of jellicent (p2): scald: 87.9375 [81, 96]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Drapion|Earthquake|p1a: Bisharp
+|-supereffective|p1a: Bisharp
+|-damage|p1a: Bisharp|58100
+|-damage|p2a: Drapion|171249 brn|[from] item: Life Orb
+|move|p1a: Bisharp|Knock Off|p2a: Drapion
+|-resisted|p2a: Drapion
+|-damage|p2a: Drapion|123249 brn
+|-enditem|p2a: Drapion|Life Orb|[from] move: Knock Off|[of] p1a: Bisharp
+|-damage|p2a: Drapion|108249 brn|[from] brn
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice-jellicent-bisharp
+|chat|DEBUG|Own moves: poisonjab swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['regirock', 'clawitzer']
+|chat|DEBUG|Counter: ['regirock', 'kingdra', 'drapion', 'reuniclus', 'clawitzer']
+|chat|DEBUG|Speed: 203 vs 158
+|chat|DEBUG|HP: 195 vs 209
+|chat|DEBUG|Created a new Strategy for drapion vs bisharp:
+|chat|DEBUG|>[earthquake: 157.8125 [146, 172], earthquake: 157.8125 [146, 172], earthquake: 157.8125 [146, 172]]
+|chat|DEBUG|Best move of drapion (p1): earthquake: 157.8125 [146, 172]
+|chat|DEBUG|Best move of bisharp (p2): ironhead: 82.4375 [76, 90]
+|chat|DEBUG|Attacking using earthquake
+|move|p2a: Drapion|Earthquake|p1a: Bisharp
+|-supereffective|p1a: Bisharp
+|-damage|p1a: Bisharp|33100
+|move|p1a: Bisharp|Iron Head|p2a: Drapion
+|-damage|p2a: Drapion|27249 brn
+|-damage|p2a: Drapion|12249 brn|[from] brn
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice-jellicent-bisharp
+|chat|DEBUG|Own moves: poisonjab swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['regirock', 'kingdra', 'clawitzer']
+|chat|DEBUG|Counter: ['regirock', 'kingdra', 'drapion', 'reuniclus', 'clawitzer']
+|chat|DEBUG|Speed: 203 vs 158
+|chat|DEBUG|HP: 108 vs 136
+|chat|DEBUG|Best move of drapion (p1): earthquake: 157.8125 [146, 172]
+|chat|DEBUG|Best move of bisharp (p2): ironhead: 82.4375 [76, 90]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Drapion|Earthquake|p1a: Bisharp
+|-supereffective|p1a: Bisharp
+|-crit|p1a: Bisharp
+|-damage|p1a: Bisharp|0 fnt
+|faint|p1a: Bisharp
+|-damage|p2a: Drapion|0 fnt|[from] brn
+|faint|p2a: Drapion
+|upkeep
+|switch|p2a: Regirock|Regirock, L85|275275
+|switch|p1a: Drifblim|Drifblim, L84, M|100100
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra drapion reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-drapion-reuniclus-clawitzer -- drifblim-calyrexice-jellicent-bisharp
+|chat|DEBUG|Own moves: poisonjab swordsdance knockoff earthquake
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['regirock', 'kingdra', 'clawitzer']
+|chat|DEBUG|Counter: ['regirock', 'kingdra', 'drapion', 'reuniclus', 'clawitzer']
+|chat|DEBUG|Speed: 203 vs 158
+|chat|DEBUG|HP: 12 vs 77
+|chat|DEBUG|Best move of drapion (p1): earthquake: 157.8125 [146, 172]
+|chat|DEBUG|Best move of bisharp (p2): ironhead: 82.4375 [76, 90]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Jellicent|Jellicent, L84, F|81100
+|move|p2a: Regirock|Rock Slide|p1a: Jellicent
+|-damage|p1a: Jellicent|49100
+|-heal|p1a: Jellicent|55100|[from] item: Leftovers
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "drapion" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent-bisharp
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: ['regirock', 'kingdra', 'clawitzer']
+|chat|DEBUG|Counter: ['regirock', 'kingdra', 'reuniclus', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to regirock (pokemon object) [Active: False, Status: None]
+|move|p1a: Jellicent|Will-O-Wisp|p2a: Regirock
+|-status|p2a: Regirock|brn
+|move|p2a: Regirock|Rock Slide|p1a: Jellicent
+|-damage|p1a: Jellicent|39100
+|-heal|p1a: Jellicent|45100|[from] item: Leftovers
+|-damage|p2a: Regirock|258275 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: ['regirock', 'kingdra']
+|chat|DEBUG|Counter: ['regirock', 'kingdra', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 134 vs 183
+|chat|DEBUG|HP: 275 vs 389
+|chat|DEBUG|Created a new Strategy for regirock vs drifblim:
+|chat|DEBUG|>[rockslide: 271.0 [248, 294], rockslide: 271.0 [248, 294], rockslide: 271.0 [248, 294]]
+|chat|DEBUG|Best move of regirock (p1): rockslide: 271.0 [248, 294]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 71.125 [66, 78]
+|chat|DEBUG|Attacking using rockslide
+|switch|p2a: Kingdra|Kingdra, L82, M|257257
+|move|p1a: Jellicent|Recover|p1a: Jellicent
+|-heal|p1a: Jellicent|95100
+|-heal|p1a: Jellicent|100100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['kingdra']
+|chat|DEBUG|Counter: ['regirock', 'kingdra']
+|chat|DEBUG|Speed: 134 vs 149
+|chat|DEBUG|HP: 275 vs 167
+|chat|DEBUG|Created a new Strategy for regirock vs jellicent:
+|chat|DEBUG|>[rockslide: 100.375 [93, 109], rockslide: 100.375 [93, 109], rockslide: 100.375 [93, 109]]
+|chat|DEBUG|Best move of regirock (p1): rockslide: 100.375 [93, 109]
+|chat|DEBUG|Best move of jellicent (p2): scald: 137.5 [126, 150]
+|chat|DEBUG|Attacking using rockslide
+|move|p2a: Kingdra|Draco Meteor|p1a: Jellicent
+|-damage|p1a: Jellicent|53100
+|-unboost|p2a: Kingdra|spa|2
+|-damage|p2a: Kingdra|232257|[from] item: Life Orb
+|move|p1a: Jellicent|Shadow Ball|p2a: Kingdra
+|-damage|p2a: Kingdra|160257
+|-heal|p1a: Jellicent|60100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: ['kingdra']
+|chat|DEBUG|Counter: ['kingdra', 'clawitzer']
+|chat|DEBUG|Speed: 134 vs 149
+|chat|DEBUG|HP: 258 vs 137
+|chat|DEBUG|Best move of regirock (p1): rockslide: 100.375 [93, 109]
+|chat|DEBUG|Best move of jellicent (p2): scald: 137.5 [126, 150]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check kingdra
+|move|p2a: Kingdra|Draco Meteor|p1a: Jellicent|[miss]
+|-miss|p2a: Kingdra|p1a: Jellicent
+|move|p1a: Jellicent|Shadow Ball|p2a: Kingdra
+|-damage|p2a: Kingdra|81257
+|-unboost|p2a: Kingdra|spd|1
+|-heal|p1a: Jellicent|66100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: hurricane hydropump raindance dracometeor
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 187 vs 149
+|chat|DEBUG|HP: 257 vs 305
+|chat|DEBUG|Created a new Strategy for kingdra vs jellicent:
+|chat|DEBUG|>[dracometeor: 144.75 [133, 157], dracometeor: 72.5625 [66, 79], dracometeor: 49.4375 [44, 55]]
+|chat|DEBUG|Best move of kingdra (p1): dracometeor: 144.75 [133, 157]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 73.9375 [67, 81]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|move|p2a: Kingdra|Draco Meteor|p1a: Jellicent
+|-damage|p1a: Jellicent|40100
+|-unboost|p2a: Kingdra|spa|2
+|-damage|p2a: Kingdra|56257|[from] item: Life Orb
+|move|p1a: Jellicent|Shadow Ball|p2a: Kingdra
+|-damage|p2a: Kingdra|0 fnt
+|faint|p2a: Kingdra
+|-heal|p1a: Jellicent|46100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Reuniclus|Reuniclus, L84, F|322322
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: hurricane hydropump raindance dracometeor
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 187 vs 149
+|chat|DEBUG|HP: 160 vs 183
+|chat|DEBUG|Best move of kingdra (p1): dracometeor: 72.5625 [66, 79]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 73.9375 [67, 81]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|move|p1a: Jellicent|Shadow Ball|p2a: Reuniclus
+|-supereffective|p2a: Reuniclus
+|-damage|p2a: Reuniclus|176322
+|move|p2a: Reuniclus|Psychic|p1a: Jellicent
+|-damage|p1a: Jellicent|0 fnt
+|faint|p1a: Jellicent
+|upkeep
+|switch|p1a: Drifblim|Drifblim, L84, M|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock kingdra reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-kingdra-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: hurricane hydropump raindance dracometeor
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 187 vs 149
+|chat|DEBUG|HP: 81 vs 201
+|chat|DEBUG|Best move of kingdra (p1): dracometeor: 49.4375 [44, 55]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 111.4375 [102, 121]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|switch|p2a: Regirock|Regirock, L85|258275 brn
+|move|p1a: Drifblim|Calm Mind|p1a: Drifblim
+|-boost|p1a: Drifblim|spa|1
+|-boost|p1a: Drifblim|spd|1
+|-heal|p2a: Regirock|275275 brn|[from] item: Leftovers
+|-damage|p2a: Regirock|258275 brn|[from] brn
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "kingdra" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: reuniclus
+|chat|DEBUG|>Switching to reuniclus (pokemon object) [Active: False, Status: None]
+|move|p1a: Drifblim|Shadow Ball|p2a: Regirock
+|-damage|p2a: Regirock|149275 brn
+|move|p2a: Regirock|Rock Slide|p1a: Drifblim
+|-supereffective|p1a: Drifblim
+|-damage|p1a: Drifblim|67100
+|-heal|p2a: Regirock|166275 brn|[from] item: Leftovers
+|-damage|p2a: Regirock|149275 brn|[from] brn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "jellicent"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-reuniclus-clawitzer -- drifblim-calyrexice-jellicent
+|chat|DEBUG|Own moves: psychic trickroom recover focusblast
+|chat|DEBUG|Enemy moves: recover scald shadowball toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['clawitzer']
+|chat|DEBUG|Speed: 55 vs 149
+|chat|DEBUG|HP: 322 vs 140
+|chat|DEBUG|Created a new Strategy for reuniclus vs jellicent:
+|chat|DEBUG|>[psychic: 132.3125 [121, 144], psychic: 132.3125 [121, 144], psychic: 132.3125 [121, 144]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 132.3125 [121, 144]
+|chat|DEBUG|Best move of jellicent (p2): shadowball: 159.0 [146, 174]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|move|p1a: Drifblim|Shadow Ball|p2a: Regirock
+|-damage|p2a: Regirock|40275 brn
+|move|p2a: Regirock|Rock Slide|p1a: Drifblim
+|-supereffective|p1a: Drifblim
+|-damage|p1a: Drifblim|33100
+|-enditem|p1a: Drifblim|Sitrus Berry|[eat]
+|-heal|p1a: Drifblim|58100|[from] item: Sitrus Berry
+|-heal|p2a: Regirock|57275 brn|[from] item: Leftovers
+|-damage|p2a: Regirock|40275 brn|[from] brn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: psychic trickroom recover focusblast
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: ['regirock']
+|chat|DEBUG|Counter: ['regirock', 'clawitzer']
+|chat|DEBUG|Speed: 55 vs 183
+|chat|DEBUG|HP: 176 vs 389
+|chat|DEBUG|Created a new Strategy for reuniclus vs drifblim:
+|chat|DEBUG|>[psychic: 211.625 [195, 230], psychic: 211.625 [195, 230], psychic: 211.625 [195, 230]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 211.625 [195, 230]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 164.875 [152, 180]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check regirock
+|move|p1a: Drifblim|Shadow Ball|p2a: Regirock
+|-damage|p2a: Regirock|0 fnt
+|faint|p2a: Regirock
+|upkeep
+|switch|p2a: Reuniclus|Reuniclus, L84, F|176322
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['regirock']
+|chat|DEBUG|Speed: 134 vs 183
+|chat|DEBUG|HP: 258 vs 389
+|chat|DEBUG|Created a new Strategy for regirock vs drifblim:
+|chat|DEBUG|>[rockslide: 271.0 [248, 294], rockslide: 271.0 [248, 294], rockslide: 271.0 [248, 294]]
+|chat|DEBUG|Best move of regirock (p1): rockslide: 271.0 [248, 294]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using rockslide
+|move|p1a: Drifblim|Shadow Ball|p2a: Reuniclus
+|-supereffective|p2a: Reuniclus
+|-damage|p2a: Reuniclus|0 fnt
+|faint|p2a: Reuniclus
+|upkeep
+|switch|p2a: Clawitzer|Clawitzer, L84, F|256256
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['regirock']
+|chat|DEBUG|Speed: 134 vs 183
+|chat|DEBUG|HP: 149 vs 260
+|chat|DEBUG|Best move of regirock (p1): rockslide: 271.0 [248, 294]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 107.3125 [99, 117]
+|chat|DEBUG|Attacking using rockslide
+|-start|p2a: Clawitzer|Dynamax
+|-heal|p2a: Clawitzer|512512|[silent]
+|move|p1a: Drifblim|Thunderbolt|p2a: Clawitzer
+|-supereffective|p2a: Clawitzer
+|-damage|p2a: Clawitzer|350512
+|move|p2a: Clawitzer|Max Hailstorm|p1a: Drifblim
+|-supereffective|p1a: Drifblim
+|-damage|p1a: Drifblim|8100
+|-weather|Hail
+|-weather|Hail|[upkeep]
+|-damage|p1a: Drifblim|2100|[from] Hail
+|-damage|p2a: Clawitzer|334512|[from] Hail
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>regirock reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>regirock-reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: rockslide bodypress curse earthquake
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 134 vs 183
+|chat|DEBUG|HP: 40 vs 225
+|chat|DEBUG|Best move of regirock (p1): rockslide: 271.0 [248, 294]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 107.3125 [99, 117]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using rockslide
+|-start|p1a: Drifblim|Dynamax
+|-heal|p1a: Drifblim|2100|[silent]
+|move|p1a: Drifblim|Max Lightning|p2a: Clawitzer
+|-supereffective|p2a: Clawitzer
+|-damage|p2a: Clawitzer|72512
+|-fieldstart|move: Electric Terrain
+|move|p2a: Clawitzer|Max Hailstorm|p1a: Drifblim
+|-supereffective|p1a: Drifblim
+|-damage|p1a: Drifblim|0 fnt
+|faint|p1a: Drifblim
+|-weather|Hail|[upkeep]
+|-damage|p2a: Clawitzer|56512|[from] Hail
+|upkeep
+|switch|p1a: Calyrex|Calyrex-Ice, L72|24100
+|-ability|p1a: Calyrex|As One
+|-ability|p1a: Calyrex|Unnerve
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "regirock" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: reuniclus
+|chat|DEBUG|>Switching to reuniclus (pokemon object) [Active: False, Status: None]
+|move|p2a: Clawitzer|Max Geyser|p1a: Calyrex
+|-damage|p1a: Calyrex|0 fnt
+|-weather|RainDance
+|faint|p1a: Calyrex
+|-weather|RainDance|[upkeep]
+|-end|p2a: Clawitzer|Dynamax
+|-heal|p2a: Clawitzer|28256|[silent]
+|upkeep
+|switch|p1a: Scizor|Scizor, L80, F|100100
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>reuniclus clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "reuniclus" vs "drifblim"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>reuniclus-clawitzer -- drifblim-calyrexice
+|chat|DEBUG|Own moves: psychic trickroom recover focusblast
+|chat|DEBUG|Enemy moves: calmmind shadowball strengthsap thunderbolt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 55 vs 183
+|chat|DEBUG|HP: 176 vs 225
+|chat|DEBUG|Created a new Strategy for reuniclus vs drifblim:
+|chat|DEBUG|>[psychic: 143.25 [133, 156], psychic: 143.25 [133, 156], psychic: 143.25 [133, 156]]
+|chat|DEBUG|Best move of reuniclus (p1): psychic: 143.25 [133, 156]
+|chat|DEBUG|Best move of drifblim (p2): shadowball: 245.125 [224, 266]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using psychic
+|move|p1a: Scizor|Bullet Punch|p2a: Clawitzer
+|-resisted|p2a: Clawitzer
+|-damage|p2a: Clawitzer|0 fnt
+|faint|p2a: Clawitzer
+|-damage|p1a: Scizor|91100|[from] item: Life Orb
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">silvallyelectric regirock kingdra drapion reuniclus clawitzer</h1>

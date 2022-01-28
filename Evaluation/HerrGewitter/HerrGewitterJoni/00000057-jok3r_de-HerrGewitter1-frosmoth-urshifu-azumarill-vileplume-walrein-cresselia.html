@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491373413<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491373413|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Torkoal|Torkoal, L86, M|100100
+|switch|p2a: Frosmoth|Frosmoth, L82, F|249249
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Torkoal
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "frosmoth" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>frosmoth-urshifu-azumarill-vileplume-walrein-cresselia -- torkoal
+|chat|DEBUG|Own moves: bugbuzz quiverdance gigadrain icebeam
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein']
+|chat|DEBUG|Counter: ['urshifu', 'azumarill', 'walrein', 'cresselia']
+|chat|DEBUG|Speed: 154 vs 84
+|chat|DEBUG|HP: 249 vs 261
+|chat|DEBUG|Created a new Strategy for frosmoth vs torkoal:
+|chat|DEBUG|>[icebeam: 63.1875 [58, 69], icebeam: 63.1875 [58, 69], icebeam: 63.1875 [58, 69]]
+|chat|DEBUG|Best move of frosmoth (p1): icebeam: 63.1875 [58, 69]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 161.875 [150, 176]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check walrein
+|switch|p2a: Walrein|Walrein, L86, M|329329
+|move|p1a: Torkoal|Lava Plume|p2a: Walrein
+|-damage|p2a: Walrein|268329
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Walrein|288329|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>frosmoth-urshifu-azumarill-vileplume-walrein-cresselia -- torkoal
+|chat|DEBUG|Own moves: surf toxic icebeam protect
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['urshifu', 'azumarill', 'walrein', 'cresselia']
+|chat|DEBUG|Speed: 161 vs 84
+|chat|DEBUG|HP: 288 vs 261
+|chat|DEBUG|Created a new Strategy for walrein vs torkoal:
+|chat|DEBUG|>[surf: 228.625 [210, 248], surf: 228.625 [210, 248], surf: 228.625 [210, 248]]
+|chat|DEBUG|Best move of walrein (p1): surf: 228.625 [210, 248]
+|chat|DEBUG|Best move of torkoal (p2): solarbeam: 154.5 [142, 168]
+|chat|DEBUG|Attacking using surf
+|switch|p1a: Obstagoon|Obstagoon, L80, M|100100
+|move|p2a: Walrein|Surf|p1a: Obstagoon
+|-damage|p1a: Obstagoon|82100
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Walrein|308329|[from] item: Leftovers
+|-status|p1a: Obstagoon|brn|[from] item: Flame Orb
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>frosmoth-urshifu-azumarill-vileplume-walrein-cresselia -- torkoal-obstagoon
+|chat|DEBUG|Own moves: surf toxic icebeam protect
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['frosmoth', 'azumarill']
+|chat|DEBUG|Counter: ['frosmoth', 'urshifu', 'azumarill', 'vileplume']
+|chat|DEBUG|Speed: 161 vs 198
+|chat|DEBUG|HP: 308 vs 229
+|chat|DEBUG|Created a new Strategy for walrein vs obstagoon:
+|chat|DEBUG|>[icebeam: 110.25 [102, 120], icebeam: 110.25 [102, 120], icebeam: 110.25 [102, 120]]
+|chat|DEBUG|Best move of walrein (p1): icebeam: 110.25 [102, 120]
+|chat|DEBUG|Best move of obstagoon (p2): closecombat: 143.375 [132, 156]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check frosmoth
+|switch|p2a: Frosmoth|Frosmoth, L82, F|249249
+|move|p1a: Obstagoon|Bulk Up|p1a: Obstagoon
+|-boost|p1a: Obstagoon|atk|1
+|-boost|p1a: Obstagoon|def|1
+|-weather|SunnyDay|[upkeep]
+|-damage|p1a: Obstagoon|76100 brn|[from] brn
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>frosmoth urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "frosmoth" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>frosmoth-urshifu-azumarill-vileplume-walrein-cresselia -- torkoal-obstagoon
+|chat|DEBUG|Own moves: bugbuzz quiverdance gigadrain icebeam
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['frosmoth', 'azumarill']
+|chat|DEBUG|Speed: 154 vs 198
+|chat|DEBUG|HP: 249 vs 212
+|chat|DEBUG|Created a new Strategy for frosmoth vs obstagoon:
+|chat|DEBUG|>[bugbuzz: 245.125 [224, 266], bugbuzz: 245.125 [224, 266], bugbuzz: 245.125 [224, 266]]
+|chat|DEBUG|Best move of frosmoth (p1): bugbuzz: 245.125 [224, 266]
+|chat|DEBUG|Best move of obstagoon (p2): knockoff: 179.5 [165, 195]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Obstagoon|Facade|p2a: Frosmoth
+|-damage|p2a: Frosmoth|0 fnt
+|faint|p2a: Frosmoth
+|-weather|SunnyDay|[upkeep]
+|-damage|p1a: Obstagoon|70100 brn|[from] brn
+|upkeep
+|switch|p2a: Azumarill|Azumarill, L84, M|305305
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "frosmoth" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-azumarill-vileplume-walrein-cresselia -- torkoal-obstagoon
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['azumarill']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to azumarill (pokemon object) [Active: False, Status: None]
+|move|p1a: Obstagoon|Facade|p2a: Azumarill
+|-damage|p2a: Azumarill|14305
+|move|p2a: Azumarill|Play Rough|p1a: Obstagoon
+|-supereffective|p1a: Obstagoon
+|-damage|p1a: Obstagoon|0 fnt
+|faint|p1a: Obstagoon
+|-weather|none
+|upkeep
+|switch|p1a: Cinccino|Cinccino, L84, F|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "obstagoon"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-azumarill-vileplume-walrein-cresselia -- torkoal-obstagoon
+|chat|DEBUG|Own moves: playrough knockoff aquajet liquidation
+|chat|DEBUG|Enemy moves: bulkup closecombat facade knockoff
+|chat|DEBUG|Checks: ['azumarill']
+|chat|DEBUG|Counter: ['urshifu', 'azumarill']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 132 vs 198
+|chat|DEBUG|HP: 305 vs 196
+|chat|DEBUG|Created a new Strategy for azumarill vs obstagoon:
+|chat|DEBUG|>[playrough: 222.875 [204, 242], playrough: 222.875 [204, 242], playrough: 222.875 [204, 242]]
+|chat|DEBUG|Best move of azumarill (p1): playrough: 222.875 [204, 242]
+|chat|DEBUG|Best move of obstagoon (p2): facade: 104.5 [96, 114]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using playrough
+|switch|p2a: Urshifu|Urshifu, L76, M|277277
+|move|p1a: Cinccino|Tail Slap|p2a: Urshifu
+|-damage|p2a: Urshifu|235277
+|-damage|p2a: Urshifu|195277
+|-damage|p2a: Urshifu|155277
+|-damage|p2a: Urshifu|118277
+|-damage|p2a: Urshifu|76277
+|-hitcount|p2a: Urshifu|5
+|-heal|p2a: Urshifu|93277|[from] item: Leftovers
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "azumarill" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-azumarill-vileplume-walrein-cresselia -- torkoal-cinccino
+|chat|DEBUG|Own moves: playrough
+|chat|DEBUG|Enemy moves: knockoff rockblast tailslap uturn
+|chat|DEBUG|Checks: ['urshifu']
+|chat|DEBUG|Counter: ['urshifu', 'vileplume', 'walrein']
+|chat|DEBUG|Speed: 132 vs 241
+|chat|DEBUG|HP: 14 vs 263
+|chat|DEBUG|Created a new Strategy for azumarill vs cinccino:
+|chat|DEBUG|>[playrough: 233.5 [214, 253], playrough: 233.5 [214, 253], playrough: 233.5 [214, 253]]
+|chat|DEBUG|Best move of azumarill (p1): playrough: 233.5 [214, 253]
+|chat|DEBUG|Best move of cinccino (p2): knockoff: 53.5625 [49, 58]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check urshifu
+|move|p1a: Cinccino|Tail Slap|p2a: Urshifu
+|-damage|p2a: Urshifu|56277
+|-damage|p2a: Urshifu|14277
+|-damage|p2a: Urshifu|0 fnt
+|faint|p2a: Urshifu
+|-hitcount|p2: Urshifu|3
+|upkeep
+|switch|p2a: Vileplume|Vileplume, L84, M|263263
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>urshifu azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>urshifu-azumarill-vileplume-walrein-cresselia -- torkoal-cinccino
+|chat|DEBUG|Own moves: wickedblow drainpunch bulkup substitute
+|chat|DEBUG|Enemy moves: knockoff rockblast tailslap uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vileplume', 'walrein']
+|chat|DEBUG|Speed: 191 vs 241
+|chat|DEBUG|HP: 93 vs 263
+|chat|DEBUG|Created a new Strategy for urshifu vs cinccino:
+|chat|DEBUG|>[drainpunch: 217.25 [200, 236], drainpunch: 217.25 [200, 236], drainpunch: 217.25 [200, 236]]
+|chat|DEBUG|Best move of urshifu (p1): drainpunch: 217.25 [200, 236]
+|chat|DEBUG|Best move of cinccino (p2): uturn: 73.625 [68, 80]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|move|p1a: Cinccino|Tail Slap|p2a: Vileplume
+|-damage|p2a: Vileplume|220263
+|-status|p1a: Cinccino|par|[from] ability: Effect Spore|[of] p2a: Vileplume
+|-damage|p2a: Vileplume|178263
+|-damage|p2a: Vileplume|139263
+|-damage|p2a: Vileplume|96263
+|-damage|p2a: Vileplume|54263
+|-hitcount|p2a: Vileplume|5
+|move|p2a: Vileplume|Sludge Bomb|p1a: Cinccino
+|-crit|p1a: Cinccino
+|-damage|p1a: Cinccino|20100 par
+|-heal|p2a: Vileplume|70263|[from] item: Black Sludge
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifu" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff rockblast tailslap uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vileplume', 'walrein']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to vileplume (pokemon object) [Active: False, Status: None]
+|switch|p2a: Walrein|Walrein, L86, M|308329
+|move|p1a: Cinccino|Tail Slap|p2a: Walrein
+|-damage|p2a: Walrein|271329
+|-damage|p2a: Walrein|235329
+|-damage|p2a: Walrein|198329
+|-damage|p2a: Walrein|158329
+|-damage|p2a: Walrein|121329
+|-hitcount|p2a: Walrein|5
+|-heal|p2a: Walrein|141329|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vileplume" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino
+|chat|DEBUG|Own moves: strengthsap gigadrain aromatherapy sludgebomb
+|chat|DEBUG|Enemy moves: knockoff rockblast tailslap uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['vileplume', 'walrein']
+|chat|DEBUG|Speed: 132 vs 241
+|chat|DEBUG|HP: 263 vs 263
+|chat|DEBUG|Created a new Strategy for vileplume vs cinccino:
+|chat|DEBUG|>[sludgebomb: 138.5 [127, 150], sludgebomb: 138.5 [127, 150], sludgebomb: 138.5 [127, 150]]
+|chat|DEBUG|Best move of vileplume (p1): sludgebomb: 138.5 [127, 150]
+|chat|DEBUG|Best move of cinccino (p2): knockoff: 103.125 [95, 112]
+|chat|DEBUG|Attacking using sludgebomb
+|switch|p1a: Palossand|Palossand, L86, F|100100
+|move|p2a: Walrein|Ice Beam|p1a: Palossand
+|-supereffective|p1a: Palossand
+|-damage|p1a: Palossand|23100
+|-heal|p2a: Walrein|161329|[from] item: Leftovers
+|-heal|p1a: Palossand|29100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "vileplume" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino
+|chat|DEBUG|Own moves: strengthsap gigadrain aromatherapy sludgebomb
+|chat|DEBUG|Enemy moves: knockoff rockblast tailslap uturn
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['walrein', 'cresselia']
+|chat|DEBUG|Speed: 132 vs 241
+|chat|DEBUG|HP: 70 vs 52
+|chat|DEBUG|Best move of vileplume (p1): sludgebomb: 138.5 [127, 150]
+|chat|DEBUG|Best move of cinccino (p2): knockoff: 103.125 [95, 112]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check walrein
+|move|p2a: Walrein|Ice Beam|p1a: Palossand
+|-supereffective|p1a: Palossand
+|-damage|p1a: Palossand|0 fnt
+|faint|p1a: Palossand
+|-heal|p2a: Walrein|181329|[from] item: Leftovers
+|upkeep
+|switch|p1a: Silvally|Silvally-Ground, L84|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "cinccino"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino
+|chat|DEBUG|Own moves: surf toxic icebeam protect
+|chat|DEBUG|Enemy moves: knockoff rockblast tailslap uturn
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['walrein', 'cresselia']
+|chat|DEBUG|Speed: 161 vs 241
+|chat|DEBUG|HP: 141 vs 52
+|chat|DEBUG|Created a new Strategy for walrein vs cinccino:
+|chat|DEBUG|>[icebeam: 129.5 [118, 141], icebeam: 129.5 [118, 141], icebeam: 129.5 [118, 141]]
+|chat|DEBUG|Best move of walrein (p1): icebeam: 129.5 [118, 141]
+|chat|DEBUG|Best move of cinccino (p2): knockoff: 96.5625 [89, 105]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Cresselia|Cresselia, L80, F|323323
+|move|p1a: Silvally|Multi-Attack|p2a: Cresselia
+|-immune|p2a: Cresselia|[from] ability: Levitate
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "palossand"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-palossand
+|chat|DEBUG|Own moves: surf toxic icebeam protect
+|chat|DEBUG|Enemy moves: earthpower shadowball shoreup toxic
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'vileplume', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 161 vs 109
+|chat|DEBUG|HP: 161 vs 82
+|chat|DEBUG|Created a new Strategy for walrein vs palossand:
+|chat|DEBUG|>[icebeam: 217.25 [200, 236], icebeam: 217.25 [200, 236], icebeam: 217.25 [200, 236]]
+|chat|DEBUG|Best move of walrein (p1): icebeam: 217.25 [200, 236]
+|chat|DEBUG|Best move of palossand (p2): earthpower: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Torkoal|Torkoal, L86, M|100100
+|-weather|SunnyDay|[from] ability: Drought|[of] p1a: Torkoal
+|-start|p2a: Cresselia|Dynamax
+|-heal|p2a: Cresselia|646646|[silent]
+|move|p2a: Cresselia|Max Mindstorm|p1a: Torkoal
+|-damage|p1a: Torkoal|57100
+|-fieldstart|move: Psychic Terrain
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "walrein" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: surf toxic icebeam protect
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 161 vs 208
+|chat|DEBUG|HP: 181 vs 297
+|chat|DEBUG|Created a new Strategy for walrein vs silvallyground:
+|chat|DEBUG|>[icebeam: 186.5 [170, 204], icebeam: 186.5 [170, 204], icebeam: 186.5 [170, 204]]
+|chat|DEBUG|Best move of walrein (p1): icebeam: 186.5 [170, 204]
+|chat|DEBUG|Best move of silvallyground (p2): multiattack: 119.75 [109, 130]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cresselia
+|-start|p1a: Torkoal|Dynamax
+|-heal|p1a: Torkoal|57100|[silent]
+|move|p1a: Torkoal|Max Guard|p1a: Torkoal
+|-singleturn|p1a: Torkoal|Max Guard
+|move|p2a: Cresselia|Max Mindstorm|p1a: Torkoal
+|-activate|p1a: Torkoal|move: Max Guard
+|-weather|SunnyDay|[upkeep]
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "silvallyground"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: flamethrower icebeam multiattack toxic
+|chat|DEBUG|Checks: ['cresselia']
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 208
+|chat|DEBUG|HP: 323 vs 297
+|chat|DEBUG|Created a new Strategy for cresselia vs silvallyground:
+|chat|DEBUG|>[psyshock: 61.5625 [57, 67], psyshock: 61.5625 [57, 67], psyshock: 61.5625 [57, 67]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 61.5625 [57, 67]
+|chat|DEBUG|Best move of silvallyground (p2): icebeam: 48.5625 [45, 53]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|move|p2a: Cresselia|Max Mindstorm|p1a: Torkoal
+|-damage|p1a: Torkoal|34100
+|move|p1a: Torkoal|Max Overgrowth|p2a: Cresselia
+|-damage|p2a: Cresselia|573646
+|-fieldstart|move: Grassy Terrain
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Cresselia|593646|[from] item: Leftovers
+|-heal|p1a: Torkoal|37100|[from] Grassy Terrain
+|-end|p2a: Cresselia|Dynamax
+|-heal|p2a: Cresselia|297323|[silent]
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 646 vs 148
+|chat|DEBUG|Created a new Strategy for cresselia vs torkoal:
+|chat|DEBUG|>[psyshock: 45.0625 [42, 49], psyshock: 45.0625 [42, 49], psyshock: 45.0625 [42, 49]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|Attacking using psyshock
+|move|p1a: Torkoal|Max Guard|p1a: Torkoal
+|-singleturn|p1a: Torkoal|Max Guard
+|move|p2a: Cresselia|Psyshock|p1a: Torkoal
+|-activate|p1a: Torkoal|move: Max Guard
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Cresselia|317323|[from] item: Leftovers
+|-heal|p1a: Torkoal|41100|[from] Grassy Terrain
+|-end|p1a: Torkoal|Dynamax
+|-heal|p1a: Torkoal|41100|[silent]
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 646 vs 148
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Cresselia|Psyshock|p1a: Torkoal
+|-damage|p1a: Torkoal|23100
+|move|p1a: Torkoal|Earthquake|p2a: Cresselia
+|-immune|p2a: Cresselia|[from] ability: Levitate
+|-weather|none
+|-heal|p2a: Cresselia|323323|[from] item: Leftovers
+|-heal|p1a: Torkoal|30100|[from] Grassy Terrain
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'vileplume', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 297 vs 96
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Cresselia|Psyshock|p1a: Torkoal
+|-damage|p1a: Torkoal|12100
+|move|p1a: Torkoal|Stealth Rock|p2a: Cresselia
+|-sidestart|p2: HerrGewitter1|move: Stealth Rock
+|-heal|p1a: Torkoal|18100|[from] Grassy Terrain
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'vileplume', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 317 vs 107
+|chat|DEBUG|Created a new Strategy for cresselia vs torkoal:
+|chat|DEBUG|>[psyshock: 45.0625 [42, 49], psyshock: 45.0625 [42, 49], psyshock: 45.0625 [42, 49]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Cresselia|Psyshock|p1a: Torkoal
+|-damage|p1a: Torkoal|1100
+|move|p1a: Torkoal|Lava Plume|p2a: Cresselia
+|-damage|p2a: Cresselia|259323
+|-status|p2a: Cresselia|brn
+|-heal|p2a: Cresselia|279323 brn|[from] item: Leftovers
+|-heal|p1a: Torkoal|7100|[from] Grassy Terrain
+|-damage|p2a: Cresselia|259323 brn|[from] brn
+|-fieldend|move: Grassy Terrain
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'vileplume', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 323 vs 78
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Cresselia|Psyshock|p1a: Torkoal
+|-damage|p1a: Torkoal|0 fnt
+|faint|p1a: Torkoal
+|-heal|p2a: Cresselia|279323 brn|[from] item: Leftovers
+|-damage|p2a: Cresselia|259323 brn|[from] brn
+|upkeep
+|switch|p1a: Terrakion|Terrakion, L78|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'vileplume', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 323 vs 46
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|move|p1a: Terrakion|Stone Edge|p2a: Cresselia
+|-damage|p2a: Cresselia|125323 brn
+|-damage|p1a: Terrakion|90100|[from] item: Life Orb
+|move|p2a: Cresselia|Psyshock|p1a: Terrakion
+|-supereffective|p1a: Terrakion
+|-crit|p1a: Terrakion
+|-damage|p1a: Terrakion|17100
+|-heal|p2a: Cresselia|145323 brn|[from] item: Leftovers
+|-damage|p2a: Cresselia|125323 brn|[from] brn
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cresselia" vs "torkoal"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- torkoal-cinccino-silvallyground
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: earthquake lavaplume rapidspin solarbeam
+|chat|DEBUG|Checks: ['walrein', 'cresselia']
+|chat|DEBUG|Counter: ['azumarill', 'vileplume', 'walrein', 'cresselia']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 182 vs 84
+|chat|DEBUG|HP: 259 vs 18
+|chat|DEBUG|Created a new Strategy for cresselia vs torkoal:
+|chat|DEBUG|>[psyshock: 45.0625 [42, 49], psyshock: 45.0625 [42, 49], psyshock: 45.0625 [42, 49]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 45.0625 [42, 49]
+|chat|DEBUG|Best move of torkoal (p2): lavaplume: 62.9375 [58, 69]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Terrakion|Stone Edge|p2a: Cresselia
+|-damage|p2a: Cresselia|0 fnt
+|faint|p2a: Cresselia
+|-damage|p1a: Terrakion|7100|[from] item: Life Orb
+|upkeep
+|switch|p2a: Azumarill|Azumarill, L84, M|14305
+|-damage|p2a: Azumarill|0 fnt|[from] Stealth Rock
+|faint|p2a: Azumarill
+|switch|p2a: Vileplume|Vileplume, L84, M|70263
+|-damage|p2a: Vileplume|38263|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- cinccino-silvallyground-terrakion
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cresselia']
+|chat|DEBUG|Speed: 182 vs 214
+|chat|DEBUG|HP: 259 vs 270
+|chat|DEBUG|Created a new Strategy for cresselia vs terrakion:
+|chat|DEBUG|>[psyshock: 137.5 [126, 150], psyshock: 137.5 [126, 150], psyshock: 137.5 [126, 150]]
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 137.5 [126, 150]
+|chat|DEBUG|Best move of terrakion (p2): stoneedge: 125.0 [114, 136]
+|chat|DEBUG|Attacking using psyshock
+|move|p1a: Terrakion|Stone Edge|p2a: Vileplume
+|-damage|p2a: Vileplume|0 fnt
+|faint|p2a: Vileplume
+|-damage|p1a: Terrakion|0 fnt|[from] item: Life Orb
+|faint|p1a: Terrakion
+|upkeep
+|switch|p1a: Silvally|Silvally-Ground, L84|100100
+|switch|p2a: Walrein|Walrein, L86, M|181329
+|-damage|p2a: Walrein|99329|[from] Stealth Rock
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein cresselia
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein-cresselia -- cinccino-silvallyground-terrakion
+|chat|DEBUG|Own moves: thunderwave psyshock moonlight moonblast
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 182 vs 214
+|chat|DEBUG|HP: 125 vs 45
+|chat|DEBUG|Best move of cresselia (p1): psyshock: 137.5 [126, 150]
+|chat|DEBUG|Best move of terrakion (p2): stoneedge: 125.0 [114, 136]
+|chat|DEBUG|Attacking using psyshock
+|move|p1a: Silvally|Parting Shot|p2a: Walrein
+|-unboost|p2a: Walrein|atk|1
+|-unboost|p2a: Walrein|spa|1
+|switch|p1a: Cinccino|Cinccino, L84, F|20100 par|[from]move: Parting Shot
+|move|p2a: Walrein|Ice Beam|p1a: Cinccino
+|-damage|p1a: Cinccino|0 fnt
+|faint|p1a: Cinccino
+|-heal|p2a: Walrein|119329|[from] item: Leftovers
+|upkeep
+|switch|p1a: Silvally|Silvally-Ground, L84|100100
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>azumarill vileplume walrein
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "cresselia" vs "terrakion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>azumarill-vileplume-walrein -- cinccino-silvallyground-terrakion
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat earthquake stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'azumarill': 14, 'vileplume': 70, 'walrein': 181}
+|chat|DEBUG|remaining_hp_team_2={'cinccino': 20, 'silvallyground': 100, 'terrakion': 17}
+|chat|DEBUG|battle.available_switches=[azumarill (pokemon object) [Active: False, Status: None], vileplume (pokemon object) [Active: False, Status: None], walrein (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'azumarill'
+|chat|DEBUG|>Switching to azumarill (pokemon object) [Active: False, Status: None]
+|move|p1a: Silvally|Multi-Attack|p2a: Walrein
+|-damage|p2a: Walrein|0 fnt
+|faint|p2a: Walrein
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">frosmoth urshifu azumarill vileplume walrein cresselia</h1>

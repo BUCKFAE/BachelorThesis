@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490959908<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490959908|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Hitmonchan|Hitmonchan, L86, M|100100
+|switch|p2a: Cloyster|Cloyster, L80, M|211211
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan
+|chat|DEBUG|Own moves: shellsmash rockblast iciclespear hydropump
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos', 'bewear', 'venusaur']
+|chat|DEBUG|Speed: 158 vs 180
+|chat|DEBUG|HP: 211 vs 226
+|chat|DEBUG|Created a new Strategy for cloyster vs hitmonchan:
+|chat|DEBUG|>[hydropump: 80.9375 [75, 88], hydropump: 80.9375 [75, 88], hydropump: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 80.9375 [75, 88]
+|chat|DEBUG|Best move of hitmonchan (p2): drainpunch: 163.6875 [151, 179]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using hydropump
+|switch|p1a: Rotom|Rotom-Wash, L82|100100
+|move|p2a: Cloyster|Hydro Pump|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|82100
+|-heal|p1a: Rotom|88100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: shellsmash rockblast iciclespear hydropump
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['venusaur']
+|chat|DEBUG|Counter: ['zapdos', 'oranguru', 'bewear', 'venusaur']
+|chat|DEBUG|Speed: 158 vs 188
+|chat|DEBUG|HP: 211 vs 190
+|chat|DEBUG|Created a new Strategy for cloyster vs rotomwash:
+|chat|DEBUG|>[hydropump: 42.9375 [39, 47], hydropump: 42.9375 [39, 47], hydropump: 42.9375 [39, 47]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 42.9375 [39, 47]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 317.125 [290, 344]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check venusaur
+|switch|p2a: Venusaur|Venusaur, L82, F|265265
+|move|p1a: Rotom|Thunderbolt|p2a: Venusaur
+|-resisted|p2a: Venusaur
+|-damage|p2a: Venusaur|224265
+|-status|p2a: Venusaur|par
+|-heal|p1a: Rotom|94100|[from] item: Leftovers
+|-heal|p2a: Venusaur|240265 par|[from] item: Black Sludge
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: leechseed substitute gigadrain sludgebomb
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['venusaur']
+|chat|DEBUG|Counter: ['zapdos', 'oranguru', 'venusaur']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 178 vs 188
+|chat|DEBUG|HP: 240 vs 203
+|chat|DEBUG|Created a new Strategy for venusaur vs rotomwash:
+|chat|DEBUG|>[gigadrain: 137.5 [126, 150], gigadrain: 137.5 [126, 150], gigadrain: 137.5 [126, 150]]
+|chat|DEBUG|Best move of venusaur (p1): gigadrain: 137.5 [126, 150]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 44.375 [41, 48]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using gigadrain
+|switch|p1a: Volcarona|Volcarona, L76, M|100100
+|move|p2a: Venusaur|Giga Drain|p1a: Volcarona
+|-resisted|p1a: Volcarona
+|-damage|p1a: Volcarona|94100
+|-heal|p2a: Venusaur|248265 par|[from] drain|[of] p1a: Volcarona
+|-heal|p2a: Venusaur|264265 par|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan-rotomwash-volcarona
+|chat|DEBUG|Own moves: leechseed substitute gigadrain sludgebomb
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos', 'stakataka']
+|chat|DEBUG|Speed: 178 vs 196
+|chat|DEBUG|HP: 264 vs 238
+|chat|DEBUG|Created a new Strategy for venusaur vs volcarona:
+|chat|DEBUG|>[sludgebomb: 89.1875 [82, 97], sludgebomb: 89.1875 [82, 97], sludgebomb: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 234.0 [216, 254]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|move|p1a: Volcarona|Quiver Dance|p1a: Volcarona
+|-boost|p1a: Volcarona|spa|1
+|-boost|p1a: Volcarona|spd|1
+|-boost|p1a: Volcarona|spe|1
+|move|p2a: Venusaur|Sludge Bomb|p1a: Volcarona
+|-damage|p1a: Volcarona|70100
+|-status|p1a: Volcarona|psn
+|-heal|p2a: Venusaur|265265 par|[from] item: Black Sludge
+|-damage|p1a: Volcarona|58100 psn|[from] psn
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan-rotomwash-volcarona
+|chat|DEBUG|Own moves: leechseed substitute gigadrain sludgebomb
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|Speed: 178 vs 196
+|chat|DEBUG|HP: 265 vs 147
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 347.75 [320, 378]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|move|p1a: Volcarona|Fire Blast|p2a: Venusaur|[miss]
+|-miss|p1a: Volcarona|p2a: Venusaur
+|cant|p2a: Venusaur|par
+|-damage|p1a: Volcarona|46100 psn|[from] psn
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan-rotomwash-volcarona
+|chat|DEBUG|Own moves: leechseed substitute gigadrain sludgebomb
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos', 'stakataka']
+|chat|DEBUG|Speed: 178 vs 196
+|chat|DEBUG|HP: 265 vs 116
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 89.1875 [82, 97]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 347.75 [320, 378]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|move|p1a: Volcarona|Roost|p1a: Volcarona
+|-heal|p1a: Volcarona|96100 psn
+|-singleturn|p1a: Volcarona|move: Roost
+|cant|p2a: Venusaur|par
+|-damage|p1a: Volcarona|84100 psn|[from] psn
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear venusaur
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear-venusaur -- hitmonchan-rotomwash-volcarona
+|chat|DEBUG|Own moves: leechseed substitute gigadrain sludgebomb
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|Speed: 178 vs 196
+|chat|DEBUG|HP: 265 vs 213
+|chat|DEBUG|Created a new Strategy for venusaur vs volcarona:
+|chat|DEBUG|>[sludgebomb: 60.125 [55, 66], sludgebomb: 60.125 [55, 66], sludgebomb: 60.125 [55, 66]]
+|chat|DEBUG|Best move of venusaur (p1): sludgebomb: 60.125 [55, 66]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 347.75 [320, 378]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sludgebomb
+|move|p1a: Volcarona|Fire Blast|p2a: Venusaur
+|-supereffective|p2a: Venusaur
+|-damage|p2a: Venusaur|0 fnt
+|faint|p2a: Venusaur
+|-damage|p1a: Volcarona|71100 psn|[from] psn
+|upkeep
+|switch|p2a: Stakataka|Stakataka, L80|229229
+|-item|p2a: Stakataka|Air Balloon
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "venusaur" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear -- hitmonchan-rotomwash-volcarona
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to stakataka (pokemon object) [Active: False, Status: None]
+|move|p1a: Volcarona|Giga Drain|p2a: Stakataka
+|-damage|p2a: Stakataka|143229
+|-heal|p1a: Volcarona|88100 psn|[from] drain|[of] p2a: Stakataka
+|-enditem|p2a: Stakataka|Air Balloon
+|move|p2a: Stakataka|Stone Edge|p1a: Volcarona
+|-supereffective|p1a: Volcarona
+|-crit|p1a: Volcarona
+|-damage|p1a: Volcarona|0 fnt
+|faint|p1a: Volcarona
+|-ability|p2a: Stakataka|Beast Boost|boost
+|-boost|p2a: Stakataka|def|1
+|upkeep
+|switch|p1a: Hitmonchan|Hitmonchan, L86, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "volcarona"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear -- hitmonchan-rotomwash-volcarona
+|chat|DEBUG|Own moves: stoneedge trickroom earthquake gyroball
+|chat|DEBUG|Enemy moves: bugbuzz fireblast quiverdance roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['stakataka']
+|chat|DEBUG|Speed: 25 vs 196
+|chat|DEBUG|HP: 229 vs 180
+|chat|DEBUG|Created a new Strategy for stakataka vs volcarona:
+|chat|DEBUG|>[stoneedge: 678.75 [624, 736], stoneedge: 678.75 [624, 736], stoneedge: 678.75 [624, 736]]
+|chat|DEBUG|Best move of stakataka (p1): stoneedge: 678.75 [624, 736]
+|chat|DEBUG|Best move of volcarona (p2): fireblast: 176.6875 [162, 192]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Hitmonchan|Drain Punch|p2a: Stakataka
+|-supereffective|p2a: Stakataka
+|-damage|p2a: Stakataka|0 fnt
+|faint|p2a: Stakataka
+|-damage|p1a: Hitmonchan|91100|[from] item: Life Orb
+|upkeep
+|switch|p2a: Zapdos|Zapdos, L78|268268
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos stakataka oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-stakataka-oranguru-bewear -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: stoneedge trickroom earthquake gyroball
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos', 'bewear']
+|chat|DEBUG|Speed: 25 vs 180
+|chat|DEBUG|HP: 143 vs 226
+|chat|DEBUG|Created a new Strategy for stakataka vs hitmonchan:
+|chat|DEBUG|>[gyroball: 197.375 [181, 214], gyroball: 197.375 [181, 214], gyroball: 197.375 [181, 214]]
+|chat|DEBUG|Best move of stakataka (p1): gyroball: 197.375 [181, 214]
+|chat|DEBUG|Best move of hitmonchan (p2): drainpunch: 189.75 [172, 208]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using gyroball
+|switch|p1a: Rotom|Rotom-Wash, L82|94100
+|move|p2a: Zapdos|Discharge|p1a: Rotom
+|-damage|p1a: Rotom|59100
+|-heal|p1a: Rotom|65100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "stakataka" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos', 'bewear']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to zapdos (pokemon object) [Active: False, Status: None]
+|move|p2a: Zapdos|Discharge|p1a: Rotom
+|-damage|p1a: Rotom|31100
+|move|p1a: Rotom|Will-O-Wisp|p2a: Zapdos
+|-status|p2a: Zapdos|brn
+|-heal|p1a: Rotom|37100|[from] item: Leftovers
+|-damage|p2a: Zapdos|252268 brn|[from] brn
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['zapdos', 'bewear']
+|chat|DEBUG|Speed: 201 vs 180
+|chat|DEBUG|HP: 268 vs 205
+|chat|DEBUG|Created a new Strategy for zapdos vs hitmonchan:
+|chat|DEBUG|>[discharge: 75.3125 [69, 82], discharge: 75.3125 [69, 82], discharge: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 75.3125 [69, 82]
+|chat|DEBUG|Best move of hitmonchan (p2): throatchop: 90.75 [83, 99]
+|chat|DEBUG|Attacking using discharge
+|switch|p1a: Latios|Latios, L78, M|100100
+|move|p2a: Zapdos|Discharge|p1a: Latios
+|-resisted|p1a: Latios
+|-crit|p1a: Latios
+|-damage|p1a: Latios|74100
+|-status|p1a: Latios|par
+|-damage|p2a: Zapdos|236268 brn|[from] brn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['zapdos', 'oranguru']
+|chat|DEBUG|Counter: ['zapdos', 'oranguru', 'bewear']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 188
+|chat|DEBUG|HP: 268 vs 140
+|chat|DEBUG|Created a new Strategy for zapdos vs rotomwash:
+|chat|DEBUG|>[discharge: 79.5 [73, 87], discharge: 79.5 [73, 87], discharge: 79.5 [73, 87]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 79.5 [73, 87]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Attacking using discharge
+|move|p2a: Zapdos|U-turn|p1a: Latios
+|-supereffective|p1a: Latios
+|-damage|p1a: Latios|55100 par
+|switch|p2a: Cloyster|Cloyster, L80, M|211211
+|move|p1a: Latios|Calm Mind|p1a: Latios
+|-boost|p1a: Latios|spa|1
+|-boost|p1a: Latios|spd|1
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['zapdos', 'oranguru']
+|chat|DEBUG|Counter: ['zapdos', 'oranguru', 'bewear']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 201 vs 188
+|chat|DEBUG|HP: 252 vs 79
+|chat|DEBUG|Best move of zapdos (p1): discharge: 79.5 [73, 87]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|Attacking using discharge
+|switch|p1a: Rotom|Rotom-Wash, L82|37100
+|move|p2a: Cloyster|Icicle Spear|p1a: Rotom
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|32100
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|26100
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|21100
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|15100
+|-resisted|p1a: Rotom
+|-damage|p1a: Rotom|10100
+|-hitcount|p1a: Rotom|5
+|-heal|p1a: Rotom|16100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 201 vs 217
+|chat|DEBUG|HP: 236 vs 187
+|chat|DEBUG|Created a new Strategy for zapdos vs latios:
+|chat|DEBUG|>[uturn: 95.125 [88, 104], uturn: 95.125 [88, 104], uturn: 95.125 [88, 104]]
+|chat|DEBUG|Best move of zapdos (p1): uturn: 95.125 [88, 104]
+|chat|DEBUG|Best move of latios (p2): psyshock: 124.0625 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using uturn
+|switch|p2a: Zapdos|Zapdos, L78|236268 brn
+|move|p1a: Rotom|Thunderbolt|p2a: Zapdos
+|-damage|p2a: Zapdos|125268 brn
+|-heal|p1a: Rotom|22100|[from] item: Leftovers
+|-damage|p2a: Zapdos|109268 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: cloyster
+|chat|DEBUG|>Switching to cloyster (pokemon object) [Active: False, Status: None]
+|-start|p1a: Rotom|Dynamax
+|-heal|p1a: Rotom|22100|[silent]
+|move|p2a: Zapdos|Discharge|p1a: Rotom
+|-damage|p1a: Rotom|4100
+|move|p1a: Rotom|Max Lightning|p2a: Zapdos
+|-damage|p2a: Zapdos|0 fnt
+|-fieldstart|move: Electric Terrain
+|faint|p2a: Zapdos
+|-heal|p1a: Rotom|7100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Oranguru|Oranguru, L86, F|295295
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "latios"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: shellsmash rockblast iciclespear hydropump
+|chat|DEBUG|Enemy moves: calmmind dracometeor psyshock roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 158 vs 217
+|chat|DEBUG|HP: 211 vs 139
+|chat|DEBUG|Created a new Strategy for cloyster vs latios:
+|chat|DEBUG|>[iciclespear: 56.375 [50, 62], iciclespear: 56.375 [50, 62], iciclespear: 56.375 [50, 62]]
+|chat|DEBUG|Best move of cloyster (p1): iciclespear: 56.375 [50, 62]
+|chat|DEBUG|Best move of latios (p2): dracometeor: 451.375 [415, 489]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using iciclespear
+|move|p1a: Rotom|Max Geyser|p2a: Oranguru
+|-damage|p2a: Oranguru|169295
+|-weather|RainDance
+|move|p2a: Oranguru|Psychic|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|-weather|RainDance|[upkeep]
+|-heal|p2a: Oranguru|187295|[from] item: Leftovers
+|upkeep
+|switch|p1a: Araquanid|Araquanid, L80, F|100100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: shellsmash rockblast iciclespear hydropump
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['zapdos', 'oranguru']
+|chat|DEBUG|Counter: ['zapdos', 'oranguru', 'bewear']
+|chat|DEBUG|Speed: 158 vs 188
+|chat|DEBUG|HP: 211 vs 34
+|chat|DEBUG|Created a new Strategy for cloyster vs rotomwash:
+|chat|DEBUG|>[hydropump: 42.9375 [39, 47], hydropump: 42.9375 [39, 47], hydropump: 42.9375 [39, 47]]
+|chat|DEBUG|Best move of cloyster (p1): hydropump: 42.9375 [39, 47]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 317.125 [290, 344]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check zapdos
+|switch|p2a: Bewear|Bewear, L82, M|331331
+|move|p1a: Araquanid|Leech Life|p2a: Bewear
+|-resisted|p2a: Bewear
+|-damage|p2a: Bewear|313331
+|-weather|RainDance|[upkeep]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster zapdos oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-zapdos-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: discharge uturn heatwave roost
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['zapdos', 'oranguru']
+|chat|DEBUG|Counter: ['zapdos', 'oranguru', 'bewear']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 201 vs 188
+|chat|DEBUG|HP: 109 vs 47
+|chat|DEBUG|Created a new Strategy for zapdos vs rotomwash:
+|chat|DEBUG|>[discharge: 79.5 [73, 87], discharge: 79.5 [73, 87], discharge: 79.5 [73, 87]]
+|chat|DEBUG|Best move of zapdos (p1): discharge: 79.5 [73, 87]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 101.75 [93, 111]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Latios|Latios, L78, M|55100 par
+|move|p2a: Bewear|Double-Edge|p1a: Latios
+|-damage|p1a: Latios|0 fnt
+|faint|p1a: Latios
+|-damage|p2a: Bewear|267331|[from] Recoil
+|-weather|RainDance|[upkeep]
+|upkeep
+|switch|p1a: Hitmonchan|Hitmonchan, L86, M|91100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "zapdos" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['oranguru']
+|chat|DEBUG|Counter: ['oranguru', 'bewear']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to oranguru (pokemon object) [Active: False, Status: None]
+|move|p1a: Hitmonchan|Drain Punch|p2a: Bewear
+|-supereffective|p2a: Bewear
+|-damage|p2a: Bewear|121331
+|-heal|p1a: Hitmonchan|100100|[from] drain|[of] p2a: Bewear
+|-damage|p1a: Hitmonchan|91100|[from] item: Life Orb
+|move|p2a: Bewear|Double-Edge|p1a: Hitmonchan
+|-damage|p1a: Hitmonchan|0 fnt
+|faint|p1a: Hitmonchan
+|-damage|p2a: Bewear|54331|[from] Recoil
+|-weather|RainDance|[upkeep]
+|-fieldend|move: Electric Terrain
+|upkeep
+|switch|p1a: Araquanid|Araquanid, L80, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "oranguru" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru-bewear -- hitmonchan-rotomwash-latios
+|chat|DEBUG|Own moves: nastyplot focusblast trickroom psychic
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['oranguru']
+|chat|DEBUG|Counter: ['oranguru', 'bewear']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 108 vs 188
+|chat|DEBUG|HP: 295 vs 15
+|chat|DEBUG|Created a new Strategy for oranguru vs rotomwash:
+|chat|DEBUG|>[psychic: 83.625 [76, 91], psychic: 83.625 [76, 91], psychic: 83.625 [76, 91]]
+|chat|DEBUG|Best move of oranguru (p1): psychic: 83.625 [76, 91]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 79.5 [73, 87]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Bewear|Double-Edge|p1a: Araquanid
+|-damage|p1a: Araquanid|13100
+|-damage|p2a: Bewear|0 fnt|[from] Recoil
+|faint|p2a: Bewear
+|move|p1a: Araquanid|Liquidation|p2: Bewear|[notarget]
+|-fail|p1a: Araquanid
+|-weather|none
+|upkeep
+|switch|p2a: Cloyster|Cloyster, L80, M|211211
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "oranguru" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru-bewear -- hitmonchan-latios-araquanid
+|chat|DEBUG|Own moves: nastyplot focusblast trickroom psychic
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: ['bewear']
+|chat|DEBUG|Counter: ['bewear']
+|chat|DEBUG|Speed: 108 vs 113
+|chat|DEBUG|HP: 187 vs 240
+|chat|DEBUG|Created a new Strategy for oranguru vs araquanid:
+|chat|DEBUG|>[psychic: 72.5625 [67, 79], psychic: 72.5625 [67, 79], psychic: 72.5625 [67, 79]]
+|chat|DEBUG|Best move of oranguru (p1): psychic: 72.5625 [67, 79]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 137.0 [126, 148]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check bewear
+|move|p2a: Cloyster|Rock Blast|p1a: Araquanid|[miss]
+|-miss|p2a: Cloyster|p1a: Araquanid
+|move|p1a: Araquanid|Leech Life|p2a: Cloyster
+|-damage|p2a: Cloyster|177211
+|-heal|p1a: Araquanid|20100|[from] drain|[of] p2a: Cloyster
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru-bewear -- hitmonchan-latios-araquanid
+|chat|DEBUG|Own moves: darkestlariat closecombat icepunch doubleedge
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: ['bewear']
+|chat|DEBUG|Counter: ['bewear']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 113
+|chat|DEBUG|HP: 313 vs 240
+|chat|DEBUG|Created a new Strategy for bewear vs araquanid:
+|chat|DEBUG|>[doubleedge: 222.4375 [204, 241], doubleedge: 222.4375 [204, 241], doubleedge: 222.4375 [204, 241]]
+|chat|DEBUG|Best move of bewear (p1): doubleedge: 222.4375 [204, 241]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 71.3125 [66, 78]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using doubleedge
+|move|p2a: Cloyster|Shell Smash|p2a: Cloyster
+|-unboost|p2a: Cloyster|def|1
+|-unboost|p2a: Cloyster|spd|1
+|-boost|p2a: Cloyster|atk|2
+|-boost|p2a: Cloyster|spa|2
+|-boost|p2a: Cloyster|spe|2
+|-enditem|p2a: Cloyster|White Herb
+|-clearnegativeboost|p2a: Cloyster|[silent]
+|move|p1a: Araquanid|Toxic|p2a: Cloyster
+|-status|p2a: Cloyster|tox
+|-damage|p2a: Cloyster|164211 tox|[from] psn
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "hitmonchan"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru-bewear -- hitmonchan-araquanid
+|chat|DEBUG|Own moves: doubleedge
+|chat|DEBUG|Enemy moves: bulkup drainpunch machpunch throatchop
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['bewear']
+|chat|DEBUG|Speed: 146 vs 180
+|chat|DEBUG|HP: 267 vs 205
+|chat|DEBUG|Created a new Strategy for bewear vs hitmonchan:
+|chat|DEBUG|>[doubleedge: 232.125 [213, 252], doubleedge: 232.125 [213, 252], doubleedge: 232.125 [213, 252]]
+|chat|DEBUG|Best move of bewear (p1): doubleedge: 232.125 [213, 252]
+|chat|DEBUG|Best move of hitmonchan (p2): drainpunch: 152.0 [140, 165]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Cloyster|Shell Smash|p2a: Cloyster
+|-unboost|p2a: Cloyster|def|1
+|-unboost|p2a: Cloyster|spd|1
+|-boost|p2a: Cloyster|atk|2
+|-boost|p2a: Cloyster|spa|2
+|-boost|p2a: Cloyster|spe|2
+|move|p1a: Araquanid|Liquidation|p2a: Cloyster
+|-resisted|p2a: Cloyster
+|-damage|p2a: Cloyster|110211 tox
+|-unboost|p2a: Cloyster|def|1
+|-damage|p2a: Cloyster|84211 tox|[from] psn
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru bewear
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru-bewear -- araquanid
+|chat|DEBUG|Own moves: doubleedge
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 146 vs 113
+|chat|DEBUG|HP: 54 vs 240
+|chat|DEBUG|Created a new Strategy for bewear vs araquanid:
+|chat|DEBUG|>[doubleedge: 222.4375 [204, 241], doubleedge: 222.4375 [204, 241], doubleedge: 222.4375 [204, 241]]
+|chat|DEBUG|Best move of bewear (p1): doubleedge: 222.4375 [204, 241]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 71.3125 [66, 78]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using doubleedge
+|move|p2a: Cloyster|Rock Blast|p1a: Araquanid
+|-supereffective|p1a: Araquanid
+|-crit|p1a: Araquanid
+|-damage|p1a: Araquanid|0 fnt
+|faint|p1a: Araquanid
+|-hitcount|p1: Araquanid|1
+|-damage|p2a: Cloyster|45211 tox|[from] psn
+|upkeep
+|switch|p1a: Registeel|Registeel, L83|100100
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "bewear" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru -- araquanid
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: cloyster
+|chat|DEBUG|>Switching to cloyster (pokemon object) [Active: False, Status: None]
+|move|p2a: Cloyster|Hydro Pump|p1a: Registeel
+|-damage|p1a: Registeel|28100
+|move|p1a: Registeel|Body Press|p2a: Cloyster
+|-supereffective|p2a: Cloyster
+|-damage|p2a: Cloyster|0 fnt
+|faint|p2a: Cloyster
+|upkeep
+|switch|p2a: Oranguru|Oranguru, L86, F|187295
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>cloyster oranguru
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cloyster" vs "araquanid"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>cloyster-oranguru -- araquanid
+|chat|DEBUG|Own moves: shellsmash rockblast iciclespear hydropump
+|chat|DEBUG|Enemy moves: leechlife liquidation stickyweb toxic
+|chat|DEBUG|Checks: ['cloyster']
+|chat|DEBUG|Counter: ['cloyster', 'oranguru']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 158 vs 113
+|chat|DEBUG|HP: 211 vs 31
+|chat|DEBUG|Created a new Strategy for cloyster vs araquanid:
+|chat|DEBUG|>[rockblast: 34.25 [32, 38], rockblast: 34.25 [32, 38], rockblast: 34.25 [32, 38]]
+|chat|DEBUG|Best move of cloyster (p1): rockblast: 34.25 [32, 38]
+|chat|DEBUG|Best move of araquanid (p2): liquidation: 38.125 [35, 42]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Registeel|Curse|p1a: Registeel
+|-unboost|p1a: Registeel|spe|1
+|-boost|p1a: Registeel|atk|1
+|-boost|p1a: Registeel|def|1
+|move|p2a: Oranguru|Focus Blast|p1a: Registeel
+|-supereffective|p1a: Registeel
+|-damage|p1a: Registeel|0 fnt
+|faint|p1a: Registeel
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">cloyster zapdos stakataka oranguru bewear venusaur</h1>

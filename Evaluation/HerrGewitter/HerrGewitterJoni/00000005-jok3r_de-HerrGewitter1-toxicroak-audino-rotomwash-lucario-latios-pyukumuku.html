@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490010033<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490010033|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Porygon2|Porygon2, L82|100100
+|switch|p2a: Toxicroak|Toxicroak, L84, M|277277
+|-ability|p1a: Porygon2|Dry Skin|[from] ability: Trace|[of] p2a: Toxicroak
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>toxicroak audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>toxicroak-audino-rotomwash-lucario-latios-pyukumuku -- porygon2
+|chat|DEBUG|Own moves: drainpunch knockoff icepunch gunkshot
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['lucario']
+|chat|DEBUG|Counter: ['toxicroak', 'lucario', 'latios']
+|chat|DEBUG|Speed: 191 vs 146
+|chat|DEBUG|HP: 277 vs 274
+|chat|DEBUG|Created a new Strategy for toxicroak vs porygon2:
+|chat|DEBUG|>[drainpunch: 114.625 [104, 126], drainpunch: 114.625 [104, 126], drainpunch: 114.625 [104, 126]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 114.625 [104, 126]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 105.875 [97, 115]
+|chat|DEBUG|Attacking using drainpunch
+|switch|p1a: Jirachi|Jirachi, L79|100100
+|move|p2a: Toxicroak|Drain Punch|p1a: Jirachi
+|-damage|p1a: Jirachi|72100
+|-heal|p1a: Jirachi|78100|[from] item: Leftovers
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>toxicroak audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>toxicroak-audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi
+|chat|DEBUG|Own moves: drainpunch
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['audino', 'rotomwash']
+|chat|DEBUG|Counter: ['toxicroak', 'audino', 'rotomwash']
+|chat|DEBUG|Speed: 191 vs 204
+|chat|DEBUG|HP: 277 vs 224
+|chat|DEBUG|Created a new Strategy for toxicroak vs jirachi:
+|chat|DEBUG|>[drainpunch: 82.4375 [76, 90], drainpunch: 82.4375 [76, 90], drainpunch: 82.4375 [76, 90]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 82.4375 [76, 90]
+|chat|DEBUG|Best move of jirachi (p2): ironhead: 96.1875 [88, 105]
+|chat|DEBUG|Attacking using drainpunch
+|move|p2a: Toxicroak|Drain Punch|p1a: Jirachi
+|-damage|p1a: Jirachi|47100
+|move|p1a: Jirachi|U-turn|p2a: Toxicroak
+|-resisted|p2a: Toxicroak
+|-damage|p2a: Toxicroak|264277
+|switch|p1a: Dragalge|Dragalge, L86, F|100100|[from]move: U-turn
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>toxicroak audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>toxicroak-audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: drainpunch
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 125
+|chat|DEBUG|HP: 264 vs 252
+|chat|DEBUG|Created a new Strategy for toxicroak vs dragalge:
+|chat|DEBUG|>[drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 41.0 [38, 45]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 88.5 [81, 96]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|move|p2a: Toxicroak|Drain Punch|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|85100
+|-heal|p2a: Toxicroak|277277|[from] drain|[of] p1a: Dragalge
+|move|p1a: Dragalge|Focus Blast|p2a: Toxicroak
+|-resisted|p2a: Toxicroak
+|-damage|p2a: Toxicroak|222277
+|-heal|p1a: Dragalge|91100|[from] item: Black Sludge
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>toxicroak audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>toxicroak-audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: drainpunch
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario']
+|chat|DEBUG|Speed: 191 vs 125
+|chat|DEBUG|HP: 222 vs 229
+|chat|DEBUG|Created a new Strategy for toxicroak vs dragalge:
+|chat|DEBUG|>[drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 41.0 [38, 45]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 88.5 [81, 96]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|move|p2a: Toxicroak|Drain Punch|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|74100
+|-heal|p2a: Toxicroak|244277|[from] drain|[of] p1a: Dragalge
+|move|p1a: Dragalge|Toxic Spikes|p2a: Toxicroak
+|-sidestart|p2: HerrGewitter1|move: Toxic Spikes
+|-heal|p1a: Dragalge|79100|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>toxicroak audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>toxicroak-audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: drainpunch
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['toxicroak', 'lucario', 'latios']
+|chat|DEBUG|Speed: 191 vs 125
+|chat|DEBUG|HP: 244 vs 199
+|chat|DEBUG|Created a new Strategy for toxicroak vs dragalge:
+|chat|DEBUG|>[drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 41.0 [38, 45]
+|chat|DEBUG|Best move of dragalge (p2): sludgewave: 88.5 [81, 96]
+|chat|DEBUG|Attacking using drainpunch
+|move|p2a: Toxicroak|Drain Punch|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|64100
+|-heal|p2a: Toxicroak|263277|[from] drain|[of] p1a: Dragalge
+|move|p1a: Dragalge|Sludge Wave|p2a: Toxicroak
+|-resisted|p2a: Toxicroak
+|-damage|p2a: Toxicroak|177277
+|-heal|p1a: Dragalge|70100|[from] item: Black Sludge
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>toxicroak audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>toxicroak-audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: drainpunch
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario', 'latios']
+|chat|DEBUG|Speed: 191 vs 125
+|chat|DEBUG|HP: 177 vs 176
+|chat|DEBUG|Created a new Strategy for toxicroak vs dragalge:
+|chat|DEBUG|>[drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45], drainpunch: 41.0 [38, 45]]
+|chat|DEBUG|Best move of toxicroak (p1): drainpunch: 41.0 [38, 45]
+|chat|DEBUG|Best move of dragalge (p2): dracometeor: 239.625 [220, 260]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using drainpunch
+|move|p2a: Toxicroak|Drain Punch|p1a: Dragalge
+|-resisted|p1a: Dragalge
+|-damage|p1a: Dragalge|54100
+|-heal|p2a: Toxicroak|198277|[from] drain|[of] p1a: Dragalge
+|move|p1a: Dragalge|Draco Meteor|p2a: Toxicroak
+|-damage|p2a: Toxicroak|0 fnt
+|-unboost|p1a: Dragalge|spa|2
+|faint|p2a: Toxicroak
+|-heal|p1a: Dragalge|60100|[from] item: Black Sludge
+|upkeep
+|switch|p2a: Lucario|Lucario, L82, M|249249
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "toxicroak" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lucario', 'latios']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lucario (pokemon object) [Active: False, Status: None]
+|move|p2a: Lucario|Meteor Mash|p1a: Dragalge
+|-damage|p1a: Dragalge|13100
+|-damage|p2a: Lucario|225249|[from] item: Life Orb
+|move|p1a: Dragalge|Draco Meteor|p2a: Lucario
+|-resisted|p2a: Lucario
+|-damage|p2a: Lucario|163249
+|-unboost|p1a: Dragalge|spa|2
+|-heal|p1a: Dragalge|19100|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: ['audino', 'latios']
+|chat|DEBUG|Counter: ['audino', 'lucario', 'latios']
+|chat|DEBUG|Speed: 195 vs 125
+|chat|DEBUG|HP: 249 vs 151
+|chat|DEBUG|Created a new Strategy for lucario vs dragalge:
+|chat|DEBUG|>[meteormash: 125.0 [114, 136], meteormash: 125.0 [114, 136], meteormash: 125.0 [114, 136]]
+|chat|DEBUG|Best move of lucario (p1): meteormash: 125.0 [114, 136]
+|chat|DEBUG|Best move of dragalge (p2): focusblast: 108.25 [100, 118]
+|chat|DEBUG|Attacking using meteormash
+|move|p2a: Lucario|Meteor Mash|p1a: Dragalge
+|-damage|p1a: Dragalge|0 fnt
+|-boost|p2a: Lucario|atk|1
+|faint|p1a: Dragalge
+|-damage|p2a: Lucario|139249|[from] item: Life Orb
+|upkeep
+|switch|p1a: Jirachi|Jirachi, L79|47100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "dragalge"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi-dragalge
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: dracometeor focusblast sludgewave toxicspikes
+|chat|DEBUG|Checks: ['audino', 'rotomwash', 'lucario', 'latios']
+|chat|DEBUG|Counter: ['audino', 'rotomwash', 'lucario', 'latios']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 195 vs 125
+|chat|DEBUG|HP: 163 vs 47
+|chat|DEBUG|Best move of lucario (p1): meteormash: 125.0 [114, 136]
+|chat|DEBUG|Best move of dragalge (p2): focusblast: 73.25 [68, 80]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Jirachi|Stealth Rock|p2a: Lucario
+|-sidestart|p2: HerrGewitter1|move: Stealth Rock
+|move|p2a: Lucario|Close Combat|p1a: Jirachi
+|-damage|p1a: Jirachi|0 fnt
+|-unboost|p2a: Lucario|def|1
+|-unboost|p2a: Lucario|spd|1
+|faint|p1a: Jirachi
+|-damage|p2a: Lucario|115249|[from] item: Life Orb
+|upkeep
+|switch|p1a: Archeops|Archeops, L82, F|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "jirachi"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-lucario-latios-pyukumuku -- porygon2-jirachi
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: firepunch ironhead toxic uturn
+|chat|DEBUG|Checks: ['audino', 'rotomwash']
+|chat|DEBUG|Counter: ['audino', 'rotomwash', 'latios']
+|chat|DEBUG|Speed: 195 vs 204
+|chat|DEBUG|HP: 139 vs 135
+|chat|DEBUG|Created a new Strategy for lucario vs jirachi:
+|chat|DEBUG|>[closecombat: 247.75 [227, 269], closecombat: 247.75 [227, 269], closecombat: 247.75 [227, 269]]
+|chat|DEBUG|Best move of lucario (p1): closecombat: 247.75 [227, 269]
+|chat|DEBUG|Best move of jirachi (p2): firepunch: 117.5 [108, 128]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Archeops|Stone Edge|p2a: Lucario
+|-resisted|p2a: Lucario
+|-damage|p2a: Lucario|51249
+|move|p2a: Lucario|Meteor Mash|p1a: Archeops|[miss]
+|-miss|p2a: Lucario|p1a: Archeops
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-lucario-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 195 vs 228
+|chat|DEBUG|HP: 115 vs 257
+|chat|DEBUG|Created a new Strategy for lucario vs archeops:
+|chat|DEBUG|>[meteormash: 491.75 [452, 533], meteormash: 491.75 [452, 533], meteormash: 491.75 [452, 533]]
+|chat|DEBUG|Best move of lucario (p1): meteormash: 491.75 [452, 533]
+|chat|DEBUG|Best move of archeops (p2): earthquake: 324.625 [298, 352]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using meteormash
+|move|p1a: Archeops|Dual Wingbeat|p2a: Lucario
+|-damage|p2a: Lucario|0 fnt
+|faint|p2a: Lucario
+|-hitcount|p2: Lucario|1
+|upkeep
+|switch|p2a: Audino|Audino, L90, F|332332
+|-status|p2a: Audino|psn
+|-damage|p2a: Audino|291332 psn|[from] Stealth Rock
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash lucario latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-lucario-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: swordsdance closecombat extremespeed meteormash
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 195 vs 228
+|chat|DEBUG|HP: 51 vs 257
+|chat|DEBUG|Best move of lucario (p1): meteormash: 491.75 [452, 533]
+|chat|DEBUG|Best move of archeops (p2): earthquake: 324.625 [298, 352]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using meteormash
+|move|p1a: Archeops|Stone Edge|p2a: Audino
+|-damage|p2a: Audino|162332 psn
+|move|p2a: Audino|Knock Off|p1a: Archeops
+|-damage|p1a: Archeops|72100
+|-enditem|p1a: Archeops|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Audino
+|-heal|p2a: Audino|182332 psn|[from] item: Leftovers
+|-damage|p2a: Audino|141332 psn|[from] psn
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lucario" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Switching to Pokemon that has a no drawback move: audino
+|chat|DEBUG|Early game switch: audino
+|chat|DEBUG|>Switching to audino (pokemon object) [Active: False, Status: None]
+|move|p1a: Archeops|Stone Edge|p2a: Audino
+|-damage|p2a: Audino|8332 psn
+|move|p2a: Audino|Knock Off|p1a: Archeops
+|-damage|p1a: Archeops|54100
+|-heal|p2a: Audino|28332 psn|[from] item: Leftovers
+|-damage|p2a: Audino|0 fnt|[from] psn
+|faint|p2a: Audino
+|upkeep
+|switch|p2a: Rotom|Rotom-Wash, L82|216216
+|-damage|p2a: Rotom|189216|[from] Stealth Rock
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: wish protect toxic knockoff
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 141 vs 228
+|chat|DEBUG|HP: 291 vs 257
+|chat|DEBUG|Created a new Strategy for audino vs archeops:
+|chat|DEBUG|>[knockoff: 71.6875 [66, 78], knockoff: 71.6875 [66, 78], knockoff: 71.6875 [66, 78]]
+|chat|DEBUG|Best move of audino (p1): knockoff: 71.6875 [66, 78]
+|chat|DEBUG|Best move of archeops (p2): stoneedge: 128.0625 [118, 139]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|switch|p1a: Lilligant|Lilligant, L84, F|100100
+|move|p2a: Rotom|Thunderbolt|p1a: Lilligant
+|-resisted|p1a: Lilligant
+|-damage|p1a: Lilligant|81100
+|-heal|p1a: Lilligant|87100|[from] item: Leftovers
+|-heal|p2a: Rotom|202216|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>audino rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>audino-rotomwash-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: wish protect toxic knockoff
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|Speed: 141 vs 228
+|chat|DEBUG|HP: 141 vs 185
+|chat|DEBUG|Best move of audino (p1): knockoff: 71.6875 [66, 78]
+|chat|DEBUG|Best move of archeops (p2): stoneedge: 128.0625 [118, 139]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using knockoff
+|switch|p2a: Latios|Latios, L78, M|253253
+|-damage|p2a: Latios|222253|[from] Stealth Rock
+|move|p1a: Lilligant|Giga Drain|p2a: Latios
+|-resisted|p2a: Latios
+|-damage|p2a: Latios|183253
+|-heal|p1a: Lilligant|95100|[from] drain|[of] p2a: Latios
+|-heal|p1a: Lilligant|100100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "audino" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to rotomwash (pokemon object) [Active: False, Status: None]
+|switch|p1a: Porygon2|Porygon2, L82|100100
+|-ability|p1a: Porygon2|Levitate|[from] ability: Trace|[of] p2a: Latios
+|move|p2a: Latios|Psyshock|p1a: Porygon2
+|-damage|p1a: Porygon2|74100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "archeops"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops
+|chat|DEBUG|Own moves: willowisp thunderbolt hydropump voltswitch
+|chat|DEBUG|Enemy moves: dualwingbeat earthquake roost stoneedge
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash', 'latios']
+|chat|DEBUG|Speed: 188 vs 228
+|chat|DEBUG|HP: 189 vs 138
+|chat|DEBUG|Created a new Strategy for rotomwash vs archeops:
+|chat|DEBUG|>[thunderbolt: 245.125 [224, 266], thunderbolt: 245.125 [224, 266], thunderbolt: 245.125 [224, 266]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 245.125 [224, 266]
+|chat|DEBUG|Best move of archeops (p2): stoneedge: 118.3125 [109, 129]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Latios|Psyshock|p1a: Porygon2
+|-damage|p1a: Porygon2|49100
+|move|p1a: Porygon2|Tri Attack|p2a: Latios
+|-damage|p2a: Latios|108253
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant
+|chat|DEBUG|Own moves: willowisp thunderbolt hydropump voltswitch
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: ['latios']
+|chat|DEBUG|Counter: ['latios']
+|chat|DEBUG|Speed: 188 vs 199
+|chat|DEBUG|HP: 202 vs 221
+|chat|DEBUG|Created a new Strategy for rotomwash vs lilligant:
+|chat|DEBUG|>[thunderbolt: 54.125 [50, 59], thunderbolt: 54.125 [50, 59], thunderbolt: 54.125 [50, 59]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 54.125 [50, 59]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 245.125 [224, 266]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check latios
+|move|p2a: Latios|Psyshock|p1a: Porygon2
+|-damage|p1a: Porygon2|23100
+|move|p1a: Porygon2|Recover|p1a: Porygon2
+|-heal|p1a: Porygon2|73100
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant
+|chat|DEBUG|Own moves: calmmind roost psyshock dracometeor
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['latios']
+|chat|DEBUG|Speed: 217 vs 199
+|chat|DEBUG|HP: 183 vs 255
+|chat|DEBUG|Created a new Strategy for latios vs lilligant:
+|chat|DEBUG|>[psyshock: 126.8125 [117, 138], psyshock: 126.8125 [117, 138], dracometeor: 204.5 [187, 222]]
+|chat|DEBUG|Best move of latios (p1): psyshock: 126.8125 [117, 138]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 63.1875 [58, 69]
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Latios|Draco Meteor|p1a: Porygon2
+|-damage|p1a: Porygon2|29100
+|-unboost|p2a: Latios|spa|2
+|move|p1a: Porygon2|Tri Attack|p2a: Latios
+|-damage|p2a: Latios|27253
+|-status|p2a: Latios|brn
+|-damage|p2a: Latios|12253 brn|[from] brn
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant
+|chat|DEBUG|Own moves: calmmind roost psyshock dracometeor
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['latios']
+|chat|DEBUG|Speed: 217 vs 146
+|chat|DEBUG|HP: 183 vs 202
+|chat|DEBUG|Created a new Strategy for latios vs porygon2:
+|chat|DEBUG|>[psyshock: 75.3125 [69, 82], psyshock: 75.3125 [69, 82], dracometeor: 117.0 [108, 127]]
+|chat|DEBUG|Best move of latios (p1): psyshock: 75.3125 [69, 82]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 76.75 [70, 84]
+|chat|DEBUG|Attacking using psyshock
+|switch|p2a: Rotom|Rotom-Wash, L82|202216
+|-damage|p2a: Rotom|175216|[from] Stealth Rock
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|-heal|p2a: Rotom|188216|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant
+|chat|DEBUG|Own moves: calmmind roost psyshock dracometeor
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['rotomwash', 'latios']
+|chat|DEBUG|Speed: 217 vs 146
+|chat|DEBUG|HP: 108 vs 134
+|chat|DEBUG|Best move of latios (p1): psyshock: 75.3125 [69, 82]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 76.75 [70, 84]
+|chat|DEBUG|Attacking using psyshock
+|switch|p1a: Lilligant|Lilligant, L84, F|100100
+|-start|p2a: Rotom|Dynamax
+|-heal|p2a: Rotom|376432|[silent]
+|move|p2a: Rotom|Max Lightning|p1a: Lilligant
+|-resisted|p1a: Lilligant
+|-damage|p1a: Lilligant|70100
+|-fieldstart|move: Electric Terrain
+|-heal|p1a: Lilligant|76100|[from] item: Leftovers
+|-heal|p2a: Rotom|389432|[from] item: Leftovers
+|upkeep
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant
+|chat|DEBUG|Own moves: calmmind roost psyshock dracometeor
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 217 vs 146
+|chat|DEBUG|HP: 108 vs 200
+|chat|DEBUG|Best move of latios (p1): dracometeor: 117.0 [108, 127]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using dracometeor
+|move|p1a: Lilligant|Giga Drain|p2a: Rotom
+|-supereffective|p2a: Rotom
+|-damage|p2a: Rotom|227432
+|-heal|p1a: Lilligant|100100|[from] drain|[of] p2a: Rotom
+|move|p2a: Rotom|Max Lightning|p1a: Lilligant
+|-resisted|p1a: Lilligant
+|-damage|p1a: Lilligant|70100
+|-heal|p1a: Lilligant|76100|[from] item: Leftovers
+|-heal|p2a: Rotom|240432|[from] item: Leftovers
+|upkeep
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "latios" vs "porygon2"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant
+|chat|DEBUG|Own moves: calmmind roost psyshock dracometeor
+|chat|DEBUG|Enemy moves: discharge recover toxic triattack
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|Speed: 217 vs 146
+|chat|DEBUG|HP: 12 vs 79
+|chat|DEBUG|Created a new Strategy for latios vs porygon2:
+|chat|DEBUG|>[psyshock: 37.9375 [34, 42], psyshock: 37.9375 [34, 42], dracometeor: 58.625 [54, 64]]
+|chat|DEBUG|Best move of latios (p1): psyshock: 37.9375 [34, 42]
+|chat|DEBUG|Best move of porygon2 (p2): triattack: 76.75 [70, 84]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomwash
+|move|p1a: Lilligant|Giga Drain|p2a: Rotom
+|-supereffective|p2a: Rotom
+|-damage|p2a: Rotom|94432
+|-heal|p1a: Lilligant|100100|[from] drain|[of] p2a: Rotom
+|move|p2a: Rotom|Max Lightning|p1a: Lilligant
+|-resisted|p1a: Lilligant
+|-damage|p1a: Lilligant|70100
+|-heal|p1a: Lilligant|75100|[from] item: Leftovers
+|-heal|p2a: Rotom|107432|[from] item: Leftovers
+|-end|p2a: Rotom|Dynamax
+|-heal|p2a: Rotom|54216|[silent]
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant-tapufini
+|chat|DEBUG|Own moves: willowisp thunderbolt hydropump voltswitch
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['rotomwash']
+|chat|DEBUG|Counter: ['rotomwash']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 188 vs 178
+|chat|DEBUG|HP: 188 vs 237
+|chat|DEBUG|Created a new Strategy for rotomwash vs tapufini:
+|chat|DEBUG|>[thunderbolt: 153.5 [140, 168], thunderbolt: 153.5 [140, 168], thunderbolt: 153.5 [140, 168]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 153.5 [140, 168]
+|chat|DEBUG|Best move of tapufini (p2): moonblast: 76.75 [70, 84]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|move|p1a: Lilligant|Giga Drain|p2a: Rotom
+|-supereffective|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|-heal|p1a: Lilligant|86100|[from] drain|[of] p2a: Rotom
+|faint|p2a: Rotom
+|-heal|p1a: Lilligant|92100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Latios|Latios, L78, M|12253 brn
+|-damage|p2a: Latios|0 fnt|[from] Stealth Rock
+|faint|p2a: Latios
+|switch|p2a: Pyukumuku|Pyukumuku, L84, M|230230
+|-status|p2a: Pyukumuku|psn
+|-damage|p2a: Pyukumuku|202230 psn|[from] Stealth Rock
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant-tapufini
+|chat|DEBUG|Own moves: willowisp thunderbolt hydropump voltswitch
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 199
+|chat|DEBUG|HP: 389 vs 193
+|chat|DEBUG|Created a new Strategy for rotomwash vs lilligant:
+|chat|DEBUG|>[thunderbolt: 54.125 [50, 59], thunderbolt: 54.125 [50, 59], thunderbolt: 54.125 [50, 59]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 54.125 [50, 59]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 245.125 [224, 266]
+|chat|DEBUG|Attacking using thunderbolt
+|move|p1a: Lilligant|Giga Drain|p2a: Pyukumuku
+|-supereffective|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|64230 psn
+|-heal|p1a: Lilligant|100100|[from] drain|[of] p2a: Pyukumuku
+|move|p2a: Pyukumuku|Toxic|p1a: Lilligant|[miss]
+|-miss|p2a: Pyukumuku|p1a: Lilligant
+|-heal|p2a: Pyukumuku|78230 psn|[from] item: Leftovers
+|-damage|p2a: Pyukumuku|50230 psn|[from] psn
+|-fieldend|move: Electric Terrain
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>rotomwash latios pyukumuku
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "rotomwash" vs "lilligant"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>rotomwash-latios-pyukumuku -- porygon2-archeops-lilligant-tapufini
+|chat|DEBUG|Own moves: willowisp thunderbolt hydropump voltswitch
+|chat|DEBUG|Enemy moves: gigadrain petaldance quiverdance sleeppowder
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 188 vs 199
+|chat|DEBUG|HP: 240 vs 193
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 54.125 [50, 59]
+|chat|DEBUG|Best move of lilligant (p2): petaldance: 245.125 [224, 266]
+|chat|DEBUG|Attacking using thunderbolt
+|move|p1a: Lilligant|Giga Drain|p2a: Pyukumuku
+|-supereffective|p2a: Pyukumuku
+|-damage|p2a: Pyukumuku|0 fnt
+|faint|p2a: Pyukumuku
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">toxicroak audino rotomwash lucario latios pyukumuku</h1>

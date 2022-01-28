@@ -8,14 +8,14 @@ from matplotlib import pyplot as plt
 from src.pokemon import logger
 
 REPLAY_LOCATIONS = [
-    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
-    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner')
+    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
+    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner'),
+    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterJoni', 'HerrGewitter1'),
+    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/Joni/data/replays_joni', 'HerrDonner1'),
+    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/Markus', 'HerrGewitter2')
 ]
 
 def main():
-
-    bot_wins = 0
-    bot_loss = 0
 
     elo_histories = {}
     bot_w_l = {}
@@ -26,6 +26,8 @@ def main():
 
         elo_histories[bot_name] = []
         bot_w_l[bot_name] = (0, 0)
+
+        logger.info(replay_path)
 
         # Evaluating all replays for the bot
         for path, _, files in os.walk(replay_path):
@@ -48,10 +50,14 @@ def main():
                     #assert name_p2 == 'HerrDonner1'
 
                     # Adding current ELO
-                    if name_p1 == bot_name:
-                        elo_histories[bot_name] += [int(name_p1_line[0].split('|')[-1])]
-                    if name_p2 == bot_name:
-                        elo_histories[bot_name] += [int(name_p2_line[0].split('|')[-1])]
+
+                    # Only adding ELO for ranked
+                    if any(['|rated|' in line for line in replay]):
+
+                        if name_p1 == bot_name:
+                            elo_histories[bot_name] += [int(name_p1_line[0].split('|')[-1])]
+                        if name_p2 == bot_name:
+                            elo_histories[bot_name] += [int(name_p2_line[0].split('|')[-1])]
 
                     faint_lines = [line.strip() for line in replay if line.startswith('|faint|p')]
 
@@ -72,6 +78,7 @@ def main():
 
                     try:
                         if 'p1' in faint_lines[-1] and name_p1 != bot_name:
+                            bot_w_l[bot_name] = (bot_w_l[bot_name][0] + 1, bot_w_l[bot_name][1])
                             continue
                         if 'p2' in faint_lines[-1] and name_p2 != bot_name:
                             bot_w_l[bot_name] = (bot_w_l[bot_name][0] + 1, bot_w_l[bot_name][1])
@@ -83,7 +90,8 @@ def main():
                         bot_w_l[bot_name] = (bot_w_l[bot_name][0], bot_w_l[bot_name][1] + 1)
 
     # Plotting elo for all bots
-    for bot in elo_histories.keys():
+
+    for bot in [entry for entry in elo_histories.keys() if elo_histories[entry]]:
         bot_wins, bot_loss = bot_w_l[bot]
         elo_history = elo_histories[bot]
 
@@ -127,6 +135,9 @@ def main():
         plt.xlabel('Games')
         plt.yticks(np.arange(1000, 1600, 100))
         plt.ylabel('Elo')
+
+    for bot in [entry for entry in elo_histories.keys() if not elo_histories[entry]]:
+        logger.info(re.sub('[0-9]+', '', bot) + f' {bot_w_l[bot]} ' + ('Joni' if '1' in bot else 'Markus'))
 
     plt.savefig('Thesis/images/Smoothed-Elo-Time.png')
     plt.show()

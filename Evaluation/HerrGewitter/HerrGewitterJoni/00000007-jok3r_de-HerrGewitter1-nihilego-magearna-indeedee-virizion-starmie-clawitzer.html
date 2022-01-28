@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490014721<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490014721|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Perrserker|Perrserker, L86, M|100100
+|switch|p2a: Nihilego|Nihilego, L80|306306
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>nihilego magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nihilego" vs "perrserker"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>nihilego-magearna-indeedee-virizion-starmie-clawitzer -- perrserker
+|chat|DEBUG|Own moves: powergem stealthrock sludgewave thunderbolt
+|chat|DEBUG|Enemy moves: closecombat crunch ironhead uturn
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['virizion', 'starmie', 'clawitzer']
+|chat|DEBUG|Speed: 211 vs 135
+|chat|DEBUG|HP: 306 vs 261
+|chat|DEBUG|Created a new Strategy for nihilego vs perrserker:
+|chat|DEBUG|>[thunderbolt: 93.5625 [86, 102], thunderbolt: 93.5625 [86, 102], thunderbolt: 93.5625 [86, 102]]
+|chat|DEBUG|Best move of nihilego (p1): thunderbolt: 93.5625 [86, 102]
+|chat|DEBUG|Best move of perrserker (p2): ironhead: 708.5 [650, 768]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|move|p2a: Nihilego|Stealth Rock|p1a: Perrserker
+|-sidestart|p1: jok3r_de|move: Stealth Rock
+|move|p1a: Perrserker|Iron Head|p2a: Nihilego
+|-supereffective|p2a: Nihilego
+|-damage|p2a: Nihilego|0 fnt
+|faint|p2a: Nihilego
+|upkeep
+|switch|p2a: Clawitzer|Clawitzer, L84, M|256256
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nihilego" vs "perrserker"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-virizion-starmie-clawitzer -- perrserker
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat crunch ironhead uturn
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['virizion', 'starmie', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to clawitzer (pokemon object) [Active: False, Status: None]
+|move|p2a: Clawitzer|Aura Sphere|p1a: Perrserker
+|-supereffective|p1a: Perrserker
+|-damage|p1a: Perrserker|0 fnt
+|faint|p1a: Perrserker
+|upkeep
+|switch|p1a: Sceptile|Sceptile, L86, F|100100
+|-damage|p1a: Sceptile|88100|[from] Stealth Rock
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "perrserker"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-virizion-starmie-clawitzer -- perrserker
+|chat|DEBUG|Own moves: darkpulse aurasphere waterpulse icebeam
+|chat|DEBUG|Enemy moves: closecombat crunch ironhead uturn
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['virizion', 'starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 147 vs 135
+|chat|DEBUG|HP: 256 vs 261
+|chat|DEBUG|Created a new Strategy for clawitzer vs perrserker:
+|chat|DEBUG|>[aurasphere: 385.625 [354, 418], aurasphere: 385.625 [354, 418], aurasphere: 385.625 [354, 418]]
+|chat|DEBUG|Best move of clawitzer (p1): aurasphere: 385.625 [354, 418]
+|chat|DEBUG|Best move of perrserker (p2): closecombat: 146.625 [135, 159]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using aurasphere
+|switch|p2a: Virizion|Virizion, L82|283283
+|move|p1a: Sceptile|Giga Drain|p2a: Virizion
+|-resisted|p2a: Virizion
+|-damage|p2a: Virizion|248283
+|-heal|p1a: Sceptile|95100|[from] drain|[of] p2a: Virizion
+|-heal|p1a: Sceptile|100100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-virizion-starmie-clawitzer -- sceptile
+|chat|DEBUG|Own moves: aurasphere
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: ['virizion']
+|chat|DEBUG|Counter: ['virizion']
+|chat|DEBUG|Speed: 147 vs 256
+|chat|DEBUG|HP: 256 vs 229
+|chat|DEBUG|Created a new Strategy for clawitzer vs sceptile:
+|chat|DEBUG|>[aurasphere: 150.3125 [138, 163], aurasphere: 150.3125 [138, 163], aurasphere: 150.3125 [138, 163]]
+|chat|DEBUG|Best move of clawitzer (p1): aurasphere: 150.3125 [138, 163]
+|chat|DEBUG|Best move of sceptile (p2): gigadrain: 175.875 [162, 192]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check virizion
+|move|p1a: Sceptile|Rock Slide|p2a: Virizion
+|-resisted|p2a: Virizion
+|-damage|p2a: Virizion|221283
+|move|p2a: Virizion|Swords Dance|p2a: Virizion
+|-boost|p2a: Virizion|atk|2
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-virizion-starmie-clawitzer -- sceptile
+|chat|DEBUG|Own moves: stoneedge swordsdance leafblade closecombat
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: ['virizion']
+|chat|DEBUG|Counter: ['virizion']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 224 vs 256
+|chat|DEBUG|HP: 248 vs 261
+|chat|DEBUG|Created a new Strategy for virizion vs sceptile:
+|chat|DEBUG|>[closecombat: 138.5 [127, 150], closecombat: 138.5 [127, 150], closecombat: 138.5 [127, 150]]
+|chat|DEBUG|Best move of virizion (p1): closecombat: 138.5 [127, 150]
+|chat|DEBUG|Best move of sceptile (p2): earthquake: 39.75 [36, 43]
+|chat|DEBUG|Boost Moves: [swordsdance (Move object)]
+|move|p1a: Sceptile|Focus Blast|p2a: Virizion|[miss]
+|-miss|p1a: Sceptile|p2a: Virizion
+|move|p2a: Virizion|Close Combat|p1a: Sceptile
+|-damage|p1a: Sceptile|0 fnt
+|-unboost|p2a: Virizion|def|1
+|-unboost|p2a: Virizion|spd|1
+|faint|p1a: Sceptile
+|upkeep
+|switch|p1a: Xatu|Xatu, L89, M|100100
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "sceptile"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-virizion-starmie-clawitzer -- sceptile
+|chat|DEBUG|Own moves: stoneedge swordsdance leafblade closecombat
+|chat|DEBUG|Enemy moves: earthquake gigadrain leechseed substitute
+|chat|DEBUG|Checks: ['virizion']
+|chat|DEBUG|Counter: ['virizion']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 224 vs 256
+|chat|DEBUG|HP: 221 vs 261
+|chat|DEBUG|Best move of virizion (p1): closecombat: 138.5 [127, 150]
+|chat|DEBUG|Best move of sceptile (p2): earthquake: 39.75 [36, 43]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using closecombat
+|move|p2a: Virizion|Stone Edge|p1a: Xatu|[miss]
+|-miss|p2a: Virizion|p1a: Xatu
+|move|p1a: Xatu|Psychic|p2a: Virizion
+|-supereffective|p2a: Virizion
+|-damage|p2a: Virizion|0 fnt
+|faint|p2a: Virizion
+|upkeep
+|switch|p2a: Magearna|Magearna, L75|244244
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee virizion starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-virizion-starmie-clawitzer -- xatu
+|chat|DEBUG|Own moves: stoneedge swordsdance leafblade closecombat
+|chat|DEBUG|Enemy moves: psychic roost teleport thunderwave
+|chat|DEBUG|Checks: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Counter: ['magearna', 'indeedee', 'virizion', 'starmie', 'clawitzer']
+|chat|DEBUG|Speed: 224 vs 220
+|chat|DEBUG|HP: 221 vs 260
+|chat|DEBUG|Created a new Strategy for virizion vs xatu:
+|chat|DEBUG|>[stoneedge: 282.125 [260, 306], stoneedge: 282.125 [260, 306], stoneedge: 282.125 [260, 306]]
+|chat|DEBUG|Best move of virizion (p1): stoneedge: 282.125 [260, 306]
+|chat|DEBUG|Best move of xatu (p2): psychic: 239.5 [218, 260]
+|chat|DEBUG|Attacking using stoneedge
+|move|p1a: Xatu|Psychic|p2a: Magearna
+|-resisted|p2a: Magearna
+|-damage|p2a: Magearna|195244
+|move|p2a: Magearna|Agility|p2a: Magearna
+|-boost|p2a: Magearna|spe|2
+|-heal|p2a: Magearna|210244|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "virizion" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: psychic roost teleport thunderwave
+|chat|DEBUG|Checks: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Counter: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to magearna (pokemon object) [Active: False, Status: None]
+|move|p2a: Magearna|Flash Cannon|p1a: Xatu
+|-crit|p1a: Xatu
+|-damage|p1a: Xatu|42100
+|move|p1a: Xatu|Heat Wave|p2a: Magearna
+|-supereffective|p2a: Magearna
+|-damage|p2a: Magearna|72244
+|-heal|p2a: Magearna|87244|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu
+|chat|DEBUG|Own moves: flashcannon agility fleurcannon calmmind
+|chat|DEBUG|Enemy moves: psychic roost teleport thunderwave
+|chat|DEBUG|Checks: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Counter: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 141 vs 220
+|chat|DEBUG|HP: 244 vs 260
+|chat|DEBUG|Created a new Strategy for magearna vs xatu:
+|chat|DEBUG|>[fleurcannon: 158.5625 [145, 172], flashcannon: 49.0 [45, 54], fleurcannon: 79.5 [73, 87]]
+|chat|DEBUG|Best move of magearna (p1): fleurcannon: 158.5625 [145, 172]
+|chat|DEBUG|Best move of xatu (p2): psychic: 47.1875 [43, 51]
+|chat|DEBUG|Boost Moves: [agility (Move object), calmmind (Move object)]
+|switch|p2a: Indeedee|Indeedee, L82, M|233233
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Indeedee
+|switch|p1a: Slowking|Slowking-Galar, L84, F|100100
+|-damage|p1a: Slowking|88100|[from] Stealth Rock
+|-heal|p1a: Slowking|94100|[from] item: Black Sludge
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu
+|chat|DEBUG|Own moves: flashcannon agility fleurcannon calmmind
+|chat|DEBUG|Enemy moves: psychic roost teleport thunderwave
+|chat|DEBUG|Checks: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Counter: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 141 vs 220
+|chat|DEBUG|HP: 210 vs 260
+|chat|DEBUG|Best move of magearna (p1): flashcannon: 49.0 [45, 54]
+|chat|DEBUG|Best move of xatu (p2): psychic: 47.1875 [43, 51]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flashcannon
+|switch|p2a: Clawitzer|Clawitzer, L84, M|256256
+|move|p1a: Slowking|Future Sight|p2a: Clawitzer
+|-start|p1a: Slowking|move: Future Sight
+|-heal|p1a: Slowking|99100|[from] item: Black Sludge
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "magearna" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu
+|chat|DEBUG|Own moves: flashcannon agility fleurcannon calmmind
+|chat|DEBUG|Enemy moves: psychic roost teleport thunderwave
+|chat|DEBUG|Checks: ['indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Counter: ['indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Speed: 141 vs 220
+|chat|DEBUG|HP: 87 vs 109
+|chat|DEBUG|Best move of magearna (p1): fleurcannon: 79.5 [73, 87]
+|chat|DEBUG|Best move of xatu (p2): psychic: 47.1875 [43, 51]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check indeedee
+|move|p2a: Clawitzer|Dark Pulse|p1a: Slowking
+|-supereffective|p1a: Slowking
+|-damage|p1a: Slowking|14100
+|cant|p1a: Slowking|flinch
+|-heal|p1a: Slowking|20100|[from] item: Black Sludge
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "indeedee" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu-slowkinggalar
+|chat|DEBUG|Own moves: calmmind hypervoice expandingforce mysticalfire
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['starmie', 'clawitzer']
+|chat|DEBUG|Speed: 203 vs 99
+|chat|DEBUG|HP: 233 vs 279
+|chat|DEBUG|Created a new Strategy for indeedee vs slowkinggalar:
+|chat|DEBUG|>[hypervoice: 105.0625 [97, 114], hypervoice: 105.0625 [97, 114], hypervoice: 105.0625 [97, 114]]
+|chat|DEBUG|Best move of indeedee (p1): hypervoice: 105.0625 [97, 114]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 101.75 [93, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check clawitzer
+|switch|p1a: Zekrom|Zekrom, L69|100100
+|-damage|p1a: Zekrom|88100|[from] Stealth Rock
+|-ability|p1a: Zekrom|Teravolt
+|move|p2a: Clawitzer|Dark Pulse|p1a: Zekrom
+|-damage|p1a: Zekrom|18100
+|-end|p2a: Clawitzer|move: Future Sight
+|-damage|p2a: Clawitzer|73256
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu-slowkinggalar
+|chat|DEBUG|Own moves: darkpulse aurasphere waterpulse icebeam
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['clawitzer']
+|chat|DEBUG|Counter: ['starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 147 vs 99
+|chat|DEBUG|HP: 256 vs 294
+|chat|DEBUG|Created a new Strategy for clawitzer vs slowkinggalar:
+|chat|DEBUG|>[darkpulse: 252.5 [232, 274], darkpulse: 252.5 [232, 274], darkpulse: 252.5 [232, 274]]
+|chat|DEBUG|Best move of clawitzer (p1): darkpulse: 252.5 [232, 274]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 104.5 [96, 114]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using darkpulse
+|switch|p2a: Indeedee|Indeedee, L82, M|233233
+|move|p1a: Zekrom|Bolt Strike|p2a: Indeedee
+|-damage|p2a: Indeedee|31233
+|-fieldend|move: Psychic Terrain
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu-slowkinggalar
+|chat|DEBUG|Own moves: darkpulse
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Counter: ['magearna', 'indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 147 vs 99
+|chat|DEBUG|HP: 256 vs 59
+|chat|DEBUG|Created a new Strategy for clawitzer vs slowkinggalar:
+|chat|DEBUG|>[darkpulse: 252.5 [232, 274], darkpulse: 252.5 [232, 274], darkpulse: 252.5 [232, 274]]
+|chat|DEBUG|Best move of clawitzer (p1): darkpulse: 252.5 [232, 274]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 104.5 [96, 114]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Xatu|Xatu, L89, M|42100
+|move|p2a: Indeedee|Hyper Voice|p1a: Xatu
+|-damage|p1a: Xatu|0 fnt
+|faint|p1a: Xatu
+|-damage|p2a: Indeedee|8233|[from] item: Life Orb
+|upkeep
+|switch|p1a: Slowking|Slowking-Galar, L84, F|53100
+|-damage|p1a: Slowking|41100|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "clawitzer" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu-slowkinggalar-zekrom
+|chat|DEBUG|Own moves: darkpulse
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: ['indeedee']
+|chat|DEBUG|Counter: ['indeedee', 'starmie']
+|chat|DEBUG|Speed: 147 vs 165
+|chat|DEBUG|HP: 73 vs 45
+|chat|DEBUG|Created a new Strategy for clawitzer vs zekrom:
+|chat|DEBUG|>[darkpulse: 164.1875 [151, 178], darkpulse: 164.1875 [151, 178], darkpulse: 164.1875 [151, 178]]
+|chat|DEBUG|Best move of clawitzer (p1): darkpulse: 164.1875 [151, 178]
+|chat|DEBUG|Best move of zekrom (p2): boltstrike: 268.0 [246, 290]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check indeedee
+|switch|p2a: Starmie|Starmie, L84|238238
+|move|p1a: Slowking|Slack Off|p1a: Slowking
+|-heal|p1a: Slowking|91100
+|-heal|p1a: Slowking|97100|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "indeedee" vs "zekrom"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- xatu-slowkinggalar-zekrom
+|chat|DEBUG|Own moves: calmmind hypervoice expandingforce mysticalfire
+|chat|DEBUG|Enemy moves: boltstrike dragondance outrage roost
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['indeedee', 'starmie']
+|chat|DEBUG|Speed: 203 vs 165
+|chat|DEBUG|HP: 31 vs 45
+|chat|DEBUG|Created a new Strategy for indeedee vs zekrom:
+|chat|DEBUG|>[hypervoice: 137.625 [126, 149], hypervoice: 137.625 [126, 149], hypervoice: 137.625 [126, 149]]
+|chat|DEBUG|Best move of indeedee (p1): hypervoice: 137.625 [126, 149]
+|chat|DEBUG|Best move of zekrom (p2): outrage: 175.1875 [160, 190]
+|chat|DEBUG|We can kill the enemy this turn!
+|-start|p2a: Starmie|Dynamax
+|-heal|p2a: Starmie|476476|[silent]
+|move|p2a: Starmie|Max Mindstorm|p1a: Slowking
+|-crit|p1a: Slowking
+|-damage|p1a: Slowking|40100
+|-fieldstart|move: Psychic Terrain
+|move|p1a: Slowking|Sludge Bomb|p2a: Starmie
+|-damage|p2a: Starmie|371476
+|-heal|p1a: Slowking|46100|[from] item: Black Sludge
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "indeedee" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- slowkinggalar-zekrom
+|chat|DEBUG|Own moves: calmmind hypervoice expandingforce mysticalfire
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['starmie', 'clawitzer']
+|chat|DEBUG|Speed: 203 vs 99
+|chat|DEBUG|HP: 8 vs 121
+|chat|DEBUG|Created a new Strategy for indeedee vs slowkinggalar:
+|chat|DEBUG|>[hypervoice: 105.0625 [97, 114], hypervoice: 105.0625 [97, 114], hypervoice: 105.0625 [97, 114]]
+|chat|DEBUG|Best move of indeedee (p1): hypervoice: 105.0625 [97, 114]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 101.75 [93, 111]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check starmie
+|-start|p1a: Slowking|Dynamax
+|-heal|p1a: Slowking|46100|[silent]
+|move|p1a: Slowking|Max Guard|p1a: Slowking
+|-singleturn|p1a: Slowking|Max Guard
+|move|p2a: Starmie|Max Mindstorm|p1a: Slowking
+|-activate|p1a: Slowking|move: Max Guard
+|-heal|p1a: Slowking|49100|[from] item: Black Sludge
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- slowkinggalar-zekrom
+|chat|DEBUG|Own moves: hydropump scald thunderbolt psyshock
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['starmie']
+|chat|DEBUG|Speed: 241 vs 99
+|chat|DEBUG|HP: 238 vs 288
+|chat|DEBUG|Created a new Strategy for starmie vs slowkinggalar:
+|chat|DEBUG|>[psyshock: 138.5625 [127, 151], psyshock: 138.5625 [127, 151], psyshock: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of starmie (p1): psyshock: 138.5625 [127, 151]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 107.3125 [99, 117]
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|move|p1a: Slowking|Max Guard||[still]
+|-fail|p1a: Slowking
+|move|p2a: Starmie|Max Mindstorm|p1a: Slowking
+|-damage|p1a: Slowking|25100
+|-heal|p1a: Slowking|28100|[from] item: Black Sludge
+|-end|p2a: Starmie|Dynamax
+|-heal|p2a: Starmie|186238|[silent]
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- slowkinggalar-zekrom
+|chat|DEBUG|Own moves: hydropump scald thunderbolt psyshock
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 241 vs 99
+|chat|DEBUG|HP: 371 vs 136
+|chat|DEBUG|Best move of starmie (p1): psyshock: 138.5625 [127, 151]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 107.3125 [99, 117]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Starmie|Psyshock|p1a: Slowking
+|-damage|p1a: Slowking|0 fnt
+|faint|p1a: Slowking
+|upkeep
+|switch|p1a: Gurdurr|Gurdurr, L83, F|100100
+|-damage|p1a: Gurdurr|94100|[from] Stealth Rock
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- slowkinggalar-zekrom
+|chat|DEBUG|Own moves: hydropump scald thunderbolt psyshock
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 241 vs 99
+|chat|DEBUG|HP: 371 vs 145
+|chat|DEBUG|Best move of starmie (p1): psyshock: 138.5625 [127, 151]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 107.3125 [99, 117]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Starmie|Psyshock|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|11100
+|move|p1a: Gurdurr|Drain Punch|p2a: Starmie
+|-resisted|p2a: Starmie
+|-damage|p2a: Starmie|144238
+|-heal|p1a: Gurdurr|19100|[from] drain|[of] p2a: Starmie
+|-fieldend|move: Psychic Terrain
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "starmie" vs "slowkinggalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- slowkinggalar-zekrom
+|chat|DEBUG|Own moves: hydropump scald thunderbolt psyshock
+|chat|DEBUG|Enemy moves: fireblast psyshock slackoff sludgebomb
+|chat|DEBUG|Checks: ['starmie']
+|chat|DEBUG|Counter: ['indeedee', 'starmie', 'clawitzer']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 241 vs 99
+|chat|DEBUG|HP: 186 vs 83
+|chat|DEBUG|Created a new Strategy for starmie vs slowkinggalar:
+|chat|DEBUG|>[psyshock: 138.5625 [127, 151], psyshock: 138.5625 [127, 151], psyshock: 138.5625 [127, 151]]
+|chat|DEBUG|Best move of starmie (p1): psyshock: 138.5625 [127, 151]
+|chat|DEBUG|Best move of slowkinggalar (p2): sludgebomb: 107.3125 [99, 117]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Gurdurr|Mach Punch|p2a: Starmie
+|-resisted|p2a: Starmie
+|-damage|p2a: Starmie|120238
+|move|p2a: Starmie|Psyshock|p1a: Gurdurr
+|-supereffective|p1a: Gurdurr
+|-damage|p1a: Gurdurr|0 fnt
+|faint|p1a: Gurdurr
+|upkeep
+|switch|p1a: Zekrom|Zekrom, L69|18100
+|-damage|p1a: Zekrom|5100|[from] Stealth Rock
+|-ability|p1a: Zekrom|Teravolt
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>magearna indeedee starmie clawitzer
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "starmie" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>magearna-indeedee-starmie-clawitzer -- zekrom-gurdurr
+|chat|DEBUG|Own moves: psyshock
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['magearna']
+|chat|DEBUG|Counter: ['magearna', 'starmie']
+|chat|DEBUG|Speed: 241 vs 114
+|chat|DEBUG|HP: 186 vs 260
+|chat|DEBUG|Created a new Strategy for starmie vs gurdurr:
+|chat|DEBUG|>[psyshock: 181.75 [168, 198], psyshock: 181.75 [168, 198], psyshock: 181.75 [168, 198]]
+|chat|DEBUG|Best move of starmie (p1): psyshock: 181.75 [168, 198]
+|chat|DEBUG|Best move of gurdurr (p2): knockoff: 147.25 [136, 160]
+|chat|DEBUG|Attacking using psyshock
+|move|p2a: Starmie|Psyshock|p1a: Zekrom
+|-damage|p1a: Zekrom|0 fnt
+|faint|p1a: Zekrom
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">nihilego magearna indeedee virizion starmie clawitzer</h1>

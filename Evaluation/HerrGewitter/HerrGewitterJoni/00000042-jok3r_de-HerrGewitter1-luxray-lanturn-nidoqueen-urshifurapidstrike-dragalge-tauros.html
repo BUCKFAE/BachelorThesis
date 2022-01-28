@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490672267<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490672267|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Regieleki|Regieleki, L78|100100
+|switch|p2a: Luxray|Luxray, L84, M|272272
+|-ability|p2a: Luxray|Intimidate|boost
+|-unboost|p1a: Regieleki|atk|1
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen urshifurapidstrike dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "luxray" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-urshifurapidstrike-dragalge-tauros -- regieleki
+|chat|DEBUG|Own moves: agility superpower crunch wildcharge
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: ['lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Counter: ['luxray', 'lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Speed: 166 vs 357
+|chat|DEBUG|HP: 272 vs 253
+|chat|DEBUG|Created a new Strategy for luxray vs regieleki:
+|chat|DEBUG|>[crunch: 137.5625 [126, 149], crunch: 137.5625 [126, 149], superpower: 206.1875 [190, 224]]
+|chat|DEBUG|Best move of luxray (p1): crunch: 137.5625 [126, 149]
+|chat|DEBUG|Best move of regieleki (p2): thunderbolt: 82.625 [76, 90]
+|chat|DEBUG|Attacking using crunch
+|move|p1a: Regieleki|Volt Switch|p2a: Luxray
+|-resisted|p2a: Luxray
+|-damage|p2a: Luxray|209272
+|switch|p1a: Nidoking|Nidoking, L82, M|100100|[from]move: Volt Switch
+|move|p2a: Luxray|Crunch|p1a: Nidoking
+|-damage|p1a: Nidoking|63100
+|-damage|p2a: Luxray|182272|[from] item: Life Orb
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen urshifurapidstrike dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "luxray" vs "nidoking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-urshifurapidstrike-dragalge-tauros -- regieleki-nidoking
+|chat|DEBUG|Own moves: agility superpower crunch wildcharge
+|chat|DEBUG|Enemy moves: earthpower icebeam sludgewave substitute
+|chat|DEBUG|Checks: ['tauros']
+|chat|DEBUG|Counter: ['lanturn', 'urshifurapidstrike', 'dragalge', 'tauros']
+|chat|DEBUG|Speed: 166 vs 187
+|chat|DEBUG|HP: 182 vs 168
+|chat|DEBUG|Created a new Strategy for luxray vs nidoking:
+|chat|DEBUG|>[crunch: 98.0 [90, 107], crunch: 98.0 [90, 107], crunch: 98.0 [90, 107]]
+|chat|DEBUG|Best move of luxray (p1): crunch: 98.0 [90, 107]
+|chat|DEBUG|Best move of nidoking (p2): earthpower: 300.625 [276, 328]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check tauros
+|switch|p2a: Tauros|Tauros, L82, M|257257
+|move|p1a: Nidoking|Earth Power|p2a: Tauros
+|-damage|p2a: Tauros|101257
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen urshifurapidstrike dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tauros" vs "nidoking"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-urshifurapidstrike-dragalge-tauros -- regieleki-nidoking
+|chat|DEBUG|Own moves: throatchop closecombat bodyslam rockslide
+|chat|DEBUG|Enemy moves: earthpower icebeam sludgewave substitute
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'urshifurapidstrike', 'dragalge', 'tauros']
+|chat|DEBUG|Speed: 228 vs 187
+|chat|DEBUG|HP: 101 vs 168
+|chat|DEBUG|Created a new Strategy for tauros vs nidoking:
+|chat|DEBUG|>[bodyslam: 168.3125 [153, 183], bodyslam: 168.3125 [153, 183], bodyslam: 168.3125 [153, 183]]
+|chat|DEBUG|Best move of tauros (p1): bodyslam: 168.3125 [153, 183]
+|chat|DEBUG|Best move of nidoking (p2): sludgewave: 178.0625 [164, 192]
+|chat|DEBUG|Attacking using bodyslam
+|move|p2a: Tauros|Body Slam|p1a: Nidoking
+|-damage|p1a: Nidoking|0 fnt
+|faint|p1a: Nidoking
+|upkeep
+|switch|p1a: Sirfetch’d|Sirfetch’d, L82, F|100100
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen urshifurapidstrike dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "tauros" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-urshifurapidstrike-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: throatchop closecombat bodyslam rockslide
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: ['urshifurapidstrike']
+|chat|DEBUG|Counter: ['nidoqueen', 'urshifurapidstrike', 'dragalge']
+|chat|DEBUG|Speed: 228 vs 154
+|chat|DEBUG|HP: 101 vs 236
+|chat|DEBUG|Created a new Strategy for tauros vs sirfetchd:
+|chat|DEBUG|>[bodyslam: 143.25 [133, 156], bodyslam: 143.25 [133, 156], bodyslam: 143.25 [133, 156]]
+|chat|DEBUG|Best move of tauros (p1): bodyslam: 143.25 [133, 156]
+|chat|DEBUG|Best move of sirfetchd (p2): closecombat: 394.1875 [361, 429]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check urshifurapidstrike
+|switch|p2a: Urshifu|Urshifu-Rapid-Strike, L78, F|284284
+|move|p1a: Sirfetch’d|Close Combat|p2a: Urshifu
+|-damage|p2a: Urshifu|81284
+|-unboost|p1a: Sirfetch’d|def|1
+|-unboost|p1a: Sirfetch’d|spd|1
+|-damage|p1a: Sirfetch’d|91100|[from] item: Life Orb
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen urshifurapidstrike dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-urshifurapidstrike-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: closecombat icepunch uturn surgingstrikes
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: ['nidoqueen']
+|chat|DEBUG|Counter: ['luxray', 'lanturn', 'nidoqueen', 'urshifurapidstrike', 'dragalge', 'tauros']
+|chat|DEBUG|Speed: 196 vs 154
+|chat|DEBUG|HP: 81 vs 214
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs sirfetchd:
+|chat|DEBUG|>[closecombat: 203.0 [186, 220], closecombat: 203.0 [186, 220], closecombat: 203.0 [186, 220]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): closecombat: 203.0 [186, 220]
+|chat|DEBUG|Best move of sirfetchd (p2): bravebird: 265.6875 [244, 289]
+|chat|DEBUG|Attacking using closecombat
+|switch|p1a: Regieleki|Regieleki, L78|100100
+|move|p2a: Urshifu|Close Combat|p1a: Regieleki
+|-damage|p1a: Regieleki|17100
+|-unboost|p2a: Urshifu|def|1
+|-unboost|p2a: Urshifu|spd|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen urshifurapidstrike dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-urshifurapidstrike-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: closecombat
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['luxray', 'lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Speed: 196 vs 357
+|chat|DEBUG|HP: 81 vs 43
+|chat|DEBUG|Created a new Strategy for urshifurapidstrike vs regieleki:
+|chat|DEBUG|>[closecombat: 222.4375 [204, 241], closecombat: 222.4375 [204, 241], closecombat: 222.4375 [204, 241]]
+|chat|DEBUG|Best move of urshifurapidstrike (p1): closecombat: 222.4375 [204, 241]
+|chat|DEBUG|Best move of regieleki (p2): thunderbolt: 650.125 [596, 704]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using closecombat
+|move|p1a: Regieleki|Thunderbolt|p2a: Urshifu
+|-supereffective|p2a: Urshifu
+|-damage|p2a: Urshifu|0 fnt
+|faint|p2a: Urshifu
+|upkeep
+|switch|p2a: Luxray|Luxray, L84, M|182272
+|-ability|p2a: Luxray|Intimidate|boost
+|-unboost|p1a: Regieleki|atk|1
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "urshifurapidstrike" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['luxray', 'lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to luxray (pokemon object) [Active: False, Status: None]
+|move|p1a: Regieleki|Volt Switch|p2a: Luxray
+|-resisted|p2a: Luxray
+|-damage|p2a: Luxray|116272
+|switch|p1a: Sirfetch’d|Sirfetch’d, L82, F|91100|[from]move: Volt Switch
+|move|p2a: Luxray|Crunch|p1a: Sirfetch’d
+|-resisted|p1a: Sirfetch’d
+|-damage|p1a: Sirfetch’d|73100
+|-damage|p2a: Luxray|89272|[from] item: Life Orb
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "luxray" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: agility superpower crunch wildcharge
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: ['lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Counter: ['luxray', 'lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Speed: 166 vs 357
+|chat|DEBUG|HP: 182 vs 43
+|chat|DEBUG|Created a new Strategy for luxray vs regieleki:
+|chat|DEBUG|>[crunch: 137.5625 [126, 149], crunch: 137.5625 [126, 149], superpower: 206.1875 [190, 224]]
+|chat|DEBUG|Best move of luxray (p1): crunch: 137.5625 [126, 149]
+|chat|DEBUG|Best move of regieleki (p2): explosion: 85.5625 [79, 93]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Nidoqueen|Nidoqueen, L84, F|288288
+|move|p1a: Sirfetch’d|Close Combat|p2a: Nidoqueen
+|-resisted|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|191288
+|-unboost|p1a: Sirfetch’d|def|1
+|-unboost|p1a: Sirfetch’d|spd|1
+|-damage|p1a: Sirfetch’d|63100|[from] item: Life Orb
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "luxray" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: agility superpower crunch wildcharge
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: ['nidoqueen']
+|chat|DEBUG|Counter: ['lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Speed: 166 vs 154
+|chat|DEBUG|HP: 89 vs 172
+|chat|DEBUG|Created a new Strategy for luxray vs sirfetchd:
+|chat|DEBUG|>[wildcharge: 141.1875 [130, 153], wildcharge: 141.1875 [130, 153], wildcharge: 141.1875 [130, 153]]
+|chat|DEBUG|Best move of luxray (p1): wildcharge: 141.1875 [130, 153]
+|chat|DEBUG|Best move of sirfetchd (p2): closecombat: 220.5625 [203, 239]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check nidoqueen
+|switch|p1a: Omastar|Omastar, L82, M|100100
+|move|p2a: Nidoqueen|Stealth Rock|p1a: Omastar
+|-sidestart|p1: jok3r_de|move: Stealth Rock
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: stealthrock sludgewave toxicspikes earthpower
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: ['nidoqueen']
+|chat|DEBUG|Counter: ['luxray', 'lanturn', 'nidoqueen', 'dragalge', 'tauros']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 154
+|chat|DEBUG|HP: 191 vs 148
+|chat|DEBUG|Created a new Strategy for nidoqueen vs sirfetchd:
+|chat|DEBUG|>[sludgewave: 226.0 [208, 246], sludgewave: 226.0 [208, 246], sludgewave: 226.0 [208, 246]]
+|chat|DEBUG|Best move of nidoqueen (p1): sludgewave: 226.0 [208, 246]
+|chat|DEBUG|Best move of sirfetchd (p2): bravebird: 137.5625 [126, 149]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock-toxicspikes
+|chat|DEBUG|Setting Stealthrock
+|move|p2a: Nidoqueen|Earth Power|p1a: Omastar
+|-supereffective|p1a: Omastar
+|-damage|p1a: Omastar|0 fnt
+|faint|p1a: Omastar
+|upkeep
+|switch|p1a: Eiscue|Eiscue, L82, M|100100
+|-damage|p1a: Eiscue|75100|[from] Stealth Rock
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd-omastar
+|chat|DEBUG|Own moves: stealthrock sludgewave toxicspikes earthpower
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['lanturn']
+|chat|DEBUG|Counter: ['lanturn', 'nidoqueen', 'dragalge']
+|chat|DEBUG|Speed: 176 vs 137
+|chat|DEBUG|HP: 191 vs 249
+|chat|DEBUG|Created a new Strategy for nidoqueen vs omastar:
+|chat|DEBUG|>[earthpower: 318.625 [291, 346], earthpower: 318.625 [291, 346], earthpower: 318.625 [291, 346]]
+|chat|DEBUG|Best move of nidoqueen (p1): earthpower: 318.625 [291, 346]
+|chat|DEBUG|Best move of omastar (p2): hydropump: 259.0 [236, 282]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Nidoqueen|Toxic Spikes|p1a: Eiscue
+|-sidestart|p1: jok3r_de|move: Toxic Spikes
+|move|p1a: Eiscue|Liquidation|p2a: Nidoqueen
+|-supereffective|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|91288
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: stealthrock sludgewave toxicspikes earthpower
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'dragalge']
+|chat|DEBUG|Speed: 176 vs 129
+|chat|DEBUG|HP: 191 vs 192
+|chat|DEBUG|Created a new Strategy for nidoqueen vs eiscue:
+|chat|DEBUG|>[sludgewave: 141.1875 [130, 153], sludgewave: 141.1875 [130, 153], sludgewave: 141.1875 [130, 153]]
+|chat|DEBUG|Best move of nidoqueen (p1): sludgewave: 141.1875 [130, 153]
+|chat|DEBUG|Best move of eiscue (p2): iciclecrash: 150.625 [138, 164]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock-toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|move|p2a: Nidoqueen|Toxic Spikes|p1a: Eiscue
+|-sidestart|p1: jok3r_de|move: Toxic Spikes
+|move|p1a: Eiscue|Liquidation|p2a: Nidoqueen
+|-supereffective|p2a: Nidoqueen
+|-damage|p2a: Nidoqueen|0 fnt
+|faint|p2a: Nidoqueen
+|upkeep
+|switch|p2a: Lanturn|Lanturn, L86, M|355355
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn nidoqueen dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-nidoqueen-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: stealthrock sludgewave toxicspikes earthpower
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'dragalge']
+|chat|DEBUG|Speed: 176 vs 129
+|chat|DEBUG|HP: 91 vs 192
+|chat|DEBUG|Best move of nidoqueen (p1): sludgewave: 141.1875 [130, 153]
+|chat|DEBUG|Best move of eiscue (p2): iciclecrash: 150.625 [138, 164]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock-toxicspikes
+|chat|DEBUG|Setting toxic spikes
+|move|p2a: Lanturn|Scald|p1a: Eiscue
+|-damage|p1a: Eiscue|46100
+|-enditem|p1a: Eiscue|Sitrus Berry|[eat]
+|-heal|p1a: Eiscue|71100|[from] item: Sitrus Berry
+|move|p1a: Eiscue|Icicle Crash|p2a: Lanturn
+|-resisted|p2a: Lanturn
+|-damage|p2a: Lanturn|308355
+|-heal|p2a: Lanturn|330355|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "nidoqueen" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'dragalge']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to lanturn (pokemon object) [Active: False, Status: None]
+|move|p2a: Lanturn|Scald|p1a: Eiscue
+|-damage|p1a: Eiscue|41100
+|move|p1a: Eiscue|Belly Drum||[still]
+|-fail|p1a: Eiscue
+|-heal|p2a: Lanturn|352355|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: healbell scald voltswitch toxic
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'dragalge']
+|chat|DEBUG|Speed: 164 vs 129
+|chat|DEBUG|HP: 355 vs 192
+|chat|DEBUG|Created a new Strategy for lanturn vs eiscue:
+|chat|DEBUG|>[scald: 75.3125 [69, 82], scald: 75.3125 [69, 82], scald: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 75.3125 [69, 82]
+|chat|DEBUG|Best move of eiscue (p2): zenheadbutt: 60.6875 [56, 66]
+|chat|DEBUG|Attacking using scald
+|move|p2a: Lanturn|Scald|p1a: Eiscue
+|-damage|p1a: Eiscue|11100
+|-status|p1a: Eiscue|brn
+|move|p1a: Eiscue|Zen Headbutt|p2a: Lanturn
+|-damage|p2a: Lanturn|321355
+|-heal|p2a: Lanturn|343355|[from] item: Leftovers
+|-damage|p1a: Eiscue|4100 brn|[from] brn
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: healbell scald voltswitch toxic
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dragalge', 'tauros']
+|chat|DEBUG|Speed: 164 vs 129
+|chat|DEBUG|HP: 330 vs 181
+|chat|DEBUG|Best move of lanturn (p1): scald: 75.3125 [69, 82]
+|chat|DEBUG|Best move of eiscue (p2): zenheadbutt: 60.6875 [56, 66]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|move|p2a: Lanturn|Scald|p1a: Eiscue
+|-damage|p1a: Eiscue|0 fnt
+|faint|p1a: Eiscue
+|-heal|p2a: Lanturn|355355|[from] item: Leftovers
+|upkeep
+|switch|p1a: Regieleki|Regieleki, L78|17100
+|-status|p1a: Regieleki|tox
+|-damage|p1a: Regieleki|5100 tox|[from] Stealth Rock
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: healbell scald voltswitch toxic
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['tauros']
+|chat|DEBUG|Speed: 164 vs 129
+|chat|DEBUG|HP: 352 vs 104
+|chat|DEBUG|Best move of lanturn (p1): scald: 75.3125 [69, 82]
+|chat|DEBUG|Best move of eiscue (p2): zenheadbutt: 60.6875 [56, 66]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|move|p1a: Regieleki|Explosion|p2a: Lanturn
+|-damage|p2a: Lanturn|149355
+|faint|p1a: Regieleki
+|move|p2a: Lanturn|Scald|p1: Regieleki|[notarget]
+|-fail|p2a: Lanturn
+|-heal|p2a: Lanturn|171355|[from] item: Leftovers
+|upkeep
+|switch|p1a: Sirfetch’d|Sirfetch’d, L82, F|63100
+|-status|p1a: Sirfetch’d|tox
+|-damage|p1a: Sirfetch’d|57100 tox|[from] Stealth Rock
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "eiscue"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- regieleki-sirfetchd-eiscue
+|chat|DEBUG|Own moves: healbell scald voltswitch toxic
+|chat|DEBUG|Enemy moves: bellydrum iciclecrash liquidation zenheadbutt
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 164 vs 129
+|chat|DEBUG|HP: 343 vs 10
+|chat|DEBUG|Created a new Strategy for lanturn vs eiscue:
+|chat|DEBUG|>[scald: 75.3125 [69, 82], scald: 75.3125 [69, 82], scald: 75.3125 [69, 82]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 75.3125 [69, 82]
+|chat|DEBUG|Best move of eiscue (p2): zenheadbutt: 60.6875 [56, 66]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Lanturn|Scald|p1a: Sirfetch’d
+|-damage|p1a: Sirfetch’d|25100 tox
+|move|p1a: Sirfetch’d|Close Combat|p2a: Lanturn
+|-damage|p2a: Lanturn|0 fnt
+|-unboost|p1a: Sirfetch’d|def|1
+|-unboost|p1a: Sirfetch’d|spd|1
+|faint|p2a: Lanturn
+|-damage|p1a: Sirfetch’d|15100 tox|[from] item: Life Orb
+|-damage|p1a: Sirfetch’d|9100 tox|[from] psn
+|upkeep
+|switch|p2a: Luxray|Luxray, L84, M|89272
+|-ability|p2a: Luxray|Intimidate|boost
+|-fail|p1a: Sirfetch’d|unboost|Attack|[from] ability: Scrappy|[of] p1a: Sirfetch’d
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "regieleki"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- regieleki-sirfetchd
+|chat|DEBUG|Own moves: healbell scald voltswitch toxic
+|chat|DEBUG|Enemy moves: explosion substitute thunderbolt voltswitch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['lanturn', 'dragalge']
+|chat|DEBUG|Speed: 164 vs 357
+|chat|DEBUG|HP: 355 vs 12
+|chat|DEBUG|Created a new Strategy for lanturn vs regieleki:
+|chat|DEBUG|>[scald: 118.3125 [109, 129], scald: 118.3125 [109, 129], scald: 118.3125 [109, 129]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 118.3125 [109, 129]
+|chat|DEBUG|Best move of regieleki (p2): explosion: 206.75 [190, 224]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Luxray|Wild Charge|p1a: Sirfetch’d
+|-damage|p1a: Sirfetch’d|0 fnt
+|faint|p1a: Sirfetch’d
+|-damage|p2a: Luxray|84272|[from] Recoil
+|-damage|p2a: Luxray|57272|[from] item: Life Orb
+|upkeep
+|switch|p1a: Cinderace|Cinderace, L74, F|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray lanturn dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-lanturn-dragalge-tauros -- sirfetchd
+|chat|DEBUG|Own moves: healbell scald voltswitch toxic
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['luxray', 'dragalge', 'tauros']
+|chat|DEBUG|Speed: 164 vs 154
+|chat|DEBUG|HP: 171 vs 134
+|chat|DEBUG|Created a new Strategy for lanturn vs sirfetchd:
+|chat|DEBUG|>[scald: 79.5 [73, 87], scald: 79.5 [73, 87], scald: 79.5 [73, 87]]
+|chat|DEBUG|Best move of lanturn (p1): scald: 79.5 [73, 87]
+|chat|DEBUG|Best move of sirfetchd (p2): closecombat: 267.8125 [246, 290]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|move|p1a: Cinderace|Pyro Ball|p2a: Luxray
+|-damage|p2a: Luxray|0 fnt
+|faint|p2a: Luxray
+|upkeep
+|switch|p2a: Tauros|Tauros, L82, M|101257
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "lanturn" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-dragalge-tauros -- sirfetchd
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['luxray', 'dragalge', 'tauros']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to luxray (pokemon object) [Active: False, Status: None]
+|move|p2a: Tauros|Rock Slide|p1a: Cinderace
+|-supereffective|p1a: Cinderace
+|-damage|p1a: Cinderace|5100
+|move|p1a: Cinderace|Pyro Ball|p2a: Tauros
+|-damage|p2a: Tauros|0 fnt
+|faint|p2a: Tauros
+|upkeep
+|switch|p2a: Dragalge|Dragalge, L86, F|252252
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>luxray dragalge tauros
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "luxray" vs "sirfetchd"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>luxray-dragalge-tauros -- sirfetchd
+|chat|DEBUG|Own moves: agility superpower crunch wildcharge
+|chat|DEBUG|Enemy moves: bravebird closecombat knockoff swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['luxray', 'dragalge', 'tauros']
+|chat|DEBUG|Speed: 166 vs 154
+|chat|DEBUG|HP: 89 vs 21
+|chat|DEBUG|Created a new Strategy for luxray vs sirfetchd:
+|chat|DEBUG|>[wildcharge: 211.625 [195, 230], wildcharge: 211.625 [195, 230], wildcharge: 211.625 [195, 230]]
+|chat|DEBUG|Best move of luxray (p1): wildcharge: 211.625 [195, 230]
+|chat|DEBUG|Best move of sirfetchd (p2): closecombat: 220.5625 [203, 239]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Cinderace|Gunk Shot|p2a: Dragalge|[miss]
+|-start|p1a: Cinderace|typechange|Poison|[from] ability: Libero
+|-miss|p1a: Cinderace|p2a: Dragalge
+|move|p2a: Dragalge|Sludge Wave|p1a: Cinderace
+|-resisted|p1a: Cinderace
+|-damage|p1a: Cinderace|0 fnt
+|faint|p1a: Cinderace
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">luxray lanturn nidoqueen urshifurapidstrike dragalge tauros</h1>

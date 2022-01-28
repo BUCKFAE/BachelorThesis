@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1494022185<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1494022185|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|101|
+|player|p2|HerrGewitter1|265|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Lycanroc|Lycanroc-Dusk, L80, F|100100
+|switch|p2a: Milotic|Milotic, L82, F|290290
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol entei salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-entei-salazzle -- lycanrocdusk
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['grapploct']
+|chat|DEBUG|Speed: 180 vs 222
+|chat|DEBUG|HP: 290 vs 251
+|chat|DEBUG|Created a new Strategy for milotic vs lycanrocdusk:
+|chat|DEBUG|>[scald: 214.625 [198, 234], scald: 214.625 [198, 234], scald: 214.625 [198, 234]]
+|chat|DEBUG|Best move of milotic (p1): scald: 214.625 [198, 234]
+|chat|DEBUG|Best move of lycanrocdusk (p2): closecombat: 168.875 [155, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|switch|p1a: Virizion|Virizion, L82|100100
+|move|p2a: Milotic|Scald|p1a: Virizion
+|-resisted|p1a: Virizion
+|-damage|p1a: Virizion|90100
+|-status|p1a: Virizion|brn
+|-enditem|p1a: Virizion|Lum Berry|[eat]
+|-curestatus|p1a: Virizion|brn|[msg]
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol entei salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-entei-salazzle -- lycanrocdusk-virizion
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: ['moltresgalar', 'entei']
+|chat|DEBUG|Counter: ['moltresgalar', 'grapploct', 'entei', 'salazzle']
+|chat|DEBUG|Speed: 180 vs 224
+|chat|DEBUG|HP: 290 vs 254
+|chat|DEBUG|Created a new Strategy for milotic vs virizion:
+|chat|DEBUG|>[scald: 31.25 [29, 34], scald: 31.25 [29, 34], scald: 31.25 [29, 34]]
+|chat|DEBUG|Best move of milotic (p1): scald: 31.25 [29, 34]
+|chat|DEBUG|Best move of virizion (p2): leafblade: 189.75 [174, 206]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check moltresgalar
+|switch|p2a: Moltres|Moltres-Galar, L75|259259
+|move|p1a: Virizion|Swords Dance|p1a: Virizion
+|-boost|p1a: Virizion|atk|2
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol entei salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-entei-salazzle -- lycanrocdusk-virizion
+|chat|DEBUG|Own moves: fierywrath nastyplot hurricane rest
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['moltresgalar', 'entei']
+|chat|DEBUG|Speed: 179 vs 224
+|chat|DEBUG|HP: 259 vs 254
+|chat|DEBUG|Created a new Strategy for moltresgalar vs virizion:
+|chat|DEBUG|>[hurricane: 295.75 [268, 324], hurricane: 295.75 [268, 324], hurricane: 295.75 [268, 324]]
+|chat|DEBUG|Best move of moltresgalar (p1): hurricane: 295.75 [268, 324]
+|chat|DEBUG|Best move of virizion (p2): closecombat: 247.375 [228, 268]
+|chat|DEBUG|Attacking using hurricane
+|move|p1a: Virizion|Close Combat|p2a: Moltres
+|-damage|p2a: Moltres|31259
+|-unboost|p1a: Virizion|def|1
+|-unboost|p1a: Virizion|spd|1
+|-ability|p2a: Moltres|Berserk|boost
+|-boost|p2a: Moltres|spa|1
+|move|p2a: Moltres|Hurricane|p1a: Virizion
+|-supereffective|p1a: Virizion
+|-damage|p1a: Virizion|0 fnt
+|faint|p1a: Virizion
+|upkeep
+|switch|p1a: Pincurchin|Pincurchin, L88, F|100100
+|-fieldstart|move: Electric Terrain|[from] ability: Electric Surge|[of] p1a: Pincurchin
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol entei salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "moltresgalar" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-entei-salazzle -- lycanrocdusk-pincurchin
+|chat|DEBUG|Own moves: fierywrath nastyplot hurricane rest
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: ['grapploct', 'entei']
+|chat|DEBUG|Counter: ['milotic', 'grapploct', 'absol', 'entei']
+|chat|DEBUG|Speed: 179 vs 77
+|chat|DEBUG|HP: 31 vs 228
+|chat|DEBUG|Created a new Strategy for moltresgalar vs pincurchin:
+|chat|DEBUG|>[fierywrath: 117.0 [108, 127], fierywrath: 117.0 [108, 127], fierywrath: 117.0 [108, 127]]
+|chat|DEBUG|Best move of moltresgalar (p1): fierywrath: 117.0 [108, 127]
+|chat|DEBUG|Best move of pincurchin (p2): risingvoltage: 134.5 [122, 146]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check grapploct
+|switch|p2a: Grapploct|Grapploct, L86, M|278278
+|move|p1a: Pincurchin|Rising Voltage|p2a: Grapploct
+|-damage|p2a: Grapploct|52278
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol entei salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-entei-salazzle -- lycanrocdusk-pincurchin
+|chat|DEBUG|Own moves: bulkup suckerpunch icepunch drainpunch
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: ['entei']
+|chat|DEBUG|Counter: ['milotic', 'absol', 'entei']
+|chat|DEBUG|Speed: 121 vs 77
+|chat|DEBUG|HP: 52 vs 228
+|chat|DEBUG|Created a new Strategy for grapploct vs pincurchin:
+|chat|DEBUG|>[drainpunch: 114.25 [105, 125], drainpunch: 114.25 [105, 125], drainpunch: 114.25 [105, 125]]
+|chat|DEBUG|Best move of grapploct (p1): drainpunch: 114.25 [105, 125]
+|chat|DEBUG|Best move of pincurchin (p2): risingvoltage: 82.4375 [76, 90]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check entei
+|switch|p2a: Entei|Entei, L78|307307
+|move|p1a: Pincurchin|Rising Voltage|p2a: Entei
+|-damage|p2a: Entei|63307
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol entei salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "entei" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-entei-salazzle -- lycanrocdusk-pincurchin
+|chat|DEBUG|Own moves: stompingtantrum sacredfire stoneedge extremespeed
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic', 'absol']
+|chat|DEBUG|Speed: 201 vs 77
+|chat|DEBUG|HP: 63 vs 228
+|chat|DEBUG|Created a new Strategy for entei vs pincurchin:
+|chat|DEBUG|>[sacredfire: 143.125 [132, 156], sacredfire: 143.125 [132, 156], sacredfire: 143.125 [132, 156]]
+|chat|DEBUG|Best move of entei (p1): sacredfire: 143.125 [132, 156]
+|chat|DEBUG|Best move of pincurchin (p2): scald: 143.375 [132, 156]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using sacredfire
+|move|p2a: Entei|Sacred Fire|p1a: Pincurchin
+|-damage|p1a: Pincurchin|39100
+|move|p1a: Pincurchin|Rising Voltage|p2a: Entei
+|-crit|p2a: Entei
+|-damage|p2a: Entei|0 fnt
+|faint|p2a: Entei
+|upkeep
+|switch|p2a: Milotic|Milotic, L82, F|290290
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "entei" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-pincurchin
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic', 'absol']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to milotic (pokemon object) [Active: False, Status: None]
+|move|p2a: Milotic|Scald|p1a: Pincurchin
+|-damage|p1a: Pincurchin|0 fnt
+|faint|p1a: Pincurchin
+|upkeep
+|switch|p1a: Gyarados|Gyarados, L76, F|100100
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "pincurchin"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-pincurchin
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: risingvoltage scald spikes suckerpunch
+|chat|DEBUG|Checks: ['milotic', 'absol', 'salazzle']
+|chat|DEBUG|Counter: ['milotic', 'moltresgalar', 'grapploct', 'absol', 'salazzle']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 180 vs 77
+|chat|DEBUG|HP: 290 vs 88
+|chat|DEBUG|Created a new Strategy for milotic vs pincurchin:
+|chat|DEBUG|>[scald: 80.9375 [75, 88], scald: 80.9375 [75, 88], scald: 80.9375 [75, 88]]
+|chat|DEBUG|Best move of milotic (p1): scald: 80.9375 [75, 88]
+|chat|DEBUG|Best move of pincurchin (p2): risingvoltage: 123.125 [114, 134]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using scald
+|move|p2a: Milotic|Scald|p1a: Gyarados
+|-resisted|p1a: Gyarados
+|-damage|p1a: Gyarados|86100
+|move|p1a: Gyarados|Bounce||[still]
+|-prepare|p1a: Gyarados|Bounce
+|-fieldend|move: Electric Terrain
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['absol']
+|chat|DEBUG|Speed: 180 vs 167
+|chat|DEBUG|HP: 290 vs 269
+|chat|DEBUG|Created a new Strategy for milotic vs gyarados:
+|chat|DEBUG|>[scald: 41.0 [38, 45], scald: 41.0 [38, 45], scald: 41.0 [38, 45]]
+|chat|DEBUG|Best move of milotic (p1): scald: 41.0 [38, 45]
+|chat|DEBUG|Best move of gyarados (p2): powerwhip: 189.125 [174, 206]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|move|p2a: Milotic|Scald|p1a: Gyarados|[miss]
+|-miss|p2a: Milotic|p1a: Gyarados
+|move|p1a: Gyarados|Bounce|p2a: Milotic|[from]lockedmove
+|-damage|p2a: Milotic|194290
+|-heal|p2a: Milotic|212290|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['absol']
+|chat|DEBUG|Speed: 180 vs 167
+|chat|DEBUG|HP: 290 vs 231
+|chat|DEBUG|Best move of milotic (p1): scald: 41.0 [38, 45]
+|chat|DEBUG|Best move of gyarados (p2): powerwhip: 189.125 [174, 206]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|move|p2a: Milotic|Scald|p1a: Gyarados
+|-resisted|p1a: Gyarados
+|-damage|p1a: Gyarados|72100
+|move|p1a: Gyarados|Dragon Dance|p1a: Gyarados
+|-boost|p1a: Gyarados|atk|1
+|-boost|p1a: Gyarados|spe|1
+|-heal|p2a: Milotic|230290|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['absol']
+|chat|DEBUG|Speed: 180 vs 167
+|chat|DEBUG|HP: 212 vs 231
+|chat|DEBUG|Best move of milotic (p1): scald: 41.0 [38, 45]
+|chat|DEBUG|Best move of gyarados (p2): powerwhip: 189.125 [174, 206]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|switch|p2a: Absol|Absol, L84, F|246246
+|move|p1a: Gyarados|Dragon Dance|p1a: Gyarados
+|-boost|p1a: Gyarados|atk|1
+|-boost|p1a: Gyarados|spe|1
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: ['absol']
+|chat|DEBUG|Counter: ['absol']
+|chat|DEBUG|Speed: 180 vs 167
+|chat|DEBUG|HP: 230 vs 193
+|chat|DEBUG|Created a new Strategy for milotic vs gyarados:
+|chat|DEBUG|>[scald: 41.0 [38, 45], scald: 41.0 [38, 45], scald: 41.0 [38, 45]]
+|chat|DEBUG|Best move of milotic (p1): scald: 41.0 [38, 45]
+|chat|DEBUG|Best move of gyarados (p2): powerwhip: 283.875 [260, 308]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check absol
+|move|p1a: Gyarados|Bounce||[still]
+|-prepare|p1a: Gyarados|Bounce
+|move|p2a: Absol|Knock Off|p1a: Gyarados|[miss]
+|-miss|p2a: Absol|p1a: Gyarados
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "absol" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: closecombat swordsdance playrough knockoff
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['absol']
+|chat|DEBUG|Speed: 174 vs 167
+|chat|DEBUG|HP: 246 vs 193
+|chat|DEBUG|Created a new Strategy for absol vs gyarados:
+|chat|DEBUG|>[knockoff: 200.6875 [185, 218], knockoff: 200.6875 [185, 218], knockoff: 200.6875 [185, 218]]
+|chat|DEBUG|Best move of absol (p1): knockoff: 200.6875 [185, 218]
+|chat|DEBUG|Best move of gyarados (p2): waterfall: 223.8125 [205, 243]
+|chat|DEBUG|Attacking using knockoff
+|move|p1a: Gyarados|Bounce|p2a: Absol|[from]lockedmove
+|-damage|p2a: Absol|9246
+|move|p2a: Absol|Knock Off|p1a: Gyarados
+|-damage|p1a: Gyarados|0 fnt
+|-enditem|p1a: Gyarados|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Absol
+|faint|p1a: Gyarados
+|-damage|p2a: Absol|0 fnt|[from] item: Life Orb
+|faint|p2a: Absol
+|upkeep
+|switch|p2a: Salazzle|Salazzle, L82, F|246246
+|switch|p1a: Lycanroc|Lycanroc-Dusk, L80, F|100100
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct absol salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "absol" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-absol-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: closecombat swordsdance playrough knockoff
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['absol']
+|chat|DEBUG|Speed: 174 vs 167
+|chat|DEBUG|HP: 246 vs 193
+|chat|DEBUG|Best move of absol (p1): knockoff: 200.6875 [185, 218]
+|chat|DEBUG|Best move of gyarados (p2): waterfall: 223.8125 [205, 243]
+|chat|DEBUG|Attacking using knockoff
+|-start|p2a: Salazzle|Dynamax
+|-heal|p2a: Salazzle|492492|[silent]
+|move|p1a: Lycanroc|Accelerock|p2a: Salazzle
+|-supereffective|p2a: Salazzle
+|-damage|p2a: Salazzle|334492
+|move|p2a: Salazzle|Max Flare|p1a: Lycanroc
+|-resisted|p1a: Lycanroc
+|-damage|p1a: Lycanroc|63100
+|-weather|SunnyDay
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Salazzle|349492|[from] item: Black Sludge
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "absol" vs "gyarados"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-salazzle -- lycanrocdusk-gyarados
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bounce dragondance powerwhip waterfall
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: salazzle
+|chat|DEBUG|>Switching to salazzle (pokemon object) [Active: False, Status: None]
+|-start|p1a: Lycanroc|Dynamax
+|-heal|p1a: Lycanroc|63100|[silent]
+|move|p1a: Lycanroc|Max Guard|p1a: Lycanroc
+|-singleturn|p1a: Lycanroc|Max Guard
+|move|p2a: Salazzle|Max Flare|p1a: Lycanroc
+|-activate|p1a: Lycanroc|move: Max Guard
+|-weather|SunnyDay|[upkeep]
+|-heal|p2a: Salazzle|364492|[from] item: Black Sludge
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "salazzle" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-salazzle -- lycanrocdusk
+|chat|DEBUG|Own moves: toxic flamethrower substitute protect
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 239 vs 222
+|chat|DEBUG|HP: 246 vs 251
+|chat|DEBUG|Created a new Strategy for salazzle vs lycanrocdusk:
+|chat|DEBUG|>[flamethrower: 65.25 [60, 71], flamethrower: 65.25 [60, 71], flamethrower: 65.25 [60, 71]]
+|chat|DEBUG|Best move of salazzle (p1): flamethrower: 65.25 [60, 71]
+|chat|DEBUG|Best move of lycanrocdusk (p2): stoneedge: 394.1875 [361, 429]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Dynamaxing on last full health pokemon!
+|move|p2a: Salazzle|Max Flare|p1a: Lycanroc
+|-resisted|p1a: Lycanroc
+|-damage|p1a: Lycanroc|37100
+|move|p1a: Lycanroc|Max Rockfall|p2a: Salazzle
+|-supereffective|p2a: Salazzle
+|-damage|p2a: Salazzle|0 fnt
+|-weather|Sandstorm
+|faint|p2a: Salazzle
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|switch|p2a: Milotic|Milotic, L82, F|230290
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "salazzle" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-salazzle -- lycanrocdusk
+|chat|DEBUG|Own moves: toxic flamethrower substitute protect
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic']
+|chat|DEBUG|Speed: 239 vs 222
+|chat|DEBUG|HP: 349 vs 158
+|chat|DEBUG|Best move of salazzle (p1): flamethrower: 65.25 [60, 71]
+|chat|DEBUG|Best move of lycanrocdusk (p2): stoneedge: 394.1875 [361, 429]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flamethrower
+|move|p1a: Lycanroc|Max Mindstorm|p2a: Milotic
+|-damage|p2a: Milotic|114290
+|-fieldstart|move: Psychic Terrain
+|move|p2a: Milotic|Scald|p1a: Lycanroc
+|-supereffective|p1a: Lycanroc
+|-damage|p1a: Lycanroc|6100
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Milotic|96290|[from] Sandstorm
+|-heal|p2a: Milotic|114290|[from] item: Leftovers
+|-end|p1a: Lycanroc|Dynamax
+|-heal|p1a: Lycanroc|6100|[silent]
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct salazzle
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "salazzle" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct-salazzle -- lycanrocdusk
+|chat|DEBUG|Own moves: toxic flamethrower substitute protect
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic']
+|chat|DEBUG|Speed: 239 vs 222
+|chat|DEBUG|HP: 364 vs 158
+|chat|DEBUG|Best move of salazzle (p1): flamethrower: 65.25 [60, 71]
+|chat|DEBUG|Best move of lycanrocdusk (p2): stoneedge: 394.1875 [361, 429]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flamethrower
+|move|p1a: Lycanroc|Psychic Fangs|p2a: Milotic
+|-damage|p2a: Milotic|0 fnt
+|faint|p2a: Milotic
+|-weather|Sandstorm|[upkeep]
+|upkeep
+|switch|p2a: Moltres|Moltres-Galar, L75|31259
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "salazzle" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct -- lycanrocdusk
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to milotic (pokemon object) [Active: False, Status: None]
+|move|p1a: Lycanroc|Stone Edge|p2a: Moltres|[miss]
+|-miss|p1a: Lycanroc|p2a: Moltres
+|move|p2a: Moltres|Fiery Wrath|p1a: Lycanroc
+|-damage|p1a: Lycanroc|0 fnt
+|faint|p1a: Lycanroc
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Moltres|15259|[from] Sandstorm
+|upkeep
+|switch|p1a: Noivern|Noivern, L82, F|100100
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct -- lycanrocdusk
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['milotic']
+|chat|DEBUG|Speed: 180 vs 222
+|chat|DEBUG|HP: 230 vs 92
+|chat|DEBUG|Created a new Strategy for milotic vs lycanrocdusk:
+|chat|DEBUG|>[scald: 214.625 [198, 234], scald: 214.625 [198, 234], scald: 214.625 [198, 234]]
+|chat|DEBUG|Best move of milotic (p1): scald: 214.625 [198, 234]
+|chat|DEBUG|Best move of lycanrocdusk (p2): closecombat: 168.875 [155, 183]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Noivern|Flamethrower|p2a: Moltres
+|-damage|p2a: Moltres|0 fnt
+|faint|p2a: Moltres
+|-weather|none
+|upkeep
+|switch|p2a: Grapploct|Grapploct, L86, M|52278
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>milotic moltresgalar grapploct
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "milotic" vs "lycanrocdusk"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>milotic-moltresgalar-grapploct -- lycanrocdusk
+|chat|DEBUG|Own moves: recover toxic haze scald
+|chat|DEBUG|Enemy moves: closecombat psychicfangs stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 180 vs 222
+|chat|DEBUG|HP: 114 vs 15
+|chat|DEBUG|Best move of milotic (p1): scald: 214.625 [198, 234]
+|chat|DEBUG|Best move of lycanrocdusk (p2): closecombat: 168.875 [155, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using scald
+|move|p1a: Noivern|Hurricane|p2a: Grapploct
+|-supereffective|p2a: Grapploct
+|-damage|p2a: Grapploct|0 fnt
+|faint|p2a: Grapploct
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">milotic moltresgalar grapploct absol entei salazzle</h1>

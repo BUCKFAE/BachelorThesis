@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1491377896<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1491377896|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Centiskorch|Centiskorch, L84, F|100100
+|switch|p2a: Carbink|Carbink, L86|226226
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "centiskorch"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-scrafty-dialga-weavile-slurpuff-registeel -- centiskorch
+|chat|DEBUG|Own moves: lightscreen reflect moonblast stealthrock
+|chat|DEBUG|Enemy moves: coil firelash knockoff leechlife
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 135 vs 157
+|chat|DEBUG|HP: 226 vs 305
+|chat|DEBUG|Created a new Strategy for carbink vs centiskorch:
+|chat|DEBUG|>[moonblast: 32.625 [30, 36], moonblast: 32.625 [30, 36], moonblast: 32.625 [30, 36]]
+|chat|DEBUG|Best move of carbink (p1): moonblast: 32.625 [30, 36]
+|chat|DEBUG|Best move of centiskorch (p2): firelash: 45.6875 [42, 50]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect-stealthrock
+|switch|p1a: Togedemaru|Togedemaru, L86, M|100100
+|move|p2a: Carbink|Light Screen|p2a: Carbink
+|-sidestart|p2: HerrGewitter1|move: Light Screen
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "togedemaru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: lightscreen reflect moonblast stealthrock
+|chat|DEBUG|Enemy moves: ironhead spikyshield wish zingzap
+|chat|DEBUG|Checks: ['scrafty', 'dialga']
+|chat|DEBUG|Counter: ['scrafty', 'dialga', 'weavile']
+|chat|DEBUG|Speed: 135 vs 214
+|chat|DEBUG|HP: 226 vs 252
+|chat|DEBUG|Created a new Strategy for carbink vs togedemaru:
+|chat|DEBUG|>[moonblast: 36.6875 [33, 40], moonblast: 36.6875 [33, 40], moonblast: 36.6875 [33, 40]]
+|chat|DEBUG|Best move of carbink (p1): moonblast: 36.6875 [33, 40]
+|chat|DEBUG|Best move of togedemaru (p2): ironhead: 229.25 [208, 252]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect-stealthrock
+|move|p1a: Togedemaru|Iron Head|p2a: Carbink
+|-supereffective|p2a: Carbink
+|-ability|p2a: Carbink|Sturdy
+|-damage|p2a: Carbink|1226
+|cant|p2a: Carbink|flinch
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>carbink scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "togedemaru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>carbink-scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: lightscreen reflect moonblast stealthrock
+|chat|DEBUG|Enemy moves: ironhead spikyshield wish zingzap
+|chat|DEBUG|Checks: ['scrafty', 'dialga']
+|chat|DEBUG|Counter: ['scrafty', 'dialga', 'weavile']
+|chat|DEBUG|Speed: 135 vs 214
+|chat|DEBUG|HP: 1 vs 252
+|chat|DEBUG|Best move of carbink (p1): moonblast: 36.6875 [33, 40]
+|chat|DEBUG|Best move of togedemaru (p2): ironhead: 229.25 [208, 252]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|lightscreen-reflect-stealthrock
+|move|p1a: Togedemaru|Iron Head|p2a: Carbink
+|-supereffective|p2a: Carbink
+|-damage|p2a: Carbink|0 fnt
+|faint|p2a: Carbink
+|upkeep
+|switch|p2a: Scrafty|Scrafty, L82, F|241241
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "carbink" vs "togedemaru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: ironhead spikyshield wish zingzap
+|chat|DEBUG|Checks: ['scrafty', 'dialga']
+|chat|DEBUG|Counter: ['scrafty', 'dialga', 'weavile']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to scrafty (pokemon object) [Active: False, Status: None]
+|switch|p1a: Centiskorch|Centiskorch, L84, F|100100
+|move|p2a: Scrafty|Dragon Dance|p2a: Scrafty
+|-boost|p2a: Scrafty|atk|1
+|-boost|p2a: Scrafty|spe|1
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "togedemaru"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: closecombat poisonjab knockoff dragondance
+|chat|DEBUG|Enemy moves: ironhead spikyshield wish zingzap
+|chat|DEBUG|Checks: ['scrafty', 'dialga']
+|chat|DEBUG|Counter: ['scrafty', 'dialga', 'weavile']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 142 vs 214
+|chat|DEBUG|HP: 241 vs 252
+|chat|DEBUG|Created a new Strategy for scrafty vs togedemaru:
+|chat|DEBUG|>[closecombat: 280.25 [258, 306], closecombat: 280.25 [258, 306], closecombat: 280.25 [258, 306]]
+|chat|DEBUG|Best move of scrafty (p1): closecombat: 280.25 [258, 306]
+|chat|DEBUG|Best move of togedemaru (p2): zingzap: 75.3125 [69, 82]
+|chat|DEBUG|Boost Moves: [dragondance (Move object)]
+|move|p2a: Scrafty|Knock Off|p1a: Centiskorch
+|-crit|p1a: Centiskorch
+|-damage|p1a: Centiskorch|9100
+|-enditem|p1a: Centiskorch|Heavy-Duty Boots|[from] move: Knock Off|[of] p2a: Scrafty
+|move|p1a: Centiskorch|Fire Lash|p2a: Scrafty
+|-damage|p2a: Scrafty|162241
+|-unboost|p2a: Scrafty|def|1
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "centiskorch"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: closecombat poisonjab knockoff dragondance
+|chat|DEBUG|Enemy moves: coil firelash knockoff leechlife
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty']
+|chat|DEBUG|Speed: 142 vs 157
+|chat|DEBUG|HP: 241 vs 305
+|chat|DEBUG|Created a new Strategy for scrafty vs centiskorch:
+|chat|DEBUG|>[knockoff: 171.125 [157, 186], knockoff: 171.125 [157, 186], knockoff: 171.125 [157, 186]]
+|chat|DEBUG|Best move of scrafty (p1): knockoff: 171.125 [157, 186]
+|chat|DEBUG|Best move of centiskorch (p2): firelash: 119.75 [109, 130]
+|chat|DEBUG|Attacking using knockoff
+|switch|p2a: Dialga|Dialga, L74|270270
+|-ability|p2a: Dialga|Pressure
+|move|p1a: Centiskorch|Knock Off|p2a: Dialga
+|-damage|p2a: Dialga|205270
+|-enditem|p2a: Dialga|Leftovers|[from] move: Knock Off|[of] p1a: Centiskorch
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "scrafty" vs "centiskorch"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: closecombat poisonjab knockoff dragondance
+|chat|DEBUG|Enemy moves: coil firelash knockoff leechlife
+|chat|DEBUG|Checks: ['dialga', 'slurpuff']
+|chat|DEBUG|Counter: ['dialga', 'weavile', 'slurpuff', 'registeel']
+|chat|DEBUG|Speed: 142 vs 157
+|chat|DEBUG|HP: 162 vs 27
+|chat|DEBUG|Best move of scrafty (p1): knockoff: 171.125 [157, 186]
+|chat|DEBUG|Best move of centiskorch (p2): firelash: 179.5 [165, 195]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check dialga
+|switch|p1a: Diancie|Diancie, L82|100100
+|move|p2a: Dialga|Thunderbolt|p1a: Diancie
+|-damage|p1a: Diancie|79100
+|-heal|p1a: Diancie|85100|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "centiskorch"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru
+|chat|DEBUG|Own moves: toxic flashcannon dracometeor thunderbolt
+|chat|DEBUG|Enemy moves: coil firelash knockoff leechlife
+|chat|DEBUG|Checks: ['dialga', 'slurpuff']
+|chat|DEBUG|Counter: ['dialga', 'weavile', 'slurpuff', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 176 vs 157
+|chat|DEBUG|HP: 205 vs 27
+|chat|DEBUG|Created a new Strategy for dialga vs centiskorch:
+|chat|DEBUG|>[thunderbolt: 69.8125 [64, 76], thunderbolt: 69.8125 [64, 76], dracometeor: 150.1875 [138, 163]]
+|chat|DEBUG|Best move of dialga (p1): thunderbolt: 69.8125 [64, 76]
+|chat|DEBUG|Best move of centiskorch (p2): firelash: 128.0625 [118, 139]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Dialga|Flash Cannon|p1a: Diancie
+|-supereffective|p1a: Diancie
+|-damage|p1a: Diancie|0 fnt
+|faint|p1a: Diancie
+|-sideend|p2: HerrGewitter1|move: Light Screen
+|upkeep
+|switch|p1a: Liepard|Liepard, L86, M|100100
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "diancie"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru-diancie
+|chat|DEBUG|Own moves: toxic flashcannon dracometeor thunderbolt
+|chat|DEBUG|Enemy moves: diamondstorm earthpower moonblast toxic
+|chat|DEBUG|Checks: ['dialga', 'registeel']
+|chat|DEBUG|Counter: ['dialga', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 129
+|chat|DEBUG|HP: 205 vs 183
+|chat|DEBUG|Created a new Strategy for dialga vs diancie:
+|chat|DEBUG|>[flashcannon: 251.75 [232, 276], flashcannon: 251.75 [232, 276], flashcannon: 251.75 [232, 276]]
+|chat|DEBUG|Best move of dialga (p1): flashcannon: 251.75 [232, 276]
+|chat|DEBUG|Best move of diancie (p2): earthpower: 126.75 [116, 138]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using flashcannon
+|move|p1a: Liepard|Knock Off|p2a: Dialga
+|-damage|p2a: Dialga|148270
+|move|p2a: Dialga|Flash Cannon|p1a: Liepard
+|-damage|p1a: Liepard|50100
+|-heal|p1a: Liepard|56100|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "liepard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru-liepard
+|chat|DEBUG|Own moves: toxic flashcannon dracometeor thunderbolt
+|chat|DEBUG|Enemy moves: copycat knockoff playrough uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['dialga', 'slurpuff']
+|chat|DEBUG|Speed: 176 vs 232
+|chat|DEBUG|HP: 205 vs 250
+|chat|DEBUG|Created a new Strategy for dialga vs liepard:
+|chat|DEBUG|>[flashcannon: 137.0 [126, 148], flashcannon: 137.0 [126, 148], dracometeor: 221.25 [204, 240]]
+|chat|DEBUG|Best move of dialga (p1): flashcannon: 137.0 [126, 148]
+|chat|DEBUG|Best move of liepard (p2): knockoff: 89.1875 [82, 97]
+|chat|DEBUG|Attacking using flashcannon
+|move|p1a: Liepard|Play Rough|p2a: Dialga|[miss]
+|-miss|p1a: Liepard|p2a: Dialga
+|move|p2a: Dialga|Flash Cannon|p1a: Liepard
+|-damage|p1a: Liepard|4100
+|-heal|p1a: Liepard|10100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "liepard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru-liepard
+|chat|DEBUG|Own moves: toxic flashcannon dracometeor thunderbolt
+|chat|DEBUG|Enemy moves: encore knockoff thunderwave uturn
+|chat|DEBUG|Checks: ['scrafty', 'slurpuff', 'registeel']
+|chat|DEBUG|Counter: ['scrafty', 'dialga', 'weavile', 'slurpuff', 'registeel']
+|chat|DEBUG|Speed: 176 vs 232
+|chat|DEBUG|HP: 148 vs 140
+|chat|DEBUG|Best move of dialga (p1): flashcannon: 137.0 [126, 148]
+|chat|DEBUG|Best move of liepard (p2): knockoff: 60.125 [55, 66]
+|chat|DEBUG|Attacking using flashcannon
+|move|p1a: Liepard|Play Rough|p2a: Dialga
+|-damage|p2a: Dialga|95270
+|move|p2a: Dialga|Draco Meteor|p1a: Liepard
+|-damage|p1a: Liepard|0 fnt
+|-unboost|p2a: Dialga|spa|2
+|faint|p1a: Liepard
+|upkeep
+|switch|p1a: Sandslash|Sandslash, L86, F|100100
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "liepard"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru-liepard
+|chat|DEBUG|Own moves: toxic flashcannon dracometeor thunderbolt
+|chat|DEBUG|Enemy moves: encore knockoff thunderwave uturn
+|chat|DEBUG|Checks: ['scrafty', 'dialga', 'weavile', 'slurpuff', 'registeel']
+|chat|DEBUG|Counter: ['scrafty', 'dialga', 'weavile', 'slurpuff', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 176 vs 232
+|chat|DEBUG|HP: 148 vs 25
+|chat|DEBUG|Best move of dialga (p1): dracometeor: 221.25 [204, 240]
+|chat|DEBUG|Best move of liepard (p2): knockoff: 60.125 [55, 66]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Dialga|Flash Cannon|p1a: Sandslash
+|-damage|p1a: Sandslash|76100
+|move|p1a: Sandslash|Earthquake|p2a: Dialga
+|-supereffective|p2a: Dialga
+|-damage|p2a: Dialga|0 fnt
+|faint|p2a: Dialga
+|-heal|p1a: Sandslash|82100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Registeel|Registeel, L83|268268
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty dialga weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-dialga-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: toxic flashcannon dracometeor thunderbolt
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 176 vs 161
+|chat|DEBUG|HP: 95 vs 269
+|chat|DEBUG|Created a new Strategy for dialga vs sandslash:
+|chat|DEBUG|>[flashcannon: 64.25 [58, 70], flashcannon: 64.25 [58, 70], dracometeor: 103.25 [94, 112]]
+|chat|DEBUG|Best move of dialga (p1): flashcannon: 64.25 [58, 70]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 264.5625 [242, 289]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flashcannon
+|move|p1a: Sandslash|Spikes|p2a: Registeel
+|-sidestart|p2: HerrGewitter1|Spikes
+|move|p2a: Registeel|Iron Head|p1a: Sandslash
+|-damage|p1a: Sandslash|63100
+|-heal|p1a: Sandslash|69100|[from] item: Leftovers
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "dialga" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake knockoff stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: registeel
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|move|p1a: Sandslash|Spikes|p2a: Registeel
+|-sidestart|p2: HerrGewitter1|Spikes
+|move|p2a: Registeel|Iron Head|p1a: Sandslash
+|-damage|p1a: Sandslash|47100
+|-heal|p1a: Sandslash|53100|[from] item: Leftovers
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 131 vs 161
+|chat|DEBUG|HP: 268 vs 220
+|chat|DEBUG|Created a new Strategy for registeel vs sandslash:
+|chat|DEBUG|>[ironhead: 57.3125 [52, 63], ironhead: 57.3125 [52, 63], ironhead: 57.3125 [52, 63]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 57.3125 [52, 63]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|move|p1a: Sandslash|Spikes|p2a: Registeel
+|-sidestart|p2: HerrGewitter1|Spikes
+|move|p2a: Registeel|Iron Head|p1a: Sandslash
+|-damage|p1a: Sandslash|33100
+|-heal|p1a: Sandslash|39100|[from] item: Leftovers
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 131 vs 161
+|chat|DEBUG|HP: 268 vs 185
+|chat|DEBUG|Best move of registeel (p1): ironhead: 57.3125 [52, 63]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|move|p1a: Sandslash|Stealth Rock|p2a: Registeel
+|-sidestart|p2: HerrGewitter1|move: Stealth Rock
+|move|p2a: Registeel|Iron Head|p1a: Sandslash
+|-damage|p1a: Sandslash|18100
+|-heal|p1a: Sandslash|24100|[from] item: Leftovers
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['weavile']
+|chat|DEBUG|Speed: 131 vs 161
+|chat|DEBUG|HP: 268 vs 142
+|chat|DEBUG|Best move of registeel (p1): ironhead: 57.3125 [52, 63]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|switch|p2a: Weavile|Weavile, L79, M|240240
+|move|p1a: Sandslash|Earthquake|p2a: Weavile
+|-damage|p2a: Weavile|86240
+|-heal|p1a: Sandslash|30100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'weavile', 'slurpuff']
+|chat|DEBUG|Speed: 131 vs 161
+|chat|DEBUG|HP: 268 vs 104
+|chat|DEBUG|Created a new Strategy for registeel vs sandslash:
+|chat|DEBUG|>[ironhead: 57.3125 [52, 63], ironhead: 57.3125 [52, 63], ironhead: 57.3125 [52, 63]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 57.3125 [52, 63]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using ironhead
+|switch|p1a: Omastar|Omastar, L82, M|100100
+|move|p2a: Weavile|Knock Off|p1a: Omastar
+|-damage|p1a: Omastar|64100
+|-enditem|p1a: Omastar|White Herb|[from] move: Knock Off|[of] p2a: Weavile
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: ['weavile']
+|chat|DEBUG|Counter: ['scrafty', 'weavile', 'slurpuff']
+|chat|DEBUG|Speed: 131 vs 161
+|chat|DEBUG|HP: 268 vs 64
+|chat|DEBUG|Best move of registeel (p1): ironhead: 57.3125 [52, 63]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 150.625 [138, 164]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check weavile
+|move|p2a: Weavile|Knock Off|p1a: Omastar
+|-damage|p1a: Omastar|40100
+|move|p1a: Omastar|Hydro Pump|p2a: Weavile|[miss]
+|-miss|p1a: Omastar|p2a: Weavile
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weavile" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: swordsdance tripleaxel knockoff iceshard
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'weavile', 'slurpuff']
+|chat|DEBUG|Speed: 243 vs 161
+|chat|DEBUG|HP: 86 vs 80
+|chat|DEBUG|Created a new Strategy for weavile vs sandslash:
+|chat|DEBUG|>[knockoff: 89.1875 [82, 97], knockoff: 89.1875 [82, 97], knockoff: 89.1875 [82, 97]]
+|chat|DEBUG|Best move of weavile (p1): knockoff: 89.1875 [82, 97]
+|chat|DEBUG|Best move of sandslash (p2): stoneedge: 200.625 [184, 218]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Weavile|Knock Off|p1a: Omastar
+|-damage|p1a: Omastar|18100
+|move|p1a: Omastar|Hydro Pump|p2a: Weavile
+|-damage|p2a: Weavile|0 fnt
+|faint|p2a: Weavile
+|upkeep
+|switch|p2a: Registeel|Registeel, L83|268268
+|-damage|p2a: Registeel|201268|[from] Spikes
+|-damage|p2a: Registeel|185268|[from] Stealth Rock
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weavile" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash-omastar
+|chat|DEBUG|Own moves: swordsdance tripleaxel knockoff iceshard
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['scrafty']
+|chat|DEBUG|Counter: ['scrafty']
+|chat|DEBUG|Speed: 243 vs 137
+|chat|DEBUG|HP: 86 vs 159
+|chat|DEBUG|Created a new Strategy for weavile vs omastar:
+|chat|DEBUG|>[knockoff: 57.3125 [52, 63], knockoff: 57.3125 [52, 63], knockoff: 57.3125 [52, 63]]
+|chat|DEBUG|Best move of weavile (p1): knockoff: 57.3125 [52, 63]
+|chat|DEBUG|Best move of omastar (p2): hydropump: 138.5 [127, 150]
+|chat|DEBUG|Attacking using knockoff
+|move|p1a: Omastar|Hydro Pump|p2a: Registeel
+|-damage|p2a: Registeel|101268
+|move|p2a: Registeel|Iron Head|p1a: Omastar
+|-damage|p1a: Omastar|0 fnt
+|faint|p1a: Omastar
+|-heal|p2a: Registeel|117268|[from] item: Leftovers
+|upkeep
+|switch|p1a: Sandslash|Sandslash, L86, F|30100
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty weavile slurpuff registeel
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weavile" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-weavile-slurpuff-registeel -- centiskorch-togedemaru-sandslash-omastar
+|chat|DEBUG|Own moves: swordsdance tripleaxel knockoff iceshard
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['scrafty']
+|chat|DEBUG|Counter: ['scrafty', 'slurpuff', 'registeel']
+|chat|DEBUG|Speed: 243 vs 137
+|chat|DEBUG|HP: 86 vs 99
+|chat|DEBUG|Best move of weavile (p1): knockoff: 57.3125 [52, 63]
+|chat|DEBUG|Best move of omastar (p2): hydropump: 138.5 [127, 150]
+|chat|DEBUG|Attacking using knockoff
+|move|p1a: Sandslash|Earthquake|p2a: Registeel
+|-supereffective|p2a: Registeel
+|-damage|p2a: Registeel|0 fnt
+|faint|p2a: Registeel
+|-heal|p1a: Sandslash|36100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Scrafty|Scrafty, L82, F|162241
+|-damage|p2a: Scrafty|147241|[from] Stealth Rock
+|-damage|p2a: Scrafty|87241|[from] Spikes
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty slurpuff registeel
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weavile" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-slurpuff-registeel -- centiskorch-togedemaru-sandslash-omastar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['scrafty']
+|chat|DEBUG|Counter: ['scrafty', 'slurpuff', 'registeel']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'scrafty': 162, 'slurpuff': 262, 'registeel': 268}
+|chat|DEBUG|remaining_hp_team_2={'centiskorch': 9, 'togedemaru': 100, 'sandslash': 30, 'omastar': 40}
+|chat|DEBUG|battle.available_switches=[scrafty (pokemon object) [Active: False, Status: None], registeel (pokemon object) [Active: False, Status: None], slurpuff (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'registeel'
+|chat|DEBUG|>Switching to registeel (pokemon object) [Active: False, Status: None]
+|move|p1a: Sandslash|Earthquake|p2a: Scrafty
+|-damage|p2a: Scrafty|0 fnt
+|faint|p2a: Scrafty
+|-heal|p1a: Sandslash|42100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Slurpuff|Slurpuff, L80, F|262262
+|-damage|p2a: Slurpuff|230262|[from] Stealth Rock
+|-damage|p2a: Slurpuff|165262|[from] Spikes
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty slurpuff registeel
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "omastar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-slurpuff-registeel -- centiskorch-togedemaru-sandslash-omastar
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthpower hydropump icebeam shellsmash
+|chat|DEBUG|Checks: ['scrafty', 'slurpuff', 'registeel']
+|chat|DEBUG|Counter: ['scrafty', 'slurpuff', 'registeel']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 131 vs 137
+|chat|DEBUG|HP: 185 vs 44
+|chat|DEBUG|Created a new Strategy for registeel vs omastar:
+|chat|DEBUG|>[ironhead: 54.75 [51, 60], ironhead: 54.75 [51, 60], ironhead: 54.75 [51, 60]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 54.75 [51, 60]
+|chat|DEBUG|Best move of omastar (p2): earthpower: 92.0 [84, 100]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Slurpuff|Play Rough|p1a: Sandslash
+|-damage|p1a: Sandslash|19100
+|move|p1a: Sandslash|Earthquake|p2a: Slurpuff
+|-damage|p2a: Slurpuff|50262
+|-enditem|p2a: Slurpuff|Sitrus Berry|[eat]
+|-heal|p2a: Slurpuff|115262|[from] item: Sitrus Berry
+|-heal|p1a: Sandslash|25100|[from] item: Leftovers
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty slurpuff registeel
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-slurpuff-registeel -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: ironhead curse rest sleeptalk
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'slurpuff']
+|chat|DEBUG|Speed: 131 vs 161
+|chat|DEBUG|HP: 117 vs 80
+|chat|DEBUG|Created a new Strategy for registeel vs sandslash:
+|chat|DEBUG|>[ironhead: 57.3125 [52, 63], ironhead: 57.3125 [52, 63], ironhead: 57.3125 [52, 63]]
+|chat|DEBUG|Best move of registeel (p1): ironhead: 57.3125 [52, 63]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 150.625 [138, 164]
+|chat|DEBUG|Attacking using ironhead
+|-start|p1a: Sandslash|Dynamax
+|-heal|p1a: Sandslash|25100|[silent]
+|move|p2a: Slurpuff|Play Rough|p1a: Sandslash
+|-damage|p1a: Sandslash|13100
+|-unboost|p1a: Sandslash|atk|1
+|move|p1a: Sandslash|Max Quake|p2a: Slurpuff
+|-damage|p2a: Slurpuff|10262
+|-boost|p1a: Sandslash|spd|1
+|-heal|p1a: Sandslash|16100|[from] item: Leftovers
+|upkeep
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty slurpuff
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "registeel" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-slurpuff -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['scrafty', 'slurpuff']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'scrafty': 162, 'slurpuff': 262}
+|chat|DEBUG|remaining_hp_team_2={'centiskorch': 9, 'togedemaru': 100, 'sandslash': 30}
+|chat|DEBUG|battle.available_switches=[scrafty (pokemon object) [Active: False, Status: None], slurpuff (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'scrafty'
+|chat|DEBUG|>Switching to scrafty (pokemon object) [Active: False, Status: None]
+|move|p1a: Sandslash|Max Guard|p1a: Sandslash
+|-singleturn|p1a: Sandslash|Max Guard
+|move|p2a: Slurpuff|Play Rough|p1a: Sandslash
+|-activate|p1a: Sandslash|move: Max Guard
+|-heal|p1a: Sandslash|19100|[from] item: Leftovers
+|upkeep
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>scrafty slurpuff
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "scrafty" vs "sandslash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>scrafty-slurpuff -- centiskorch-togedemaru-sandslash
+|chat|DEBUG|Own moves: closecombat poisonjab knockoff dragondance
+|chat|DEBUG|Enemy moves: earthquake rapidspin stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slurpuff']
+|chat|DEBUG|Speed: 142 vs 161
+|chat|DEBUG|HP: 87 vs 96
+|chat|DEBUG|Created a new Strategy for scrafty vs sandslash:
+|chat|DEBUG|>[closecombat: 93.25 [85, 102], closecombat: 93.25 [85, 102], closecombat: 93.25 [85, 102]]
+|chat|DEBUG|Best move of scrafty (p1): closecombat: 93.25 [85, 102]
+|chat|DEBUG|Best move of sandslash (p2): earthquake: 94.875 [87, 103]
+|chat|DEBUG|Attacking using closecombat
+|move|p2a: Slurpuff|Play Rough|p1a: Sandslash
+|-damage|p1a: Sandslash|7100
+|move|p1a: Sandslash|Max Quake|p2a: Slurpuff
+|-damage|p2a: Slurpuff|0 fnt
+|-boost|p1a: Sandslash|spd|1
+|faint|p2a: Slurpuff
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">carbink scrafty dialga weavile slurpuff registeel</h1>

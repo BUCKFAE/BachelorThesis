@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1493148040<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1493148040|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|lucas|
+|player|p2|HerrGewitter1|265|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Seismitoad|Seismitoad, L84, M|100100
+|switch|p2a: Grapploct|Grapploct, L86, F|278278
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant rotomwash gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-rotomwash-gigalith-marowakalola-porygonz -- seismitoad
+|chat|DEBUG|Own moves: bulkup brutalswing drainpunch icepunch
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: ['cramorant', 'rotomwash']
+|chat|DEBUG|Counter: ['cramorant', 'rotomwash', 'porygonz']
+|chat|DEBUG|Speed: 121 vs 173
+|chat|DEBUG|HP: 278 vs 314
+|chat|DEBUG|Created a new Strategy for grapploct vs seismitoad:
+|chat|DEBUG|>[drainpunch: 143.25 [133, 156], drainpunch: 143.25 [133, 156], drainpunch: 143.25 [133, 156]]
+|chat|DEBUG|Best move of grapploct (p1): drainpunch: 143.25 [133, 156]
+|chat|DEBUG|Best move of seismitoad (p2): earthquake: 130.5 [121, 142]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check cramorant
+|switch|p2a: Cramorant|Cramorant, L84, M|255255
+|move|p1a: Seismitoad|Earthquake|p2a: Cramorant
+|-immune|p2a: Cramorant
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant rotomwash gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-rotomwash-gigalith-marowakalola-porygonz -- seismitoad
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: ['cramorant', 'rotomwash']
+|chat|DEBUG|Counter: ['cramorant', 'rotomwash', 'porygonz']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 191 vs 173
+|chat|DEBUG|HP: 255 vs 314
+|chat|DEBUG|Created a new Strategy for cramorant vs seismitoad:
+|chat|DEBUG|>[bravebird: 129.5 [118, 141], bravebird: 129.5 [118, 141], bravebird: 129.5 [118, 141]]
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 129.5 [118, 141]
+|chat|DEBUG|Best move of seismitoad (p2): liquidation: 79.375 [73, 86]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using bravebird
+|j| KarstenShrank
+|switch|p1a: Xatu|Xatu, L89, F|100100
+|move|p2a: Cramorant|Brave Bird|p1a: Xatu
+|-damage|p1a: Xatu|51100
+|-damage|p2a: Cramorant|213255|[from] Recoil
+|-heal|p1a: Xatu|58100|[from] item: Leftovers
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant rotomwash gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-rotomwash-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: ['rotomwash', 'gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Counter: ['grapploct', 'rotomwash', 'gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Speed: 191 vs 220
+|chat|DEBUG|HP: 213 vs 150
+|chat|DEBUG|Created a new Strategy for cramorant vs xatu:
+|chat|DEBUG|>[bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of xatu (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check rotomwash
+|switch|p2a: Rotom|Rotom-Wash, L82|216216
+|move|p1a: Xatu|Thunder Wave|p2a: Rotom
+|-immune|p2a: Rotom
+|-heal|p1a: Xatu|64100|[from] item: Leftovers
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant rotomwash gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-rotomwash-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: ['rotomwash', 'gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Counter: ['grapploct', 'rotomwash', 'gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 188 vs 220
+|chat|DEBUG|HP: 216 vs 165
+|chat|DEBUG|Created a new Strategy for rotomwash vs xatu:
+|chat|DEBUG|>[thunderbolt: 214.625 [198, 234], thunderbolt: 214.625 [198, 234], thunderbolt: 214.625 [198, 234]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 214.625 [198, 234]
+|chat|DEBUG|Best move of xatu (p2): psychic: 91.875 [84, 100]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p1a: Kartana|Kartana, L74|100100
+|move|p2a: Rotom|Thunderbolt|p1a: Kartana
+|-resisted|p1a: Kartana
+|-damage|p1a: Kartana|47100
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant rotomwash gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-rotomwash-gigalith-marowakalola-porygonz -- seismitoad-xatu-kartana
+|chat|DEBUG|Own moves: hydropump willowisp voltswitch thunderbolt
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['grapploct', 'gigalith', 'porygonz']
+|chat|DEBUG|Speed: 188 vs 204
+|chat|DEBUG|HP: 216 vs 98
+|chat|DEBUG|Created a new Strategy for rotomwash vs kartana:
+|chat|DEBUG|>[thunderbolt: 104.6875 [96, 114], thunderbolt: 104.6875 [96, 114], thunderbolt: 104.6875 [96, 114]]
+|chat|DEBUG|Best move of rotomwash (p1): thunderbolt: 104.6875 [96, 114]
+|chat|DEBUG|Best move of kartana (p2): leafblade: 282.4375 [260, 307]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using thunderbolt
+|move|p1a: Kartana|Leaf Blade|p2a: Rotom
+|-supereffective|p2a: Rotom
+|-damage|p2a: Rotom|0 fnt
+|faint|p2a: Rotom
+|-ability|p1a: Kartana|Beast Boost|boost
+|-boost|p1a: Kartana|atk|1
+|upkeep
+|switch|p2a: Grapploct|Grapploct, L86, F|278278
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "rotomwash" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-kartana
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['grapploct', 'gigalith', 'porygonz']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to grapploct (pokemon object) [Active: False, Status: None]
+|-start|p1a: Kartana|Dynamax
+|-heal|p1a: Kartana|47100|[silent]
+|move|p1a: Kartana|Max Knuckle|p2a: Grapploct
+|-damage|p2a: Grapploct|159278
+|-boost|p1a: Kartana|atk|1
+|move|p2a: Grapploct|Drain Punch|p1a: Kartana
+|-supereffective|p1a: Kartana
+|-damage|p1a: Kartana|0 fnt
+|-heal|p2a: Grapploct|257278|[from] drain|[of] p1a: Kartana
+|faint|p1a: Kartana
+|-damage|p2a: Grapploct|230278|[from] item: Life Orb
+|upkeep
+|switch|p1a: Xatu|Xatu, L89, F|64100
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "kartana"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-kartana
+|chat|DEBUG|Own moves: bulkup brutalswing drainpunch icepunch
+|chat|DEBUG|Enemy moves: knockoff leafblade smartstrike swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['grapploct']
+|chat|DEBUG|Speed: 121 vs 204
+|chat|DEBUG|HP: 278 vs 98
+|chat|DEBUG|Created a new Strategy for grapploct vs kartana:
+|chat|DEBUG|>[drainpunch: 210.4375 [195, 229], drainpunch: 210.4375 [195, 229], drainpunch: 210.4375 [195, 229]]
+|chat|DEBUG|Best move of grapploct (p1): drainpunch: 210.4375 [195, 229]
+|chat|DEBUG|Best move of kartana (p2): leafblade: 231.1875 [212, 251]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Gigalith|Gigalith, L82, F|274274
+|-weather|Sandstorm|[from] ability: Sand Stream|[of] p2a: Gigalith
+|move|p1a: Xatu|Psychic|p2a: Gigalith
+|-damage|p2a: Gigalith|201274
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Xatu|58100|[from] Sandstorm
+|-heal|p1a: Xatu|64100|[from] item: Leftovers
+|-heal|p2a: Gigalith|218274|[from] item: Leftovers
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "grapploct" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bulkup brutalswing drainpunch icepunch
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: ['gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Counter: ['gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Speed: 121 vs 220
+|chat|DEBUG|HP: 230 vs 165
+|chat|DEBUG|Created a new Strategy for grapploct vs xatu:
+|chat|DEBUG|>[brutalswing: 227.5 [208, 247], brutalswing: 227.5 [208, 247], brutalswing: 227.5 [208, 247]]
+|chat|DEBUG|Best move of grapploct (p1): brutalswing: 227.5 [208, 247]
+|chat|DEBUG|Best move of xatu (p2): psychic: 220.5 [204, 240]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check gigalith
+|switch|p1a: Rotom|Rotom-Wash, L82|100100
+|move|p2a: Gigalith|Stone Edge|p1a: Rotom
+|-damage|p1a: Rotom|45100
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Rotom|39100|[from] Sandstorm
+|-heal|p1a: Rotom|45100|[from] item: Leftovers
+|-heal|p2a: Gigalith|235274|[from] item: Leftovers
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gigalith" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: superpower stoneedge earthquake stealthrock
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: ['gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Counter: ['gigalith', 'marowakalola', 'porygonz']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 88 vs 220
+|chat|DEBUG|HP: 218 vs 165
+|chat|DEBUG|Created a new Strategy for gigalith vs xatu:
+|chat|DEBUG|>[stoneedge: 292.25 [270, 318], stoneedge: 292.25 [270, 318], stoneedge: 292.25 [270, 318]]
+|chat|DEBUG|Best move of gigalith (p1): stoneedge: 292.25 [270, 318]
+|chat|DEBUG|Best move of xatu (p2): psychic: 115.625 [106, 126]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Rotom|Hydro Pump|p2a: Gigalith
+|-supereffective|p2a: Gigalith
+|-damage|p2a: Gigalith|49274
+|move|p2a: Gigalith|Stealth Rock|p1a: Rotom
+|-sidestart|p1: jok3r_de|move: Stealth Rock
+|-weather|Sandstorm|[upkeep]
+|-damage|p1a: Rotom|39100|[from] Sandstorm
+|-heal|p1a: Rotom|45100|[from] item: Leftovers
+|-heal|p2a: Gigalith|66274|[from] item: Leftovers
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gigalith" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-rotomwash
+|chat|DEBUG|Own moves: superpower stoneedge earthquake stealthrock
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['porygonz']
+|chat|DEBUG|Counter: ['grapploct', 'porygonz']
+|chat|DEBUG|Speed: 88 vs 188
+|chat|DEBUG|HP: 235 vs 97
+|chat|DEBUG|Created a new Strategy for gigalith vs rotomwash:
+|chat|DEBUG|>[stoneedge: 115.625 [106, 126], stoneedge: 115.625 [106, 126], stoneedge: 115.625 [106, 126]]
+|chat|DEBUG|Best move of gigalith (p1): stoneedge: 115.625 [106, 126]
+|chat|DEBUG|Best move of rotomwash (p2): hydropump: 259.0 [236, 282]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|switch|p2a: Porygon-Z|Porygon-Z, L80|267267
+|move|p1a: Rotom|Hydro Pump|p2a: Porygon-Z
+|-crit|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|54267
+|-weather|Sandstorm|[upkeep]
+|-damage|p2a: Porygon-Z|38267|[from] Sandstorm
+|-damage|p1a: Rotom|39100|[from] Sandstorm
+|-heal|p1a: Rotom|45100|[from] item: Leftovers
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "gigalith" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-rotomwash
+|chat|DEBUG|Own moves: superpower stoneedge earthquake stealthrock
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: ['porygonz']
+|chat|DEBUG|Counter: ['grapploct', 'porygonz']
+|chat|DEBUG|Speed: 88 vs 188
+|chat|DEBUG|HP: 66 vs 97
+|chat|DEBUG|Best move of gigalith (p1): stoneedge: 115.625 [106, 126]
+|chat|DEBUG|Best move of rotomwash (p2): hydropump: 259.0 [236, 282]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygonz
+|move|p2a: Porygon-Z|Tri Attack|p1a: Rotom
+|-damage|p1a: Rotom|0 fnt
+|faint|p1a: Rotom
+|-weather|none
+|upkeep
+|switch|p1a: Xatu|Xatu, L89, F|64100
+|-damage|p1a: Xatu|39100|[from] Stealth Rock
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "rotomwash"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-rotomwash
+|chat|DEBUG|Own moves: trick darkpulse icebeam triattack
+|chat|DEBUG|Enemy moves: hydropump thunderbolt voltswitch willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['grapploct', 'porygonz']
+|chat|DEBUG|Speed: 190 vs 188
+|chat|DEBUG|HP: 38 vs 97
+|chat|DEBUG|Created a new Strategy for porygonz vs rotomwash:
+|chat|DEBUG|>[triattack: 119.375 [110, 130], triattack: 119.375 [110, 130], triattack: 119.375 [110, 130]]
+|chat|DEBUG|Best move of porygonz (p1): triattack: 119.375 [110, 130]
+|chat|DEBUG|Best move of rotomwash (p2): thunderbolt: 112.8125 [103, 123]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Marowak|Marowak-Alola, L84, F|238238
+|move|p1a: Xatu|Psychic|p2a: Marowak
+|-damage|p2a: Marowak|133238
+|-unboost|p2a: Marowak|spd|1
+|-heal|p1a: Xatu|45100|[from] item: Leftovers
+|upkeep
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: triattack
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['cramorant', 'marowakalola']
+|chat|DEBUG|Speed: 190 vs 220
+|chat|DEBUG|HP: 38 vs 101
+|chat|DEBUG|Created a new Strategy for porygonz vs xatu:
+|chat|DEBUG|>[triattack: 152.75 [140, 166], triattack: 152.75 [140, 166], triattack: 152.75 [140, 166]]
+|chat|DEBUG|Best move of porygonz (p1): triattack: 152.75 [140, 166]
+|chat|DEBUG|Best move of xatu (p2): psychic: 124.0625 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check marowakalola
+|switch|p1a: Type: Null|Type: Null, L86|100100
+|-damage|p1a: Type: Null|88100|[from] Stealth Rock
+|move|p2a: Marowak|Poltergeist|p1a: Type: Null
+|-immune|p1a: Type: Null
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: poltergeist flamecharge earthquake flareblitz
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cramorant']
+|chat|DEBUG|Speed: 124 vs 220
+|chat|DEBUG|HP: 133 vs 116
+|chat|DEBUG|Created a new Strategy for marowakalola vs xatu:
+|chat|DEBUG|>[poltergeist: 225.625 [206, 246], poltergeist: 225.625 [206, 246], poltergeist: 225.625 [206, 246]]
+|chat|DEBUG|Best move of marowakalola (p1): poltergeist: 225.625 [206, 246]
+|chat|DEBUG|Best move of xatu (p2): psychic: 168.3125 [154, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|move|p1a: Type: Null|Payback|p2a: Marowak
+|-supereffective|p2a: Marowak
+|-damage|p2a: Marowak|73238
+|move|p2a: Marowak|Flare Blitz|p1a: Type: Null
+|-damage|p1a: Type: Null|45100
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-typenull
+|chat|DEBUG|Own moves: poltergeist flamecharge earthquake flareblitz
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['marowakalola']
+|chat|DEBUG|Counter: ['grapploct', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 124 vs 151
+|chat|DEBUG|HP: 133 vs 267
+|chat|DEBUG|Created a new Strategy for marowakalola vs typenull:
+|chat|DEBUG|>[flareblitz: 68.75 [63, 75], flareblitz: 68.75 [63, 75], flareblitz: 68.75 [63, 75]]
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 68.75 [63, 75]
+|chat|DEBUG|Best move of typenull (p2): sleeptalk: 0.0 [0, 0]
+|chat|DEBUG|Attacking using flareblitz
+|move|p1a: Type: Null|Payback|p2a: Marowak
+|-supereffective|p2a: Marowak
+|-damage|p2a: Marowak|11238
+|move|p2a: Marowak|Flare Blitz|p1a: Type: Null
+|-damage|p1a: Type: Null|0 fnt
+|faint|p1a: Type: Null
+|upkeep
+|switch|p1a: Xatu|Xatu, L89, F|45100
+|-damage|p1a: Xatu|21100|[from] Stealth Rock
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "typenull"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu-typenull
+|chat|DEBUG|Own moves: poltergeist flamecharge earthquake flareblitz
+|chat|DEBUG|Enemy moves: crushclaw rest sleeptalk swordsdance
+|chat|DEBUG|Checks: ['grapploct', 'marowakalola']
+|chat|DEBUG|Counter: ['grapploct', 'cramorant', 'gigalith', 'marowakalola']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 124 vs 151
+|chat|DEBUG|HP: 73 vs 136
+|chat|DEBUG|Best move of marowakalola (p1): flareblitz: 68.75 [63, 75]
+|chat|DEBUG|Best move of typenull (p2): sleeptalk: 0.0 [0, 0]
+|chat|DEBUG|Attacking using flareblitz
+|move|p1a: Xatu|Psychic|p2a: Marowak
+|-damage|p2a: Marowak|0 fnt
+|faint|p2a: Marowak
+|-heal|p1a: Xatu|27100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Cramorant|Cramorant, L84, M|213255
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith marowakalola porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-marowakalola-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: poltergeist flamecharge earthquake flareblitz
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cramorant']
+|chat|DEBUG|Speed: 124 vs 220
+|chat|DEBUG|HP: 11 vs 54
+|chat|DEBUG|Created a new Strategy for marowakalola vs xatu:
+|chat|DEBUG|>[poltergeist: 225.625 [206, 246], poltergeist: 225.625 [206, 246], poltergeist: 225.625 [206, 246]]
+|chat|DEBUG|Best move of marowakalola (p1): poltergeist: 225.625 [206, 246]
+|chat|DEBUG|Best move of xatu (p2): psychic: 168.3125 [154, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using poltergeist
+|move|p1a: Xatu|Roost|p1a: Xatu
+|-heal|p1a: Xatu|77100
+|-singleturn|p1a: Xatu|move: Roost
+|move|p2a: Cramorant|Brave Bird|p1a: Xatu
+|-damage|p1a: Xatu|31100
+|-damage|p2a: Cramorant|173255|[from] Recoil
+|-heal|p1a: Xatu|37100|[from] item: Leftovers
+|upkeep
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "marowakalola" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cramorant']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to cramorant (pokemon object) [Active: False, Status: None]
+|move|p1a: Xatu|Roost|p1a: Xatu
+|-heal|p1a: Xatu|87100
+|-singleturn|p1a: Xatu|move: Roost
+|move|p2a: Cramorant|Brave Bird|p1a: Xatu
+|-damage|p1a: Xatu|39100
+|-damage|p2a: Cramorant|132255|[from] Recoil
+|-heal|p1a: Xatu|45100|[from] item: Leftovers
+|upkeep
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cramorant']
+|chat|DEBUG|Speed: 191 vs 220
+|chat|DEBUG|HP: 213 vs 69
+|chat|DEBUG|Created a new Strategy for cramorant vs xatu:
+|chat|DEBUG|>[bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of xatu (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Xatu|Roost|p1a: Xatu
+|-heal|p1a: Xatu|95100
+|-singleturn|p1a: Xatu|move: Roost
+|move|p2a: Cramorant|Brave Bird|p1a: Xatu
+|-damage|p1a: Xatu|42100
+|-damage|p2a: Cramorant|86255|[from] Recoil
+|-heal|p1a: Xatu|48100|[from] item: Leftovers
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['cramorant']
+|chat|DEBUG|Speed: 191 vs 220
+|chat|DEBUG|HP: 173 vs 95
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of xatu (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Xatu|Roost|p1a: Xatu
+|-heal|p1a: Xatu|98100
+|-singleturn|p1a: Xatu|move: Roost
+|move|p2a: Cramorant|Brave Bird|p1a: Xatu
+|-damage|p1a: Xatu|50100
+|-damage|p2a: Cramorant|44255|[from] Recoil
+|-heal|p1a: Xatu|56100|[from] item: Leftovers
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 220
+|chat|DEBUG|HP: 132 vs 116
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of xatu (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Xatu|Roost|p1a: Xatu
+|-heal|p1a: Xatu|100100
+|-singleturn|p1a: Xatu|move: Roost
+|move|p2a: Cramorant|Brave Bird|p1a: Xatu
+|-damage|p1a: Xatu|48100
+|-damage|p2a: Cramorant|0 fnt|[from] Recoil
+|faint|p2a: Cramorant
+|-heal|p1a: Xatu|54100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Porygon-Z|Porygon-Z, L80|38267
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 220
+|chat|DEBUG|HP: 86 vs 124
+|chat|DEBUG|Created a new Strategy for cramorant vs xatu:
+|chat|DEBUG|>[bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139], bravebird: 128.0625 [118, 139]]
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of xatu (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|move|p2a: Porygon-Z|Ice Beam|p1a: Xatu
+|-supereffective|p1a: Xatu
+|-damage|p1a: Xatu|0 fnt
+|faint|p1a: Xatu
+|upkeep
+|switch|p1a: Seismitoad|Seismitoad, L84, M|100100
+|-damage|p1a: Seismitoad|94100|[from] Stealth Rock
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct cramorant gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-cramorant-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: bravebird roost surf defog
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 191 vs 220
+|chat|DEBUG|HP: 44 vs 145
+|chat|DEBUG|Best move of cramorant (p1): bravebird: 128.0625 [118, 139]
+|chat|DEBUG|Best move of xatu (p2): psychic: 98.9375 [91, 108]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using bravebird
+|move|p2a: Porygon-Z|Ice Beam|p1a: Seismitoad
+|-damage|p1a: Seismitoad|68100
+|-status|p1a: Seismitoad|frz
+|cant|p1a: Seismitoad|frz
+|upkeep
+|turn|24
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "cramorant" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Early game switch: porygonz
+|chat|DEBUG|>Switching to porygonz (pokemon object) [Active: False, Status: None]
+|switch|p1a: Noctowl|Noctowl, L88, F|100100
+|move|p2a: Porygon-Z|Ice Beam|p1a: Noctowl
+|-supereffective|p1a: Noctowl
+|-damage|p1a: Noctowl|53100
+|upkeep
+|turn|25
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "xatu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-gigalith-porygonz -- seismitoad-xatu
+|chat|DEBUG|Own moves: trick darkpulse icebeam triattack
+|chat|DEBUG|Enemy moves: heatwave psychic roost teleport
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 190 vs 220
+|chat|DEBUG|HP: 38 vs 139
+|chat|DEBUG|Created a new Strategy for porygonz vs xatu:
+|chat|DEBUG|>[icebeam: 171.125 [158, 186], icebeam: 171.125 [158, 186], icebeam: 171.125 [158, 186]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 171.125 [158, 186]
+|chat|DEBUG|Best move of xatu (p2): psychic: 124.0625 [114, 135]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|move|p2a: Porygon-Z|Ice Beam|p1a: Noctowl
+|-supereffective|p1a: Noctowl
+|-damage|p1a: Noctowl|8100
+|move|p1a: Noctowl|Heat Wave|p2a: Porygon-Z
+|-damage|p2a: Porygon-Z|0 fnt
+|faint|p2a: Porygon-Z
+|upkeep
+|switch|p2a: Grapploct|Grapploct, L86, F|230278
+|turn|26
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-gigalith-porygonz -- seismitoad
+|chat|DEBUG|Own moves: icebeam
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 190 vs 173
+|chat|DEBUG|HP: 38 vs 295
+|chat|DEBUG|Created a new Strategy for porygonz vs seismitoad:
+|chat|DEBUG|>[icebeam: 86.5 [79, 94], icebeam: 86.5 [79, 94], icebeam: 86.5 [79, 94]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 86.5 [79, 94]
+|chat|DEBUG|Best move of seismitoad (p2): earthquake: 168.3125 [153, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|-start|p2a: Grapploct|Dynamax
+|-heal|p2a: Grapploct|460556|[silent]
+|move|p1a: Noctowl|Roost|p1a: Noctowl
+|-heal|p1a: Noctowl|58100
+|-singleturn|p1a: Noctowl|move: Roost
+|move|p2a: Grapploct|Max Hailstorm|p1a: Noctowl
+|-damage|p1a: Noctowl|0 fnt
+|-weather|Hail
+|faint|p1a: Noctowl
+|-damage|p2a: Grapploct|433556|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p2a: Grapploct|416556|[from] Hail
+|upkeep
+|switch|p1a: Seismitoad|Seismitoad, L84, M|68100 frz
+|-damage|p1a: Seismitoad|62100 frz|[from] Stealth Rock
+|turn|27
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>grapploct gigalith porygonz
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygonz" vs "seismitoad"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>grapploct-gigalith-porygonz -- seismitoad
+|chat|DEBUG|Own moves: icebeam
+|chat|DEBUG|Enemy moves: earthquake liquidation raindance sludgebomb
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 190 vs 173
+|chat|DEBUG|HP: 38 vs 213
+|chat|DEBUG|Created a new Strategy for porygonz vs seismitoad:
+|chat|DEBUG|>[icebeam: 86.5 [79, 94], icebeam: 86.5 [79, 94], icebeam: 86.5 [79, 94]]
+|chat|DEBUG|Best move of porygonz (p1): icebeam: 86.5 [79, 94]
+|chat|DEBUG|Best move of seismitoad (p2): earthquake: 168.3125 [153, 183]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using icebeam
+|cant|p1a: Seismitoad|frz
+|move|p2a: Grapploct|Max Knuckle|p1a: Seismitoad
+|-damage|p1a: Seismitoad|4100 frz
+|-boost|p2a: Grapploct|atk|1
+|-damage|p2a: Grapploct|389556|[from] item: Life Orb
+|-weather|Hail|[upkeep]
+|-damage|p1a: Seismitoad|0 fnt|[from] Hail
+|-damage|p2a: Grapploct|372556|[from] Hail
+|faint|p1a: Seismitoad
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">grapploct cramorant rotomwash gigalith marowakalola porygonz</h1>

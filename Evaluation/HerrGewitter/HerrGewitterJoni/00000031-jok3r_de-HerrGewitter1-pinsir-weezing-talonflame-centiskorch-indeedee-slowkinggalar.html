@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1494018773<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1494018773|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|101|
+|player|p2|HerrGewitter1|265|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Tangrowth|Tangrowth, L84, F|100100
+|switch|p2a: Pinsir|Pinsir, L84, F|246246
+|-ability|p2a: Pinsir|Mold Breaker
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir weezing talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "tangrowth"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-weezing-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: gigadrain leechseed sleeppowder sludgebomb
+|chat|DEBUG|Checks: ['pinsir', 'weezing', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Counter: ['pinsir', 'weezing', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 191 vs 132
+|chat|DEBUG|HP: 246 vs 305
+|chat|DEBUG|Created a new Strategy for pinsir vs tangrowth:
+|chat|DEBUG|>[xscissor: 159.0 [146, 174], xscissor: 159.0 [146, 174], xscissor: 159.0 [146, 174]]
+|chat|DEBUG|Best move of pinsir (p1): xscissor: 159.0 [146, 174]
+|chat|DEBUG|Best move of tangrowth (p2): sludgebomb: 82.875 [76, 90]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Setting Stealthrock
+|switch|p1a: Klinklang|Klinklang, L84|100100
+|move|p2a: Pinsir|Stealth Rock|p1a: Klinklang
+|-sidestart|p1: jok3r_de|move: Stealth Rock
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir weezing talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "klinklang"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-weezing-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-klinklang
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: geargrind shiftgear substitute wildcharge
+|chat|DEBUG|Checks: ['pinsir', 'weezing', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Counter: ['pinsir', 'weezing', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 191 vs 199
+|chat|DEBUG|HP: 246 vs 238
+|chat|DEBUG|Created a new Strategy for pinsir vs klinklang:
+|chat|DEBUG|>[knockoff: 68.0 [62, 74], knockoff: 68.0 [62, 74], knockoff: 68.0 [62, 74]]
+|chat|DEBUG|Best move of pinsir (p1): knockoff: 68.0 [62, 74]
+|chat|DEBUG|Best move of klinklang (p2): wildcharge: 59.6875 [55, 65]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using knockoff
+|move|p1a: Klinklang|Gear Grind|p2a: Pinsir
+|-damage|p2a: Pinsir|198246
+|-damage|p2a: Pinsir|146246
+|-hitcount|p2a: Pinsir|2
+|move|p2a: Pinsir|Knock Off|p1a: Klinklang
+|-damage|p1a: Klinklang|72100
+|-enditem|p1a: Klinklang|Leftovers|[from] move: Knock Off|[of] p2a: Pinsir
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir weezing talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "klinklang"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-weezing-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-klinklang
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: geargrind shiftgear substitute wildcharge
+|chat|DEBUG|Checks: ['weezing', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Counter: ['weezing', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 191 vs 199
+|chat|DEBUG|HP: 146 vs 171
+|chat|DEBUG|Best move of pinsir (p1): knockoff: 68.0 [62, 74]
+|chat|DEBUG|Best move of klinklang (p2): wildcharge: 59.6875 [55, 65]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check weezing
+|switch|p2a: Weezing|Weezing, L86, M|252252
+|move|p1a: Klinklang|Shift Gear|p1a: Klinklang
+|-boost|p1a: Klinklang|spe|2
+|-boost|p1a: Klinklang|atk|1
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir weezing talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "klinklang"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-weezing-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-klinklang
+|chat|DEBUG|Own moves: painsplit sludgebomb fireblast willowisp
+|chat|DEBUG|Enemy moves: geargrind shiftgear substitute wildcharge
+|chat|DEBUG|Checks: ['weezing', 'centiskorch', 'slowkinggalar']
+|chat|DEBUG|Counter: ['weezing', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 152 vs 199
+|chat|DEBUG|HP: 252 vs 171
+|chat|DEBUG|Created a new Strategy for weezing vs klinklang:
+|chat|DEBUG|>[fireblast: 150.75 [138, 164], fireblast: 150.75 [138, 164], fireblast: 150.75 [138, 164]]
+|chat|DEBUG|Best move of weezing (p1): fireblast: 150.75 [138, 164]
+|chat|DEBUG|Best move of klinklang (p2): wildcharge: 74.4375 [68, 81]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using fireblast
+|move|p1a: Klinklang|Gear Grind|p2a: Weezing
+|-damage|p2a: Weezing|185252
+|-damage|p2a: Weezing|125252
+|-hitcount|p2a: Weezing|2
+|move|p2a: Weezing|Fire Blast|p1a: Klinklang
+|-supereffective|p1a: Klinklang
+|-damage|p1a: Klinklang|10100
+|-heal|p2a: Weezing|140252|[from] item: Black Sludge
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir weezing talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "klinklang"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-weezing-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-klinklang
+|chat|DEBUG|Own moves: painsplit sludgebomb fireblast willowisp
+|chat|DEBUG|Enemy moves: geargrind shiftgear substitute wildcharge
+|chat|DEBUG|Checks: ['centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Counter: ['pinsir', 'weezing', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 152 vs 199
+|chat|DEBUG|HP: 140 vs 23
+|chat|DEBUG|Best move of weezing (p1): fireblast: 150.75 [138, 164]
+|chat|DEBUG|Best move of klinklang (p2): wildcharge: 74.4375 [68, 81]
+|chat|DEBUG|We can kill the enemy this turn!
+|-start|p1a: Klinklang|Dynamax
+|-heal|p1a: Klinklang|10100|[silent]
+|move|p1a: Klinklang|Max Steelspike|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|-boost|p1a: Klinklang|def|1
+|faint|p2a: Weezing
+|upkeep
+|switch|p2a: Centiskorch|Centiskorch, L84, F|305305
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "klinklang"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-klinklang
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: geargrind shiftgear substitute wildcharge
+|chat|DEBUG|Checks: ['centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Counter: ['pinsir', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to check
+|chat|DEBUG|>Switching to centiskorch (pokemon object) [Active: False, Status: None]
+|move|p1a: Klinklang|Max Steelspike|p2a: Centiskorch
+|-resisted|p2a: Centiskorch
+|-damage|p2a: Centiskorch|173305
+|-boost|p1a: Klinklang|def|1
+|move|p2a: Centiskorch|Fire Lash|p1a: Klinklang
+|-supereffective|p1a: Klinklang
+|-damage|p1a: Klinklang|0 fnt
+|faint|p1a: Klinklang
+|upkeep
+|switch|p1a: Tapu Fini|Tapu Fini, L78|100100
+|-damage|p1a: Tapu Fini|88100|[from] Stealth Rock
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "centiskorch" vs "klinklang"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-klinklang
+|chat|DEBUG|Own moves: leechlife firelash coil knockoff
+|chat|DEBUG|Enemy moves: geargrind shiftgear substitute wildcharge
+|chat|DEBUG|Checks: ['centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Counter: ['pinsir', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 157 vs 199
+|chat|DEBUG|HP: 305 vs 23
+|chat|DEBUG|Created a new Strategy for centiskorch vs klinklang:
+|chat|DEBUG|>[firelash: 159.0 [146, 174], firelash: 159.0 [146, 174], firelash: 159.0 [146, 174]]
+|chat|DEBUG|Best move of centiskorch (p1): firelash: 159.0 [146, 174]
+|chat|DEBUG|Best move of klinklang (p2): wildcharge: 121.6875 [112, 132]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Slowking|Slowking-Galar, L84, M|297297
+|move|p1a: Tapu Fini|Surf|p2a: Slowking
+|-damage|p2a: Slowking|230297
+|-heal|p1a: Tapu Fini|94100|[from] item: Leftovers
+|-heal|p2a: Slowking|248297|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "centiskorch" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini
+|chat|DEBUG|Own moves: leechlife firelash coil knockoff
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['slowkinggalar']
+|chat|DEBUG|Counter: ['indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 157 vs 178
+|chat|DEBUG|HP: 173 vs 208
+|chat|DEBUG|Created a new Strategy for centiskorch vs tapufini:
+|chat|DEBUG|>[firelash: 63.1875 [58, 69], firelash: 63.1875 [58, 69], firelash: 63.1875 [58, 69]]
+|chat|DEBUG|Best move of centiskorch (p1): firelash: 63.1875 [58, 69]
+|chat|DEBUG|Best move of tapufini (p2): surf: 161.875 [150, 176]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check slowkinggalar
+|switch|p1a: Machamp|Machamp, L82, F|100100
+|-damage|p1a: Machamp|94100|[from] Stealth Rock
+|move|p2a: Slowking|Sludge Bomb|p1a: Machamp
+|-crit|p1a: Machamp
+|-damage|p1a: Machamp|36100
+|-heal|p2a: Slowking|266297|[from] item: Black Sludge
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowkinggalar" vs "tapufini"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini
+|chat|DEBUG|Own moves: sludgebomb fireblast futuresight slackoff
+|chat|DEBUG|Enemy moves: calmmind moonblast surf taunt
+|chat|DEBUG|Checks: ['slowkinggalar']
+|chat|DEBUG|Counter: ['indeedee', 'slowkinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 99 vs 178
+|chat|DEBUG|HP: 248 vs 222
+|chat|DEBUG|Created a new Strategy for slowkinggalar vs tapufini:
+|chat|DEBUG|>[sludgebomb: 167.25 [152, 182], sludgebomb: 167.25 [152, 182], sludgebomb: 167.25 [152, 182]]
+|chat|DEBUG|Best move of slowkinggalar (p1): sludgebomb: 167.25 [152, 182]
+|chat|DEBUG|Best move of tapufini (p2): surf: 69.5625 [64, 76]
+|chat|DEBUG|Attacking using sludgebomb
+|move|p1a: Machamp|Knock Off|p2a: Slowking
+|-supereffective|p2a: Slowking
+|-damage|p2a: Slowking|94297
+|-enditem|p2a: Slowking|Black Sludge|[from] move: Knock Off|[of] p1a: Machamp
+|move|p2a: Slowking|Future Sight|p1a: Machamp
+|-start|p2a: Slowking|move: Future Sight
+|upkeep
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowkinggalar" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-machamp
+|chat|DEBUG|Own moves: sludgebomb fireblast futuresight slackoff
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['talonflame', 'centiskorch']
+|chat|DEBUG|Counter: ['pinsir', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 99 vs 137
+|chat|DEBUG|HP: 266 vs 101
+|chat|DEBUG|Created a new Strategy for slowkinggalar vs machamp:
+|chat|DEBUG|>[futuresight: 292.25 [270, 318], futuresight: 292.25 [270, 318], futuresight: 292.25 [270, 318]]
+|chat|DEBUG|Best move of slowkinggalar (p1): futuresight: 292.25 [270, 318]
+|chat|DEBUG|Best move of machamp (p2): knockoff: 175.0 [160, 190]
+|chat|DEBUG|We can kill the enemy this turn!
+|switch|p2a: Talonflame|Talonflame, L81, M|259259
+|move|p1a: Machamp|Knock Off|p2a: Talonflame
+|-damage|p2a: Talonflame|152259
+|-enditem|p2a: Talonflame|Heavy-Duty Boots|[from] move: Knock Off|[of] p1a: Machamp
+|upkeep
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "slowkinggalar" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-machamp
+|chat|DEBUG|Own moves: sludgebomb fireblast futuresight slackoff
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['talonflame', 'centiskorch']
+|chat|DEBUG|Counter: ['pinsir', 'talonflame', 'centiskorch', 'indeedee']
+|chat|DEBUG|Speed: 99 vs 137
+|chat|DEBUG|HP: 94 vs 101
+|chat|DEBUG|Best move of slowkinggalar (p1): futuresight: 292.25 [270, 318]
+|chat|DEBUG|Best move of machamp (p2): knockoff: 117.5 [108, 128]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check talonflame
+|move|p2a: Talonflame|Brave Bird|p1a: Machamp
+|-supereffective|p1a: Machamp
+|-damage|p1a: Machamp|0 fnt
+|faint|p1a: Machamp
+|-damage|p2a: Talonflame|119259|[from] Recoil
+|-hint|Future Sight did not hit because the target is fainted.
+|-fieldend|Misty Terrain
+|upkeep
+|switch|p1a: Cofagrigus|Cofagrigus, L86, M|100100
+|-damage|p1a: Cofagrigus|88100|[from] Stealth Rock
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "talonflame" vs "machamp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-machamp
+|chat|DEBUG|Own moves: swordsdance bravebird roost flareblitz
+|chat|DEBUG|Enemy moves: bulletpunch closecombat facade knockoff
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['pinsir', 'talonflame', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 251 vs 137
+|chat|DEBUG|HP: 152 vs 101
+|chat|DEBUG|Created a new Strategy for talonflame vs machamp:
+|chat|DEBUG|>[bravebird: 228.625 [210, 248], bravebird: 228.625 [210, 248], bravebird: 228.625 [210, 248]]
+|chat|DEBUG|Best move of talonflame (p1): bravebird: 228.625 [210, 248]
+|chat|DEBUG|Best move of machamp (p2): closecombat: 90.875 [84, 99]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Talonflame|Flare Blitz|p1a: Cofagrigus
+|-damage|p1a: Cofagrigus|60100
+|-activate|p1a: Cofagrigus|ability: Mummy|Gale Wings|[of] p2a: Talonflame
+|-damage|p2a: Talonflame|97259|[from] Recoil
+|move|p1a: Cofagrigus|Shadow Ball|p2a: Talonflame
+|-damage|p2a: Talonflame|0 fnt
+|faint|p2a: Talonflame
+|-heal|p1a: Cofagrigus|67100|[from] item: Leftovers
+|upkeep
+|switch|p2a: Pinsir|Pinsir, L84, F|146246
+|-ability|p2a: Pinsir|Mold Breaker
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir talonflame centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "talonflame" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-talonflame-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-cofagrigus
+|chat|DEBUG|Own moves: swordsdance bravebird roost flareblitz
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pinsir', 'centiskorch']
+|chat|DEBUG|Speed: 251 vs 101
+|chat|DEBUG|HP: 119 vs 211
+|chat|DEBUG|Created a new Strategy for talonflame vs cofagrigus:
+|chat|DEBUG|>[flareblitz: 68.75 [63, 75], flareblitz: 68.75 [63, 75], flareblitz: 68.75 [63, 75]]
+|chat|DEBUG|Best move of talonflame (p1): flareblitz: 68.75 [63, 75]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 108.625 [100, 118]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using flareblitz
+|move|p2a: Pinsir|Knock Off|p1a: Cofagrigus
+|-supereffective|p1a: Cofagrigus
+|-crit|p1a: Cofagrigus
+|-damage|p1a: Cofagrigus|3100
+|-activate|p1a: Cofagrigus|ability: Mummy|Mold Breaker|[of] p2a: Pinsir
+|-enditem|p1a: Cofagrigus|Leftovers|[from] move: Knock Off|[of] p2a: Pinsir
+|move|p1a: Cofagrigus|Toxic Spikes|p2a: Pinsir
+|-sidestart|p2: HerrGewitter1|move: Toxic Spikes
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "talonflame" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-cofagrigus
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['pinsir', 'centiskorch']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|>Switching to counter
+|chat|DEBUG|>Switching to pinsir (pokemon object) [Active: False, Status: None]
+|move|p2a: Pinsir|Knock Off|p1a: Cofagrigus
+|-supereffective|p1a: Cofagrigus
+|-damage|p1a: Cofagrigus|0 fnt
+|faint|p1a: Cofagrigus
+|upkeep
+|switch|p1a: Virizion|Virizion, L82|100100
+|-damage|p1a: Virizion|94100|[from] Stealth Rock
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-cofagrigus
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['centiskorch']
+|chat|DEBUG|Counter: ['pinsir', 'centiskorch']
+|chat|DEBUG|Speed: 191 vs 101
+|chat|DEBUG|HP: 146 vs 160
+|chat|DEBUG|Created a new Strategy for pinsir vs cofagrigus:
+|chat|DEBUG|>[knockoff: 110.25 [102, 120], knockoff: 110.25 [102, 120], knockoff: 110.25 [102, 120]]
+|chat|DEBUG|Best move of pinsir (p1): knockoff: 110.25 [102, 120]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 103.25 [94, 112]
+|chat|DEBUG|We can set the following hazrads:
+|chat|DEBUG|stealthrock
+|chat|DEBUG|Attacking using knockoff
+|move|p1a: Virizion|Stone Edge|p2a: Pinsir|[miss]
+|-miss|p1a: Virizion|p2a: Pinsir
+|move|p2a: Pinsir|X-Scissor|p1a: Virizion
+|-damage|p1a: Virizion|49100
+|upkeep
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "pinsir" vs "cofagrigus"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-cofagrigus
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: bodypress memento shadowball willowisp
+|chat|DEBUG|Checks: ['pinsir', 'centiskorch', 'indeedee']
+|chat|DEBUG|Counter: ['pinsir', 'centiskorch', 'indeedee', 'slowkinggalar']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 191 vs 101
+|chat|DEBUG|HP: 146 vs 7
+|chat|DEBUG|Best move of pinsir (p1): knockoff: 110.25 [102, 120]
+|chat|DEBUG|Best move of cofagrigus (p2): shadowball: 103.25 [94, 112]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Virizion|Stone Edge|p2a: Pinsir
+|-supereffective|p2a: Pinsir
+|-damage|p2a: Pinsir|24246
+|move|p2a: Pinsir|X-Scissor|p1a: Virizion
+|-damage|p1a: Virizion|8100
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pinsir" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-virizion
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['slowkinggalar']
+|chat|DEBUG|Speed: 191 vs 224
+|chat|DEBUG|HP: 146 vs 266
+|chat|DEBUG|Created a new Strategy for pinsir vs virizion:
+|chat|DEBUG|>[xscissor: 122.5625 [112, 133], xscissor: 122.5625 [112, 133], xscissor: 122.5625 [112, 133]]
+|chat|DEBUG|Best move of pinsir (p1): xscissor: 122.5625 [112, 133]
+|chat|DEBUG|Best move of virizion (p2): stoneedge: 115.625 [106, 126]
+|chat|DEBUG|Attacking using xscissor
+|move|p1a: Virizion|Leaf Blade|p2a: Pinsir
+|-resisted|p2a: Pinsir
+|-damage|p2a: Pinsir|0 fnt
+|-activate|p2a: Pinsir|ability: Mummy|Justified|[of] p1a: Virizion
+|faint|p2a: Pinsir
+|upkeep
+|switch|p2a: Indeedee|Indeedee, L82, M|233233
+|-status|p2a: Indeedee|psn
+|-fieldstart|move: Psychic Terrain|[from] ability: Psychic Surge|[of] p2a: Indeedee
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pinsir" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-virizion
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: ['slowkinggalar']
+|chat|DEBUG|Counter: ['slowkinggalar']
+|chat|DEBUG|Speed: 191 vs 224
+|chat|DEBUG|HP: 146 vs 138
+|chat|DEBUG|Best move of pinsir (p1): xscissor: 122.5625 [112, 133]
+|chat|DEBUG|Best move of virizion (p2): stoneedge: 115.625 [106, 126]
+|chat|DEBUG|Attacking using xscissor
+|move|p2a: Indeedee|Expanding Force|p1a: Virizion
+|-supereffective|p1a: Virizion
+|-damage|p1a: Virizion|0 fnt
+|faint|p1a: Virizion
+|-damage|p2a: Indeedee|204233 psn|[from] psn
+|upkeep
+|switch|p1a: Tangrowth|Tangrowth, L84, F|100100
+|-damage|p1a: Tangrowth|88100|[from] Stealth Rock
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>pinsir centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pinsir" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>pinsir-centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-virizion
+|chat|DEBUG|Own moves: knockoff xscissor stealthrock stoneedge
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: ['slowkinggalar']
+|chat|DEBUG|Counter: ['indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 191 vs 224
+|chat|DEBUG|HP: 24 vs 22
+|chat|DEBUG|Best move of pinsir (p1): xscissor: 122.5625 [112, 133]
+|chat|DEBUG|Best move of virizion (p2): stoneedge: 115.625 [106, 126]
+|chat|DEBUG|Attacking using xscissor
+|-start|p2a: Indeedee|Dynamax
+|-heal|p2a: Indeedee|408466 psn|[silent]
+|move|p2a: Indeedee|Max Mindstorm|p1a: Tangrowth
+|-damage|p1a: Tangrowth|0 fnt
+|faint|p1a: Tangrowth
+|-damage|p2a: Indeedee|379466 psn|[from] psn
+|upkeep
+|switch|p1a: Tapu Fini|Tapu Fini, L78|94100
+|-damage|p1a: Tapu Fini|82100|[from] Stealth Rock
+|-fieldstart|move: Misty Terrain|[from] ability: Misty Surge|[of] p1a: Tapu Fini
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "pinsir" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-virizion
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: ['slowkinggalar']
+|chat|DEBUG|Counter: ['indeedee', 'slowkinggalar']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'centiskorch': 173, 'indeedee': 233, 'slowkinggalar': 193}
+|chat|DEBUG|remaining_hp_team_2={'tangrowth': 100, 'tapufini': 94, 'virizion': 8}
+|chat|DEBUG|battle.available_switches=[slowkinggalar (pokemon object) [Active: False, Status: None], indeedee (pokemon object) [Active: False, Status: None], centiskorch (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'indeedee'
+|chat|DEBUG|>Switching to indeedee (pokemon object) [Active: False, Status: None]
+|move|p2a: Indeedee|Max Strike|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|36100
+|-unboost|p1a: Tapu Fini|spe|1
+|move|p1a: Tapu Fini|Moonblast|p2a: Indeedee
+|-damage|p2a: Indeedee|291466 psn
+|-unboost|p2a: Indeedee|spa|1
+|-heal|p1a: Tapu Fini|42100|[from] item: Leftovers
+|-damage|p2a: Indeedee|262466 psn|[from] psn
+|upkeep
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>centiskorch indeedee slowkinggalar
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "indeedee" vs "virizion"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>centiskorch-indeedee-slowkinggalar -- tangrowth-tapufini-virizion
+|chat|DEBUG|Own moves: mysticalfire trick hypervoice expandingforce
+|chat|DEBUG|Enemy moves: closecombat leafblade stoneedge swordsdance
+|chat|DEBUG|Checks: ['slowkinggalar']
+|chat|DEBUG|Counter: ['indeedee', 'slowkinggalar']
+|chat|DEBUG|Speed: 203 vs 224
+|chat|DEBUG|HP: 233 vs 22
+|chat|DEBUG|Created a new Strategy for indeedee vs virizion:
+|chat|DEBUG|>[expandingforce: 128.5 [116, 140], expandingforce: 128.5 [116, 140], expandingforce: 128.5 [116, 140]]
+|chat|DEBUG|Best move of indeedee (p1): expandingforce: 128.5 [116, 140]
+|chat|DEBUG|Best move of virizion (p2): closecombat: 162.8125 [150, 177]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Indeedee|Max Strike|p1a: Tapu Fini
+|-crit|p1a: Tapu Fini
+|-damage|p1a: Tapu Fini|0 fnt
+|faint|p1a: Tapu Fini
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">pinsir weezing talonflame centiskorch indeedee slowkinggalar</h1>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<meta charset="utf-8" >
+<!-- version 1 -->
+<title>battle-gen8randombattle-1490558093<title>
+<style>
+    html,
+    body {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        padding: 12px 0;
+    }
+
+    .battle-log {
+        font-family: Verdana, sans-serif;
+        font-size: 10pt;
+    }
+
+    .battle-log-inline {
+        border: 1px solid #AAAAAA;
+        background: #EEF2F5;
+        color: black;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        padding-bottom: 5px;
+    }
+
+    .battle-log .inner {
+        padding: 4px 8px 0px 8px;
+    }
+
+    .battle-log .inner-preempt {
+        padding: 0 8px 4px 8px;
+    }
+
+    .battle-log .inner-after {
+        margin-top: 0.5em;
+    }
+
+    .battle-log h2 {
+        margin: 0.5em -8px;
+        padding: 4px 8px;
+        border: 1px solid #AAAAAA;
+        background: #E0E7EA;
+        border-left: 0;
+        border-right: 0;
+        font-family: Verdana, sans-serif;
+        font-size: 13pt;
+    }
+
+    .backprop {
+        top: 0;
+    }
+
+    .battle-log .chat {
+        vertical-align: middle;
+        padding: 3px 0 3px 0;
+        font-size: 8pt;
+    }
+
+    .battle-log .chat strong {
+        color: #40576A;
+    }
+
+    .battle-log .chat em {
+        padding: 1px 4px 1px 3px;
+        color: #000000;
+        font-style: normal;
+    }
+
+    .chat.mine {
+        background: rgba(0, 0, 0, 0.05);
+        margin-left: -8px;
+        margin-right: -8px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .spoiler {
+        color: #BBBBBB;
+        background: #BBBBBB;
+        padding: 0px 3px;
+    }
+
+    .spoiler:hover,
+    .spoiler:active,
+    .spoiler-shown {
+        color: #000000;
+        background: #E2E2E2;
+        padding: 0px 3px;
+    }
+
+    .spoiler a {
+        color: #BBBBBB;
+    }
+
+    .spoiler:hover a,
+    .spoiler:active a,
+    .spoiler-shown a {
+        color: #2288CC;
+    }
+
+    .chat code,
+    .chat .spoiler:hover code,
+    .chat .spoiler:active code,
+    .chat .spoiler-shown code {
+        border: 1px solid #C0C0C0;
+        background: #EEEEEE;
+        color: black;
+        padding: 0 2px;
+    }
+
+    .chat .spoiler code {
+        border: 1px solid #CCCCCC;
+        background: #CCCCCC;
+        color: #CCCCCC;
+    }
+
+    .battle-log .rated {
+        padding: 3px 4px;
+    }
+
+    .battle-log .rated strong {
+        color: white;
+        background: #89A;
+        padding: 1px 4px;
+        border-radius: 4px;
+    }
+
+    .spacer {
+        margin-top: 0.5em;
+    }
+
+    .message-announce {
+        background: #6688AA;
+        color: white;
+        padding: 1px 4px 2px;
+    }
+
+    .message-announce a,
+    .broadcast-green a,
+    .broadcast-blue a,
+    .broadcast-red a {
+        color: #DDEEFF;
+    }
+
+    .broadcast-green {
+        background-color: #559955;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .broadcast-blue {
+        background-color: #6688AA;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .infobox {
+        border: 1px solid #6688AA;
+        padding: 2px 4px;
+    }
+
+    .infobox-limited {
+        max-height: 200px;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    .broadcast-red {
+        background-color: #AA5544;
+        color: white;
+        padding: 2px 4px;
+    }
+
+    .message-learn-canlearn {
+        font-weight: bold;
+        color: #228822;
+        text-decoration: underline;
+    }
+
+    .message-learn-cannotlearn {
+        font-weight: bold;
+        color: #CC2222;
+        text-decoration: underline;
+    }
+
+    .message-effect-weak {
+        font-weight: bold;
+        color: #CC2222;
+    }
+
+    .message-effect-resist {
+        font-weight: bold;
+        color: #6688AA;
+    }
+
+    .message-effect-immune {
+        font-weight: bold;
+        color: #666666;
+    }
+
+    .message-learn-list {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .message-throttle-notice,
+    .message-error {
+        color: #992222;
+    }
+
+    .message-overflow,
+    .chat small.message-overflow {
+        font-size: 0pt;
+    }
+
+    .message-overflow::before {
+        font-size: 9pt;
+        content: '...';
+    }
+
+    .subtle {
+        color: #3A4A66;
+    }
+<style>
+<div class="wrapper replay-wrapper" style="max-width:1180px;margin:0 auto">
+    <input type="hidden" name="replayid" value="unregisteredserver-gen8randombattle-320064" >
+    <div class="battle"><div>
+    <div class="battle-log"><div>
+    <div class="replay-controls"><div>
+    <div class="replay-controls-2"><div>
+    <script type="textplain" class="battle-log-data">
+    >battle-gen8randombattle-1490558093|init|battle
+|title|jok3r_de vs. HerrGewitter1
+|j|☆jok3r_de
+|j|☆HerrGewitter1
+|gametype|singles
+|player|p1|jok3r_de|2|
+|player|p2|HerrGewitter1|1|
+|teamsize|p1|6
+|teamsize|p2|6
+|gen|8
+|tier|[Gen 8] Random Battle
+|rule|Species Clause: Limit one of each Pokémon
+|rule|HP Percentage Mod: HP is shown in percentages
+|rule|Sleep Clause Mod: Limit one foe put to sleep
+|start
+|switch|p1a: Marowak|Marowak, L86, F|100100
+|switch|p2a: Amoonguss|Amoonguss, L84, F|329329
+|turn|1
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "amoonguss" vs "marowak"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak
+|chat|DEBUG|Own moves: toxic spore sludgebomb gigadrain
+|chat|DEBUG|Enemy moves: doubleedge earthquake knockoff swordsdance
+|chat|DEBUG|Checks: ['porygon2']
+|chat|DEBUG|Counter: ['porygon2', 'weezing']
+|chat|DEBUG|Speed: 99 vs 127
+|chat|DEBUG|HP: 329 vs 243
+|chat|DEBUG|Created a new Strategy for amoonguss vs marowak:
+|chat|DEBUG|>[gigadrain: 150.625 [138, 164], gigadrain: 150.625 [138, 164], gigadrain: 150.625 [138, 164]]
+|chat|DEBUG|Best move of amoonguss (p1): gigadrain: 150.625 [138, 164]
+|chat|DEBUG|Best move of marowak (p2): earthquake: 226.625 [208, 246]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check porygon2
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|100100
+|switch|p2a: Porygon2|Porygon2, L82|274274
+|-ability|p2a: Porygon2|Regenerator|[from] ability: Trace|[of] p1a: Tornadus
+|upkeep
+|turn|2
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['porygon2']
+|chat|DEBUG|Speed: 146 vs 234
+|chat|DEBUG|HP: 274 vs 251
+|chat|DEBUG|Created a new Strategy for porygon2 vs tornadustherian:
+|chat|DEBUG|>[icebeam: 92.0 [84, 100], icebeam: 92.0 [84, 100], icebeam: 92.0 [84, 100]]
+|chat|DEBUG|Best move of porygon2 (p1): icebeam: 92.0 [84, 100]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 102.625 [94, 112]
+|chat|DEBUG|Attacking using icebeam
+|move|p1a: Tornadus|Hurricane|p2a: Porygon2
+|-damage|p2a: Porygon2|199274
+|move|p2a: Porygon2|Ice Beam|p1a: Tornadus
+|-supereffective|p1a: Tornadus
+|-damage|p1a: Tornadus|67100
+|upkeep
+|turn|3
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmime', 'porygon2', 'genesect']
+|chat|DEBUG|Speed: 146 vs 234
+|chat|DEBUG|HP: 199 vs 168
+|chat|DEBUG|Best move of porygon2 (p1): icebeam: 92.0 [84, 100]
+|chat|DEBUG|Best move of tornadustherian (p2): superpower: 102.625 [94, 112]
+|chat|DEBUG|Attacking using icebeam
+|move|p1a: Tornadus|U-turn|p2a: Porygon2
+|-damage|p2a: Porygon2|171274
+|switch|p1a: Gurdurr|Gurdurr, L83, F|100100|[from]move: U-turn
+|move|p2a: Porygon2|Ice Beam|p1a: Gurdurr
+|-damage|p1a: Gurdurr|76100
+|upkeep
+|turn|4
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "porygon2" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['mrmime', 'weezing']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'weezing', 'latios', 'genesect']
+|chat|DEBUG|Speed: 146 vs 114
+|chat|DEBUG|HP: 171 vs 210
+|chat|DEBUG|Created a new Strategy for porygon2 vs gurdurr:
+|chat|DEBUG|>[triattack: 85.0625 [78, 93], triattack: 85.0625 [78, 93], triattack: 85.0625 [78, 93]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 85.0625 [78, 93]
+|chat|DEBUG|Best move of gurdurr (p2): drainpunch: 111.875 [102, 122]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check mrmime
+|switch|p2a: Mr. Mime|Mr. Mime, L86, M|209209
+|move|p1a: Gurdurr|Drain Punch|p2a: Mr. Mime
+|-resisted|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|184209
+|-heal|p1a: Gurdurr|81100|[from] drain|[of] p2a: Mr. Mime
+|upkeep
+|turn|5
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmime" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr
+|chat|DEBUG|Own moves: psychic dazzlinggleam nastyplot focusblast
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['mrmime', 'weezing']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'porygon2', 'weezing', 'latios', 'genesect']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 204 vs 114
+|chat|DEBUG|HP: 184 vs 224
+|chat|DEBUG|Created a new Strategy for mrmime vs gurdurr:
+|chat|DEBUG|>[psychic: 268.4375 [244, 291], psychic: 268.4375 [244, 291], psychic: 268.4375 [244, 291]]
+|chat|DEBUG|Best move of mrmime (p1): psychic: 268.4375 [244, 291]
+|chat|DEBUG|Best move of gurdurr (p2): knockoff: 87.5 [80, 95]
+|chat|DEBUG|Predicting the enemy to switch!
+|chat|DEBUG|Attacking using psychic
+|switch|p1a: Mimikyu|Mimikyu, L76, M|100100
+|move|p2a: Mr. Mime|Psychic|p1a: Mimikyu
+|-activate|p1a: Mimikyu|ability: Disguise
+|-damage|p1a: Mimikyu|100100
+|detailschange|p1a: Mimikyu|Mimikyu-Busted, L76, M
+|-damage|p1a: Mimikyu|88100|[from] pokemon: Mimikyu-Busted
+|-damage|p2a: Mr. Mime|164209|[from] item: Life Orb
+|upkeep
+|turn|6
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "mrmime" vs "mimikyu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: psychic dazzlinggleam nastyplot focusblast
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: ['weezing', 'genesect']
+|chat|DEBUG|Counter: ['amoonguss', 'weezing', 'genesect']
+|chat|DEBUG|Speed: 204 vs 190
+|chat|DEBUG|HP: 164 vs 183
+|chat|DEBUG|Created a new Strategy for mrmime vs mimikyu:
+|chat|DEBUG|>[psychic: 128.625 [118, 140], psychic: 128.625 [118, 140], psychic: 128.625 [118, 140]]
+|chat|DEBUG|Best move of mrmime (p1): psychic: 128.625 [118, 140]
+|chat|DEBUG|Best move of mimikyu (p2): shadowclaw: 138.625 [129, 152]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|>Switching to check weezing
+|switch|p2a: Weezing|Weezing, L86, F|252252
+|move|p1a: Mimikyu|Shadow Claw|p2a: Weezing
+|-damage|p2a: Weezing|190252
+|-damage|p1a: Mimikyu|78100|[from] item: Life Orb
+|-heal|p2a: Weezing|205252|[from] item: Black Sludge
+|upkeep
+|turn|7
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "mimikyu"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: fireblast willowisp painsplit sludgebomb
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['weezing', 'genesect']
+|chat|DEBUG|Speed: 152 vs 190
+|chat|DEBUG|HP: 205 vs 163
+|chat|DEBUG|Created a new Strategy for weezing vs mimikyu:
+|chat|DEBUG|>[sludgebomb: 86.4375 [79, 94], sludgebomb: 86.4375 [79, 94], sludgebomb: 86.4375 [79, 94]]
+|chat|DEBUG|Best move of weezing (p1): sludgebomb: 86.4375 [79, 94]
+|chat|DEBUG|Best move of mimikyu (p2): shadowclaw: 58.5625 [55, 64]
+|chat|DEBUG|Attacking using sludgebomb
+|switch|p1a: Bisharp|Bisharp, L80, M|100100
+|move|p2a: Weezing|Sludge Bomb|p1a: Bisharp
+|-immune|p1a: Bisharp
+|-heal|p2a: Weezing|220252|[from] item: Black Sludge
+|upkeep
+|turn|8
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu-bisharp
+|chat|DEBUG|Own moves: fireblast willowisp painsplit sludgebomb
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmime', 'latios', 'genesect']
+|chat|DEBUG|Speed: 152 vs 158
+|chat|DEBUG|HP: 220 vs 235
+|chat|DEBUG|Created a new Strategy for weezing vs bisharp:
+|chat|DEBUG|>[fireblast: 183.0 [168, 198], fireblast: 183.0 [168, 198], fireblast: 183.0 [168, 198]]
+|chat|DEBUG|Best move of weezing (p1): fireblast: 183.0 [168, 198]
+|chat|DEBUG|Best move of bisharp (p2): knockoff: 115.8125 [107, 126]
+|chat|DEBUG|Current matchup is not favorable!
+|chat|DEBUG|Attacking using fireblast
+|move|p1a: Bisharp|Swords Dance|p1a: Bisharp
+|-boost|p1a: Bisharp|atk|2
+|move|p2a: Weezing|Fire Blast|p1a: Bisharp
+|-supereffective|p1a: Bisharp
+|-damage|p1a: Bisharp|19100
+|-heal|p2a: Weezing|235252|[from] item: Black Sludge
+|upkeep
+|turn|9
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: True
+|chat|DEBUG|Matchup: "weezing" vs "bisharp"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu-bisharp
+|chat|DEBUG|Own moves: fireblast willowisp painsplit sludgebomb
+|chat|DEBUG|Enemy moves: ironhead knockoff suckerpunch swordsdance
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['mrmime', 'porygon2', 'weezing', 'latios', 'genesect']
+|chat|DEBUG|Speed: 152 vs 158
+|chat|DEBUG|HP: 235 vs 44
+|chat|DEBUG|Best move of weezing (p1): fireblast: 183.0 [168, 198]
+|chat|DEBUG|Best move of bisharp (p2): knockoff: 229.6875 [211, 250]
+|chat|DEBUG|Attacking using fireblast
+|move|p1a: Bisharp|Iron Head|p2a: Weezing
+|-damage|p2a: Weezing|40252
+|-damage|p1a: Bisharp|9100|[from] item: Life Orb
+|move|p2a: Weezing|Fire Blast|p1a: Bisharp
+|-supereffective|p1a: Bisharp
+|-damage|p1a: Bisharp|0 fnt
+|faint|p1a: Bisharp
+|-heal|p2a: Weezing|55252|[from] item: Black Sludge
+|upkeep
+|switch|p1a: Slowbro|Slowbro-Galar, L86, M|100100
+|turn|10
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 weezing latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezing" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-weezing-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu-slowbrogalar
+|chat|DEBUG|Own moves: fireblast willowisp painsplit sludgebomb
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['porygon2', 'latios']
+|chat|DEBUG|Speed: 152 vs 56
+|chat|DEBUG|HP: 55 vs 304
+|chat|DEBUG|Created a new Strategy for weezing vs slowbrogalar:
+|chat|DEBUG|>[fireblast: 84.6875 [78, 92], fireblast: 84.6875 [78, 92], fireblast: 84.6875 [78, 92]]
+|chat|DEBUG|Best move of weezing (p1): fireblast: 84.6875 [78, 92]
+|chat|DEBUG|Best move of slowbrogalar (p2): psychic: 307.5625 [283, 335]
+|chat|DEBUG|Attacking using fireblast
+|move|p2a: Weezing|Fire Blast|p1a: Slowbro
+|-damage|p1a: Slowbro|73100
+|move|p1a: Slowbro|Psychic|p2a: Weezing
+|-supereffective|p2a: Weezing
+|-damage|p2a: Weezing|0 fnt
+|faint|p2a: Weezing
+|-damage|p1a: Slowbro|63100|[from] item: Life Orb
+|upkeep
+|switch|p2a: Porygon2|Porygon2, L82|262274
+|-ability|p2a: Porygon2|Regenerator|[from] ability: Trace|[of] p1a: Slowbro
+|turn|11
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "weezing" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu-slowbrogalar
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: ['porygon2', 'latios']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'amoonguss': 329, 'mrmime': 164, 'porygon2': 262, 'latios': 253, 'genesect': 227}
+|chat|DEBUG|remaining_hp_team_2={'marowak': 100, 'tornadustherian': 67, 'gurdurr': 81, 'mimikyu': 78, 'slowbrogalar': 100}
+|chat|DEBUG|battle.available_switches=[porygon2 (pokemon object) [Active: False, Status: None], amoonguss (pokemon object) [Active: False, Status: None], mrmime (pokemon object) [Active: False, Status: None], latios (pokemon object) [Active: False, Status: None], genesect (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'porygon2'
+|chat|DEBUG|>Switching to porygon2 (pokemon object) [Active: False, Status: None]
+|-start|p2a: Porygon2|Dynamax
+|-heal|p2a: Porygon2|524548|[silent]
+|move|p2a: Porygon2|Max Strike|p1a: Slowbro
+|-damage|p1a: Slowbro|12100
+|-unboost|p1a: Slowbro|spe|1
+|move|p1a: Slowbro|Psychic|p2a: Porygon2
+|-damage|p2a: Porygon2|429548
+|-damage|p1a: Slowbro|2100|[from] item: Life Orb
+|upkeep
+|turn|12
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "porygon2" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu-slowbrogalar
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['porygon2']
+|chat|DEBUG|Counter: ['porygon2', 'latios']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 146 vs 56
+|chat|DEBUG|HP: 262 vs 191
+|chat|DEBUG|Created a new Strategy for porygon2 vs slowbrogalar:
+|chat|DEBUG|>[triattack: 98.9375 [91, 108], triattack: 98.9375 [91, 108], triattack: 98.9375 [91, 108]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 98.9375 [91, 108]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 90.5 [83, 99]
+|chat|DEBUG|Dynamaxing as the matchup is good!
+|move|p2a: Porygon2|Max Strike|p1a: Slowbro
+|-damage|p1a: Slowbro|0 fnt
+|faint|p1a: Slowbro
+|upkeep
+|switch|p1a: Gurdurr|Gurdurr, L83, F|81100
+|turn|13
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "porygon2" vs "slowbrogalar"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu-slowbrogalar
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: flamethrower psychic shellsidearm trickroom
+|chat|DEBUG|Checks: ['amoonguss', 'porygon2', 'latios']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'porygon2', 'latios', 'genesect']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 56
+|chat|DEBUG|HP: 429 vs 6
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 98.9375 [91, 108]
+|chat|DEBUG|Best move of slowbrogalar (p2): shellsidearm: 90.5 [83, 99]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p2a: Porygon2|Max Strike|p1a: Gurdurr
+|-damage|p1a: Gurdurr|31100
+|-unboost|p1a: Gurdurr|spe|1
+|move|p1a: Gurdurr|Drain Punch|p2a: Porygon2
+|-supereffective|p2a: Porygon2
+|-damage|p2a: Porygon2|309548
+|-heal|p1a: Gurdurr|53100|[from] drain|[of] p2a: Porygon2
+|-end|p2a: Porygon2|Dynamax
+|-heal|p2a: Porygon2|155274|[silent]
+|upkeep
+|turn|14
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "porygon2" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['mrmime', 'porygon2']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'porygon2', 'latios', 'genesect']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 146 vs 114
+|chat|DEBUG|HP: 429 vs 224
+|chat|DEBUG|Created a new Strategy for porygon2 vs gurdurr:
+|chat|DEBUG|>[triattack: 85.0625 [78, 93], triattack: 85.0625 [78, 93], triattack: 85.0625 [78, 93]]
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 85.0625 [78, 93]
+|chat|DEBUG|Best move of gurdurr (p2): drainpunch: 111.875 [102, 122]
+|chat|DEBUG|Boost Moves: [triattack (Move object)]
+|move|p2a: Porygon2|Tri Attack|p1a: Gurdurr
+|-damage|p1a: Gurdurr|21100
+|move|p1a: Gurdurr|Drain Punch|p2a: Porygon2
+|-supereffective|p2a: Porygon2
+|-damage|p2a: Porygon2|33274
+|-heal|p1a: Gurdurr|43100|[from] drain|[of] p2a: Porygon2
+|upkeep
+|turn|15
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "porygon2" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'porygon2', 'latios', 'genesect']
+|chat|DEBUG|Speed: 146 vs 114
+|chat|DEBUG|HP: 155 vs 146
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 85.0625 [78, 93]
+|chat|DEBUG|Best move of gurdurr (p2): drainpunch: 111.875 [102, 122]
+|chat|DEBUG|Attacking using triattack
+|move|p2a: Porygon2|Tri Attack|p1a: Gurdurr
+|-damage|p1a: Gurdurr|13100
+|move|p1a: Gurdurr|Drain Punch|p2a: Porygon2
+|-supereffective|p2a: Porygon2
+|-damage|p2a: Porygon2|0 fnt
+|-heal|p1a: Gurdurr|20100|[from] drain|[of] p2a: Porygon2
+|faint|p2a: Porygon2
+|upkeep
+|switch|p2a: Mr. Mime|Mr. Mime, L86, M|164209
+|turn|16
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime porygon2 latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "porygon2" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-porygon2-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: recover icebeam toxic triattack
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|Speed: 146 vs 114
+|chat|DEBUG|HP: 33 vs 119
+|chat|DEBUG|Best move of porygon2 (p1): triattack: 85.0625 [78, 93]
+|chat|DEBUG|Best move of gurdurr (p2): drainpunch: 111.875 [102, 122]
+|chat|DEBUG|Attacking using triattack
+|switch|p1a: Mimikyu|Mimikyu-Busted, L76, M|78100
+|move|p2a: Mr. Mime|Psychic|p1a: Mimikyu
+|-damage|p1a: Mimikyu|12100
+|-damage|p2a: Mr. Mime|144209|[from] item: Life Orb
+|upkeep
+|turn|17
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "porygon2" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'amoonguss': 329, 'mrmime': 164, 'latios': 253, 'genesect': 227}
+|chat|DEBUG|remaining_hp_team_2={'marowak': 100, 'tornadustherian': 67, 'gurdurr': 43, 'mimikyu': 78}
+|chat|DEBUG|battle.available_switches=[amoonguss (pokemon object) [Active: False, Status: None], mrmime (pokemon object) [Active: False, Status: None], latios (pokemon object) [Active: False, Status: None], genesect (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'mrmime'
+|chat|DEBUG|>Switching to mrmime (pokemon object) [Active: False, Status: None]
+|move|p1a: Mimikyu|Shadow Sneak|p2a: Mr. Mime
+|-supereffective|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|60209
+|-damage|p1a: Mimikyu|3100|[from] item: Life Orb
+|move|p2a: Mr. Mime|Psychic|p1a: Mimikyu
+|-damage|p1a: Mimikyu|0 fnt
+|faint|p1a: Mimikyu
+|-damage|p2a: Mr. Mime|40209|[from] item: Life Orb
+|upkeep
+|switch|p1a: Tornadus|Tornadus-Therian, L78, M|99100
+|turn|18
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mrmime" vs "gurdurr"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyu
+|chat|DEBUG|Own moves: psychic dazzlinggleam nastyplot focusblast
+|chat|DEBUG|Enemy moves: bulkup drainpunch knockoff machpunch
+|chat|DEBUG|Checks: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|Counter: ['amoonguss', 'mrmime', 'latios', 'genesect']
+|chat|DEBUG|Predicting enemy to switch on check: False
+|chat|DEBUG|Speed: 204 vs 114
+|chat|DEBUG|HP: 164 vs 55
+|chat|DEBUG|Created a new Strategy for mrmime vs gurdurr:
+|chat|DEBUG|>[psychic: 268.4375 [244, 291], psychic: 268.4375 [244, 291], psychic: 268.4375 [244, 291]]
+|chat|DEBUG|Best move of mrmime (p1): psychic: 268.4375 [244, 291]
+|chat|DEBUG|Best move of gurdurr (p2): knockoff: 87.5 [80, 95]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Tornadus|Hurricane|p2a: Mr. Mime
+|-crit|p2a: Mr. Mime
+|-damage|p2a: Mr. Mime|0 fnt
+|faint|p2a: Mr. Mime
+|upkeep
+|switch|p2a: Latios|Latios, L78, M|253253
+|turn|19
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mrmime" vs "mimikyubusted"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-latios-genesect -- marowak-tornadustherian-gurdurr-mimikyubusted
+|chat|DEBUG|Own moves: psychic dazzlinggleam nastyplot focusblast
+|chat|DEBUG|Enemy moves: playrough shadowclaw shadowsneak swordsdance
+|chat|DEBUG|Checks: ['amoonguss', 'genesect']
+|chat|DEBUG|Counter: ['amoonguss', 'genesect']
+|chat|DEBUG|Speed: 204 vs 190
+|chat|DEBUG|HP: 144 vs 25
+|chat|DEBUG|Created a new Strategy for mrmime vs mimikyubusted:
+|chat|DEBUG|>[psychic: 128.625 [118, 140], psychic: 128.625 [118, 140], psychic: 128.625 [118, 140]]
+|chat|DEBUG|Best move of mrmime (p1): psychic: 128.625 [118, 140]
+|chat|DEBUG|Best move of mimikyubusted (p2): shadowclaw: 138.625 [129, 152]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Tornadus|Superpower|p2a: Latios
+|-resisted|p2a: Latios
+|-damage|p2a: Latios|213253
+|-unboost|p1a: Tornadus|atk|1
+|-unboost|p1a: Tornadus|def|1
+|move|p2a: Latios|Psyshock|p1a: Tornadus
+|-damage|p1a: Tornadus|1100
+|upkeep
+|turn|20
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss mrmime latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mrmime" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-mrmime-latios-genesect -- marowak-tornadustherian-gurdurr
+|chat|DEBUG|Own moves: psychic dazzlinggleam nastyplot focusblast
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 204 vs 234
+|chat|DEBUG|HP: 40 vs 248
+|chat|DEBUG|Created a new Strategy for mrmime vs tornadustherian:
+|chat|DEBUG|>[psychic: 94.375 [87, 103], psychic: 94.375 [87, 103], psychic: 94.375 [87, 103]]
+|chat|DEBUG|Best move of mrmime (p1): psychic: 94.375 [87, 103]
+|chat|DEBUG|Best move of tornadustherian (p2): knockoff: 74.4375 [68, 81]
+|chat|DEBUG|Attacking using psychic
+|move|p1a: Tornadus|Knock Off|p2a: Latios
+|-supereffective|p2a: Latios
+|-damage|p2a: Latios|113253
+|-enditem|p2a: Latios|Choice Specs|[from] move: Knock Off|[of] p1a: Tornadus
+|move|p2a: Latios|Psyshock|p1a: Tornadus
+|-damage|p1a: Tornadus|0 fnt
+|faint|p1a: Tornadus
+|upkeep
+|switch|p1a: Marowak|Marowak, L86, F|100100
+|turn|21
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "mrmime" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-latios-genesect -- marowak-tornadustherian-gurdurr
+|chat|DEBUG|Own moves: 
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|We have to switch Pokemon
+|chat|DEBUG|Active pokemon fainted
+|chat|DEBUG|remaining_hp_team_1={'amoonguss': 329, 'latios': 253, 'genesect': 227}
+|chat|DEBUG|remaining_hp_team_2={'marowak': 100, 'tornadustherian': 99, 'gurdurr': 20}
+|chat|DEBUG|battle.available_switches=[amoonguss (pokemon object) [Active: False, Status: None], latios (pokemon object) [Active: False, Status: None], genesect (pokemon object) [Active: False, Status: None]]
+|chat|DEBUG|True
+|chat|DEBUG|Minmax Switch: 'latios'
+|chat|DEBUG|>Switching to latios (pokemon object) [Active: False, Status: None]
+|move|p2a: Latios|Draco Meteor|p1a: Marowak
+|-damage|p1a: Marowak|37100
+|-unboost|p2a: Latios|spa|2
+|move|p1a: Marowak|Stone Edge|p2a: Latios
+|-damage|p2a: Latios|0 fnt
+|faint|p2a: Latios
+|upkeep
+|switch|p2a: Amoonguss|Amoonguss, L84, F|329329
+|turn|22
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "latios" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-latios-genesect -- marowak-tornadustherian-gurdurr
+|chat|DEBUG|Own moves: psyshock dracometeor trick mysticalfire
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: []
+|chat|DEBUG|Counter: []
+|chat|DEBUG|Speed: 217 vs 234
+|chat|DEBUG|HP: 253 vs 248
+|chat|DEBUG|Created a new Strategy for latios vs tornadustherian:
+|chat|DEBUG|>[psyshock: 161.25 [148, 175], psyshock: 161.25 [148, 175], psyshock: 161.25 [148, 175]]
+|chat|DEBUG|Best move of latios (p1): psyshock: 161.25 [148, 175]
+|chat|DEBUG|Best move of tornadustherian (p2): knockoff: 141.5 [130, 154]
+|chat|DEBUG|Attacking using psyshock
+|move|p1a: Marowak|Stone Edge|p2a: Amoonguss
+|-damage|p2a: Amoonguss|188329
+|move|p2a: Amoonguss|Giga Drain|p1a: Marowak
+|-supereffective|p1a: Marowak
+|-damage|p1a: Marowak|0 fnt
+|-heal|p2a: Amoonguss|233329|[from] drain|[of] p1a: Marowak
+|faint|p1a: Marowak
+|-heal|p2a: Amoonguss|253329|[from] item: Black Sludge
+|upkeep
+|switch|p1a: Gurdurr|Gurdurr, L83, F|20100
+|turn|23
+|chat|DEBUG|Remaining team:
+|chat|DEBUG|>amoonguss latios genesect
+|chat|DEBUG|Early Game: False
+|chat|DEBUG|Matchup: "latios" vs "tornadustherian"
+|chat|DEBUG|Determining matchups:
+|chat|DEBUG|>amoonguss-latios-genesect -- marowak-tornadustherian-gurdurr
+|chat|DEBUG|Own moves: psyshock
+|chat|DEBUG|Enemy moves: hurricane knockoff superpower uturn
+|chat|DEBUG|Checks: ['latios']
+|chat|DEBUG|Counter: ['amoonguss', 'latios', 'genesect']
+|chat|DEBUG|Predicting enemy to switch on check: True
+|chat|DEBUG|Speed: 217 vs 234
+|chat|DEBUG|HP: 213 vs 2
+|chat|DEBUG|Created a new Strategy for latios vs tornadustherian:
+|chat|DEBUG|>[psyshock: 242.0 [222, 262], psyshock: 242.0 [222, 262], psyshock: 242.0 [222, 262]]
+|chat|DEBUG|Best move of latios (p1): psyshock: 242.0 [222, 262]
+|chat|DEBUG|Best move of tornadustherian (p2): knockoff: 95.125 [88, 104]
+|chat|DEBUG|We can kill the enemy this turn!
+|move|p1a: Gurdurr|Drain Punch|p2a: Amoonguss
+|-resisted|p2a: Amoonguss
+|-damage|p2a: Amoonguss|202329
+|-heal|p1a: Gurdurr|29100|[from] drain|[of] p2a: Amoonguss
+|move|p2a: Amoonguss|Sludge Bomb|p1a: Gurdurr
+|-crit|p1a: Gurdurr
+|-damage|p1a: Gurdurr|0 fnt
+|faint|p1a: Gurdurr
+    <script>
+<div>
+
+<div class="battle-log battle-log-inline" style="display:none"><div>
+
+<script>
+    let daily = Math.floor(Date.now()  1000  60  60  24); document.write('<script src="https:play.pokemonshowdown.comjsreplay-embed.js?version' + daily + '"><' + 'script>');
+<script>
+
+<h1 style="font-weight:normal;text-align:center"><strong>jok3r_de<br>vs<br>HerrGewitter1</strong></h1>
+<br><br>
+<h1 style="font-weight: normal; text-align: center">amoonguss mrmime porygon2 weezing latios genesect</h1>
