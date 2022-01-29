@@ -225,7 +225,7 @@ can coexist with other \textit{field effects} like \textit{weather}.
 
 \paragraph{Weather}
 The \textit{weather} is a set of mechanics that change the battle environment, activating abilities, modifying
-certain moves and potentially damage the Pokémon in battle or affecting their stats. Only one type of weather may 
+certain moves and potentially damaging the Pokémon in battle or affecting their stats. Only one type of weather may 
 be present at a time, and only the most recent type of weather will take effect \cite{Bulbapedia:Weather}. List
 of different \textit{weather}-conditions:
 \begin{itemize}
@@ -233,14 +233,15 @@ of different \textit{weather}-conditions:
 	\item \textit{(Harsh-) Sunshine:} (also: \emph{(Harsh-) Sunlight}) Strong sunlight shines on the 
 	battlefield
 	\item \textit{(Heavy-) Rain:} Rain falls on the battlefield.
-	\item \textit{Sandstorm:} Stinging sand whips across the battlefield. At the end of each turn, damages each
-	Pokémon, with a few exceptions, for $1/16$ of its maximum \ac{HP} unless it is a \textit{Rock}-, \textit{Steel}- or
+	\item \textit{Sandstorm:} Stinging sand whips across the battlefield. At the end of each turn, each
+	Pokémon, with a few exceptions, takes damage equal to $1/16$ of its maximum \ac{HP} unless it is 
+	a \textit{Rock}-, \textit{Steel}- or
 	\textit{Ground}-type. \todo{https://bulbapedia.bulbagarden.net/wiki/Sandstorm_(weather_condition)}
-	\item \textit{Hail:} Pelting hail falls on the battlefield. At the end of each turn, damages each
-	Pokémon, with a few exceptions, for $1/16$ of its maximum \ac{HP} unless it is an \textit{Ice}-type.
+	\item \textit{Hail:} Pelting hail falls on the battlefield. At the end of each turn, each
+	Pokémon, with a few exceptions, takes damage equal to $1/16$ of its maximum \ac{HP} unless it is an \textit{Ice}-type.
 	\todo{https://bulbapedia.bulbagarden.net/wiki/Hail_(weather_condition)}
 \end{itemize}
-There are a few additional special weather conditions which won't be covered in this Thesis as they only occur in 
+There are a few additional special weather conditions which will not be covered in this thesis as they only occur in 
 very specific scenarios.
 
 \paragraph{Other}
@@ -277,7 +278,7 @@ priority is called \textit{priority move}. Moves that have the same priority are
 priority bracket. An example for a move with priority $+2$ is \textit{Extreme Speed}, a \textit{Normal}-type
 move with a base-power of $80$\todo{https://bulbapedia.bulbagarden.net/wiki/Extreme_Speed_(move)}. Having
 a \textit{priority}-move can be useful if the own active Pokémon has a lower \ac{SPE}-stat than the 
-opponent with low \ac{HP} as then the own Pokémon doesn't have to take an additional hit before defeating
+opponent with low \ac{HP} as then the own Pokémon does not have to take an additional hit before defeating
 his enemy. 
 
 \subsection{Damage calculation}
@@ -303,6 +304,9 @@ Precisely, the damage is calculated as follows~\autocite{Bulbapedia:Damage}:
 
 The only exception for this are moves that deal direct damage. A list 
 of these moves can be found at ~\autocite{Bulbapedia:DirectDamage}.
+In the following paragraph, parameters of the formula are covered in detail. An
+explanation of the \textit{Type}-modifier is omitted since it is covered in 
+\ref{sec:types}
 
 \paragraph{Level}
 \textit{Level} refers to the level of the attacking Pokémon~\autocite{Bulbapedia:Damage}. 
@@ -330,7 +334,7 @@ The \textit{Weather} modifier is 1.5 if a \textit{Water-type} move is used durin
 is used during \textit{Harsh Sunlight} or a \textit{Fire-type} move during \textit{rain} ~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Critical}
-In the latest Generation, a \ac{CRIT} deals 1.5 times the damage compared to a normal hit.
+In the latest generation, a \ac{CRIT} deals 1.5 times the damage compared to a normal hit.
 If the \ac{CRIT} rate is not increased, the chance of landing a \ac{CRIT} is 1/24
 ~\autocite{Bulbapedia:CriticalHit}. Increasing \ac{CRIT} rate, as well as other stats, will 
 be explained in chapter \ref{sec:boosting}. \\
@@ -342,27 +346,28 @@ more details.
 may deal different damage in the same scenario ~\autocite{Bulbapedia:Damage}.
 
 \paragraph{STAB}
-\textit{STAB} stands for \textit{Same Type Attack Bonus}. It is a multiplier of 1.5 if the used move
+\textit{STAB} stands for \textit{Same Type Attack Bonus}. It is a multiplier of 1.5 if the current move
 is of the same type as the attacking Pokémon. Otherwise, it is 1.0 ~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Type}
-This is the in section \ref{sec:types} described type modifier ~\autocite{Bulbapedia:Damage}.
+This is the in type modifier described in section \ref{sec:types}~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Burn}
-\textit{Burn} is 0.5 if the attacking Pokémon is burned, and the used move
-is a physical move\footnote{This does not apply if the attacking Pokémon has the Ability \textit{Guts}
+\textit{Burn} is 0.5 if the attacking Pokémon is burned, and the attack
+is physical\footnote{This does not apply if the attacking Pokémon has the Ability \textit{Guts}
 or the used move is \textit{Facade}}. Otherwise, it is 1.0 ~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Other}
 The \textit{other} modifier is usually 1. A list of exceptions can be found at ~\autocite{Bulbapedia:Damage}.
 
 \subsection{Effective Stats}
+\label{sec:boosting}
 When a stat is used in a calculation in battle, a number of modifiers may be applied during the calculation.
 During a battle, a Pokémon's effective stats may be raised or lowered by certain moves abilities and 
 held items. Some attacks may only have a chance of lowering stats, while certain abilities and held items
 may require a triggering event to activate stat modifications. \\
 The modifiers conferred by most moves operate on a sliding scale of \textit{stages}. When a given stat is raised
-or lowered, its current stage in increased or decreased by the amount dictated by the move, up to a maximum
+or lowered, its current stage is increased or decreased by the amount dictated by the move; Up to a maximum
 of $+6$ or a minimum of $-6$. A given stat corresponds to a given multiplier that will modify the stat when it
 is used in calculations. The exact multipliers for stages are described in table \ref{tab:boost-stage-multipliers}
 \begin{table}[h]
@@ -385,12 +390,12 @@ between switches, meaning that the stages for all stats of a Pokémon are reset 
 
 \section{Dynamaxing}
 Dynamaxing is a temporary transformation affecting Pokémon that was introduced in Generation eight. Dynamaxing increases
-a Pokémon's size drastically, as well as changing the moves of the Pokémon and doubling their max as well as their current
-\ac{HP} but can only be used once per battle and ends after three turns or if the user is switched out.
+a Pokémon's size drastically, as well as changing the moves of the Pokémon and doubling their max and current \ac{HP},
+but can only be used once per battle and ends after three turns or if the Pokémon is switched out.
 
 \section{Hazards}
 \label{sec:hazards}
-An \textit{entry hazard} is a condition that affects a side of the field that causes
+An \textit{entry hazard} is a condition that affects one side of the field. It causes
 any Pokémon that is sent into battle on that side of the field to be afflicted by 
 a negative effect. Entry hazards are created by moves, usually status moves
 ~\autocite{Bulbapedia:EntryHazards}. \\
@@ -448,7 +453,8 @@ Pokémon instead becomes badly poisoned ~\autocite{Bulbapedia:ToxicSpikes}. \\
 \paragraph{Sharp steel}
 This entry hazard works very similar to Stealth Rock described in \ref{sec:stealthrock}.
 However, Sharp steel can only be set by the \textit{Steel}-type move
-\textit{G-Max Steelsurge} which is the exclusive G-Max Move of Gigantamax Copperhead.
+\textit{G-Max Steelsurge} which is the exclusive G-Max Move of \textit{Gigantamax Copperhead}
+\todo{Add source}.
 The damage dealt by Sharp steel does not stack, the amount of damage dealt is
 based on the Type effectiveness of the \textit{Steel}-type against the target.
 Exact damage modifiers can be found in table \ref{tab:sharp-steel-damage}
@@ -500,15 +506,15 @@ Pokémon Showdown features a large variety of game modes, the most popular ones 
 Pokémon Games. These two games form the eight generation of Pokémon games and are thereby also often referred as 
 \textit{Gen8}-games. As Pokémon Showdown solely focuses
 on battling every player has access to every available Pokémon. This mainly plays a role in the \textit{OU}-format.
-In this game mode, each player knows all enemy Pokémon but does not know their exact builds meaning that the abilities,
-\ac{IV} and \ac{EV} combinations as well as items are unknown. As the success of a player in this format heavily depends
+In this game mode, each player knows all enemy Pokémon but does not know their exact builds, that is, the abilities,
+\ac{IV}-, \ac{EV}-combinations and items are unknown. As the success of a player in this format heavily depends
 on his team as well as which other teams are currently popular, this thesis will focus on random battles. In this 
 format, each player gets a team of six random Pokémon and unlike in \textit{OU} only knows the currently active
 opposing Pokémon. It is important to note that there are many possible builds for a Pokémon and therefore, information
 management plays a huge role. An example for this will be provided in section \ref{sec:builds-randbats}. \\
 The development for battling bots is explicitly allowed and encouraged by the developers. Furthermore, there is 
-no way to figure out whether the current opponent is a real human or an AI. This is beneficial as otherwise humans
-might behave different when they know they are facing a machine which might invalidate results. 
+no way to figure out whether the current opponent is a real human or an AI. This is beneficial as humans
+might behave differently when they know they are facing a machine potentially leading to invalid results. 
 
 \label{sec:showdown-randbats}
 \subsection{Sets}
@@ -522,16 +528,16 @@ described in the damage calculation described in \ref{sec:damage-calculation} is
 a fixed value. It is determined as described in \ref{eq:gyroball-base-power} ~\autocite{Bulbapedia:GyroBall}.
 \begin{equation}
 	\label{eq:gyroball-base-power}
-	BasePower = \min(150, \frac{25 \times CurrentSpeed_{target}}{CurrentSpeed_{user}})
+	BasePower = \min\left( 150, \frac{25 \times CurrentSpeed_{target}}{CurrentSpeed_{user}}\right)
 \end{equation} 
-As the damage dealt by \textit{Gyro Ball} gets bigger, the lower the \ac{SPE} of the
+Since the damage dealt by \textit{Gyro Ball} gets bigger, the lower the \ac{SPE} of the
 attacker, Pokémon using this move have 0 \ac{EV} and 0 \ac{IV} in the \ac{SPE} stat. \\
 \textit{Note:} Being able to outspeed the opponent is extremely valuable, but the only
 two Pokémon using \textit{Gyro Ball}, \textit{Stakataka} and \textit{Ferrothron}, already
 have a very low \ac{SPE} stat and are slower than almost all other Pokémon in random
 battles. A complete list of Pokémon with their respective \ac{SPE} stat can be found
 at ~\autocite{Bulbapedia:PokemonBySpeed}. \\
-This knowledge can be exploited to gather additional information about the enemy, section
+This knowledge can be exploited to gather additional information about the enemy. Section
 \ref{sec:builds-randbats} describes how this is achieved.
 
 \subsection{Items}
@@ -550,7 +556,7 @@ assignment follows these rules:
 	\begin{itemize}
 		\item Pokémon with four physical attacks or four special attacks, a base \ac{SPE} between
 		60 and 108 and base \ac{ATK} or \ac{SPA} of 100 or more can get a \textit{Choice Scarf}
-		2/3 of the time. If the Pokémon doesn't meet one of the stat qualifications or doesn't
+		2/3 of the time. If the Pokémon does not meet one of the stat qualifications or does not
 		get the 2/3 chance, they'll get \textit{Choice Specs} or \textit{Choice Band} instead.
 		\item Pokémon with 3 special attacks and the move \textit{U-turn} always get 
 		\textit{Choice Specs}. \textit{U-turn} is a physical, \textit{Bug}-type move that 
@@ -563,15 +569,15 @@ assignment follows these rules:
 		\item Having priority moves will always prevent a \textit{Choice Scarf} from being 
 		generated in all situations.
 	\end{itemize}
-	\item Pokémon with 4 attacks that don't qualify for choice items, will get an \textit{Assault
+	\item Pokémon with 4 attacks that do not qualify for choice items, will get an \textit{Assault
 	Vest} if their \ac{HP} + \ac{DEF} + \ac{SPD} $\geq$ 235. Otherwise, \textit{Expert Belt},
 	\textit{Leftovers} or \textit{Life Orb} is generated.
 	\item Pokémon that are weak to Rock will get \textit{Heavy-Duty Boots} if they don't get a 
 	higher priority item, such as \textit{Assault Vest} or a choice item. Pokémon that are four
 	times weak to \textit{Rock}, such as \textit{Charizard}, will always get \textit{Hevay-Duty Boots}.
-	This is done as these Pokémon would otherwise loose up to 50\% \ac{HP} to the entry hazard
+	This is done as these Pokémon would otherwise lose up to 50\% \ac{HP} to the entry hazard
 	\textit{Stealth Rock} described in \ref{sec:stealthrock}. The only exception is \textit{Scyther},
-	which can get Eviolite.
+	which can get \textit{Eviolite}.
 	\item Pokémon in the lead slot will get \textit{Focus Sash} if their \ac{HP} + \ac{DEF} + \ac{SPD} < 255,
 	and they would otherwise get \textit{Leftovers} or \textit{Life Orb}.
 	\item Pokémon that get a Speed-boosting move will be given a \textit{Weakness Policy} if their \ac{HP}
@@ -593,7 +599,7 @@ this thesis, we refer to a Pokémon \textit{checking} another Pokémon if it can
 every scenario and can safely be switched in at any point. A \textit{counter} is also capable of defeating
 the enemy Pokémon but may lose in some situations. The most notable being if switched in without the
 previous active Pokémon fainting as this grants the opponent an additional attack. \\
-The key difference between \textit{check} and \textit{counter} is, that a check is also stronger if
+The key difference between \textit{check} and \textit{counter} is that a check is also stronger if
 it takes damage once more while a counter is not guaranteed to win in this situation. \\
 \textit{Note:} Every \textit{check} to a Pokémon is also always a \textit{counter} while \textit{counter}
 could also be a \textit{check}, but is not guaranteed to. 
