@@ -2,7 +2,8 @@
 
 \chapter{Approach}
 \label{ch:approach}
-\todo{Predictions}
+\todo{Short introduction. Describe idea. This builds on top of related work as combines minimax with rulebased}
+\todo{Predictions: Use Move against most likely next enemy. No prediction switching (yet)}
 \todo{Matchups only recalculated on new information.}
 \section{Communication with Pokémon Showdown}
 \label{sec:poke-env}
@@ -15,17 +16,17 @@ Communication between the two libraries is implemented by capturing stdout and s
 \section{Gathering Information about the enemy Pokémon}
 \label{sec:builds-randbats}
 As mentioned in \ref{sec:showdown-randbats}, the same Pokémon can occur in various different builds, meaning the combination
-of moves, abilities and items. Knowing the exact enemies build is very important for decision-making. Consider the following
+of moves, abilities and items. Knowing the exact build is crucial for the decision-making process. Consider the following
 example: 
 \begin{itemize}
 	\item \textbf{Player1} has an active \textit{Charizard} with \textit{Heavy-Duty Boots} and 150\ac{HP} remaining on the field.
 	\item \textbf{Player2} has just sent out a \textit{Drapion} with 160\ac{HP} remaining.
-	\item The \textit{Charizard} is faster but can't kill the enemy \textit{Drapion} in one turn as his move 
+	\item The \textit{Charizard} is faster but can not kill the enemy \textit{Drapion} in one turn as his move 
 	\textit{Fire Blast} deals between 127 and 151 damage to the \textit{Drapion}. 
 	\item Therefore, if \textbf{Player1} decides to attack, \textit{Drapion} is guaranteed to survive this turn
 	and can attack \textit{Charizard} as well.
 \end{itemize}
-In this scenario, the optimal play for \textbf{Player1} depends heavily on the move set of the enemy \textit{Drapion}.
+In this scenario, the optimal strategy for \textbf{Player1} depends heavily on the move set of the enemy \textit{Drapion}.
 Possible moves for \textit{Drapion} are:
 \begin{itemize}
 	\item \textit{Aqua Tail}: A damaging \textit{Water}-type move
@@ -36,8 +37,10 @@ Possible moves for \textit{Drapion} are:
 	\item \textit{Taunt}: A move that makes the afflicted Pokémon unable to use status moves
 	\item \textit{Toxic Spikes}: A move that sets an entry hazard.
 \end{itemize}
-Hereby it is important to note, that \textit{Drapion} only knows the move \textit{Aqua Tail}, if it knows four total 
-damaging moves. In the given scenario, \textbf{Player1} should switch out his \textit{Charizard} if the enemy
+Hereby it is important to note that \textit{Drapion} only knows the move \textit{Aqua Tail}, if it knows four total 
+damaging moves\footnote{This information was extracted from all possible \textit{Drapion} builds. Details on 
+how these builds were obtained are covered in \ref{sec:build-imp-details}}. 
+In the given scenario, \textbf{Player1} should switch out his \textit{Charizard} if the enemy
 \textit{Drapion} knows the move \textit{Aqua Tail} as this attack would kill \textit{Charizard}. We can determine 
 whether the enemy knows \textit{Aqua Tail} based on his item:
 \begin{itemize}
@@ -51,95 +54,91 @@ whether the enemy knows \textit{Aqua Tail} based on his item:
 	\textit{Choice Band} and as this item will only generate if the Pokémon knows four matching attacks,
 	and therefore has to know the move \textit{Aqua Tail}.
 \end{itemize}
+Therefore, the player should switch out his \textit{Charizard} if the \textit{Drapion} has neither \textit{Black Sludge}
+nor \textit{Life Orb} as then it is guaranteed to have a \textit{Choice Band}, knows \textit{Aqua Tail} and would therefore
+be able to defeat \textit{Charizard}. In any other case, the \textbf{Player1} can safely kill \textit{Drapion} using his
+active \textit{Charizard}.
+
 \paragraph{Implementation details}
-The first step to predicting enemy sets is to determine all possible sets as well has how likely each individual set
-is. In order to achieve this, I wrote a script that to start a battle between an information gathering player and 
-a random agent. In the next step, the script extracts all builds of all Pokémon and stores them, then, it forfeits, 
-and a new battle is started. Once enough battles are played, the script will store the builds as well as how often
+\label{sec:build-imp-details}
+The first step to predicting enemy sets is to determine all possible sets and the likeliness of each individual set.
+In order to achieve this, I wrote a script that starts a battle between an information gathering player and 
+a random agent. In the next step, the script extracts all builds of all Pokémon and stores them. Then, it forfeits, 
+and a new battle is started. Once enough battles are fought, the script will store the builds as well as how often
 they appeared in text files, one file for each Pokémon. \\
-In actual battles, if a new Pokémon enters the enemy side, we assume it to have the most likely build for this species. 
+In actual battles, if a new Pokémon enters the enemy side, we assume it to have the most likely build for its species. 
 Once more information becomes available on items, moves and abilities, we rule-out non-matching builds and always
 assume the enemy to have the remaining most likely build.
 
 \section{Scoring the current game state}
 \label{sec:scoring-state}
-In Order to not only rate the current board state, but also individual Pokémon, we implement the following scoring 
+In order to not only rate the current board state, but also individual Pokémon, we implement the following scoring 
 algorithm:
 \begin{equation}
 \label{eq:score-attack}
-	score(e_{i, j}) = \text{Expected Damage that Pokémon } i \text{ will deal to Pokémon j}
+	score(e_{i, j}) = \text{Expected Damage that Pokémon } i \text{ will deal to Pokémon }j
 \end{equation}
 The expected damage is the damage dealt if both Pokémon behave optimal in the amount of turns that the bot looks into
 the future. Section \ref{sec:determine-matchups} covers how the optimal moves are determined.
-\ref{eq:score-attack}
 \begin{equation}
-	val(i) = \sum_{j \in \text{Enemy Pokémon}} score(e_{i, j})
+	value(i) = \sum_{j \in \text{Enemy Pokémon}} score(e_{i, j})
 \end{equation}
 Using this, we can also introduce a \textit{value} for each of our Pokémon where a higher value implies a more important
-Pokémon. It is important to note, that scores are determined independently of each other meaning that we do not take
-into account damage taken by the attacker. This does explicitly mean that this metric does not determine how good the 
+Pokémon. It is important to note that scores are determined independently of each other meaning that we do not take
+into account damage taken by the attacker. This does imply that this metric does not determine how good the 
 Pokémon is if it has to battle \textit{all} enemy Pokémon but rather against how many other Pokémon it \textit{could}
-be used. This is done as the order in which a Pokémon battles multiple Pokémon plays a huge role. The reasoning
-behind this as well as the determination of an optimal order is explained in \todo{Ref to MinMax}.
-This metric also has multiple flaws as it only takes the damage dealt to the enemy into account, other important 
-factors like damage received, healing, the availability of status moves and hazards is not taken into account. \\
-Similarly, we can determine the \textit{thread level} as shown in equation \ref{eq:thread-level}
-\begin{equation}
-\label{eq:thread-level}
-	thread\_level(j) = \sum_{i \in \text{Own Pokémon}} score(e_{j, i})
-\end{equation}
-Combining the \textit{value} and \textit{thread level}:
-\begin{equation}
-	board\_rating = \sum_{i \in \text{Own Pokémon}} val(i) - \sum_{j \in \text{Enemy Pokémon}} thread\_level(j)
-\end{equation}
-\todo{Maybe use can_defeat with 0 / 1 instead here}
-Therefore, a positive rating indicates that the board is favorable for the player, a negative rating indicates that
-the board is unfavorable for the player and a value close to zero indicates that no player currently has and
-advantage over the other.
+be used. This is done as the order in which a Pokémon battles multiple Pokémon plays a critical role. The reasoning
+behind this as well as the determination of an optimal order is explained in section \ref{sec:defeat-phase}.
+This metric also has multiple flaws because it only takes the damage dealt to the enemy into account, other important 
+factors like damage received, healing, the availability of status moves and hazards is not considered. Using 
+this rating, we can rank our team based on importance which is used in the switching routine described in 
+section \ref{sec:stages-of-game}.
 
 \section{Stages of the game}
 \label{sec:stages-of-game}
 We divide the game into two phases, the first one being the \textit{Discover}-Phase whereas the second phase is called
 \textit{Defeat}-Phase. Our goal and therefore our play style, is different in both phases.
 \paragraph{Discover Phase}
-At the beginning of the game, we play safely until we know our opponents entire team. Therefore, we try to gather 
-information about the enemy team while sacrificing as little \ac{HP} as possible. In this stage, we act following
+At the beginning of the game, we play safely until we know our opponent's entire team. In other words, we try to gather 
+information about the enemy team while sacrificing as little \ac{HP} as possible. In this stage, we act according to
 these rules:
 \begin{enumerate}
 	\item Kill the opponent if we are guaranteed to kill him this turn. This either leads to us defeating the 
 	enemy Pokémon, or possibly new information if the enemy switches.
 	\item Healing our Pokémon. If we have a healing move that will heal us more than the expected damage we receive
 	this turn, and we are not at full \ac{HP} we will heal our Pokémon. Doing so will force the enemy to switch as
-	we are otherwise gaining an advantage over him.
+	we are otherwise gaining an advantage over him. \todo{Go into a bit more depth here?}
 	\item If we have a hazard setting move available, we will use this move as they will help us in the \textit{Defeat}-Phase.
 	Other beneficial side-conditions like \textit{Light Screen} will be set as well. 
 	\item Using moves that inflict status to the opponent like \ac{BRN}.
 \end{enumerate}
 If none of these conditions apply, we decide whether to switch out our Pokémon or not. If our current Pokémon is a 
-\textit{check} or \textit{counter} against the enemy Pokémon, we won't switch. Otherwise, we switch to a \textit{check},
-or \textit{counter} if present. Next, we check if the current matchup is very unfavorable. This applies, if the enemy
+\textit{check} or \textit{counter} against the enemy Pokémon, we will not switch. Otherwise, we switch to a \textit{check},
+or \textit{counter} if present. Next, we check if the current matchup is unfavorable. This applies, if the enemy
 is expected to survive the current matchups for two turns longer than we do, meaning that our Pokémon would not be able
 to defeat the enemy, if it was allowed to attack two additional times. If this is the case, we determine the next action
 as follows: \\
-We start by determining the \textit{score} of each of our Pokémon as described in \ref{eq:score-attack} and exclude our
+We start by determining the \textit{score} of each of our Pokémon as described in formula \ref{eq:score-attack} and exclude our
 two most valuable Pokémon from the next steps. This is done as we assume to depend heavily on these Pokémon to defeat
 other enemies. Next up, we pick the Pokémon with the lowest \textit{score} that fulfills the following 
 criteria:
 \begin{itemize}
 	\item The Pokémon has to survive for at least three turns against the enemy
-	\item The Pokémon has to fulfill at least one of these criteria:
+	\item At least one of the following criteria apply:
 	\begin{itemize}
 		\item It is able to set a \textit{hazard} or other beneficial field effect that is not already present.
 		\item It can inflict a status condition on the enemy.
 	\end{itemize}
 \end{itemize}
-If not Pokémon matches these criteria, the Pokémon with the lowest score is picked instead. \\
+If no Pokémon matches these criteria, the Pokémon with the lowest score is picked instead.
+Score is calculated as described in section \nameref{sec:scoring-state}. \\
 In any other case, the currently active Pokémon will use the best move calculated in \ref{sec:determine-matchups}.
 
 \paragraph{Defeat Phase}
-\label{ref:defeat-phase}
+\label{sec:defeat-phase}
+\todo{Move tree to appendix. If the tree is to small printed (when on appendix): Smaller Example using TikZ.}
 The \textit{Defeat}-Phase starts as soon as we know all enemy Pokémon. At the beginning of this stage, we have to create
-a match plan for defeating the enemy. The main goal is to figure out, which Pokémon to use against which enemies, especially
+a match plan for defeating the enemy. The main goal is to figure out which Pokémon to use against which enemies, especially
 the best order to send them into battle. 
 \begin{figure}[h]
 	\centering
@@ -151,19 +150,19 @@ Figure \ref{fig:game-plan} shows a possible end-game scenario. In this simple ex
 have three Pokémon with full \ac{HP} and no status conditions. Each circle represents two Pokémon battling each other.
 Therefore, the circle in the top center indicates, that our \textit{Roserade} is currently fighting against the enemy
 \textit{Charizard}. As \textit{Charizard} is a \textit{Fire}-type Pokémon which has a type advantage against his enemy,
-our \textit{Roserade} will faint in this matchup, indicated by the underlined name. This means, that now Player 1 has to
-switch in a new Pokémon. A green circle around a node indicates that the first player has to make a turn as his 
+our \textit{Roserade} will faint in this matchup, expressed by the underlined name. This means that Player 1 has to
+switch in a new Pokémon. A green circle around a node illustrates that the first player has to make a turn as his 
 Pokémon fainted, and a red circle marks a decision for Player 2. The first line below the names of the two opposing
 Pokémon displays the amount of \ac{HP} the first team has left after this battle took place. As \textit{Roserade} fainted,
 it has zero \ac{HP} left whereas the other two Pokémon in his team are still at full health. Below that, the remaining 
 \ac{HP} of the second team is displayed. \textit{Charizard} is \textit{expected} to survive the battle with an 
 \textit{expected} amount of 141 \ac{HP} remaining. Next, we have two possible options remaining, we can either send
 \textit{Kyogre} or \textit{Azumarill} to defeat the enemy \textit{Charizard}. Taking a look at the leaves of the tree,
-the \textit{value} of a leaf node is \textit{- 1} if the enemy wins the battle and \textit{1} if we win the battle. 
-The value of a non-leaf node is the sum of the values of the children nodes. The \textit{value} of two means that we 
+the \textit{value} of a leaf node is $-1$ if the enemy wins the battle and $1$ if we win the battle. 
+The value of a non-leaf node is the sum of the \textit{values} of the children nodes. The \textit{value} of two means that we 
 expect to win the battle. As a result of this, the best choice in our example scenario is to use \textit{Azumarill} to 
 defeat the already damaged \textit{Charizard}. \\
-\todo{Explain why MinMax Tree is correct. Pokemon don't have expected items / moves!}
+\todo{Explain why MiniMax Tree is correct. Pokemon don't have expected items / moves!}
 
 \section{Determining matchups}
 \label{sec:determine-matchups}
@@ -173,10 +172,10 @@ nature of the game makes it unfeasible get the optimal move combination by simul
 actions and reactions over the span of multiple turns. Therefore, we determine the optimal moves for a Pokémon using 
 this simplified method: \\
 We start by generating all possible move combinations for a Pokémon with a given length. Then, we simulate the outcome
-of the battle, if the attacking Pokémon would use these moves in the defined order given the enemy would not do anything
-\footnote{The option of not doing anything in a turn does not exist in Pokémon, if possible, the player is always 
-forced to either select a move or switch.} Here, we also take boosting, items, status effects and the possibly changing
-field state into account \todo{Reference to further work with things that do not work like recognizing focus items}.
-In the early game. Then, the combination resulting in the lowest amount of turns until the enemy faints is selected. 
+of the battle. If the attacking Pokémon would use these moves in the defined order given the enemy would not do 
+anything\footnote{The option of not doing anything in a turn does not exist in Pokémon, if possible, the player is always 
+forced to either select a move or switch}. Here, we also take boosting, items, status effects and the possibly changing
+field state into account.
+The combination resulting in the lowest amount of turns until the enemy faints is selected. 
 It is important to note that this is not necessarily the move that the bot will use in the next turn as in the 
 \textit{Discover}-Phase healing, status and other beneficial effects are prioritized.
