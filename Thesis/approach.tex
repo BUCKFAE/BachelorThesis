@@ -183,7 +183,32 @@ It is important to note that this is not necessarily the move that the bot will 
 \section{Predictions}
 \label{sec:predictions}
 \todo{Explain predicting routine}
-
+Predicting the next enemy action plays a huge role in competitive Pokémon. In many situations, it is very likely
+that the opponent will switch to another Pokémon to avoid a bad matchup. For example, players often withdraw 
+\textit{Fire}-type Pokémon if the opponent knows a \textit{Water}-type move as this will deal twice the amount of
+damage due to the type multiplier discussed in section \ref{sec:types}. Therefore, players often choose to pick a move
+countering the expected Pokémon the opponent will send out or even switch themselves in anticipation of an enemy
+action. Our agent mimics this behavior in the following way: \\
+The agent keeps track how often the opponent chose to withdraw his active Pokémon when it is checked and how often
+he decided to stay in. In order to make the actions taken by the agent less predictable, \ac{RNG} is used on
+favorable matchups to decide how to act. The chance that the agent predicts an enemy switch is zero if this is 
+the first time that our Pokémon counters an enemy and otherwise as described in equation \ref{eq:prediction-chance}. 
+\begin{equation}
+\label{eq:prediction-chance}
+	\text{Chance make a prediction} = 
+	\frac
+	{\text{\# The enemy switched when countered}}
+	{\text{\# Total times the enemy was countered}}
+\end{equation}
+Currently, the agent assumes the enemy to switch in a random Pokémon that counters the active Pokémon and will then 
+pick the move, that will yield to the best outcome for this matchup. Flaws and possible improvements to this
+simple routine will be discussed in section \ref{par:predictions}. 
 \section{Dynamaxing}
 \label{sec:dynamaxing}
-\todo{Explain dynamaxing routine}
+At the time of writing, \textit{Memezboi69} is the top ranked player on the Pokémon Showdown ladder. He described
+the use of dynamaxing as very situation dependent as it can either be used offensive or defensive and proposed 
+a simple rule set that can be build upon:
+Dynamax if the current matchup is favorable, the entire enemy team is known and the active Pokémon has more than
+70\% \ac{HP} remaining. In addition, the agent will dynamax if the current Pokémon is the last remaining Pokémon
+with full \ac{HP}. \textit{Memezboi69} also laid out a more sophisticated rule set, which is described in
+section \ref{par:eval-dynamx}, that can be applied in future iterations of the agent.
