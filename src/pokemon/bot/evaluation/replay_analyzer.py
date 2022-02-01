@@ -8,11 +8,11 @@ from matplotlib import pyplot as plt
 from src.pokemon import logger
 
 REPLAY_LOCATIONS = [
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterJoni', 'HerrGewitter1'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/Joni/data/replays_joni', 'HerrDonner1'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/Markus', 'HerrGewitter2')
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterJoni', 'HerrGewitter1'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/Joni/data/replays_joni', 'HerrDonner1'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/Markus', 'HerrGewitter2')
 ]
 
 def main():
