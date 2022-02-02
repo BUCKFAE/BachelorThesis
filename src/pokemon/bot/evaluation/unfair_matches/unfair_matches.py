@@ -98,6 +98,10 @@ class Collector:
         logger.info(f'Plotting results!')
         logger.info(self.results)
         fig, ax = plt.subplots()
+
+        game_count = sum([t[0] + t[1] for t in self.results.values()])
+        logger.info(f'Plotting graph with results of {game_count} games!')
+
         ax.bar([t for t in self.results.keys()], [t[0] + t[1] for t in self.results.values()], color='red')
         plt.xticks(np.arange(min([t for t in self.results.keys()]), max([t for t in self.results.keys()]) + 1, 1.0))
         ax.set_ylabel("Frequency", color='red')
@@ -130,18 +134,19 @@ class SendingPlayer1(Player):
             collector.add_team_info([clone_pokemon(p, build_from_pokemon(p)) for p in battle.team.values()],
                                     self.username)
 
-        def estimate_move_damage(move: Move) -> float:
-            type_mod = move.type.damage_multiplier(battle.opponent_active_pokemon.type_1,
-                                                   battle.opponent_active_pokemon.type_2)
-            return move.base_power * type_mod
-
-        if battle.available_moves:
-            return self.create_order(max(battle.available_moves, key=lambda move: estimate_move_damage(move)))
-        elif len(battle.available_switches) > 0:
-            return self.create_order(max(battle.available_switches, key=lambda pokemon:
-            max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
-        else:
-            return self.choose_random_move(battle)
+        return self.choose_random_move(battle)
+        # def estimate_move_damage(move: Move) -> float:
+        #     type_mod = move.type.damage_multiplier(battle.opponent_active_pokemon.type_1,
+        #                                            battle.opponent_active_pokemon.type_2)
+        #     return move.base_power * type_mod
+        #
+        # if battle.available_moves:
+        #     return self.create_order(max(battle.available_moves, key=lambda move: estimate_move_damage(move)))
+        # elif len(battle.available_switches) > 0:
+        #     return self.create_order(max(battle.available_switches, key=lambda pokemon:
+        #     max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
+        # else:
+        #     return self.choose_random_move(battle)
 
 
 async def main():
@@ -164,14 +169,15 @@ async def main():
                  or p2.n_won_battles == 1 and p2.username == 'SendingPlayer1 1'
         games_won_p1 += p1_won
 
-        if i % 1000 == 0:
-            collector.store_results()
-
         collector.evaluate_teams(p1_won)
         p1.reset_battles()
         p2.reset_battles()
 
         logger.info(f'\n\n\nPlayed: {i}\n\n\n')
+
+        if i % 1000 == 1 and i > 1 or i == 10 or i == 100:
+            collector.store_results()
+            collector.plot_results()
 
     logger.info(f'{games_won_p1=}')
 
