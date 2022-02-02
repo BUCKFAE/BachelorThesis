@@ -1,4 +1,6 @@
 import asyncio
+import os
+import pickle
 import sys
 from typing import List
 
@@ -107,7 +109,16 @@ class Collector:
         ax2.plot(*zip(*sorted(ratio_data)), color='green')
         ax2.set_ylabel("Win rate in percent", color='green')
         plt.savefig('boardrating.png')
-        # plt.show()
+        plt.show()
+
+    def store_results(self):
+        with open("src/data/board-rating.pkl", "wb") as f:
+            pickle.dump(self.results, f)
+
+    def load_results(self):
+        if not os.path.isfile("src/data/board-rating.pkl"): return
+        with open("src/data/board-rating.pkl", "rb") as f:
+            self.results = pickle.load(f)
 
 
 class SendingPlayer1(Player):
@@ -128,9 +139,10 @@ class SendingPlayer1(Player):
             return self.create_order(max(battle.available_moves, key=lambda move: estimate_move_damage(move)))
         elif len(battle.available_switches) > 0:
             return self.create_order(max(battle.available_switches, key=lambda pokemon:
-                                     max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
+            max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
         else:
             return self.choose_random_move(battle)
+
 
 async def main():
     p1 = SendingPlayer1(battle_format="gen8randombattle",
@@ -143,12 +155,17 @@ async def main():
 
     games_won_p1 = 0
 
-    for i in range(1_00):
+    collector.load_results()
+
+    for i in range(20_000):
         await p1.battle_against(p2, 1)
 
         p1_won = p1.n_won_battles == 1 and p1.username == 'SendingPlayer1 1' \
-            or p2.n_won_battles == 1 and p2.username == 'SendingPlayer1 1'
+                 or p2.n_won_battles == 1 and p2.username == 'SendingPlayer1 1'
         games_won_p1 += p1_won
+
+        if i % 1000 == 0:
+            collector.store_results()
 
         collector.evaluate_teams(p1_won)
         p1.reset_battles()
@@ -159,6 +176,7 @@ async def main():
     logger.info(f'{games_won_p1=}')
 
     collector.plot_results()
+    collector.store_results()
 
     logger.info(f'Finished!')
 

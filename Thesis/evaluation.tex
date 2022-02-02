@@ -84,55 +84,54 @@ During this thesis, two different agents were developed, \textit{HerrDonner} and
 
 \subsection{HerrDonner}
 This agent was designed to establish a good baseline and to demonstrate the capabilities of a very
-simple rule set. The agent is capable of looking multiple turns into the future. In order to determine
+simple rule set. The agent is capable of looking multiple turns into the future. To determine
 what moves to be used, the Agent generates every possible move combination with the specified amount
 of turns into the future and calculates the expected outcome while assuming that the enemy does 
-not move at all, similar to the \ac{BFS}-based algorithm described in paragraph \ref{sec:showdown-competition-bfs}. 
+not move at all, similar to the \ac{BFS}-based algorithm described in paragraph \ref{sec:related-bfs}. 
 No drawback moves that heal the agent, set hazards or field conditions or inflict status conditions
 are not considered unless they result in the highest amount of damage dealt. Also, stat changes are 
-not taken into account, neither for damage calculation nor for determination of matchups. 
+not taken into account, neither for damage calculation nor for rating of matchups. 
 This results in the bot often spamming moves like \textit{Draco Meteor}, a \textit{special} 
-\textit{Dragon}-type move that deals a lot of damage but also lowers the
-users \ac{SPA} by two stages resulting in the move dealing less damage every time it is used. 
+\textit{Dragon}-type move that deal a lot of damage but also lower the
+users \ac{SPA} by two stages resulting in the move dealing less damage every time it is carried out. 
 When the agent is forced to switch, it will switch to a check if available. If no check is available,
 a counter is sent into battle if one exists. Otherwise, a random Pokémon will be picked. \\
 At the start of each turn, \textit{HerrDonner} will check if the current matchup is not favorable, 
-a matchup is deemed unfavorable, if the current Pokémon is neither \textit{check} nor 
-\textit{counter} to the current enemy. On a bad matchup, the bot will switch to an available 
-\textit{check} or \textit{counter}. If neither is available, the bot won't switch and try to
+a matchup is deemed unfavorable, if the current Pokémon is neither check nor 
+counter to the current enemy. On a bad matchup, the bot will switch to an available 
+check or counter. If neither is available, the bot won't switch and try to
 defeat the current opponent with his active team member. \\
 Dynamaxing is implemented in a very simple and naive way: The agent will always dynamax the
 active Pokémon as soon as more than four enemy Pokémon are known. Lastly, if the
 current Pokémon is dynamaxed, the agent will not switch, even if the current matchup is not
-favorable. 
+favorable. The challenges of properly using this mechanic will be explained in~\ref{par:eval-dynamx}.
 
 \subsection{HerrGewitter}
 \label{sec:HerrGewitter}
 \textit{HerrGewitter} behaves like described in section \ref{ch:approach}. Here, the most notable
 differences between both agents are highlighted, and limitations of this agent are discussed. \\
-Firstly, more things are taken into consideration when calculating damage, current stat changes are
-taken into consideration as well as status conditions. In addition to that, abilities and items
-are considered for damage calculation. Furthermore, recoil from moves, healing both from items
-like \textit{Leftovers} ~\autocite{Bulbapedia:Leftovers} and moves like \textit{Recover} aren't neglected
+Firstly, \textit{HerrGewitter} takes more factors into consideration. Now, damage calculation is done
+in regards to current stat changes and status conditions. Additionally, abilities and items are taken 
+into account. Furthermore, recoil from moves, healing both from items
+like \textit{Leftovers} ~\autocite{Bulbapedia:Leftovers} and moves like \textit{Recover} are not neglected
 anymore. \\
-Switching and the selection of moves is done as described in \ref{ch:approach}. \\
+Switching and the selection of moves is done as described in section~\ref{ch:approach}. \\
 These improvements lead to \textit{HerrGewitter} avoiding mistakes of \textit{HerrDonner}. For example,
-this agent will burn a physical attacker using for example \textit{Will-O-Wisp} ~\autocite{Bulbapedia:Will-O-Wisp}
+this agent will burn a physical attacker using \textit{Will-O-Wisp}~\autocite{Bulbapedia:Will-O-Wisp}
 in order to reduce damage taken over the next turns. The agent will also boost and heal itself in favorable
 situations which stalls the game and forces the opponent to react. Another major improvement is that the
 agent switches out the current Pokémon if stat changes resulted in an unfavorable matchup which is especially
-important as stat changes reset on swap. \\
-There are still a lot of features that \textit{HerrGewitter} is lacking. 
-\todo{HerrGewitter predicts switches}
+important as stat changes reset on a swap. However, there are still a lot of features that \textit{HerrGewitter} 
+is lacking. 
 
 \paragraph{Weather and Field effects}
-The first thing to improve in future versions is to add proper support for weather and field effects in 
-the damage calculator as well as in the \textit{MinMax}-Algorithm. Currently, the agent is for example
-not aware of the fact that a \textit{Fire}-Type move deals 1.5 more damage during \textit{Harsh Sunlight}.
+One such feature is a proper support for weather and field effects in the damage calculation as well
+as in the \textit{MiniMax}-Algorithm. For instance, a consequence of this is the agent lacking awareness
+of the fact that a \textit{Fire}-Type move deals 1.5 more damage during \textit{Harsh Sunlight}.
 
 \paragraph{Hazards}
-Currently, the agent will always try to set a non-present Hazard in the early game as this does most 
-of the time result in a long term benefit. There are however some notable exceptions to this that 
+Currently, the agent will always try to set a non-present Hazard in the early game as this usually 
+results in a long term benefit. There are however some notable exceptions to this that 
 are not yet implemented:
 \begin{itemize}
   \item The agent will always set as many hazards as possible in the early game, even if the current matchup 
@@ -147,15 +146,14 @@ are not yet implemented:
   \item The agent will not clear hazards
 \end{itemize}
 
-
 \paragraph{Choice Items}
-As described in section \ref{sec:Important-items} Pokémon holding a \textit{Choice}-item are locked into using always 
+As mentioned in section \ref{sec:Important-items}, Pokémon holding a \textit{Choice}-item are locked into using always 
 the same move until they are switched out. The agent has two major flaws in regard to these items: When the active
-Pokémon of the agent is holding a choice item and already locked into a move, the agent is not aware of the fact that
+Pokémon of the agent is holding a choice item and is already locked into a move, the agent is not aware of the fact that
 once the Pokémon is switched out, it will regain access to his other moves which leads to an incorrect prediction
 for future matchups. As described in \todo{Link chapter about re-determining matchups}, the only matchups re-evaluated
 on a given turn are matchups that include one of the currently active Pokémon. The following example illustrates how
-this design decision lead to issues on Pokémon with \textit{Choice}-items: \\
+this design decision leads to issues on Pokémon with \textit{Choice}-items: \\
 In the given scenario, our agent has an active \textit{Garchomp} which is locked into using \textit{Earth Quake}. The 
 \textit{Garchomp} also has access to the \textit{Rock}-Type move \textit{Stone Edge}. This turn \textit{Butterfree},
 a \textit{Bug / Flying}-Type Pokémon
@@ -164,13 +162,13 @@ switch out \textit{Garchomp} for another Pokémon. In the current implementation
 re-evaluated. While this won't lead to problems in the early game, this results in an incorrect \textit{MinMax} calculation
 as for matchups involving \textit{Garchomp} and any non-active opponent, \textit{Garchomp} is still assumed to only have
 access to the move \textit{Earth Quake}. In this scenario, the agent would fail to realize that \textit{Garchomp} also
-has access to \textit{Stone Edge} and would incorrectly assume Garchomp to loose all matchups against \textit{Flying}-Type
+has access to \textit{Stone Edge} and would incorrectly assume \textit{Garchomp} to lose all matchups against \textit{Flying}-Type
 Pokémon. \\
-While this behavior rarely effects battle, the agent failing to realize that an enemy is choice-locked has more often a 
+While this behavior rarely effects battle, the agent failing to notice that an enemy is choice-locked has more often a 
 negative impact on the battle: If the enemy is known to be choice-locked into \textit{Earth Quake} we can safely switch 
 a \textit{Flying}-Type into battle. This applies especcially if the enemy Pokémon is known to have the \textit{Rock}-type 
 super effective
-move \textit{Stone Edge} as the enemy can't use this move until switched out and back in again. In this scenario, the
+move \textit{Stone Edge} as the enemy can not use this move until switched out and back in again. In this scenario, the
 agent wrongfully would not prefer to switch in a \textit{Flying}-Type Pokémon due to the thread posed by 
 \textit{Stone Edge}. Switching in a Pokémon resisting \textit{Earth Quake} in this scenario forces the enemy to switch
 to another Pokémon. This gained turn advantage can either be used to land an extra move on the next opponent, set hazards,
@@ -180,13 +178,13 @@ beneficial field conditions, inflict status conditions or boost the current Pok�
 The current implementation relies on the Pokémon Showdown Damage Calculator. As of now, this open source project does 
 only support direct damage dealt by attacking and lacks functionalities like recoil, healing from items and moves. While
 we added these features to our implementation, some moves are still not properly implemented. For example, the move
-\textit{Counter} has a move priority \todo{Explain move priorities} of $-5$ and works as follows:
+\textit{Counter} has a move priority of $-5$ and works as follows:
 If the last mount of damage dealt before the use of \textit{Counter} is greater than zero and was dealt by a 
 \textit{Physical}-Type move, \textit{Counter} will do twice as much damage to the opponent. Otherwise, the move
 will miss. Additionally, \textit{Counter} has a lot of extra rules regarding other special moves in place 
 ~\autocite{Bulbapedia:Counter}. Issues like these are especially obvious on \textit{Wobbuffet} as all of his four
 most likely moves, \textit{Mirror Coat}, \textit{Encore}, \textit{Counter} and \textit{Encore} are very useful
-yet don't deal any damage and are not implemented yet which leads the agent to believe that this Pokémon is bad 
+yet do not deal any damage and are not implemented yet which leads the agent to believe that this Pokémon is bad 
 in every possible matchup and has no good use scenarios whatsoever.
 
 \paragraph{Dynamaxing}
@@ -206,7 +204,11 @@ some circumstances also be used in an earlier stage of the game if the current m
 
 \paragraph{Predictions}
 \label{par:predictions}
-\todo{Other flaws of the bot to apparent to notice}
+When play testing the bot, predictions were noticeable but only seemed to occur rarely. This is 
+likely caused by the optimal move against the current Pokémon being equal to the best attack
+targeting the predicted switch. In order to compete with higher ranked players, more investigation
+on the prediction routine is required. Future work could also include switching in anticipation
+of the opponent withdrawing his active Pokémon.
 
 \paragraph{Other special cases}
 This list contains more currently unhandled cases which will be addressed in future versions:
@@ -216,8 +218,8 @@ This list contains more currently unhandled cases which will be addressed in fut
   \item The ability \textit{Trace} changes the ability of a Pokémon to the ability of his opponent.
 \end{itemize}
 
-\paragraph{MinMax}
-The \textit{MinMax} algorithm described in paragraph \ref{ref:defeat-phase} only support changes in health
+\paragraph{MiniMax}
+The \textit{MiniMax} algorithm described in paragraph \ref{sec:defeat-phase} only supports changes in health
 but ignores other important factors such as boosts and status conditions. Therefore, the agent will 
 not recognize the possibility to weaken a very strong physical attacker like \textit{Garchomp} by burning
 it first and then defeating it with another Pokémon. A simple way to include \ac{BRN} into this algorithm
@@ -242,7 +244,7 @@ is to multiply the expected damage dealt by a burned Pokémon with $0.5$.
 \end{figure}
 \todo{Print this page and check if the figures are to small}
 Both agents were evaluated at the same time over the span of multiple days by playing over 1400 ranked games each 
-against human opponents on Pokémon Showdown. Figure \nameref{fig:donner-elo} shows the Elo rating of \textit{HerrDonner}
+against human opponents on Pokémon Showdown. Figure~\ref{fig:donner-elo} shows the Elo rating of \textit{HerrDonner}
 over time, while figure \ref{fig:gewitter-elo} displays the Elo rating of \textit{HerrGewitter}. 
 \begin{figure}[h]
 	\centering
@@ -250,7 +252,7 @@ over time, while figure \ref{fig:gewitter-elo} displays the Elo rating of \texti
 	\caption{Smoothed Elo}
 	\label{fig:elo-smoothed}
 \end{figure}
-In order to make comparison of both agents more easy, figure \textit{fig:elo-smoothed} shows the smoothed Elo of
+In order to make a comparison of both agents more easy, figure \ref{fig:elo-smoothed} shows the smoothed Elo of
 both agents over time. Smoothing was achieved by dividing the Elo history in chunks of size 20 and then plotting
 the average Elo of each chunk. 
 \\\begin{minipage}{\linewidth}
@@ -262,7 +264,7 @@ the average Elo of each chunk.
       smoothed_elo += [(i, sum(sec) / len(sec))]
 \end{lstlisting}
 \end{minipage}
-The first thing to note is that \textit{HerrGewitter} has a higher mean Elo ($1227$) as well as a higher max Elo ($1432$)
+The first thing to note is that \textit{HerrGewitter} has a higher mean Elo ($1227$) and a higher max Elo ($1432$)
 than \textit{HerrDonner} who achieved an average Elo of $1125$ and peaked at an Elo of $1342$. 
 \begin{table}[h]
   \centering
@@ -274,7 +276,7 @@ than \textit{HerrDonner} who achieved an average Elo of $1125$ and peaked at an 
     \hline
     MaxDmg                                         &        & N / A  & -         & 929 / 71  & 906 / 94 & 951 / 49  \\
     \hline
-    Pmariglia                                      &        &        & N / A     & 612 / 388  & -        & 273 / 727 \\
+    Pmariglia                                      &        &        & N / A     & 612 / 388 (*)  & -        & 273 / 727 \\
     \hline
     DQN                                            &        &        &           & N / A     & -        & -         \\
     \hline
@@ -285,45 +287,70 @@ than \textit{HerrDonner} who achieved an average Elo of $1125$ and peaked at an 
     \end{tabular}
     \caption{Battle results of 1,000 games between the agents. \\
     \emph{Pmariglia:}~\autocite{Github:pmariglia-showdown} \\
-    \emph{DQN:} As described  in ~\autocite{Huang_Lee_2019}}
+    \emph{DQN:} As described  in ~\autocite{Huang_Lee_2019} \\}
     \label{tab:agent-performance}
   \end{table}
 \todo{No footnote in table? How to properly format this?}
 Table \ref{tab:agent-performance} shows the performance of different agents when directly competing against each other.
+
 It is very important to note that while the agent of~\autocite{Huang_Lee_2019} played against an older version of
 against~\autocite*{Github:pmariglia-showdown} than our bot did and is therefore not included in this table as 
-this possibly leads to misleading interpretations. 
+this possibly leads to misleading interpretations. \todo{Currently included. Figure this out!}
+
+
 Each entry displays the results of a thousand games played between both agents. The first number indicates the amount
-of games the agent in the current column won. There are a multiple things to point out here: \\
+of games the agent in the current column won. There are multiple things to point out here: \\
 While \textit{HerrDonner} and \textit{HerrGewitter} achieved almost similar results when battling a random agent, 
 \textit{HerrDonner} performed notably worse against the \textit{MaxDmg} agent which always picks the move with the
 highest base power. Also, \textit{HerrGewitter} only managed to win $58\%$ against \textit{HerrDonner} despite notably
-better results against human players \todo{Write about Humans vs. HerrGewitter / Donner}
-
-\todo{Add Glicko-1 rating}
+better results against human players, described in section~\ref{sec:investigate-replays}. At the time of writing,
+neither \textit{poke-env} nor replays created by Showdown allow the retrieval of the Glicko-1 rating. After playing
+for 1,400 games, \textit{HerrDonner} ended up with a Glicko-1 rating of $1438$ and \textit{HerrGewitter} achieved
+a ranking of $1509$.
 
 \section{Investigating Replays}
-\todo{Bot is good at switching / using most damaging move.}
-\todo{Bot is not easy to defeat by humans (Joni / Markus)}
-\todo{}
+\label{sec:investigate-replays}
+In addition to playing against humans on the Showdown ranked ladder, the bot was also evaluated by playing
+against \textit{Jonathan Krebs} and \textit{Markus Krug}. 
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    & \emph{HerrDonner} & \emph{HerrGewitter} \\
+    \hline
+    \emph{Jonathan} & 28 / 23 & 37 / 23 \\
+    \hline
+    \emph{Markus} & N / A & 4 / 11 \\
+    \hline
+    \end{tabular}
+    \caption{Performance of both agents against human players. \textit{HerrGewitter} posed a 
+    harder challenge but is unable to gain a lead against \textit{Markus}, an experienced
+    human player.}
+    \label{tab:agents-vs-humans}
+\end{table}
+While \textit{Markus} was able to reliably beat \textit{HerrGewitter}, the agent provided
+a significant challenge and required careful planning to overcome. Replays retrieved
+from these games confirm assumptions made about the bot in the previous sections. \textit{HerrGewitter}
+is very good at picking the most damaging move, but can be exploited using mechanics not yet 
+implemented. 
 
 \subsection{Pro Replays}
 \todo{If Memezboi69 is introduced in Dynamax, no introduction needed here!}
-At the time of writing, \textit{Memezboi69} is the top ranked player on the Pokémon Showdown ladder. I reached
-out to him, and he agreed to play three games against \textit{HerrGewitter}. While our agent lost all three 
+\textit{Memzboi69}, the top ranked player, agreed to play three games against \textit{HerrGewitter}. 
+While our agent lost all three 
 games, we were able to gain some very interesting insights from these games:
 
 \paragraph{Game One}
 In the first game, the bot made a huge miss play that ultimately lead to defeat. The agents \textit{Shuckle} faced a 
 \textit{Mr. Mime (Galar)} which had access to \textit{Rapid Spin}, a move that removes hazards. As \textit{Shuckle}
-has access to the moves \textit{Sticky Web} as well as \textit{Stealth Rock}, the agent tried to set both hazards
+has access to the moves \textit{Sticky Web} and \textit{Stealth Rock}, the agent tried to set both hazards
 which were immediately removed. In the extra turn, \textit{Mr. Mime (Galar)} boosted its speed stat and slowly
-killed his opponent using \textit{Freeze-Dry}. This increased \ac{SPE} lead to an advantage that the bot was
+killed his opponent using \textit{Freeze-Dry}. This increased \ac{SPE} led to an advantage that the bot was
 not able to make up for. A future version of the agent will need to include a better hazard routine to prevent
 this kind of scenarios.  
 
 \paragraph{Game Two}
-Game two was lost due to a lack of answers against the opponents \textit{Gengar}. Prior to sending in this Pokémon,
+Game two was lost due to a lack of counters against the opponents \textit{Gengar}. Prior to sending in this Pokémon,
 \textit{Memzboi69} set the entry hazard \textit{Sticky Web} which decreases the \ac{SPE} by one stage on switch in.
 After boosting \ac{SPA} by two stages using \textit{Nasty Plot}, \textit{Gengar} was able to defeat the four 
 remaining Pokémon of the agent. Further investigation revealed another flaw in the logic of the agent. When switching
