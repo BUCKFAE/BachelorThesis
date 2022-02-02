@@ -27,24 +27,37 @@ class Collector:
 
     damage_calculator = DamageCalculator()
 
-    results = {}
+    results_random = {}
+    results_max = {}
 
     def needs_information(self) -> bool:
         return len(self.team_1) != 6 or len(self.team_2) != 6
 
     def add_team_info(self, team: List[Gen8Pokemon], username: str):
-        if username == 'SendingPlayer1 1':
-            assert len(self.team_1) == 0
-            self.team_1 = team
-        elif username == 'SendingPlayer1 2':
-            assert len(self.team_2) == 0
-            self.team_2 = team
-        else:
-            raise ValueError(f'Reccieved more than two teams!\nUser: {username}')
 
+        if 'Ra' in username:
+
+            if username == 'SendingPlayer1Ra 1':
+                assert len(self.team_1) == 0
+                self.team_1 = team
+            elif username == 'SendingPlayer1Ra 2':
+                assert len(self.team_2) == 0
+                self.team_2 = team
+            else:
+                raise ValueError(f'Reccieved more than two teams!\nUser: {username}')
+
+        else:
+            if username == 'SendingPlayer1Ma 1':
+                assert len(self.team_1) == 0
+                self.team_1 = team
+            elif username == 'SendingPlayer1Ma 2':
+                assert len(self.team_2) == 0
+                self.team_2 = team
+            else:
+                raise ValueError(f'Reccieved more than two teams!\nUser: {username}')
         logger.info(f'Recieved team for {username}: {[p.species for p in team]}')
 
-    def evaluate_teams(self, p1_won: bool):
+    def evaluate_teams(self, p1_won: bool, is_random: bool):
         assert len(self.team_1) == 6
         assert len(self.team_2) == 6
 
@@ -85,10 +98,14 @@ class Collector:
 
         logger.info(f'Winner: {"Player 1" if p1_won else "Player 2"}')
 
-        entry = self.results.get(difference, (0, 0))
-        new_entry = (entry[0] + (1 if p1_won else 0), entry[1] + (1 if not p1_won else 0))
-        self.results[difference] = new_entry
-        # logger.info(f'{self.results=}')
+        if is_random:
+            entry = self.results_random.get(difference, (0, 0))
+            new_entry = (entry[0] + (1 if p1_won else 0), entry[1] + (1 if not p1_won else 0))
+            self.results_random[difference] = new_entry
+        else:
+            entry = self.results_max.get(difference, (0, 0))
+            new_entry = (entry[0] + (1 if p1_won else 0), entry[1] + (1 if not p1_won else 0))
+            self.results_max[difference] = new_entry
 
         self.team_1 = []
         self.team_2 = []
@@ -96,36 +113,57 @@ class Collector:
     def plot_results(self):
 
         logger.info(f'Plotting results!')
-        logger.info(self.results)
+        logger.info(self.results_random)
+        logger.info(self.results_max)
         fig, ax = plt.subplots()
 
-        game_count = sum([t[0] + t[1] for t in self.results.values()])
+        game_count = sum([t[0] + t[1] for t in self.results_random.values()]) * 2
         logger.info(f'Plotting graph with results of {game_count} games!')
 
-        ax.bar([t for t in self.results.keys()], [t[0] + t[1] for t in self.results.values()], color='red')
-        plt.xticks(np.arange(min([t for t in self.results.keys()]), max([t for t in self.results.keys()]) + 1, 1.0))
+        total_results = dict(self.results_random)
+        for key, value in self.results_max.items():
+            old = total_results.get(key, (0, 0))
+            new = (old[0] + value[0], old[1] + value[1])
+            total_results[key] = new
+
+        ax.bar([t for t in total_results.keys()], [t[0] + t[1] for t in total_results.values()], color='red')
         ax.set_ylabel("Frequency", color='red')
         ax.set_xlabel("Board rating")
 
         ax2 = ax.twinx()
-        ratio_data = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in self.results.items()]
-        logger.info(f'{ratio_data=}')
-        ax2.plot(*zip(*sorted(ratio_data)), color='green')
+        ratio_data_random = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in self.results_random.items()]
+        logger.info(f'{ratio_data_random=}')
+        ax2.plot(*zip(*sorted(ratio_data_random)), color='blue', label='Random')
+
+        ratio_data_max = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in self.results_max.items()]
+        ax2.plot(*zip(*sorted(ratio_data_max)), color='green', label='Max')
+
         ax2.set_ylabel("Win rate in percent", color='green')
         plt.savefig('boardrating.png')
+        ax2.legend()
         plt.show()
 
     def store_results(self):
-        with open("src/data/board-rating.pkl", "wb") as f:
-            pickle.dump(self.results, f)
+        pass
+        with open("src/data/board-rating-random.pkl", "wb") as f:
+            pickle.dump(self.results_random, f)
+        with open("src/data/board-rating-max.pkl", "wb") as f:
+            pickle.dump(self.results_max, f)
 
     def load_results(self):
-        if not os.path.isfile("src/data/board-rating.pkl"): return
-        with open("src/data/board-rating.pkl", "rb") as f:
-            self.results = pickle.load(f)
+        pass
+        if not os.path.isfile("src/data/board-rating-max.pkl"):
+            return
+        if not os.path.isfile("src/data/board-rating-random.pkl"):
+            return
+
+        with open("src/data/board-rating-random.pkl", "rb") as f:
+            self.results_random = pickle.load(f)
+        with open("src/data/board-rating-max.pkl", "rb") as f:
+            self.results_max = pickle.load(f)
 
 
-class SendingPlayer1(Player):
+class SendingPlayer1Random(Player):
 
     def choose_move(self, battle: AbstractBattle) -> BattleOrder:
         collector = Collector()
@@ -135,51 +173,76 @@ class SendingPlayer1(Player):
                                     self.username)
 
         return self.choose_random_move(battle)
-        # def estimate_move_damage(move: Move) -> float:
-        #     type_mod = move.type.damage_multiplier(battle.opponent_active_pokemon.type_1,
-        #                                            battle.opponent_active_pokemon.type_2)
-        #     return move.base_power * type_mod
-        #
-        # if battle.available_moves:
-        #     return self.create_order(max(battle.available_moves, key=lambda move: estimate_move_damage(move)))
-        # elif len(battle.available_switches) > 0:
-        #     return self.create_order(max(battle.available_switches, key=lambda pokemon:
-        #     max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
-        # else:
-        #     return self.choose_random_move(battle)
+
+
+class SendingPlayer1Max(Player):
+    def choose_move(self, battle: AbstractBattle) -> BattleOrder:
+        collector = Collector()
+        if collector.needs_information():
+            collector.add_team_info([clone_pokemon(p, build_from_pokemon(p)) for p in battle.team.values()],
+                                    self.username)
+
+        def estimate_move_damage(move: Move) -> float:
+            type_mod = move.type.damage_multiplier(battle.opponent_active_pokemon.type_1,
+                                                   battle.opponent_active_pokemon.type_2)
+            return move.base_power * type_mod
+
+        if battle.available_moves:
+            return self.create_order(max(battle.available_moves, key=lambda move: estimate_move_damage(move)))
+        elif len(battle.available_switches) > 0:
+            return self.create_order(max(battle.available_switches, key=lambda pokemon:
+            max(pokemon.moves, key=lambda move: estimate_move_damage(Move(move)))))
+        else:
+            return self.choose_random_move(battle)
 
 
 async def main():
-    p1 = SendingPlayer1(battle_format="gen8randombattle",
-                        max_concurrent_battles=1)
+    p1 = SendingPlayer1Random(battle_format="gen8randombattle",
+                              max_concurrent_battles=1)
 
-    p2 = SendingPlayer1(battle_format="gen8randombattle",
-                        max_concurrent_battles=1)
+    p2 = SendingPlayer1Random(battle_format="gen8randombattle",
+                              max_concurrent_battles=1)
 
+    p3 = SendingPlayer1Max(battle_format="gen8randombattle",
+                           max_concurrent_battles=1)
+
+    p4 = SendingPlayer1Max(battle_format="gen8randombattle",
+                           max_concurrent_battles=1)
     collector = Collector()
 
-    games_won_p1 = 0
+    games_won_p1_random = 0
+    games_won_p1_max = 0
 
     collector.load_results()
 
     for i in range(20_000):
-        await p1.battle_against(p2, 1)
 
-        p1_won = p1.n_won_battles == 1 and p1.username == 'SendingPlayer1 1' \
-                 or p2.n_won_battles == 1 and p2.username == 'SendingPlayer1 1'
-        games_won_p1 += p1_won
+        if i % 2 == 0:
+            await p1.battle_against(p2, 1)
+            p1_won = p1.n_won_battles == 1 and p1.username == 'SendingPlayer1Ra 1' \
+                     or p2.n_won_battles == 1 and p2.username == 'SendingPlayer1Ra 1'
+            games_won_p1_random += p1_won
+            collector.evaluate_teams(p1_won, True)
+        else:
+            await p3.battle_against(p4, 1)
+            p1_won = p3.n_won_battles == 1 and p3.username == 'SendingPlayer1Ma 1' \
+                     or p4.n_won_battles == 1 and p4.username == 'SendingPlayer1Ma 1'
+            games_won_p1_max += p1_won
+            collector.evaluate_teams(p1_won, False)
 
-        collector.evaluate_teams(p1_won)
         p1.reset_battles()
         p2.reset_battles()
+        p3.reset_battles()
+        p4.reset_battles()
 
         logger.info(f'\n\n\nPlayed: {i}\n\n\n')
 
-        if i % 1000 == 1 and i > 1 or i == 10 or i == 100:
+        if i % 15 == 1 and i > 1 or i == 10 or i == 100:
             collector.store_results()
             collector.plot_results()
 
-    logger.info(f'{games_won_p1=}')
+    logger.info(f'{games_won_p1_random=}')
+    logger.info(f'{games_won_p1_max=}')
 
     collector.plot_results()
     collector.store_results()
