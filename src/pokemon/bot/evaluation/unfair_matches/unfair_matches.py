@@ -237,7 +237,7 @@ async def main():
 
         logger.info(f'\n\n\nPlayed: {i}\n\n\n')
 
-        if i % 15 == 1 and i > 1 or i == 10 or i == 100:
+        if i % 300 == 1 and i > 1 or i == 10 or i == 100:
             collector.store_results()
             collector.plot_results()
 
