@@ -131,7 +131,8 @@ class Collector:
         ax.set_xlabel("Board rating")
 
         ax2 = ax.twinx()
-        ratio_data_random = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in self.results_random.items()]
+        ratio_data_random = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in
+                             self.results_random.items()]
         logger.info(f'{ratio_data_random=}')
         ax2.plot(*zip(*sorted(ratio_data_random)), color='blue', label='Random')
 
@@ -237,7 +238,7 @@ async def main():
 
         logger.info(f'\n\n\nPlayed: {i}\n\n\n')
 
-        if i % 300 == 1 and i > 1 or i == 10 or i == 100:
+        if i % 300 == 1 and i > 1 or i == 10 or i == 100 or i == 1:
             collector.store_results()
             collector.plot_results()
 

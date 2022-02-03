@@ -10,7 +10,7 @@ A good way to get a rough idea on how well an agent performs is to compare it ag
 There are two popular baseline agents, the \textit{Random}-Player and the \textit{MaxDamage}-Player.
 While the \textit{Random}-Agent always chooses either a random move or a random switch, the \textit{MaxDamage}-Agent
 always picks the move with the highest base power. If no move is available, the agent will switch to a random 
-Pokémon. This is roughly equal to the skill level of an inexperienced beginner human. 
+Pokémon. This is roughly equal to the skill level of an inexperienced beginner human.  
 
 \section{Breadth-first search}
 \label{sec:related-bfs}
@@ -40,7 +40,7 @@ the evaluation function \ref{eq:minmax-eval-func}~\autocite{Lee_Togelius_2017}:
     3 \cdot \frac{\text{current hp}_{\text{Enemy Pokémon}}}{\text{max hp}_{\text{Enemy Pokémon}}} -
     0.3 \cdot \text{depth}
 \end{equation}
-A YouTube-Video released by \emph{Rempton Games} \cite{RemptonGames:PokemonAI} \todo{This quote is even stranger} 
+A YouTube-Video released by \cite{RemptonGames:PokemonAI}
 alters this evaluation function
 by increasing the rating of a game state when an enemy takes damage and decreasing the rating when a member
 of the own team takes damage. Both evaluation functions do not take hazards, status condition or boosts 
@@ -61,7 +61,7 @@ based on the damage it dealt.
 
 \section{Rule based agents}
 \label{sec:related-rulebased}
-The YouTube-Video released by \emph{Rempton Games} \cite{RemptonGames:PokemonAI} also introduces two rule-based agents.
+The YouTube-Video released by \cite{RemptonGames:PokemonAI} also introduces two rule-based agents.
 \textit{Smart Damage} was written by the author of the video and uses Pokémon type and the \ac{SPE}-stat to determine
 the favorability of a matchup. On a bad matchup, this agent will switch to the team member with the best matchup. Otherwise,
 a simplified damage calculation is used to determine the move dealing the most amount of damage. \textit{Simple 
@@ -157,10 +157,8 @@ of \ac{RNG} in Pokémon games, more games would need to be played in order to co
 of the single layer perceptron in this particular use case. Randomness of games will be covered
 in more detail in section \ref{sec:eval-challenges-randomness}\\
 
-One year after the publication of \cite{Lee_Togelius_2017}, the authors of 
-\todo{Include GottaTrainEmAll in BIB!! (Zotero)}
-\cite{GottaTrainEmAll} 
-improved this design. \cite{schulman2017proximal} used \ac{PPO} to train an agent. They also
+One year after the publication of \cite{Lee_Togelius_2017}, the authors of~\autocite{GottaTrainEmAll} 
+used \ac{PPO}\cite{schulman2017proximal} to train an agent. They also
 used embeddings to improve the representation of a Pokémon. Data available at~\autocite{Kaggle:NewYorkData} was used
 to create embeddings for each Pokémon. The Dataset contains stats of the first 721 Pokémon, each 
 row contains the name, type(s), numerical stat data (such as \ac{HP}, \ac{ATK}, \ac{SPE}) and some other
@@ -177,6 +175,7 @@ and therefore won't be covered in detail}.
 Lastly, Node2Vec was applied to the graph.
 \begin{table}[h]
     \centering
+        \caption{Similar Pokémon within the embedding space of \cite{GottaTrainEmAll}}
         \begin{tabular}{|l|p{0.7\textwidth}|}
             \hline
             Pokémon & Most similar Pokémon \\
@@ -191,7 +190,6 @@ Lastly, Node2Vec was applied to the graph.
                 Uxie \\
             \hline
         \end{tabular}
-        \caption{Similar Pokémon within the embedding space of \cite{GottaTrainEmAll}}
         \label{tbl:Gotta-Embeddings}
 \end{table}
 Table \ref{tbl:Gotta-Embeddings} displays the discovered similarity using this approach. Here, a similar Pokémon
@@ -203,8 +201,6 @@ In generation 6, \textit{Ho-Oh} has access to the following moves: \textit{Aura 
 move pool consists of \textit{Brave Bird}, \textit{Earthquake}, \textit{Flame Charge}, \textit{Roost},
 \textit{Sacred Fire}, \textit{Substitute} and \textit{Toxic}~\autocite{DamageCalc:Gen6}. This inappropriate
 classification is likely caused by both \textit{Pokémon} having similar stats and both being legendary.
-\todo{The paper states that they are confident in their embeddings. This critic is my own work. How
-do I note this properly?}
 
 Features are derived from the battle state in the simulator. At a high level, battles consist of two
 sides. Each side consists of a team of Pokémon, and each Pokémon has some set of moves. Each of these 
@@ -246,7 +242,7 @@ Optimization Approach to Battling Pokémon}.
 Due to its fine-grained analysis and the resulting agent performing on par with the state-of-the-art search
 based AI, this paper will be summarized in more depth. \\
 Similar to \cite{OpenAI_dota}, the agent is represented using an actor-critic neural network.
-Actor-critic RL methods~\autocite{Konda_Tsitsiklis}\todo{Citation broken}
+Actor-critic RL methods~\autocite{Konda_Tsitsiklis}
 combine policy-based and value-based RL methods by predicting both policy and value for a given 
 state, and then using the value prediction, the \grqq critic\grqq, as an estimate of expected
 return when updating the policy prediction, the \grqq actor\grqq. The authors represent both
@@ -290,7 +286,6 @@ represented as multi-level tree-like structure:
 The network has two outputs: a probability distribution $\pi \in \mathbb{R}^n$ over actions to take, 
 and an estimate of player strength in the current state $v \in \mathbb{R}$. \cite{Huang_Lee_2019} compute
 $\pi$ as follows:
-\todo{Move neural network figure to the appendix}
 \begin{enumerate}
     \item The network outputs an intermediate vector $p \in \mathbb{R}^n$. Each of the colored cells in
     figure \ref{fig:lee-network} correspond to an element of $p$
@@ -301,12 +296,6 @@ $\pi$ as follows:
     invalid actions. To do this, they take a mask $s \in \{0, 1\}^n$ as part of the input, and 
     renormalize probabilities to obtain $\pi: \pi_i = \frac{s_i \pi'_i}{s^T \pi'}$
 \end{enumerate}
-\begin{figure}
-	\centering
-	\includegraphics[width=1\textwidth]{images/RL-Network-Structure.png}
-	\caption{The actor-critic neural network used by the authors in~\autocite{Huang_Lee_2019}}
-	\label{fig:lee-network}
-\end{figure}
 The authors point out the following two key design decisions: First, a 128-dimensional entity embedding layer
 for each of the categorical variables is used. This enables capturing similarities between different moves,
 species and abilities without having to directly model their, often complicated, effects. Second, the
