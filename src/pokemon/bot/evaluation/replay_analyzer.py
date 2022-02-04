@@ -130,9 +130,9 @@ def main():
 
         plt.plot(*zip(*smoothed_elo), label=f'{bot}')
 
-        plt.title('Elo der entwickelten Agenten in Ranglistenspielen\ngegen Menschen auf Pokémon Showdown')
+        # plt.title('Elo der entwickelten Agenten in Ranglistenspielen\ngegen Menschen auf Pokémon Showdown')
         plt.legend(loc='upper left')
-        plt.xlabel('Spiele')
+        plt.xlabel('Games')
         plt.yticks(np.arange(1000, 1600, 100))
         plt.ylabel('Elo')
 
