@@ -219,6 +219,11 @@ async def main():
 
     for i in range(20_000):
 
+        if i % 300 == 1 and i > 1 or i == 10 or i == 100 or i == 0:
+            collector.store_results()
+            collector.plot_results()
+
+
         if i % 2 == 0:
             await p1.battle_against(p2, 1)
             p1_won = p1.n_won_battles == 1 and p1.username == 'SendingPlayer1Ra 1' \
@@ -238,10 +243,6 @@ async def main():
         p4.reset_battles()
 
         logger.info(f'\n\n\nPlayed: {i}\n\n\n')
-
-        if i % 300 == 1 and i > 1 or i == 10 or i == 100 or i == 1:
-            collector.store_results()
-            collector.plot_results()
 
     logger.info(f'{games_won_p1_random=}')
     logger.info(f'{games_won_p1_max=}')
