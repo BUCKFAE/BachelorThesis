@@ -127,19 +127,20 @@ class Collector:
             total_results[key] = new
 
         ax.bar([t for t in total_results.keys()], [t[0] + t[1] for t in total_results.values()], color='red')
-        ax.set_ylabel("Frequency", color='red')
+        ax.set_ylabel("Häufigkeit", color='red')
         ax.set_xlabel("Board rating")
+        plt.title('Siegesrate der Baseline-Agenten\nfür das berechnete Boardrating.')
 
         ax2 = ax.twinx()
         ratio_data_random = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in
                              self.results_random.items()]
         logger.info(f'{ratio_data_random=}')
-        ax2.plot(*zip(*sorted(ratio_data_random)), color='blue', label='Random')
+        ax2.plot(*zip(*sorted(ratio_data_random)), color='blue', label='Random action')
 
         ratio_data_max = [(key, value[0] / (value[0] + value[1]) * 100) for (key, value) in self.results_max.items()]
-        ax2.plot(*zip(*sorted(ratio_data_max)), color='green', label='Max')
+        ax2.plot(*zip(*sorted(ratio_data_max)), color='green', label='Most damaging move')
 
-        ax2.set_ylabel("Win rate in percent", color='green')
+        ax2.set_ylabel("Siegesrate in Prozent")
         plt.savefig('boardrating.png')
         ax2.legend()
         plt.show()

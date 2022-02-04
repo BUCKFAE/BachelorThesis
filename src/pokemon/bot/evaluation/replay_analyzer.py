@@ -8,11 +8,11 @@ from matplotlib import pyplot as plt
 from src.pokemon import logger
 
 REPLAY_LOCATIONS = [
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterJoni', 'HerrGewitter1'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/Joni/data/replays_joni', 'HerrDonner1'),
-    ('/home/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/Markus', 'HerrGewitter2')
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterRanked/enhanced_replays', 'McGewitter'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/HerrDonnerRanked/enhanced_replays', 'McDonner'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/HerrGewitterJoni', 'HerrGewitter1'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrDonner/Joni/data/replays_joni', 'HerrDonner1'),
+    ('/Users/buckfae/Documents/BachelorThesis/Evaluation/HerrGewitter/Markus', 'HerrGewitter2')
 ]
 
 def main():
@@ -130,9 +130,9 @@ def main():
 
         plt.plot(*zip(*smoothed_elo), label=f'{bot}')
 
-        plt.title('Elo smoothed')
+        plt.title('Elo der entwickelten Agenten in Ranglistenspielen\ngegen Menschen auf Pokémon Showdown')
         plt.legend(loc='upper left')
-        plt.xlabel('Games')
+        plt.xlabel('Spiele')
         plt.yticks(np.arange(1000, 1600, 100))
         plt.ylabel('Elo')
 
