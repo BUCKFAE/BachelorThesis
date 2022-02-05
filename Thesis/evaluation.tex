@@ -38,15 +38,20 @@ Boosted this high, \textit{Volcarona} can one-shot both the enemy \textit{Volcar
 To eliminate the impact of these extreme cases, evaluation of agents against other agents 
 should be done using multiple hundreds to thousands of games against each other. \\
 In order to quantify and better visualize the randomness of battles, over 70,000 \ac{GEN8RANDBATS}
-were generated, and the team information was stored. Next, the board rating was calculated.
+were generated, and the team information was stored. Next, the board rating was calculated. Let $e$ be 
+a Pokémon and $C$ the set of all enemy Pokémon that are countered by $e$. We compute the score of 
+a team member $e$ as follows: 
 \begin{equation}
-  \text{member-score (Pokémon: e)} = \sum_{j \in \text{Enemy Pokémon countered by e}} 1
+  \text{member-score (Pokémon: e)} = \sum_{j \in C} 1
 \end{equation}
+The score of a team $p$ is defined by:
 \begin{equation} 
   \text{team-score (Team: p)} = \sum_{e \in p} \text{member-score}(e)
 \end{equation}
+Finally, the board rating of two teams $p_1$ $p_2$ is defined as the difference between their respective 
+team score
 \begin{equation}
-  \text{board rating (Team: p1, Team: p2)} = \text{team-score(p1)} - \text{team-score(p2)}
+  \text{board rating (Team: $p_1$, Team: $p_2$)} = \text{team-score($p_1$)} - \text{team-score($p_2$)}
 \end{equation}
 Therefore, a low board rating indicates that the player has fewer counters than his opponents. Finally,
 the generated games were played out by \textit{Random}-Player as well as \textit{MaxDamage}-Player. The 
@@ -59,12 +64,17 @@ win-rate of both agents at a given board rating is displayed in figure~\ref{fig:
 	\label{fig:wr-board-rating}
 \end{figure}
 Most notably, fair games, meaning games with a board rating close to zero, are gaussian-distributed with the majority
-of the matchups being almost fair according to our metric. Secondly, the graphic 
-
-Not only does this figure show a gaussian distribution of how fair games are \todo{Schlechte Formulierung!},
-but also that our method of determining matchups works as intended. This is due to the fact that games 
-in which we assume the player to be in a bad position also have a win-rate and games with a favorable
-board rating show the highest win ratio.
+of the matchups being almost fair according to our metric. The blue line indicates the win rate of a \textit{Random}-Player
+when playing against another \textit{Random}-Player at the given board rating, indicated green is the win rate of two
+\textit{MaxDamage}-Players. There are multiple important observations: Firstly, at negative board ratings, both
+agents have a significantly lower win rate against the opponent while positive board ratings indicate a high chance of 
+winning. Despite collecting over 70,000 data points, board ratings worse than $-20$ or better than $+20$ will be ignored in this analysis
+as the large irregularities in these areas indicate an insufficient amount of data points. 
+The steeper slope of the green line is likely explained by the \ac{RNG} of the actions performed by random agents having 
+a much higher influence than the actual team composition. As a random agent rarely makes the correct choice, it 
+fails to utilize the full potential of a stronger team. 
+\todo{More refined metric: Same results, longer to simulate as better agents required. Showdown replays do not contain
+all information neccesary.} 
 
 \subsection{Evaluation against human opponents}
 As described in section~\ref{sec:showdown-background}, Pokémon Showdown allows researchers to use bots on the
@@ -104,7 +114,7 @@ differences between both agents are highlighted, and limitations of this agent a
 Firstly, \textit{HerrGewitter} takes more factors into consideration. Now, damage calculation is done
 in regards to current stat changes and status conditions. Additionally, abilities and items are taken 
 into account. Furthermore, recoil from moves, healing both from items
-like \textit{Leftovers} ~\autocite{Bulbapedia:Leftovers} and moves like \textit{Recover} are not neglected
+like \textit{Leftovers}~\autocite{Bulbapedia:Leftovers} and moves like \textit{Recover} are not neglected
 anymore. \\
 Switching and the selection of moves is done as described in section~\ref{ch:approach}. \\
 These improvements lead to \textit{HerrGewitter} avoiding mistakes of \textit{HerrDonner}. For example,
@@ -133,7 +143,7 @@ are not yet implemented:
   \item The agent will always use \textit{Toxic Spikes} even if the opponent has a \textit{Poison}-Type
   Pokémon on his team that will remove this hazard upon being switched in.
   \item The agent will use Hazards even if the current enemy is known to have a hazard-clearing move like
-  \textit{Defog} ~\autocite{Bulbapedia:Defog}
+  \textit{Defog}~\autocite{Bulbapedia:Defog}
   \item The agent will not clear hazards
 \end{itemize}
 
@@ -150,7 +160,7 @@ In the given scenario, our agent has an active \textit{Garchomp} which is locked
 a \textit{Bug / Flying}-Type Pokémon
 is sent into Battle. As the \textit{Ground}-Type move \textit{Earth Quake} has no effect on \textit{Butterfree}, the agent will
 switch out \textit{Garchomp} for another Pokémon. In the current implementation, matchups for \textit{Garchomp} are not
-re-evaluated. While this won't lead to problems in the early game, this results in an incorrect \textit{MinMax} calculation
+re-evaluated. While this won't lead to problems in the early game, this results in an incorrect \textit{MiniMax} calculation
 as for matchups involving \textit{Garchomp} and any non-active opponent, \textit{Garchomp} is still assumed to only have
 access to the move \textit{Earth Quake}. In this scenario, the agent would fail to realize that \textit{Garchomp} also
 has access to \textit{Stone Edge} and would incorrectly assume \textit{Garchomp} to lose all matchups against \textit{Flying}-Type
@@ -185,13 +195,11 @@ proper usage. According to \textit{Memezboi69}, the safest usage of this mechani
 of the game on a good matchup. He stated multiple reasons for this: \\
 Dynamaxing at a later stage of the game reduces the likeliness of an opponent being able to properly react due to the 
 limited amount of Pokémon alive. \\
-Another flaw of \textit{HerrDonner} is the fact that defensive dynamaxing is not yet taken into consideration. 
-If the opponent dynamaxes offensively, a good way to mimimize damage when no counter is available is to dynamax
-defensive and use the move \textit{Max Guard} which protects the user from moves. If a Pokémon has access to 
+Another flaw of \textit{HerrGewitter} is the fact that defensive dynamaxing is not yet taken into consideration. 
+If the opponent dynamaxes offensively, a good way to minimize damage received when no counter is available, is dynamaxing
+defensively and using the move \textit{Max Guard} which protects the user from moves. If a Pokémon has access to 
 a status move, this move will be replaced by \textit{Max Guard} when dynamaxing. Lastly, dynamaxing can under 
 some circumstances also be used in an earlier stage of the game if the current matchup is favorable. 
-\todo{Improve this paragraph!}
-\todo{Dynamaxing will likely be removed next generation?}
 
 \paragraph{Predictions}
 \label{par:predictions}
@@ -210,7 +218,7 @@ This list contains more currently unhandled cases which will be addressed in fut
 \end{itemize}
 
 \paragraph{MiniMax}
-The \textit{MiniMax} algorithm described in paragraph \ref{sec:defeat-phase} only supports changes in health
+The \textit{MiniMax}-Algorithm described in paragraph \ref{sec:defeat-phase} only supports changes in health
 but ignores other important factors such as boosts and status conditions. Therefore, the agent will 
 not recognize the possibility to weaken a very strong physical attacker like \textit{Garchomp} by burning
 it first and then defeating it with another Pokémon. A simple way to include \ac{BRN} into this algorithm
@@ -262,7 +270,7 @@ than \textit{HerrDonner} who achieved an average Elo of $1125$ and peaked at an 
   \centering
   \caption{Battle results of 1,000 games between the agents. \\
   \emph{Pmariglia:}~\autocite{Github:pmariglia-showdown} \\
-  \emph{DQN:} As described  in ~\autocite{Huang_Lee_2019}}
+  \emph{DQN:} As described  in~\autocite{Huang_Lee_2019}}
   \begin{tabular}{|l|c|c|c|c|c|c|}
     \hline
      & Random & MaxDmg & Pmariglia & DQN & Donner   & Gewitter  \\
@@ -327,7 +335,6 @@ is very good at picking the most damaging move, but can be exploited using mecha
 implemented. 
 
 \subsection{Pro Replays}
-\todo{If Memezboi69 is introduced in Dynamax, no introduction needed here!}
 \textit{Memzboi69}, the top ranked player, agreed to play three games against \textit{HerrGewitter}. 
 While our agent lost all three 
 games, we were able to gain some very interesting insights from these games:
@@ -361,4 +368,4 @@ The last battle was the closest and ended with \textit{Memezboi69} having only t
 even managed to set up a burned \textit{Obstagoon}, boosting \ac{ATK} to stage two and \ac{DEF} to stage three.
 Unfortunately, this Pokémon was then killed by \textit{Buzzwole} with the super effective move \textit{Close Combat}.
 Even after a lot of investigation, it is hard to determine how this match could have been won by the agent, one 
-possibility might have been switching in a \textit{check} to \textit{Buzzwole} and dynamaxing next turn. 
+possibility might have been switching in a \textit{check} to \textit{Buzzwole} and dynamaxing next turn.
