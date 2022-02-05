@@ -38,7 +38,7 @@ This is also called a type being \textit{strong} / \textit{weak} against another
 Figure \ref{fig:type_chart} shows how different Pokémon types interact with each other.
 Unlike in \ac{RPS}, type modifiers will be multiplied if a Pokémon has two types. For instance, a \textit{Fire}-type
 attack will deal 4 times the damage against \textit{Parasect} as \textit{Parasect} has the types \textit{Grass} and
-\textit{Bug} ~\autocite{Veekun:Parasect}.
+\textit{Bug}~\autocite{Veekun:Parasect}.
 
 \subsection{Moves}
 \label{sec:moves}
@@ -48,13 +48,15 @@ While \textit{Physical}- and \textit{Special}-Moves usually deal damage to the o
 in section \ref{sec:damage-calculation}, inflict status effects, raise or lower the stats of a Pokémon. In 
 addition, a move also has exactly one of the 18 possible types. Often, \textit{Status}-moves are also referred
 to as \textit{buffing} moves if they grant a benefit to the user or as \textit{debuffing} if they have a
-negative effect on the opponent.
+negative effect on the opponent. While some moves will never miss, most moves have an \textit{accuracy}
+of less than 100\%. If a move misses, the turn is effectively skipped. 
 
 \subsection{Pokémon}
 \label{sec:pokemon}
-A key-concept of Pokémon battles are the \textit{stats} of a Pokémon. 
+A key-concept of Pokémon battles are the \textit{stats} of a Pokémon. The stats, among other factors 
+which will be covered in section~\ref{sec:damage-calculation}, determine how much damage a Pokémon
+is capable of dealing and receiving before fainting as well as how fast it can act in battle.
 Figure \ref{fig:charizard-stats} displays information about possible stat-combinations of 
-\todo{Write transition}
 \textit{Charizard}. 
 \paragraph{Explanation of stats}
 \textbf{HP:} The \ac{HP} determines how much damage a Pokémon can receive before fainting. \\
@@ -71,7 +73,7 @@ a \textit{Special}-Move. \\
 \paragraph{Determination of stats}
 \label{sec:stat-calculation}
 The total stat of a Pokémon is calculated as described in equation \ref{eq:stats-hp} and equation 
-\ref{eq:stats-other} ~\autocite{Bulbapedia:Stat}.
+\ref{eq:stats-other}~\autocite{Bulbapedia:Stat}.
 \begin{equation}
 	\label{eq:stats-hp}
 	HP = \Bigl\lfloor \frac{(2 \times Base + IV + \lfloor \frac{EV}{4} \rfloor) \times Level}{100}\Bigr\rfloor
@@ -90,17 +92,17 @@ base-\ac{ATK} of 84.
 a team of six Pokémon and to make that team stronger by fighting other Pokémon. If a Pokémon defeats
 enough other Pokémon, it grows a Level. The maximum level of a Pokémon is 100.
 In Pokémon Showdown, the level of  a Pokémon is set at the start of the battle and won't 
-increase ~\autocite{Smogon:RandBatsGuide}.
+increase~\autocite{Smogon:RandBatsGuide}.
 
 \textbf{Nature:} A Pokémon has a nature. Most natures enhance the growth of one stat, while hindering
 the growth of another. After all other calculations are finished, the stat that the Nature enhances will
 be 100\% of what it would be without the Nature, and the stat hindered will be 90\% of its normal value
 ~\autocite{Bulbapedia:Stat}. In this thesis nature can be neglected as all Pokémon in random battles have
-a neutral nature, meaning no stat is enhanced or hindered ~\autocite{Smogon:RandBatsGuide}.
+a neutral nature, meaning no stat is enhanced or hindered~\autocite{Smogon:RandBatsGuide}.
 
 \textbf{IV:} Refers to the \ac{IV} of a Pokémon. These cause two Pokémon of the same species to have
-different Stats ~\autocite{Bulbapedia:Stat}. Pokémon in Pokémon Showdown will always have the best possible \ac{IV} 
-stat, 31, unless it is a disadvantage for the Pokémon, then it will be zero ~\autocite{Smogon:RandBatsGuide}.
+different Stats~\autocite{Bulbapedia:Stat}. Pokémon in Pokémon Showdown will always have the best possible \ac{IV} 
+stat, 31, unless it is a disadvantage for the Pokémon, then it will be zero~\autocite{Smogon:RandBatsGuide}.
 For example, having a high \ac{SPE} is undesirable for a Pokémon that uses the move \textit{Trick Room} as this
 move reverses the move order so that Pokémon with a lower \ac{SPE} stat attack first while those with a 
 higher \ac{SPE} will attack last.
@@ -108,9 +110,11 @@ higher \ac{SPE} will attack last.
 \textbf{EV:} These are the \ac{EV} of the Pokémon. \ac{EV} are what causes a trained Pokémon to have higher
 stats than an untrained counterpart of the same level. For every 4 \ac{EV} gained, a level 100 Pokémon 
 will have 1 extra point in the given stat. A Pokémon can earn up to 510 \ac{EV}, but can not have more than
-255 \ac{EV} in a single stat ~\autocite{Bulbapedia:Stat}. Random Pokémon on Showdown will always have 85 
-\ac{EV} in each stat, or 0 in the case that having a high stat being detrimental ~\autocite{Smogon:RandBatsGuide}.
-
+255 \ac{EV} in a single stat~\autocite{Bulbapedia:Stat}. Random Pokémon on Showdown will always have 85 
+\ac{EV} in each stat, or 0 in the case that having a high stat being detrimental~\autocite{Smogon:RandBatsGuide}.
+\\
+\\
+As an example, the stats for \textit{Charizard} are denoted in figure~\ref{fig:charizard-stats}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\textwidth]{images/charizard-stats.png}
@@ -159,8 +163,9 @@ burned Pokémon can not fall asleep. While a sleeping Pokémon wakes up after a 
 frozen Pokémon is unfrozen after a few turns, the other status conditions remain until they are 
 cured. A status condition can either be cured by abilities like \textit{Natural Cure}. This ability
 heals any status condition when the Pokémon is switched out. Items can also remove negative effects,
-for example, \textit{Lum Berry} cures all status conditions but gets consumed in the process.
-\todo{How long are Pokémon asleep / frozen?}
+for example, \textit{Lum Berry} cures all status conditions but gets consumed in the process. \\
+While \ac{SLP} lasts for one to three turns randomly, a frozen Pokémon has a 10\% chance to unfreeze
+at the start of every turn.
 
 \subsection{Items}
 \label{sec:items}
@@ -168,7 +173,7 @@ A Pokémon can also hold an Item that yields benefits in battle. There are vario
 can fulfill. For example, the item \textit{Life Orb} boosts damage dealt by the holder's damaging move
 by 30\%\footnote{This boost is approximated as 5324/4096 $\approx$ 1.29980}, but the holder takes
 damage equal to 10\% of its maximum \ac{HP} after it uses a damaging move\footnote{Rounded down, 
-but not less than 1} ~\autocite{Bulbapedia:LifeOrb}. \textit{Leftovers} restore 1/16 of the holder's
+but not less than 1}~\autocite{Bulbapedia:LifeOrb}. \textit{Leftovers} restore 1/16 of the holder's
 maximum \ac{HP}\footnote{Rounded down, but not less than 1} at the end of each turn whereas the item
 \textit{Air Balloon} makes the holder \textit{ungrounded}, which means that the holder is immune to
 \textit{Ground}-type moves as well as several related effects~\autocite{Bulbapedia:AirBalloon}. The 
@@ -178,17 +183,17 @@ generation of items in Pokémon Showdown is described in more detail in section 
 In this section, a quick introduction to the most important items is given.
 \begin{itemize}
 	\item \textbf{Choice Band:} When held by a Pokémon, this item boosts the \ac{ATK} by 50\%, but only
-	allows the use of the first move selected. This effect resets when the holder is switched out ~\autocite{Bulbapedia:ChoiceBand}. 
+	allows the use of the first move selected. This effect resets when the holder is switched out~\autocite{Bulbapedia:ChoiceBand}. 
 	\item \textbf{Choice Scarf:} When held by a Pokémon, this item boosts the \ac{SPE} by 50\%, but only
-	allows the use of the first move selected. This effect resets when the holder is switched out ~\autocite{Bulbapedia:ChoiceScarf}. 
+	allows the use of the first move selected. This effect resets when the holder is switched out~\autocite{Bulbapedia:ChoiceScarf}. 
 	\item \textbf{Choice Specs:} When held by a Pokémon, this item boosts the \ac{SPA} by 50\%, but only
-	allows the use of the first move selected. This effect resets when the holder is switched out ~\autocite{Bulbapedia:ChoiceSpecs}. 
+	allows the use of the first move selected. This effect resets when the holder is switched out~\autocite{Bulbapedia:ChoiceSpecs}. 
 	\item \textbf{Heavy-Duty Boots:} The holder is unaffected by the effects of entry hazards. Entry hazards are described 
 	in \ref{sec:hazards}.
 	\item \textbf{Assault Vest:} Raises the holders \ac{SPD} by 50\% but also prevents the holder from selecting any 
-	status move\footnote{Except \textit{Me First}} ~\autocite{Bulbapedia:AssaultVest}.
+	status move\footnote{Except \textit{Me First}}~\autocite{Bulbapedia:AssaultVest}.
 	\item \textbf{Focus Sash:} If the holder has full \ac{HP} and is hit by an attack that would otherwise cause fainting,
-	it survives with 1 \ac{HP} ~\autocite{Bulbapedia:FocusSash}.
+	it survives with 1 \ac{HP}~\autocite{Bulbapedia:FocusSash}.
 \end{itemize}
 
 \subsection{Field effects}
@@ -213,7 +218,7 @@ Pokémon will be grounded if any of the following conditions apply:
 	\item The Pokémon is under the effect of \textit{Ingrain}, \textit{Smack Down} or \textit{Thousand Arrows}.
 	\item The \textit{Field effect} \textit{Gravity} is in effect.
 \end{itemize}
-More information about grounding can be found at ~\autocite{Bulbapedia:Grounded}
+More information about grounding can be found at~\autocite{Bulbapedia:Grounded}
 There are five different possible \textit{terrain}-states. 
 \begin{itemize}
 	\item \textbf{None:} The default state, no other effects are applied. 
@@ -310,7 +315,7 @@ Precisely, the damage is calculated as follows~\autocite{Bulbapedia:Damage}:
 \end{dmath}
 
 The only exception for this are moves that deal direct damage. A list 
-of these moves can be found at ~\autocite{Bulbapedia:DirectDamage}.
+of these moves can be found at~\autocite{Bulbapedia:DirectDamage}.
 In the following paragraph, parameters of the formula are covered in detail. An
 explanation of the \textit{Type}-modifier is omitted since it is covered in 
 \ref{sec:types}
@@ -327,7 +332,7 @@ or the effective Special Attack stat of the attacking Pokémon if the used move 
 or the effective Special Defense of the target if the used move is a special move~\autocite{Bulbapedia:Damage}.
 
 There are four moves that use stats from different categories, more Information can be found
-at ~\autocite{Bulbapedia:Category:Moves-that-use-stats-from-different-categories}.
+at~\autocite{Bulbapedia:Category:Moves-that-use-stats-from-different-categories}.
 
 \paragraph{Power}
 Power is the effective power of the used move.
@@ -338,23 +343,23 @@ always have a base power of 75~\autocite{Bulbapedia:FirePunch}.
 \paragraph{Weather}
 The \textit{Weather} modifier is 1.5 if a \textit{Water-type} move is used during \textit{rain} or a 
 \textit{Fire-type} move during \textit{Harsh Sunlight}. The modifier is 0.5 if a \textit{Water-type} move
-is used during \textit{Harsh Sunlight} or a \textit{Fire-type} move during \textit{rain} ~\autocite{Bulbapedia:Damage}.
+is used during \textit{Harsh Sunlight} or a \textit{Fire-type} move during \textit{rain}~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Critical}
 In the latest generation, a \ac{CRIT} deals 1.5 times the damage compared to a normal hit.
 If the \ac{CRIT} rate is not increased, the chance of landing a \ac{CRIT} is 1/24
 ~\autocite{Bulbapedia:CriticalHit}. Increasing \ac{CRIT} rate, as well as other stats, will 
 be explained in chapter \ref{sec:boosting}. \\
-\textit{Note:} In earlier games, \ac{CRIT}s worked different, see ~\autocite{Bulbapedia:CriticalHit} for
+\textit{Note:} In earlier games, \ac{CRIT}s worked different, see~\autocite{Bulbapedia:CriticalHit} for
 more details.
 
 \paragraph{Random}
 \textit{Random} is a random integer percentage between 85\% and 100\%. Because of this, the same move
-may deal different damage in the same scenario ~\autocite{Bulbapedia:Damage}.
+may deal different damage in the same scenario~\autocite{Bulbapedia:Damage}.
 
 \paragraph{STAB}
 \textit{STAB} stands for \textit{Same Type Attack Bonus}. It is a multiplier of 1.5 if the current move
-is of the same type as the attacking Pokémon. Otherwise, it is 1.0 ~\autocite{Bulbapedia:Damage}.
+is of the same type as the attacking Pokémon. Otherwise, it is 1.0~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Type}
 This is the in type modifier described in section \ref{sec:types}~\autocite{Bulbapedia:Damage}.
@@ -362,10 +367,10 @@ This is the in type modifier described in section \ref{sec:types}~\autocite{Bulb
 \paragraph{Burn}
 \textit{Burn} is 0.5 if the attacking Pokémon is burned, and the attack
 is physical\footnote{This does not apply if the attacking Pokémon has the Ability \textit{Guts}
-or the used move is \textit{Facade}}. Otherwise, it is 1.0 ~\autocite{Bulbapedia:Damage}.
+or the used move is \textit{Facade}}. Otherwise, it is 1.0~\autocite{Bulbapedia:Damage}.
 
 \paragraph{Other}
-The \textit{other} modifier is usually 1. A list of exceptions can be found at ~\autocite{Bulbapedia:Damage}.
+The \textit{other} modifier is usually 1. A list of exceptions can be found at~\autocite{Bulbapedia:Damage}.
 
 \subsection{Effective Stats}
 \label{sec:boosting}
@@ -379,7 +384,9 @@ of $+6$ or a minimum of $-6$. A given stat corresponds to a given multiplier tha
 is used in calculations. The exact multipliers for stages are described in table \ref{tab:boost-stage-multipliers}
 \begin{table}[h]
 	\centering
-	\caption{Stage multipliers for \ac{ATK}, \ac{DEF}, \ac{SPA}, \ac{SPD} and \ac{SPE}~\autocite{Bulbapedia:Stat}}
+	\caption{Stage multipliers that are applied for \ac{ATK}, \ac{DEF}, \ac{SPA}, \ac{SPD} and \ac{SPE}.
+	A Pokémon with \ac{ATK} raised by two stages will have his existing \ac{ATK} stat multiplied by
+	two~\autocite{Bulbapedia:Stat}.}
 	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\hline
 		-6 & -5 & -4 & -3 & -2 & 1 & 0 & 1 & 2 & 3 & 4 & 5 & 6 \\
@@ -389,10 +396,13 @@ is used in calculations. The exact multipliers for stages are described in table
 	\end{tabular} 
 	\label{tab:boost-stage-multipliers}
 \end{table}
-\todo{Other table for accuracy an evasion}
 When playing the mainline games, the player has to memorize the current stat changes of a Pokémon. In contrast to that,
 Pokémon Showdown displays the current stat multiplier of both Pokémon. Stat changes caused by boosts do not persist
 between switches, meaning that the stages for all stats of a Pokémon are reset to zero upon being switched in.
+Furthermore, a Pokémon also has an \textit{accuracy} and \textit{evasion} stat. Both
+can also be increased and lowered in stages but do not use the same modifiers. In \ac{GEN8RANDBATS} the player very
+rarely has influence on these multipliers which therefore will not be covered in depth. Additional information can be
+found at~\autocite{Bulbapedia:Accuracy}.
 
 \section{Dynamaxing}
 \label{sec:dynamax}
@@ -447,7 +457,7 @@ The damage taken from the victim's maximum is denoted in table
 
 \paragraph{Sticky Web}
 The entry hazard set by the \textit{Bug}-type move \textit{Sticky Web} lowers the
-opponents speed stat by one stage upon switching in ~\autocite{Bulbapedia:StickyWeb}. 
+opponents speed stat by one stage upon switching in~\autocite{Bulbapedia:StickyWeb}. 
 
 \paragraph{Poison spikes}
 \label{sec:poison-spikes}
@@ -526,11 +536,11 @@ might behave differently when they know they are facing a machine potentially le
 \label{sec:randbats-sets}
 As described in section \ref{sec:stat-calculation}, Pokémon created for random battles
 usually have 85 \ac{EV}s and 31 \ac{IV} in every stat with a neutral nature, 
-meaning a nature that does neither boost nor hinder any stat ~\autocite{Smogon:RandBatsGuide}.
+meaning a nature that does neither boost nor hinder any stat~\autocite{Smogon:RandBatsGuide}.
 There are some cases where a high stat is not beneficial, an example would be the 
 move \textit{Gyro Ball}. Unlike most moves, the \textit{Base Power} of this move
 described in the damage calculation described in \ref{sec:damage-calculation} is not
-a fixed value. It is determined as described in \ref{eq:gyroball-base-power} ~\autocite{Bulbapedia:GyroBall}.
+a fixed value. It is determined as described in \ref{eq:gyroball-base-power}~\autocite{Bulbapedia:GyroBall}.
 \begin{equation}
 	\label{eq:gyroball-base-power}
 	BasePower = \min\left( 150, \frac{25 \times CurrentSpeed_{target}}{CurrentSpeed_{user}}\right)
@@ -541,20 +551,20 @@ attacker, Pokémon using this move have 0 \ac{EV} and 0 \ac{IV} in the \ac{SPE} 
 two Pokémon using \textit{Gyro Ball}, \textit{Stakataka} and \textit{Ferrothron}, already
 have a very low \ac{SPE} stat and are slower than almost all other Pokémon in random
 battles. A complete list of Pokémon with their respective \ac{SPE} stat can be found
-at ~\autocite{Bulbapedia:PokemonBySpeed}. \\
+at~\autocite{Bulbapedia:PokemonBySpeed}. \\
 This knowledge can be exploited to gather additional information about the enemy. Section
 \ref{sec:builds-randbats} describes how this is achieved.
 
 \subsection{Items}
 \label{sec:randbats-items}
 Items in random battles are procedurally generated by showdown and depend on the Pokémon's
-moves, base stats and ability. As stated in ~\autocite{Smogon:RandBatsGuide}, the exact implementation
+moves, base stats and ability. As stated in~\autocite{Smogon:RandBatsGuide}, the exact implementation
 is \grqq changed frequently with the intention of optimizing set generation\grqq, yet, item
 assignment follows these rules:
 \begin{itemize}
 	\item Pokémon with 2 or fewer attacking moves will get \textit{Leftovers}, or 
 	\textit{Black Sludge} if \textit{Poison}-type.
-	\item Pokémon with 3 attacking moves will get \textbf{Life Orb}, if the sum of their base
+	\item Pokémon with 3 attacking moves will get \textit{Life Orb}, if the sum of their base
 	\ac{HP}, \ac{DEF} and \ac{SPD} is less than 275. Otherwise, these Pokémon get 
 	\textit{Leftovers} or \textit{Black Sludge}.
 	\item Pokémon with 4 matching attacks get a \textit{Choice} item which follows these rules:
@@ -565,8 +575,8 @@ assignment follows these rules:
 		get the 2/3 chance, they'll get \textit{Choice Specs} or \textit{Choice Band} instead.
 		\item Pokémon with 3 special attacks and the move \textit{U-turn} always get 
 		\textit{Choice Specs}. \textit{U-turn} is a physical, \textit{Bug}-type move that 
-		switches the user out after damage is dealt ~\autocite{Bulbapedia:UTurn}.
-		\item Pokémon with \textit{Trick} ~\autocite{Bulbapedia:Trick} or \textit{Switcheroo} 
+		switches the user out after damage is dealt~\autocite{Bulbapedia:UTurn}.
+		\item Pokémon with \textit{Trick}~\autocite{Bulbapedia:Trick} or \textit{Switcheroo} 
 		~\autocite{Bulbapedia:Switcheroo}, both moves that allow to switch items
 		with the opponent, will always get a choice item. If they meet the above-mentioned 
 		speed range, they will always get a \textit{Choice Scarf}. Otherwise, they will always
@@ -588,21 +598,21 @@ assignment follows these rules:
 	\item Pokémon that get a Speed-boosting move will be given a \textit{Weakness Policy} if their \ac{HP}
 	+ \ac{DEF} + \ac{SPD} $\geq$ 300, and they aren't four times weak to \textit{Ground}. This item
 	boosts the \ac{ATK} and \ac{SPA} by two stages each if hit by a super effective move. After that,
-	the item breaks ~\autocite{Bulbapedia:WeaknessPolicy}.
+	the item breaks~\autocite{Bulbapedia:WeaknessPolicy}.
 \end{itemize}
 There are also some species that will always roll the same item, either because it's their signature item or
 because doing so supports a niche ability or set. For example, Pikachu always has \textit{Light Ball}
 
 \subsection{Amount of states}
 \label{sec:amout-states}
-At the time of writing, $457$ different Pokémon are available in \ac{GEN8} random battles. On average,
-each Pokémon has approximately nine different possible builds which leads to $4.6 \times 10^{21}$ different
+At the time of writing, $457$ different Pokémon are available in \ac{GEN8RANDBATS}. On average,
+each Pokémon has approximately nine different possible builds which leads to $1.2 \times 10^{13}$ different
 possible teams for one player. As for one of these teams, each of the six Pokémon could be in the first slot,
 this number has to be multiplied by 6 to get the total amount of possible teams for one player. Equation
 \ref{eq:game-start-stages} shows how the total amount of possible starting states.
 \begin{equation}
 \label{eq:game-start-stages}
-	((457 \cdot 456 \cdot 455 \cdot 454 \cdot 453 \cdot 452 \cdot 9^6) \cdot 6)^2 \approx 7.9 \times 10^{44}
+	\left( \left( \binom{457}{6} \cdot 9^6\right) \cdot 6\right)^2 \approx 1.5 \times 10^{39}
 \end{equation} 
 
 \section{Pokémon Matchups}

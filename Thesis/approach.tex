@@ -4,13 +4,12 @@
 \label{ch:approach}
 \todo{Short introduction. Describe idea. This builds on top of related work as combines minimax with rulebased}
 \todo{Predictions: Use Move against most likely next enemy. No prediction switching (yet)}
-\todo{Matchups only recalculated on new information.}
 \section{Communication with Pokémon Showdown}
 \label{sec:poke-env}
-The communication with Pokémon Showdown is handled using the python library \textit{Poke-Env} ~\autocite{PokeEnv:Github}.
+The communication with Pokémon Showdown is handled using the python library \textit{Poke-Env}~\autocite{PokeEnv:Github}.
 This library provides a lot of the core functionality needed, like accessing the current Pokémon in battle as well
 as switch and move options. However, it does not provide functionality for damage calculation. We use the \textit{Pokémon
-Damage Calculator} ~\autocite{Smogon:DamageCalc}, a node library written by the smogon-team for that. 
+Damage Calculator}~\autocite{Smogon:DamageCalc}, a node library written by the smogon-team for that. 
 Communication between the two libraries is implemented by capturing stdout and stdin using the \textit{subprocess} python library.
 
 \section{Gathering Information about the enemy Pokémon}
@@ -154,8 +153,10 @@ it has zero \ac{HP} left whereas the other two Pokémon in his team are still at
 the \textit{value} of a leaf node is $-1$ if the enemy wins the battle and $1$ if we win the battle. 
 The value of a non-leaf node is the sum of the \textit{values} of the children nodes. The \textit{value} of two means that we 
 expect to win the battle. As a result of this, the best choice in our example scenario is to use \textit{Azumarill} to 
-defeat the already damaged \textit{Charizard}.
-\todo{Explain why MiniMax Tree is correct. Pokemon don't have expected items / moves!}
+defeat the already damaged \textit{Charizard}. The \textit{Minimax}-Tree was generated using the most likely builds
+scraped from replays and does not use the default set of~\cite{Smogon:DamageCalc}. For example, 
+the most likely build for \textit{Charizard} contains the move \textit{Roost}~\autocite{Bulbapedia:Roost} which 
+heals the Pokémon.
 
 \section{Determining matchups}
 \label{sec:determine-matchups}
@@ -171,8 +172,8 @@ forced to either select a move or switch}. Here, we also take boosting, items, s
 field state into account.
 The combination resulting in the lowest amount of turns until the enemy faints is selected. 
 It is important to note that this is not necessarily the move that the bot will use in the next turn as in the 
-\textit{Discover}-Phase healing, status and other beneficial effects are prioritized.
-\todo{Only matchups are re-evaluated that include one of the currently active Pokemon}
+\textit{Discover}-Phase healing, status and other beneficial effects are prioritized. In order to improve 
+performance, only matchups including the currently active Pokémon are re-evaluated each turn.
 
 \section{Predictions}
 \label{sec:predictions}
