@@ -26,42 +26,31 @@ This Pokémon was able to defeat the entire enemy team with little to no possibl
 The first enemy Pokémon, \textit{Leafeon}, a \textit{Grass}-Type Pokémon was killed in one hit using
 \textit{Fire Blast} after damaging \textit{Volcarona} using \textit{X-Scissor}. \\
 Next, \textit{Glalie}, an \textit{Ice}-Type was sent into battle. \textit{Glalie} uses his best move,
-\textit{Earth Quake} which brings \textit{Volcarona} to 52\% \ac{HP}. As the enemy does not pressure
-\textit{Glalie} much, \textbf{Player1} decided to boost using \textit{Quiver Dance}. Now, \textit{Volcarona}
+\textit{Earth Quake} which brings \textit{Volcarona} to 52\% \ac{HP}. As the enemy does not prose much thread to 
+\textit{Glalie}, \textbf{Player1} decided to boost using \textit{Quiver Dance}. Now, \textit{Volcarona}
 is faster than his enemy and kills it again in one hit using \textit{Fire Blast}. \\
 Then, \textit{Mr. Mime (Galar)} is sent into battle. He fails to pressure \textit{Volcarona} and therefore,
 \textbf{Player1} can heal his Pokémon using \textit{Roost} and further boost using \textit{Quiver Dance}. After
 defeating \textit{Mr. Mime (Galar)}, \textit{Volcarona} is back to 84\% HP and boosts of 2.5 \ac{SPA},
-1.5 \ac{SPD} and 2.5 \ac{SPE}. \\
-boosted this high, \textit{Volcarona} can one-shot both the enemy \textit{Volcarona},
+1.5 \ac{SPD} and 2.5 \ac{SPE}. 
+Boosted this high, \textit{Volcarona} can one-shot both the enemy \textit{Volcarona},
 \textit{Pheromosa} and the dynamaxed \textit{Scraggy} using \textit{Fire Blast}. \\
 To eliminate the impact of these extreme cases, evaluation of agents against other agents 
 should be done using multiple hundreds to thousands of games against each other. \\
-In order to quantify and better visualize the randomness of battles, we started by generating 
-\todo{HOW MANY GAMES IN TOTAL FOR GRAPH} random battles and collected the team information. After
-both teams were stored, two \emph{MaxDamage}-agents finished the game to determine a winner.
-\todo{Board rating was not done EXACTLY the same way as in the scoring chapter. This uses isCheck!
-Scoring does not use isCheck as in the bot itself we only need the score if we have NO check / counter!}
-Next,
-we determined the matchups for each battle as described in \ref{sec:determine-matchups}. Finally,
-the board rating was calculated as follows:
-\begin{lstlisting}[language=Python, caption=Calculate Board rating]
-  # Amount of counters player 1 has against player 2
-  counter_p1_count = sum([sum([
-    1 if m.is_counter(m.pokemon_1.species, m.pokemon_2.species)
-    else 0 for m in matchups if m.pokemon_1.species == p.species])
-    for p in self.team_1])
-
-  # Amount of counters player 2 has against player 1
-  counter_p2_count = sum([sum([
-    1 if m.is_counter(m.pokemon_2.species, m.pokemon_1.species)
-    else 0 for m in matchups if m.pokemon_2.species == p.species])
-    for p in self.team_2])
-
-  board_rating = counter_p1_count - counter_p2_count
-\end{lstlisting}
-Finally, figure \ref{fig:wr-board-rating} displays these results. The figure contains how often what board-rating
-occurs (red) as well as the win-rate for the given rating (green).
+In order to quantify and better visualize the randomness of battles, over 70,000 \ac{GEN8RANDBATS}
+were generated, and the team information was stored. Next, the board rating was calculated.
+\begin{equation}
+  \text{member-score (Pokémon: e)} = \sum_{j \in \text{Enemy Pokémon countered by e}} 1
+\end{equation}
+\begin{equation} 
+  \text{team-score (Team: p)} = \sum_{e \in p} \text{member-score}(e)
+\end{equation}
+\begin{equation}
+  \text{board rating (Team: p1, Team: p2)} = \text{team-score(p1)} - \text{team-score(p2)}
+\end{equation}
+Therefore, a low board rating indicates that the player has fewer counters than his opponents. Finally,
+the generated games were played out by \textit{Random}-Player as well as \textit{MaxDamage}-Player. The 
+win-rate of both agents at a given board rating is displayed in figure~\ref{fig:wr-board-rating}. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{images/boardrating.png}
@@ -69,6 +58,9 @@ occurs (red) as well as the win-rate for the given rating (green).
   move have a lower win rate on unfavorable board ratings while winning more games on a positive rating.}
 	\label{fig:wr-board-rating}
 \end{figure}
+Most notably, fair games, meaning games with a board rating close to zero, are gaussian-distributed with the majority
+of the matchups being almost fair according to our metric. Secondly, the graphic 
+
 Not only does this figure show a gaussian distribution of how fair games are \todo{Schlechte Formulierung!},
 but also that our method of determining matchups works as intended. This is due to the fact that games 
 in which we assume the player to be in a bad position also have a win-rate and games with a favorable
