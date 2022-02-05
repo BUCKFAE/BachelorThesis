@@ -140,7 +140,7 @@ class Collector:
         ax2.plot(*zip(*sorted(ratio_data_max)), color='green', label='Most damaging move')
 
         ax2.set_ylabel("Winrate in Percent")
-        plt.savefig('boardrating.png')
+        plt.savefig('boardrating.pdf')
         ax2.legend()
         plt.show()
 
