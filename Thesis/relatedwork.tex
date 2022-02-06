@@ -19,11 +19,11 @@ treating these resultant states as child nodes. This algorithm traverses the gam
 the enemy Pokémon is fainted. As a non-adversarial algorithm, the agent assumes that the agent does not move at all.
 This agent won 75 out of 90 total games played against a random agent~\autocite{Lee_Togelius_2017}.
 
-\section{Minimax}
+\section{MiniMax}
 \label{sec:related-minimax}
-\textit{Minimax} builds upon \ac{BFS} as this algorithm deals with adversarial paradigms by assuming the opponents 
+\textit{MiniMax} builds upon \ac{BFS} as this algorithm deals with adversarial paradigms by assuming the opponents 
 act in their best interest.
-There are multiple possibilities on how to implement the \textit{Minimax}-Algorithm for Pokémon games. The main difference 
+There are multiple possibilities on how to implement the \textit{MiniMax}-Algorithm for Pokémon games. The main difference 
 in implementations lies in state evaluation and the assumptions about the opponents. Additionally,
 the amount of features taken into consideration have a considerable impact. In the implementation proposed by
 \cite{Lee_Togelius_2017}, a node represents the worst case scenario that would occur as a result of the current choice. 
@@ -50,9 +50,9 @@ resulting in a win-ratio of $\approx 86\%$. The second agent defeated the random
 total games, yielding a win-ratio of $\approx 83\%$. Due to the large amount of \ac{RNG} in battles, we assume
 both agents to be at an equal level of play. \\
 The current state of the art search-based algorithm was developed by \emph{pmariglia} and is fully available
-at \cite{Github:pmariglia-showdown}. This approach uses the \textit{Expectiminimax}-Algorithm and takes
+at \cite{Github:pmariglia-showdown}. This approach uses the \textit{ExpectiMiniMax}-Algorithm and takes
 hazards, boosts and status into consideration. In addition to \grqq min\grqq{}
-and \grqq max\grqq{} nodes of a traditional \textit{Minimax}-tree, this variant has \grqq chance\grqq{} nodes, which take the 
+and \grqq max\grqq{} nodes of a traditional \textit{MiniMax}-tree, this variant has \grqq chance\grqq{} nodes, which take the 
 expected value of a random event occurring~\autocite{wiki:Expectiminimax}. Currently, the agent calculates two turns in
 advance, and reaches an Elo rating of $1461$ as well as a Glicko-1 rating of $1633$ in Generation VII random battles 
 on the Showdown ladder. 
@@ -74,7 +74,7 @@ of \emph{Rempton Games}.
     \centering
         \begin{tabular}{|l|l|l|l|l|l|}
             \hline
-            & \emph{Random} & \emph{Max \ac{DMG}} & \emph{Smart \ac{DMG}} & \emph{Minimax} & \emph{Heuristics} \\
+            & \emph{Random} & \emph{Max \ac{DMG}} & \emph{Smart \ac{DMG}} & \emph{MiniMax} & \emph{Heuristics} \\
             \hline
             \emph{Random} & N / A & 897 / 103 & 957 / 43 & 831 / 169 & 992 / 8 \\
             \hline
@@ -82,7 +82,7 @@ of \emph{Rempton Games}.
             \hline
             \emph{Smart \ac{DMG}} & & & N / A & 331 / 669 & 720 / 280 \\
             \hline
-            \emph{Minimax} & & & & N / A & 181 / 819 \\
+            \emph{MiniMax} & & & & N / A & 181 / 819 \\
             \hline 
         \end{tabular}
         \caption{Denotes how many games the Agent in the column won against the agent in the row \cite{RemptonGames:PokemonAI}}
@@ -209,8 +209,8 @@ After experimenting with multiple network architectures, the authors settled on 
 fully connected neural network, each with 512 neurons and a ReLU activation function.
 
 The authors of~\cite{GottaTrainEmAll} trained the agent against a random agent, a default agent 
-that always tries to pick a non-switching move as well as a \textit{Minimax}\footnote{The Authors don't
-provide implementation details of their \textit{Minimax} implementation} agent
+that always tries to pick a non-switching move as well as a \textit{MiniMax}\footnote{The Authors don't
+provide implementation details of their \textit{MiniMax} implementation} agent
 until the reward curve stabilized which was around 100 epochs where an epoch is a single battle between
 two players. A reward of $+1$ is given to the agent if it wins the battle, $-1$ if it loses the battle and
 $0$ for all other cases. The average epoch reward after training convergence for this approach can
@@ -225,11 +225,11 @@ be found in table \ref{tbl:Gotta-Performance}
             \hline
             \emph{Default} & $0.85$ \\
             \hline
-            \emph{Minimax} & $-0.9$ \\
+            \emph{MiniMax} & $-0.9$ \\
             \hline
         \end{tabular}
         \caption{Average epoch rewards after training convergence for opponent agents~\autocite{GottaTrainEmAll}. Agent
-        outperforms random and default agent but fails to defeat the \textit{Minimax}-Agent.}
+        outperforms random and default agent but fails to defeat the \textit{MiniMax}-Agent.}
         \label{tbl:Gotta-Performance}
 \end{table}
 The authors of \cite{GottaTrainEmAll} describe their final agent as flawed as while the agent learned 
