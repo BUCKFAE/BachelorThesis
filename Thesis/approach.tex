@@ -6,7 +6,7 @@
 \todo{Predictions: Use Move against most likely next enemy. No prediction switching (yet)}
 \section{Communication with Pokémon Showdown}
 \label{sec:poke-env}
-The communication with Pokémon Showdown is handled using the python library \textit{Poke-Env}~\autocite{PokeEnv:Github}.
+The communication with \textit{Pokémon Showdown} is handled using~\cite{PokeEnv:Github}.
 This library provides a lot of the core functionality needed, like accessing the current Pokémon in battle as well
 as switch and move options. However, it does not provide functionality for damage calculation. We use the \textit{Pokémon
 Damage Calculator}~\autocite{Smogon:DamageCalc}, a node library written by the smogon-team for that. 
@@ -14,7 +14,7 @@ Communication between the two libraries is implemented by capturing stdout and s
 
 \section{Gathering Information about the enemy Pokémon}
 \label{sec:builds-randbats}
-As mentioned in \ref{sec:showdown-randbats}, the same Pokémon can occur in various different builds, meaning the combination
+As mentioned in section~\ref{sec:showdown-randbats}, the same Pokémon can occur in various different builds, meaning the combination
 of moves, abilities and items. Knowing the exact build is crucial for the decision-making process. Consider the following
 example: 
 \begin{itemize}
@@ -38,7 +38,7 @@ Possible moves for \textit{Drapion} are:
 \end{itemize}
 Hereby it is important to note that \textit{Drapion} only knows the move \textit{Aqua Tail}, if it knows four total 
 damaging moves\footnote{This information was extracted from all possible \textit{Drapion} builds. Details on 
-how these builds were obtained are covered in \ref{sec:build-imp-details}}. 
+how these builds were obtained are covered in section~\ref{sec:build-imp-details}}. 
 In the given scenario, \textbf{Player1} should switch out his \textit{Charizard} if the enemy
 \textit{Drapion} knows the move \textit{Aqua Tail} as this attack would kill \textit{Charizard}. We can determine 
 whether the enemy knows \textit{Aqua Tail} based on his item:
@@ -61,8 +61,8 @@ active \textit{Charizard}.
 \paragraph{Implementation details}
 \label{sec:build-imp-details}
 The first step to predicting enemy sets is to determine all possible sets and the likeliness of each individual set.
-In order to achieve this, I wrote a script that starts a battle between an information gathering player and 
-a random agent. In the next step, the script extracts all builds of all Pokémon and stores them. Then, it forfeits, 
+In order to achieve this, a script that starts a battle between an information gathering player and 
+a random agent was created. In the next step, the script extracts all builds of all Pokémon and stores them. Then, it forfeits, 
 and a new battle is started. Once enough battles are fought, the script will store the builds as well as how often
 they appeared in text files, one file for each Pokémon. \\
 In actual battles, if a new Pokémon enters the enemy side, we assume it to have the most likely build for its species. 
@@ -115,9 +115,9 @@ If none of these conditions apply, we decide whether to switch out our Pokémon 
 \textit{check} or \textit{counter} against the enemy Pokémon, we will not switch. Otherwise, we switch to a \textit{check},
 or \textit{counter} if present. Next, we check if the current matchup is unfavorable. This applies, if the enemy
 is expected to survive the current matchups for two turns longer than we do, meaning that our Pokémon would not be able
-to defeat the enemy, if it was allowed to attack two additional times. If this is the case, we determine the next action
+to defeat the enemy, even if it was allowed to attack two additional times. If this is the case, we determine the next action
 as follows: \\
-We start by determining the \textit{score} of each of our Pokémon as described in formula \ref{eq:score-attack} and exclude our
+We start by determining the \textit{score} of each of our Pokémon as described in equation~\ref{eq:score-attack} and exclude our
 two most valuable Pokémon from the next steps. This is done as we assume to depend heavily on these Pokémon to defeat
 other enemies. Next up, we pick the Pokémon with the lowest \textit{score} that fulfills the following 
 criteria:
@@ -130,7 +130,7 @@ criteria:
 	\end{itemize}
 \end{itemize}
 If no Pokémon matches these criteria, the Pokémon with the lowest score is picked instead.
-Score is calculated as described in section \nameref{sec:scoring-state}. \\
+Score is calculated as described in section \ref{sec:scoring-state}. \\
 In any other case, the currently active Pokémon will use the best move calculated in \ref{sec:determine-matchups}.
 
 \paragraph{Defeat Phase}
@@ -142,9 +142,9 @@ Figure \ref{fig:game-plan} shows a possible end-game scenario. In this simple ex
 have three Pokémon with full \ac{HP} and no status conditions. Each circle represents two Pokémon battling each other.
 Therefore, the circle in the top center indicates, that our \textit{Roserade} is currently fighting against the enemy
 \textit{Charizard}. As \textit{Charizard} is a \textit{Fire}-type Pokémon which has a type advantage against his enemy,
-our \textit{Roserade} will faint in this matchup, expressed by the underlined name. This means that Player 1 has to
+our \textit{Roserade} will faint in this matchup, expressed by the underlined name. This means that \textit{Player1} has to
 switch in a new Pokémon. A green circle around a node illustrates that the first player has to make a turn as his 
-Pokémon fainted, and a red circle marks a decision for Player 2. The first line below the names of the two opposing
+Pokémon fainted, and a red circle marks a decision for \textit{Player2}. The first line below the names of the two opposing
 Pokémon displays the amount of \ac{HP} the first team has left after this battle took place. As \textit{Roserade} fainted,
 it has zero \ac{HP} left whereas the other two Pokémon in his team are still at full health. Below that, the remaining 
 \ac{HP} of the second team is displayed. \textit{Charizard} is \textit{expected} to survive the battle with an 
@@ -160,12 +160,13 @@ heals the Pokémon.
 
 \section{Determining matchups}
 \label{sec:determine-matchups}
-In order to determine whether to attack or to switch, we need to determine how the optimal moves for a Pokémon against
-another Pokémon are calculated. As stated before, the amount of possible combinations combined with the non-deterministic
+In order to determine whether to attack or to switch, the optimal moves for a Pokémon against
+another Pokémon need to be calculated. As stated before, the amount of possible combinations combined with the non-deterministic
 nature of the game makes it unfeasible get the optimal move combination by simulating every possible combination of 
 actions and reactions over the span of multiple turns. Therefore, we determine the optimal moves for a Pokémon using 
 this simplified method: \\
-We start by generating all possible move combinations for a Pokémon with a given length. Then, we simulate the outcome
+We start by generating all possible move combinations for a Pokémon with a given length\footnote{The final implmenentation
+used a length of 3}. Then, we simulate the outcome
 of the battle. If the attacking Pokémon would use these moves in the defined order given the enemy would not do 
 anything\footnote{The option of not doing anything in a turn does not exist in Pokémon, if possible, the player is always 
 forced to either select a move or switch}. Here, we also take boosting, items, status effects and the possibly changing
