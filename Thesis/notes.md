@@ -13,3 +13,4 @@
 # TODO
 - Tabellenbeschreibungen
 - Zahlen mit 1,000
+- pmariligia: Immer Bibtex
