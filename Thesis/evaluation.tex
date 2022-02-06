@@ -42,11 +42,11 @@ were generated, and the team information was stored. Next, the board rating was 
 a Pokémon and $C$ the set of all enemy Pokémon that are countered by $e$. We compute the score of 
 a team member $e$ as follows: 
 \begin{equation}
-  \text{member-score (Pokémon: e)} = \sum_{j \in C} 1
+  \text{member-score (Pokémon: $e$)} = \sum_{c \in C} 1
 \end{equation}
 The score of a team $p$ is defined by:
 \begin{equation} 
-  \text{team-score (Team: p)} = \sum_{e \in p} \text{member-score}(e)
+  \text{team-score (Team: $p$)} = \sum_{e \in p} \text{member-score}(e)
 \end{equation}
 Finally, the board rating of two teams $p_1$ $p_2$ is defined as the difference between their respective 
 team score
@@ -76,28 +76,24 @@ fails to utilize the full potential of a stronger team.
 \todo{More refined metric: Same results, longer to simulate as better agents required. Showdown replays do not contain
 all information neccesary.} 
 
-\subsection{Evaluation against human opponents}
-As described in section~\ref{sec:showdown-background}, Pokémon Showdown allows researchers to use bots on the
-ranked ladder. 
-
 \section{Agents}
 During this thesis, two different agents were developed, \textit{HerrDonner} and \textit{HerrGewitter}.
 
 \subsection{HerrDonner}
 This agent was designed to establish a good baseline and to demonstrate the capabilities of a very
-simple rule set. The agent is capable of looking multiple turns into the future. To determine
-what moves to be used, the Agent generates every possible move combination with the specified amount
-of turns into the future and calculates the expected outcome while assuming that the enemy does 
-not move at all, similar to the \ac{BFS}-based algorithm described in paragraph \ref{sec:related-bfs}. 
+simple rule set. The agent is capable of looking multiple turns into the future. 
+To determine the moves to be used, the agent estimates the damage dealt for every possible move, leading
+to \textit{HerrDonner} being an improved \textit{MaxDamage}-Player as it behaves similarly, but 
+has a more refined damage calculation algorithm.
 No drawback moves that heal the agent, set hazards or field conditions or inflict status conditions
 are not considered unless they result in the highest amount of damage dealt. Also, stat changes are 
 not taken into account, neither for damage calculation nor for rating of matchups. 
-This results in the bot often spamming moves like \textit{Draco Meteor}, a \textit{special} 
+This results in the bot often spamming moves like \textit{Draco Meteor}, a special 
 \textit{Dragon}-type move that deal a lot of damage but also lower the
 users \ac{SPA} by two stages resulting in the move dealing less damage every time it is carried out. 
 When the agent is forced to switch, it will switch to a check if available. If no check is available,
 a counter is sent into battle if one exists. Otherwise, a random Pokémon will be picked. \\
-At the start of each turn, \textit{HerrDonner} will check if the current matchup is not favorable, 
+At the start of each turn, \textit{HerrDonner} will evaluate the current matchup, 
 a matchup is deemed unfavorable, if the current Pokémon is neither check nor 
 counter to the current enemy. On a bad matchup, the bot will switch to an available 
 check or counter. If neither is available, the bot won't switch and try to
@@ -105,16 +101,16 @@ defeat the current opponent with his active team member. \\
 Dynamaxing is implemented in a very simple and naive way: The agent will always dynamax the
 active Pokémon as soon as more than four enemy Pokémon are known. Lastly, if the
 current Pokémon is dynamaxed, the agent will not switch, even if the current matchup is not
-favorable. The challenges of properly using this mechanic will be explained in~\ref{par:eval-dynamx}.
+favorable. The challenges of properly using this mechanic will be explained in section~\ref{par:eval-dynamx}.
 
 \subsection{HerrGewitter}
 \label{sec:HerrGewitter}
 \textit{HerrGewitter} behaves like described in section \ref{ch:approach}. Here, the most notable
 differences between both agents are highlighted, and limitations of this agent are discussed. \\
 Firstly, \textit{HerrGewitter} takes more factors into consideration. Now, damage calculation is done
-in regards to current stat changes and status conditions. Additionally, abilities and items are taken 
+in regard to current stat changes and status conditions. Additionally, abilities and items are taken 
 into account. Furthermore, recoil from moves, healing both from items
-like \textit{Leftovers}~\autocite{Bulbapedia:Leftovers} and moves like \textit{Recover} are not neglected
+like \textit{Leftovers} and moves like \textit{Recover} are not neglected
 anymore. \\
 Switching and the selection of moves is done as described in section~\ref{ch:approach}. \\
 These improvements lead to \textit{HerrGewitter} avoiding mistakes of \textit{HerrDonner}. For example,
@@ -143,8 +139,8 @@ are not yet implemented:
   \item The agent will always use \textit{Toxic Spikes} even if the opponent has a \textit{Poison}-Type
   Pokémon on his team that will remove this hazard upon being switched in.
   \item The agent will use Hazards even if the current enemy is known to have a hazard-clearing move like
-  \textit{Defog}~\autocite{Bulbapedia:Defog}
-  \item The agent will not clear hazards
+  \textit{Defog}~\autocite{Bulbapedia:Defog}.
+  \item The agent will not clear hazards.
 \end{itemize}
 
 \paragraph{Choice Items}
@@ -178,10 +174,10 @@ beneficial field conditions, inflict status conditions or boost the current Pok�
 \paragraph{Damage Calculator}
 The current implementation relies on the Pokémon Showdown Damage Calculator. As of now, this open source project does 
 only support direct damage dealt by attacking and lacks functionalities like recoil, healing from items and moves. While
-we added these features to our implementation, some moves are still not properly implemented. For example, the move
+most of these features were added to \textit{HerrGewitter}, some moves are still not properly implemented. For example, the move
 \textit{Counter} has a move priority of $-5$ and works as follows:
 If the last mount of damage dealt before the use of \textit{Counter} is greater than zero and was dealt by a 
-\textit{Physical}-Type move, \textit{Counter} will do twice as much damage to the opponent. Otherwise, the move
+physical move, \textit{Counter} will do twice as much damage to the opponent. Otherwise, the move
 will miss. Additionally, \textit{Counter} has a lot of extra rules regarding other special moves in place 
 ~\autocite{Bulbapedia:Counter}. Issues like these are especially obvious on \textit{Wobbuffet} as all of his four
 most likely moves, \textit{Mirror Coat}, \textit{Encore}, \textit{Counter} and \textit{Encore} are very useful
@@ -192,7 +188,7 @@ in every possible matchup and has no good use scenarios whatsoever.
 \label{par:eval-dynamx}
 As previously stated, dynamaxing is a very complex mechanic that requires sophisticated long term planning for
 proper usage. According to \textit{Memezboi69}, the safest usage of this mechanic is to dynamax in a late stage
-of the game on a good matchup. He stated multiple reasons for this: \\
+of the game on a good matchup. He stated multiple reasons for this: 
 Dynamaxing at a later stage of the game reduces the likeliness of an opponent being able to properly react due to the 
 limited amount of Pokémon alive. \\
 Another flaw of \textit{HerrGewitter} is the fact that defensive dynamaxing is not yet taken into consideration. 
@@ -301,16 +297,18 @@ this possibly leads to misleading interpretations. \todo{Currently included. Fig
 Each entry displays the results of a thousand games played between both agents. The first number indicates the amount
 of games the agent in the current column won. There are multiple things to point out here: \\
 While \textit{HerrDonner} and \textit{HerrGewitter} achieved almost similar results when battling a random agent, 
-\textit{HerrDonner} performed notably worse against the \textit{MaxDmg} agent which always picks the move with the
+\textit{HerrDonner} performed notably worse against the \textit{MaxDamage}-Agent which always picks the move with the
 highest base power. Also, \textit{HerrGewitter} only managed to win $58\%$ against \textit{HerrDonner} despite notably
-better results against human players, described in section~\ref{sec:investigate-replays}. At the time of writing,
-neither \textit{poke-env} nor replays created by Showdown allow the retrieval of the Glicko-1 rating. After playing
-for 1,400 games, \textit{HerrDonner} ended up with a Glicko-1 rating of $1438$ and \textit{HerrGewitter} achieved
-a ranking of $1509$.
+better results against human players, described in section~\ref{sec:investigate-replays}, possibly because 
+\textit{HerrGewitter} fails to properly exploit weaknesses of \textit{HerrDonner} and has less weaknesses
+that humans can use to gain an advantage. At the time of writing,
+neither \textit{poke-env} nor replays created by \textit{Showdown} allow the retrieval of the Glicko-1 rating. After playing
+for 1,400 games, \textit{HerrDonner} ended up with a Glicko-1 rating of $1,438$ and \textit{HerrGewitter} achieved
+a ranking of $1,509$.
 
 \section{Investigating Replays}
 \label{sec:investigate-replays}
-In addition to playing against humans on the Showdown ranked ladder, the bot was also evaluated by playing
+In addition to playing against humans on the \textit{Showdown} ranked ladder, the bot was also evaluated by playing
 against \textit{Jonathan Krebs} and \textit{Markus Krug}. 
 \begin{table}[h]
   \centering
@@ -340,7 +338,7 @@ While our agent lost all three
 games, we were able to gain some very interesting insights from these games:
 
 \paragraph{Game One}
-In the first game, the bot made a huge miss play that ultimately lead to defeat. The agents \textit{Shuckle} faced a 
+In the first game, the bot made a huge mistake that ultimately lead to defeat. The agents \textit{Shuckle} faced a 
 \textit{Mr. Mime (Galar)} which had access to \textit{Rapid Spin}, a move that removes hazards. As \textit{Shuckle}
 has access to the moves \textit{Sticky Web} and \textit{Stealth Rock}, the agent tried to set both hazards
 which were immediately removed. In the extra turn, \textit{Mr. Mime (Galar)} boosted its speed stat and slowly
